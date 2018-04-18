@@ -462,6 +462,7 @@ public class UUPopupWindow extends PopupWindow {
 		mClippingEnabled = enabled;
 	}
 
+
 	public void setWindowLayoutMode(int widthSpec, int heightSpec) {
 		mWidthMode = widthSpec;
 		mHeightMode = heightSpec;
