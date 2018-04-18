@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 
+def storeFilePath="E:/materials/公司文档/Domy/hz17car_key.key"
+
 android {
+    signingConfigs {
+        config {
+            keyAlias '联云'
+            keyPassword 'hz17car'
+            storeFile file({storeFilePath})
+            storePassword 'hz17car'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         multiDexEnabled true
@@ -12,7 +22,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -54,6 +63,6 @@ dependencies {
     compile files('libs/AMap3DMap_5.5.0_AMapNavi_5.4.0_AMapSearch_5.5.0_AMapLocation_3.6.1_20171107.jar')
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:support-v4:26.x'
-    compile "com.android.support:multidex:1.0.0"
+    compile 'com.android.support:multidex:1.0.0'
     implementation 'pub.devrel:easypermissions:1.0.1'
 }

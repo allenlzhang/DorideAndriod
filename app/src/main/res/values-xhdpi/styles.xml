@@ -145,7 +145,7 @@
     <style name="public_bottom_btn">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">44dip</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:background">@drawable/bottom_btn_bg</item>
         <item name="android:gravity">center</item>
@@ -671,7 +671,7 @@
     <style name="usercenter_edit1">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/main_page_linear_border</item>
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/edittext_bg</item>
         <item name="android:textColorHint">@color/text_color_gray1</item>
