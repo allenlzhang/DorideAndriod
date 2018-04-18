@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="154dip"
+    android:layout_height="154dip"
+    android:background="@drawable/dialog_update"
+    android:orientation="vertical"
+    android:gravity="center">
+    
+	 <ProgressBar
+            android:id="@+id/update_loading_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/page_loading_xml"
+            android:maxHeight="50dip"
+            android:maxWidth="50dip"
+            android:minHeight="50dip"
+            android:minWidth="50dip" 
+            android:layout_marginTop="30dip"/>
+	 <TextView 
+	      android:id="@+id/update_loading_txt_title"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:text="大乘盒子正在努力"
+	     android:textColor="#2ea2d5"
+	     android:textSize="14sp"
+	     android:layout_marginTop="20dip"/>
+	 
+	 <TextView 
+	      android:id="@+id/update_loading_txt_progress"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:text="升级中(0%)"
+	     android:textColor="#2ea2d5"
+	     android:textSize="14sp"
+	     android:layout_marginTop="3dip"/>
+</LinearLayout>

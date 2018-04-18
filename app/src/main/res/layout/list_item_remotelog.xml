@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dip"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/safe_margin_h"
+    android:paddingRight="@dimen/safe_margin_h"
+    android:background="@color/layout_background"
+    >
+        <TextView
+            android:id="@+id/item_remotelog_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dip"
+            android:layout_marginTop="10dip"
+            android:text="远程操作类别名称"
+            android:textColor="@color/app_white"
+            android:textSize="16sp" 
+            />
+
+        <ImageView
+            android:id="@+id/item_remotelog_iv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_remotelog_txt_name"
+            android:layout_alignParentRight="true"
+            />
+
+        <TextView
+            android:id="@+id/item_remotelog_txt_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_remotelog_txt_name"
+            android:text="操作来源："
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/item_remotelog_txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_remotelog_txt_name"
+            android:text="操作时间"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp" 
+            android:layout_alignParentRight="true"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#4d4d4d" />
+    </RelativeLayout>
+

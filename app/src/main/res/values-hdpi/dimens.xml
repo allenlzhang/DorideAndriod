@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- 报告-月报 -->
+    <dimen name="report_month_paddingV2">3dip</dimen>
+
+    <!-- 副标题头左右padding -->
+    <dimen name="head_sub_paddingr">2dip</dimen>
+
+    <!-- 生涯主页-progress宽度 -->
+    <dimen name="career_progress_width">213dip</dimen>
+    <dimen name="cache_clean_radius">24px</dimen>
+</resources>

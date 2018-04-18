@@ -1,0 +1,29 @@
+
+{
+    "code": 200,
+    "data": {
+        "autorestart":1,
+        "SLCarLocating":1,
+        "autoCloseWinSw":1,
+        "remoteStart":1,
+        "PSTsupervise":1,
+        "AUTOpadlock":1,
+        "Dooropen":1,
+        "Doorunlocked":1,
+        "Carwindow":1,
+        "Carprevention":1,
+        "remoteWinSw":1,
+        "remoteCharger": 1,
+        "remoteLocked":1,
+        "remoteAirconditioner":1,
+        "remoteTrunk":1,
+        "remoteSwitchSkylight":1,
+        "navigationSync":1,
+        "directPSTsupervise":1,
+	    "remoteItemCount":"7",
+	    "remoteAirconditioner_item": "1,5,4,3,8,2,9"
+    },
+    "msg": "",
+    "version": "v130",
+    "request": "car/curCarConfig"
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="36dip"
+    android:background="#2e2d33"
+    android:orientation="horizontal" >
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="日"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="一"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="二"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="三"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="四"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="五"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="六"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2" />
+
+</LinearLayout>

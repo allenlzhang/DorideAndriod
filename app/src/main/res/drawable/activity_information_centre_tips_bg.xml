@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="#43130e" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="true" android:drawable="@drawable/activity_information_centre_tips_kuang">
+
+    </item>
+</selector>

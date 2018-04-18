@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:zlink="http://schemas.android.com/apk/com.carlt.yema">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/report_month_lay_month_report"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/report_month_bg"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+        <RelativeLayout
+            android:id="@+id/activity_report_month_rl_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="37dp">
+            <ImageView
+                android:id="@+id/item_report_month_view_color1"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_report_month"
+                />
+            <TextView
+                android:id="@+id/item_report_month_txt_value1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/item_report_month_view_color1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="24dp"
+                android:includeFontPadding="false"
+                android:text="90.6"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/item_report_month_txt_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/item_report_month_txt_value1"
+                android:layout_toRightOf="@id/item_report_month_txt_value1"
+                android:layout_marginLeft="8dp"
+                android:text="L"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/item_report_month_txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/item_report_month_view_color1"
+                android:layout_below="@id/item_report_month_txt_unit"
+                android:layout_marginLeft="8dp"
+                android:includeFontPadding="false"
+                android:text="本月总油耗"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/activity_report_month_rl_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_report_month_rl_1"
+            android:layout_marginLeft="37dp">
+            <ImageView
+                android:id="@+id/item_report_month_view_color2"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_report_month"
+                />
+            <TextView
+                android:id="@+id/item_report_month_txt_value2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/item_report_month_view_color2"
+                android:layout_marginLeft="8dp"
+                android:text="824"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/item_report_month_txt_value2"
+                android:layout_toRightOf="@id/item_report_month_txt_value2"
+                android:layout_marginLeft="8dp"
+                android:text="Km"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_report_month_txt_value2"
+                android:layout_toRightOf="@id/item_report_month_view_color2"
+                android:layout_marginLeft="8dp"
+                android:text="本月行程"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/activity_report_month_rl_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_report_month_rl_2"
+            android:layout_marginBottom="30dp"
+
+            android:layout_marginLeft="37dp">
+            <ImageView
+                android:id="@+id/item_report_month_view_color3"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_report_month"
+                />
+            <TextView
+                android:id="@+id/item_report_month_txt_value3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/item_report_month_view_color3"
+                android:layout_marginLeft="8dp"
+                android:text="123"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/item_report_month_txt_value3"
+                android:layout_toRightOf="@id/item_report_month_txt_value3"
+                android:layout_marginLeft="8dp"
+                android:text="Km/h"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_report_month_txt_value3"
+                android:layout_toRightOf="@id/item_report_month_view_color3"
+                android:layout_marginLeft="8dp"
+                android:text="本月最高时速"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/activity_report_month_rl_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="209dp">
+            <ImageView
+                android:id="@+id/item_report_month_view_color4"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_report_month"
+                />
+            <TextView
+                android:id="@+id/item_report_month_txt_value4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/item_report_month_view_color4"
+                android:layout_marginLeft="8dp"
+                android:text="9.8"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/item_report_month_txt_value4"
+                android:layout_toRightOf="@id/item_report_month_txt_value4"
+                android:layout_marginLeft="8dp"
+                android:text="L/100Km"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_report_month_txt_value4"
+                android:layout_toRightOf="@id/item_report_month_view_color4"
+                android:layout_marginLeft="8dp"
+                android:includeFontPadding="false"
+                android:text="本月平均油耗"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/activity_report_month_rl_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_report_month_rl_4"
+
+            android:layout_marginLeft="209dp">
+            <ImageView
+                android:id="@+id/item_report_month_view_color5"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_report_month"
+                />
+            <TextView
+                android:id="@+id/item_report_month_txt_value5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/item_report_month_view_color5"
+                android:layout_marginLeft="8dp"
+                android:text="14"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/item_report_month_txt_value5"
+                android:layout_toRightOf="@id/item_report_month_txt_value5"
+                android:layout_marginLeft="8dp"
+                android:text="h"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_report_month_txt_value5"
+                android:layout_toRightOf="@id/item_report_month_view_color5"
+                android:layout_marginLeft="8dp"
+                android:includeFontPadding="false"
+                android:text="本月行驶时间"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/activity_report_month_rl_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_report_month_rl_5"
+            android:layout_marginBottom="30dp"
+
+            android:layout_marginLeft="209dp">
+            <ImageView
+                android:id="@+id/item_report_month_view_color6"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_report_month"
+                />
+            <TextView
+                android:id="@+id/item_report_month_txt_value6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/item_report_month_view_color6"
+                android:layout_marginLeft="8dp"
+                android:text="58.8"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/item_report_month_txt_value6"
+                android:layout_toRightOf="@id/item_report_month_txt_value6"
+                android:layout_marginLeft="8dp"
+                android:text="Km/h"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_report_month_txt_value6"
+                android:layout_toRightOf="@id/item_report_month_view_color6"
+                android:layout_marginLeft="8dp"
+                android:includeFontPadding="false"
+                android:text="本月平均时速"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/report_month_lay_month_fuel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/report_month_lay_month_report"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/report_month_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/report_month_fuel_txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每月耗油"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(L)"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/report_month_fuel_txt1"
+                />
+            <TextView
+                android:id="@+id/report_month_txt_fuel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:text="2017年"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/report_month_line_fuel"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/report_month_txt_fuel"
+                android:layout_marginBottom="0dp"
+                android:background="#4d4d4d" />
+
+            <com.carlt.yema.ui.view.BarGraph
+                android:id="@+id/report_month_bargraph_fuel"
+                zlink:barColor="@color/orange"
+                zlink:textColor="@color/text_color_gray1"
+                zlink:textSize="12sp"
+                zlink:type="fuel"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/report_month_line_fuel"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/report_month_lay_month_miles"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/report_month_lay_month_fuel"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/report_month_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/report_month_miles_txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每月行驶里程"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(Km)"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/report_month_miles_txt1"
+                />
+            <TextView
+                android:id="@+id/report_month_txt_miles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:text="2017年"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/report_month_line_miles"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/report_month_txt_miles"
+                android:layout_marginBottom="0dp"
+                android:background="#4d4d4d" />
+
+            <com.carlt.yema.ui.view.BarGraph
+                android:id="@+id/report_month_bargraph_miles"
+                zlink:barColor="#04b59e"
+                zlink:textColor="@color/text_color_gray1"
+                zlink:textSize="12sp"
+                zlink:type="miles"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/report_month_line_miles"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/report_month_lay_month_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/report_month_lay_month_miles"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/report_month_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/report_month_time_txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每月行驶时间"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(h)"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/report_month_time_txt1"
+                />
+            <TextView
+                android:id="@+id/report_month_txt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:text="2017年"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/report_month_line_time"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/report_month_txt_time"
+                android:layout_marginBottom="0dp"
+                android:background="#4d4d4d" />
+
+            <com.carlt.yema.ui.view.BarGraph
+                android:id="@+id/report_month_bargraph_time"
+                zlink:barColor="#2c77c0"
+                zlink:textColor="@color/text_color_gray1"
+                zlink:textSize="12sp"
+                zlink:type="time"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/report_month_line_time"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

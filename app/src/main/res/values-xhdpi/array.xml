@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 图腾类型 -->
+    <string-array name="totem_type">
+        <item>毛驴</item>
+        <item>骡子</item>
+        <item>骏马</item>
+    </string-array>
+    <!-- 勋章类型 -->
+    <string-array name="medal_type">
+        <item>一骑绝尘</item>
+        <item>一日千里</item>
+        <item>人车合一</item>
+        <item>我行我素</item>
+    </string-array>
+    <!-- 称号类型 -->
+    <string-array name="title_type">
+        <item>速度型选手</item>
+        <item>跑不死</item>
+        <item>不要命</item>
+    </string-array>
+
+    <!-- 总报-评分说明 -->
+    <string-array name="report_total_score">
+        <item>你的车技比舒马赫还牛</item>
+        <item>F1就需要你这样的人才</item>
+        <item>赶紧去应聘驾校教练吧</item>
+        <item>你为什么不去开出租车</item>
+        <item>加油你一定会成为传奇</item>
+        <item>你的教练是体育老师吗</item>
+        <item>驾校除名自学成才</item>
+        <item>人见人逃车见爆胎</item>
+    </string-array>
+
+    <!-- 总报-油耗说明 -->
+    <string-array name="report_total_oil">
+        <item>喝掉X瓶矿泉水了</item>
+        <item>喝了X瓶红酒了</item>
+        <item>喝掉X壶热水瓶了</item>
+        <item>可以洗X次脚了</item>
+        <item>可以浇灌X颗树了</item>
+        <item>够一个人喝X天水了</item>
+        <item>可以洗X次澡了</item>
+        <item>喝掉X瓶啤酒了</item>
+        <item>相当于X头牛的挤奶量</item>
+    </string-array>
+
+    <!-- 总报-匀速说明 -->
+    <string-array name="report_total_speed_average">
+        <item>可与乌龟一较高下</item>
+        <item>11路表示毫无压力</item>
+        <item>你被电瓶车鄙视了</item>
+        <item>狗在前面给你带路</item>
+        <item>你比兔子跑的还快</item>
+        <item>可以从虎口逃生了</item>
+        <item>可和狼并驾齐驱了</item>
+        <item>马已经赶不上你了</item>
+        <item>鸵鸟已经累趴下了</item>
+        <item>猎豹的速度也就如此</item>
+        <item>胜过一切陆地动物了</item>
+    </string-array>
+
+    <!-- 总报-里程说明 -->
+    <string-array name="report_total_mileage">
+        <item>自家小区悠闲溜几圈</item>
+        <item>长江大桥潇洒走一回</item>
+        <item>可以绕西湖X圈了</item>
+        <item>可以绕厦门岛X圈</item>
+        <item>北京5环可以跑X趟</item>
+        <item>可以绕太湖跑X圈了</item>
+        <item>杭州到上海跑X趟</item>
+        <item>是钱塘江全长的X倍</item>
+        <item>上海到北京跑X趟</item>
+        <item>超出京杭大运河X%</item>
+        <item>超北京到拉萨的距离</item>
+        <item>中国最北到最南的距离</item>
+        <item>相当于长江的长度了</item>
+        <item>相当于珠穆朗玛的高度</item>
+        <item>超北京到西雅图的距离</item>
+        <item>快要接近地球的直径了</item>
+        <item>超出北极到南极的距离</item>
+        <item>差不多可绕火星一圈了</item>
+        <item>你已经绕中国一圈了</item>
+        <item>绕地球X圈了</item>
+    </string-array>
+
+    <!-- 月报-时间说明 -->
+    <string-array name="report_month_time">
+        <item>时间都去哪了，X%的时间都在路上</item>
+    </string-array>
+
+    <!-- 月报-油费说明 -->
+    <string-array name="report_month_oil_fee">
+        <item>本月油费Y元，可以买X包方便面了</item>
+        <item>本月油费Y元，可以买X瓶啤酒了</item>
+        <item>本月油费Y元，可以买X斤猪肉了</item>
+        <item>本月油费Y元，可以买X包中华了</item>
+        <item>本月油费Y元，可以买X克黄金了</item>
+        <item>本月油费Y元，可以买北京X平方房子了</item>
+    </string-array>
+    <!-- 月报-最高时速说明 -->
+    <string-array name="report_month_speed_max">
+        <item>你确定开的不是动车？</item>
+        <item>你想再回驾校深造吗？</item>
+        <item>你妈喊你回家吃饭吗？</item>
+        <item>开车在路上且行且珍惜</item>
+        <item>交警叔叔感动得泪牛满面</item>
+        <item>谢谢你没给高速公路添堵</item>
+    </string-array>
+    <!-- 月报-平均时速说明 -->
+    <string-array name="report_month_speed_average">
+        <item>平均速度匹配乌龟</item>
+        <item>平均速度匹配双脚</item>
+        <item>平均速度匹配蜥蜴</item>
+        <item>平均速度匹配大象</item>
+        <item>平均速度匹配兔子</item>
+        <item>平均速度匹配老虎</item>
+        <item>平均速度匹配野狼</item>
+        <item>平均速度匹配骏马</item>
+        <item>平均速度匹配鸵鸟</item>
+        <item>平均速度匹配猎豹</item>
+        <item>平均速度匹配老鹰</item>
+    </string-array>
+
+    <!-- 周报-评分说明 -->
+    <string-array name="report_week_score">
+        <item>本周我的车技堪比舒马赫</item>
+        <item>本周我的车技堪比F1车手</item>
+        <item>本周我的车技等于驾校教练</item>
+        <item>本周我的车技堪比出租车司机</item>
+        <item>本周我的车技比开拖拉机的强</item>
+        <item>本周我的车技赛过赶驴车的</item>
+        <item>本周我的车技让路人惊呆了</item>
+    </string-array>
+
+    <!-- 日报-评分说明 -->
+    <string-array name="report_day_score">
+        <item>今天我的车技堪比舒马赫</item>
+        <item>今天我的车技堪比F1车手</item>
+        <item>今天我的车技等于驾校教练</item>
+        <item>今天我的车技堪比出租车司机</item>
+        <item>今天我的车技比开拖拉机的强</item>
+        <item>今天我的车技赛过赶驴车的</item>
+        <item>今天我的车技让路人惊呆了</item>
+    </string-array>
+
+    <!-- 月周日报-驾驶诊断概况 -->
+    <string-array name="report_driving_test">
+        <item>油耗偏高</item>
+        <item>油耗贼高</item>
+        <item>绿色出行</item>
+        <item>危险驾驶</item>
+        <item>不良驾驶</item>
+        <item>健康驾驶</item>
+        <item>速度过快</item>
+    </string-array>
+
+    <!-- 月周日报-驾驶诊断详情 -->
+    <!--    <string-array name="report_driving_test_detail">
+           <item>你是想考验后面车辆的反应能力吗？</item>
+           <item>这下省出不少钱，晚上可以加个菜了！</item>
+           <item>转弯弧度太大，小心把自己给甩出去！</item>
+           <item>车开的很艺术，过弯的弧线太优美了！</item>
+           <item>加速太快了，请注意与前车的距离！</item>
+           <item>低调起跑，稳健行驶，深藏功与名！</item>
+           <item>今速度过快，你不怕把发型给吹乱了？</item>
+           <item>没有高转速，全国行人纷纷发来贺电！</item>
+       </string-array> -->
+
+</resources>

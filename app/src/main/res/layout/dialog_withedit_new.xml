@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical"
+    android:padding="4dip" >
+
+    <!-- 标题部分 -->
+
+    <RelativeLayout
+        android:id="@+id/dialog_withedit_new_lay_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip" >
+
+        <ImageView
+            android:id="@+id/dialog_withedit_new_cancel"
+            android:layout_width="43.5dip"
+            android:layout_height="43.5dip"
+            android:src="@drawable/cross_bg"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/dialog_withedit_new_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="输入远程控制密码"
+            android:textColor="#999999"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#BDBDBD" />
+    <!-- 内容部分 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="100dip"
+        android:orientation="vertical"
+        android:paddingLeft="18dip"
+        android:paddingRight="18dip" >
+
+        <TextView
+            android:id="@+id/dialog_withedit_new_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:text=""
+            android:textColor="#505050"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/dialog_withedit_new_edt"
+            android:layout_width="fill_parent"
+            android:layout_height="35dip"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center_vertical"
+            android:hint="请输入"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:paddingLeft="8dip"
+            android:textColor="@color/text_color_gray3"
+            android:textColorHint="@color/text_color_gray1"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/dialog_withedit_forget_psw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码?"
+                android:textColor="#b22d14"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="49dip" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_gravity="top"
+            android:background="#BDBDBD" />
+
+        <TextView
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="0.5dip"
+            android:background="@mipmap/dialog_div_v"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/dialog_withedit_new_btn1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/dialog_button_bg"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="#505050"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="0.5dip"
+                android:layout_height="fill_parent"
+                android:background="#BDBDBD" />
+
+            <TextView
+                android:id="@+id/dialog_withedit_new_btn2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/dialog_button_bg"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="#505050"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

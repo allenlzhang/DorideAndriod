@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/remotepsw_reset3_txt_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/safe_margin_h"
+        android:layout_marginTop="20dip"
+        android:text="请输入原密码"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <com.carlt.yema.ui.view.PasswordView
+        android:id="@+id/remotepsw_reset3_pwdedt1"
+        style="@style/safety_psw_edt"
+        app:passwordLength="6"
+        app:borderColor="@color/setting_item_divider_bg"
+        app:mode="rect"/>
+
+    <TextView
+        android:id="@+id/remotepsw_reset3_txt_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/safe_margin_h"
+        android:layout_marginTop="20dip"
+        android:text="请输入新密码"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <com.carlt.yema.ui.view.PasswordView
+        android:id="@+id/remotepsw_reset3_pwdedt2"
+        style="@style/safety_psw_edt"
+        app:passwordLength="6"
+        app:borderColor="@color/setting_item_divider_bg"
+        app:mode="rect"/>
+    
+    <TextView
+        android:id="@+id/remotepsw_reset3_txt_edit"
+        style="@style/public_bottom_btn"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="20dip"
+        android:text="修改" />
+
+</LinearLayout>

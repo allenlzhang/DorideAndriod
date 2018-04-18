@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_color"
+    android:gravity="center_horizontal"
+    tools:context="com.carlt.yema.ui.activity.setting.AboutYemaActivity">
+    <include
+        layout="@layout/layout_title"/>
+    <ImageView
+        android:layout_width="144dp"
+        android:layout_height="57dp"
+        android:src="@mipmap/about_yema_logo"
+        android:layout_marginTop="82dp"
+        android:contentDescription="@string/app_name"
+        />
+    <TextView
+        android:id="@+id/about_yema_ver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version"
+        android:layout_marginTop="61dp"
+        android:textSize="14sp"
+        android:textColor="@color/scarlet"/>
+    <TextView
+        android:id="@+id/about_yema_terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms_of_service"
+        android:layout_marginTop="280dp"
+        android:textSize="14sp"
+        android:textColor="@color/white"/>
+</LinearLayout>

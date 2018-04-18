@@ -1,0 +1,21 @@
+{
+    "code": 200,
+    "request": "api2/carRelated/getVehicleStatus",
+    "data": {
+        "AC":"3",
+        "ACTemp":"127.0",
+        "alarm":0,
+        "doorClose":"0%2C0%2C0%2C0%2C0",
+        "doorCloseStatus":0,
+        "doorLock":"0",
+        "doorLockStatus":0,
+        "engine":0,
+        "purify":255,
+        "result":1,
+        "seathot":"255",
+        "window":"255",
+       "windowStatus":"255",
+       "skyWindowStatus":"0"
+    },
+    "msg":""
+}

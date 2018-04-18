@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#161922</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="app_white">#FFF</color>
+    <color name="text_color_write">#FFF</color>
+    <color name="title_bg">#161922</color>
+    <color name="text_tire_err">#ef1414</color>
+
+    <color name="frame">#00000000</color>
+    <color name="viewpager_default">#F691A8</color>
+    <color name="viewpager_selected">#ffffff</color>
+    <color name="main_page_linear_border">#333333</color>
+    <!-- 小题背景色 -->
+    <color name="sub_head_bg">#E6E6E6</color>
+    <color name="progressbar_bg">#CCCCCC</color>
+    <color name="progressbar_progress">#E94B3A</color>
+
+    <!-- 字体颜色 -->
+    <color name="text_color_gray0">#aaaaaa</color>
+
+    <!-- 浅灰 -->
+    <color name="text_color_gray1">#999999</color>
+    <!-- 中灰 -->
+    <color name="text_color_gray2">#666666</color>
+    <!-- 深灰色 -->
+    <color name="text_color_gray3">#333333</color>
+    <!-- 字体颜色 -->
+    <color name="text_color_gray4">#cccccc</color>
+    <!-- 绿色 -->
+    <!-- <color name="text_color_green">#27C14C</color> -->
+    <color name="text_color_green">#3FC299</color>
+    <!-- 大红色 -->
+    <color name="text_color_red">#E94B3A</color>
+    <!-- 枚红色 -->
+    <color name="text_color_red_rose">#F13D6D</color>
+    <!-- 姜黄色 -->
+    <color name="text_color_yellow">#F39800</color>
+    <!-- 粉蓝色 -->
+    <color name="text_color_blue">#43c1ea</color>
+    <!-- 偏深蓝色 -->
+    <color name="text_color_blue_dark">#2d94c9</color>
+    <!-- 天蓝色 -->
+    <color name="text_color_blue_light">#76cce8</color>
+    <!-- 正蓝色 -->
+    <color name="text_color_blue_pure">#007aff</color>
+    <color name="main_page_linear_bg_gray">#F5F5F5</color>
+    <!-- 页面背景色 -->
+    <color name="layout_background">#161922</color>
+
+    <!-- 我的车秘书 时间linear背景色 -->
+    <color name="secretary_time_linear_bg_selected">#C6C6C6</color>
+    <!-- 我的车秘书 表格边框 -->
+    <color name="secretary_table_border">#DFDFDF</color>
+    <!-- 远程维修顾问边框 -->
+    <color name="remote_border">#D6D6D6</color>
+
+    <!-- 日历-格子选中背景 -->
+    <color name="calendar_cell_selected_bg">#FFF4D8</color>
+
+    <!-- 页面布局选中色 -->
+    <color name="block_background_selected">#E0E0E0</color>
+    <color name="layout_bg_gray1">#F8F8F8</color>
+    <color name="layout_bg_gray2">#FCF6F6</color>
+    <color name="layout_bg_pink">#F5E5E4</color>
+    <color name="layout_bg_pink2">#e0F5D5D2</color>
+    <color name="layout_bg_red">#E94B3A</color>
+    <color name="red_rose">#F13D6D</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#FBF9DE</color>
+    <color name="orange">#B22D14</color>
+    <color name="red">#FF0000</color>
+    <color name="black">#000000</color>
+    <color name="cheng1">#db5c0c</color>
+    <color name="blue_dark">#000033</color>
+    <color name="blue_light">#3EC0EA</color>
+    <color name="red_light">#F77462</color>
+    <color name="transparent">#00000000</color>
+    <!-- title背景颜色 -->
+    <color name="main_page_head_bg">#161922</color>
+    <color name="transparent_half">#80000000</color>
+    <!-- 列表竖直灰线颜色 -->
+    <color name="gray">#D0D0D0</color>
+    <!--yema created by marller-->
+    <color name="setting_item_bg">#2e2d33</color>
+    <color name="setting_item_divider_bg">#4d4d4d</color>
+    <!-- 野马橙色 -->
+    <color name="scarlet">#b22d14</color>
+    <color name="main_color">#171922</color>
+    <color name="title_bar_right_btn_bg">#171922</color>
+    <color name="dialog_btn_font_color">#2c77c0</color>
+    <color name="dialog_background">#e6ffffff</color>
+      <color name="disclaimer">#b22d14</color>
+
+    <color name="blue_frame">#2c77c0</color>
+    <color name="blue_fill">#204369</color>
+    <color name="item_bg">#2e2d33</color>
+
+    <color name="bar_gragh_time_color">#2c77c0</color>
+    <color name="bar_gragh_miles_color">#04b59e</color>
+</resources>

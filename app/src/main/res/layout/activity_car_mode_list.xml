@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:orientation="vertical"
+    tools:context="com.carlt.yema.ui.activity.setting.CarModeListActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:textSize="14sp"
+        android:background="#dddddd"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:text="野马汽车"
+        />
+    <ListView
+        android:id="@+id/car_mode_list"
+        android:layout_width="match_parent"
+        android:cacheColorHint="#00000000"
+        android:dividerHeight="1dp"
+        android:fastScrollEnabled="false"
+        android:smoothScrollbar="true"
+        android:divider="@color/setting_item_divider_bg"
+        android:layout_height="match_parent"/>
+</LinearLayout>

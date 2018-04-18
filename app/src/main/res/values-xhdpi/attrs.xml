@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="valuebar">
+        <attr name="myvalue" format="float" />
+        <attr name="mybackground" format="color" />
+        <attr name="mytitle" format="string" />
+
+        <attr name="allvalue" format="float" />
+        <attr name="allbackground" format="color" />
+        <attr name="alltitle" format="string" />
+
+        <attr name="typevalue" format="float" />
+        <attr name="typebackground" format="color" />
+        <attr name="typetitle" format="string" />
+    </declare-styleable>
+    <declare-styleable name="CutSeekBar">
+        <attr name="minValue" format="float" />
+        <attr name="maxValue" format="float" />
+        <attr name="duration" format="float" />
+        <attr name="width" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="height" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+    </declare-styleable>
+</resources>

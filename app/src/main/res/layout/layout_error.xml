@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/error_lay_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background">
+
+
+    <ImageView
+        android:id="@+id/info_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/error_txt_des_sub"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:src="@mipmap/icon_error_bg"/>
+
+    <Button
+        android:id="@+id/error_txt_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/error_txt_des_sub"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dip"
+        android:background="@null"
+        android:text="点击重试"
+        android:textColor="@color/app_white"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/error_txt_des_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="#999999"
+        android:textSize="14sp"/>
+
+
+</RelativeLayout>

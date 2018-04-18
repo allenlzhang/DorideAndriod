@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"
+    android:background="@color/main_page_head_bg">
+
+    <ImageView
+        android:id="@+id/head_back_img1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/head_margin_h"
+        android:src="@drawable/back_bg" />
+
+    <TextView
+        android:id="@+id/head_back_txt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/title_text_size" />
+
+    <ImageView
+        android:id="@+id/head_back_img2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/head_margin_h"
+        android:src="@drawable/icon_message_manager_bg"
+        />
+
+    <TextView
+        android:id="@+id/head_back_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="4dp"
+        android:text="确定"
+        android:textColor="@color/app_white"
+        android:textSize="14sp"
+        android:background="@drawable/position_input_bg"
+        android:layout_marginRight="@dimen/head_margin_h"
+        android:visibility="gone"
+        />
+</RelativeLayout>

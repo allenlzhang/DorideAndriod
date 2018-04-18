@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:orientation="vertical"
+    tools:context=".ui.activity.setting.AccountSecurityActivity">
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:id="@+id/certified_phone_manage"
+        style="@style/setting_page_item_style"
+        android:layout_marginTop="10dp"
+        android:background="@color/setting_item_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bind_phone_txt"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/verified_phone"
+            style="@style/setting_subpage_item_content"
+            android:text="@string/bind_phone_default"
+            android:textColor="@color/text_color_gray1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/arrow_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/setting_item_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/logined_passwd_reset"
+            style="@style/setting_page_item_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/logined_passwd_manage_txt"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+
+        <View style="@style/setting_page_item_divider" />
+
+        <LinearLayout
+            android:id="@+id/remote_passwd_reset"
+            style="@style/setting_page_item_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/remote_passwd_manage_txt"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/setting_page_item_style"
+        android:layout_marginTop="10dp"
+        android:background="@color/setting_item_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/remote_no_passwd_cycle_txt"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+        <CheckBox
+            android:id="@+id/btn_remote_no_passwd_ctr"
+            style="@style/manage_message_checkbox"
+            android:checked="false"
+            android:layout_centerVertical="true" />
+    </LinearLayout>
+</LinearLayout>

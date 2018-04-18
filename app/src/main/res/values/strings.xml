@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">YEMA</string>
+
+    <string name="version">V %1$s</string>
+    <string name="terms_of_service">《<u>服务条款</u>》</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+
+    <!-- 用户中心（除主tab项以外的其它杂项）marller -->
+    <string name="usercenter_hint_phone">用手机号码登录</string>
+    <string name="usercenter_hint_phone1">请输入手机号码</string>
+    <string name="usercenter_hint_phone2">请设置新登录密码</string>
+    <string name="usercenter_hint_validate">请输入验证码</string>
+    <string name="usercenter_hint_password">密码</string>
+    <string name="usercenter_hint_password_reset">请再次输入密码</string>
+    <string name="usercenter_login">登录</string>
+    <string name="usercenter_register">—— 注册新用户 ——</string>
+    <string name="usercenter_forget_password">忘记密码？</string>
+    <string name="usercenter_reset_password">重设密码</string>
+    <string name="usercenter_push_validate">发送验证码</string>
+    <string name="usercenter_push_validate1">重发验证码</string>
+    <string name="_car_real_condation">实时车况</string>
+    <string name="usercenter_pin_code">请输入车辆PIN码</string>V
+    <string name="usercenter_vin_code">请输入车辆VIN码</string>
+    <string name="_car_select_type">请选择车型</string>
+    <string name="device_bind_tx">绑定设备</string>
+    <string name="device_activate_tx">激活设备</string>
+    <string name="device_activate_tip">激活设备后就能使用全部功能</string>
+    <string name="change_commit_txt">确认修改</string>
+    <string name="register_passwd_txt">请输入登录密码</string>
+    <string name="register_passwd_again_txt">请再次输入密码</string>
+    <string name="register_commit_txt">注册</string>
+    <string name="login_failed">登录失败</string>
+    <string name="cell_phone_error">手机号码不正确</string>
+    <string name="vcode_send_success">发送成功</string>
+
+    <!--我的界面-->
+    <string name="default_time_txt">2018-3-17</string>
+    <string name="user_name_default">野马车主B3718</string>
+    <string name="travel_phone_album">旅行相册</string>
+    <string name="account_security">账号与安全</string>
+    <string name="car_manager_txt">车辆管理</string>
+    <string name="msg_manager_txt">消息管理</string>
+    <string name="device_manager_txt">设备管理</string>
+    <string name="general_manager_txt">通用管理</string>
+    <string name="clean_cache_txt">清除缓存</string>vart
+    <string name="contact_us_txt">联系我们</string>
+    <string name="about_yema_txt">关于</string>
+    <string name="logout_txt">退出登录</string>
+    <!--修改资料界面-->
+    <string name="title_personinfo_edit_txt">修改资料</string>
+    <string name="avatar_txt">头像</string>
+    <string name="nickname_txt">昵称</string>
+    <string name="person_sex_txt">性别</string>
+    <string name="person_sex_default_txt">保密</string>
+    <!--修改资料界面-->
+    <string name="car_type_txt">车型</string>
+    <string name="car_type_txt_default">野马 B10 2018,风尚款</string>
+    <string name="car_purchase_time_txt">购车时间</string>
+    <string name="last_maintenance_mileage_txt">上次保养里程</string>
+    <string name="last_maintenance_mileage">%1$d km</string>
+    <string name="last_maintenance_time_txt">上次保养时间</string>
+    <string name="last_insured_time_txt">上次投保时间</string>
+    <string name="register_time">注册时间</string>
+    <!--旅行相册界面-->
+    <string name="travel_album_edit">编辑</string>
+    <string name="travel_album_cancel">取消</string>
+    <string name="travel_album_select_all">全选</string>
+    <string name="travel_album_delete">删除</string>
+    <!--修改上次保养里程界面-->
+    <string name="last_maintenance_mileage_edit_default_txt">请输入上次保养里程</string>
+    <string name="edit_commit">确认修改</string>
+    <!--修改昵称-->
+    <string name="nickname_edit_default_txt">请输入昵称</string>
+    <!--账号与安全-->
+    <string name="bind_phone_default">145****1245</string>
+    <string name="logined_passwd_manage_txt">登录密码管理</string>
+    <string name="remote_passwd_manage_txt">远程控制密码管理</string>
+    <string name="remote_control_fingerprint_unlock_txt">远程控制指纹解锁</string>
+    <string name="remote_no_passwd_cycle_txt">远程控制5分钟无需密码</string>
+    <!--绑定手机-->
+    <string name="bind_phone_txt">绑定手机</string>
+    <string name="vertified_code_get_tip">验证码将发送到原手机号上</string>
+    <string name="certified_code_input_txt">请填写原手机号码</string>
+    <!--修改绑定手机-->
+    <string name="certified_code_reset_txt">请填写新手机号码</string>
+    <!--修改登录密码手机-->
+    <string name="login_passwd_remember_txt">记得原登录密码</string>
+    <string name="login_passwd_forget_txt">忘记原登录密码</string>
+    <string name="old_passwd_txt">请输入原登录密码</string>
+    <!--修改远程密码-->
+    <string name="remote_passwd_remember_txt">记得远程控制密码</string>
+    <string name="remote_passwd_forget_txt">忘记远程控制密码</string>
+    <string name="old_remote_passwd_txt">请输入原远程操作密码</string>
+    <string name="new_remote_passwd_txt">输入密码</string>
+    <string name="new_remote_passwd_again_txt">再次输入密码</string>
+
+    <!--通用管理-->
+    <string name="remote_voice_affect_txt">远程音效</string>
+    <!--消息管理-->
+    <string name="insurance_expiration_reminder_txt">允许推送保险到期提醒</string>
+    <string name="annual_inspection_reminder_txt">允许推送年检到期提醒</string>
+    <string name="driving_report_txt">允许推送行车报告</string>
+    <!--设备管理-->
+    <string name="device_binded_txt">已绑定设备: %1$s</string>
+    <!--清除缓存-->
+    <string name="cache_clean_tips">确定清除缓存？</string>
+
+    <string name="listItem_day_driveInfo">今日驾驶%1$s次</string>
+    <string name="day_score">分</string>
+    <string name="listItem_day_timeAndMile">%1$s至%2$s(%3$s)</string>
+    <string name="vin_filter_string">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
+    <!--信鸽推送key -->
+    <string name="SECRET_KEY">4d3a5b8012846ed443b731681411ddc1</string>
+</resources>

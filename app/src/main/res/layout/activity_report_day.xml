@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <RelativeLayout
+        android:id="@+id/top1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_background"
+         >
+
+        <com.carlt.yema.ui.view.CircleImageView
+            android:id="@+id/day_img_headImg"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/default_avater"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="14dp"
+            android:layout_toRightOf="@id/day_img_headImg" >
+
+            <LinearLayout
+                android:id="@+id/nameLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/day_txt_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:id="@+id/day_img_genderImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="3dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/day_txt_driveInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameLine"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp" />
+            <!-- android:layout_alignBottom="@+id/day_txt_driveInfo" -->
+
+            <TextView
+                android:id="@+id/day_txt_driveScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6.5dp"
+                android:layout_toRightOf="@+id/day_txt_driveInfo"
+                android:textColor="#3fc299"
+                android:textSize="@dimen/text_size_small" 
+                 android:layout_below="@+id/nameLine"
+                 android:visibility="gone"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/top2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top1"
+        android:background="@color/layout_background"
+        android:orientation="horizontal"
+        android:paddingBottom="2.5dp"
+        android:paddingLeft="21dp"
+        android:paddingTop="5dp"
+        android:weightSum="2" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日里程"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_gray1"
+                />
+
+            <TextView
+                android:id="@+id/day_txt_miles"
+                style="@style/day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="行车时间"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/day_txt_time"
+                style="@style/day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top2"
+        android:background="@color/layout_background"
+        android:orientation="horizontal"
+        android:paddingBottom="2.5dp"
+        android:paddingLeft="21dp"
+        android:paddingTop="5dp"
+        android:weightSum="2" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日油耗"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_gray1"
+                />
+
+            <TextView
+                android:id="@+id/day_txt_oils"
+                style="@style/day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平均油耗"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_gray1"
+                />
+
+            <TextView
+                android:id="@+id/day_txt_avgOils"
+                style="@style/day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top3"
+        android:background="@color/layout_background"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingLeft="21dp"
+        android:paddingTop="2dp"
+        android:weightSum="2" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平均速度"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_gray1"
+                />
+
+            <TextView
+                android:id="@+id/day_txt_avgSpeeds"
+                style="@style/day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最高速度"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/day_txt_maxSpeeds"
+                style="@style/day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.carlt.yema.ui.pull.PullToRefreshListView
+        android:id="@+id/day_refresh_logList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top4"
+        android:layout_marginTop="15dp"
+        android:background="@color/layout_background"
+        android:divider="@null"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="0dp" >
+    </com.carlt.yema.ui.pull.PullToRefreshListView>
+
+</RelativeLayout>

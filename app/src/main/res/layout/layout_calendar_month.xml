@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <include
+        android:id="@+id/head_calendar"
+        layout="@layout/head_calendar" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout1"
+        style="@style/report_calendar_month_linear1"
+        android:layout_below="@id/head_calendar" >
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear1"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data1"
+                style="@style/report_calendar_month_txt1"
+                android:text="1月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score1"
+                style="@style/report_calendar_month_circle"
+                />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear2"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data2"
+                style="@style/report_calendar_month_txt1"
+                android:text="2月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score2"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear3"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data3"
+                style="@style/report_calendar_month_txt1"
+                android:text="3月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score3"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_h1"
+        style="@style/report_calendar_month_lineh"
+        android:layout_below="@+id/linear_layout1" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout2"
+        style="@style/report_calendar_month_linear1"
+        android:layout_below="@+id/line_h1" >
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear4"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data4"
+                style="@style/report_calendar_month_txt1"
+                android:text="4月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score4"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear5"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data5"
+                style="@style/report_calendar_month_txt1"
+                android:text="5月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score5"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear6"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data6"
+                style="@style/report_calendar_month_txt1"
+                android:text="6月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score6"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_h2"
+        style="@style/report_calendar_month_lineh"
+        android:layout_below="@+id/linear_layout2" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout3"
+        style="@style/report_calendar_month_linear1"
+        android:layout_below="@+id/line_h2" >
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear7"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data7"
+                style="@style/report_calendar_month_txt1"
+                android:text="7月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score7"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear8"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data8"
+                style="@style/report_calendar_month_txt1"
+                android:text="8月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score8"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear9"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data9"
+                style="@style/report_calendar_month_txt1"
+                android:text="9月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score9"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_h3"
+        style="@style/report_calendar_month_lineh"
+        android:layout_below="@+id/linear_layout3" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout4"
+        style="@style/report_calendar_month_linear1"
+        android:layout_below="@+id/line_h3" >
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear10"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data10"
+                style="@style/report_calendar_month_txt1"
+                android:text="10月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score10"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear11"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data11"
+                style="@style/report_calendar_month_txt1"
+                android:text="11月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score11"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+
+        <View style="@style/report_calendar_month_linev" />
+
+        <LinearLayout
+            android:id="@+id/layout_calender_month_linear12"
+            style="@style/report_calendar_month_linear2" >
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_data12"
+                style="@style/report_calendar_month_txt1"
+                android:text="12月" />
+
+            <TextView
+                android:id="@+id/layout_calender_month_txt_score12"
+                style="@style/report_calendar_month_circle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_h4"
+        style="@style/report_calendar_month_lineh"
+        android:layout_below="@+id/linear_layout2" />
+
+    <include layout="@layout/loading_activity_with_title"
+        />
+
+</RelativeLayout>

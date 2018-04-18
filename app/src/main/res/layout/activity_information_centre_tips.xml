@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/activity_career_secretary_tips_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/sub_head"
+            layout="@layout/head_sub_normal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="43dip"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/activity_career_secretary_tips_car"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_blue_rec"
+                android:gravity="center_horizontal"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="不准确？点这里！"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/activity_career_secretary_tips_havemainten"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dip"
+                android:layout_weight="1"
+                android:background="@drawable/activity_information_centre_tips_bg"
+                android:gravity="center"
+                android:text="我已经保养过了"
+                android:textColor="@color/information_centre_tips_kuang_txt_color"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.carlt.yema.ui.pull.PullToRefreshListView
+        android:id="@+id/activity_career_secretary_tips_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/activity_career_secretary_tips_title"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="10dp"></com.carlt.yema.ui.pull.PullToRefreshListView>
+
+
+    <TextView
+        android:id="@+id/activity_career_secretary_tips_empty"
+        style="@style/public_nodata_txt"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="暂无此类型的提醒消息" />
+
+    <ImageView
+        android:id="@+id/activity_career_secretary_img_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/activity_career_secretary_tips_empty"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/icon_error_bg"
+        android:visibility="gone" />
+
+</RelativeLayout>

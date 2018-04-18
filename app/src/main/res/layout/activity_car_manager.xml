@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_color"
+    tools:context="com.carlt.yema.ui.activity.setting.CarManagerActivity">
+
+    <LinearLayout
+        android:id="@+id/edit_car_type"
+        style="@style/setting_page_item_style"
+        android:layout_marginTop="10dp"
+        android:background="@color/setting_item_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/car_type_txt"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/car_type_txt"
+            style="@style/setting_subpage_item_content"
+            android:text="--" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/arrow_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/setting_item_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/edit_purchase_time"
+            style="@style/setting_page_item_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/car_purchase_time_txt"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/purchase_time_txt"
+                style="@style/setting_subpage_item_content"
+                android:text="--" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+
+        <View style="@style/setting_page_item_divider" />
+
+        <LinearLayout
+            android:id="@+id/edit_maintenance_mileage"
+            style="@style/setting_page_item_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_maintenance_mileage_txt"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/maintenance_mileage_txt"
+                style="@style/setting_subpage_item_content"
+                android:text="--" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+        <View style="@style/setting_page_item_divider" />
+
+        <LinearLayout
+            android:id="@+id/edit_maintenance_time"
+            style="@style/setting_page_item_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_maintenance_time_txt"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/maintenance_time_txt"
+                style="@style/setting_subpage_item_content"
+                android:text="--" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+        <View style="@style/setting_page_item_divider" />
+
+        <LinearLayout
+            android:id="@+id/edit_insured_time"
+            style="@style/setting_page_item_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_insured_time_txt"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/insured_time_txt"
+                style="@style/setting_subpage_item_content"
+                android:text="--" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+        <View style="@style/setting_page_item_divider" />
+
+        <LinearLayout
+            android:id="@+id/edit_nspection_time"
+            style="@style/setting_page_item_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_time"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/nspection_time_txt"
+                style="@style/setting_subpage_item_content"
+                android:text="--" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

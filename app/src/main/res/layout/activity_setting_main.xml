@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/title_image" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/btn_person_info"
+                style="@style/setting_page_item_style"
+                android:layout_width="match_parent"
+                android:layout_height="79dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/setting_item_bg">
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="50dip"
+                    android:layout_height="50dip"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/default_avater" />
+
+                <TextView
+                    android:id="@+id/tx_person_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/user_name_default"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/arrow_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_travel_album"
+                style="@style/setting_page_item_style"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/setting_item_bg">
+
+                <ImageView
+                    android:layout_width="18dip"
+                    android:layout_height="18dip"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_travel_album" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="14dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/travel_phone_album"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/arrow_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/setting_item_bg"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/btn_account_security"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/account_security" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/account_security"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right" />
+                </LinearLayout>
+
+                <View style="@style/setting_page_item_divider" />
+
+                <LinearLayout
+                    android:id="@+id/btn_car_manager"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_car_manager" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/car_manager_txt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right" />
+                </LinearLayout>
+
+                <View style="@style/setting_page_item_divider" />
+
+                <LinearLayout
+                    android:id="@+id/btn_msg_manager"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_msg_manager" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/msg_manager_txt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right" />
+                </LinearLayout>
+
+                <View style="@style/setting_page_item_divider" />
+
+                <LinearLayout
+                    android:id="@+id/btn_device_manager"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_device_manager" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/device_manager_txt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/setting_item_bg"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/btn_clean_cache"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_clean_cache" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/clean_cache_txt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/cache_size"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:paddingRight="12dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:text="--"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right" />
+                </LinearLayout>
+
+                <View style="@style/setting_page_item_divider" />
+
+                <LinearLayout
+                    android:id="@+id/btn_contact_us"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_contact_us" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/contact_us_txt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:id="@+id/contact_us_phone"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:paddingRight="12dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:text="@string/contact_us_txt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right" />
+                </LinearLayout>
+
+                <View style="@style/setting_page_item_divider" />
+
+                <LinearLayout
+                    android:id="@+id/btn_about_yema"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_about_yema" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/about_yema_txt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_sign_out"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginLeft="18dip"
+                android:layout_marginRight="18dip"
+                android:layout_marginTop="15dip"
+                android:background="@drawable/login_out_btn_bg"
+                android:gravity="center"
+                android:text="@string/logout_txt"
+                android:textColor="@color/scarlet"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

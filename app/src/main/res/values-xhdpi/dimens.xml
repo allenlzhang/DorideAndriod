@@ -1,0 +1,72 @@
+<resources>
+
+    <dimen name="activity_main_bottom_tab_height">56dip</dimen>
+    <dimen name="mylicense_tab_height">48dip</dimen>
+    <dimen name="mylicense_tab_title_height">45dip</dimen>
+    <dimen name="mylicense_tab_img_height">3dip</dimen>
+    <dimen name="mylicense_tab_text_size">18sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_size_small_s2">12sp</dimen>
+    <dimen name="text_size_large">24sp</dimen>
+    <dimen name="text_size_middle">20sp</dimen>
+    <dimen name="text_size_middle1">18sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_small_s1">14sp</dimen>
+    <dimen name="text_size_small_s3">10sp</dimen>
+    <dimen name="layout_margin_h">6dip</dimen>
+    <dimen name="layout_margin_v">6dip</dimen>
+    <dimen name="layout_padding">10dip</dimen>
+    <dimen name="list_divider_height">10dip</dimen>
+
+    <!-- 挑战结果 -->
+    <dimen name="challeng_margin_top">20dip</dimen>
+    <dimen name="challeng_margin_bottom">22dip</dimen>
+
+    <!-- 我的奖品-详情 -->
+    <dimen name="reward_detail_padding_h">15dip</dimen>
+    <dimen name="reward_detail_padding_v">12dip</dimen>
+    <!-- 报告-月报 -->
+    <dimen name="report_month_paddingL">13dip</dimen>
+    <dimen name="report_month_paddingR">10dip</dimen>
+    <dimen name="report_month_paddingV">10dip</dimen>
+    <dimen name="report_month_paddingV2">7dip</dimen>
+    <!-- 副标题头高度 -->
+    <dimen name="head_sub_height_text">51dip</dimen>
+
+    <!-- 副标题头左右padding -->
+    <dimen name="head_sub_paddingl">14dip</dimen>
+    <dimen name="head_sub_paddingr">4dip</dimen>
+    <dimen name="head_sub_margin_h">10dip</dimen>
+    <dimen name="head_margin_h">15dip</dimen>
+    <!-- 登录、注册等页面 -->
+    <dimen name="usercenter_margin">15dip</dimen>
+
+    <!-- 车圈-主页 -->
+    <dimen name="friends_main_padding_h">10dip</dimen>
+    <!-- 车圈-邀请好友 -->
+    <dimen name="friends_invite_padding_h">8dip</dimen>
+
+    <!-- 生涯主页-progress宽度 -->
+    <dimen name="career_progress_width">253dip</dimen>
+    <dimen name="find_icon1_margin">12dip</dimen>
+    <dimen name="find_icon2_margin">12dip</dimen>
+    <dimen name="find_layout1_margin">10dip</dimen>
+
+    <!-- 发现-故障申报 -->
+    <dimen name="declaration_padding">19dip</dimen>
+
+    <!-- 设置-主页 -->
+    <dimen name="setting_padding_h">14dip</dimen>
+    <!-- 安全中心个页面 -->
+    <dimen name="safe_margin_h">13dip</dimen>
+    <dimen name="mypie_item_height">69dip</dimen>
+    <!-- 剪裁界面底部控件margin -->
+    <dimen name="thumbnail_seekbar_margin_bottom">46.5dip</dimen>
+
+    <!-- 全屏直播pop -->
+    <dimen name="pop_width_list">235dip</dimen>
+    <dimen name="pop_width_rg">163dip</dimen>
+    <dimen name="pop_width_txt">209dip</dimen>
+    <dimen name="cache_clean_radius">32px</dimen>
+</resources>
