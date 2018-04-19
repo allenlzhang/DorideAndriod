@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/main_color"
-    tools:context="com.carlt.yema.ui.activity.setting.CarManagerActivity">
+    tools:context="com.carlt.doride.ui.activity.setting.CarManagerActivity">
 
     <LinearLayout
         android:id="@+id/edit_car_type"

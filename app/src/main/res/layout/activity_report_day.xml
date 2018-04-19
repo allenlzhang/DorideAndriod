@@ -11,7 +11,7 @@
         android:background="@color/layout_background"
          >
 
-        <com.carlt.yema.ui.view.CircleImageView
+        <com.carlt.doride.ui.view.CircleImageView
             android:id="@+id/day_img_headImg"
             android:layout_width="42dp"
             android:layout_height="42dp"
@@ -278,7 +278,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.carlt.yema.ui.pull.PullToRefreshListView
+    <com.carlt.doride.ui.pull.PullToRefreshListView
         android:id="@+id/day_refresh_logList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -289,6 +289,6 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="0dp" >
-    </com.carlt.yema.ui.pull.PullToRefreshListView>
+    </com.carlt.doride.ui.pull.PullToRefreshListView>
 
 </RelativeLayout>

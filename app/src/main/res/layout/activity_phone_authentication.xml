@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_color"
     android:orientation="vertical"
-    tools:context="com.carlt.yema.ui.activity.setting.PhoneAuthenticationActivity">
+    tools:context="com.carlt.doride.ui.activity.setting.PhoneAuthenticationActivity">
     <include layout="@layout/layout_title" />
     <EditText
         android:id="@+id/certified_phone_input"

@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:zlink="http://schemas.android.com/apk/com.carlt.yema">
+    xmlns:zlink="http://schemas.android.com/apk/com.carlt.doride">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -347,7 +347,7 @@
                 android:layout_marginBottom="0dp"
                 android:background="#4d4d4d" />
 
-            <com.carlt.yema.ui.view.BarGraph
+            <com.carlt.doride.ui.view.BarGraph
                 android:id="@+id/report_month_bargraph_fuel"
                 zlink:barColor="@color/orange"
                 zlink:textColor="@color/text_color_gray1"
@@ -406,7 +406,7 @@
                 android:layout_marginBottom="0dp"
                 android:background="#4d4d4d" />
 
-            <com.carlt.yema.ui.view.BarGraph
+            <com.carlt.doride.ui.view.BarGraph
                 android:id="@+id/report_month_bargraph_miles"
                 zlink:barColor="#04b59e"
                 zlink:textColor="@color/text_color_gray1"
@@ -465,7 +465,7 @@
                 android:layout_marginBottom="0dp"
                 android:background="#4d4d4d" />
 
-            <com.carlt.yema.ui.view.BarGraph
+            <com.carlt.doride.ui.view.BarGraph
                 android:id="@+id/report_month_bargraph_time"
                 zlink:barColor="#2c77c0"
                 zlink:textColor="@color/text_color_gray1"

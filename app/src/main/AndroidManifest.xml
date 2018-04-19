@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.carlt.yema">
+    package="com.carlt.doride">
 
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -122,7 +122,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.carlt.yema.fileprovider"
+            android:authorities="com.carlt.doride.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
 
@@ -149,7 +149,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.carlt.yema.push.MessageReceiver"
+            android:name=".push.MessageReceiver"
             android:exported="true">
             <intent-filter>
                 <!-- 接收消息透传 -->
@@ -170,7 +170,7 @@
         </activity>
         <service android:name="com.amap.api.location.APSService" />
         <service
-            android:name="com.carlt.yema.push.PushService"
+            android:name=".push.PushService"
             android:exported="true"
             android:persistent="true" />
 
@@ -187,26 +187,26 @@
             android:exported="true">
             <intent-filter>
                 <!-- 【必须】 请修改为当前APP包名 .PUSH_ACTION, 如demo的包名为：com.qq.xgdemo -->
-                <action android:name="com.carlt.yema.PUSH_ACTION" />
+                <action android:name="com.carlt.doride.PUSH_ACTION" />
             </intent-filter>
         </service>
 
         <!-- 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：com.qq.xgdemo -->
         <provider
             android:name="com.tencent.android.tpush.XGPushProvider"
-            android:authorities="com.carlt.yema.AUTH_XGPUSH"
+            android:authorities="com.carlt.doride.AUTH_XGPUSH"
             android:exported="true" />
 
         <!-- 【必须】 【注意】authorities修改为 包名.TPUSH_PROVIDER, 如demo的包名为：com.qq.xgdemo -->
         <provider
             android:name="com.tencent.android.tpush.SettingsContentProvider"
-            android:authorities="com.carlt.yema.TPUSH_PROVIDER"
+            android:authorities="com.carlt.doride.TPUSH_PROVIDER"
             android:exported="false" />
 
         <!-- 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo-->
         <provider
             android:name="com.tencent.mid.api.MidProvider"
-            android:authorities="com.carlt.yema.TENCENT.MID.V3"
+            android:authorities="com.carlt.doride.TENCENT.MID.V3"
             android:exported="true"></provider>
 
 

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@color/main_color"
     android:gravity="center_horizontal"
-    tools:context="com.carlt.yema.ui.activity.setting.AboutYemaActivity">
+    tools:context="com.carlt.doride.ui.activity.setting.AboutYemaActivity">
     <include
         layout="@layout/layout_title"/>
     <ImageView

@@ -14,7 +14,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.carlt.yema"
+        applicationId "com.carlt.doride"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 100

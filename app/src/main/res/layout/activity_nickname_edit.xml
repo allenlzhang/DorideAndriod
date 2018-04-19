@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_color"
     android:orientation="vertical"
-    tools:context="com.carlt.yema.ui.activity.setting.NicknameEditActivity">
+    tools:context="com.carlt.doride.ui.activity.setting.NicknameEditActivity">
     <EditText
         android:id="@+id/nickname_input"
         android:layout_width="match_parent"

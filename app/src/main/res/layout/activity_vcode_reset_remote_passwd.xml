@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/main_color"
-    tools:context="com.carlt.yema.ui.activity.setting.VcodeResetRemotePasswdActivity">
+    tools:context="com.carlt.doride.ui.activity.setting.VcodeResetRemotePasswdActivity">
     <include layout="@layout/layout_title" />
     <EditText
         android:id="@+id/remote_phone_input"
@@ -54,7 +54,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
         android:text="@string/new_remote_passwd_txt"/>
-    <com.carlt.yema.ui.view.PasswordView
+    <com.carlt.doride.ui.view.PasswordView
         android:id="@+id/new_remote_passwd"
         android:layout_width="match_parent"
         android:layout_marginLeft="12dp"
@@ -72,7 +72,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
         android:text="@string/new_remote_passwd_again_txt"/>
-    <com.carlt.yema.ui.view.PasswordView
+    <com.carlt.doride.ui.view.PasswordView
         android:id="@+id/new_remote_vcode_passwd_again"
         android:layout_width="match_parent"
         android:layout_marginLeft="12dp"

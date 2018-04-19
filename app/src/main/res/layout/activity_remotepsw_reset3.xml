@@ -17,7 +17,7 @@
         android:textColor="@color/text_color_gray1"
         android:textSize="14sp" />
 
-    <com.carlt.yema.ui.view.PasswordView
+    <com.carlt.doride.ui.view.PasswordView
         android:id="@+id/remotepsw_reset3_pwdedt1"
         style="@style/safety_psw_edt"
         app:passwordLength="6"
@@ -35,7 +35,7 @@
         android:textColor="@color/text_color_gray1"
         android:textSize="14sp" />
 
-    <com.carlt.yema.ui.view.PasswordView
+    <com.carlt.doride.ui.view.PasswordView
         android:id="@+id/remotepsw_reset3_pwdedt2"
         style="@style/safety_psw_edt"
         app:passwordLength="6"

@@ -33,7 +33,7 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical" >
 
-            <com.carlt.yema.ui.view.ValidateEditText
+            <com.carlt.doride.ui.view.ValidateEditText
                 android:id="@+id/realname_edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical" >
 
-            <com.carlt.yema.ui.view.ValidateEditText
+            <com.carlt.doride.ui.view.ValidateEditText
                 android:id="@+id/realname_edt_IDCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

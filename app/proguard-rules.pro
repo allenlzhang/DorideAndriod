@@ -27,7 +27,7 @@
 -keep public class * extends android.support.v4.**
 -keep public class * extends android.app.Fragment
 
--keep public class com.carlt.yema.data.**{*;}
+-keep public class com.carlt.doride.data.**{*;}
 -dontshrink
 -dontoptimize
 -dontwarn com.google.android.maps.**
@@ -50,7 +50,7 @@
 -keepclassmembers class * {
    public <init>(org.json.JSONObject);
 }
--keep public class [com.carlt.yema].R$*{
+-keep public class [com.carlt.doride].R$*{
 public static final int *;
 }
 

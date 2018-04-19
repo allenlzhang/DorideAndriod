@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.carlt.yema.ui.activity.setting.TravelAlbumActivity">
+    tools:context="com.carlt.doride.ui.activity.setting.TravelAlbumActivity">
     <GridView
         android:id="@+id/album_list"
         android:layout_width="match_parent"

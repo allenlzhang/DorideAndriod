@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/layout_background"
     android:orientation="vertical"
-    tools:context="com.carlt.yema.ui.activity.carstate.MainTestingActivity">
+    tools:context="com.carlt.doride.ui.activity.carstate.MainTestingActivity">
     <GridView
         android:layout_marginTop="20dp"
         android:numColumns="2"

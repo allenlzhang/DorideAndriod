@@ -55,7 +55,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.carlt.yema.ui.pull.PullToRefreshListView
+    <com.carlt.doride.ui.pull.PullToRefreshListView
         android:id="@+id/activity_career_secretary_tips_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -63,7 +63,7 @@
         android:layout_marginTop="20dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="10dp"></com.carlt.yema.ui.pull.PullToRefreshListView>
+        android:paddingTop="10dp"></com.carlt.doride.ui.pull.PullToRefreshListView>
 
 
     <TextView
