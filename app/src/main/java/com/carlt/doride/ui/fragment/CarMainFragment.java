@@ -82,7 +82,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         viewMainState = $ViewByID(R.id.car_state_iv);
         titleTV = $ViewByID(R.id.carmian_title);
         headTxt = $ViewByID(R.id.layout_sub_head_txt);//
-        titleTV.setText("野马汽车品牌");
+        titleTV.setText("大乘汽车品牌");
         view1.setOnClickListener(this);
         view2.setOnClickListener(this);
         view3.setOnClickListener(this);

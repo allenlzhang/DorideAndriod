@@ -15,13 +15,13 @@ public class URLConfig {
     // 车乐正式服务器
     private final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
 
-    //野马域名 测试服
+    //大乘域名 测试服
     private final static String U1_YEMA_TEST = "http://yemaapi.linewin.cc/";
 
-    //野马域名 预发布服
+    //大乘域名 预发布服
     private final static String U1_YEMA_PRE = "http://pre-yemaapi.geni4s.com/";
 
-    // 众泰野马API域名 正式服
+    // 众泰大乘API域名 正式服
     private final static String U1_Yema = "http://yemaapi.geni4s.com/";
 
     // 远程下发-正式服务器

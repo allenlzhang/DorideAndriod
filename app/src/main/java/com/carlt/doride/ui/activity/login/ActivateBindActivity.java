@@ -70,7 +70,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
         mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
 
-        mTextViewSecretary.setText("设备绑定成功！激活设备后就能使用野马管家的全部功能啦！");
+        mTextViewSecretary.setText("设备绑定成功！激活设备后就能使用大乘管家的全部功能啦！");
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                         mDialog.show();
                         listener_time = System.currentTimeMillis();
                         ActivateCount++;
-                        mTextViewSecretary.setText("已收到激活请求，正在连接野马设备…");
+                        mTextViewSecretary.setText("已收到激活请求，正在连接大乘设备…");
                         activateDevice();
                     }
 
@@ -101,7 +101,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                     }
                 };
                 PopBoxCreat.createDialogWithTitle(ActivateBindActivity.this, "激活",
-                        "您确定激活野马设备吗？", "", "确定", "取消", click);
+                        "您确定激活大乘设备吗？", "", "确定", "取消", click);
                 break;
         }
     }
@@ -128,7 +128,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             // 下发激活指令成功
-            UUToast.showUUToast(ActivateBindActivity.this,"野马设备已成功激活");
+            UUToast.showUUToast(ActivateBindActivity.this,"大乘设备已成功激活");
             Intent intent=new Intent(ActivateBindActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

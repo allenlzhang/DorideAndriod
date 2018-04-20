@@ -40,7 +40,7 @@ public class LoginControl {
             Log.e("info", "isDeviceActivate==" + isDeviceActivate);
             if (isDeviceActivate) {
 
-                // 野马绑定和激活合并，如果激活直接进入主页
+                // 大乘绑定和激活合并，如果激活直接进入主页
                 Intent mainIntent = new Intent(mContext,
                         MainActivity.class);
                 mContext.startActivity(mainIntent);
@@ -222,7 +222,7 @@ public class LoginControl {
 
             int secretaryid = membercar.optInt("secretaryid", 1);
 
-                LoginInfo.setSecretaryName("野马小秘书");
+                LoginInfo.setSecretaryName("大乘小秘书");
 
             LoginInfo.setMainten_miles((membercar
                     .optString("mainten_miles", "")));

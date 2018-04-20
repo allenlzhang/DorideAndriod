@@ -14,7 +14,7 @@
         android:paddingLeft="15dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:text="野马汽车"
+        android:text="大乘汽车"
         />
     <ListView
         android:id="@+id/car_mode_list"

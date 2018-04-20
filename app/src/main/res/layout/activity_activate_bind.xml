@@ -8,12 +8,7 @@
     tools:context=".ui.activity.login.ActivateBindActivity">
     <include layout="@layout/layout_title" />
 
-    <include
-        android:id="@+id/activate_sub_head"
-        android:layout_width="fill_parent"
-        android:layout_marginTop="15dp"
-        android:layout_height="wrap_content"
-        layout="@layout/head_sub_normal" />
+
     <ImageView
         android:id="@+id/activate_bind_logo"
         android:layout_width="match_parent"
@@ -25,10 +20,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        android:layout_marginTop="36dip"
+        android:textSize="16sp"
+        android:textColor="@color/main_page_linear_border"
+        android:layout_marginTop="35dip"
         android:text="@string/device_activate_tip"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_gray2"
+        android:layout_marginTop="14dip"
+        android:text="@string/device_activate_tip2"
         />
 
     <TextView
@@ -36,9 +40,9 @@
         style="@style/public_bottom_btn"
         android:layout_height="44dp"
         android:text="@string/device_activate_tx"
-        android:layout_marginTop="75dip"
+        android:layout_marginTop="48dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

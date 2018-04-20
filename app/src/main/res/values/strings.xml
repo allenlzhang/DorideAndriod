@@ -21,11 +21,12 @@
     <string name="usercenter_push_validate1">重发验证码</string>
     <string name="_car_real_condation">实时车况</string>
     <string name="usercenter_pin_code">请输入车辆PIN码</string>V
-    <string name="usercenter_vin_code">请输入车辆VIN码</string>
+    <string name="usercenter_vin_code">请输入车辆VIN码(车架号)</string>
     <string name="_car_select_type">请选择车型</string>
     <string name="device_bind_tx">绑定设备</string>
     <string name="device_activate_tx">激活设备</string>
     <string name="device_activate_tip">激活设备后就能使用全部功能</string>
+    <string name="device_activate_tip2">激活过程可能需要2-5分钟，请耐心等待</string>
     <string name="change_commit_txt">确认修改</string>
     <string name="register_passwd_txt">请输入登录密码</string>
     <string name="register_passwd_again_txt">请再次输入密码</string>
@@ -36,7 +37,7 @@
 
     <!--我的界面-->
     <string name="default_time_txt">2018-3-17</string>
-    <string name="user_name_default">野马车主B3718</string>
+    <string name="user_name_default">大乘车主B3718</string>
     <string name="travel_phone_album">旅行相册</string>
     <string name="account_security">账号与安全</string>
     <string name="car_manager_txt">车辆管理</string>
@@ -55,7 +56,7 @@
     <string name="person_sex_default_txt">保密</string>
     <!--修改资料界面-->
     <string name="car_type_txt">车型</string>
-    <string name="car_type_txt_default">野马 B10 2018,风尚款</string>
+    <string name="car_type_txt_default">大乘 B10 2018,风尚款</string>
     <string name="car_purchase_time_txt">购车时间</string>
     <string name="last_maintenance_mileage_txt">上次保养里程</string>
     <string name="last_maintenance_mileage">%1$d km</string>

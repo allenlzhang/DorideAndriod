@@ -144,7 +144,7 @@ public class UUUpdateDialog extends Dialog {
 							polling();
 						} else {
 							destoryTimer();
-							UUToast.showUUToast(mContext, "野马盒子升级失败...");
+							UUToast.showUUToast(mContext, "大乘盒子升级失败...");
 							dismiss();
 							if (mDialogUpdateListener != null) {
 								mDialogUpdateListener.onFailed();
@@ -166,7 +166,7 @@ public class UUUpdateDialog extends Dialog {
 					polling();
 				} else {
 					destoryTimer();
-					UUToast.showUUToast(mContext, "野马盒子升级失败...");
+					UUToast.showUUToast(mContext, "大乘盒子升级失败...");
 					dismiss();
 					if (mDialogUpdateListener != null) {
 						mDialogUpdateListener.onFailed();

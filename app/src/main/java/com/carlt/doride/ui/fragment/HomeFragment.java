@@ -44,7 +44,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private TextView mTxtEnduranceMile; //续航里程
     private TextView mTxtAvgSpeed;  //平均速度
     private TextView mTxtAvgFuel;   //平均油耗
-    private MilesInfo milesInfo;    //野马远程 读取里程实体类
+    private MilesInfo milesInfo;    //大乘远程 读取里程实体类
 
     @Override
     protected View inflateView(LayoutInflater inflater) {

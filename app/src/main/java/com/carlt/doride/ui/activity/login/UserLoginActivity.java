@@ -47,7 +47,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     private TextView user_regist;//用户注册
     private TextView login_commit;//登录按钮
 
-    private ImageView login_logo;//野马Logo图片
+    private ImageView login_logo;//大乘Logo图片
     private ImageView passwd_toggle;//显示密码
 
     private EditText user_phone;//用户账号（手机）
@@ -281,7 +281,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     }
 
     /**
-     * 加载失败（野马项目没有授权流程）
+     * 加载失败（大乘项目没有授权流程）
      */
     private void LoadErro(Object erro) {
         if (mDialog != null && mDialog.isShowing()) {
