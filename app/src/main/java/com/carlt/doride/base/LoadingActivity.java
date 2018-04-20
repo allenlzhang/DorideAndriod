@@ -17,7 +17,7 @@ import com.carlt.doride.protocolparser.BaseParser;
 
 
 /**
- * 有加载效果的Activity的基类
+ * 有加载效果的Activity的基类,右侧有图标的title
  *
  * @author Administrator
  */
@@ -37,11 +37,9 @@ public class LoadingActivity extends BaseActivity {
 
     protected View backTV = null;
     protected TextView titleTV = null;
-    protected TextView btnOpt=null;
+    protected View backTV2 = null;
+    protected TextView optRight=null;
 
-    private RequestPermissionCallBack mRequestPermissionCallBack;
-
-    private static final int PERMISSION_REQUEST_CODE=1024;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,7 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     public void setContentView(int layoutResID) {
-        super.setContentView(R.layout.activity_loading);
+        super.setContentView(R.layout.activity_loading2);
         mLayMain = (RelativeLayout) findViewById(R.id.loading_lay_mainlayout);
         mViewLoading = findViewById(R.id.laoding_lay_main);
         mViewError = findViewById(R.id.error_lay_main);
@@ -62,6 +60,7 @@ public class LoadingActivity extends BaseActivity {
         mTxtNodata = (TextView) findViewById(R.id.nodata_txt_des);
         mTxtRetryError = (Button) findViewById(R.id.error_txt_retry);
         mPBar = (ProgressBar) findViewById(R.id.loading_bar_loading);
+        optRight = (TextView) findViewById(R.id.head_back_text2);
 
         mTxtRetryError.setOnClickListener(mClickListener);
         setMainView(layoutResID);
@@ -77,15 +76,15 @@ public class LoadingActivity extends BaseActivity {
     protected void initTitle(String titleString) {
 
         try{
-            backTV = $ViewByID(R.id.back);
-            titleTV = $ViewByID(R.id.title);
-            btnOpt = $ViewByID(R.id.btnOpt);
+            backTV = $ViewByID(R.id.head_back_img1);
+            titleTV = $ViewByID(R.id.head_back_txt1);
+            backTV2 = $ViewByID(R.id.head_back_img2);
         }catch (Exception e){
             //是设置标题出错
             return;
         }
         if(null != backTV){
-            backTV.setOnClickListener(new View.OnClickListener() {
+            backTV.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     finish();
@@ -95,22 +94,20 @@ public class LoadingActivity extends BaseActivity {
         if(null != titleTV){
             titleTV.setText(titleString);
         }
-    }
-
-    protected void setBtnOptVisible(boolean visible){
-        if (visible) {
-            btnOpt.setVisibility(View.VISIBLE);
-        } else {
-            btnOpt.setVisibility(View.GONE);
+        if (null != backTV2){
+            backTV2.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRightClick();
+                }
+            });
         }
     }
 
-    protected void setBtnOptText(String text){
-        btnOpt.setText(text);
-    }
 
-    protected void setOnBtnOptClickListener(OnClickListener listener){
-        btnOpt.setOnClickListener(listener);
+
+    public void onRightClick() {
+
     }
 
     private OnClickListener mClickListener = new OnClickListener() {
@@ -212,7 +209,7 @@ public class LoadingActivity extends BaseActivity {
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            loadonErrorUI(bInfo);
+            loadonErrorUI( bInfo);
             loadDataError(bInfo);
         }
     };
@@ -221,11 +218,11 @@ public class LoadingActivity extends BaseActivity {
     }
 
     public void loadDataSuccess(Object bInfo) {
-
     }
 
 
     public void reTryLoadData() {
         //子类选择可以实现，重新加载
     }
+
 }

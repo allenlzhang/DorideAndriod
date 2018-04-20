@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.LoadingActivity2;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarSettingInfo;
@@ -41,7 +41,7 @@ import java.util.HashMap;
  * Created by Marlon on 2018/3/16.
  */
 
-public class RemindActivity extends LoadingActivity2 {
+public class RemindActivity extends LoadingActivity {
 
     private TextView mTextViewSecretary;// 车秘书文字
 

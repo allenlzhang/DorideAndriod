@@ -50,7 +50,7 @@ import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
 import com.carlt.doride.R;
 import com.carlt.doride.YemaApplication;
-import com.carlt.doride.base.LoadingActivity2;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -66,7 +66,7 @@ import java.util.List;
 /**
  * 定位寻车
  */
-public class FindCarActivity extends LoadingActivity2 implements LocationSource, AMapLocationListener, View.OnClickListener {
+public class FindCarActivity extends LoadingActivity implements LocationSource, AMapLocationListener, View.OnClickListener {
 
     private View mViewInput;// 输入框
     private TextView mTxtPos;// 爱车位置

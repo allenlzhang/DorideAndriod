@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.LoadingActivity2;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.home.InformationCategoryInfo;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by Marlon on 2018/3/16.
  */
 
-public class InformationCentreActivity extends LoadingActivity2 {
+public class InformationCentreActivity extends LoadingActivity {
 
     public final static String TIPS_TITLE = "tips_title";
 

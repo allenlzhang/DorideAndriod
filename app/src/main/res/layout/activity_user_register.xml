@@ -36,14 +36,7 @@
             android:maxLength="6"/>
         <TextView
             android:id="@+id/register_verification_send"
-            android:layout_width="80dip"
-            android:layout_height="30dip"
-            android:gravity="center"
-            android:text="@string/usercenter_push_validate"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dip"
-            android:background="@drawable/verification_send_bg"
-            android:textSize="14sp"/>
+            style="@style/vcode_style"/>
     </LinearLayout>
     <LinearLayout
         style="@style/login_input_bg"

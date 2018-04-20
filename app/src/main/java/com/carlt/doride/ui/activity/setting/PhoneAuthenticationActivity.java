@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PhoneAuthenticationActivity extends BaseActivity implements View.OnClickListener {
+public class PhoneAuthenticationActivity extends LoadingActivity implements View.OnClickListener {
 
     private ImageView back;//返回按钮
     private TextView title;//标题
@@ -54,6 +54,7 @@ public class PhoneAuthenticationActivity extends BaseActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_authentication);
+        loadSuccessUI();
         initComponent();
     }
 

@@ -7,11 +7,10 @@
     android:background="@color/main_color"
     android:gravity="center_horizontal"
     tools:context="com.carlt.doride.ui.activity.setting.AboutYemaActivity">
-    <include
-        layout="@layout/layout_title"/>
+
     <ImageView
-        android:layout_width="144dp"
-        android:layout_height="57dp"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
         android:src="@mipmap/about_yema_logo"
         android:layout_marginTop="82dp"
         android:contentDescription="@string/app_name"
@@ -19,17 +18,18 @@
     <TextView
         android:id="@+id/about_yema_ver"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="@string/version"
         android:layout_marginTop="61dp"
         android:textSize="14sp"
-        android:textColor="@color/scarlet"/>
+        android:textColor="@color/text_color_gray2"/>
     <TextView
         android:id="@+id/about_yema_terms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/terms_of_service"
-        android:layout_marginTop="280dp"
+        android:layout_marginBottom="63dp"
         android:textSize="14sp"
-        android:textColor="@color/white"/>
+        android:textColor="#478cea"/>
 </LinearLayout>

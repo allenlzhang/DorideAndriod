@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 
-public class AboutYemaActivity extends BaseActivity implements OnClickListener{
+public class AboutYemaActivity extends LoadingActivity implements OnClickListener{
 
     private ImageView back;
     private TextView title;
@@ -23,6 +23,8 @@ public class AboutYemaActivity extends BaseActivity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_yema);
+        loadSuccessUI();
+        initTitle("关于");
         initComponent();
     }
 
@@ -38,6 +40,8 @@ public class AboutYemaActivity extends BaseActivity implements OnClickListener{
 
         about_yema_terms=findViewById(R.id.about_yema_terms);
         about_yema_terms.setOnClickListener(this);
+//        about_yema_terms.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+//        about_yema_terms.getPaint().setAntiAlias(true);//抗锯齿
     }
 
     @Override

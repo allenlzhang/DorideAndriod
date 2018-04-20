@@ -58,7 +58,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private View btn_car_manager;//车辆管理item
     private View btn_msg_manager;//消息管理item
     private View btn_device_manager;//设备管理item
-    private View btn_clean_cache;//清除缓存item
+//    private View btn_clean_cache;//清除缓存item
     private View btn_contact_us;//联系我们item
     private View btn_about_yema;//关于item
 
@@ -102,8 +102,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         btn_msg_manager.setOnClickListener(this);
         btn_device_manager = parent.findViewById(R.id.btn_device_manager);
         btn_device_manager.setOnClickListener(this);
-        btn_clean_cache = parent.findViewById(R.id.btn_clean_cache);
-        btn_clean_cache.setOnClickListener(this);
+//        btn_clean_cache = parent.findViewById(R.id.btn_clean_cache);
+//        btn_clean_cache.setOnClickListener(this);
         btn_contact_us = parent.findViewById(R.id.btn_contact_us);
         btn_contact_us.setOnClickListener(this);
         btn_about_yema = parent.findViewById(R.id.btn_about_yema);
@@ -164,9 +164,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 Intent devManager = new Intent(this.getActivity(), DeviceManageActivity.class);
                 startActivity(devManager);
                 break;
-            case R.id.btn_clean_cache:
-                showCleanCacheDialog();
-                break;
+//            case R.id.btn_clean_cache:
+//                showCleanCacheDialog();
+//                break;
             case R.id.btn_contact_us:
 //                showDialog();
                 if (null!=mDealerInfo&&!TextUtils.isEmpty(mDealerInfo.getServiceTel())) {

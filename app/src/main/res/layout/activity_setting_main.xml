@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color"
     android:orientation="vertical">
 
     <FrameLayout
@@ -29,9 +30,9 @@
                 android:id="@+id/btn_person_info"
                 style="@style/setting_page_item_style"
                 android:layout_width="match_parent"
-                android:layout_height="79dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg">
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/avatar"
@@ -49,8 +50,8 @@
                     android:layout_marginLeft="8dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/user_name_default"
-                    android:textColor="@color/white"
+                    android:text="--"
+                    android:textColor="@color/main_page_linear_border"
                     android:textSize="14sp" />
 
                 <ImageView
@@ -66,7 +67,8 @@
                 style="@style/setting_page_item_style"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg">
+                android:visibility="gone"
+                android:background="@color/white">
 
                 <ImageView
                     android:layout_width="18dip"
@@ -83,7 +85,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/travel_phone_album"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_page_linear_border"
                     android:textSize="14sp" />
 
                 <ImageView
@@ -98,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -121,7 +123,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/account_security"
-                        android:textColor="@color/white"
+                        android:textColor="@color/main_page_linear_border"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -154,7 +156,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/car_manager_txt"
-                        android:textColor="@color/white"
+                        android:textColor="@color/main_page_linear_border"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -187,7 +189,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/msg_manager_txt"
-                        android:textColor="@color/white"
+                        android:textColor="@color/main_page_linear_border"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -220,7 +222,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/device_manager_txt"
-                        android:textColor="@color/white"
+                        android:textColor="@color/main_page_linear_border"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -236,11 +238,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/btn_clean_cache"
+                    android:visibility="gone"
                     style="@style/setting_page_item_style"
                     android:layout_width="match_parent">
 
@@ -280,7 +283,8 @@
                         android:src="@mipmap/arrow_right" />
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider" />
+                <View style="@style/setting_page_item_divider"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:id="@+id/btn_contact_us"
@@ -301,7 +305,7 @@
                         android:layout_marginLeft="14dp"
                         android:gravity="center_vertical"
                         android:text="@string/contact_us_txt"
-                        android:textColor="@color/white"
+                        android:textColor="@color/main_page_linear_border"
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="0dp"
@@ -327,6 +331,7 @@
                 <LinearLayout
                     android:id="@+id/btn_about_yema"
                     style="@style/setting_page_item_style"
+
                     android:layout_width="match_parent">
 
                     <ImageView
@@ -344,7 +349,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/about_yema_txt"
-                        android:textColor="@color/white"
+                        android:textColor="@color/main_page_linear_border"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -363,7 +368,7 @@
                 android:layout_marginBottom="18dp"
                 android:layout_marginLeft="18dip"
                 android:layout_marginRight="18dip"
-                android:layout_marginTop="15dip"
+                android:layout_marginTop="77dip"
                 android:background="@drawable/login_out_btn_bg"
                 android:gravity="center"
                 android:text="@string/logout_txt"
