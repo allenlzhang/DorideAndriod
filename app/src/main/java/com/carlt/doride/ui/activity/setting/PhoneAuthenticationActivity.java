@@ -54,20 +54,15 @@ public class PhoneAuthenticationActivity extends LoadingActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_authentication);
-        loadSuccessUI();
+        initTitle("修改手机号码");
         initComponent();
     }
 
     private void initComponent() {
-        back = findViewById(R.id.back);
-        back.setOnClickListener(this);
         certified_input_commit = findViewById(R.id.certified_input_commit);
         certified_input_commit.setOnClickListener(this);
         certified_verification_send = findViewById(R.id.certified_verification_send);
         certified_verification_send.setOnClickListener(this);
-
-        title = findViewById(R.id.title);
-        title.setText("修改手机号码");
         certified_phone_input = findViewById(R.id.certified_phone_input);
         certified_code_input = findViewById(R.id.certified_code_input);
     }
@@ -75,9 +70,6 @@ public class PhoneAuthenticationActivity extends LoadingActivity implements View
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
-                finish();
-                break;
             case R.id.certified_verification_send:
                 phoneNum = certified_phone_input.getText().toString();
                 if (phoneNum != null && StringUtils.checkCellphone(phoneNum)) {

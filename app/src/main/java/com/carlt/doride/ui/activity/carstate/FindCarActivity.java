@@ -48,8 +48,8 @@ import com.amap.api.services.road.Crossroad;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -371,7 +371,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
                         TextOptions toptStart = new TextOptions();
                         toptStart.position(ll);
-                        toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                        toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                         toptStart.fontColor(Color.parseColor("#FFFFFF"));
                         toptStart.text("您的位置");
                         toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -418,7 +418,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
             TextOptions toptEnd = new TextOptions();
             toptEnd.position(mlineOption.getPoints().get(mlineOption.getPoints().size() - 1));
-            toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+            toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
             toptEnd.fontColor(Color.parseColor("#FFFFFF"));
             toptEnd.text("爱车位置");
             toptEnd.backgroundColor(Color.parseColor("#404040"));
@@ -434,7 +434,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
             if (mFirstCarLoc != null) {
                 TextOptions toptEnd = new TextOptions();
                 toptEnd.position(mFirstCarLoc);
-                toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptEnd.fontColor(Color.parseColor("#FFFFFF"));
                 toptEnd.text("爱车位置");
                 toptEnd.backgroundColor(Color.parseColor("#404040"));
@@ -457,7 +457,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
                 TextOptions toptStart = new TextOptions();
                 toptStart.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
-                toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptStart.fontColor(Color.parseColor("#FFFFFF"));
                 toptStart.text("您的位置");
                 toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -477,7 +477,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
                 TextOptions toptStart = new TextOptions();
                 toptStart.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
-                toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptStart.fontColor(Color.parseColor("#FFFFFF"));
                 toptStart.text("您的位置");
                 toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -517,7 +517,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
                     TextOptions toptStart = new TextOptions();
                     toptStart.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
-                    toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                    toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                     toptStart.fontColor(Color.parseColor("#FFFFFF"));
                     toptStart.text("您的位置");
                     toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -621,7 +621,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                 UUToast.showUUToast(this, "正在定位您的位置");
                 TextOptions toptEnd = new TextOptions();
                 toptEnd.position(mFirstCarLoc);
-                toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptEnd.fontColor(Color.parseColor("#FFFFFF"));
                 toptEnd.text("爱车位置");
                 toptEnd.backgroundColor(Color.parseColor("#404040"));
@@ -701,7 +701,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
                 TextOptions toptStart = new TextOptions();
                 toptStart.position(lls);
-                toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptStart.fontColor(Color.parseColor("#FFFFFF"));
                 toptStart.text("您的位置");
                 toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -711,7 +711,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
                 TextOptions toptEnd = new TextOptions();
                 toptEnd.position(lle);
-                toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptEnd.fontColor(Color.parseColor("#FFFFFF"));
                 toptEnd.text("爱车位置");
                 toptEnd.backgroundColor(Color.parseColor("#404040"));

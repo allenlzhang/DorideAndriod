@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -269,7 +269,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 清除缓存
      */
     private void cleanCache() {
-        CacheUtils.clearAllCache(YemaApplication.getInstanse().getApplicationContext());
+        CacheUtils.clearAllCache(DorideApplication.getInstanse().getApplicationContext());
     }
 
     /**

@@ -21,8 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -137,11 +137,11 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void loadData() {
-        if (YemaApplication.getInstanse().getRemoteMainInfo() == null) {
+        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
             carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
                 @Override
                 public void onSuccess(BaseResponseInfo bInfo) {
-                    YemaApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
                     ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
                     loadSuss();
                 }
@@ -164,7 +164,7 @@ public class RemoteMainFragment extends BaseFragment implements
     private AirMainInfo mAirMainInfo1;
 
     private void loadSuss() {
-        RemoteMainInfo mRemoteMainInfo = YemaApplication.getInstanse().getRemoteMainInfo();
+        RemoteMainInfo mRemoteMainInfo = DorideApplication.getInstanse().getRemoteMainInfo();
         if (mRemoteMainInfo != null) {
             mAirMainInfo1 = mRemoteMainInfo.getmAirMainInfo();
             LoginInfo.setChangedCar(false);
@@ -227,9 +227,9 @@ public class RemoteMainFragment extends BaseFragment implements
         mViewNormal.setOnClickListener(this);
         mViewNormal.setOnTouchListener(this);
         mImgArrow.setOnClickListener(this);
-        mViewUnsupport.setMinimumWidth(YemaApplication.ScreenWith);
-        mViewUnsupport.setMinimumHeight(YemaApplication.ScreenHeight
-                - YemaApplication.dpToPx(44) - YemaApplication.dpToPx(56));
+        mViewUnsupport.setMinimumWidth(DorideApplication.ScreenWith);
+        mViewUnsupport.setMinimumHeight(DorideApplication.ScreenHeight
+                - DorideApplication.dpToPx(44) - DorideApplication.dpToPx(56));
     }
 
     RemoteFunInfo skyWindowsInfo = null;
@@ -776,7 +776,7 @@ public class RemoteMainFragment extends BaseFragment implements
             }
         });
 
-        int w = (int) (YemaApplication.ScreenDensity * 300);
+        int w = (int) (DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogI.setContentView(view, parm);

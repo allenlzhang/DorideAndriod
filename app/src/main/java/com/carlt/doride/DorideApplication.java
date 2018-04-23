@@ -21,7 +21,7 @@ import java.util.UUID;
  * Created by Administrator on 2017/10/9 0009.
  */
 
-public class YemaApplication extends Application {
+public class DorideApplication extends Application {
 
     public static int Version_API = 100;
 
@@ -31,7 +31,7 @@ public class YemaApplication extends Application {
 
     public static String VersionName;
 
-    public static boolean Formal_Version = false;
+    public static boolean Formal_Version = true;
     public static String TOKEN = "";
 
     public static android.content.pm.PackageManager PackageManager;
@@ -58,7 +58,7 @@ public class YemaApplication extends Application {
 
     public final static String packDate = "_2018041201";// 打包日期，打包的时候记得改
 
-    private static YemaApplication instance;
+    private static DorideApplication instance;
 
     public static Context ApplicationContext;
 	/**
@@ -95,12 +95,12 @@ public class YemaApplication extends Application {
         try {
             Version = PackageManager.getPackageInfo(this.getPackageName(), 0).versionCode;
             VersionName = PackageManager.getPackageInfo(this.getPackageName(), 0).versionName;
-            ILog.e("info","YemaApplication——————————Version=="+Version);
+            ILog.e("info","DorideApplication——————————Version=="+Version);
         } catch (android.content.pm.PackageManager.NameNotFoundException e) {
             ILog.e("info", "获取版本信息失败");
         }
 
-        ILog.e("info", "YemaApplication---onCreate");
+        ILog.e("info", "DorideApplication---onCreate");
 
         MODEL_NAME = Build.MODEL;
         ANDROID_VERSION = "android " + Build.VERSION.RELEASE;
@@ -138,7 +138,7 @@ public class YemaApplication extends Application {
 
     }
 
-    public static YemaApplication getInstanse(){
+    public static DorideApplication getInstanse(){
         return instance;
     }
 

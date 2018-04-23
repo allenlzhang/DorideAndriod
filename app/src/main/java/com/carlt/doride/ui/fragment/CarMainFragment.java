@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -131,11 +131,11 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void remoteConfig() {
-        if (YemaApplication.getInstanse().getRemoteMainInfo() == null) {
+        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
             carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
                 @Override
                 public void onSuccess(BaseResponseInfo bInfo) {
-                    YemaApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
                     ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
                     loadSuss();
                 }
@@ -170,7 +170,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             }
         }
         //是否支持胎压监测
-        if (TextUtils.equals(YemaApplication.getInstanse().getRemoteMainInfo().getDirectPSTsupervise(), RemoteFunInfo.STATE_SUPPORT)) {
+        if (TextUtils.equals(DorideApplication.getInstanse().getRemoteMainInfo().getDirectPSTsupervise(), RemoteFunInfo.STATE_SUPPORT)) {
             isTire = true;
             Drawable top = getResources().getDrawable(R.drawable.tire_car_main_selecter);
             view1.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
@@ -180,7 +180,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             view1.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
         }
         //是否支持导航同步
-        if (TextUtils.equals(YemaApplication.getInstanse().getRemoteMainInfo().getNavigationSync(), RemoteFunInfo.STATE_SUPPORT)) {
+        if (TextUtils.equals(DorideApplication.getInstanse().getRemoteMainInfo().getNavigationSync(), RemoteFunInfo.STATE_SUPPORT)) {
             isCarlocation = true;
             Drawable top = getResources().getDrawable(R.drawable.daohang_car_main_selecter);
             view3.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);

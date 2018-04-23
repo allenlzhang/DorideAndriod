@@ -6,8 +6,6 @@
     android:background="@color/main_color"
     android:orientation="vertical"
     tools:context="com.carlt.doride.ui.activity.setting.MaintenanceMileageEditActivity">
-    <include
-        layout="@layout/layout_title"/>
     <EditText
         android:id="@+id/maintenance_mileage_input"
         android:layout_width="match_parent"

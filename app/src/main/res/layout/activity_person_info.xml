@@ -4,15 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/main_color"
     android:orientation="vertical">
-
-    <include layout="@layout/layout_title" />
-
     <LinearLayout
         android:id="@+id/edit_person_avatar"
         style="@style/setting_page_item_style"
-        android:layout_height="79dp"
+        android:layout_height="70dp"
         android:layout_marginTop="10dp"
-        android:background="@color/setting_item_bg"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -21,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/avatar_txt"
-            android:textColor="@color/white"
+            android:textColor="@color/text_color_gray3"
             android:textSize="14sp" />
 
         <ImageView
@@ -43,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/setting_item_bg"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -56,13 +53,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nickname_txt"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/person_nickname_txt"
                 style="@style/setting_subpage_item_content"
-                android:text="@string/user_name_default" />
+                android:text="--" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -83,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/person_sex_txt"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp" />
 
             <TextView

@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.SecretaryMessageInfo;
@@ -129,7 +129,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
         Log.e("push", "推送注册-errorCode==" + errorCode);
         String xgtoken = message.getToken();
         Log.e("push", "推送注册-token-111111==" + xgtoken);
-        CPControl.GetPushXgTokenResult(xgtoken, YemaApplication.NIMEI, listener);
+        CPControl.GetPushXgTokenResult(xgtoken, DorideApplication.NIMEI, listener);
     }
 
     private BaseParser.ResultCallback listener = new BaseParser.ResultCallback() {

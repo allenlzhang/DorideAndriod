@@ -1,7 +1,7 @@
 package com.carlt.doride.systemconfig;
 
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 
 public class URLConfig {
     public final static int VERSION_FORMAL = 1001;// 正式服
@@ -33,10 +33,10 @@ public class URLConfig {
 
     // 获取yema API URL
     private static String getYemaURL(String s) {
-        String version = YemaApplication.Version_API + "/";
+        String version = DorideApplication.Version_API + "/";
         String url = "";
         // 正常版
-        if (YemaApplication.Formal_Version) {
+        if (DorideApplication.Formal_Version) {
             url = U1_Yema + version + s;
         } else {
             switch (flag) {
@@ -62,28 +62,28 @@ public class URLConfig {
 
     // 生成和远程下发相关的Url
     private static String getUrlRemote(String s) {
-        if (YemaApplication.Formal_Version) {
-            return U_R1 + YemaApplication.VERSION_API_REMOTE + "/" + s;
+        if (DorideApplication.Formal_Version) {
+            return U_R1 + DorideApplication.VERSION_API_REMOTE + "/" + s;
         } else {
             switch (flag) {
                 case VERSION_FORMAL:
                     // 正式服
-                    return U_R1 + YemaApplication.VERSION_API_REMOTE + "/" + s;
+                    return U_R1 + DorideApplication.VERSION_API_REMOTE + "/" + s;
                 case VERSION_PREPARE:
                     // 预发布服
-                    return U_R2 + YemaApplication.VERSION_API_REMOTE + "/" + s;
+                    return U_R2 + DorideApplication.VERSION_API_REMOTE + "/" + s;
                 case VERSION_TEST:
                     // 测试服
-                    return U_R3 + YemaApplication.VERSION_API_REMOTE + "/" + s;
+                    return U_R3 + DorideApplication.VERSION_API_REMOTE + "/" + s;
                 default:
-                    return U_R3 + YemaApplication.VERSION_API_REMOTE + "/" + s;
+                    return U_R3 + DorideApplication.VERSION_API_REMOTE + "/" + s;
             }
         }
     }
 
     public static String getClientID() {
         String clientId = "";
-        if (YemaApplication.Formal_Version) {
+        if (DorideApplication.Formal_Version) {
             clientId = C2;
         } else {
             switch (flag) {
@@ -533,10 +533,10 @@ public class URLConfig {
     public static final String ALBUM_DELETE="delete";
 
     public static String getAlbumUrl(String path) {
-        String version = YemaApplication.Version_API + "/";
+        String version = DorideApplication.Version_API + "/";
         String url = "";
         // 正常版
-        if (YemaApplication.Formal_Version) {
+        if (DorideApplication.Formal_Version) {
             url = ALBUM_FORMAL_URL + version + path;
         } else {
             switch (flag) {

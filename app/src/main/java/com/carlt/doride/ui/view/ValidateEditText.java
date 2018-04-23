@@ -20,8 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.utils.DisplayUtil;
 
 
@@ -107,7 +107,7 @@ public class ValidateEditText extends LinearLayout {
 		mTv.setTextSize(/* DisplayUtil.sp2px(mContext, 10) */10);
 		mTv.setTextColor(ERROR_COLOR);
 		mTv.setVisibility(View.INVISIBLE);
-		params2.topMargin = YemaApplication.dpToPx(2);
+		params2.topMargin = DorideApplication.dpToPx(2);
 		params2.gravity = Gravity.CENTER_VERTICAL;
 		addView(mTv, params2);
 

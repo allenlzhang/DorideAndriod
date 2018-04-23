@@ -8,7 +8,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.home.MonthStatisticChartInfo;
 import com.carlt.doride.data.home.MonthStatisticInfo;
 
@@ -85,15 +85,15 @@ public class BarGraph extends View {
 //					0XFF999999);
 //			barColor = typedArray.getColor(R.styleable.BarGraph_barColor,
 //					0XFFB22D14);
-//			textSize = typedArray.getDimension(R.styleable.BarGraph_textSize, YemaApplication.dpToPx(12));
+//			textSize = typedArray.getDimension(R.styleable.BarGraph_textSize, DorideApplication.dpToPx(12));
 //			type = typedArray.getInt(R.styleable.BarGraph_type, 0);
 //		}finally {
 //			typedArray.recycle();
 //		}
 
-		height = YemaApplication.dpToPx(124);
-		GAP = YemaApplication.dpToPx(15);
-		SINGLE_WIDTH = YemaApplication.dpToPx(10);
+		height = DorideApplication.dpToPx(124);
+		GAP = DorideApplication.dpToPx(15);
+		SINGLE_WIDTH = DorideApplication.dpToPx(10);
 	}
 
 	public void setMonthStatisticCharInfo(
@@ -140,23 +140,23 @@ public class BarGraph extends View {
 								.getMaxValue_time_show();
 						break;
 					}
-					top = height - (height - YemaApplication.dpToPx(25)) * value
+					top = height - (height - DorideApplication.dpToPx(25)) * value
 							/ maxValue;
 
 					if (month == i) {
 						drawRoundRect(canvas, left, top);
 						drawTxt(canvas, value + "",
-								left + YemaApplication.dpToPx(0), top
-										- YemaApplication.dpToPx(8), "#999999");
+								left + DorideApplication.dpToPx(0), top
+										- DorideApplication.dpToPx(8), "#999999");
 					}
 				}
 				if (i % 2 == 0) {
 					if (lightNum == i) {
 						drawTxt(canvas, i + "月", left,
-								height + YemaApplication.dpToPx(14), "#333333");
+								height + DorideApplication.dpToPx(14), "#333333");
 					} else {
 						drawTxt(canvas, i + "月", left,
-								height + YemaApplication.dpToPx(14), "#999999");
+								height + DorideApplication.dpToPx(14), "#999999");
 					}
 				}
 			}
@@ -183,7 +183,7 @@ public class BarGraph extends View {
 	private void drawLine(Canvas canvas) {
 		Paint mGRAYPaint = new Paint();
 		mGRAYPaint.setColor(Color.parseColor("#4d4d4d"));
-		mGRAYPaint.setStrokeWidth(YemaApplication.dpToPx(1));
+		mGRAYPaint.setStrokeWidth(DorideApplication.dpToPx(1));
 		canvas.drawLine(0, height, width, height, mGRAYPaint);
 	}
 
@@ -191,7 +191,7 @@ public class BarGraph extends View {
 		Paint mColumnarPaint = new Paint();
 		mColumnarPaint.setColor(Color.parseColor("#2e2d33"));
 		float right = left + SINGLE_WIDTH;
-		float bottom = top + YemaApplication.dpToPx(4);
+		float bottom = top + DorideApplication.dpToPx(4);
 
 		RectF rect = new RectF(left, top, right, bottom);
 		canvas.drawRect(rect, mColumnarPaint);
@@ -205,6 +205,6 @@ public class BarGraph extends View {
 		float bottom = height;
 
 		RectF rect = new RectF(left, top, right, bottom);
-		canvas.drawRoundRect(rect, YemaApplication.dpToPx(5),YemaApplication.dpToPx(5),mColumnarPaint);
+		canvas.drawRoundRect(rect, DorideApplication.dpToPx(5),DorideApplication.dpToPx(5),mColumnarPaint);
 	}
 }

@@ -18,7 +18,7 @@ package com.carlt.doride.utils;
 import android.net.TrafficStats;
 import android.text.TextUtils;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -440,8 +440,8 @@ public class StringUtils {
         // TrafficStats.UNSUPPORTED ? 0
         // : (TrafficStats.getTotalRxBytes() / 1024);// 转为KB
         // 得到当前应用的流量值
-        return TrafficStats.getUidRxBytes(YemaApplication.getInstanse().getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ? 0
-                : (TrafficStats.getUidRxBytes(YemaApplication.getInstanse().getApplicationInfo().uid));// 转为KB
+        return TrafficStats.getUidRxBytes(DorideApplication.getInstanse().getApplicationInfo().uid) == TrafficStats.UNSUPPORTED ? 0
+                : (TrafficStats.getUidRxBytes(DorideApplication.getInstanse().getApplicationInfo().uid));// 转为KB
     }
 
 

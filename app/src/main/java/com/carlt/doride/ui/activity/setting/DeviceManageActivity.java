@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.activity.setting;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,8 +32,11 @@ public class DeviceManageActivity extends BaseActivity implements View.OnClickLi
         title.setText(getResources().getString(R.string.device_manager_txt));
 
         device_binded_index= $ViewByID(R.id.device_binded_index);
-        device_binded_index.setText(String.format(getResources().getString(R.string.device_binded_txt), LoginInfo.getDeviceidstring()));
-
+        if (TextUtils.isEmpty(LoginInfo.getDeviceidstring())) {
+            device_binded_index.setText("--");
+        } else {
+            device_binded_index.setText(String.format(getResources().getString(R.string.device_binded_txt), LoginInfo.getDeviceidstring()));
+        }
     }
 
     @Override

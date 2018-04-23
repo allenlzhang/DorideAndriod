@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 
 
 public class PopBoxCreat {
@@ -138,7 +138,7 @@ public class PopBoxCreat {
             }
         });
 
-        int w = (int) (YemaApplication.ScreenDensity * 300);
+        int w = (int) (DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogI.setContentView(view, parm);
 
@@ -241,7 +241,7 @@ public class PopBoxCreat {
             }
         });
 
-        int w = (int)(YemaApplication.ScreenDensity * 300);
+        int w = (int)(DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogI.setContentView(view, parm);
         dialogI.show();
@@ -342,7 +342,7 @@ public class PopBoxCreat {
 //            }
 //        });
 //
-//        int w = (int)(YemaApplication.ScreenDensity * 300);
+//        int w = (int)(DorideApplication.ScreenDensity * 300);
 //        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, LayoutParams.WRAP_CONTENT);
 //        dialogI.setContentView(view, parm);
 //        if(isNodismiss){
@@ -391,7 +391,7 @@ public class PopBoxCreat {
 //            }
 //        });
 //
-//        int w = (int)(YemaApplication.ScreenDensity * 300);
+//        int w = (int)(DorideApplication.ScreenDensity * 300);
 //        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, LayoutParams.WRAP_CONTENT);
 //        dialogI.setContentView(view, parm);
 //
@@ -472,7 +472,7 @@ public class PopBoxCreat {
 //            }
 //        });
 //
-//        int w = (int)(YemaApplication.ScreenDensity * 300);
+//        int w = (int)(DorideApplication.ScreenDensity * 300);
 //        dialogI.setCanceledOnTouchOutside(false);
 //        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, LayoutParams.WRAP_CONTENT);
 //        dialogI.setContentView(view, parm);
@@ -521,7 +521,7 @@ public class PopBoxCreat {
             content1.setGravity(Gravity.CENTER);
         }
 
-        int w = (int)(YemaApplication.ScreenDensity * 300);
+        int w = (int)(DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogI.setContentView(view, parm);
         dialogI.show();
@@ -651,7 +651,7 @@ public class PopBoxCreat {
 //            }
 //        });
 //
-//        int w = (int)(YemaApplication.ScreenDensity * 300);
+//        int w = (int)(DorideApplication.ScreenDensity * 300);
 //        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, LayoutParams.WRAP_CONTENT);
 //        dialogI.setContentView(view, parm);
 //        dialogI.show();

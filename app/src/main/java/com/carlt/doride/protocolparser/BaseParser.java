@@ -3,7 +3,7 @@ package com.carlt.doride.protocolparser;
 import android.os.Handler;
 import android.os.Message;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.HttpLinker;
@@ -80,7 +80,7 @@ public abstract class BaseParser<T> {
                     case 2:
                         ActivityControl.onTokenDisable();
 
-                        UUToast.showUUToast(YemaApplication.getInstanse(),mBaseResponseInfo.getInfo());
+                        UUToast.showUUToast(DorideApplication.getInstanse(),mBaseResponseInfo.getInfo());
                         break;
                 }
             }
@@ -92,7 +92,7 @@ public abstract class BaseParser<T> {
             InputStream in = null;
             try {
 
-                in = YemaApplication.getInstanse().getAssets().open(
+                in = DorideApplication.getInstanse().getAssets().open(
                         testFileName);
                 String str = FileUtil.ToString(in);
 
@@ -181,7 +181,7 @@ public abstract class BaseParser<T> {
         if (isTest) {
             InputStream in = null;
             try {
-                in = YemaApplication.getInstanse().getAssets().open(
+                in = DorideApplication.getInstanse().getAssets().open(
                         testFileName);
                 String str = FileUtil.ToString(in);
                 JsonParser jp = new JsonParser();

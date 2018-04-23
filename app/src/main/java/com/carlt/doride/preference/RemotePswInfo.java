@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.utils.FileUtil;
 
@@ -39,7 +39,7 @@ public class RemotePswInfo {
     }
 
     private static boolean readConfig(String key_account) {
-        SharedPreferences sp = YemaApplication.getInstanse().getSharedPreferences(REMOTE_PSW,
+        SharedPreferences sp = DorideApplication.getInstanse().getSharedPreferences(REMOTE_PSW,
                 Context.MODE_PRIVATE);
         if (null != sp) {
             try {
@@ -56,7 +56,7 @@ public class RemotePswInfo {
     }
     
     private static boolean saveConfig(String key_account, String value_psw) {
-        SharedPreferences sp = YemaApplication.getInstanse().getSharedPreferences(REMOTE_PSW,
+        SharedPreferences sp = DorideApplication.getInstanse().getSharedPreferences(REMOTE_PSW,
                 Context.MODE_PRIVATE);
         if (null != sp) {
             SharedPreferences.Editor editor = sp.edit();

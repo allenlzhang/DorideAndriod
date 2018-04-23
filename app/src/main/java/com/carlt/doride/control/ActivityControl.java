@@ -13,8 +13,8 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
@@ -74,7 +74,7 @@ public class ActivityControl {
 	 */
 	public static void initXG() {
 
-		Context mContext = YemaApplication.getInstanse();
+		Context mContext = DorideApplication.getInstanse();
 		// 新建自定义样式
 		XGBasicPushNotificationBuilder build = new XGBasicPushNotificationBuilder();
 		// 设置自定义样式属性，该属性对对应的编号生效，指定后不能修改。
@@ -89,7 +89,7 @@ public class ActivityControl {
 
 		XGPushConfig.enableDebug(mContext, true);
 		Log.e("info", "userId====" + LoginInfo.getUseId());
-		if (YemaApplication.Formal_Version) {
+		if (DorideApplication.Formal_Version) {
 			XGPushManager.registerPush(mContext, LoginInfo.getUseId());
 			// 设置通知样式，样式编号为2，即build_id为2，可通过后台脚本指定
 			XGPushManager.setPushNotificationBuilder(mContext, 2, build);
@@ -185,7 +185,7 @@ public class ActivityControl {
 		UseInfo mUseInfo = UseInfoLocal.getUseInfo();
 		mUseInfo.setPassword("");
 		UseInfoLocal.setUseInfo(mUseInfo);
-//		YemaApplication.TOKEN = "";
+//		DorideApplication.TOKEN = "";
 		LoginInfo.setAccess_token("");
 		Intent mIntent = new Intent(context, UserLoginActivity.class);
 //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -196,19 +196,19 @@ public class ActivityControl {
 	/******** 退出操作 ****************/
 	public static void onExit() {
 		if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
-			CPControl.GetUnRigisterXgTokenResult(YemaApplication.NIMEI,
+			CPControl.GetUnRigisterXgTokenResult(DorideApplication.NIMEI,
 					new BaseParser.ResultCallback() {
 						@Override
 						public void onSuccess(BaseResponseInfo bInfo) {
 							LoginInfo.Destroy();
-//							YemaApplication.TOKEN = "";
+//							DorideApplication.TOKEN = "";
 							Log.e("info", "注销信鸽成功");
 						}
 
 						@Override
 						public void onError(BaseResponseInfo bInfo) {
 							LoginInfo.Destroy();
-//							YemaApplication.TOKEN = "";
+//							DorideApplication.TOKEN = "";
 							Log.e("info", "注销信鸽失败");
 						}
 					});
@@ -245,7 +245,7 @@ public class ActivityControl {
 		UseInfo mUseInfo = UseInfoLocal.getUseInfo();
 		mUseInfo.setPassword("");
 		UseInfoLocal.setUseInfo(mUseInfo);
-//		YemaApplication.TOKEN = "";
+//		DorideApplication.TOKEN = "";
 		Intent mIntent = new Intent(context, UserLoginActivity.class);
 		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(mIntent);
@@ -270,10 +270,10 @@ public class ActivityControl {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			if(msg.what == 1){
-				Intent mIntent = new Intent(YemaApplication.getInstanse(),
+				Intent mIntent = new Intent(DorideApplication.getInstanse(),
 						UserLoginActivity.class);
 				mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				YemaApplication.getInstanse().startActivity(mIntent);
+				DorideApplication.getInstanse().startActivity(mIntent);
 			}
 		}
 	};

@@ -6,8 +6,8 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -176,21 +176,21 @@ public class MonthActivity extends LoadingActivity {
 			mBarGraghFuel.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
 			mBarGraghFuel.setBarColor(getResources().getColor(R.color.orange));
 			mBarGraghFuel.setTxtColor(getResources().getColor(R.color.text_color_gray1));
-			mBarGraghFuel.setTextSize(YemaApplication.dpToPx(12));
+			mBarGraghFuel.setTextSize(DorideApplication.dpToPx(12));
 			mBarGraghFuel.setType(BarGraph.TYPE_FUEL);
 
 			mTxtMiles.setText(monthInitialValue.split("-")[0]+"年");
 			mBarGraghMiles.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
 			mBarGraghMiles.setBarColor(getResources().getColor(R.color.bar_gragh_miles_color));
 			mBarGraghMiles.setTxtColor(getResources().getColor(R.color.text_color_gray1));
-			mBarGraghMiles.setTextSize(YemaApplication.dpToPx(12));
+			mBarGraghMiles.setTextSize(DorideApplication.dpToPx(12));
 			mBarGraghMiles.setType(BarGraph.TYPE_MILES);
 
 			mTxtTime.setText(monthInitialValue.split("-")[0]+"年");
 			mBarGraghTime.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
 			mBarGraghTime.setBarColor(getResources().getColor(R.color.bar_gragh_time_color));
 			mBarGraghTime.setTxtColor(getResources().getColor(R.color.text_color_gray1));
-			mBarGraghTime.setTextSize(YemaApplication.dpToPx(12));
+			mBarGraghTime.setTextSize(DorideApplication.dpToPx(12));
 			mBarGraghTime.setType(BarGraph.TYPE_TIME);
 		}
 		

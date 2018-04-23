@@ -30,7 +30,7 @@ public class UserRegisterParser extends BaseParser {
         LoginInfo.setAvatar_img(registerJobj.get("avatar_id").getAsString());
         String access_token = registerJobj.get("access_token").getAsString();
         LoginInfo.setAccess_token(access_token);
-//        YemaApplication.TOKEN = access_token;
+//        DorideApplication.TOKEN = access_token;
         LoginInfo.setExpiresIn(registerJobj.get("expires_in").getAsString());
         LoginInfo.setOriginate(registerJobj.get("originate").getAsString());
         LoginInfo.setLastlogin(registerJobj.get("lastlogin").getAsString());

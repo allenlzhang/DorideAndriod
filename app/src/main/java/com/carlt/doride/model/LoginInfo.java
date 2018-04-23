@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarMainFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
@@ -41,13 +41,13 @@ public class LoginInfo extends BaseResponseInfo {
 
     public static String ssidpwd = "";
 
-    private static SharedPreferences user_pref = YemaApplication.getInstanse()
+    private static SharedPreferences user_pref = DorideApplication.getInstanse()
             .getSharedPreferences(PREF_USER, Context.MODE_PRIVATE);
 
-    private static SharedPreferences car_pref = YemaApplication.getInstanse()
+    private static SharedPreferences car_pref = DorideApplication.getInstanse()
             .getSharedPreferences(PREF_CAR, Context.MODE_PRIVATE);
 
-    private static SharedPreferences user_ext_pref = YemaApplication.getInstanse().getSharedPreferences(PREF_EXT,
+    private static SharedPreferences user_ext_pref = DorideApplication.getInstanse().getSharedPreferences(PREF_EXT,
                     Context.MODE_PRIVATE);
 
     /** 城市名 缓存 非登录下发 */
@@ -364,7 +364,7 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.setAvatar_img((destroy.optString("avatar_img", "")));
         LoginInfo.setMobile((destroy.optString("mobile", "")));
         LoginInfo.setVisitor(destroy.optBoolean("isVisitor"));
-//        YemaApplication.TOKEN = "";
+//        DorideApplication.TOKEN = "";
         LoginInfo.setExpiresIn((destroy.optString("expires_in", "")));
         LoginInfo.setDealerId((destroy.optString("expires_in", "")));
         LoginInfo.setUseId((destroy.optString("uid", "")));

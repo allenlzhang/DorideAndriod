@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.utils.DisplayUtil;
 
@@ -170,7 +170,7 @@ public class RemoteGridControl {
 		TextView mTextView = (TextView) v.findViewById(R.id.remote_item_txt_name);
 		mImageView.setImageResource(imgRes);
 		mTextView.setText(name);
-		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(YemaApplication.ScreenWith / count, LinearLayout.LayoutParams.WRAP_CONTENT);
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(DorideApplication.ScreenWith / count, LinearLayout.LayoutParams.WRAP_CONTENT);
 		v.setLayoutParams(llp);
 		return v;
 	}

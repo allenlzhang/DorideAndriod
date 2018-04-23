@@ -13,7 +13,7 @@ import com.bigkoo.pickerview.lib.WheelView;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bumptech.glide.Glide;
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -32,11 +32,8 @@ import java.util.List;
  * Created by marller on 2018\3\17 0017.
  */
 
-public class PersonInfoActivity extends BaseActivity implements View.OnClickListener {
+public class PersonInfoActivity extends LoadingActivity implements View.OnClickListener {
     private static final String TAG = "PersonInfoActivity";
-
-    private ImageView back;
-    private TextView title;
 
     private View edit_person_avatar;
     private View edit_person_nickname;
@@ -56,15 +53,11 @@ public class PersonInfoActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_info);
+        initTitle("修改资料");
         initComponent();
     }
 
     private void initComponent() {
-        back = findViewById(R.id.back);
-        back.setOnClickListener(this);
-        title = findViewById(R.id.title);
-        title.setText(getResources().getString(R.string.title_personinfo_edit_txt));
-
         edit_person_avatar = findViewById(R.id.edit_person_avatar);
         edit_person_avatar.setOnClickListener(this);
         edit_person_nickname = findViewById(R.id.edit_person_nickname);
@@ -117,9 +110,6 @@ public class PersonInfoActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
-                finish();
-                break;
             case R.id.edit_person_avatar:
                 Intent avatarIntent = new Intent(this, PersonAvatarActivity.class);
                 //avatarIntent.putExtra("avatar",avatarPath);

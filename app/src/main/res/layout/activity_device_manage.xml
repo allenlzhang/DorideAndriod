@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color_gray3"
         android:textSize="14sp"
         android:text="@string/device_binded_txt"/>
 

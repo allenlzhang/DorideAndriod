@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.MainActivity;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.activity.login.DeviceBindActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -26,7 +26,7 @@ public class LoginControl {
 
     public static void logic(final Activity mContext) {
         mCtx = mContext;
-        YemaApplication.getInstanse().setIsshowupdata(false);
+        DorideApplication.getInstanse().setIsshowupdata(false);
         String className = mContext.getClass().getName();
         // 判断是否绑定设备
         String s = LoginInfo.getDeviceidstring();
@@ -144,7 +144,7 @@ public class LoginControl {
             LoginInfo.setAuthen_card(member.optString("authen_card", ""));
 
             LoginInfo.setExpires_in((member.optString("expires_in", "")));
-//            YemaApplication.TOKEN = member.optString("access_token", "");
+//            DorideApplication.TOKEN = member.optString("access_token", "");
             LoginInfo.setExpiresIn((member.optString("expires_in", "")));
             LoginInfo.setSSID(member.optString("SSID", ""));
             LoginInfo.setSSIDPWD(member.optString("SSIDPWD", ""));

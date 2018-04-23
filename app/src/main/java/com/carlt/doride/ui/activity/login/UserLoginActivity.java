@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.control.CPControl;
@@ -91,7 +91,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
     private void initComponent() {
         login_version = (TextView) findViewById(R.id.login_version);
-        login_version.setText(YemaApplication.VersionName);
+        login_version.setText(DorideApplication.VersionName);
         forgot_passwd = (TextView) findViewById(R.id.forgot_passwd);
         forgot_passwd.setOnClickListener(this);
         user_regist = (TextView) findViewById(R.id.user_regist);
@@ -109,7 +109,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
         change = (Button) findViewById(R.id.activity_usercenter_login_change);
         change.setVisibility(View.GONE);
-        if (!YemaApplication.Formal_Version) {
+        if (!DorideApplication.Formal_Version) {
             login_logo.setOnLongClickListener(new View.OnLongClickListener() {
 
                 @Override
@@ -126,13 +126,13 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
             switch (URLConfig.flag) {
                 case URLConfig.VERSION_FORMAL:
-                    change.setText("正式:" + YemaApplication.VersionName);
+                    change.setText("正式:" + DorideApplication.VersionName);
                     break;
                 case URLConfig.VERSION_PREPARE:
-                    change.setText("预发布:" + YemaApplication.VersionName);
+                    change.setText("预发布:" + DorideApplication.VersionName);
                     break;
                 case URLConfig.VERSION_TEST:
-                    change.setText("测试:" + YemaApplication.VersionName);
+                    change.setText("测试:" + DorideApplication.VersionName);
                     break;
             }
         }
@@ -160,23 +160,23 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void switchServer(View view) {
-        if (!YemaApplication.Formal_Version) {
+        if (!DorideApplication.Formal_Version) {
             switch (URLConfig.flag) {
                 case URLConfig.VERSION_FORMAL:
                     // 正式服
                     URLConfig.flag = URLConfig.VERSION_TEST;
-                    change.setText("测试:" + YemaApplication.VersionName);
+                    change.setText("测试:" + DorideApplication.VersionName);
                     break;
 
                 case URLConfig.VERSION_PREPARE:
                     // 预发布服
                     URLConfig.flag = URLConfig.VERSION_FORMAL;
-                    change.setText("正式:" + YemaApplication.VersionName);
+                    change.setText("正式:" + DorideApplication.VersionName);
                     break;
                 case URLConfig.VERSION_TEST:
                     // 测试服
                     URLConfig.flag = URLConfig.VERSION_PREPARE;
-                    change.setText("预发布:" + YemaApplication.VersionName);
+                    change.setText("预发布:" + DorideApplication.VersionName);
                     break;
             }
         }

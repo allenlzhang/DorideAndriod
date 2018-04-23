@@ -16,8 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 
 import java.util.ArrayList;
@@ -62,8 +62,8 @@ public class UUDialogRemote extends UUDialogBaseLoading implements
         progress = (ProgressBar)mainView.findViewById(R.id.dialog_baseloading_loading_bar);
         msg = (TextView)mainView.findViewById(R.id.dialog_baseloading_loading_text);
 
-        int w = (int)(YemaApplication.ScreenDensity * w_dip);
-        int h = (int)(YemaApplication.ScreenDensity * mh_dip);
+        int w = (int)(DorideApplication.ScreenDensity * w_dip);
+        int h = (int)(DorideApplication.ScreenDensity * mh_dip);
         setCanceledOnTouchOutside(false);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, h);
         setContentView(mainView, parm);
@@ -92,8 +92,8 @@ public class UUDialogRemote extends UUDialogBaseLoading implements
     }
 
     public void refushView(int mh){
-        int w = (int)(YemaApplication.ScreenDensity * w_dip);
-        int h = (int)(YemaApplication.ScreenDensity * mh);
+        int w = (int)(DorideApplication.ScreenDensity * w_dip);
+        int h = (int)(DorideApplication.ScreenDensity * mh);
         setCanceledOnTouchOutside(false);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, h);
         setContentView(mainView, parm);

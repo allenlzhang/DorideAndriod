@@ -23,8 +23,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
@@ -186,7 +186,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 		closeAir.setOnClickListener(this);
 
 		refreshUIData(-1);
-		int w = (int) (YemaApplication.ScreenDensity * w_dip);
+		int w = (int) (DorideApplication.ScreenDensity * w_dip);
 		setCanceledOnTouchOutside(true);
 		ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w,
 				LayoutParams.WRAP_CONTENT);

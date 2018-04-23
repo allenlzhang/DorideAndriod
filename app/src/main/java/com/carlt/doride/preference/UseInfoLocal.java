@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.UseInfo;
 
 
@@ -36,7 +36,7 @@ public class UseInfoLocal {
     }
 
     private static boolean readConfig() {
-        SharedPreferences sp = YemaApplication.getInstanse().getSharedPreferences(USE_INFO,
+        SharedPreferences sp = DorideApplication.getInstanse().getSharedPreferences(USE_INFO,
                 Context.MODE_PRIVATE);
         if (null != sp) {
             try {
@@ -57,7 +57,7 @@ public class UseInfoLocal {
     }
 
     private static boolean saveConfig() {
-        SharedPreferences sp = YemaApplication.getInstanse().getSharedPreferences(USE_INFO,
+        SharedPreferences sp = DorideApplication.getInstanse().getSharedPreferences(USE_INFO,
                 Context.MODE_PRIVATE);
         if (null != sp && useInfo != null) {
             SharedPreferences.Editor editor = sp.edit();

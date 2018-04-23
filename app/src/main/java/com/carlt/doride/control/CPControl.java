@@ -4,7 +4,7 @@ package com.carlt.doride.control;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.login.UserRegisterParams;
 import com.carlt.doride.data.remote.AirMainInfo;
@@ -45,28 +45,28 @@ public class CPControl {
         HashMap param = new HashMap();
         param.put("racoc", racoc);
         param.put("ratct", oc);
-        param.put("move_device_name",YemaApplication.MODEL_NAME);
+        param.put("move_device_name",DorideApplication.MODEL_NAME);
         remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_AIRCONDITION(),param);
 	}
 
 	public static void GetRemoteStart(BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_START(),param);
 	}
 
 	public static void GetCancelRemoteStart(BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_STALL(),param);
 	}
 
 	public static void GetCarLocating(BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_CARLOCATING(),param);
 	}
 
@@ -74,7 +74,7 @@ public class CPControl {
 	public static void GetRemoteTrunk(BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		param.put("rtlu","1");	//1:开启，2：关闭
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_TRUNK(),param);
 	}
@@ -83,7 +83,7 @@ public class CPControl {
 	public static void GetRemoteLock(String s, BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		param.put("lock",s);
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_LOCK(),param);
 	}
@@ -92,7 +92,7 @@ public class CPControl {
 	public static void GetRemoteClosewin(BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		param.put("rwoc","2");
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_WINDOW(),param);
 	}
@@ -101,7 +101,7 @@ public class CPControl {
 	public static void GetRemoteOpenwin(BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		param.put("rwoc","1");
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_WINDOW(),param);
 	}
@@ -109,7 +109,7 @@ public class CPControl {
 	public static void GetRemoteSkylight(String s, BaseParser.ResultCallback mListener) {
 		DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
 		HashMap param = new HashMap();
-		param.put("move_device_name",YemaApplication.MODEL_NAME);
+		param.put("move_device_name",DorideApplication.MODEL_NAME);
 		param.put("rwoc",s);
 		remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_SKYLIGHT(),param);
 	}
@@ -234,8 +234,8 @@ public class CPControl {
 		mMap.put("mobile", mRegisteParams.getMobile());
 		mMap.put("password", mRegisteParams.getPassword());
 		mMap.put("validate", mRegisteParams.getValidate());
-		mMap.put("move_deviceid", YemaApplication.NIMEI);
-		mMap.put("move_device_name", YemaApplication.MODEL_NAME);
+		mMap.put("move_deviceid", DorideApplication.NIMEI);
+		mMap.put("move_device_name", DorideApplication.MODEL_NAME);
 		mMap.put("originate", mRegisteParams.getOriginate());
 		mUserInfoParser
 				.executePost(url, mMap);
@@ -470,7 +470,7 @@ public class CPControl {
 		HashMap mapParam = new HashMap();
 		mapParam.put("position",position);
 		mapParam.put("location",location);
-		mapParam.put("move_device_name",YemaApplication.MODEL_NAME);
+		mapParam.put("move_device_name",DorideApplication.MODEL_NAME);
 		paser.executePost(URLConfig.getM_NAVIGATION_URL(),mapParam);
 	}
 	public static void GetPushXgTokenResult( String xgtoken,  String move_deviceid,  BaseParser.ResultCallback listener) {
@@ -495,18 +495,18 @@ public class CPControl {
     public static void GetLogin(String account, String password, BaseParser.ResultCallback listener_login) {
 
 		HashMap<String, String> mMap = new HashMap<String, String>();
-		mMap.put("version", YemaApplication.Version + "");
+		mMap.put("version", DorideApplication.Version + "");
 		mMap.put("mobile", account);
 		mMap.put("password", CipherUtils.md5(password));
-		mMap.put("move_deviceid", YemaApplication.NIMEI);
-		mMap.put("move_device_name", YemaApplication.MODEL_NAME);
-		mMap.put("move_model", YemaApplication.MODEL);
+		mMap.put("move_deviceid", DorideApplication.NIMEI);
+		mMap.put("move_device_name", DorideApplication.MODEL_NAME);
+		mMap.put("move_model", DorideApplication.MODEL);
 		mMap.put("softtype", "android");
-		StringBuffer sysinfo = new StringBuffer(YemaApplication.ANDROID_VERSION);
+		StringBuffer sysinfo = new StringBuffer(DorideApplication.ANDROID_VERSION);
 		sysinfo.append(",");
-		sysinfo.append(YemaApplication.DISPLAY);
+		sysinfo.append(DorideApplication.DISPLAY);
 		sysinfo.append(",");
-		sysinfo.append(YemaApplication.MODEL_NAME);
+		sysinfo.append(DorideApplication.MODEL_NAME);
 		mMap.put("sysinfo", sysinfo.toString());
 		String url = URLConfig.getM_LOGIN_URL();
 

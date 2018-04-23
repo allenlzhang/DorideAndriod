@@ -1,6 +1,6 @@
 package com.carlt.doride.utils;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.model.LoginInfo;
 
 import java.util.HashMap;
@@ -113,14 +113,14 @@ public class CreateHashMap {
 
     // 生成登录参数
     public static HashMap getLogin(String userName, String psWord) {
-        StringBuffer sysinfo = new StringBuffer(YemaApplication.ANDROID_VERSION);
+        StringBuffer sysinfo = new StringBuffer(DorideApplication.ANDROID_VERSION);
         sysinfo.append(",");
-        sysinfo.append(YemaApplication.DISPLAY);
+        sysinfo.append(DorideApplication.DISPLAY);
         sysinfo.append(",");
-        sysinfo.append(YemaApplication.MODEL_NAME);
+        sysinfo.append(DorideApplication.MODEL_NAME);
         String keys[] = {"mobile","password","move_deviceid","move_device_name","move_model","softtype","version","sysinfo"};
-        String values[] ={userName,CipherUtils.md5(psWord),YemaApplication.NIMEI,YemaApplication.MODEL_NAME,YemaApplication.MODEL,"android",
-                YemaApplication.Version_API + "",sysinfo.toString()};
+        String values[] ={userName,CipherUtils.md5(psWord),DorideApplication.NIMEI,DorideApplication.MODEL_NAME,DorideApplication.MODEL,"android",
+                DorideApplication.Version_API + "",sysinfo.toString()};
 
         return create(keys,values);
     }

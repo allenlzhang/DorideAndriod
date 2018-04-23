@@ -13,8 +13,8 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 
 
 public class UUDialog extends Dialog {
@@ -41,7 +41,7 @@ public class UUDialog extends Dialog {
 		operatingAnim.setInterpolator(lin);  
 		img.startAnimation(operatingAnim);
 		// title = (TextView) view.findViewById(R.id.dialog_progress_title);
-		int w = (int) (YemaApplication.ScreenDensity * 154);
+		int w = (int) (DorideApplication.ScreenDensity * 154);
 		setCanceledOnTouchOutside(false);
 		ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, w);
 		setContentView(view, parm);

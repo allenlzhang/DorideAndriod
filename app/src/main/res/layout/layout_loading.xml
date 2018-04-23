@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="15dp"
         android:text="正在加载"
-        android:textColor="@color/app_white"
+        android:textColor="@color/text_color_gray3"
         android:textSize="14sp"/>
     <ProgressBar
         android:id="@+id/loading_bar_loading"

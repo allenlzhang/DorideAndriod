@@ -3,7 +3,7 @@ package com.carlt.doride.utils;
 
 import android.os.Environment;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 
 public class LocalConfig {
 
@@ -34,7 +34,7 @@ public class LocalConfig {
     /**
      * 记录图片资源保存PATH 内部存储器
      */
-    public static String mImageCacheSavePath_Absolute = YemaApplication.getInstanse()
+    public static String mImageCacheSavePath_Absolute = DorideApplication.getInstanse()
             .getCacheDir().getAbsolutePath() + "/yema/img/";
 
     /**
@@ -46,7 +46,7 @@ public class LocalConfig {
     /**
      * 记录下载文件保存PATH 内部存储器
      */
-    public static String mDownLoadFileSavePath_Absolute = YemaApplication.getInstanse()
+    public static String mDownLoadFileSavePath_Absolute = DorideApplication.getInstanse()
             .getCacheDir().getAbsolutePath() + "/yema/down/";
 
     /**

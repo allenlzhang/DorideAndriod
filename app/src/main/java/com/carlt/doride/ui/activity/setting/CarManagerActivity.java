@@ -30,15 +30,11 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
     private View edit_purchase_time;//购车时间
     private View edit_maintenance_mileage;//上次保养里程
     private View edit_maintenance_time;//上次保养时间
-    private View edit_insured_time;//上次投保时间
-    private View edit_nspection_time;//上次年检时间
 
     private TextView car_type_txt;//显示
     private TextView purchase_time_txt;//显示
     private TextView maintenance_mileage_txt;//显示
     private TextView maintenance_time_txt;//显示
-    private TextView insured_time_txt;//显示
-    private TextView nspection_time_txt;//显示
     private TimePickerView pvCustomTime;
 
 
@@ -64,10 +60,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         edit_maintenance_mileage.setOnClickListener(this);
         edit_maintenance_time = findViewById(R.id.edit_maintenance_time);
         edit_maintenance_time.setOnClickListener(this);
-        edit_insured_time = findViewById(R.id.edit_insured_time);
-        edit_insured_time.setOnClickListener(this);
-        edit_nspection_time = findViewById(R.id.edit_nspection_time);
-        edit_nspection_time.setOnClickListener(this);
 
         car_type_txt = findViewById(R.id.car_type_txt);
         if (!TextUtils.isEmpty(LoginInfo.getCarname())) {
@@ -78,8 +70,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         purchase_time_txt = findViewById(R.id.purchase_time_txt);
         maintenance_mileage_txt = findViewById(R.id.maintenance_mileage_txt);
         maintenance_time_txt = findViewById(R.id.maintenance_time_txt);
-        insured_time_txt = findViewById(R.id.insured_time_txt);
-        nspection_time_txt = findViewById(R.id.nspection_time_txt);
     }
 
     @Override
@@ -106,12 +96,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
                 break;
             case R.id.edit_maintenance_time:
                 pvCustomTime.show(maintenance_time_txt);
-                break;
-            case R.id.edit_insured_time:
-                pvCustomTime.show(insured_time_txt);
-                break;
-            case R.id.edit_nspection_time:
-                pvCustomTime.show(nspection_time_txt);
                 break;
         }
     }
@@ -155,41 +139,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
             }
         }
     };
-    private ResultCallback nspectionCallback = new ResultCallback() {
-        @Override
-        public void onSuccess(BaseResponseInfo bInfo) {
-            UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
-            nspection_time_txt.setText(carDate);
-            LoginInfo.setRegister_time(carDate);
-        }
-
-        @Override
-        public void onError(BaseResponseInfo bInfo) {
-            if (!TextUtils.isEmpty(bInfo.getInfo())) {
-                UUToast.showUUToast(CarManagerActivity.this, bInfo.getInfo());
-            } else {
-                UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改失败");
-            }
-        }
-    };
-    private ResultCallback insuredCallback = new ResultCallback() {
-        @Override
-        public void onSuccess(BaseResponseInfo bInfo) {
-            UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
-            insured_time_txt.setText(carDate);
-            LoginInfo.setInsurance_time(carDate);
-        }
-
-        @Override
-        public void onError(BaseResponseInfo bInfo) {
-            if (!TextUtils.isEmpty(bInfo.getInfo())) {
-                UUToast.showUUToast(CarManagerActivity.this, bInfo.getInfo());
-            } else {
-                UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改失败");
-            }
-        }
-    };
-
 
     private void initCustomTimePicker() {
 
@@ -223,16 +172,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
                         params = new HashMap<>();
                         params.put("mainten_date", carDate);
                         modifyCarInfoRequest(params, maintenCallback);
-                        break;
-                    case R.id.insured_time_txt:
-                        params = new HashMap<>();
-                        params.put("insurance_time", carDate);
-                        modifyCarInfoRequest(params, insuredCallback);
-                        break;
-                    case R.id.nspection_time_txt:
-                        params = new HashMap<>();
-                        params.put("register_time", carDate);
-                        modifyCarInfoRequest(params, nspectionCallback);
                         break;
                 }
             }
@@ -341,18 +280,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
                 LoginInfo.setMainten_time(carSettingInfo.getMainten_date());
             } else {
                 maintenance_time_txt.setText("--");
-            }
-            if (!TextUtils.isEmpty(carSettingInfo.getInsurance_time())) {
-                insured_time_txt.setText(carSettingInfo.getInsurance_time());
-                LoginInfo.setInsurance_time(carSettingInfo.getInsurance_time());
-            } else {
-                insured_time_txt.setText("--");
-            }
-            if (!TextUtils.isEmpty(carSettingInfo.getRegister_time())) {
-                nspection_time_txt.setText(carSettingInfo.getRegister_time());
-                LoginInfo.setRegister_time(carSettingInfo.getRegister_time());
-            } else {
-                nspection_time_txt.setText("--");
             }
         }
 

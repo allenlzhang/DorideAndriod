@@ -14,8 +14,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.DeviceUpdateInfo;
@@ -69,7 +69,7 @@ public class UUUpdateDialog extends Dialog {
 				R.anim.dialog_rotate);
 		LinearInterpolator lin = new LinearInterpolator();
 		operatingAnim.setInterpolator(lin);
-		int w = (int) (YemaApplication.ScreenDensity * w_dip);
+		int w = (int) (DorideApplication.ScreenDensity * w_dip);
 		setCanceledOnTouchOutside(false);
 		setCancelable(false);
 		ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, w);
