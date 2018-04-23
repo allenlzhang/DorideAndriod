@@ -7,12 +7,10 @@
     android:orientation="vertical"
     android:background="@color/main_color"
     tools:context="com.carlt.doride.ui.activity.setting.ResetRemotePasswdActivity">
-    <include
-        layout="@layout/layout_title"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color_gray1"
         android:textSize="12sp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
@@ -30,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color_gray1"
         android:textSize="12sp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
@@ -48,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color_gray1"
         android:textSize="12sp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
@@ -70,7 +68,7 @@
         android:text="@string/edit_commit"
         android:layout_marginTop="49dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

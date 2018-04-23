@@ -44,7 +44,7 @@ public class LoginControl {
                 Intent mainIntent = new Intent(mContext,
                         MainActivity.class);
                 mContext.startActivity(mainIntent);
-
+                mContext.finish();
             } else {
                 // 未激活设备
                 String vin = LoginInfo.getVin(LoginInfo.getMobile());

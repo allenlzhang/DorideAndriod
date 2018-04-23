@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:context="com.carlt.doride.ui.activity.setting.ResetCetifiedPhoneActivity"
     >
-    <include
-        layout="@layout/layout_title"/>
     <EditText
         android:id="@+id/reset_phone_input"
         android:layout_width="match_parent"

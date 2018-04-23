@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:background="@color/main_color"
     tools:context=".ui.activity.setting.ResetLoginPasswdActivity">
-    <include layout="@layout/layout_title" />
     <EditText
         android:id="@+id/old_passwd_input"
         style="@style/usercenter_edit1"

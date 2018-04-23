@@ -102,16 +102,10 @@ public class AccountSecurityActivity extends LoadingActivity implements View.OnC
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-        switch (compoundButton.getId()) {
-            case R.id.btn_remote_no_passwd_ctr:
-                if (checked) {
-                    LoginInfo.setNoneedpsw(true);
-                } else {
-                    LoginInfo.setNoneedpsw(false);
-                }
-                break;
-            case R.id.fingerprint_toggle_ctr:
-                break;
+        if (checked) {
+            LoginInfo.setNoneedpsw(true);
+        } else {
+            LoginInfo.setNoneedpsw(false);
         }
     }
 

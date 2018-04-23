@@ -15,13 +15,13 @@ public class URLConfig {
     // 车乐正式服务器
     private final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
 
-    //大乘域名 测试服
+    //野马域名 测试服
     private final static String U1_YEMA_TEST = "http://yemaapi.linewin.cc/";
 
-    //大乘域名 预发布服
+    //野马域名 预发布服
     private final static String U1_YEMA_PRE = "http://pre-yemaapi.geni4s.com/";
 
-    // 众泰大乘API域名 正式服
+    // 众泰野马API域名 正式服
     private final static String U1_Yema = "http://yemaapi.geni4s.com/";
 
     // 远程下发-正式服务器
@@ -182,6 +182,8 @@ public class URLConfig {
 
     // 车秘书提醒
     private static String M_SAFETY_MESSAGE_URL = "life/message";
+    // 安防提醒
+    private static String M_SECURITY_MESSAGE_URL = "life/securityMessage";
     //获取车型
     private static String M_CAR_MODE_LIST = "comm/getModelList";
     //获取车款
@@ -256,6 +258,9 @@ public class URLConfig {
     // 获取车辆详情
     private static String M_GET_CAR_SETTING = "car/getCarSetting";
 
+    // 查询新版本
+    private static String M_GET_APP_UPDATE = "comm/appUpdate";
+
     //信鸽token保存
     private static String M_REGISTERXGPUSH_URL = "user/saveXingeToken";
 
@@ -281,6 +286,12 @@ public class URLConfig {
 
     public static String getM_SAFETY_MESSAGE_URL() {
         return getYemaURL(M_SAFETY_MESSAGE_URL);
+    }
+    /**
+     * 获取安防提醒
+     * */
+    public static String getM_SECURITY_MESSAGE_URL() {
+        return getYemaURL(M_SECURITY_MESSAGE_URL);
     }
 
     public static String getM_REPORTDAY_URL() {
@@ -518,6 +529,9 @@ public class URLConfig {
     }
     public static String getM_GET_CAR_SETTING(){
         return getYemaURL(M_GET_CAR_SETTING);
+    }
+    public static String getM_GET_APP_UPDATE(){
+        return getYemaURL(M_GET_APP_UPDATE);
     }
 
     /***********************旅行相册（其他接口在上面添加）***********************/

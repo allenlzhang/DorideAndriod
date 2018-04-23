@@ -8,11 +8,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.model.LoginInfo;
@@ -28,10 +27,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ResetCetifiedPhoneActivity extends BaseActivity implements View.OnClickListener {
-
-    private ImageView back;//返回按钮
-    private TextView title;//标题
+public class ResetCetifiedPhoneActivity extends LoadingActivity implements View.OnClickListener {
 
     private EditText reset_phone_input;//新手机号
 
@@ -64,19 +60,15 @@ public class ResetCetifiedPhoneActivity extends BaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_cetified_phone);
         intent = getIntent();
+        initTitle("修改手机号码");
         initComponent();
     }
 
     private void initComponent() {
-        back = findViewById(R.id.back);
-        back.setOnClickListener(this);
         reset_verification_send = findViewById(R.id.reset_verification_send);
         reset_verification_send.setOnClickListener(this);
         reset_phone_commit = findViewById(R.id.reset_phone_commit);
         reset_phone_commit.setOnClickListener(this);
-
-        title = findViewById(R.id.title);
-        title.setText("修改手机号码");
         reset_phone_input = findViewById(R.id.reset_phone_input);
         reset_code_input = findViewById(R.id.reset_code_input);
     }
@@ -84,9 +76,6 @@ public class ResetCetifiedPhoneActivity extends BaseActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
-                finish();
-                break;
             case R.id.reset_verification_send:
                 // 获取验证码
                 phoneNum = reset_phone_input.getText().toString();

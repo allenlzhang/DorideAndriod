@@ -6,13 +6,11 @@
     android:background="@color/main_color"
     android:orientation="vertical"
     tools:context=".ui.activity.setting.LoginPasswdManageActivity">
-    <include
-        layout="@layout/layout_title"/>
 
     <LinearLayout
         android:id="@+id/remote_set_passwd"
         style="@style/setting_page_item_style"
-        android:background="@color/setting_item_bg"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -21,7 +19,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="设置密码"
-            android:textColor="@color/white"
+            android:textColor="@color/text_color_gray3"
             android:textSize="14sp" />
 
         <ImageView
@@ -34,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/setting_item_bg"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -48,7 +46,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/remote_passwd_remember_txt"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp" />
 
 
@@ -72,7 +70,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/remote_passwd_forget_txt"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp" />
 
 

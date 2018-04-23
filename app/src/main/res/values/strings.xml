@@ -9,7 +9,7 @@
     <!-- 用户中心（除主tab项以外的其它杂项）marller -->
     <string name="usercenter_hint_phone">用手机号码登录</string>
     <string name="usercenter_hint_phone1">请输入手机号码</string>
-    <string name="usercenter_hint_phone2">请设置新登录密码</string>
+    <string name="usercenter_hint_phone2">请输入新登录密码</string>
     <string name="usercenter_hint_validate">请输入验证码</string>
     <string name="usercenter_hint_password">密码</string>
     <string name="usercenter_hint_password_reset">请再次输入密码</string>
@@ -106,6 +106,9 @@
     <string name="device_binded_txt">已绑定设备: %1$s</string>
     <!--清除缓存-->
     <string name="cache_clean_tips">确定清除缓存？</string>
+    <string name="update_1">"野马增添新功能了，是否需要更新为新版本？"</string>
+    <string name="update_2">"野马增添新功能了，便于您继续使用，请更新为新版本。"</string>
+    <string name="update_erro">"网络连接失败，请检查联网"</string>
 
     <string name="listItem_day_driveInfo">今日驾驶%1$s次</string>
     <string name="day_score">分</string>

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
@@ -30,10 +30,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class VcodeResetPasswdActivity extends BaseActivity implements View.OnClickListener{
-
-    private ImageView back;
-    private TextView title;
+public class VcodeResetPasswdActivity extends LoadingActivity implements View.OnClickListener{
 
     private EditText phoneNumber;//手机号码输入框
     private EditText verficationCode;//验证码输入框
@@ -65,12 +62,11 @@ public class VcodeResetPasswdActivity extends BaseActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vertified_code_reset_passwd);
+        initTitle("修改登录密码");
         initComponent();
     }
 
     private void initComponent() {
-        back=$ViewByID(R.id.back);
-        back.setOnClickListener(this);
         vCodeSend=$ViewByID(R.id.verification_passwd_code_send);
         vCodeSend.setOnClickListener(this);
         commit=$ViewByID(R.id.verification_reset_passwd_commit);
@@ -84,17 +80,11 @@ public class VcodeResetPasswdActivity extends BaseActivity implements View.OnCli
         verficationCode=$ViewByID(R.id.verification_passwd_vcode_input);
         passwd=$ViewByID(R.id.verification_new_passwd_input);
         passwd2St=$ViewByID(R.id.verification_new_passwd_again_input);
-
-        title=$ViewByID(R.id.title);
-        title.setText("修改登录密码");
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
-                finish();
-                break;
             case R.id.verification_passwd_code_send:
                 mobile = phoneNumber.getText().toString();
                 if (mobile != null && StringUtils.checkCellphone(mobile)) {

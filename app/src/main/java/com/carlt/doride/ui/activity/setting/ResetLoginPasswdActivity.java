@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
@@ -24,13 +24,10 @@ import com.carlt.doride.ui.view.UUToast;
 import java.util.HashMap;
 
 
-public class ResetLoginPasswdActivity extends BaseActivity implements View.OnClickListener {
+public class ResetLoginPasswdActivity extends LoadingActivity implements View.OnClickListener {
 
-    private ImageView back;
     private ImageView new_passwd_input_toggle;
     private ImageView new_passwd_input_again_toggle;
-    private TextView title;
-    ;
 
     private EditText old_passwd_input;//原始密码输入框
     private EditText new_passwd_input;//新密码密码输入框
@@ -46,21 +43,17 @@ public class ResetLoginPasswdActivity extends BaseActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_login_passwd);
+        initTitle("修改登录密码");
         initComponent();
     }
 
     private void initComponent() {
-        back = $ViewByID(R.id.back);
-        back.setOnClickListener(this);
         reset_passwd_commit = $ViewByID(R.id.reset_passwd_commit);
         reset_passwd_commit.setOnClickListener(this);
 
         old_passwd_input = $ViewByID(R.id.old_passwd_input);
         new_passwd_input = $ViewByID(R.id.new_passwd_input);
         new_passwd_again_input = $ViewByID(R.id.new_passwd_again_input);
-
-        title = $ViewByID(R.id.title);
-        title.setText("修改登录密码");
 
         new_passwd_input_toggle = $ViewByID(R.id.new_passwd_input_toggle);
         new_passwd_input_toggle.setOnClickListener(this);
@@ -72,9 +65,6 @@ public class ResetLoginPasswdActivity extends BaseActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
-                finish();
-                break;
             case R.id.reset_passwd_commit:
                 passwd = old_passwd_input.getText().toString();
                 newPasswd = new_passwd_input.getText().toString();
