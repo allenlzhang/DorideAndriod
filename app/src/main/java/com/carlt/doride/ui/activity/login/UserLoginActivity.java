@@ -44,7 +44,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
     private TextView login_version;//版本信息
     private TextView forgot_passwd;//忘记密码
-    private TextView user_regist;//用户注册
+    private ImageView user_regist;//用户注册
     private TextView login_commit;//登录按钮
 
     private ImageView login_logo;//大乘Logo图片
@@ -94,7 +94,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         login_version.setText(DorideApplication.VersionName);
         forgot_passwd = (TextView) findViewById(R.id.forgot_passwd);
         forgot_passwd.setOnClickListener(this);
-        user_regist = (TextView) findViewById(R.id.user_regist);
+        user_regist = (ImageView) findViewById(R.id.user_regist);
         user_regist.setOnClickListener(this);
         login_commit = (TextView) findViewById(R.id.login_commit);
         login_commit.setOnClickListener(this);

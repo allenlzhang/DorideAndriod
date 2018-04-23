@@ -107,7 +107,7 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.head_back_text2:
+            case R.id.btnOpt:
                 if (this.view.getVisibility() == View.GONE) {
                     this.view.setVisibility(View.VISIBLE);
                 } else {

@@ -48,7 +48,7 @@
     <color name="text_color_blue_pure">#007aff</color>
     <color name="main_page_linear_bg_gray">#F5F5F5</color>
     <!-- 页面背景色 -->
-    <color name="layout_background">#161922</color>
+    <color name="layout_background">#f0f0f0</color>
 
     <!-- 我的车秘书 时间linear背景色 -->
     <color name="secretary_time_linear_bg_selected">#C6C6C6</color>
@@ -100,4 +100,6 @@
 
     <color name="bar_gragh_time_color">#2c77c0</color>
     <color name="bar_gragh_miles_color">#04b59e</color>
+
+    <color name="blue_txt">#478ce0</color>
 </resources>
