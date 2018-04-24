@@ -128,14 +128,14 @@ public class PwdEditText extends android.support.v7.widget.AppCompatEditText {
         Paint paintContent = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintContent.setColor(Color.WHITE);
         paintContent.setStyle(Paint.Style.FILL);
-        canvas.drawRoundRect(outerRect2, 10, 10, paintContent);
+//        canvas.drawRoundRect(outerRect2, 10, 10, paintContent);
 
         // 不带圆角
         // Paint paintFrame = new Paint();
         // paintFrame.setColor(Color.parseColor("#BDBDBD"));
         // paintFrame.setStrokeWidth(2);
         // paintFrame.setStyle(Paint.Style.STROKE);
-        // canvas.drawRect(0, 0, mWidth, mHeight, paintFrame);
+         canvas.drawRect(0, 0, mWidth, mHeight, paintContent);
 
         // Paint paintContent = new Paint();
         // paintContent.setColor(Color.WHITE);

@@ -8,11 +8,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.model.LoginInfo;
@@ -29,10 +28,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class VcodeResetRemotePasswdActivity extends BaseActivity implements View.OnClickListener {
-
-    private ImageView back;
-    private TextView title;
+public class VcodeResetRemotePasswdActivity extends LoadingActivity implements View.OnClickListener {
 
     private EditText certified_phone_input;//手机输入框
     private EditText certified_code_input;//验证码输入框
@@ -63,14 +59,11 @@ public class VcodeResetRemotePasswdActivity extends BaseActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vcode_reset_remote_passwd);
+        initTitle("修改远程密码");
         initComponent();
     }
 
     private void initComponent() {
-        back = $ViewByID(R.id.back);
-        back.setOnClickListener(this);
-        title = $ViewByID(R.id.title);
-        title.setText("修改远程密码");
         certified_phone_input = $ViewByID(R.id.remote_phone_input);
         certified_code_input = $ViewByID(R.id.remote_code_input);
         new_remote_passwd = $ViewByID(R.id.new_remote_passwd);
@@ -185,6 +178,7 @@ public class VcodeResetRemotePasswdActivity extends BaseActivity implements View
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             // 获取验证码成功
+            loadSuccessUI();
             UUToast.showUUToast(VcodeResetRemotePasswdActivity.this, "远程控制密码修改成功");
             Intent intent = new Intent(VcodeResetRemotePasswdActivity.this, AccountSecurityActivity.class);
             startActivity(intent);
@@ -193,6 +187,7 @@ public class VcodeResetRemotePasswdActivity extends BaseActivity implements View
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
+            loadSuccessUI();
             if (bInfo != null && !TextUtils.isEmpty(bInfo.getInfo())) {
                 UUToast.showUUToast(VcodeResetRemotePasswdActivity.this, bInfo.getInfo());
             } else {

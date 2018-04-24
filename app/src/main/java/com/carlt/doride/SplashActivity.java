@@ -98,7 +98,7 @@ public class SplashActivity extends BaseActivity implements Callback {
         VersionInfoParser parser = new VersionInfoParser(versionCallback);
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("softtype", "android");
-        params.put("version", YemaApplication.Version + "");
+        params.put("version", DorideApplication.Version + "");
         parser.executePost(URLConfig.getM_GET_APP_UPDATE(),params);
     }
 
