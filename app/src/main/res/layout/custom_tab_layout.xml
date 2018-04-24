@@ -9,7 +9,7 @@
         android:id="@+id/tab_custom_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/tab_my_bg"
+
         />
     <TextView
         android:id="@+id/tab_custom_txt"

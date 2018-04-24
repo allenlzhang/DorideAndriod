@@ -90,15 +90,15 @@ public class SplashActivity extends BaseActivity implements Callback {
         account = mUseInfo.getAccount();
         password = mUseInfo.getPassword();
 //        CPControl.GetVersion(listener_version);
-//        getVersion();
-        jumpLogic();
+        getVersion();
+//        jumpLogic();
     }
 
     private void getVersion() {
         VersionInfoParser parser = new VersionInfoParser(versionCallback);
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("softtype", "android");
-        params.put("version", DorideApplication.Version + "");
+        params.put("version", YemaApplication.Version + "");
         parser.executePost(URLConfig.getM_GET_APP_UPDATE(),params);
     }
 
@@ -107,7 +107,7 @@ public class SplashActivity extends BaseActivity implements Callback {
         public void onSuccess(BaseResponseInfo bInfo) {
             mVersionInfo = (VersionInfo) bInfo.getValue();
             int status = mVersionInfo.getStatus();
-
+//            status=VersionInfo.STATUS_ABLE;
             switch (status) {
                 case VersionInfo.STATUS_ENABLE:
                     // 不升级
@@ -218,7 +218,8 @@ public class SplashActivity extends BaseActivity implements Callback {
             @Override
             public void onRightClick() {
                 // 退出
-                ActivityControl.onExit();
+//                ActivityControl.onExit();
+                ActivityControl.clearAllActivity();
             }
         };
 

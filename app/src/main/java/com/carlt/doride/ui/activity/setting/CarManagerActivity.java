@@ -257,29 +257,33 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             CarSettingInfo carSettingInfo = (CarSettingInfo) bInfo.getValue();
-            if (!TextUtils.isEmpty(carSettingInfo.getCarname())) {
+            if (!TextUtils.isEmpty(carSettingInfo.getCarname())&&!carSettingInfo.getCarname().equals("0")) {
                 car_type_txt.setText((carSettingInfo.getCarname()));
                 LoginInfo.setCarname(carSettingInfo.getCarname());
             } else {
                 car_type_txt.setText("--");
+                LoginInfo.setCarname("--");
             }
-            if (!TextUtils.isEmpty(carSettingInfo.getBuydate())) {
+            if (!TextUtils.isEmpty(carSettingInfo.getBuydate())&&!carSettingInfo.getBuydate().equals("0")) {
                 purchase_time_txt.setText((carSettingInfo.getBuydate()));
                 LoginInfo.setBuydate(carSettingInfo.getBuydate());
             } else {
                 purchase_time_txt.setText("--");
+                LoginInfo.setBuydate("--");
             }
             if (!TextUtils.isEmpty(carSettingInfo.getMainten_miles())) {
                 maintenance_mileage_txt.setText(String.format(getResources().getString(R.string.last_maintenance_mileage), Integer.parseInt(carSettingInfo.getMainten_miles())));
                 LoginInfo.setMainten_miles(carSettingInfo.getMainten_miles());
             } else {
                 maintenance_mileage_txt.setText("--");
+                LoginInfo.setMainten_miles("--");
             }
-            if (!TextUtils.isEmpty(carSettingInfo.getMainten_date())) {
+            if (!TextUtils.isEmpty(carSettingInfo.getMainten_date())&&!carSettingInfo.getMainten_date().equals("0")) {
                 maintenance_time_txt.setText(carSettingInfo.getMainten_date());
                 LoginInfo.setMainten_time(carSettingInfo.getMainten_date());
             } else {
                 maintenance_time_txt.setText("--");
+                LoginInfo.setMainten_time("--");
             }
         }
 
