@@ -12,7 +12,7 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
-import com.carlt.doride.ui.view.PasswordView;
+import com.carlt.doride.ui.view.PwdEditText;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
@@ -21,9 +21,9 @@ import java.util.HashMap;
 
 public class ResetRemotePasswdActivity extends LoadingActivity implements View.OnClickListener {
 
-    private PasswordView old_remote_passwd;
-    private PasswordView new_remote_passwd;
-    private PasswordView new_remote_passwd_again;
+    private PwdEditText old_remote_passwd;
+    private PwdEditText new_remote_passwd;
+    private PwdEditText new_remote_passwd_again;
 
     private TextView reset_remote_commit;
 
@@ -34,8 +34,9 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initTitle("修改远程密码");
+        setContentView(R.layout.activity_reset_remote_passwd);
         initComponent();
+        initTitle("修改远程密码");
     }
 
     private void initComponent() {
@@ -51,9 +52,9 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.reset_remote_commit:
-                passwd = old_remote_passwd.getPassword();
-                newPasswd = new_remote_passwd.getPassword();
-                confirmPasswd = new_remote_passwd_again.getPassword();
+                passwd = old_remote_passwd.getText().toString();
+                newPasswd = new_remote_passwd.getText().toString();
+                confirmPasswd = new_remote_passwd_again.getText().toString();
                 if (isCommitInvalid(passwd, newPasswd, confirmPasswd)) {
                     editPasswdRequest();
                 }

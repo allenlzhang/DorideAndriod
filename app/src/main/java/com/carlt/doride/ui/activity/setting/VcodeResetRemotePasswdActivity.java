@@ -19,7 +19,7 @@ import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
-import com.carlt.doride.ui.view.PasswordView;
+import com.carlt.doride.ui.view.PwdEditText;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
@@ -33,8 +33,8 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
     private EditText certified_phone_input;//手机输入框
     private EditText certified_code_input;//验证码输入框
 
-    private PasswordView new_remote_passwd;//输入远程密码
-    private PasswordView new_remote_passwd_again;//再次输入远程密码
+    private PwdEditText new_remote_passwd;//输入远程密码
+    private PwdEditText new_remote_passwd_again;//再次输入远程密码
 
     private TextView certified_verification_send;//验证码发送按钮
     private TextView reset_remote_commit;//确认按钮
@@ -114,8 +114,8 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
                 break;
             case R.id.forget_reset_remote_commit:
                 mobile = certified_phone_input.getText().toString();
-                passwd=new_remote_passwd.getPassword();
-                confirmPasswd=new_remote_passwd_again.getPassword();
+                passwd=new_remote_passwd.getText().toString();
+                confirmPasswd=new_remote_passwd_again.getText().toString();
                 vCode=certified_code_input.getText().toString();
                 if (isCommitInvalid(mobile,vCode,passwd,confirmPasswd)) {
                     editPasswdCommitRequest();
