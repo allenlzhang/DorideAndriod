@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -42,25 +41,28 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     private static String TAG = "CarMainFragment";
 
     private CarIndexInfo carinfo;
-    private TextView view1;
-    private TextView view2;
-    private TextView view3;
-    private View viewSafetyLay;
-    private View viewRedDot;
-    private TextView viewSafetyText;
-    private View viewMainTainLay;
-    private View viewMainState;
-    private TextView headTxt;
-    private TextView titleTV;
+    private TextView     view1;
+    private TextView     view2;
+    private TextView     view3;
+    private View         viewSafetyLay;
+    private View         viewRedDot;
+    private TextView     viewSafetyText;
+    private View         viewMainTainLay;
+    private View         viewMainState;
+    private TextView     headTxt;
+    private TextView     titleTV;
     public final static String CARMAIN_SAFETY = "com.carlt.doride.carmain.safety";// 安防action
 
-    private CarmainBroadCastReceiver mReceiver;
-    private boolean isTire;
-    private boolean isCarlocation;
+    //    private CarmainBroadCastReceiver mReceiver;
+    private boolean  isTire;
+    private boolean  isCarlocation;
+    private TextView tvOil;
+    private TextView tvRenewal;
+    private TextView tvBattery;
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.layout_carmain, null, false);
+        View view = inflater.inflate(R.layout.fragment_carmain_layout, null, false);
         return view;
     }
 
@@ -82,6 +84,12 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         viewMainState = $ViewByID(R.id.car_state_iv);
         titleTV = $ViewByID(R.id.carmian_title);
         headTxt = $ViewByID(R.id.layout_sub_head_txt);//
+        //        油量
+        tvOil = $ViewByID(R.id.tvOil);
+        //        里程
+        tvRenewal = $ViewByID(R.id.tvRenewal);
+        //        电量
+        tvBattery = $ViewByID(R.id.tvBattery);
         titleTV.setText("大乘汽车品牌");
         view1.setOnClickListener(this);
         view2.setOnClickListener(this);
@@ -91,10 +99,11 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         viewMainState.setOnClickListener(this);
         isTire = false;
         isCarlocation = false;
-        mReceiver = new CarmainBroadCastReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(CARMAIN_SAFETY);
-        getActivity().registerReceiver(mReceiver, filter);
+        //        mReceiver = new CarmainBroadCastReceiver();
+        //        IntentFilter filter = new IntentFilter();
+        //        filter.addAction(CARMAIN_SAFETY);
+        //        getActivity().registerReceiver(mReceiver, filter);
+        loadData();
     }
 
     class CarmainBroadCastReceiver extends BroadcastReceiver {
@@ -111,13 +120,20 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void loadData() {
+        //        OkGo.<String>post(URLConfig.getM_CAR_MAIN_URL())
+        //                .execute(new StringCallback() {
+        //                    @Override
+        //                    public void onSuccess(Response<String> response) {
+        //                        ILog.e(TAG, response.body().toString());
+        //                    }
+        //                });
         //CARINDEX 以及支持的配置项
         BaseParser parser = new DefaultParser<CarIndexInfo>(new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
                 carinfo = ((BaseResponseInfo<CarIndexInfo>) bInfo).getValue();
                 remoteConfig();
-                ILog.e(TAG, "onSuccess" + bInfo.toString());
+                ILog.e(TAG, "onSuccess---" + bInfo.toString());
             }
 
             @Override
@@ -199,9 +215,9 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     protected String[] needPermissions = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//            Manifest.permission.READ_EXTERNAL_STORAGE,
-//            Manifest.permission.READ_PHONE_STATE
+            //            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            //            Manifest.permission.READ_EXTERNAL_STORAGE,
+            //            Manifest.permission.READ_PHONE_STATE
     };
 
     @Override
@@ -213,7 +229,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                     Intent mIntent = new Intent(getActivity(), CarTiresStateActivity.class);
                     startActivity(mIntent);
                 } else {
-                    UUToast.showUUToast(getContext(), "暂不支持该功能");
+                    UUToast.showUUToast(getActivity(), "暂不支持该功能");
                 }
                 break;
             case R.id.car_main_txt_findcar://定位寻车
@@ -246,7 +262,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                         }
                     });
                 } else {
-                    UUToast.showUUToast(getContext(), "暂不支持该功能");
+                    UUToast.showUUToast(getActivity(), "暂不支持该功能");
                 }
 
                 break;
@@ -260,6 +276,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                 startActivity(mIntent4);
                 break;
             case R.id.car_state_iv:
+                //                实时车况
                 Intent mIntent5 = new Intent(getActivity(), CarStateNowActivity.class);
                 startActivity(mIntent5);
                 break;
@@ -272,7 +289,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     public void onDetach() {
         super.onDetach();
         try {
-            getActivity().unregisterReceiver(mReceiver);
+            //            getActivity().unregisterReceiver(mReceiver);
         } catch (Exception e) {
             e.printStackTrace();
         }

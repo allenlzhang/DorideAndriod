@@ -12,7 +12,7 @@
     <style name="car_main_txt1">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_color_write</item>
+        <item name="android:textColor">@color/title_bg</item>
         <item name="android:textSize">@dimen/text_size_small_s1</item>
         <item name="android:gravity">center</item>
     </style>

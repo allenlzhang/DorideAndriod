@@ -78,7 +78,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:contentDescription="@string/app_name"
-            android:src="@mipmap/login_edit_pwd" />
+            android:src="@mipmap/login_edit_pwd"/>
 
         <EditText
             android:id="@+id/user_passwd"

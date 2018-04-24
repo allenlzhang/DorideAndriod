@@ -7,7 +7,7 @@ android {
         config {
             keyAlias '联云'
             keyPassword 'hz17car'
-            storeFile file({storeFilePath})
+            storeFile file({ storeFilePath })
             storePassword 'hz17car'
         }
     }
@@ -36,6 +36,7 @@ android {
     lintOptions {
         abortOnError false
     }
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
