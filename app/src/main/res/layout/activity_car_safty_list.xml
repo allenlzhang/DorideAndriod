@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/layout_background">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/layout_background">
 
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="40dp"
-        android:background="@color/setting_item_divider_bg" />
+        android:background="@color/setting_item_divider_bg"/>
 
     <include
         android:id="@+id/activity_car_safty_sub"
-        layout="@layout/head_sub_normal" />
+        layout="@layout/head_sub_normal"/>
 
 
-    <ListView
+    <com.carlt.doride.ui.pull.PullToRefreshListView
         android:id="@+id/activity_car_query_illegal_list"
         style="@style/public_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/activity_car_safty_sub"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="0dip"
         android:divider="@color/transparent"
         android:dividerHeight="9dip"
-        android:layout_below="@id/activity_car_safty_sub"
         />
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.carlt.doride;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -14,7 +15,12 @@ import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.LocalConfig;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -32,7 +38,7 @@ public class DorideApplication extends Application {
     public static String VersionName;
 
     public static boolean Formal_Version = false;
-    public static String TOKEN = "";
+    public static String  TOKEN          = "";
 
     public static android.content.pm.PackageManager PackageManager;
 
@@ -61,10 +67,10 @@ public class DorideApplication extends Application {
     private static DorideApplication instance;
 
     public static Context ApplicationContext;
-	/**
+    /**
      * 是否已经展示了固件下载升级提示
      */
-    private boolean isshowupdata;
+    private       boolean isshowupdata;
 
     public boolean isIsshowupdata() {
         return isshowupdata;
@@ -74,7 +80,7 @@ public class DorideApplication extends Application {
         this.isshowupdata = isshowupdata;
     }
 
-    private  RemoteMainInfo remoteMainInfo;
+    private RemoteMainInfo remoteMainInfo;
 
     public RemoteMainInfo getRemoteMainInfo() {
         return remoteMainInfo;
@@ -88,14 +94,14 @@ public class DorideApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        ApplicationContext=this.getApplicationContext();
+        ApplicationContext = this.getApplicationContext();
         Glide.init(Glide.get(instance.getApplicationContext()));
         DBManager.init(this);
         PackageManager = getPackageManager();
         try {
             Version = PackageManager.getPackageInfo(this.getPackageName(), 0).versionCode;
             VersionName = PackageManager.getPackageInfo(this.getPackageName(), 0).versionName;
-            ILog.e("info","DorideApplication——————————Version=="+Version);
+            ILog.e("info", "DorideApplication——————————Version==" + Version);
         } catch (android.content.pm.PackageManager.NameNotFoundException e) {
             ILog.e("info", "获取版本信息失败");
         }
@@ -112,11 +118,11 @@ public class DorideApplication extends Application {
         ILog.e("info", "display==" + android.os.Build.DISPLAY);
 
         NIMEI = getNewUniquePsuedoID();
-        IMEI=getUniquePsuedoID();
+        IMEI = getUniquePsuedoID();
 
         // 屏幕信息
         DisplayMetrics dm = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
 
         ScreenWith = dm.widthPixels;
@@ -127,8 +133,8 @@ public class DorideApplication extends Application {
         ILog.e("info", "ScreenWith==" + ScreenWith);
         ILog.e("info", "ScreenHeight==" + ScreenHeight);
         // 错误LOG
-//        CrashHandler crashHandler = CrashHandler.getInstance();
-//        crashHandler.init(getApplicationContext());
+        //        CrashHandler crashHandler = CrashHandler.getInstance();
+        //        crashHandler.init(getApplicationContext());
         FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
         FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
         FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
@@ -136,9 +142,12 @@ public class DorideApplication extends Application {
         FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
         FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
 
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        String sha1 = sHA1(this);
+        Logger.e("---" + sha1);
     }
 
-    public static DorideApplication getInstanse(){
+    public static DorideApplication getInstanse() {
         return instance;
     }
 
@@ -194,9 +203,37 @@ public class DorideApplication extends Application {
         return CipherUtils.md5(m_szDevIDShort);
     }
 
-    public static int dpToPx(int dp){
+    public static int dpToPx(int dp) {
         int px;
-        px= (int) (dp*ScreenDensity);
+        px = (int) (dp * ScreenDensity);
         return px;
+    }
+
+    public static String sHA1(Context context) {
+        try {
+            PackageInfo info = null;
+            info = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), PackageManager.GET_SIGNATURES);
+
+            byte[] cert = info.signatures[0].toByteArray();
+            MessageDigest md = MessageDigest.getInstance("SHA1");
+            byte[] publicKey = md.digest(cert);
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < publicKey.length; i++) {
+                String appendString = Integer.toHexString(0xFF & publicKey[i])
+                        .toUpperCase(Locale.US);
+                if (appendString.length() == 1)
+                    hexString.append("0");
+                hexString.append(appendString);
+                hexString.append(":");
+            }
+            String result = hexString.toString();
+            return result.substring(0, result.length() - 1);
+        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -4,10 +4,10 @@ def storeFilePath="E:/materials/公司文档/Domy/hz17car_key.key"
 
 android {
     signingConfigs {
-        config {
+        release {
             keyAlias '联云'
             keyPassword 'hz17car'
-            storeFile file({ storeFilePath })
+            storeFile file('hz17car_key.key')
             storePassword 'hz17car'
         }
     }
@@ -25,7 +25,11 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     sourceSets {
@@ -66,4 +70,5 @@ dependencies {
     compile 'com.android.support:support-v4:26.x'
     compile 'com.android.support:multidex:1.0.0'
     implementation 'pub.devrel:easypermissions:1.0.1'
+    implementation 'com.orhanobut:logger:2.2.0'
 }

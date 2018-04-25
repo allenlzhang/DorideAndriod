@@ -1,54 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
     >
+
     <LinearLayout
         android:id="@+id/item_car_safty_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/item_car_safty_img"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginLeft="7dp"
             />
+
         <TextView
             android:id="@+id/item_car_safty_txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="14sp"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textColor="@color/title_bg"
+            android:textSize="18sp"
             />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="59dp"
         android:layout_below="@id/item_car_safty_ll"
+        android:layout_marginLeft="59dp"
         android:background="@drawable/item_car_safty_bg"
+        android:padding="4dp"
         >
+
         <TextView
             android:id="@+id/item_car_safty_txt_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
             android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/text_color_gray2"
             android:textSize="14sp"
-            android:textColor="@color/text_color_gray1"
             />
+
         <TextView
             android:id="@+id/item_car_safty_txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color_gray1"
-            android:textSize="14sp"
+            android:layout_alignParentRight="true"
             android:layout_below="@id/item_car_safty_txt_msg"
             android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp"
             />
 
     </RelativeLayout>

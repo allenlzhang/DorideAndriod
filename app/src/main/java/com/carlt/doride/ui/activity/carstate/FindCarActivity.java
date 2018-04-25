@@ -68,37 +68,37 @@ import java.util.List;
  */
 public class FindCarActivity extends LoadingActivity implements LocationSource, AMapLocationListener, View.OnClickListener {
 
-    private View mViewInput;// 输入框
-    private TextView mTxtPos;// 爱车位置
+    private View      mViewInput;// 输入框
+    private TextView  mTxtPos;// 爱车位置
     private ImageView mImgCha;// 叉号按钮
     private ImageView mImgPLoc;// che的位置
-    private TextView mTxtPLoc;
-    private TextView txtRight;//title 右侧按钮
+    private TextView  mTxtPLoc;
+    private TextView  txtRight;//title 右侧按钮
 
-    private MapView mMapView;
-    private AMap mMap;
+    private MapView            mMapView;
+    private AMap               mMap;
     private AMapLocationClient mLocationClient;
-    private AMapLocation mFirstLoc;
-    private LatLng mFirstCarLoc;
-    private RouteTask mRouteTask;
-    private Dialog mPDialog;
-    private PolylineOptions mlineOption;
-    private WalkPath mPath;
-    private WalkRouteResult mResult;
-    private String locName;// 终点位置
-    private String fromLocName;// 从另一页跳转
-    private Marker mLocMarker;
-    private Circle mLocCircle;
+    private AMapLocation       mFirstLoc;
+    private LatLng             mFirstCarLoc;
+    private RouteTask          mRouteTask;
+    private Dialog             mPDialog;
+    private PolylineOptions    mlineOption;
+    private WalkPath           mPath;
+    private WalkRouteResult    mResult;
+    private String             locName;// 终点位置
+    private String             fromLocName;// 从另一页跳转
+    private Marker             mLocMarker;
+    private Circle             mLocCircle;
     private boolean isMyLocenable = false;
-    private boolean isNeedRefresh=false;//是否需要刷新
-    private AMapLocation mCurrentLoc;
+    private boolean isNeedRefresh = false;//是否需要刷新
+    private AMapLocation      mCurrentLoc;
     private SensorEventHelper mSensorHelper;
     private final static int ZOOM = 20;// 缩放级别
-    private Text txtStart;
-    private Text txtEnd;
-    private Marker endMarker;
+    private Text     txtStart;
+    private Text     txtEnd;
+    private Marker   endMarker;
     private Polyline mRouteLine;
-    private Marker startMarker;
+    private Marker   startMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,35 +159,35 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
     private void initData() {
         CPControl.GetCarExtInfo(mCallback);
-//        loadDataSuccess(null);
+        //        loadDataSuccess(null);
     }
 
     @Override
     public void loadDataSuccess(Object bInfo) {
         super.loadDataSuccess(bInfo);
-       // "position":"120.132851,30.281979",
-//		 data = "108.95224799262152,34.19749321831597";
-//      String value = "{'position':'120.132851,30.281979'}";
+        // "position":"120.132851,30.281979",
+        //		 data = "108.95224799262152,34.19749321831597";
+        //      String value = "{'position':'120.132851,30.281979'}";
         String value = (String) ((BaseResponseInfo) bInfo).getValue();
         JsonParser jsonParser = new JsonParser();
-      String  data =  jsonParser.parse(value).getAsJsonObject().get("position").getAsString();
+        String data = jsonParser.parse(value).getAsJsonObject().get("position").getAsString();
         if (data != null && !TextUtils.isEmpty(data.toString())) {
-                String ss = data.toString();
-                String[] ll = ss.split(",");
-                if (ll.length > 1) {
-                    LatLng latLng = new LatLng(Double.valueOf(ll[1]), Double.valueOf(ll[0]));
-                    CoordinateConverter converter = new CoordinateConverter(this);
-                    converter.from(CoordinateConverter.CoordType.GPS);
-                    converter.coord(latLng);
-                    mFirstCarLoc = converter.convert();
-                    getAddress(mFirstCarLoc);
-                } else {
-                    UUToast.showUUToast(this, "暂未获取到车辆位置");
-                }
-                drawFirstLine();
+            String ss = data.toString();
+            String[] ll = ss.split(",");
+            if (ll.length > 1) {
+                LatLng latLng = new LatLng(Double.valueOf(ll[1]), Double.valueOf(ll[0]));
+                CoordinateConverter converter = new CoordinateConverter(this);
+                converter.from(CoordinateConverter.CoordType.GPS);
+                converter.coord(latLng);
+                mFirstCarLoc = converter.convert();
+                getAddress(mFirstCarLoc);
             } else {
                 UUToast.showUUToast(this, "暂未获取到车辆位置");
             }
+            drawFirstLine();
+        } else {
+            UUToast.showUUToast(this, "暂未获取到车辆位置");
+        }
     }
 
     public void getAddress(LatLng ll) {
@@ -262,6 +262,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
         mRouteTask = RouteTask.getInstance(getApplicationContext());
 
         mSensorHelper = new SensorEventHelper(this);
+
         if (mSensorHelper != null) {
             mSensorHelper.registerSensorListener();
         }
@@ -333,7 +334,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                     pe.longitude = ll.longitude;
                     pe.latitue = ll.latitude;
                     clearMarkers();
-                    mCurrentLoc=null;
+                    mCurrentLoc = null;
                     drawLine(ps, pe);
                     locName = "";
                     getAddress(ll);
@@ -464,7 +465,6 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                 txtStart = mMap.addText(toptStart);
 
 
-
                 CameraUpdate update = CameraUpdateFactory.newLatLngZoom(mFirstCarLoc, 18);
                 mMap.animateCamera(update);
             } else if (mFirstLoc != null) {
@@ -500,8 +500,8 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                     PositionEntity pe = new PositionEntity();
                     pe.longitude = Double.parseDouble(latlng.split(",")[1]);
                     pe.latitue = Double.parseDouble(latlng.split(",")[0]);
-                    Log.e("info", "pe.longitude=="+pe.longitude);
-                    Log.e("info", "pe.latitue=="+pe.latitue);
+                    Log.e("info", "pe.longitude==" + pe.longitude);
+                    Log.e("info", "pe.latitue==" + pe.latitue);
                     mFirstCarLoc = new LatLng(pe.latitue, pe.longitude);
                     CameraUpdate update = CameraUpdateFactory.newLatLngZoom(mFirstCarLoc, ZOOM);
                     //mMap.animateCamera(update);
@@ -530,6 +530,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     public void clearMarkers() {
         mMap.clear();
     }
+
     @Override
     public void onLocationChanged(AMapLocation arg0) {
         if (arg0 != null && arg0.getErrorCode() == 0) {
@@ -554,7 +555,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                 } else {
                     isNeedRefresh = true;
                 }
-                if(isNeedRefresh){
+                if (isNeedRefresh) {
                     // 显示更新 定位蓝点
                     if (mLocMarker != null) {
                         mLocMarker.remove();
@@ -580,7 +581,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     }
 
     private static final int STROKE_COLOR = Color.argb(180, 3, 145, 255);
-    private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
+    private static final int FILL_COLOR   = Color.argb(10, 0, 0, 180);
 
     private void addCircle(LatLng latlng, double radius) {
         CircleOptions options = new CircleOptions();
@@ -636,6 +637,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
             }
         }
     }
+
     void showProgressDialog() {
         dissmissDialog();
         mPDialog = PopBoxCreat.createDialogWithProgress(this, "正在处理请稍等...");
@@ -706,7 +708,6 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                 toptStart.text("您的位置");
                 toptStart.backgroundColor(Color.parseColor("#404040"));
                 txtStart = mMap.addText(toptStart);
-
 
 
                 TextOptions toptEnd = new TextOptions();

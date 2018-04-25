@@ -59,6 +59,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     private TextView tvOil;
     private TextView tvRenewal;
     private TextView tvBattery;
+    private TextView tvCarState;
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
@@ -90,6 +91,8 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         tvRenewal = $ViewByID(R.id.tvRenewal);
         //        电量
         tvBattery = $ViewByID(R.id.tvBattery);
+        //        汽车状态
+        tvCarState = $ViewByID(R.id.tvCarState);
         titleTV.setText("大乘汽车品牌");
         view1.setOnClickListener(this);
         view2.setOnClickListener(this);
@@ -173,11 +176,13 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         if (null != carinfo) {
             if (!TextUtils.isEmpty(carinfo.getCarname())) {
                 titleTV.setText(carinfo.getCarname());
+
             }
             if (TextUtils.equals("1", carinfo.getIsrunning())) {//1 表示行驶中，0 表示不在行驶中
                 headTxt.setText("您的爱车正在行驶中");
+                tvCarState.setText("爱车行驶中");
             } else if (TextUtils.equals("0", carinfo.getIsrunning())) {
-                headTxt.setText("您的爱车正在休息");
+                headTxt.setText("爱车熄火中");
             }
             if (!StringUtils.isEmpty(carinfo.getSafetymsg())) {
                 viewSafetyText.setText(carinfo.getSafetymsg());

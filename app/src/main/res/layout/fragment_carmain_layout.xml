@@ -39,6 +39,7 @@
         android:layout_below="@+id/sub_head"
         android:layout_marginTop="15dp">
 
+
         <ImageView
             android:id="@+id/car_state_iv"
             android:layout_width="wrap_content"
@@ -46,6 +47,18 @@
             android:layout_marginLeft="8dp"
             android:background="@drawable/car_state_selecter"
             android:clickable="true"/>
+
+        <TextView
+            android:id="@+id/tvCarState"
+            android:layout_width="wrap_content"
+            android:layout_height="27dip"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="120dp"
+            android:gravity="center_vertical"
+            android:text="爱车熄火中"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="14sp"/>
+
 
         <LinearLayout
             android:layout_width="wrap_content"

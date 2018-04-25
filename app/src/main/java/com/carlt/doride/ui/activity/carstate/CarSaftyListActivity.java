@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.activity.carstate;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -11,11 +12,15 @@ import com.carlt.doride.data.car.SaftyMsgInfo;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.adapter.CarSaftyAdapter;
+import com.carlt.doride.ui.pull.PullToRefreshBase;
+import com.carlt.doride.ui.pull.PullToRefreshListView;
 import com.carlt.doride.utils.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +29,9 @@ public class CarSaftyListActivity extends LoadingActivity {
     //提醒小标题
     private TextView safyHeadTV;
 
-    private ListView mListView;
+    private PullToRefreshListView mPullListView;
+    private ListView              mListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,20 +50,46 @@ public class CarSaftyListActivity extends LoadingActivity {
 
     private void initView() {
         safyHeadTV = $ViewByID(R.id.layout_sub_head_txt);
-        mListView = $ViewByID(R.id.activity_car_query_illegal_list);
+        mPullListView = $ViewByID(R.id.activity_car_query_illegal_list);
+        mListView = mPullListView.getRefreshableView();
+        mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
+        mListView.setDividerHeight(getResources()
+                .getDimensionPixelSize(R.dimen.list_divider_height));
+        mListView.setVerticalScrollBarEnabled(false);
+        mListView.setSelector(getResources().getDrawable(R.drawable.list_divider_bg));
+
+        mPullListView.setPullLoadEnabled(true);
+        mPullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //                下拉刷新
+                initData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //                上拉加载
+            }
+        });
         String safyHead = getIntent().getStringExtra("safetymsg");
         if (!StringUtils.isEmpty(safyHead)) {
             safyHeadTV.setText(safyHead);
-        }else {
+        } else {
             safyHeadTV.setText("您还没有新的安防提醒消息");
         }
+    }
+
+    private void setLastUpdateTime() {
+        SimpleDateFormat mDateFormat = new SimpleDateFormat("MM-dd HH:mm");
+        String text = mDateFormat.format(new Date(System.currentTimeMillis()));
+        mPullListView.setLastUpdatedLabel(text);
     }
 
     private void initData() {
         DefaultStringParser parser = new DefaultStringParser(mCallback);
         HashMap map = new HashMap();
-        map.put("class1","21");
-        parser.executePost(URLConfig.getM_SAFETY_MESSAGE_URL(),map);
+        map.put("class1", "21");
+        parser.executePost(URLConfig.getM_SAFETY_MESSAGE_URL(), map);
     }
 
     @Override
@@ -64,17 +97,23 @@ public class CarSaftyListActivity extends LoadingActivity {
         try {
             String value = ((BaseResponseInfo<String>) bInfo).getValue();
             Gson gson = new Gson();
-            Type type = new TypeToken<List<SaftyMsgInfo>>() {}.getType();
+            Type type = new TypeToken<List<SaftyMsgInfo>>() {
+            }.getType();
             List<SaftyMsgInfo> saftyMsgInfoLists = gson.fromJson(value, type);
-            if(null == saftyMsgInfoLists || saftyMsgInfoLists.size() ==0){
+            if (null == saftyMsgInfoLists || saftyMsgInfoLists.size() == 0) {
                 loadNodataUI();
-            }else{
+                mPullListView.setVisibility(View.GONE);
+            } else {
                 showData(saftyMsgInfoLists);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             loadonErrorUI(null);
+            mPullListView.setVisibility(View.GONE);
         }
 
+        mPullListView.onPullDownRefreshComplete();
+        mPullListView.onPullUpRefreshComplete();
+        setLastUpdateTime();
 
     }
 
@@ -83,7 +122,8 @@ public class CarSaftyListActivity extends LoadingActivity {
      * @param saftyMsgInfoLists
      */
     private void showData(List<SaftyMsgInfo> saftyMsgInfoLists) {
-        CarSaftyAdapter adapter = new CarSaftyAdapter(CarSaftyListActivity.this,saftyMsgInfoLists);
+        mPullListView.setVisibility(View.VISIBLE);
+        CarSaftyAdapter adapter = new CarSaftyAdapter(CarSaftyListActivity.this, saftyMsgInfoLists);
         mListView.setAdapter(adapter);
     }
 

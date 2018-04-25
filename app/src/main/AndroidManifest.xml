@@ -62,7 +62,7 @@
         <!-- 高德 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="90eead545ff2bc5407490fbae5aab92a" />
+            android:value="f036ecfdd460d90feb0a8d74eea4159b" />
 
         <activity android:name=".SplashActivity"
             android:theme="@style/splash">

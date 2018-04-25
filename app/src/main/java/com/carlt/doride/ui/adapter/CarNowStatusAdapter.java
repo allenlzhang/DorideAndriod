@@ -57,6 +57,9 @@ public class CarNowStatusAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         CarNowStatusInfo.CarNowStatusItemInfo info = mList.get(i);
+
+
+
         if (!StringUtils.isEmpty(info.getName())) {
             viewHolder.mTxtName.setText(info.getName());
         }else {
