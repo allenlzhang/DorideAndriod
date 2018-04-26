@@ -40,10 +40,10 @@ public class InformationCentreInfoListParser extends BaseParser<InformationCateg
 //					// 21 安防提醒
 ////					mInfo.setImg(R.drawable.icon_secretary_safe_2);
 //					break;
-				case InformationMessageInfo.C1_T3:
+//				case InformationMessageInfo.C1_T3:
 					// 31 奖品活动
 //					mInfo.setImg(R.drawable.secretary_reward);
-					break;
+//					break;
 				case InformationMessageInfo.C1_T4:
 					// 41 行车消息
 					mInfo.setImg(R.drawable.icon_secretary_car_log);

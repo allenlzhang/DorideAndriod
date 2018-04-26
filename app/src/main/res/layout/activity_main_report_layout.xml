@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_above="@+id/report_buttomlay"
-        android:background="#d6d6d6" />
+        android:background="@color/text_color_gray4" />
 
     <RelativeLayout
         android:id="@+id/report_buttomlay"
@@ -17,14 +17,16 @@
         android:layout_height="62dip"
         android:layout_alignParentBottom="true"
         android:paddingLeft="15dip"
-        android:paddingRight="15dip" >
+        android:paddingRight="15dip"
+        android:background="@color/white"
+        >
 
         <TextView
             android:id="@+id/report_date_select"
             android:layout_width="80dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/orange_frame"
+            android:background="@drawable/blue_frame"
             android:gravity="center"
             android:text="选择日期"
             android:textColor="@color/report_datepicker_btn_text_color"

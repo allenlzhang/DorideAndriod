@@ -5,13 +5,13 @@
             <corners android:radius="3dp" />
             <stroke
                 android:width="3px"
-                android:color="#b22d14" />
+                android:color="#478cea" />
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape>
             <corners android:radius="3dp"/>
-            <solid android:color="@color/orange"/>
+            <solid android:color="#478cea"/>
         </shape>
     </item>
 

@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="false">
-        <layer-list>
-            <!-- 连框颜色值 -->
-            <item>
-                <shape>
-                    <solid android:color="#2c77c0" />
-
-                    <corners android:bottomRightRadius="4dp" android:topRightRadius="4dp" />
-                </shape>
-            </item>
-            <!-- 主体背景颜色值 -->
-            <item android:bottom="3px" android:right="3px" android:top="3px">
-                <shape>
-                    <corners android:bottomRightRadius="4dp" android:topRightRadius="4dp" />
-                    <solid android:color="#204369" />
-                </shape>
-            </item>
-        </layer-list>
-    </item>
-    <item android:state_pressed="true">
-        <shape>
-            <solid android:color="#2c77c0"/>
-            <corners android:bottomRightRadius="4dp" android:topRightRadius="4dp"/>
-        </shape>
-    </item>
+    <item android:drawable="@drawable/icon_career_secretary_tips_selected" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/icon_career_secretary_tips_selected" android:state_focused="true"></item>
+    <item android:drawable="@drawable/icon_career_secretary_tips_selected" android:state_selected="true"></item>
+    <item android:drawable="@drawable/icon_career_secretary_tips_selected_no"></item>
 </selector>

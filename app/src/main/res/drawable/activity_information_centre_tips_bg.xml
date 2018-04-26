@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
         <shape>
-            <solid android:color="#43130e" />
-            <corners android:radius="3dp" />
+            <solid android:color="#2c6cc2" />
+            <corners android:radius="6px" />
         </shape>
     </item>
     <item android:state_enabled="true" android:drawable="@drawable/activity_information_centre_tips_kuang">

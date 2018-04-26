@@ -45,7 +45,7 @@
     <style name="layout_report_grid_txt2">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text_color_gray3</item>
         <item name="android:textSize">24sp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:gravity">center_horizontal</item>
@@ -92,7 +92,7 @@
     <style name="line_h">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">0.5dip</item>
-        <item name="android:background">@color/text_color_gray1</item>
+        <item name="android:background">@color/text_color_gray4</item>
     </style>
 
     <!-- 公用没有数据时的text -->
@@ -153,7 +153,6 @@
     <style name="secretary_tips_linear_time">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/secretary_tips_linear_time_bg</item>
         <item name="android:padding">12dip</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_gravity">bottom</item>

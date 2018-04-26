@@ -68,6 +68,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         currentDate = format.format(new Date(System.currentTimeMillis()));
         mTxtDate.setText(currentDate);
+        loadData();
     }
 
     @Override

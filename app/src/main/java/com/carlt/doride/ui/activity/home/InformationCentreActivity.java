@@ -199,6 +199,7 @@ public class InformationCentreActivity extends LoadingActivity {
             backTV = $ViewByID(R.id.head_back_img1);
             titleTV = $ViewByID(R.id.head_back_txt1);
             backTV2 = $ViewByID(R.id.head_back_img2);
+            backTV2.setVisibility(View.VISIBLE);
         }catch (Exception e){
             //是设置标题出错
             return;
