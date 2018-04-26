@@ -4,10 +4,10 @@ package com.carlt.doride.systemconfig;
 import com.carlt.doride.DorideApplication;
 
 public class URLConfig {
-    public final static int VERSION_FORMAL = 1001;// 正式服
+    public final static int VERSION_FORMAL  = 1001;// 正式服
     public final static int VERSION_PREPARE = 1002;// 预发布服
-    public final static int VERSION_TEST = 1003;// 测试服
-    public static int flag = VERSION_TEST;
+    public final static int VERSION_TEST    = 1003;// 测试服
+    public static       int flag            = VERSION_TEST;
 
     // 车乐测试服务器
     private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
@@ -125,7 +125,7 @@ public class URLConfig {
     // 删除车秘书消息
     private static String M_SECRETARY_DELETE_URL_NEW = "life/deleteMessage";
     // 获取大迈车系（针对车款列表-二级列表）
-    private static String M_OPTIONLIST_URL = "comm/getDomyOptionList";
+    private static String M_OPTIONLIST_URL           = "comm/getDomyOptionList";
 
     // 获取大迈车款（针对车款列表-三级列表）
     private static String M_CARLIST_URL = "comm/getDomyCarList";
@@ -161,100 +161,101 @@ public class URLConfig {
     private static String M_SWITCHCAR_URL = "remote/switchCar";
 
     // 座驾首页
-    private static String M_CAR_MAIN_URL = "car/carIndex";
+    private static String M_CAR_MAIN_URL       = "car/carIndex";
+    private static String M_REMOTE_CAR_MILES_INFO_URL = "remote/getMilesInfos";
 
     // 日报
-    private static String M_REPORTDAY_URL = "life/dayReport";
+    private static String M_REPORTDAY_URL    = "life/dayReport";
     // 日志
     private static String M_REPORTDAYLOG_URL = "life/daylogreport";
     //读取里程
-    private static String M_MILESINFO = "remote/getMilesInfos";
+    private static String M_MILESINFO        = "remote/getMilesInfos";
 
     private static String M_MAINTAIN_LOG = "car/maintainLog";
 
-    private static String M_REMOTE_WARNINGLAMP = "remote/warningLamp";
+    private static String M_REMOTE_WARNINGLAMP    = "remote/warningLamp";
     //实时车况
-    private static String M_REMOTE_STATUS = "remote/status";
+    private static String M_REMOTE_STATUS         = "remote/status";
     //车辆状态
-    private static String M_REMOTE_STATE = "remote/state";
+    private static String M_REMOTE_STATE          = "remote/state";
     //胎压监测
     private static String M_REMOTE_DRIECTRRESSURE = "remote/directPressure";
 
     // 车秘书提醒
-    private static String M_SAFETY_MESSAGE_URL = "life/message";
+    private static String M_SAFETY_MESSAGE_URL         = "life/message";
     // 安防提醒
-    private static String M_SECURITY_MESSAGE_URL = "life/securityMessage";
+    private static String M_SECURITY_MESSAGE_URL       = "life/securityMessage";
     //获取车型
-    private static String M_CAR_MODE_LIST = "comm/getModelList";
+    private static String M_CAR_MODE_LIST              = "comm/getModelList";
     //获取车款
-    private static String M_CAR_TYPE_LIST = "comm/getYemaCarList";
+    private static String M_CAR_TYPE_LIST              = "comm/getYemaCarList";
     //添加车款
-    private static String M_CAR_ADD_CAR = "car/addCar";
+    private static String M_CAR_ADD_CAR                = "car/addCar";
     //绑定设备
-    private static String M_DEVICE_BIND_CAR = "car/bindVinDevice";
+    private static String M_DEVICE_BIND_CAR            = "car/bindVinDevice";
     //远程操作日志
-    private static String M_CAR_REMOTE_LOG_OPERATION = "carRelated/getRemoteOperationLog";
+    private static String M_CAR_REMOTE_LOG_OPERATION   = "carRelated/getRemoteOperationLog";
     //密码找回
-    private static String M_PASSWORD_RETRIEVE = "safe/retrievePassword";
+    private static String M_PASSWORD_RETRIEVE          = "safe/retrievePassword";
     //绑定手机老手机提交
-    private static String M_AUTH_MOBILE = "safe/authMobile";
+    private static String M_AUTH_MOBILE                = "safe/authMobile";
     //绑定手机新手机提交
-    private static String M_EDIT_MOBILE = "safe/editmobile";
+    private static String M_EDIT_MOBILE                = "safe/editmobile";
     //密码找回
-    private static String M_AUTH_SET_VALIDATE = "user/setValidate";
+    private static String M_AUTH_SET_VALIDATE          = "user/setValidate";
     //设备激活
-    private static String M_DEVICE_ACTIVATE = "remote/deviceActive";
+    private static String M_DEVICE_ACTIVATE            = "remote/deviceActive";
     //远程启动
-    private static String M_DEVICE_REMOTE_START = "remote/start";
+    private static String M_DEVICE_REMOTE_START        = "remote/start";
     //远程熄火
-    private static String M_DEVICE_REMOTE_STALL = "remote/stall";
+    private static String M_DEVICE_REMOTE_STALL        = "remote/stall";
     //声光寻车
-    private static String M_DEVICE_REMOTE_CARLOCATING = "remote/carLocating";
+    private static String M_DEVICE_REMOTE_CARLOCATING  = "remote/carLocating";
     //远程开关窗
-    private static String M_DEVICE_REMOTE_WINDOW = "remote/window";
+    private static String M_DEVICE_REMOTE_WINDOW       = "remote/window";
     //远程开闭锁
-    private static String M_DEVICE_REMOTE_LOCK = "remote/lock";
+    private static String M_DEVICE_REMOTE_LOCK         = "remote/lock";
     //开启关闭后备箱
-    private static String M_DEVICE_REMOTE_TRUNK = "remote/trunk";
+    private static String M_DEVICE_REMOTE_TRUNK        = "remote/trunk";
     //远程天窗
-    private static String M_DEVICE_REMOTE_SKYLIGHT = "remote/skyLight";
+    private static String M_DEVICE_REMOTE_SKYLIGHT     = "remote/skyLight";
     //远程开关空调
     private static String M_DEVICE_REMOTE_AIRCONDITION = "remote/aircondition";
     //验证登录密码
-    private static String M_USERCENTER_CHECK_PWD = "safe/checkPassword";
+    private static String M_USERCENTER_CHECK_PWD       = "safe/checkPassword";
     //修改登录密码
-    private static String M_USERCENTER_EDIT_PWD = "safe/editPassword";
+    private static String M_USERCENTER_EDIT_PWD        = "safe/editPassword";
     //校验远程密码
-    private static String M_REMOTEPWDVERIFY = "safe/remotePwdVerify";
+    private static String M_REMOTEPWDVERIFY            = "safe/remotePwdVerify";
     //修改远程密码
-    private static String M_RESET_REMOTE_PWD = "safe/resetRemotePwd";
+    private static String M_RESET_REMOTE_PWD           = "safe/resetRemotePwd";
     //重置远程密码
-    private static String M_FORGET_REMOTE_PWD = "safe/forgetRemotePwd";
+    private static String M_FORGET_REMOTE_PWD          = "safe/forgetRemotePwd";
     //消息中心开关
-    private static String M_USER_REMOTE_SWITCH = "safe/userSwitch";
+    private static String M_USER_REMOTE_SWITCH         = "safe/userSwitch";
     //消息中心开关
-    private static String M_CAR_MODIFY = "car/editCarInfo";
+    private static String M_CAR_MODIFY                 = "car/editCarInfo";
     //远程控制音效开关
-    private static String M_CONTROL_SOUND = "safe/remoteControlsound";
+    private static String M_CONTROL_SOUND              = "safe/remoteControlsound";
     //获取推送设置
-    private static String M_GET_PUSH_SET = "user/getPushSet";
+    private static String M_GET_PUSH_SET               = "user/getPushSet";
     //更新推送设置
-    private static String M_UPDATE_PUSH_SET = "user/updatePushSet";
+    private static String M_UPDATE_PUSH_SET            = "user/updatePushSet";
 
     //获取经销商信息
     private static String M_GET_DEALER_INFO = "dealer/getDealerInfo";
     //修改用户信息
-    private static String M_USER_EDIT_INFO = "user/editinfo";
+    private static String M_USER_EDIT_INFO  = "user/editinfo";
 
     // 安全-设置远程密码
     private static String M_SAFE_SETREMOTEPWD_URL = "safe/setRemotePwd";
     // 获取车辆位置信息
-    private static String M_CAR_GETCAREXTINFO = "car/getCarExtInfo";
+    private static String M_CAR_GETCAREXTINFO     = "car/getCarExtInfo";
 
     // 获取导航同步到车--改为远程相关接口
-    private static String M_NAVIGATION_URL = "remote/navigation";
+    private static String M_NAVIGATION_URL  = "remote/navigation";
     // 获取导航同步到车--改为远程相关接口
-    private static String M_OSS_UPLOAD_URL = "oss/upload";
+    private static String M_OSS_UPLOAD_URL  = "oss/upload";
     // 获取车辆详情
     private static String M_GET_CAR_SETTING = "car/getCarSetting";
 
@@ -268,7 +269,7 @@ public class URLConfig {
     private static String M_REMOVERXGPUSH_URL = "user/clearXingeToken";
 
     public static String getM_REMOVERXGPUSH_URL() {
-        return getYemaURL( M_REMOVERXGPUSH_URL);
+        return getYemaURL(M_REMOVERXGPUSH_URL);
     }
 
     public static String getM_REGISTERXGPUSH_URL() {
@@ -287,9 +288,12 @@ public class URLConfig {
     public static String getM_SAFETY_MESSAGE_URL() {
         return getYemaURL(M_SAFETY_MESSAGE_URL);
     }
+    public static String getM_REMOTE_CAR_MILES_INFO_URL() {
+        return getYemaURL(M_REMOTE_CAR_MILES_INFO_URL);
+    }
     /**
      * 获取安防提醒
-     * */
+     */
     public static String getM_SECURITY_MESSAGE_URL() {
         return getYemaURL(M_SECURITY_MESSAGE_URL);
     }
@@ -306,16 +310,18 @@ public class URLConfig {
         return getUrlRemote(M_MILESINFO);
     }
 
-    public static String getM_MAINTAIN_LOG(){
+    public static String getM_MAINTAIN_LOG() {
         return getYemaURL(M_MAINTAIN_LOG);
     }
 
     public static String getM_GET_DEALER_INFO() {
         return getYemaURL(M_GET_DEALER_INFO);
     }
+
     public static String getM_USER_EDIT_INFO() {
         return getYemaURL(M_USER_EDIT_INFO);
     }
+
     public static String getM_LOGIN_URL() {
         return getYemaURL(M_LOGIN_NEW_URL);
     }
@@ -512,39 +518,41 @@ public class URLConfig {
         return getYemaURL(M_CAR_MODIFY);
     }
 
-    public static String getM_CONTROL_SOUND(){
+    public static String getM_CONTROL_SOUND() {
         return getYemaURL(M_CONTROL_SOUND);
     }
 
-    public static String getM_PUSH_SET(){
+    public static String getM_PUSH_SET() {
         return getYemaURL(M_GET_PUSH_SET);
     }
 
-    public static String getM_UPDATE_PUSH_SET(){
+    public static String getM_UPDATE_PUSH_SET() {
         return getYemaURL(M_UPDATE_PUSH_SET);
     }
 
-    public static String getM_OSS_UPLOAD_URL(){
+    public static String getM_OSS_UPLOAD_URL() {
         return getYemaURL(M_OSS_UPLOAD_URL);
     }
-    public static String getM_GET_CAR_SETTING(){
+
+    public static String getM_GET_CAR_SETTING() {
         return getYemaURL(M_GET_CAR_SETTING);
     }
-    public static String getM_GET_APP_UPDATE(){
+
+    public static String getM_GET_APP_UPDATE() {
         return getYemaURL(M_GET_APP_UPDATE);
     }
 
     /***********************旅行相册（其他接口在上面添加）***********************/
     //测试服
-    private static final String ALBUM_TEST_URL = "http://imgcloud.linewin.cc/";
+    private static final String ALBUM_TEST_URL   = "http://imgcloud.linewin.cc/";
     //预发服
-    private static final String ALBUM_PRE_URL = "http://imgcloud.geni4s.com/";
+    private static final String ALBUM_PRE_URL    = "http://imgcloud.geni4s.com/";
     //正式服
     private static final String ALBUM_FORMAL_URL = "http://imgcloud.geni4s.com/";
     //相册列表查询
-    public static final String ALBUM_QUERY="query";
+    public static final  String ALBUM_QUERY      = "query";
     //相册列表查询
-    public static final String ALBUM_DELETE="delete";
+    public static final  String ALBUM_DELETE     = "delete";
 
     public static String getAlbumUrl(String path) {
         String version = DorideApplication.Version_API + "/";

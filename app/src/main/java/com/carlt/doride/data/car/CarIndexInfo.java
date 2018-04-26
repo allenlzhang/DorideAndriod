@@ -11,6 +11,7 @@ public class CarIndexInfo extends BaseResponseInfo {
     private String carname;//车款名称
     private String safetymsg;//	最后一条安防提醒内容
     private String isrunning;//isrunning
+    public int last_fault_score;//isrunning
 
     public String getCarname() {
         return carname;

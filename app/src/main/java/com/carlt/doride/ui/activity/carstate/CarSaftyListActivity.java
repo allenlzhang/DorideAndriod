@@ -50,7 +50,7 @@ public class CarSaftyListActivity extends LoadingActivity {
 
     private void initView() {
         safyHeadTV = $ViewByID(R.id.layout_sub_head_txt);
-        mPullListView = $ViewByID(R.id.activity_car_query_illegal_list);
+        mPullListView = findViewById(R.id.activity_car_query_illegal_list);
         mListView = mPullListView.getRefreshableView();
         mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
         mListView.setDividerHeight(getResources()

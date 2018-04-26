@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/findCar_img_persion"
         android:layout_centerHorizontal="true"
+        android:padding="8dp"
         android:background="#404040"
         android:textColor="#ffffff"
         android:textSize="12sp"
@@ -64,7 +65,7 @@
             android:singleLine="true"
             android:ellipsize="end"
             android:paddingLeft="5dp"
-            android:textColor="#ffffff"
+            android:textColor="@color/text_color_gray3"
             android:textColorHint="#999999"
             android:textSize="14sp" />
     </RelativeLayout>

@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.base.BaseFragment;
+import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarIndexInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
@@ -30,6 +33,7 @@ import com.carlt.doride.ui.activity.carstate.MainTestingActivity;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.StringUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 
@@ -60,6 +64,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     private TextView tvRenewal;
     private TextView tvBattery;
     private TextView tvCarState;
+    private TextView tvScore;
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
@@ -93,6 +98,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         tvBattery = $ViewByID(R.id.tvBattery);
         //        汽车状态
         tvCarState = $ViewByID(R.id.tvCarState);
+        tvScore = $ViewByID(R.id.car_main_txt_maintain);
         titleTV.setText("大乘汽车品牌");
         view1.setOnClickListener(this);
         view2.setOnClickListener(this);
@@ -147,7 +153,40 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         }, CarIndexInfo.class);
         HashMap params = new HashMap();
         parser.executePost(URLConfig.getM_CAR_MAIN_URL(), params);
+
+        CPControl.getMilesInfos(mListener);
     }
+
+    private Handler                   mHandler  = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+    private BaseParser.ResultCallback mListener = new BaseParser.ResultCallback() {
+
+        @Override
+        public void onSuccess(BaseResponseInfo bInfo) {
+            mHandler.sendEmptyMessage(0);
+            Logger.e(bInfo.toString());
+        }
+
+        @Override
+        public void onError(BaseResponseInfo bInfo) {
+            Logger.e(bInfo.toString());
+            Message msg = new Message();
+            msg.what = 1;
+            msg.obj = bInfo;
+            mHandler.sendMessage(msg);
+        }
+    };
 
     private void remoteConfig() {
         if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
@@ -189,6 +228,13 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             } else {
                 viewSafetyText.setText("暂无新消息");
             }
+            int last_fault_score = carinfo.last_fault_score;
+            if (last_fault_score == -1) {
+                tvScore.setText("--");
+            } else {
+                tvScore.setText(String.valueOf(last_fault_score));
+            }
+
         }
         //是否支持胎压监测
         if (TextUtils.equals(DorideApplication.getInstanse().getRemoteMainInfo().getDirectPSTsupervise(), RemoteFunInfo.STATE_SUPPORT)) {

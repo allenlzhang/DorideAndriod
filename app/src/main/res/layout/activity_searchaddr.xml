@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/layout_background"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/layout_background"
+              android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/main_page_head_bg"
         android:paddingBottom="5dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="5dp" >
+        android:paddingTop="5dp">
 
         <ImageView
             android:id="@+id/searchaddr_img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/back_bg" />
+            android:src="@drawable/back_bg"/>
 
         <TextView
             android:id="@+id/searchaddr_txt_search"
-            android:layout_width="35dp"
-            android:layout_height="28dp"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/bottom_btn_bg"
             android:gravity="center"
             android:text="搜索"
-            android:textColor="#000"
-            android:textSize="13sp" />
+            android:textColor="@color/white"
+            android:textSize="13sp"/>
 
         <RelativeLayout
             android:id="@+id/searchaddr_lay_input"
@@ -44,14 +45,14 @@
             android:layout_toRightOf="@id/searchaddr_img_back"
             android:background="@drawable/position_input_bg"
             android:paddingLeft="7dp"
-            android:paddingRight="7dp" >
+            android:paddingRight="7dp">
 
             <ImageView
                 android:id="@+id/searchaddr_img_magnifier"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_magnifier_search" />
+                android:src="@mipmap/icon_magnifier_search"/>
 
             <ImageView
                 android:id="@+id/searchaddr_img_cha"
@@ -60,7 +61,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="14dp"
-                android:src="@mipmap/icon_cross" />
+                android:src="@mipmap/ic_delete_black"/>
 
             <EditText
                 android:id="@+id/searchaddr_edt_addr"
@@ -72,26 +73,28 @@
                 android:layout_toLeftOf="@id/searchaddr_img_cha"
                 android:layout_toRightOf="@id/searchaddr_img_magnifier"
                 android:background="@null"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:textColorHint="#999999"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:textSize="14sp" />
+                android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColor="@color/text_color_gray3"
+                android:textColorHint="@color/text_color_gray0"
+                android:textSize="14sp"/>
         </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/search_loading_lay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:visibility="gone"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ProgressBar
                 android:id="@+id/search__loading_bar"
@@ -103,7 +106,7 @@
                 android:maxHeight="50dip"
                 android:maxWidth="50dip"
                 android:minHeight="50dip"
-                android:minWidth="50dip" >
+                android:minWidth="50dip">
             </ProgressBar>
 
             <TextView
@@ -115,26 +118,26 @@
                 android:layout_marginTop="10dip"
                 android:text="等待中"
                 android:textColor="#fff"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/search_error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
             android:textColor="#fff"
             android:textSize="14sp"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <ListView
             android:id="@+id/searchaddr_list"
             style="@style/public_listView"
-            android:visibility="visible"
-            android:dividerHeight="0dp" />
+            android:dividerHeight="0dp"
+            android:visibility="visible"/>
     </RelativeLayout>
 
 </LinearLayout>
