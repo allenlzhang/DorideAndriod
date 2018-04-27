@@ -29,7 +29,7 @@ public class URLConfig {
     // 远程下发-预发布服务器
     private final static String U_R2 = "https://pre-remote-wildhorse.geni4s.com/";
     // 大乘下发-测试服务器
-    private final static String U_R3 = "http://remote-doride.geni4s.com/";
+    private final static String U_R3 = "http://remote-doride.linewin.cc/";
 
     // 获取yema API URL
     private static String getYemaURL(String s) {
@@ -289,7 +289,7 @@ public class URLConfig {
         return getYemaURL(M_SAFETY_MESSAGE_URL);
     }
     public static String getM_REMOTE_CAR_MILES_INFO_URL() {
-        return getYemaURL(M_REMOTE_CAR_MILES_INFO_URL);
+        return getUrlRemote(M_REMOTE_CAR_MILES_INFO_URL);
     }
     /**
      * 获取安防提醒

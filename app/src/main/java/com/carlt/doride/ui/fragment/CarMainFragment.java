@@ -174,7 +174,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
 
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-            mHandler.sendEmptyMessage(0);
+//            mHandler.sendEmptyMessage(0);
             Logger.e(bInfo.toString());
         }
 

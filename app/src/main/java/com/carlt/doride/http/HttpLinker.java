@@ -7,6 +7,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class HttpLinker {
     private static OkHttpClient mHttpClientPic = new OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-//            .addInterceptor(new LogPicInterceptor())
+            //            .addInterceptor(new LogPicInterceptor())
             .build();
 
     public static void post(String url, HashMap<String, String> param, Callback callback) {
@@ -51,6 +52,8 @@ public class HttpLinker {
         if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
             param.put("token", LoginInfo.getAccess_token());
         }
+
+        Logger.e("client_id---" + URLConfig.getClientID() + "/n" + "token---" + LoginInfo.getAccess_token());
         FormBody.Builder formBuilder = new FormBody.Builder();
         Iterator<String> iterators = param.keySet().iterator();
         while (iterators.hasNext()) {
