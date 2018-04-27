@@ -29,8 +29,8 @@ public class ReportDayView extends LinearLayout {
 		tv1 = (TextView) findViewById(R.id.rili_day_text1);
 		tv2 = (TextView) findViewById(R.id.rili_day_text2);
 		img=(ImageView)findViewById(R.id.rili_day_img);
-		color1 = context.getResources().getColor(R.color.white);
-		color2 = context.getResources().getColor(R.color.text_color_gray2);
+		color1 = context.getResources().getColor(R.color.text_color_gray3);
+		color2 = context.getResources().getColor(R.color.text_color_gray1);
 		layout = findViewById(R.id.rili_day_rl);
 
 	}
@@ -39,7 +39,7 @@ public class ReportDayView extends LinearLayout {
 		if (isToday){
 			layout.setBackgroundResource(R.color.text_color_gray0);
 		}else {
-			layout.setBackgroundResource(R.color.item_bg);
+			layout.setBackgroundResource(R.color.white);
 		}
 	}
 

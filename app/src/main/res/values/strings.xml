@@ -114,7 +114,9 @@
     <string name="day_score">分</string>
     <string name="listItem_day_timeAndMile">%1$s至%2$s(%3$s)</string>
     <string name="vin_filter_string">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-
+    <string name="pwd_filter_input_string">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+        &#126;&#096;&#064;&#035;&#036;&#037;&#094;&#038;&#042;-&#095;&#061;&#043;&#124;\\&#063;&#047;&#040;
+        &#041;&#060;&#062;&#091;&#093;&#123;&#125;&quot;&#044;&#046;&#059;'&#033;）</string>
     <!--信鸽推送key -->
     <string name="SECRET_KEY">4d3a5b8012846ed443b731681411ddc1</string>
 </resources>

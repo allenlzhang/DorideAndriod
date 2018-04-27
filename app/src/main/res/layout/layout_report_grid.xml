@@ -53,7 +53,7 @@
         <TextView
             android:id="@+id/layout_report_grid_linear2_txt1"
             style="@style/layout_report_grid_txt1"
-            android:text="总里程(公里)" />
+            android:text="行驶时间(小时)" />
     </LinearLayout>
 
     <LinearLayout

@@ -82,7 +82,7 @@ public class PhoneAuthenticationActivity extends LoadingActivity implements View
                     count = 60;
                     certified_verification_send.setText(count + "秒后重发");
                     certified_verification_send.setClickable(false);
-                    certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+                    certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
 
                     task = new TimerTask() {
 
@@ -146,7 +146,7 @@ public class PhoneAuthenticationActivity extends LoadingActivity implements View
             }
             certified_verification_send.setClickable(true);
             certified_verification_send.setText("重发验证码");
-            certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+            certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
             int flag = bInfo.getFlag();
             UUToast.showUUToast(PhoneAuthenticationActivity.this, "验证码获取失败:" + bInfo.getInfo());
         }
@@ -208,7 +208,7 @@ public class PhoneAuthenticationActivity extends LoadingActivity implements View
                         }
                         certified_verification_send.setClickable(true);
                         certified_verification_send.setText("重发验证码");
-                        certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+                        certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
                     }
                     break;
             }

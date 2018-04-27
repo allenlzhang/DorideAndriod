@@ -210,7 +210,7 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                         }
                         bt_verification_send.setClickable(true);
                         bt_verification_send.setText(R.string.usercenter_push_validate1);
-                        bt_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+                        bt_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
                     }
                     break;
             }

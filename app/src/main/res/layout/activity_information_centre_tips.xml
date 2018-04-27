@@ -26,19 +26,12 @@
             android:orientation="horizontal"
             android:paddingRight="10dp">
 
-            <TextView
+            <ImageView
                 android:id="@+id/activity_career_secretary_tips_car"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_blue_rec"
-                android:gravity="center_horizontal"
-                android:paddingBottom="3dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="3dp"
-                android:text="不准确？点这里！"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                />
 
             <TextView
                 android:id="@+id/activity_career_secretary_tips_havemainten"

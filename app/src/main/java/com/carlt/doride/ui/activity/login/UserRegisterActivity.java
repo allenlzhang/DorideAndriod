@@ -233,7 +233,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                         }
                         register_verification_send.setClickable(true);
                         register_verification_send.setText(R.string.usercenter_push_validate1);
-                        register_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+                        register_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
                     }
                     break;
             }

@@ -153,7 +153,7 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
             }
             certified_verification_send.setClickable(true);
             certified_verification_send.setText("重发验证码");
-            certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+            certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
             if (!TextUtils.isEmpty(bInfo.getInfo())) {
                 UUToast.showUUToast(VcodeResetRemotePasswdActivity.this, "验证码获取失败:" + bInfo.getInfo());
             } else {
@@ -214,7 +214,7 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
                         }
                         certified_verification_send.setClickable(true);
                         certified_verification_send.setText("重发验证码");
-                        certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+                        certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
                     }
                     break;
             }

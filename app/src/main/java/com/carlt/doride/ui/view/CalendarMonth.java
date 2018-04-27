@@ -143,9 +143,14 @@ public class CalendarMonth extends MenuCalendar implements OnClickListener {
                     } else {
                         mImageViewR.setImageResource(R.drawable.arrow_calendar_right);
                         mImageViewR.setClickable(true);
+                        for (int i = 0; i < 12 ; i++) {
+                            if (today.get(Calendar.MONTH)==i){
+                                mViews.get(i).setBackgroundResource(R.color.white);
+                            }
+                        }
                     }
-                    int color1 = mContext.getResources().getColor(R.color.white);
-                    int color2 = mContext.getResources().getColor(R.color.text_color_gray2);
+                    int color1 = mContext.getResources().getColor(R.color.text_color_gray3);
+                    int color2 = mContext.getResources().getColor(R.color.text_color_gray1);
                     for (int i = 0; i < 12; i++) {
 
                         mDataTextViewList.get(i).setTextColor(color2);

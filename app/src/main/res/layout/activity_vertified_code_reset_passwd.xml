@@ -43,7 +43,7 @@
             android:textColor="@color/black"
             android:layout_marginRight="10dip"
             android:padding="5dp"
-            android:background="@drawable/verification_send_bg"
+            android:background="@drawable/verification_send_pressed_no"
             android:textSize="14sp"/>
     </LinearLayout>
     <LinearLayout

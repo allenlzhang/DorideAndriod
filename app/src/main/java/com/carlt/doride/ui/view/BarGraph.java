@@ -182,14 +182,14 @@ public class BarGraph extends View {
 
 	private void drawLine(Canvas canvas) {
 		Paint mGRAYPaint = new Paint();
-		mGRAYPaint.setColor(Color.parseColor("#4d4d4d"));
+		mGRAYPaint.setColor(Color.parseColor("#cccccc"));
 		mGRAYPaint.setStrokeWidth(DorideApplication.dpToPx(1));
 		canvas.drawLine(0, height, width, height, mGRAYPaint);
 	}
 
 	private RectF drawRectTxt(Canvas canvas, float left, float top) {
 		Paint mColumnarPaint = new Paint();
-		mColumnarPaint.setColor(Color.parseColor("#2e2d33"));
+		mColumnarPaint.setColor(Color.parseColor("#ffffff"));
 		float right = left + SINGLE_WIDTH;
 		float bottom = top + DorideApplication.dpToPx(4);
 
