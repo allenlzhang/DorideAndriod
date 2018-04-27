@@ -35,6 +35,7 @@ import com.carlt.doride.utils.CreateHashMap;
 import com.carlt.doride.utils.FileUtil;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -495,6 +496,7 @@ public class CPControl {
     public static void getMilesInfos(BaseParser.ResultCallback listener) {
         DefaultStringParser paser = new DefaultStringParser(listener);
         HashMap mapParam = new HashMap();
+        Logger.e("-----" + URLConfig.getM_REMOTE_CAR_MILES_INFO_URL());
         paser.executePost(URLConfig.getM_REMOTE_CAR_MILES_INFO_URL(), mapParam);
     }
 

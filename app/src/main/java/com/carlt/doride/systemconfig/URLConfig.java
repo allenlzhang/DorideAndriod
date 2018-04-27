@@ -15,8 +15,8 @@ public class URLConfig {
     // 车乐正式服务器
     private final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
 
-    //野马域名 测试服
-    private final static String U1_YEMA_TEST = "http://yemaapi.linewin.cc/";
+    //大乘域名 测试服
+    private final static String U1_YEMA_TEST = "http://dorideapi.linewin.cc/";
 
     //野马域名 预发布服
     private final static String U1_YEMA_PRE = "http://pre-yemaapi.geni4s.com/";
@@ -28,8 +28,8 @@ public class URLConfig {
     private final static String U_R1 = "https://remote-wildhorse.geni4s.com/";
     // 远程下发-预发布服务器
     private final static String U_R2 = "https://pre-remote-wildhorse.geni4s.com/";
-    // 远程下发-测试服务器
-    private final static String U_R3 = "http://remote-wildhorse.linewin.cc/";
+    // 大乘下发-测试服务器
+    private final static String U_R3 = "http://remote-doride.geni4s.com/";
 
     // 获取yema API URL
     private static String getYemaURL(String s) {
