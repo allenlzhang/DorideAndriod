@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/viewpager_selected"
-    >
+                android:background="@color/viewpager_selected">
 
     <ImageView
         android:id="@+id/ivBg"
@@ -129,6 +128,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvRenewal"
                         android:layout_width="wrap_content"
                         android:layout_height="27dip"
                         android:layout_below="@id/car_main_lay_safety_lay2"
@@ -138,7 +138,7 @@
                         android:textSize="24sp"/>
 
                     <TextView
-                        android:id="@+id/tvRenewal"
+
                         android:layout_width="wrap_content"
                         android:layout_height="27dip"
                         android:layout_below="@id/car_main_lay_safety_lay2"
@@ -173,6 +173,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvBattery"
                         android:layout_width="wrap_content"
                         android:layout_height="27dip"
                         android:layout_below="@id/car_main_lay_safety_lay2"
@@ -182,7 +183,7 @@
                         android:textSize="24sp"/>
 
                     <TextView
-                        android:id="@+id/tvBattery"
+
                         android:layout_width="wrap_content"
                         android:layout_height="27dip"
                         android:layout_below="@id/car_main_lay_safety_lay2"

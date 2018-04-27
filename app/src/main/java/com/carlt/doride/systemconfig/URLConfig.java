@@ -188,7 +188,7 @@ public class URLConfig {
     //获取车型
     private static String M_CAR_MODE_LIST              = "comm/getModelList";
     //获取车款
-    private static String M_CAR_TYPE_LIST              = "comm/getYemaCarList";
+    private static String M_CAR_TYPE_LIST              = "comm/getCarList";
     //添加车款
     private static String M_CAR_ADD_CAR                = "car/addCar";
     //绑定设备

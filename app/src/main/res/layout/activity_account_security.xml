@@ -94,6 +94,7 @@
         style="@style/setting_page_item_style"
         android:layout_marginTop="10dp"
         android:background="@color/white"
+        android:visibility="gone"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -115,6 +116,7 @@
     <View style="@style/setting_page_item_divider" />
     <LinearLayout
         style="@style/setting_page_item_style"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">

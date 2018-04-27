@@ -31,6 +31,7 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,10 +43,10 @@ import org.json.JSONObject;
 public class UserLoginActivity extends BaseActivity implements View.OnClickListener, BaseParser.ResultCallback {
 
 
-    private TextView login_version;//版本信息
-    private TextView forgot_passwd;//忘记密码
+    private TextView  login_version;//版本信息
+    private TextView  forgot_passwd;//忘记密码
     private ImageView user_regist;//用户注册
-    private TextView login_commit;//登录按钮
+    private TextView  login_commit;//登录按钮
 
     private ImageView login_logo;//大乘Logo图片
     private ImageView passwd_toggle;//显示密码
@@ -53,10 +54,10 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     private EditText user_phone;//用户账号（手机）
     private EditText user_passwd;//用户密码
 
-    private String userPhone;
-    private String passwd;
+    private String    userPhone;
+    private String    passwd;
     private LoginInfo mLoginInfo;
-    private UseInfo mUseInfo;// 本地记录用户使用app情况
+    private UseInfo   mUseInfo;// 本地记录用户使用app情况
 
     private Dialog mDialog;// 加载
 
@@ -198,7 +199,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                     mDialog = PopBoxCreat.createDialogWithProgress(UserLoginActivity.this, "正在验证信息...");
                     mDialog.show();
                     mLoginInfo = new LoginInfo();
-//                    login(userPhone, passwd);
+                    //                    login(userPhone, passwd);
                     CPControl.GetLogin(userPhone, passwd, this);
                 }
                 break;
@@ -312,6 +313,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
             msg.what = 0;
             msg.obj = bInfo;
             mHandler.sendMessage(msg);
+            Logger.e("login----" + bInfo.toString());
         } catch (JSONException e) {
             e.printStackTrace();
             Message msg = new Message();

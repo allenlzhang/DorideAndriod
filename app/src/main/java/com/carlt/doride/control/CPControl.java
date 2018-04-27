@@ -517,7 +517,7 @@ public class CPControl {
         sysinfo.append(DorideApplication.MODEL_NAME);
         mMap.put("sysinfo", sysinfo.toString());
         String url = URLConfig.getM_LOGIN_URL();
-
+        Logger.e("url---" + url);
         DefaultStringParser parser = new DefaultStringParser(listener_login);
         parser.executePost(url, mMap);
 

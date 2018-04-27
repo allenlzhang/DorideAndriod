@@ -82,7 +82,6 @@
         android:text="@string/edit_commit"
         android:layout_marginTop="33dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

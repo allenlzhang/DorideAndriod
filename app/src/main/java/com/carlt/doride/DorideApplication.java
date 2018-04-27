@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.bumptech.glide.Glide;
 import com.carlt.doride.dao.DBManager;
 import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.utils.CipherUtils;
@@ -28,7 +27,6 @@ import java.util.UUID;
  */
 
 public class DorideApplication extends Application {
-
     public static int Version_API = 100;
 
     public static int VERSION_API_REMOTE = 100;// 远程下发相关Api版本
@@ -64,13 +62,13 @@ public class DorideApplication extends Application {
 
     public final static String packDate = "_2018041201";// 打包日期，打包的时候记得改
 
-    private static DorideApplication instance;
-
-    public static Context ApplicationContext;
+    public static DorideApplication instance;
+    public        Context           context;
+    public static Context           ApplicationContext;
     /**
      * 是否已经展示了固件下载升级提示
      */
-    private       boolean isshowupdata;
+    private       boolean           isshowupdata;
 
     public boolean isIsshowupdata() {
         return isshowupdata;
@@ -94,8 +92,8 @@ public class DorideApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        context = getApplicationContext();
         ApplicationContext = this.getApplicationContext();
-        Glide.init(Glide.get(instance.getApplicationContext()));
         DBManager.init(this);
         PackageManager = getPackageManager();
         try {

@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:background="@color/main_color"
     tools:context=".ui.activity.setting.ResetLoginPasswdActivity">
-    <include layout="@layout/layout_title" />
     <EditText
         android:id="@+id/verification_passwd_phone"
         style="@style/usercenter_edit1"
@@ -43,6 +42,7 @@
             android:text="@string/usercenter_push_validate"
             android:textColor="@color/black"
             android:layout_marginRight="10dip"
+            android:padding="5dp"
             android:background="@drawable/verification_send_bg"
             android:textSize="14sp"/>
     </LinearLayout>
@@ -112,7 +112,6 @@
         android:text="@string/edit_commit"
         android:layout_marginTop="33dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

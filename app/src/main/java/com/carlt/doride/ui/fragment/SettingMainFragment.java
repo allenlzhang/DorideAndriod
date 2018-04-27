@@ -15,7 +15,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
@@ -36,6 +35,7 @@ import com.carlt.doride.ui.activity.setting.TravelAlbumActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.utils.CacheUtils;
 import com.carlt.doride.utils.DensityUtil;
+import com.carlt.doride.utils.LoadLocalImageUtil;
 
 import java.util.HashMap;
 
@@ -46,7 +46,7 @@ import java.util.HashMap;
 
 public class SettingMainFragment extends BaseFragment implements View.OnClickListener {
 
-    private static final String TAG=SettingMainFragment.class.getSimpleName();
+    private static final String TAG = SettingMainFragment.class.getSimpleName();
 
     public static SettingMainFragment newInstance() {
         return new SettingMainFragment();
@@ -58,7 +58,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private View btn_car_manager;//车辆管理item
     private View btn_msg_manager;//消息管理item
     private View btn_device_manager;//设备管理item
-//    private View btn_clean_cache;//清除缓存item
+    //    private View btn_clean_cache;//清除缓存item
     private View btn_contact_us;//联系我们item
     private View btn_about_yema;//关于item
 
@@ -102,8 +102,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         btn_msg_manager.setOnClickListener(this);
         btn_device_manager = parent.findViewById(R.id.btn_device_manager);
         btn_device_manager.setOnClickListener(this);
-//        btn_clean_cache = parent.findViewById(R.id.btn_clean_cache);
-//        btn_clean_cache.setOnClickListener(this);
+        //        btn_clean_cache = parent.findViewById(R.id.btn_clean_cache);
+        //        btn_clean_cache.setOnClickListener(this);
         btn_contact_us = parent.findViewById(R.id.btn_contact_us);
         btn_contact_us.setOnClickListener(this);
         btn_about_yema = parent.findViewById(R.id.btn_about_yema);
@@ -111,9 +111,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         btn_sign_out = parent.findViewById(R.id.btn_sign_out);
         btn_sign_out.setOnClickListener(this);
         cache_size = parent.findViewById(R.id.cache_size);
-        contact_us_phone=parent.findViewById(R.id.contact_us_phone);
-        tx_person_name=parent.findViewById(R.id.tx_person_name);
-        avatar=parent.findViewById(R.id.avatar);
+        contact_us_phone = parent.findViewById(R.id.contact_us_phone);
+        tx_person_name = parent.findViewById(R.id.tx_person_name);
+        avatar = parent.findViewById(R.id.avatar);
     }
 
     @Override
@@ -130,7 +130,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         }
 
         if (!TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            Glide.with(this.getActivity()).load(LoginInfo.getAvatar_img()).into(avatar);
+//            Glide.with(this.getActivity()).load(LoginInfo.getAvatar_img()).into(avatar);
+            LoadLocalImageUtil.getInstance().displayCircleFromWeb(LoginInfo.getAvatar_img(), avatar, R.mipmap.default_avater);
         }
         if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
             tx_person_name.setText(LoginInfo.getRealname());
@@ -164,12 +165,12 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 Intent devManager = new Intent(this.getActivity(), DeviceManageActivity.class);
                 startActivity(devManager);
                 break;
-//            case R.id.btn_clean_cache:
-//                showCleanCacheDialog();
-//                break;
+            //            case R.id.btn_clean_cache:
+            //                showCleanCacheDialog();
+            //                break;
             case R.id.btn_contact_us:
-//                showDialog();
-                if (null!=mDealerInfo&&!TextUtils.isEmpty(mDealerInfo.getServiceTel())) {
+                //                showDialog();
+                if (null != mDealerInfo && !TextUtils.isEmpty(mDealerInfo.getServiceTel())) {
                     PopBoxCreat.createDialogNotitle(this.getActivity(), null, mDealerInfo.getServiceTel(), "取消", "拨打", new PopBoxCreat.DialogWithTitleClick() {
                         @Override
                         public void onLeftClick() {
@@ -196,27 +197,28 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     /**
      * 获取经销商信息
-     * */
+     */
     @Override
-    public void loadData(){
+    public void loadData() {
         showUserUI();
-        CarDealerParser parser=new CarDealerParser(dealerCallback);
-        HashMap<String,String> params=new HashMap<>();
-        parser.executePost(URLConfig.getM_GET_DEALER_INFO(),params);
+        CarDealerParser parser = new CarDealerParser(dealerCallback);
+        HashMap<String, String> params = new HashMap<>();
+        parser.executePost(URLConfig.getM_GET_DEALER_INFO(), params);
     }
 
-    private BaseParser.ResultCallback dealerCallback=new BaseParser.ResultCallback() {
+    private BaseParser.ResultCallback dealerCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-            mDealerInfo= (DealerInfo) bInfo.getValue();
+            mDealerInfo = (DealerInfo) bInfo.getValue();
             contact_us_phone.setText(mDealerInfo.getServiceTel());
         }
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            Log.d(TAG,bInfo.toString());
+            Log.d(TAG, bInfo.toString());
         }
     };
+
     private void showCleanCacheDialog() {
         final Dialog dialog = new Dialog(getActivity(), R.style.CleanCacheDialog);
         View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.clean_cache_dialog, null);

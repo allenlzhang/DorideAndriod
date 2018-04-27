@@ -19,7 +19,7 @@
         <LinearLayout
             style="@style/setting_page_item_style"
             android:gravity="center_vertical"
-
+                     android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView
@@ -37,7 +37,6 @@
                 android:layout_centerVertical="true" />
         </LinearLayout>
 
-        <View style="@style/setting_page_item_divider" />
 
         <LinearLayout
             style="@style/setting_page_item_style"
@@ -48,7 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/annual_inspection_reminder_txt"
+                android:text="允许推送启动提醒"
                 android:textColor="@color/text_color_gray3"
                 android:textSize="14sp" />
 

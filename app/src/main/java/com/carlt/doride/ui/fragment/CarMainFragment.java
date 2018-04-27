@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarIndexInfo;
+import com.carlt.doride.data.car.CarMilesInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
@@ -33,6 +35,7 @@ import com.carlt.doride.ui.activity.carstate.MainTestingActivity;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.StringUtils;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
@@ -157,13 +160,41 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         CPControl.getMilesInfos(mListener);
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler                   mHandler  = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+                    //                    请求成功
+                    BaseResponseInfo info = (BaseResponseInfo) msg.obj;
+                    Gson gson = new Gson();
+                    CarMilesInfo carMilesInfo = gson.fromJson(info.getValue().toString(), CarMilesInfo.class);
+                    Logger.e(carMilesInfo.toString());
+                    if (TextUtils.isEmpty(carMilesInfo.leftFuel)) {
+                        tvOil.setText("--");
+                    } else {
+                        tvOil.setText(carMilesInfo.leftFuel);
+
+                    }
+                    if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
+                        tvRenewal.setText("--");
+                    } else {
+                        tvRenewal.setText(carMilesInfo.enduranceMile);
+                    }
+
+                    if (TextUtils.isEmpty(carMilesInfo.vBat)) {
+                        tvBattery.setText("--");
+                    } else {
+                        tvBattery.setText(carMilesInfo.vBat);
+
+                    }
                     break;
                 case 1:
+                    //                    请求失败
+                    tvOil.setText("--");
+                    tvRenewal.setText("--");
+                    tvBattery.setText("--");
                     break;
                 default:
                     break;
@@ -174,7 +205,11 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
 
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-//            mHandler.sendEmptyMessage(0);
+            //            mHandler.sendEmptyMessage(0);
+            Message message = Message.obtain();
+            message.obj = bInfo;
+            message.what = 0;
+            mHandler.sendMessage(message);
             Logger.e(bInfo.toString());
         }
 

@@ -13,7 +13,7 @@
         android:layout_marginLeft="12dip"
         android:layout_marginRight="12dip"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color_gray3"
         android:textColorHint="@color/text_color_gray1"
         android:paddingLeft="12dp"
         android:maxLength="16"
@@ -28,7 +28,6 @@
         android:text="@string/edit_commit"
         android:layout_marginTop="49dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />
