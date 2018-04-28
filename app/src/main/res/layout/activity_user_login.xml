@@ -96,7 +96,7 @@
             android:inputType="textPassword"
             android:digits="@string/pwd_filter_input_string"
             android:maxLength="32"
-            android:selectAllOnFocus="true" />
+            />
 
         <ImageView
             android:id="@+id/passwd_toggle"

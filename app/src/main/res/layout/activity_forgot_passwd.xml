@@ -40,9 +40,9 @@
             android:layout_height="30dip"
             android:gravity="center"
             android:text="@string/usercenter_push_validate"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_gray3"
             android:layout_marginRight="10dip"
-            android:background="@drawable/verification_send_pressed_no"
+            android:background="@drawable/verification_send_bg"
             android:textSize="14sp"/>
     </LinearLayout>
     <LinearLayout
@@ -118,7 +118,7 @@
         android:text="@string/change_commit_txt"
         android:layout_marginTop="49dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

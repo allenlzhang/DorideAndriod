@@ -6,7 +6,8 @@
             <corners android:radius="6px" />
         </shape>
     </item>
-    <item android:state_enabled="true" android:drawable="@drawable/activity_information_centre_tips_kuang">
+    <item android:state_enabled="true"
+        android:drawable="@drawable/activity_information_centre_tips_kuang">
 
     </item>
 </selector>

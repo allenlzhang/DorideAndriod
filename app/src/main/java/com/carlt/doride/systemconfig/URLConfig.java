@@ -16,13 +16,13 @@ public class URLConfig {
     private final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
 
     //大乘域名 测试服
-    private final static String U1_YEMA_TEST = "http://dorideapi.linewin.cc/";
+    private final static String U1_DORIDE_TEST = "http://dorideapi.linewin.cc/";
 
-    //野马域名 预发布服
-    private final static String U1_YEMA_PRE = "http://pre-yemaapi.geni4s.com/";
+    //大乘域名 预发布服
+    private final static String U1_DORIDE_PRE = "http://pre-dorideapi.geni4s.com/";
 
-    // 众泰野马API域名 正式服
-    private final static String U1_Yema = "http://yemaapi.geni4s.com/";
+    // 众泰大乘API域名 正式服
+    private final static String U1_DORIDE = "http://dorideapi.geni4s.com/";
 
     // 远程下发-正式服务器
     private final static String U_R1 = "https://remote-wildhorse.geni4s.com/";
@@ -31,27 +31,27 @@ public class URLConfig {
     // 大乘下发-测试服务器
     private final static String U_R3 = "http://remote-doride.linewin.cc/";
 
-    // 获取yema API URL
-    private static String getYemaURL(String s) {
+    // 获取DORIDE API URL
+    private static String getDorideURL(String s) {
         String version = DorideApplication.Version_API + "/";
         String url = "";
         // 正常版
         if (DorideApplication.Formal_Version) {
-            url = U1_Yema + version + s;
+            url = U1_DORIDE + version + s;
         } else {
             switch (flag) {
                 case VERSION_FORMAL:
                     // 正式服
-                    url = U1_Yema + version + s;
+                    url = U1_DORIDE + version + s;
                     break;
 
                 case VERSION_PREPARE:
                     // 预发布服
-                    url = U1_YEMA_PRE + version + s;
+                    url = U1_DORIDE_PRE + version + s;
                     break;
                 case VERSION_TEST:
                     // 测试服
-                    url = U1_YEMA_TEST + version + s;
+                    url = U1_DORIDE_TEST + version + s;
                     break;
             }
         }
@@ -269,11 +269,11 @@ public class URLConfig {
     private static String M_REMOVERXGPUSH_URL = "user/clearXingeToken";
 
     public static String getM_REMOVERXGPUSH_URL() {
-        return getYemaURL(M_REMOVERXGPUSH_URL);
+        return getDorideURL(M_REMOVERXGPUSH_URL);
     }
 
     public static String getM_REGISTERXGPUSH_URL() {
-        return getYemaURL(M_REGISTERXGPUSH_URL);
+        return getDorideURL(M_REGISTERXGPUSH_URL);
     }
 
 
@@ -282,11 +282,11 @@ public class URLConfig {
     }
 
     public static String getM_CAR_GETCAREXTINFO_URL() {
-        return getYemaURL(M_CAR_GETCAREXTINFO);
+        return getDorideURL(M_CAR_GETCAREXTINFO);
     }
 
     public static String getM_SAFETY_MESSAGE_URL() {
-        return getYemaURL(M_SAFETY_MESSAGE_URL);
+        return getDorideURL(M_SAFETY_MESSAGE_URL);
     }
     public static String getM_REMOTE_CAR_MILES_INFO_URL() {
         return getUrlRemote(M_REMOTE_CAR_MILES_INFO_URL);
@@ -295,15 +295,15 @@ public class URLConfig {
      * 获取安防提醒
      */
     public static String getM_SECURITY_MESSAGE_URL() {
-        return getYemaURL(M_SECURITY_MESSAGE_URL);
+        return getDorideURL(M_SECURITY_MESSAGE_URL);
     }
 
     public static String getM_REPORTDAY_URL() {
-        return getYemaURL(M_REPORTDAY_URL);
+        return getDorideURL(M_REPORTDAY_URL);
     }
 
     public static String getM_REPORTDAYLOG_URL() {
-        return getYemaURL(M_REPORTDAYLOG_URL);
+        return getDorideURL(M_REPORTDAYLOG_URL);
     }
 
     public static String getM_MILESINFO_URL() {
@@ -311,79 +311,79 @@ public class URLConfig {
     }
 
     public static String getM_MAINTAIN_LOG() {
-        return getYemaURL(M_MAINTAIN_LOG);
+        return getDorideURL(M_MAINTAIN_LOG);
     }
 
     public static String getM_GET_DEALER_INFO() {
-        return getYemaURL(M_GET_DEALER_INFO);
+        return getDorideURL(M_GET_DEALER_INFO);
     }
 
     public static String getM_USER_EDIT_INFO() {
-        return getYemaURL(M_USER_EDIT_INFO);
+        return getDorideURL(M_USER_EDIT_INFO);
     }
 
     public static String getM_LOGIN_URL() {
-        return getYemaURL(M_LOGIN_NEW_URL);
+        return getDorideURL(M_LOGIN_NEW_URL);
     }
 
     public static String getM_REGISTER_NEW_URL() {
-        return getYemaURL(M_REGISTER_NEW_URL);
+        return getDorideURL(M_REGISTER_NEW_URL);
     }
 
     public static String getM_OPTIONLIST_URL() {
-        return getYemaURL(M_OPTIONLIST_URL);
+        return getDorideURL(M_OPTIONLIST_URL);
     }
 
     public static String getM_CARLIST_URL() {
-        return getYemaURL(M_CARLIST_URL);
+        return getDorideURL(M_CARLIST_URL);
     }
 
     public static String getM_CAREER_URL() {
-        return getYemaURL(M_CAREER_URL);
+        return getDorideURL(M_CAREER_URL);
     }
 
     public static String getM_VALIDATE_NEW_URL() {
-        return getYemaURL(M_VALIDATE_NEW_URL);
+        return getDorideURL(M_VALIDATE_NEW_URL);
     }
 
     public static String getM_MONTHREPORT_URL() {
-        return getYemaURL(M_MONTHREPORT_URL);
+        return getDorideURL(M_MONTHREPORT_URL);
     }
 
     public static String getM_REPORTDATE_URL() {
-        return getYemaURL(M_REPORTDATE_URL);
+        return getDorideURL(M_REPORTDATE_URL);
     }
 
     public static String getM_MONTHREPORTSTATISTIC_URL() {
-        return getYemaURL(M_MONTHREPORTSTATISTIC_URL);
+        return getDorideURL(M_MONTHREPORTSTATISTIC_URL);
     }
 
     public static String getM_GETCOOR_URL() {
-        return getYemaURL(M_GETCOOR_URL);
+        return getDorideURL(M_GETCOOR_URL);
     }
 
     public static String getM_USER_MONTH_POINT_URL() {
-        return getYemaURL(M_USER_MONTH_POINT_URL);
+        return getDorideURL(M_USER_MONTH_POINT_URL);
     }
 
     public static String getM_USER_DAY_POINT_URL() {
-        return getYemaURL(M_USER_DAY_POINT_URL);
+        return getDorideURL(M_USER_DAY_POINT_URL);
     }
 
     public static String getM_SECRETARY_CATEGORY_URL() {
-        return getYemaURL(M_SECRETARY_CATEGORY_URL_NEW);
+        return getDorideURL(M_SECRETARY_CATEGORY_URL_NEW);
     }
 
     public static String getM_SECRETARY_DELETE_URL() {
-        return getYemaURL(M_SECRETARY_DELETE_URL_NEW);
+        return getDorideURL(M_SECRETARY_DELETE_URL_NEW);
     }
 
     public static String getM_SAFE_SETREMOTEPWD_URL() {
-        return getYemaURL(M_SAFE_SETREMOTEPWD_URL);
+        return getDorideURL(M_SAFE_SETREMOTEPWD_URL);
     }
 
     public static String getM_CAR_CURCARCONFIG_URL() {
-        return getYemaURL(M_CAR_CURCARCONFIG_URL);
+        return getDorideURL(M_CAR_CURCARCONFIG_URL);
     }
 
     public static String getM_SWITCHCAR_URL() {
@@ -395,15 +395,15 @@ public class URLConfig {
     }
 
     public static String getM_CAR_MAIN_URL() {
-        return getYemaURL(M_CAR_MAIN_URL);
+        return getDorideURL(M_CAR_MAIN_URL);
     }
 
     public static String getM_DEVICEUPDATE_URL() {
-        return getYemaURL(M_DEVICEUPDATE_URL);
+        return getDorideURL(M_DEVICEUPDATE_URL);
     }
 
     public static String getM_USER_ACCESSTOKEN() {
-        return getYemaURL(M_USER_ACCESSTOKEN);
+        return getDorideURL(M_USER_ACCESSTOKEN);
     }
 
     public static String getM_REMOTE_STATUS() {
@@ -419,27 +419,27 @@ public class URLConfig {
     }
 
     public static String getM_CAR_MODE_LIST() {
-        return getYemaURL(M_CAR_MODE_LIST);
+        return getDorideURL(M_CAR_MODE_LIST);
     }
 
     public static String getM_CAR_TYPE_LIST() {
-        return getYemaURL(M_CAR_TYPE_LIST);
+        return getDorideURL(M_CAR_TYPE_LIST);
     }
 
     public static String getM_CAR_ADD_CAR() {
-        return getYemaURL(M_CAR_ADD_CAR);
+        return getDorideURL(M_CAR_ADD_CAR);
     }
 
     public static String getM_DEVICE_BIND_CAR() {
-        return getYemaURL(M_DEVICE_BIND_CAR);
+        return getDorideURL(M_DEVICE_BIND_CAR);
     }
 
     public static String getM_CAR_REMOTE_LOG_OPERATION() {
-        return getYemaURL(M_CAR_REMOTE_LOG_OPERATION);
+        return getDorideURL(M_CAR_REMOTE_LOG_OPERATION);
     }
 
     public static String getM_PASSWORD_RETRIEVE() {
-        return getYemaURL(M_PASSWORD_RETRIEVE);
+        return getDorideURL(M_PASSWORD_RETRIEVE);
     }
 
     public static String getM_DEVICE_ACTIVATE() {
@@ -447,11 +447,11 @@ public class URLConfig {
     }
 
     public static String getM_AUTH_MOBILE() {
-        return getYemaURL(M_AUTH_MOBILE);
+        return getDorideURL(M_AUTH_MOBILE);
     }
 
     public static String getM_AUTH_SET_VALIDATE() {
-        return getYemaURL(M_AUTH_SET_VALIDATE);
+        return getDorideURL(M_AUTH_SET_VALIDATE);
     }
 
     public static String getM_DEVICE_REMOTE_START() {
@@ -487,59 +487,59 @@ public class URLConfig {
     }
 
     public static String getM_EDIT_MOBILE() {
-        return getYemaURL(M_EDIT_MOBILE);
+        return getDorideURL(M_EDIT_MOBILE);
     }
 
     public static String getM_USERCENTER_CHECK_PWD() {
-        return getYemaURL(M_USERCENTER_CHECK_PWD);
+        return getDorideURL(M_USERCENTER_CHECK_PWD);
     }
 
     public static String getM_USERCENTER_EDIT_PWD() {
-        return getYemaURL(M_USERCENTER_EDIT_PWD);
+        return getDorideURL(M_USERCENTER_EDIT_PWD);
     }
 
     public static String getM_REMOTEPWDVERIFY() {
-        return getYemaURL(M_REMOTEPWDVERIFY);
+        return getDorideURL(M_REMOTEPWDVERIFY);
     }
 
     public static String getM_RESET_REMOTE_PWD() {
-        return getYemaURL(M_RESET_REMOTE_PWD);
+        return getDorideURL(M_RESET_REMOTE_PWD);
     }
 
     public static String getM_FORGET_REMOTE_PWD() {
-        return getYemaURL(M_FORGET_REMOTE_PWD);
+        return getDorideURL(M_FORGET_REMOTE_PWD);
     }
 
     public static String getM_USER_REMOTE_SWITCH() {
-        return getYemaURL(M_USER_REMOTE_SWITCH);
+        return getDorideURL(M_USER_REMOTE_SWITCH);
     }
 
     public static String getM_CAR_MODIFY() {
-        return getYemaURL(M_CAR_MODIFY);
+        return getDorideURL(M_CAR_MODIFY);
     }
 
     public static String getM_CONTROL_SOUND() {
-        return getYemaURL(M_CONTROL_SOUND);
+        return getDorideURL(M_CONTROL_SOUND);
     }
 
     public static String getM_PUSH_SET() {
-        return getYemaURL(M_GET_PUSH_SET);
+        return getDorideURL(M_GET_PUSH_SET);
     }
 
     public static String getM_UPDATE_PUSH_SET() {
-        return getYemaURL(M_UPDATE_PUSH_SET);
+        return getDorideURL(M_UPDATE_PUSH_SET);
     }
 
     public static String getM_OSS_UPLOAD_URL() {
-        return getYemaURL(M_OSS_UPLOAD_URL);
+        return getDorideURL(M_OSS_UPLOAD_URL);
     }
 
     public static String getM_GET_CAR_SETTING() {
-        return getYemaURL(M_GET_CAR_SETTING);
+        return getDorideURL(M_GET_CAR_SETTING);
     }
 
     public static String getM_GET_APP_UPDATE() {
-        return getYemaURL(M_GET_APP_UPDATE);
+        return getDorideURL(M_GET_APP_UPDATE);
     }
 
     /***********************旅行相册（其他接口在上面添加）***********************/

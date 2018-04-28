@@ -38,4 +38,8 @@
         android:visibility="gone"
         android:textColor="@color/black"
         android:text="@string/travel_album_edit" />
+    <View
+        style="@style/line_h"
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -92,7 +94,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
     private void initComponent() {
         login_version = (TextView) findViewById(R.id.login_version);
-        login_version.setText(DorideApplication.VersionName);
+        login_version.setText("V"+DorideApplication.VersionName);
         forgot_passwd = (TextView) findViewById(R.id.forgot_passwd);
         forgot_passwd.setOnClickListener(this);
         user_regist = (ImageView) findViewById(R.id.user_regist);
@@ -107,7 +109,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
         user_phone = findViewById(R.id.user_phone);
         user_passwd = findViewById(R.id.user_passwd);
-
+        user_passwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
         change = (Button) findViewById(R.id.activity_usercenter_login_change);
         change.setVisibility(View.GONE);
         if (!DorideApplication.Formal_Version) {
@@ -238,11 +240,11 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         if (!TextUtils.isEmpty(tag)) {
 
             if (tag.equals("on")) {
-                user_passwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                user_passwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 passwd_toggle.setImageDrawable(this.getResources().getDrawable(R.mipmap.passwd_off, null));
                 passwd_toggle.setTag("off");
             } else {
-                user_passwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                user_passwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 passwd_toggle.setImageDrawable(this.getResources().getDrawable(R.mipmap.passwd_on, null));
                 passwd_toggle.setTag("on");
             }

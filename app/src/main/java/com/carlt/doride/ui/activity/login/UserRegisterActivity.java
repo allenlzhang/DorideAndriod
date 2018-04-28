@@ -281,9 +281,9 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         register_commit.setClickable(isChecked);
         if (isChecked) {
-            register_commit.setBackgroundResource(R.drawable.bottom_btn_bg);
+            register_commit.setEnabled(true);
         } else {
-            register_commit.setBackgroundResource(R.drawable.bottom_btn_gray);
+            register_commit.setEnabled(false);
         }
 
     }
