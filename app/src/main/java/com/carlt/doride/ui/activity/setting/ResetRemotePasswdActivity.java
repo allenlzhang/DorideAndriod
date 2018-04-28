@@ -1,9 +1,13 @@
 package com.carlt.doride.ui.activity.setting;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
@@ -39,6 +43,7 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
         initTitle("修改远程密码");
     }
 
+
     private void initComponent() {
         old_remote_passwd = $ViewByID(R.id.reset_old_remote_passwd);
         new_remote_passwd = $ViewByID(R.id.reset_new_remote_passwd);
@@ -46,6 +51,27 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
 
         reset_remote_commit = $ViewByID(R.id.reset_remote_commit);
         reset_remote_commit.setOnClickListener(this);
+
+        setDismissFocus(old_remote_passwd);
+        setDismissFocus(new_remote_passwd);
+        setDismissFocus(new_remote_passwd_again);
+
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private void setDismissFocus(final PwdEditText view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                // rel.setFocusable(true);
+                // 如果xml文件里面没设置，就需要在这里设置
+                // rel.setFocusableInTouchMode(true);
+                view.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                return false;
+            }
+        });
     }
 
     @Override

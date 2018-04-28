@@ -140,12 +140,12 @@ public class RemindActivity extends LoadingActivity {
     // 养护提醒专有功能
     private void initSubTitle() {
         mUUDialog = PopBoxCreat.createDialogWithProgress(RemindActivity.this, "正在加载");
-        ImageView mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
-        mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
+        ImageView mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
+        mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
 
-        havemainten = (TextView)findViewById(R.id.activity_career_secretary_tips_havemainten);
+        havemainten = (TextView) findViewById(R.id.activity_career_secretary_tips_havemainten);
 
-//        View lookmainten = findViewById(R.id.activity_career_secretary_tips_lookmainten);
+        //        View lookmainten = findViewById(R.id.activity_career_secretary_tips_lookmainten);
 
         View setmainten = findViewById(R.id.activity_career_secretary_tips_car);
 
@@ -163,12 +163,12 @@ public class RemindActivity extends LoadingActivity {
                         }
 
                         break;
-//                    case R.id.activity_career_secretary_tips_lookmainten:
-//                        // 查看保养建议
-//                        Intent mIntent2 = new Intent(RemindActivity.this,
-//                                MaintainLogActivity.class);
-//                        startActivity(mIntent2);
-//                        break;
+                    //                    case R.id.activity_career_secretary_tips_lookmainten:
+                    //                        // 查看保养建议
+                    //                        Intent mIntent2 = new Intent(RemindActivity.this,
+                    //                                MaintainLogActivity.class);
+                    //                        startActivity(mIntent2);
+                    //                        break;
                     case R.id.activity_career_secretary_tips_car:
                         // 不准确点这里
                         Intent mIntent3 = new Intent(RemindActivity.this,
@@ -210,8 +210,8 @@ public class RemindActivity extends LoadingActivity {
         } else {
             MaintenanceTitle.setVisibility(View.GONE);
         }
-        mPullListView = (PullToRefreshListView)findViewById(R.id.activity_career_secretary_tips_list);
-        mTxtEmpty = (TextView)findViewById(R.id.activity_career_secretary_tips_empty);
+        mPullListView = (PullToRefreshListView) findViewById(R.id.activity_career_secretary_tips_list);
+        mTxtEmpty = (TextView) findViewById(R.id.activity_career_secretary_tips_empty);
         mImgEmpty = (ImageView) findViewById(R.id.activity_career_secretary_img_empty);
 
         mListView = mPullListView.getRefreshableView();
@@ -244,7 +244,7 @@ public class RemindActivity extends LoadingActivity {
         super.loadDataSuccess(data);
 
         if (data != null) {
-            mInfoLists = (InformationMessageInfoList)((BaseResponseInfo)data).getValue();
+            mInfoLists = (InformationMessageInfoList) ((BaseResponseInfo) data).getValue();
             if (mInfoLists != null) {
                 mList = mInfoLists.getmAllList();
                 if (mAdapter == null) {
@@ -258,13 +258,13 @@ public class RemindActivity extends LoadingActivity {
 
                 if (mList.size() == 0) {
                     mPullListView.setVisibility(View.GONE);
-                    if (type==InformationMessageInfo.C1_T4||type==InformationMessageInfo.C1_T7) {
+                    if (type == InformationMessageInfo.C1_T4 || type == InformationMessageInfo.C1_T7) {
                         mImgEmpty.setVisibility(View.VISIBLE);
                     }
                     mTxtEmpty.setVisibility(View.VISIBLE);
                 } else {
                     mPullListView.setVisibility(View.VISIBLE);
-                    if (type==InformationMessageInfo.C1_T4||type==InformationMessageInfo.C1_T7) {
+                    if (type == InformationMessageInfo.C1_T4 || type == InformationMessageInfo.C1_T7) {
                         mImgEmpty.setVisibility(View.GONE);
                     }
                     mTxtEmpty.setVisibility(View.GONE);
@@ -274,7 +274,7 @@ public class RemindActivity extends LoadingActivity {
                 mPullListView.onPullUpRefreshComplete();
                 setLastUpdateTime();
             }
-        }else{
+        } else {
 
         }
     }
@@ -282,9 +282,9 @@ public class RemindActivity extends LoadingActivity {
 
     protected void initData() {
         if (type > 0) {
-            if(type == InformationMessageInfo.C1_T6){
+            if (type == InformationMessageInfo.C1_T6) {
                 getCarInfo();
-            }else{
+            } else {
             }
             CPControl.GetInformationMessageResult(mCallback, type);
         } else {
@@ -293,10 +293,10 @@ public class RemindActivity extends LoadingActivity {
 
     }
 
-    private void getCarInfo(){
-        CarSettingInfoParser parser=new CarSettingInfoParser(listener_secretary);
-        HashMap<String,String> params=new HashMap<>();
-        parser.executePost(URLConfig.getM_GET_CAR_SETTING(),params);
+    private void getCarInfo() {
+        CarSettingInfoParser parser = new CarSettingInfoParser(listener_secretary);
+        HashMap<String, String> params = new HashMap<>();
+        parser.executePost(URLConfig.getM_GET_CAR_SETTING(), params);
     }
 
     private void setLastUpdateTime() {
@@ -310,7 +310,7 @@ public class RemindActivity extends LoadingActivity {
      */
     private void PullDown() {
         if (type > 0) {
-            CPControl.GetInformationMessageResult(mCallback,type);
+            CPControl.GetInformationMessageResult(mCallback, type);
         }
     }
 
@@ -320,7 +320,7 @@ public class RemindActivity extends LoadingActivity {
     private void PullUp() {
         if (type > 0) {
             int offset = mInfoLists.getOffset();
-            CPControl.GetInformationMessageResult(mCallback,type);
+            CPControl.GetInformationMessageResult(mCallback, type);
         }
 
     }
@@ -367,7 +367,7 @@ public class RemindActivity extends LoadingActivity {
                     String id = info.getId();
                     if (class1 > 0 && id != null && id.length() > 0) {
                         mDialog.show();
-                        CPControl.GetRemindDeleteResult(listener_tip,class1, Integer.parseInt(id));
+                        CPControl.GetRemindDeleteResult(listener_tip, class1, Integer.parseInt(id));
                         dele_position = position;
                     }
                 }
@@ -381,7 +381,8 @@ public class RemindActivity extends LoadingActivity {
             PopBoxCreat.createDialogWithTitle(RemindActivity.this, "提示", "您确定要删除该消息吗？", "",
                     "确定", "取消", click);
         }
-//
+
+        //
         @Override
         public void onAction(InformationMessageInfo info) {
             InformationMessageInfo mInfo = info;
@@ -392,39 +393,39 @@ public class RemindActivity extends LoadingActivity {
                     // 11 用车提醒
                     if (class2 == InformationMessageInfo.C1_T1_T1) {
                         // 预约
-//                        Intent mIntent1 = new Intent(RemindActivity.this,
-//                                SecretaryAppointmentActivity.class);
-//                        startActivity(mIntent1);
+                        //                        Intent mIntent1 = new Intent(RemindActivity.this,
+                        //                                SecretaryAppointmentActivity.class);
+                        //                        startActivity(mIntent1);
                     } else if (class2 == InformationMessageInfo.C1_T1_T2) {
-//                        Intent mIntent1 = new Intent(RemindActivity.this,
-//                                AddressMapActivity.class);
-//                        startActivity(mIntent1);
+                        //                        Intent mIntent1 = new Intent(RemindActivity.this,
+                        //                                AddressMapActivity.class);
+                        //                        startActivity(mIntent1);
                     } else if (class2 == InformationMessageInfo.C1_T1_T3) {
                         // 违章详情
                         if (LoginInfo.getCanQueryVio() == "0") {
                             // 暂无车辆信息
-//                            Intent mIntent1 = new Intent(RemindActivity.this,
-//                                    CarFillIllegalActivity.class);
-//                            startActivity(mIntent1);
+                            //                            Intent mIntent1 = new Intent(RemindActivity.this,
+                            //                                    CarFillIllegalActivity.class);
+                            //                            startActivity(mIntent1);
                         } else {
                             // 已有车辆信息
-//                            Intent mIntent1 = new Intent(RemindActivity.this,
-//                                    CarQueryIllegalActivity.class);
-//                            startActivity(mIntent1);
+                            //                            Intent mIntent1 = new Intent(RemindActivity.this,
+                            //                                    CarQueryIllegalActivity.class);
+                            //                            startActivity(mIntent1);
                         }
                     } else if (class2 == InformationMessageInfo.C1_T1_T4) {
                         // 激活盒子，跳转至爱车体检页面
-//                        if (LoginInfo.getBuydate().equals("")) {
-//                            if (mTestFirstView == null) {
-//                                mTestFirstView = new TestFirstView(RemindActivity.this,
-//                                        mOnTestBtnClick);
-//                            }
-//                            mTestFirstView.showMenu();
-//                        } else {
-//                            Intent mIntent1 = new Intent(RemindActivity.this,
-//                                    CarTestActivity.class);
-//                            startActivity(mIntent1);
-//                        }
+                        //                        if (LoginInfo.getBuydate().equals("")) {
+                        //                            if (mTestFirstView == null) {
+                        //                                mTestFirstView = new TestFirstView(RemindActivity.this,
+                        //                                        mOnTestBtnClick);
+                        //                            }
+                        //                            mTestFirstView.showMenu();
+                        //                        } else {
+                        //                            Intent mIntent1 = new Intent(RemindActivity.this,
+                        //                                    CarTestActivity.class);
+                        //                            startActivity(mIntent1);
+                        //                        }
                     }
 
                     break;
@@ -443,9 +444,9 @@ public class RemindActivity extends LoadingActivity {
                     // }
                     if (class2 == InformationMessageInfo.C1_T2_T3) {
                         // 跳转至胎压监测
-//                        Intent mIntent23 = new Intent(RemindActivity.this,
-//                                CarTirePressureActivity.class);
-//                        startActivity(mIntent23);
+                        //                        Intent mIntent23 = new Intent(RemindActivity.this,
+                        //                                CarTirePressureActivity.class);
+                        //                        startActivity(mIntent23);
                     }
                     break;
                 case 31:
@@ -457,12 +458,12 @@ public class RemindActivity extends LoadingActivity {
                                     RemindActivity.this, "正在领取");
                             mDialog.show();
 
-//                            CPControl.GetReceivePrizeResult(mInfo, listener_Prize);
+                            //                            CPControl.GetReceivePrizeResult(mInfo, listener_Prize);
                         } else {
-//                            Intent intent31 = new Intent(RemindActivity.this,
-//                                    RewardDetailActivity.class);
-//                            intent31.putExtra(RewardDetailActivity.REWARDID, mInfo.getRelid());
-//                            startActivity(intent31);
+                            //                            Intent intent31 = new Intent(RemindActivity.this,
+                            //                                    RewardDetailActivity.class);
+                            //                            intent31.putExtra(RewardDetailActivity.REWARDID, mInfo.getRelid());
+                            //                            startActivity(intent31);
                         }
                     } else if (class2 == InformationMessageInfo.C1_T3_T2) {
                         // 活动
@@ -476,7 +477,7 @@ public class RemindActivity extends LoadingActivity {
                         }
 
                         mDialog.show();
-//                        CPControl.GetActivitySignResult(mInfo, listener_Prize);
+                        //                        CPControl.GetActivitySignResult(mInfo, listener_Prize);
 
                     }
 
@@ -492,12 +493,12 @@ public class RemindActivity extends LoadingActivity {
                             mIntent4.putExtra(ReportActivity.DAY_INITIAL, mInfo.getDate());
                             startActivity(mIntent4);
                             break;
-//                        case InformationMessageInfo.C1_T4_T2:
-//                            mIntent4 = new Intent(RemindActivity.this, ReportActivity.class);
-//                            mIntent4.putExtra("c", 1);
-//                            mIntent4.putExtra(ReportActivity.WEEK_INITIAL, mInfo.getDate());
-//                            startActivity(mIntent4);
-//                            break;
+                        //                        case InformationMessageInfo.C1_T4_T2:
+                        //                            mIntent4 = new Intent(RemindActivity.this, ReportActivity.class);
+                        //                            mIntent4.putExtra("c", 1);
+                        //                            mIntent4.putExtra(ReportActivity.WEEK_INITIAL, mInfo.getDate());
+                        //                            startActivity(mIntent4);
+                        //                            break;
                         case InformationMessageInfo.C1_T4_T3:
                             mIntent4 = new Intent(RemindActivity.this, ReportActivity.class);
                             mIntent4.putExtra("c", 1);
@@ -508,8 +509,8 @@ public class RemindActivity extends LoadingActivity {
                         case InformationMessageInfo.C1_T4_T4:
                             // 解锁勋章
 
-//                            mIntent4 = new Intent(RemindActivity.this, MedalActivity.class);
-//                            startActivity(mIntent4);
+                            //                            mIntent4 = new Intent(RemindActivity.this, MedalActivity.class);
+                            //                            startActivity(mIntent4);
                             break;
 
                         case InformationMessageInfo.C1_T4_T5:
@@ -529,11 +530,11 @@ public class RemindActivity extends LoadingActivity {
                     int isGot = mInfo.getIsgot();
                     if (class2 == InformationMessageInfo.C1_T2_T2) {
                         // 故障提醒
-//                        Intent mIntent2 = new Intent(RemindActivity.this,
-//                                SecretaryRemoteActivity.class);
-//                        mIntent2.putExtra(SecretaryRemoteActivity.ID, relid);
-//                        mIntent2.putExtra(SecretaryRemoteActivity.SEND_STATUS, isGot);
-//                        startActivity(mIntent2);
+                        //                        Intent mIntent2 = new Intent(RemindActivity.this,
+                        //                                SecretaryRemoteActivity.class);
+                        //                        mIntent2.putExtra(SecretaryRemoteActivity.ID, relid);
+                        //                        mIntent2.putExtra(SecretaryRemoteActivity.SEND_STATUS, isGot);
+                        //                        startActivity(mIntent2);
                     }
                     break;
 
@@ -541,10 +542,10 @@ public class RemindActivity extends LoadingActivity {
                     // 养护提醒
                     String id = mInfo.getId();
                     // 故障提醒
-//                    Intent mIntent6 = new Intent(RemindActivity.this,
-//                            MaintainLogDetialActivity.class);
-//                    mIntent6.putExtra(MaintainLogDetialActivity.ID, id);
-//                    startActivity(mIntent6);
+                    //                    Intent mIntent6 = new Intent(RemindActivity.this,
+                    //                            MaintainLogDetialActivity.class);
+                    //                    mIntent6.putExtra(MaintainLogDetialActivity.ID, id);
+                    //                    startActivity(mIntent6);
                     break;
 
             }
@@ -554,66 +555,66 @@ public class RemindActivity extends LoadingActivity {
     };
 
     // 奖品领取和活动报名回调
-//    GetResultListCallback listener_Prize = new GetResultListCallback() {
-//
-//        @Override
-//        public void onFinished(Object o) {
-//            Message msg = new Message();
-//            msg.what = 0;
-//            msg.obj = o;
-//            mHandler.sendMessage(msg);
-//
-//        }
-//
-//        @Override
-//        public void onErro(Object o) {
-//            Message msg = new Message();
-//            msg.what = 1;
-//            msg.obj = o;
-//            mHandler.sendMessage(msg);
-//
-//        }
-//    };
+    //    GetResultListCallback listener_Prize = new GetResultListCallback() {
+    //
+    //        @Override
+    //        public void onFinished(Object o) {
+    //            Message msg = new Message();
+    //            msg.what = 0;
+    //            msg.obj = o;
+    //            mHandler.sendMessage(msg);
+    //
+    //        }
+    //
+    //        @Override
+    //        public void onErro(Object o) {
+    //            Message msg = new Message();
+    //            msg.what = 1;
+    //            msg.obj = o;
+    //            mHandler.sendMessage(msg);
+    //
+    //        }
+    //    };
 
     // 拉取更多数据
-//    GetResultListCallback listener_loadmore = new GetResultListCallback() {
-//
-//        @Override
-//        public void onFinished(Object o) {
-//            Message msg = new Message();
-//            msg.what = 2;
-//            msg.obj = o;
-//            mHandler.sendMessage(msg);
-//
-//        }
-//
-//        @Override
-//        public void onErro(Object o) {
-//            Message msg = new Message();
-//            msg.what = 3;
-//            msg.obj = o;
-//            mHandler.sendMessage(msg);
-//
-//        }
-//    };
+    //    GetResultListCallback listener_loadmore = new GetResultListCallback() {
+    //
+    //        @Override
+    //        public void onFinished(Object o) {
+    //            Message msg = new Message();
+    //            msg.what = 2;
+    //            msg.obj = o;
+    //            mHandler.sendMessage(msg);
+    //
+    //        }
+    //
+    //        @Override
+    //        public void onErro(Object o) {
+    //            Message msg = new Message();
+    //            msg.what = 3;
+    //            msg.obj = o;
+    //            mHandler.sendMessage(msg);
+    //
+    //        }
+    //    };
 
-     //删除车秘书提醒回调
+    //删除车秘书提醒回调
     BaseParser.ResultCallback listener_tip = new BaseParser.ResultCallback() {
 
-         @Override
-         public void onSuccess(BaseResponseInfo bInfo) {
-             Message msg = new Message();
-             msg.what = 4;
-             mHandler.sendMessage(msg);
-         }
+        @Override
+        public void onSuccess(BaseResponseInfo bInfo) {
+            Message msg = new Message();
+            msg.what = 4;
+            mHandler.sendMessage(msg);
+        }
 
-         @Override
-         public void onError(BaseResponseInfo bInfo) {
-             Message msg = new Message();
-             msg.what = 5;
-             msg.obj = bInfo;
-             mHandler.sendMessage(msg);
-         }
+        @Override
+        public void onError(BaseResponseInfo bInfo) {
+            Message msg = new Message();
+            msg.what = 5;
+            msg.obj = bInfo;
+            mHandler.sendMessage(msg);
+        }
 
     };
 
@@ -630,7 +631,7 @@ public class RemindActivity extends LoadingActivity {
                         mDialog.dismiss();
                     }
                     mAdapter.notifyDataSetChanged();
-                    String info_success = (String)msg.obj;
+                    String info_success = (String) msg.obj;
                     if (info_success != null) {
                         UUToast.showUUToast(RemindActivity.this, info_success);
                     }
@@ -642,13 +643,13 @@ public class RemindActivity extends LoadingActivity {
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    String info_failed = (String)msg.obj;
+                    String info_failed = (String) msg.obj;
                     if (info_failed != null) {
                         UUToast.showUUToast(RemindActivity.this, info_failed);
                     }
                     break;
                 case 2:
-                    InformationMessageInfoList mMore = (InformationMessageInfoList)((BaseResponseInfo)msg.obj).getValue();
+                    InformationMessageInfoList mMore = (InformationMessageInfoList) ((BaseResponseInfo) msg.obj).getValue();
                     if (mInfoLists != null) {
                         mInfoLists.setOffset(mMore.getOffset());
                         mInfoLists.addmAllList(mMore.getmAllList());
@@ -677,7 +678,7 @@ public class RemindActivity extends LoadingActivity {
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
                         UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
                     }
@@ -696,7 +697,7 @@ public class RemindActivity extends LoadingActivity {
                         mUUDialog.dismiss();
                     }
 
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
                         UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
                     }
@@ -707,25 +708,25 @@ public class RemindActivity extends LoadingActivity {
                         mUUDialog.dismiss();
                     }
 
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
                         UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
                     }
                     break;
                 case 9:
-                    CarSettingInfo info = (CarSettingInfo) ((BaseResponseInfo)msg.obj).getValue();
+                    CarSettingInfo info = (CarSettingInfo) ((BaseResponseInfo) msg.obj).getValue();
                     if (type == InformationMessageInfo.C1_T6) {
                         String mainten_next_miles = "";
-                        String mainten_next_date ="";
-                        if (!StringUtils.isEmpty(info.getMainten_next_miles())){
+                        String mainten_next_date = "";
+                        if (!StringUtils.isEmpty(info.getMainten_next_miles())) {
                             mainten_next_miles = info.getMainten_next_miles();
-                        }else {
+                        } else {
                             mainten_next_miles = "--";
                         }
 
-                        if (!StringUtils.isEmpty(info.getMainten_next_date())){
+                        if (!StringUtils.isEmpty(info.getMainten_next_date())) {
                             mainten_next_date = info.getMainten_next_date();
-                        }else {
+                        } else {
                             mainten_next_date = "--";
                         }
                         if (mTextViewSecretary != null) {

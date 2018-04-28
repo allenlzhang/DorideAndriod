@@ -20,6 +20,8 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.CipherUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 
@@ -92,8 +94,8 @@ public class ResetLoginPasswdActivity extends LoadingActivity implements View.On
         DefaultStringParser parser = new DefaultStringParser(editCallback);
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("dealerId", LoginInfo.getDealerId());
-        params.put("oldpassword", passwd);
-        params.put("newspassword", confirmPasswd);
+        params.put("oldpassword", CipherUtils.md5(passwd));
+        params.put("newspassword", CipherUtils.md5(confirmPasswd));
         parser.executePost(URLConfig.getM_USERCENTER_EDIT_PWD(), params);
     }
 
@@ -112,6 +114,7 @@ public class ResetLoginPasswdActivity extends LoadingActivity implements View.On
         @Override
         public void onError(BaseResponseInfo bInfo) {
             if (null != bInfo && !TextUtils.isEmpty(bInfo.getInfo())) {
+                Logger.e(bInfo.toString());
                 UUToast.showUUToast(ResetLoginPasswdActivity.this, bInfo.getInfo());
             } else {
                 UUToast.showUUToast(ResetLoginPasswdActivity.this, bInfo.getInfo());
@@ -121,23 +124,23 @@ public class ResetLoginPasswdActivity extends LoadingActivity implements View.On
     };
 
 
-        /**
-         * 判断原始密码、新密码、再次输入新密码是否合法
-         * */
-        private boolean isCommitInvalid(String passwd, String newPasswd, String confirmPasswd) {
-            if (TextUtils.isEmpty(passwd)) {
-                UUToast.showUUToast(this, "原始密码不能为空",500);
-                return false;
-            } else if (TextUtils.isEmpty(newPasswd) || newPasswd.length() < 6) {
-                UUToast.showUUToast(this, "新密码长度至少为6位",500);
-                return false;
-            } else if (TextUtils.isEmpty(confirmPasswd) || !newPasswd.equals(confirmPasswd)) {
-                UUToast.showUUToast(this, "两次输入密码不一致",500);
-                return false;
-            } else {
-                return true;
-            }
-
+    /**
+     * 判断原始密码、新密码、再次输入新密码是否合法
+     */
+    private boolean isCommitInvalid(String passwd, String newPasswd, String confirmPasswd) {
+        if (TextUtils.isEmpty(passwd)) {
+            UUToast.showUUToast(this, "原始密码不能为空", 500);
+            return false;
+        } else if (TextUtils.isEmpty(newPasswd) || newPasswd.length() < 6) {
+            UUToast.showUUToast(this, "新密码长度至少为6位", 500);
+            return false;
+        } else if (TextUtils.isEmpty(confirmPasswd) || !newPasswd.equals(confirmPasswd)) {
+            UUToast.showUUToast(this, "两次输入密码不一致", 500);
+            return false;
+        } else {
+            return true;
         }
 
     }
+
+}

@@ -52,6 +52,7 @@ public class CarSaftyListActivity extends LoadingActivity {
         safyHeadTV = $ViewByID(R.id.layout_sub_head_txt);
         mPullListView = findViewById(R.id.activity_car_query_illegal_list);
         mListView = mPullListView.getRefreshableView();
+
         mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
         mListView.setDividerHeight(getResources()
                 .getDimensionPixelSize(R.dimen.list_divider_height));
@@ -63,7 +64,7 @@ public class CarSaftyListActivity extends LoadingActivity {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //                下拉刷新
-                initData();
+//                initData();
             }
 
             @Override

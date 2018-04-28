@@ -24,6 +24,7 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
 
 import java.util.HashMap;
@@ -259,7 +260,7 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
         HashMap<String,String> params=new HashMap<>();
         params.put("mobile",phone);
         params.put("validate",vCode);
-        params.put("newpassword",againPasswd);
+        params.put("newpassword", CipherUtils.md5(againPasswd));
         parser.executePost(URLConfig.getM_PASSWORD_RETRIEVE(),params);
     }
 

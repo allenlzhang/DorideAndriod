@@ -29,6 +29,7 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
+import com.carlt.doride.utils.LoadLocalImageUtil;
 import com.carlt.doride.utils.PhotoUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -97,7 +98,8 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
     @Override
     protected void onResume() {
         if ( !TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            Glide.with(this).load(LoginInfo.getAvatar_img()).into(image_display);
+//            Glide.with(this).load(LoginInfo.getAvatar_img()).into(image_display);
+            LoadLocalImageUtil.getInstance().displayFromWeb(LoginInfo.getAvatar_img(), image_display, R.mipmap.default_avater);
         } else {
             image_display.setImageResource(R.mipmap.default_avater);
         }

@@ -23,6 +23,7 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
 
 import java.util.HashMap;
@@ -30,7 +31,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class VcodeResetPasswdActivity extends LoadingActivity implements View.OnClickListener{
+public class VcodeResetPasswdActivity extends LoadingActivity implements View.OnClickListener {
 
     private EditText phoneNumber;//手机号码输入框
     private EditText verficationCode;//验证码输入框
@@ -50,8 +51,8 @@ public class VcodeResetPasswdActivity extends LoadingActivity implements View.On
     private Dialog mDialog;
 
     /*
-    * 倒计时
-	*/
+     * 倒计时
+     */
     private int count = 60;
 
     private Timer timer = new Timer();
@@ -67,19 +68,19 @@ public class VcodeResetPasswdActivity extends LoadingActivity implements View.On
     }
 
     private void initComponent() {
-        vCodeSend=$ViewByID(R.id.verification_passwd_code_send);
+        vCodeSend = $ViewByID(R.id.verification_passwd_code_send);
         vCodeSend.setOnClickListener(this);
-        commit=$ViewByID(R.id.verification_reset_passwd_commit);
+        commit = $ViewByID(R.id.verification_reset_passwd_commit);
         commit.setOnClickListener(this);
-        passwdToggle=$ViewByID(R.id.verification_new_passwd_input_toggle);
+        passwdToggle = $ViewByID(R.id.verification_new_passwd_input_toggle);
         passwdToggle.setOnClickListener(this);
-        passwd2StToggle=$ViewByID(R.id.verification_new_passwd_input_again_toggle);
+        passwd2StToggle = $ViewByID(R.id.verification_new_passwd_input_again_toggle);
         passwd2StToggle.setOnClickListener(this);
 
-        phoneNumber=$ViewByID(R.id.verification_passwd_phone);
-        verficationCode=$ViewByID(R.id.verification_passwd_vcode_input);
-        passwd=$ViewByID(R.id.verification_new_passwd_input);
-        passwd2St=$ViewByID(R.id.verification_new_passwd_again_input);
+        phoneNumber = $ViewByID(R.id.verification_passwd_phone);
+        verficationCode = $ViewByID(R.id.verification_passwd_vcode_input);
+        passwd = $ViewByID(R.id.verification_new_passwd_input);
+        passwd2St = $ViewByID(R.id.verification_new_passwd_again_input);
     }
 
     @Override
@@ -116,22 +117,22 @@ public class VcodeResetPasswdActivity extends LoadingActivity implements View.On
                 }
                 break;
             case R.id.verification_reset_passwd_commit:
-                mobile=phoneNumber.getText().toString();
-                vCode=verficationCode.getText().toString();
-                resetPasswd=passwd.getText().toString();
-                confirmPasswd=passwd2St.getText().toString();
-                if (isCommitInvalid(mobile,vCode,resetPasswd,confirmPasswd)) {
+                mobile = phoneNumber.getText().toString();
+                vCode = verficationCode.getText().toString();
+                resetPasswd = passwd.getText().toString();
+                confirmPasswd = passwd2St.getText().toString();
+                if (isCommitInvalid(mobile, vCode, resetPasswd, confirmPasswd)) {
                     editPasswdCommitRequest();
                 }
                 break;
             case R.id.verification_new_passwd_input_toggle:
-                ActivityControl.passwdToggle(this,passwd,passwdToggle,view.getTag().toString());
+                ActivityControl.passwdToggle(this, passwd, passwdToggle, view.getTag().toString());
                 if (!TextUtils.isEmpty(passwd.getText().toString())) {
                     passwd.setSelection(passwd.getText().toString().length());
                 }
                 break;
             case R.id.verification_new_passwd_input_again_toggle:
-                ActivityControl.passwdToggle(this,passwd2St,passwd2StToggle,view.getTag().toString());
+                ActivityControl.passwdToggle(this, passwd2St, passwd2StToggle, view.getTag().toString());
                 if (!TextUtils.isEmpty(passwd2St.getText().toString())) {
                     passwd2St.setSelection(passwd2St.getText().toString().length());
                 }
@@ -176,13 +177,13 @@ public class VcodeResetPasswdActivity extends LoadingActivity implements View.On
         }
     };
 
-    private void editPasswdCommitRequest(){
-        DefaultStringParser parser=new DefaultStringParser(commitCallback);
+    private void editPasswdCommitRequest() {
+        DefaultStringParser parser = new DefaultStringParser(commitCallback);
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("mobile", mobile);
-        params.put("validate",vCode);
-        params.put("newpassword", confirmPasswd);
-        parser.executePost(URLConfig.getM_PASSWORD_RETRIEVE(),params);
+        params.put("validate", vCode);
+        params.put("newpassword", CipherUtils.md5(confirmPasswd));
+        parser.executePost(URLConfig.getM_PASSWORD_RETRIEVE(), params);
     }
 
     private BaseParser.ResultCallback commitCallback = new BaseParser.ResultCallback() {
@@ -192,15 +193,15 @@ public class VcodeResetPasswdActivity extends LoadingActivity implements View.On
             mUseInfo.setPassword(passwd2St.getText().toString());
             UseInfoLocal.setUseInfo(mUseInfo);
             // 获取验证码成功
-            UUToast.showUUToast(VcodeResetPasswdActivity.this,"密码修改成功");
-            Intent loginIntent=new Intent(VcodeResetPasswdActivity.this, UserLoginActivity.class);
+            UUToast.showUUToast(VcodeResetPasswdActivity.this, "密码修改成功");
+            Intent loginIntent = new Intent(VcodeResetPasswdActivity.this, UserLoginActivity.class);
             startActivity(loginIntent);
             finish();
         }
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            UUToast.showUUToast(VcodeResetPasswdActivity.this,bInfo.getInfo());
+            UUToast.showUUToast(VcodeResetPasswdActivity.this, bInfo.getInfo());
         }
     };
 
@@ -231,7 +232,7 @@ public class VcodeResetPasswdActivity extends LoadingActivity implements View.On
 
     /**
      * 判断原始密码、新密码、再次输入新密码是否合法
-     * */
+     */
     private boolean isCommitInvalid(String phone, String vcode, String passwd, String passwdAgain) {
         if (TextUtils.isEmpty(phone) || !StringUtils.checkCellphone(phone)) {
             UUToast.showUUToast(this, getResources().getString(R.string.cell_phone_error));

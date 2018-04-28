@@ -117,25 +117,25 @@ public class PwdEditText extends android.support.v7.widget.AppCompatEditText {
 
         // 这几行代码非常关键，大家可以注释点在看看效果
         // 带圆角
-//         Paint paintFrame = new Paint();
-//         paintFrame.setColor(Color.parseColor("#BDBDBD"));
-//         paintFrame.setStrokeWidth(2);
-//         paintFrame.setStyle(Paint.Style.STROKE);
-//         RectF outerRect1 = new RectF(0, 0, mWidth, mHeight);
+         Paint paintFrame = new Paint();
+         paintFrame.setColor(Color.parseColor("#BDBDBD"));
+         paintFrame.setStrokeWidth(2);
+         paintFrame.setStyle(Paint.Style.STROKE);
+         RectF outerRect1 = new RectF(0, 0, mWidth, mHeight);
 //         canvas.drawRoundRect(outerRect1, 10, 10, paintFrame);
         //
         RectF outerRect2 = new RectF(2, 2, mWidth - 2, mHeight - 2);
         Paint paintContent = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintContent.setColor(Color.WHITE);
         paintContent.setStyle(Paint.Style.FILL);
-//        canvas.drawRoundRect(outerRect2, 10, 10, paintContent);
+        canvas.drawRoundRect(outerRect2, 10, 10, paintContent);
 
         // 不带圆角
         // Paint paintFrame = new Paint();
         // paintFrame.setColor(Color.parseColor("#BDBDBD"));
         // paintFrame.setStrokeWidth(2);
         // paintFrame.setStyle(Paint.Style.STROKE);
-         canvas.drawRect(0, 0, mWidth, mHeight, paintContent);
+//         canvas.drawRect(0, 0, mWidth, mHeight, paintContent);
 
         // Paint paintContent = new Paint();
         // paintContent.setColor(Color.WHITE);

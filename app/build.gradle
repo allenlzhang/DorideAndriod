@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-def storeFilePath="E:/materials/公司文档/Domy/hz17car_key.key"
 
 android {
     signingConfigs {
@@ -15,7 +14,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         applicationId "com.carlt.doride"
-        minSdkVersion 21
+        minSdkVersion 18
         targetSdkVersion 26
         versionCode 100
         versionName "1.0.0"

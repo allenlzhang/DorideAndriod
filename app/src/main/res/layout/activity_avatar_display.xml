@@ -6,9 +6,10 @@
     tools:context="com.carlt.doride.ui.activity.setting.PhotoDisplayActivity">
     <ImageView
         android:id="@+id/avatar_display"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:scaleType="fitXY"
+        android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"/>
     <LinearLayout

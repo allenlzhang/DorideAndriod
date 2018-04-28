@@ -1,12 +1,16 @@
 package com.carlt.doride.ui.activity.setting;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -47,8 +51,8 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
     private Dialog mDialog;
 
     /*
-    * 倒计时
-	*/
+     * 倒计时
+     */
     private int count = 60;
 
     private Timer timer = new Timer();
@@ -73,7 +77,25 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
         certified_verification_send.setOnClickListener(this);
         reset_remote_commit = $ViewByID(R.id.forget_reset_remote_commit);
         reset_remote_commit.setOnClickListener(this);
+        setDismissFocus(new_remote_passwd);
+        setDismissFocus(new_remote_passwd_again);
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private void setDismissFocus(final PwdEditText view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                // rel.setFocusable(true);
+                // 如果xml文件里面没设置，就需要在这里设置
+                // rel.setFocusableInTouchMode(true);
+                view.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -114,15 +136,16 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
                 break;
             case R.id.forget_reset_remote_commit:
                 mobile = certified_phone_input.getText().toString();
-                passwd=new_remote_passwd.getText().toString();
-                confirmPasswd=new_remote_passwd_again.getText().toString();
-                vCode=certified_code_input.getText().toString();
-                if (isCommitInvalid(mobile,vCode,passwd,confirmPasswd)) {
+                passwd = new_remote_passwd.getText().toString();
+                confirmPasswd = new_remote_passwd_again.getText().toString();
+                vCode = certified_code_input.getText().toString();
+                if (isCommitInvalid(mobile, vCode, passwd, confirmPasswd)) {
                     editPasswdCommitRequest();
                 }
                 break;
         }
     }
+
     /**
      * 获取验证码接口请求
      */
@@ -163,15 +186,15 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
         }
     };
 
-    private void editPasswdCommitRequest(){
+    private void editPasswdCommitRequest() {
         UseInfo mUseInfo = UseInfoLocal.getUseInfo();
-        DefaultStringParser parser=new DefaultStringParser(commitCallback);
+        DefaultStringParser parser = new DefaultStringParser(commitCallback);
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("mobile", mobile);
-        params.put("validate_code",vCode);
+        params.put("validate_code", vCode);
         params.put("remote_pwd", CipherUtils.md5(confirmPasswd));
         params.put("password", mUseInfo.getPassword());
-        parser.executePost(URLConfig.getM_FORGET_REMOTE_PWD(),params);
+        parser.executePost(URLConfig.getM_FORGET_REMOTE_PWD(), params);
     }
 
     private BaseParser.ResultCallback commitCallback = new BaseParser.ResultCallback() {
@@ -225,7 +248,7 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
 
     /**
      * 判断原始密码、新密码、再次输入新密码是否合法
-     * */
+     */
     private boolean isCommitInvalid(String phone, String vcode, String passwd, String passwdAgain) {
         if (TextUtils.isEmpty(phone) || !StringUtils.checkCellphone(phone)) {
             UUToast.showUUToast(this, getResources().getString(R.string.cell_phone_error));
@@ -233,7 +256,7 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
         } else if (TextUtils.isEmpty(vcode)) {
             UUToast.showUUToast(this, "验证码不能为空");
             return false;
-        }else if(TextUtils.isEmpty(passwd)||passwd.length()<6||!StringUtils.isNumber(passwd)){
+        } else if (TextUtils.isEmpty(passwd) || passwd.length() < 6 || !StringUtils.isNumber(passwd)) {
             UUToast.showUUToast(this, "密码至少为6位数字");
             return false;
         } else if (!passwd.equals(passwdAgain)) {
