@@ -48,7 +48,15 @@ public class CalendarMonth extends MenuCalendar implements OnClickListener {
 
     private View mLoadingLayout;
 
+    private View mLoadingLayoutMain;
+
     private TextView mLoadingTextView;
+
+    private View mLayError;// 错误信息展示layout
+
+    private TextView mTextError;// 错误信息展示text
+
+    private TextView mTextRetry;// 重试按钮
 
     private View mLoadingBar;
 
@@ -64,11 +72,23 @@ public class CalendarMonth extends MenuCalendar implements OnClickListener {
         mImageViewR = (ImageView)child.findViewById(R.id.head_calender_img2);
         mImageViewL.setOnClickListener(this);
         mImageViewR.setOnClickListener(this);
-        mLoadingLayout = child.findViewById(R.id.loading_activity_with_title_mainlayout);
+        mLoadingLayout=child.findViewById(R.id.loading_activity_with_title_loading_lay);
+        mLoadingLayoutMain = child.findViewById(R.id.loading_activity_with_title_mainlayout);
         mLoadingTextView = (TextView)child.findViewById(R.id.loading_activity_with_title_loading_text);
         mLoadingBar = child.findViewById(R.id.loading_activity_with_title_loading_bar);
-        mLoadingLayout.setOnClickListener(this);
 
+        // 错误展示lay
+        mLayError = child.findViewById(R.id.loading_activity_lay_error);
+        mTextError = (TextView)child.findViewById(R.id.loading_activity_text_error);
+        mTextRetry = (TextView)child.findViewById(R.id.loading_activity_text_retry);
+
+        mTextRetry.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                load(year);
+            }
+        });
         mDataTextViewList = new ArrayList<TextView>();
         mDataTextViewList.add((TextView)child.findViewById(R.id.layout_calender_month_txt_data1));
         mDataTextViewList.add((TextView)child.findViewById(R.id.layout_calender_month_txt_data2));
@@ -177,7 +197,7 @@ public class CalendarMonth extends MenuCalendar implements OnClickListener {
 
                 case 1:
                     // 拉取数据成功
-                    erroLoading();
+                    erroLoading(msg.obj);
                     break;
             }
 
@@ -258,14 +278,23 @@ public class CalendarMonth extends MenuCalendar implements OnClickListener {
         mLoadingBar.setVisibility(View.VISIBLE);
         mLoadingTextView.setText("等待中");
         mLoadingLayout.setVisibility(View.VISIBLE);
+        mLoadingLayoutMain.setVisibility(View.VISIBLE);
+        mLayError.setVisibility(View.GONE);
     }
 
     private void dissmissLoading() {
-        mLoadingLayout.setVisibility(View.GONE);
+        mLoadingLayoutMain.setVisibility(View.GONE);
     }
 
-    private void erroLoading() {
-        mLoadingTextView.setText("获取数据失败");
-        mLoadingBar.setVisibility(View.GONE);
+    private void erroLoading(Object erro) {
+        mLoadingLayoutMain.setVisibility(View.VISIBLE);
+        mLoadingLayout.setVisibility(View.GONE);
+        BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo)erro;
+        if (null != mBaseResponseInfo && null != mBaseResponseInfo.getInfo()) {
+            mTextError.setText(mBaseResponseInfo.getInfo());
+        } else {
+            mTextError.setText("获取数据失败");
+        }
+        mLayError.setVisibility(View.VISIBLE);
     }
 }

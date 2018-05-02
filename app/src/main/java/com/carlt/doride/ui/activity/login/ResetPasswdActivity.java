@@ -102,8 +102,7 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                     CPControl.GetMessageValidateResult("2", cellPhone, validateCodeListener);
                     count = 60;
                     bt_verification_send.setText(count + "秒后重发");
-                    bt_verification_send.setClickable(false);
-                    bt_verification_send.setBackgroundResource(R.mipmap.btn_code_gray);
+                    bt_verification_send.setEnabled(false);
 
                     task = new TimerTask() {
 
@@ -161,9 +160,8 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                             task.cancel();
                         }
                     }
-                    bt_verification_send.setClickable(true);
+                    bt_verification_send.setEnabled(true);
                     bt_verification_send.setText(R.string.usercenter_push_validate1);
-                    bt_verification_send.setBackgroundResource(R.drawable.verification_sending_bg);
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     int flag = mBaseResponseInfo.getFlag();
@@ -209,9 +207,8 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                                 task.cancel();
                             }
                         }
-                        bt_verification_send.setClickable(true);
+                        bt_verification_send.setEnabled(true);
                         bt_verification_send.setText(R.string.usercenter_push_validate1);
-                        bt_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
                     }
                     break;
             }

@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/line1"
         style="@style/line_v"
+        android:layout_marginTop="28dp"
         android:layout_centerHorizontal="true"
         android:background="@color/transparent" />
 

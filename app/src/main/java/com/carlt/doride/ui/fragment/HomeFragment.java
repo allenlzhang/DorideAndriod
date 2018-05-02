@@ -12,6 +12,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.services.weather.LocalDayWeatherForecast;
+import com.amap.api.services.weather.LocalWeatherForecast;
+import com.amap.api.services.weather.LocalWeatherForecastResult;
+import com.amap.api.services.weather.LocalWeatherLiveResult;
+import com.amap.api.services.weather.WeatherSearch;
+import com.amap.api.services.weather.WeatherSearchQuery;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.CPControl;
@@ -19,6 +30,8 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.home.InformationCategoryInfo;
 import com.carlt.doride.data.home.InformationCategoryInfoList;
 import com.carlt.doride.data.home.MilesInfo;
+import com.carlt.doride.data.home.WeatherInfo;
+import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.activity.home.InformationCentreActivity;
 import com.carlt.doride.ui.activity.home.ReportActivity;
@@ -28,24 +41,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Marlon on 2018/3/15.
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
-    private ImageView mIvReport;
-    private RelativeLayout mRlInformationCentre;
-    private TextView mTxtDate;
+public class HomeFragment extends BaseFragment implements View.OnClickListener,WeatherSearch.OnWeatherSearchListener {
+    private ImageView mIvReport;    //行车报告
+    private RelativeLayout mRlInformationCentre;    //大乘助手
+    private TextView mTxtDate;  //日期
     private String currentDate;
-    private TextView mTextView3;
-    private TextView mTextView4;
+    private TextView mTextView3;    //红点
+    private TextView mTextView4;    //助手消息
     private TextView mTxtObd;   //仪表盘里程
     private TextView mTxtEnduranceMile; //续航里程
     private TextView mTxtAvgSpeed;  //平均速度
     private TextView mTxtAvgFuel;   //平均油耗
     private MilesInfo milesInfo;    //大乘远程 读取里程实体类
-
+    private TextView mTxtCity;      //城市
+    private TextView mTxtWeather;   //天气
+    private TextView mTxtTemputre;  //温度
+    long mMills = 0;
+    String cityName = null;
+    AMapLocationClient mClient;
+    AMapLocation mLocation;
     @Override
     protected View inflateView(LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.fragment_home, null);
@@ -63,18 +83,75 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mTxtEnduranceMile = $ViewByID(R.id.layout_report_grid_linear1_txt2);
         mTxtAvgSpeed = $ViewByID(R.id.layout_report_grid_linear3_txt2);
         mTxtAvgFuel = $ViewByID(R.id.layout_report_grid_linear4_txt2);
+        mTxtCity = $ViewByID(R.id.home_txt_city);
+        mTxtWeather = $ViewByID(R.id.home_txt_weather);
+        mTxtTemputre = $ViewByID(R.id.home_txt_temputre);
         mIvReport.setOnClickListener(this);
         mRlInformationCentre.setOnClickListener(this);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         currentDate = format.format(new Date(System.currentTimeMillis()));
         mTxtDate.setText(currentDate);
-        loadData();
+        mClient = new AMapLocationClient(DorideApplication.getInstanse().getApplicationContext());
+        mClient.setLocationListener(new AMapLocationListener() {
+
+            @Override
+            public void onLocationChanged(AMapLocation arg0) {
+                if (mLocation == null) {
+                    if (null != arg0.getCity()) {
+                        mMills = System.currentTimeMillis();
+                        if (null != arg0.getCity()
+                                && arg0.getCity().length() > 0) {
+                            mLocation = arg0;
+                            cityName = arg0.getCity();
+                            mTxtCity.setText(cityName);
+                            Log.e("info", "loadWeather onLocationChanged1==");
+                            loadWeather();
+                        }
+                    }
+                } else {
+                    if (null != mLocation.getCity() && null != arg0.getCity()
+                            && !arg0.getCity().equals(mLocation.getCity())) {
+                        mLocation = arg0;
+                        // 通知更新天气，城市
+                        Log.e("info", "loadWeather onLocationChanged2==");
+                        loadWeather();
+                    } else {
+                        long duration = (System.currentTimeMillis() - mMills)
+                                % (1000 * 60 * 5);
+                        if (duration == 0) {
+                            mMills = System.currentTimeMillis();
+                            mLocation = arg0;
+                            Log.e("info", "loadWeather onLocationChanged3==");
+                            loadWeather();
+                        }
+                    }
+                }
+            }
+        });
+
+        // 初始化定位参数
+        AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
+        // 设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        // 设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        // 设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(false);
+        // 设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+        // 设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        // 设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(5000);
+        // 给定位客户端对象设置定位参数
+        mClient.setLocationOption(mLocationOption);
+        mClient.startLocation();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        loadData();
     }
 
     @Override
@@ -111,6 +188,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Log.e(TAG,"loadData  onActivityResult");
                 loadData();
         }
+    }
+
+    private WeatherSearchQuery mquery;
+    private WeatherSearch mweathersearch;
+
+    public void loadWeather() {
+        Log.e("info", "loadWeather cityName==" + cityName);
+        if (null == cityName) {
+            return;
+        }
+        // CPControl.GetWeatherListResult(cityName,
+        // getResources().getString(R.string.baidu_map_key),
+        // Weather_listener);
+        if (mquery == null) {
+            mquery = new WeatherSearchQuery(cityName,
+                    WeatherSearchQuery.WEATHER_TYPE_FORECAST);
+        }
+        if (mweathersearch == null) {
+            mweathersearch = new WeatherSearch(getActivity());
+            mweathersearch.setOnWeatherSearchListener(this);
+            mweathersearch.setQuery(mquery);
+        }
+
+        mweathersearch.searchWeatherAsyn();
     }
 
     BaseParser.ResultCallback callback = new BaseParser.ResultCallback() {
@@ -270,4 +371,49 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         });
     }
+
+    @Override
+    public void onWeatherLiveSearched(LocalWeatherLiveResult localWeatherLiveResult, int i) {
+
+    }
+
+    @Override
+    public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int i) {
+            if (i == 1000) {
+                LocalWeatherForecast mLocalWeatherForecast = localWeatherForecastResult
+                        .getForecastResult();
+                List<LocalDayWeatherForecast> mDayWeatherForecasts = mLocalWeatherForecast
+                        .getWeatherForecast();
+                LocalDayWeatherForecast mDayWeatherForecast = mDayWeatherForecasts
+                        .get(0);
+                String date = mDayWeatherForecast.getDate();
+                String dayWeather = mDayWeatherForecast.getDayWeather();
+                String dayTemp = mDayWeatherForecast.getDayTemp();
+                String nightWeather = mDayWeatherForecast.getNightWeather();
+                String nightTemp = mDayWeatherForecast.getNightTemp();
+                WeatherInfo mWeatherInfo = new WeatherInfo();
+                mWeatherInfo.setTemperature(nightTemp + "~" + dayTemp + "℃");
+                if (nightWeather.equals(dayWeather)) {
+                    mWeatherInfo.setWeather(dayWeather);
+                } else {
+                    mWeatherInfo.setWeather(dayWeather + "转" + nightWeather);
+                }
+
+                weatherLoaded(mWeatherInfo);
+            } else {
+                Log.e("info", "loadWeather onWeatherForecastSearched==");
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("info", "loadWeather handleMessage==");
+                        loadWeather();
+                    }
+                }, 5000);
+            }
+    }
+        public void weatherLoaded(Object obj) {
+            WeatherInfo info = (WeatherInfo) obj;
+            mTxtWeather.setText(info.getWeather());
+            mTxtTemputre.setText(info.getTemperature());
+        }
 }
