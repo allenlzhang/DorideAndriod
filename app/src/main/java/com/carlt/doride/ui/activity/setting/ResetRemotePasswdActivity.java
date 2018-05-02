@@ -2,7 +2,6 @@ package com.carlt.doride.ui.activity.setting;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -57,6 +56,7 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
         setDismissFocus(new_remote_passwd_again);
 
     }
+
     @SuppressLint("ClickableViewAccessibility")
     private void setDismissFocus(final PwdEditText view) {
         view.setOnTouchListener(new View.OnTouchListener() {
@@ -100,8 +100,9 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(ResetRemotePasswdActivity.this, "远程控制密码修改成功");
-            Intent intent = new Intent(ResetRemotePasswdActivity.this, AccountSecurityActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(ResetRemotePasswdActivity.this, AccountSecurityActivity.class);
+//            startActivity(intent);
+            finish();
         }
 
         @Override
@@ -118,10 +119,10 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
      * 判断原始密码、新密码、再次输入新密码是否合法
      */
     private boolean isCommitInvalid(String passwd, String newPasswd, String confirmPasswd) {
-        if (TextUtils.isEmpty(passwd)||passwd.length()<6) {
+        if (TextUtils.isEmpty(passwd) || passwd.length() < 6) {
             UUToast.showUUToast(this, "原远程操作密码不正确");
             return false;
-        } else if (TextUtils.isEmpty(newPasswd) || newPasswd.length() < 6|| !StringUtils.isNumber(newPasswd)) {
+        } else if (TextUtils.isEmpty(newPasswd) || newPasswd.length() < 6 || !StringUtils.isNumber(newPasswd)) {
             UUToast.showUUToast(this, "新远程操作密码至少为6位数字");
             return false;
         } else if (!newPasswd.equals(confirmPasswd)) {

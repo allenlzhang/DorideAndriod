@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
@@ -249,6 +250,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     private void loadSuss() {
         if (null != carinfo) {
             if (!TextUtils.isEmpty(carinfo.getCarname())) {
+                titleTV.setSelected(true);
                 titleTV.setText(carinfo.getCarname());
 
             }
@@ -353,6 +355,10 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
 
                 break;
             case R.id.car_main_lay_safety://安防提醒
+                if (null == carinfo) {
+                    UUToast.showUUToast(getActivity(), "获取失败", Toast.LENGTH_SHORT);
+                    return;
+                }
                 Intent mIntent3 = new Intent(getActivity(), CarSaftyListActivity.class);
                 mIntent3.putExtra("safetymsg", carinfo.getSafetymsg());
                 startActivity(mIntent3);

@@ -105,7 +105,7 @@ public class PwdEditText extends android.support.v7.widget.AppCompatEditText {
         // 初始化分割线
         mLinePaint = new Paint();
         mLinePaint.setStyle(Paint.Style.FILL);
-        mLinePaint.setColor(Color.BLACK);
+        mLinePaint.setColor(Color.parseColor("#cccccc"));
         mLinePaint.setAntiAlias(true);
     }
 
@@ -118,7 +118,7 @@ public class PwdEditText extends android.support.v7.widget.AppCompatEditText {
         // 这几行代码非常关键，大家可以注释点在看看效果
         // 带圆角
          Paint paintFrame = new Paint();
-         paintFrame.setColor(Color.parseColor("#BDBDBD"));
+         paintFrame.setColor(Color.parseColor("#cccccc"));
          paintFrame.setStrokeWidth(2);
          paintFrame.setStyle(Paint.Style.STROKE);
          RectF outerRect1 = new RectF(0, 0, mWidth, mHeight);

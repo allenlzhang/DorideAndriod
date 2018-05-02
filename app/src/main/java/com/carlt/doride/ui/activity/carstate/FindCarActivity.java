@@ -109,7 +109,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
         setContentView(R.layout.activity_find_car);
         initTitle("车辆定位");
         init(savedInstanceState);
-        loadingDataUI();
+
         initData();
     }
 
@@ -246,6 +246,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     }
 
     private void init(Bundle savedInstanceState) {
+        loadingDataUI();
         mMapView = (MapView) findViewById(R.id.findcar_mapView);
         mViewInput = findViewById(R.id.findcar_lay_input);
         mTxtPos = (TextView) findViewById(R.id.findcar_txt_carpos);
@@ -564,6 +565,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
+        loadSuccessUI();
         Logger.e(aMapLocation.getErrorCode() + aMapLocation.getAddress());
         if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
             Logger.e("mFirstLoc----" + mFirstLoc);

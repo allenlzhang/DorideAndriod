@@ -45,7 +45,7 @@ public class RemoteMainInfo extends BaseResponseInfo {
 	}
 
 	public void setDeviceCategory(String deviceCategory) {
-		RemoteMainInfo.deviceCategory = deviceCategory;
+		this.deviceCategory = deviceCategory;
 	}
 
 	public String getFunctionCount() {

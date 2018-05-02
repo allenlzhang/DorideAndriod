@@ -3,7 +3,6 @@ package com.carlt.doride.ui.activity.setting;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -203,8 +202,8 @@ public class VcodeResetRemotePasswdActivity extends LoadingActivity implements V
             // 获取验证码成功
             loadSuccessUI();
             UUToast.showUUToast(VcodeResetRemotePasswdActivity.this, "远程控制密码修改成功");
-            Intent intent = new Intent(VcodeResetRemotePasswdActivity.this, AccountSecurityActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(VcodeResetRemotePasswdActivity.this, AccountSecurityActivity.class);
+//            startActivity(intent);
             finish();
         }
 

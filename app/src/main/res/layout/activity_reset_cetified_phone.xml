@@ -14,7 +14,7 @@
         android:layout_marginLeft="12dip"
         android:layout_marginRight="12dip"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textColorHint="@color/text_color_gray1"
         android:paddingLeft="12dp"
         android:textSize="14sp"
@@ -41,14 +41,7 @@
             android:maxLength="6"/>
         <TextView
             android:id="@+id/reset_verification_send"
-            android:layout_width="80dip"
-            android:layout_height="30dip"
-            android:gravity="center"
-            android:text="@string/usercenter_push_validate"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dip"
-            android:background="@drawable/verification_send_pressed_no"
-            android:textSize="14sp"/>
+            style="@style/vcode_style"/>
     </LinearLayout>
     <TextView
         android:id="@+id/reset_phone_commit"
@@ -57,7 +50,6 @@
         android:text="@string/ok"
         android:layout_marginTop="49dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

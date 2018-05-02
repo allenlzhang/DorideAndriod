@@ -39,14 +39,7 @@
 
         <TextView
             android:id="@+id/remote_verification_send"
-            android:layout_width="80dip"
-            android:layout_height="30dip"
-            android:layout_marginRight="10dip"
-            android:background="@drawable/verification_send_pressed_no"
-            android:gravity="center"
-            android:text="@string/usercenter_push_validate"
-            android:textColor="@color/black"
-            android:textSize="14sp"/>
+            style="@style/vcode_style"/>
     </LinearLayout>
 
     <TextView

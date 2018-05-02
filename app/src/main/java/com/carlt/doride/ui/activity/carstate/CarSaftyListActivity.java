@@ -44,7 +44,7 @@ public class CarSaftyListActivity extends LoadingActivity {
     protected void onResume() {
         super.onResume();
 
-        loadingDataUI();
+        //        loadingDataUI();
         initData();
     }
 
@@ -59,12 +59,12 @@ public class CarSaftyListActivity extends LoadingActivity {
         mListView.setVerticalScrollBarEnabled(false);
         mListView.setSelector(getResources().getDrawable(R.drawable.list_divider_bg));
 
-        mPullListView.setPullLoadEnabled(true);
+        mPullListView.setPullLoadEnabled(false);
         mPullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //                下拉刷新
-//                initData();
+                initData();
             }
 
             @Override
