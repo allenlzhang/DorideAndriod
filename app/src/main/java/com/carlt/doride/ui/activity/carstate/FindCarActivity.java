@@ -161,6 +161,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     }
 
     private void initData() {
+        showProgressDialog();
         CPControl.GetCarExtInfo(mCallback);
         //        loadDataSuccess(null);
     }
@@ -200,6 +201,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
             UUToast.showUUToast(this, "暂未获取到车辆位置");
 
         }
+        dissmissDialog();
     }
 
     public void getAddress(LatLng ll) {
@@ -246,7 +248,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     }
 
     private void init(Bundle savedInstanceState) {
-        loadingDataUI();
+//        loadingDataUI();
         mMapView = (MapView) findViewById(R.id.findcar_mapView);
         mViewInput = findViewById(R.id.findcar_lay_input);
         mTxtPos = (TextView) findViewById(R.id.findcar_txt_carpos);
@@ -565,7 +567,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
-        loadSuccessUI();
+//        loadSuccessUI();
         Logger.e(aMapLocation.getErrorCode() + aMapLocation.getAddress());
         if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
             Logger.e("mFirstLoc----" + mFirstLoc);

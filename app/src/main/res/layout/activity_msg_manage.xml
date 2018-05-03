@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_color"
-    android:orientation="vertical"
-    tools:context=".ui.activity.setting.MsgManageActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_color"
+              android:orientation="vertical"
+              tools:context=".ui.activity.setting.MsgManageActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,8 +19,8 @@
         <LinearLayout
             style="@style/setting_page_item_style"
             android:gravity="center_vertical"
-                     android:visibility="gone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"
@@ -28,13 +28,13 @@
                 android:layout_weight="1"
                 android:text="@string/insurance_expiration_reminder_txt"
                 android:textColor="@color/text_color_gray3"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
 
             <CheckBox
                 android:id="@+id/insurance_expiration_reminder"
                 style="@style/manage_message_checkbox"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"/>
         </LinearLayout>
 
 
@@ -49,16 +49,16 @@
                 android:layout_weight="1"
                 android:text="允许推送启动提醒"
                 android:textColor="@color/text_color_gray3"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
 
             <CheckBox
                 android:id="@+id/annual_inspection_reminder"
                 style="@style/manage_message_checkbox"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"/>
         </LinearLayout>
 
-        <View style="@style/setting_page_item_divider" />
+        <View style="@style/setting_page_item_divider"/>
 
         <LinearLayout
             style="@style/setting_page_item_style"
@@ -71,13 +71,13 @@
                 android:layout_weight="1"
                 android:text="@string/driving_report_txt"
                 android:textColor="@color/text_color_gray3"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
 
             <CheckBox
                 android:id="@+id/driving_report"
                 style="@style/manage_message_checkbox"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

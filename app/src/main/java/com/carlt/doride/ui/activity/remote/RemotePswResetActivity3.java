@@ -19,7 +19,6 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.RemotePswInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.fragment.RemoteMainFragment;
-import com.carlt.doride.ui.view.PasswordView;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PwdEditText;
 import com.carlt.doride.ui.view.UUToast;
@@ -28,7 +27,6 @@ import com.carlt.doride.utils.StringUtils;
 
 /**
  * 忘记远程解锁密码-step3设置新密码
- *
  * @author Administrator
  */
 public class RemotePswResetActivity3 extends LoadingActivity implements OnClickListener {
@@ -37,9 +35,9 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
 
     private TextView mTxtTitle2;// 小标题-新密码确认
 
-    private PasswordView mPwdEdt1;// 密码编辑框-新密码
+    private PwdEditText mPwdEdt1;// 密码编辑框-新密码
 
-    private PasswordView mPwdEdt2;// 密码编辑框-新密码确认
+    private PwdEditText mPwdEdt2;// 密码编辑框-新密码确认
 
     private TextView mTxtEdt;// 修改按钮
 
@@ -110,13 +108,13 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
     }
 
     private void init() {
-        mTxtTitle1 = (TextView) findViewById(R.id.remotepsw_reset3_txt_title1);
-        mTxtTitle2 = (TextView) findViewById(R.id.remotepsw_reset3_txt_title2);
+        mTxtTitle1 = findViewById(R.id.remotepsw_reset3_txt_title1);
+        mTxtTitle2 = findViewById(R.id.remotepsw_reset3_txt_title2);
 
-        mPwdEdt1 = (PasswordView) findViewById(R.id.remotepsw_reset3_pwdedt1);
-        mPwdEdt2 = (PasswordView) findViewById(R.id.remotepsw_reset3_pwdedt2);
+        mPwdEdt1 = findViewById(R.id.remotepsw_reset3_pwdedt1);
+        mPwdEdt2 = findViewById(R.id.remotepsw_reset3_pwdedt2);
 
-        mTxtEdt = (TextView) findViewById(R.id.remotepsw_reset3_txt_edit);
+        mTxtEdt = findViewById(R.id.remotepsw_reset3_txt_edit);
 
         switch (type) {
             case TYPE_REALNAME:
@@ -136,8 +134,8 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
 
         mTxtTitle1.setText("请输入新密码");
         mTxtTitle2.setText("请再次输入新密码");
-//        mPwdEdt1.setOnInputListener(mInputListener);
-//        mPwdEdt2.setOnInputListener(mInputListener);
+        //        mPwdEdt1.setOnInputListener(mInputListener);
+        //        mPwdEdt2.setOnInputListener(mInputListener);
 
         // mTxtEdt.setBackgroundResource(R.drawable.bottom_btn_bg_gray);
         // mTxtEdt.setClickable(false);
@@ -158,12 +156,12 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
 
     @Override
     public void onClick(View v) {
-        String pswNew1 = mPwdEdt1.getPassword();
-        String pswNew2 = mPwdEdt2.getPassword();
+        String pswNew1 = mPwdEdt1.getText().toString().trim();
+        String pswNew2 = mPwdEdt2.getText().toString().trim();
         if (StringUtils.isEmpty(pswNew1)) {
             UUToast.showUUToast(RemotePswResetActivity3.this, "密码不能为空");
             return;
-        } else if ( pswNew1.length() < 6) {
+        } else if (pswNew1.length() < 6) {
             UUToast.showUUToast(this, "密码至少为6位数字");
         } else if (!pswNew1.equals(pswNew2)) {
             UUToast.showUUToast(RemotePswResetActivity3.this, "两次输入密码不一致，请重新输入");

@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:layout_marginBottom="0dp"
         android:hint="@string/usercenter_hint_phone1"
-        android:inputType="number"
+        android:inputType="phone"
         android:maxLength="11"/>
     <LinearLayout
         style="@style/login_input_bg"
@@ -63,6 +63,7 @@
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:hint="@string/usercenter_hint_phone2"
+            android:digits="@string/pwd_filter_input_string"
             android:inputType="textPassword"
             android:maxLength="32" />
 
@@ -93,6 +94,7 @@
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:hint="@string/usercenter_hint_password_reset"
+            android:digits="@string/pwd_filter_input_string"
             android:inputType="textPassword"
             android:maxLength="32" />
 

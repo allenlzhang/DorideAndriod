@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     />
                 <TextView
                     android:id="@+id/l_t_temp_tv"
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/r_t_temp_tv"
@@ -125,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     />
                 <TextView
                     android:id="@+id/l_b_temp_tv"
@@ -161,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     />
                 <TextView
                     android:id="@+id/r_b_temp_tv"

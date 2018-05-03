@@ -119,7 +119,7 @@ public class PwdEditText extends android.support.v7.widget.AppCompatEditText {
         // 带圆角
          Paint paintFrame = new Paint();
          paintFrame.setColor(Color.parseColor("#cccccc"));
-         paintFrame.setStrokeWidth(2);
+         paintFrame.setStrokeWidth(1);
          paintFrame.setStyle(Paint.Style.STROKE);
          RectF outerRect1 = new RectF(0, 0, mWidth, mHeight);
 //         canvas.drawRoundRect(outerRect1, 10, 10, paintFrame);

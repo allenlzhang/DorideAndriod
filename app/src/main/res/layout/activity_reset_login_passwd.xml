@@ -14,6 +14,7 @@
         android:gravity="center_vertical"
         android:layout_marginBottom="0dp"
         android:hint="@string/old_passwd_txt"
+        android:digits="@string/pwd_filter_input_string"
         android:inputType="textPassword"
         android:maxLength="32"/>
     <LinearLayout

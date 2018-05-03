@@ -17,12 +17,17 @@
         android:textColor="@color/text_color_gray1"
         android:textSize="14sp" />
 
-    <com.carlt.doride.ui.view.PasswordView
+    <com.carlt.doride.ui.view.PwdEditText
         android:id="@+id/remotepsw_reset3_pwdedt1"
-        style="@style/safety_psw_edt"
-        app:passwordLength="6"
-        app:borderColor="@color/setting_item_divider_bg"
-        app:mode="rect"/>
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/romote_edit_bg"
+        android:inputType="number"
+        android:cursorVisible="false"
+        android:maxLength="6"/>
 
     <TextView
         android:id="@+id/remotepsw_reset3_txt_title2"
@@ -35,12 +40,17 @@
         android:textColor="@color/text_color_gray1"
         android:textSize="14sp" />
 
-    <com.carlt.doride.ui.view.PasswordView
+    <com.carlt.doride.ui.view.PwdEditText
         android:id="@+id/remotepsw_reset3_pwdedt2"
-        style="@style/safety_psw_edt"
-        app:passwordLength="6"
-        app:borderColor="@color/setting_item_divider_bg"
-        app:mode="rect"/>
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/romote_edit_bg"
+        android:inputType="number"
+        android:cursorVisible="false"
+        android:maxLength="6"/>
     
     <TextView
         android:id="@+id/remotepsw_reset3_txt_edit"
