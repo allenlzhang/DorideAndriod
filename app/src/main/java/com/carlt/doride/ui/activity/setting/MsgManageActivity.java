@@ -16,17 +16,18 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.CreateHashMap;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 
 public class MsgManageActivity extends LoadingActivity implements CompoundButton.OnCheckedChangeListener {
 
     private CheckBox insurance_expiration_reminder;
-    private CheckBox annual_inspection_reminder;
+    private CheckBox cb_start_reminding;
     private CheckBox driving_report;
-    private int      checkBox1;
-    private int      checkBox2;
-    private int      checkBox3;
+//    private int      checkBox1;
+    private int      START_REMINDING ;
+    private int      DRIVING_REPORT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +42,10 @@ public class MsgManageActivity extends LoadingActivity implements CompoundButton
     private void initView() {
 
         insurance_expiration_reminder = $ViewByID(R.id.insurance_expiration_reminder);
-        annual_inspection_reminder = $ViewByID(R.id.annual_inspection_reminder);
+        cb_start_reminding = $ViewByID(R.id.cb_start_reminding);
         driving_report = $ViewByID(R.id.driving_report);
         insurance_expiration_reminder.setOnCheckedChangeListener(this);
-        annual_inspection_reminder.setOnCheckedChangeListener(this);
+        cb_start_reminding.setOnCheckedChangeListener(this);
         driving_report.setOnCheckedChangeListener(this);
     }
 
@@ -56,26 +57,27 @@ public class MsgManageActivity extends LoadingActivity implements CompoundButton
 
     @Override
     public void loadDataSuccess(Object bInfo) {
+        Logger.e(bInfo.toString());
         try {
             MsgManagerInfo info = (MsgManagerInfo) ((BaseResponseInfo) bInfo).getValue();
-            checkBox1 = info.getReport();
-            checkBox2 = info.getClass2_6201();
-            checkBox3 = info.getClass2_6202();
-            if (TextUtils.equals("0", checkBox1 + "")) {
-                insurance_expiration_reminder.setChecked(false);
-            } else if (TextUtils.equals("1", checkBox1 + "")) {
-                insurance_expiration_reminder.setChecked(true);
+//            checkBox1 = info.getReport();
+            START_REMINDING = info.startup;
+            DRIVING_REPORT = info.getReport();
+//            if (TextUtils.equals("0", checkBox1 + "")) {
+//                insurance_expiration_reminder.setChecked(false);
+//            } else if (TextUtils.equals("1", checkBox1 + "")) {
+//                insurance_expiration_reminder.setChecked(true);
+//            }
+
+            if (TextUtils.equals("0", START_REMINDING + "")) {
+                cb_start_reminding.setChecked(false);
+            } else if (TextUtils.equals("1", START_REMINDING + "")) {
+                cb_start_reminding.setChecked(true);
             }
 
-            if (TextUtils.equals("0", checkBox2 + "")) {
-                annual_inspection_reminder.setChecked(false);
-            } else if (TextUtils.equals("1", checkBox2 + "")) {
-                annual_inspection_reminder.setChecked(true);
-            }
-
-            if (TextUtils.equals("0", checkBox3 + "")) {
+            if (TextUtils.equals("0", DRIVING_REPORT + "")) {
                 driving_report.setChecked(false);
-            } else if (TextUtils.equals("1", checkBox3 + "")) {
+            } else if (TextUtils.equals("1", DRIVING_REPORT + "")) {
                 driving_report.setChecked(true);
             }
 
@@ -102,20 +104,20 @@ public class MsgManageActivity extends LoadingActivity implements CompoundButton
             return;
         String close = b ? "1" : "0";
         switch (compoundButton.getId()) {
-            case R.id.insurance_expiration_reminder:
-                checkBox1 = b ? 1 : 0;
-                DefaultStringParser parser = new DefaultStringParser(mUpdateCallback);
-                parser.executePost(URLConfig.getM_UPDATE_PUSH_SET(), CreateHashMap.getUpdatePushSet(close, checkBox2 + "", checkBox3 + ""));
-                break;
-            case R.id.annual_inspection_reminder:
-                checkBox2 = b ? 1 : 0;
+//            case R.id.insurance_expiration_reminder:
+//                checkBox1 = b ? 1 : 0;
+//                DefaultStringParser parser = new DefaultStringParser(mUpdateCallback);
+//                parser.executePost(URLConfig.getM_UPDATE_PUSH_SET(), CreateHashMap.getUpdatePushSet(close, checkBox2 + "", checkBox3 + ""));
+//                break;
+            case R.id.cb_start_reminding:
+                START_REMINDING = b ? 1 : 0;
                 DefaultStringParser parser1 = new DefaultStringParser(mUpdateCallback);
-                parser1.executePost(URLConfig.getM_UPDATE_PUSH_SET(), CreateHashMap.getUpdatePushSet(checkBox1 + "", close, checkBox3 + ""));
+                parser1.executePost(URLConfig.getM_UPDATE_PUSH_SET(), CreateHashMap.getUpdatePushSet(close, DRIVING_REPORT + ""));
                 break;
             case R.id.driving_report:
-                checkBox3 = b ? 1 : 0;
+                DRIVING_REPORT = b ? 1 : 0;
                 DefaultStringParser parser2 = new DefaultStringParser(mUpdateCallback);
-                parser2.executePost(URLConfig.getM_UPDATE_PUSH_SET(), CreateHashMap.getUpdatePushSet(checkBox1 + "", checkBox2 + "", close));
+                parser2.executePost(URLConfig.getM_UPDATE_PUSH_SET(), CreateHashMap.getUpdatePushSet(START_REMINDING + "", close));
                 break;
         }
 

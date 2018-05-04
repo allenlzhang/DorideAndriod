@@ -104,9 +104,9 @@ public class CreateHashMap {
         return create(key,values);
     }
 
-    public static HashMap getUpdatePushSet(String close1,String close2,String close3){
-        String key[] = {"report","class2_6201","class2_6202"};
-        String values[] = {close1,close2,close3};
+    public static HashMap getUpdatePushSet(String close2,String close3){
+        String key[] = {"startup","report"};
+        String values[] = {close2,close3};
         return create(key,values);
     }
 

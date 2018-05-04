@@ -13,6 +13,7 @@ public class MsgManagerInfo {
     private int report;  //是否允许推送行车报表
     private int class2_6201;   //保险到期提醒开关
     private int class2_6202;  //年检到期提醒开关
+    public int startup;  //启动提醒
 
     public int getReport() {
         return report;

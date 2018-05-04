@@ -53,7 +53,7 @@ public class HttpLinker {
             param.put("token", LoginInfo.getAccess_token());
         }
 
-        Logger.e("client_id---" + URLConfig.getClientID() + "/n" + "token---" + LoginInfo.getAccess_token());
+        Logger.e("client_id---" + URLConfig.getClientID() + "token---" + LoginInfo.getAccess_token());
         FormBody.Builder formBuilder = new FormBody.Builder();
         Iterator<String> iterators = param.keySet().iterator();
         while (iterators.hasNext()) {
