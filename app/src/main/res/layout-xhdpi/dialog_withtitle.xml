@@ -1,101 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dip"
-    android:layout_height="wrap_content"
-    android:background="@drawable/dialog_bg"
-    android:orientation="vertical"
-    android:padding="4dip" >
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/common_dialog_bg"
+              android:orientation="vertical"
+    >
 
     <!-- 标题部分 -->
 
     <TextView
         android:id="@+id/dialog_withtitle_title"
-        android:layout_width="fill_parent"
-        android:layout_height="32dip"
-        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center"
         android:paddingLeft="18dip"
         android:text="提示"
-        android:textColor="#45bbe6"
-        android:textSize="16sp" />
+        android:textColor="@color/text_color_gray3"
+        android:textSize="16sp"
+        android:visibility="visible"/>
 
     <ImageView
         android:id="@+id/dialog_withtitle_title_div"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/dialog_divider" />
+        android:background="@mipmap/dialog_divider"
+        android:visibility="gone"/>
     <!-- 内容部分 -->
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:minHeight="76dip"
+        android:minHeight="76dp"
         android:orientation="vertical"
-        android:paddingLeft="18dip"
-        android:paddingRight="18dip" >
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp">
 
         <TextView
             android:id="@+id/dialog_withtitle_content1"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="10086"
-            android:textColor="#505050"
-            android:textSize="16sp" />
+            android:textColor="@color/text_color_gray3"
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/dialog_withtitle_content2"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="test test"
-            android:textColor="#AAAAAA"
-            android:textSize="13sp" />
+            android:textColor="@color/text_color_gray3"
+            android:textSize="14sp"/>
     </LinearLayout>
 
     <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="49dip" >
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_gravity="top"
-            android:background="@mipmap/dialog_div_h" />
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
 
         <TextView
-            android:layout_width="1dip"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="0.5dip"
-            android:background="@mipmap/dialog_div_v"
-            android:visibility="gone" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/text_color_gray0"/>
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/dialog_withtitle_btn1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/dialog_button_bg"
-                android:gravity="center"
-                android:text="确认"
-                android:textColor="#505050"
-                android:textSize="16sp" />
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/dialog_withtitle_btn2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1.0"
                 android:background="@drawable/dialog_button_bg"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="#505050"
-                android:textSize="16sp" />
+                android:textColor="#478cea"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/text_color_gray0"/>
+
+            <TextView
+                android:id="@+id/dialog_withtitle_btn1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/dialog_button_bg"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="#478cea"
+                android:textSize="16sp"/>
+
+
         </LinearLayout>
     </FrameLayout>
     <!-- 按钮部分 -->

@@ -14,4 +14,10 @@
             <enum name="rect" value="1" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="PwdTextView">
+        <attr name="psw_size" format="dimension" />
+        <attr name="psw_color" format="color" />
+        <attr name="psw_count" format="integer" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
 </resources>

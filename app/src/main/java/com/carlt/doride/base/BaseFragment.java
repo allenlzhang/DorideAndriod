@@ -1,9 +1,9 @@
 package com.carlt.doride.base;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +18,7 @@ import com.carlt.doride.data.BaseResponseInfo;
 public abstract class BaseFragment extends Fragment {
     protected View mView;
     private boolean isDestory = false;
-    protected Context mCtx;
+    protected Activity mCtx;
 
     protected String TAG = getClass().getSimpleName();
     public BaseFragment() {
@@ -39,6 +39,11 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract View inflateView(LayoutInflater inflater);
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+    }
 
     @Override
     public void onResume() {

@@ -5,10 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,6 +48,7 @@ import com.carlt.doride.ui.view.UUDialogRemote;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUToastOpt;
 import com.carlt.doride.ui.view.UUToastOptError;
+import com.carlt.doride.ui.view.passwordtextview.SelectPopupWindow;
 import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.MyParse;
 
@@ -56,12 +59,11 @@ import java.util.TimerTask;
 
 /**
  * Created by liu on 2018/3/16.
- * <p>
  * 远程页面
  */
 
 public class RemoteMainFragment extends BaseFragment implements
-        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener {
+        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener, SelectPopupWindow.OnPopWindowClickListener {
     public final static String ACTION_REMOTE_SETPSW = "com.carlt.doride.action_remote_setpsw";
 
     public final static String ACTION_REMOTE_RESETPSW = "com.carlt.doride.action_remote_resetpsw";
@@ -72,7 +74,7 @@ public class RemoteMainFragment extends BaseFragment implements
     private static String TAG = "RemoteMainFragment";
     private View view;
     //效果声音播放组件
-//    private PlayRadio mPlayRadio;
+    //    private PlayRadio mPlayRadio;
 
     private View mTxtState;// 车辆状态
 
@@ -444,7 +446,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
                         uuDialogRemote.dismiss();
                     }
-//                    UUToast.showUUToast(getActivity(), "操作成功");
+                    //                    UUToast.showUUToast(getActivity(), "操作成功");
                     UUToastOpt.showUUToast(getActivity(), "操作成功");
                     break;
 
@@ -640,8 +642,8 @@ public class RemoteMainFragment extends BaseFragment implements
     private void clickLogic() {
         boolean hasRemotePswMd5 = LoginInfo.isSetRemotePwd();
         //TODO test data
-//        hasRemotePswMd5 = false;
-//        LoginInfo.setNoneedpsw(false);
+        //        hasRemotePswMd5 = false;
+        //        LoginInfo.setNoneedpsw(false);
 
         if (mViewState.getVisibility() == View.VISIBLE) {
             // 车辆状态view打开
@@ -649,16 +651,19 @@ public class RemoteMainFragment extends BaseFragment implements
         } else {
             if (hasRemotePswMd5) {
                 if (isFirstClick) {
-                    showEditDialog();
+                    //                    showEditDialog();
+                    showEditPop();
                 } else {
                     if (LoginInfo.isNoneedpsw()) {
                         if (getTimeOutStatus()) {
-                            showEditDialog();
+                            //                            showEditDialog();
+                            showEditPop();
                         } else {
                             GetResult();
                         }
                     } else {
-                        showEditDialog();
+                        //                        showEditDialog();
+                        showEditPop();
                     }
 
                 }
@@ -681,6 +686,29 @@ public class RemoteMainFragment extends BaseFragment implements
                         "设置远程控制", "为保障车辆安全请先设置远程控制密码", "取消", "设置密码", click);
 
             }
+        }
+    }
+
+    private void showEditPop() {
+        SelectPopupWindow pwdPop = new SelectPopupWindow(getActivity(), this);
+        Rect rect = new Rect();
+        getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+        int winHeight = getActivity().getWindow().getDecorView().getHeight();
+        pwdPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, winHeight - rect.bottom);
+        pwdPop.tvForgetPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent resetLoginPasswdByPhone = new Intent(getActivity(), VcodeResetRemotePasswdActivity.class);
+                startActivity(resetLoginPasswdByPhone);
+            }
+        });
+    }
+
+    @Override
+    public void onPopWindowClickListener(String psw, boolean complete) {
+        if (complete) {
+            showWaitingDialog("正在验证您的远程密码...");
+            CPControl.GetRemotePswVerify(psw, mListener_verify);
         }
     }
 
@@ -713,13 +741,13 @@ public class RemoteMainFragment extends BaseFragment implements
         TextView btn2 = (TextView) view
                 .findViewById(R.id.dialog_withedit_new_btn2);
 
-        TextView btnForget= (TextView) view
+        TextView btnForget = (TextView) view
                 .findViewById(R.id.dialog_withedit_forget_psw);
 
         btnForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resetLoginPasswdByPhone=new Intent(getActivity(),VcodeResetRemotePasswdActivity.class);
+                Intent resetLoginPasswdByPhone = new Intent(getActivity(), VcodeResetRemotePasswdActivity.class);
                 startActivity(resetLoginPasswdByPhone);
             }
         });
@@ -821,6 +849,7 @@ public class RemoteMainFragment extends BaseFragment implements
     }
 
     private RemoteReceiver mReceiver;
+
 
     public class RemoteReceiver extends BroadcastReceiver {
         @Override

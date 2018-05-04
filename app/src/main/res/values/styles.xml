@@ -16,6 +16,7 @@
         <item name="android:textSize">@dimen/text_size_small_s1</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">12sp</item>
     </style>
@@ -75,7 +76,7 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-   <!-- 公用List样式 -->
+    <!-- 公用List样式 -->
     <style name="public_listView" parent="android:Widget.ListView">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -217,7 +218,6 @@
     </style>
 
 
-
     <style name="rili_head_text">
         <item name="android:gravity">center</item>
         <item name="android:textColor">#E8E8E8</item>
@@ -256,5 +256,10 @@
         <item name="android:layout_height">35dp</item>
         <item name="android:background">@drawable/verification_send_bg</item>
         <item name="android:gravity">center</item>
+    </style>
+    <!--密码输入框弹出动画-->
+    <style name="dialog_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
     </style>
 </resources>

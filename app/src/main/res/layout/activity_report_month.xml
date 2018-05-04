@@ -161,8 +161,7 @@
             android:id="@+id/activity_report_month_rl_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="209dp">
+            android:layout_marginLeft="200dp">
             <ImageView
                 android:id="@+id/item_report_month_view_color4"
                 android:layout_width="wrap_content"
@@ -207,8 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/activity_report_month_rl_4"
-
-            android:layout_marginLeft="209dp">
+            android:layout_marginLeft="200dp">
             <ImageView
                 android:id="@+id/item_report_month_view_color5"
                 android:layout_width="wrap_content"
@@ -254,8 +252,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/activity_report_month_rl_5"
             android:layout_marginBottom="30dp"
-
-            android:layout_marginLeft="209dp">
+            android:layout_marginLeft="200dp">
             <ImageView
                 android:id="@+id/item_report_month_view_color6"
                 android:layout_width="wrap_content"
