@@ -18,6 +18,8 @@ import com.carlt.doride.ui.fragment.HomeFragment;
 import com.carlt.doride.ui.fragment.RemoteMainFragment;
 import com.carlt.doride.ui.fragment.SettingMainFragment;
 
+import java.util.List;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private HomeFragment mHomeFragment;
@@ -42,13 +44,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private FragmentManager mFragmentManager;
 
+    private List<BaseFragment> listFragments ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
         mFragmentManager = getFragmentManager();
+        listFragments.add(mHomeFragment);
+        listFragments.add(mCarMainFragment);
+        listFragments.add(mRemoteMainFragment);
+        listFragments.add(mSettingMainFragment);
         setTabSelection(0);
+
     }
 
     @Override
@@ -124,7 +134,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             default:
                 break;
         }
+
         transaction.commit();
+
+        BaseFragment baseFragment = listFragments.get(index);
+        if(null != baseFragment){
+            baseFragment.loadData();
+        }
     }
 
     private void clearSelection() {

@@ -151,6 +151,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     @Override
     public void onResume() {
         super.onResume();
+
         loadData();
     }
 

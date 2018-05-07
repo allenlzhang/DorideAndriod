@@ -66,7 +66,7 @@ public class CarOperationConfigParser<T> extends BaseParser<T>  {
             mFunInfo = new RemoteFunInfo();
             mFunInfo.setId("1");
             mFunInfo.setApi_field("remoteLocked");
-            mFunInfo.setName("车门解锁");
+            mFunInfo.setName("车锁");
             mFunInfo.setIcon_id(R.drawable.remote_openlock_selector);
             state = mJSON_data.get("remoteLocked").getAsInt()+"";
             mFunInfo.setState(state);
@@ -75,71 +75,15 @@ public class CarOperationConfigParser<T> extends BaseParser<T>  {
             }
 
             mFunInfo = new RemoteFunInfo();
-            mFunInfo.setId("2");
-            mFunInfo.setApi_field("remoteLocked");
-            mFunInfo.setName("车门落锁");
-            mFunInfo.setIcon_id(R.drawable.remote_lock_selector);
-            state = mJSON_data.get("remoteLocked").getAsInt()+"";
-            mFunInfo.setState(state);
-            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
-            }
-
-            mFunInfo = new RemoteFunInfo();
-            mFunInfo.setId("12");
-            mFunInfo.setApi_field("remoteTrunk");
-            mFunInfo.setName("开启后备箱");
-            mFunInfo.setIcon_id(R.drawable.trunck);
-            state = mJSON_data.get("remoteTrunk").getAsInt()+"";
-            mFunInfo.setState(state);
-            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
-            }
-
-            mFunInfo = new RemoteFunInfo();
-            mFunInfo.setId("10");
-            mFunInfo.setApi_field("remoteAirconditioner");
-            mFunInfo.setName("空调");
-            mFunInfo.setIcon_id(R.drawable.air_condition);
-            state = mJSON_data.get("remoteAirconditioner").getAsInt()+"";
-            mFunInfo.setState(state);
-            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
-            }
-
-            mFunInfo = new RemoteFunInfo();
-            mFunInfo.setId("11");
-            mFunInfo.setApi_field("SLCarLocating");
-            mFunInfo.setName("一键寻车");
-            mFunInfo.setIcon_id(R.drawable.horm);
-            state = mJSON_data.get("SLCarLocating").getAsInt()+"";
-            mFunInfo.setState(state);
-            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
-            }
-
-            mFunInfo = new RemoteFunInfo();
-            mFunInfo.setId("4");
-            mFunInfo.setApi_field("remoteWinSw");
-            mFunInfo.setName("升起车窗");
-            mFunInfo.setIcon_id(R.drawable.remote_rise_up_window_selector);
-            state = mJSON_data.get("remoteWinSw").getAsInt()+"";
-            mFunInfo.setState(state);
-            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
-            }
-
-            mFunInfo = new RemoteFunInfo();
             mFunInfo.setId("3");
             mFunInfo.setApi_field("remoteWinSw");
-            mFunInfo.setName("降下车窗");
+            mFunInfo.setName("车窗");
             mFunInfo.setIcon_id(R.drawable.remote_rise_down_window_selector);
             state = mJSON_data.get("remoteWinSw").getAsInt()+"";
             mFunInfo.setState(state);
             if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
                 mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
             }
-
             // 四个子项目，加一个主项目
             RemoteFunInfo mFunInfo6 = new RemoteFunInfo();
             mFunInfo6.setId("6");
@@ -196,6 +140,52 @@ public class CarOperationConfigParser<T> extends BaseParser<T>  {
             } else {
                 mFunInfo.setState(RemoteFunInfo.STATE_NONSUPPORT);
             }
+
+            mFunInfo = new RemoteFunInfo();
+            mFunInfo.setId("10");
+            mFunInfo.setApi_field("remoteAirconditioner");
+            mFunInfo.setName("空调");
+            mFunInfo.setIcon_id(R.drawable.air_condition);
+            state = mJSON_data.get("remoteAirconditioner").getAsInt()+"";
+            mFunInfo.setState(state);
+            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
+            }
+
+
+            mFunInfo = new RemoteFunInfo();
+            mFunInfo.setId("13");
+            mFunInfo.setApi_field("remoteSeatHeating");
+            mFunInfo.setName("座椅加热");
+            mFunInfo.setIcon_id(R.drawable.remote_seat_heating);
+            state = mJSON_data.get("remoteSeatHeating").getAsInt()+"";
+            mFunInfo.setState(state);
+            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
+            }
+
+            mFunInfo = new RemoteFunInfo();
+            mFunInfo.setId("12");
+            mFunInfo.setApi_field("remoteTrunk");
+            mFunInfo.setName("打开后备箱");
+            mFunInfo.setIcon_id(R.drawable.trunck);
+            state = mJSON_data.get("remoteTrunk").getAsInt()+"";
+            mFunInfo.setState(state);
+            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
+            }
+
+            mFunInfo = new RemoteFunInfo();
+            mFunInfo.setId("11");
+            mFunInfo.setApi_field("SLCarLocating");
+            mFunInfo.setName("一键寻车");
+            mFunInfo.setIcon_id(R.drawable.horm);
+            state = mJSON_data.get("SLCarLocating").getAsInt()+"";
+            mFunInfo.setState(state);
+            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
+            }
+
 
             LoginInfo.setRemoteMainInfo(mRemoteMainInfo);
 
