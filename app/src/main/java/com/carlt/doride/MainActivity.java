@@ -18,6 +18,7 @@ import com.carlt.doride.ui.fragment.HomeFragment;
 import com.carlt.doride.ui.fragment.RemoteMainFragment;
 import com.carlt.doride.ui.fragment.SettingMainFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
         init();
         mFragmentManager = getFragmentManager();
+        listFragments = new ArrayList<>();
         listFragments.add(mHomeFragment);
         listFragments.add(mCarMainFragment);
         listFragments.add(mRemoteMainFragment);
