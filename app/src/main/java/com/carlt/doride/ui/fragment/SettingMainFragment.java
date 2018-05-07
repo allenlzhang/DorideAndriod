@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +35,7 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.utils.CacheUtils;
 import com.carlt.doride.utils.DensityUtil;
 import com.carlt.doride.utils.LoadLocalImageUtil;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 
@@ -119,6 +119,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         showUserUI();
+        loadData();
         super.onResume();
     }
 
@@ -130,7 +131,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         }
 
         if (!TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-//            Glide.with(this.getActivity()).load(LoginInfo.getAvatar_img()).into(avatar);
+            //            Glide.with(this.getActivity()).load(LoginInfo.getAvatar_img()).into(avatar);
             LoadLocalImageUtil.getInstance().displayCircleFromWeb(LoginInfo.getAvatar_img(), avatar, R.mipmap.default_avater);
         }
         if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
@@ -170,8 +171,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             //                break;
             case R.id.btn_contact_us:
                 //                showDialog();
+                Logger.e("-=--=" + mDealerInfo);
                 if (null != mDealerInfo && !TextUtils.isEmpty(mDealerInfo.getServiceTel())) {
-                    PopBoxCreat.createDialogNotitle(this.getActivity(), null, mDealerInfo.getServiceTel(), "取消", "拨打", new PopBoxCreat.DialogWithTitleClick() {
+                    PopBoxCreat.createDialogNotitle(getActivity(), "拨打电话", mDealerInfo.getServiceTel(), "取消", "拨打", new PopBoxCreat.DialogWithTitleClick() {
                         @Override
                         public void onLeftClick() {
 
@@ -200,7 +202,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      */
     @Override
     public void loadData() {
-        showUserUI();
+        //        showUserUI();
         CarDealerParser parser = new CarDealerParser(dealerCallback);
         HashMap<String, String> params = new HashMap<>();
         parser.executePost(URLConfig.getM_GET_DEALER_INFO(), params);
@@ -209,13 +211,14 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private BaseParser.ResultCallback dealerCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            Logger.e(TAG + bInfo.toString());
             mDealerInfo = (DealerInfo) bInfo.getValue();
             contact_us_phone.setText(mDealerInfo.getServiceTel());
         }
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            Log.d(TAG, bInfo.toString());
+            Logger.e(TAG, bInfo.toString());
         }
     };
 

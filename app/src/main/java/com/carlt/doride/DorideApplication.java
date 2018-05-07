@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.carlt.doride.dao.DBManager;
@@ -91,6 +90,7 @@ public class DorideApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Logger.addLogAdapter(new AndroidLogAdapter());
         instance = this;
         context = getApplicationContext();
         ApplicationContext = this.getApplicationContext();
@@ -140,7 +140,7 @@ public class DorideApplication extends Application {
         FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
         FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
 
-        Logger.addLogAdapter(new AndroidLogAdapter());
+
         String sha1 = sHA1(this);
         Logger.e("---" + sha1);
     }
@@ -179,25 +179,25 @@ public class DorideApplication extends Application {
         // Build.TIME
         // Build.TYPE // builder类型
         // Build.USER
-        Log.e("build", "Build.BRAND==" + Build.BRAND);
-        Log.e("build", "Build.CPU_ABI==" + Build.CPU_ABI);
-        Log.e("build", "Build.DEVICE==" + Build.DEVICE);
-        Log.e("build", "Build.HOST==" + Build.HOST);
-        Log.e("build", "Build.MANUFACTURER==" + Build.MANUFACTURER);
-        Log.e("build", "Build.MODEL==" + Build.MODEL);
-        Log.e("build", "Build.PRODUCT==" + Build.PRODUCT);
-        Log.e("build", "Build.TYPE==" + Build.TYPE);
-        Log.e("build", "Build.USER==" + Build.USER);
-        Log.e("build", "Build.FINGERPRINT==" + Build.FINGERPRINT);
-        Log.e("build", "Build.SERIAL==" + Build.SERIAL);
-        Log.e("build", "Build.HARDWARE==" + Build.HARDWARE);
+        Logger.e("build" + "Build.BRAND==" + Build.BRAND);
+        Logger.e("build" + "Build.CPU_ABI==" + Build.CPU_ABI);
+        Logger.e("build" + "Build.DEVICE==" + Build.DEVICE);
+        Logger.e("build" + "Build.HOST==" + Build.HOST);
+        Logger.e("build" + "Build.MANUFACTURER==" + Build.MANUFACTURER);
+        Logger.e("build" + "Build.MODEL==" + Build.MODEL);
+        Logger.e("build" + "Build.PRODUCT==" + Build.PRODUCT);
+        Logger.e("build" + "Build.TYPE==" + Build.TYPE);
+        Logger.e("build" + "Build.USER==" + Build.USER);
+        Logger.e("build" + "Build.FINGERPRINT==" + Build.FINGERPRINT);
+        Logger.e("build" + "Build.SERIAL==" + Build.SERIAL);
+        Logger.e("build" + "Build.HARDWARE==" + Build.HARDWARE);
         String m_szDevIDShort = Build.BRAND + Build.CPU_ABI + Build.DEVICE
                 + Build.HOST + Build.MANUFACTURER + Build.MODEL + Build.PRODUCT
                 + Build.TYPE + Build.USER + Build.FINGERPRINT + Build.SERIAL
                 + Build.HARDWARE;
         m_szDevIDShort = "ZT-"
                 + UUID.nameUUIDFromBytes(m_szDevIDShort.getBytes()).toString();
-        Log.e("Tags:", "OLD:" + CipherUtils.md5(m_szDevIDShort));
+        Logger.e("Tags:", "OLD:" + CipherUtils.md5(m_szDevIDShort));
         return CipherUtils.md5(m_szDevIDShort);
     }
 

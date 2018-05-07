@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -94,7 +93,7 @@ public class RemoteMainFragment extends BaseFragment implements
     // 汽车状态相关
     private View mViewState;// 汽车状态
 
-    private GridView mGridViewState;// 汽车状态
+    private MyGridView mGridViewState;// 汽车状态
 
     private ImageView mImgArrow;// 收起箭头
 
@@ -128,6 +127,11 @@ public class RemoteMainFragment extends BaseFragment implements
     //天窗对话框
     private UUDialogRemote uuDialogRemote;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
@@ -214,7 +218,7 @@ public class RemoteMainFragment extends BaseFragment implements
         // 生成广播处理
         mReceiver = new RemoteReceiver();
         IntentFilter filter = new IntentFilter();
-        mRControl.setOnItemClick(mItemClick1);
+//        mRControl.setOnItemClick(mItemClick1);
         filter.addAction(ACTION_REMOTE_SETPSW);
         filter.addAction(ACTION_REMOTE_RESETPSW);
         filter.addAction(ACTION_REMOTE_FORGETPSW);
