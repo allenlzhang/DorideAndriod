@@ -128,16 +128,22 @@
         android:src="@mipmap/login_regist"
         android:layout_marginTop="44dp"
         />
-    <TextView
-        android:id="@+id/forgot_passwd"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        android:layout_gravity="left"
-        android:layout_marginLeft="12dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="left|bottom"
-        android:text="@string/usercenter_forget_password" />
+        >
+        <TextView
+            android:id="@+id/forgot_passwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="left|bottom"
+            android:text="@string/usercenter_forget_password" />
+    </RelativeLayout>
 
 </LinearLayout>

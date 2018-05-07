@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -194,6 +195,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     private WeatherSearchQuery mquery;
     private WeatherSearch mweathersearch;
 
+    @SuppressLint("NewApi")
     public void loadWeather() {
         Log.e("info", "loadWeather cityName==" + cityName);
         if (null == cityName) {

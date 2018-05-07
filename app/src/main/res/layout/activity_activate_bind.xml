@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/login_bg"
+    android:background="@color/layout_background"
     tools:context=".ui.activity.login.ActivateBindActivity">
     <include layout="@layout/layout_title" />
 
@@ -12,7 +12,8 @@
     <ImageView
         android:id="@+id/activate_bind_logo"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="238dp"
+        android:layout_marginTop="33dp"
         android:src="@mipmap/activate_bind_logo"
         android:scaleType="fitXY"
         android:contentDescription="@string/app_name" />
@@ -26,6 +27,7 @@
         android:text="@string/device_activate_tip"
         />
     <TextView
+        android:id="@+id/activate_bind_txt_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

@@ -117,8 +117,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     CPControl.GetMessageValidateResult("1", cellPhone, validateCodeListener);
                     count = 60;
                     register_verification_send.setText(count + "秒后重发");
-                    register_verification_send.setClickable(false);
-                    register_verification_send.setBackgroundResource(R.mipmap.btn_code_gray);
+                    register_verification_send.setEnabled(false);
 
                     task = new TimerTask() {
 
@@ -185,9 +184,8 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                             task.cancel();
                         }
                     }
-                    register_verification_send.setClickable(true);
+                    register_verification_send.setEnabled(true);
                     register_verification_send.setText(R.string.usercenter_push_validate1);
-                    register_verification_send.setBackgroundResource(R.drawable.verification_sending_bg);
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     int flag = mBaseResponseInfo.getFlag();
@@ -231,9 +229,8 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                                 task.cancel();
                             }
                         }
-                        register_verification_send.setClickable(true);
+                        register_verification_send.setEnabled(true);
                         register_verification_send.setText(R.string.usercenter_push_validate1);
-                        register_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
                     }
                     break;
             }

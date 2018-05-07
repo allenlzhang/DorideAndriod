@@ -234,7 +234,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text_color_gray2</item>
     </style>
     <!-- report day style -->
     <style name="day_tag_style">

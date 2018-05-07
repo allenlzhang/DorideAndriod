@@ -194,7 +194,7 @@ public class GpsTrailActivity extends LoadingActivity implements
 		mMapView.onCreate(savedInstanceState);
 		mMap = mMapView.getMap();
 		mMap.setOnMapLoadedListener(this);
-		mMap.setMapType(AMap.MAP_TYPE_NIGHT);
+//		mMap.setMapType(AMap.MAP_TYPE_NIGHT);
 		UiSettings uiSeting = mMap.getUiSettings();
 		uiSeting.setMyLocationButtonEnabled(false);
 		// uiSeting.setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);

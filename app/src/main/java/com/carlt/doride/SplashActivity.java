@@ -22,6 +22,7 @@ import com.carlt.doride.ui.view.DownloadView;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
 
@@ -35,7 +36,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class SplashActivity extends BaseActivity implements Callback {
+public class SplashActivity extends BaseActivity {
 
     private int useTimes;// 用户使用app的次数
 
@@ -288,6 +289,7 @@ public class SplashActivity extends BaseActivity implements Callback {
                 case 3:
                     useTimes++;
                     ActivityControl.initXG();
+                    LoginControl.mDialogUpdateListener = mDUpdateListener;
                     LoginControl.logic(SplashActivity.this);
                     if (!LoginInfo.isUpgradeing()) {
                         finish();
@@ -380,15 +382,21 @@ public class SplashActivity extends BaseActivity implements Callback {
 
     };
 
-    @Override
-    public void onFailure(Call call, IOException e) {
+    UUUpdateDialog.DialogUpdateListener mDUpdateListener = new UUUpdateDialog.DialogUpdateListener() {
 
-    }
+        @Override
+        public void onSuccess() {
+            LoginControl.mDialogUpdateListener = null;
+            finish();
+        }
 
-    @Override
-    public void onResponse(Call call, Response response) throws IOException {
-
-    }
+        @Override
+        public void onFailed() {
+            LoginControl.mDialogUpdateListener = null;
+            Intent mIntent = new Intent(mContext, UserLoginActivity.class);
+            startActivity(mIntent);
+        }
+    };
 
 
 }

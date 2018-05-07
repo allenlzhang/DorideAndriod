@@ -33,7 +33,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private ImageView mImageViewSecretary;// 车秘书头像
 
-    private TextView mTextViewSecretary;// 提醒消息
+    private TextView mTextViewMsg;// 提醒消息
 
     private UUTimerDialog mDialog;
 
@@ -68,9 +68,9 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private void initSubTitle() {
         mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
-        mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
-
-        mTextViewSecretary.setText("设备绑定成功！激活设备后就能使用大乘管家的全部功能啦！");
+        mTextViewMsg = (TextView) findViewById(R.id.activate_bind_txt_msg);
+//
+//        mTextViewMsg.setText("设备绑定成功！激活设备后就能使用大乘管家的全部功能啦！");
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                         mDialog.show();
                         listener_time = System.currentTimeMillis();
                         ActivateCount++;
-                        mTextViewSecretary.setText("已收到激活请求，正在连接大乘设备…");
+//                        mTextViewSecretary.setText("已收到激活请求，正在连接大乘设备…");
                         activateDevice();
                     }
 
@@ -136,12 +136,13 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
+
             boolean t = (System.currentTimeMillis() - listener_time) > ONEMIN;
             int flagCode = bInfo.getFlag();
             if (flagCode == 2997 && !t) {
                 mHandler.sendEmptyMessageDelayed(0,1000);
             } else {
+                UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
                 errorSwitch(bInfo);
             }
 
@@ -168,7 +169,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             }
             PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
         }else if (code == BaseResponseInfo.ERRO){
-            mTextViewSecretary.setText("激活失败，网络不稳定，请稍后重新再试");
+            mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
@@ -176,11 +177,11 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         }else if (code == 2997) {
             // 下发不成功的情况
             if (ActivateCount == 1) {
-                mTextViewSecretary.setText(e1);
+                mTextViewMsg.setText(e1);
             } else if (ActivateCount == 2) {
-                mTextViewSecretary.setText(e2);
+                mTextViewMsg.setText(e2);
             } else if (ActivateCount > 2) {
-                mTextViewSecretary.setText(e3);
+                mTextViewMsg.setText(e3);
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -188,14 +189,14 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             }
         } else {
             if (code == 3004) {
-                mTextViewSecretary.setText(e4);
+                mTextViewMsg.setText(e4);
             }
-//            else if (code == 3005) {
-//                mTextViewSecretary.setText(e5);
-//            }
+            else if (code == 3005) {
+                mTextViewMsg.setText(e5);
+            }
             else {
-//                mTextViewSecretary.setText(e3);
-                mTextViewSecretary.setText(mBaseResponseInfo.getInfo());
+                mTextViewMsg.setText(e3);
+                mTextViewMsg.setText(mBaseResponseInfo.getInfo());
             }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();

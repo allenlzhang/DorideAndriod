@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.ReplacementTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.Log;
 
 import java.util.HashMap;
 
@@ -78,6 +80,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         if (!TextUtils.isEmpty(vinCode)) {
 
             car_vin_code.setText(vinCode);
+            car_vin_code.setSelection(vinCode.length());
         }
 
     }
@@ -99,27 +102,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         bind_commit = findViewById(R.id.bind_commit);
         bind_commit.setOnClickListener(this);
         car_vin_code = findViewById(R.id.car_vin_code);
-        car_vin_code.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //当输入为小写字母时，自动转换为大写字母
-
-                car_vin_code.removeTextChangedListener(this);//解除文字改变事件
-                car_vin_code.setText(s.toString().toUpperCase());//转换
-                car_vin_code.setSelection(s.toString().length());//重新设置光标位置
-                car_vin_code.addTextChangedListener(this);//重新绑
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        car_vin_code.setTransformationMethod(new AutoCaseTransformationMethod());
     }
 
 
@@ -205,5 +188,29 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     public void onBackPressed() {
         back();
         super.onBackPressed();
+    }
+    public class AutoCaseTransformationMethod extends ReplacementTransformationMethod {
+        /**
+         * 获取要改变的字符。
+         * @return 将你希望被改变的字符数组返回。
+         */
+        @Override
+        protected char[] getOriginal() {
+            return new char[]{'a', 'b', 'c', 'd', 'e',
+                    'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                    'm', 'n', 'o', 'p', 'q', 'r', 's',
+                    't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        }
+
+        /**
+         * 获取要替换的字符。
+         * @return 将你希望用来替换的字符数组返回。
+         */
+        @Override
+        protected char[] getReplacement() {
+            return new char[]{ 'A', 'B', 'C', 'D', 'E',
+                    'F', 'G', 'H', 'I', 'J','K','L','M',
+                    'N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
+        }
     }
 }
