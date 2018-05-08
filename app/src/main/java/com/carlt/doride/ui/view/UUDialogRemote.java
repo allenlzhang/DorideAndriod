@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -32,7 +31,7 @@ public class UUDialogRemote extends UUDialogBaseLoading implements
         android.view.View.OnClickListener, OnItemClickListener {
     private TextView title;
 
-    private ImageView imgOption;
+    private TextView imgOption;
 
     private CarGridView grid;
 
@@ -85,7 +84,7 @@ public class UUDialogRemote extends UUDialogBaseLoading implements
         grid = (CarGridView)mainView.findViewById(R.id.dialog_car_grid);
         txtNodata = (TextView)mainView.findViewById(R.id.dialog_car_txt_nodata);
         grid.setScrollable(false);
-        imgOption = (ImageView)mainView.findViewById(R.id.dialog_foot_img_option);
+        imgOption = (TextView)mainView.findViewById(R.id.dialog_foot_img_option);
         imgOption.setOnClickListener(this);
 
         LoadData();
@@ -148,11 +147,11 @@ public class UUDialogRemote extends UUDialogBaseLoading implements
         }
     }
 
-    public void setOptionImg(int resId) {
-        if (resId > 0) {
-            imgOption.setImageResource(resId);
-        }
-    }
+//    public void setOptionImg(int resId) {
+//        if (resId > 0) {
+//            imgOption.setImageResource(resId);
+//        }
+//    }
 
     CarRemoteAdapter  adapter;
 

@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -48,8 +49,8 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUToastOpt;
 import com.carlt.doride.ui.view.UUToastOptError;
 import com.carlt.doride.ui.view.passwordtextview.SelectPopupWindow;
-import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.MyParse;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,8 +123,6 @@ public class RemoteMainFragment extends BaseFragment implements
 
     private RemoteGridControl mRControl;
 
-    private int lastOpt = -1;
-
     //天窗对话框
     private UUDialogRemote uuDialogRemote;
 
@@ -148,13 +147,13 @@ public class RemoteMainFragment extends BaseFragment implements
                 @Override
                 public void onSuccess(BaseResponseInfo bInfo) {
                     DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
-                    ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
+                    Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
                     loadSuss();
                 }
 
                 @Override
                 public void onError(BaseResponseInfo bInfo) {
-                    ILog.e(TAG, "onError" + bInfo.toString());
+                    Logger.e(TAG, "onError" + bInfo.toString());
                     actLoadError((BaseResponseInfo) bInfo);
                 }
             });
@@ -171,6 +170,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
     private void loadSuss() {
         RemoteMainInfo mRemoteMainInfo = DorideApplication.getInstanse().getRemoteMainInfo();
+        Logger.e("RemoteMainInfo----" + mRemoteMainInfo);
         if (mRemoteMainInfo != null) {
             mAirMainInfo1 = mRemoteMainInfo.getmAirMainInfo();
             LoginInfo.setChangedCar(false);
@@ -178,6 +178,7 @@ public class RemoteMainFragment extends BaseFragment implements
             String stateStart = mRemoteMainInfo.getmFunInfoStart().getState();
             String stateStop = mRemoteMainInfo.getmFunInfoStop().getState();
             int size = mRemoteFunInfos.size();
+            Logger.e("mRemoteFunInfos.size()----" + size);
             if (size <= 0 && !stateStart.equals(RemoteFunInfo.STATE_SUPPORT)
                     && !stateStop.equals(RemoteFunInfo.STATE_SUPPORT)) {
                 mViewUnsupport.setVisibility(View.VISIBLE);
@@ -218,7 +219,7 @@ public class RemoteMainFragment extends BaseFragment implements
         // 生成广播处理
         mReceiver = new RemoteReceiver();
         IntentFilter filter = new IntentFilter();
-//        mRControl.setOnItemClick(mItemClick1);
+        //        mRControl.setOnItemClick(mItemClick1);
         filter.addAction(ACTION_REMOTE_SETPSW);
         filter.addAction(ACTION_REMOTE_RESETPSW);
         filter.addAction(ACTION_REMOTE_FORGETPSW);
@@ -265,6 +266,7 @@ public class RemoteMainFragment extends BaseFragment implements
         public void onClick(View v) {
             RemoteFunInfo mInfo = (RemoteFunInfo) v.getTag();
             selectedPos = MyParse.parseInt(mInfo.getId());
+            Logger.e("---" + mInfo.toString());
             if (selectedPos == 5) {
                 //天窗
                 skyWindowsInfo = mInfo;
@@ -286,52 +288,60 @@ public class RemoteMainFragment extends BaseFragment implements
         }
         switch (selectedPos) {
             case -2:
-                lastOpt = 0;
                 CPControl.GetRemoteStart(mListener);
                 break;
             case -1:
                 // 远程熄火
-                lastOpt = 1;
                 CPControl.GetCancelRemoteStart(mListener);
                 break;
-            case 11:
-                // 闪灯鸣笛
-                lastOpt = 2;
-                CPControl.GetCarLocating(mListener);
-                break;
-            case 12:
-                // 远程开启后备箱
-                lastOpt = 5;
-                CPControl.GetRemoteTrunk(mListener);
-                break;
-            case 10:
-                // 远程开启空调
-                lastOpt = 3;
-                mHandler.sendEmptyMessage(6);
-                break;
+
             case 1:
                 // 远程解锁
-                lastOpt = 6;
-                CPControl.GetRemoteLock("1", mListener);
-                break;
+                //                CPControl.GetRemoteLock("1", mListener);
+
             case 2:
                 // 远程落锁
-                lastOpt = 7;
-                CPControl.GetRemoteLock("2", mListener);
+                //                CPControl.GetRemoteLock("2", mListener);
+                dissmissWaitingDialog();
+                PopBoxCreat.createDialogRemote(getActivity(), "落锁", "解锁", R.drawable.remote_lock_selector, R.drawable.remote_unlock_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick() {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteLock("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick() {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteLock("2", mListener);
+                    }
+                });
                 break;
             case 4://升起车窗，关窗
                 //
-                lastOpt = 8;
-                CPControl.GetRemoteClosewin(mListener);
-                break;
+                //                CPControl.GetRemoteClosewin(mListener);
+                //                break;
             case 3:
                 // 降下车窗,开窗
-                lastOpt = 9;
-                CPControl.GetRemoteOpenwin(mListener);
+                //                CPControl.GetRemoteOpenwin(mListener);
+
+                dissmissWaitingDialog();
+                PopBoxCreat.createDialogRemote(getActivity(), "开窗", "关窗", R.drawable.remote_win_down_selector, R.drawable.remote_win_up_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick() {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChangeWinState("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick() {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChangeWinState("2", mListener);
+                    }
+                });
                 break;
             case 5:
                 // 天窗
-                lastOpt = 13;
                 dissmissWaitingDialog();
                 if (skyWindowsInfo != null) {
                     uuDialogRemote = new UUDialogRemote(getActivity());
@@ -343,19 +353,49 @@ public class RemoteMainFragment extends BaseFragment implements
                 break;
             case 6:
                 // 远程开启天窗
-                lastOpt = 10;
                 CPControl.GetRemoteSkylight("1", mListener);
                 break;
             case 7:
                 // 远程关闭天窗
-                lastOpt = 11;
                 CPControl.GetRemoteSkylight("2", mListener);
                 break;
             case 8:
                 // 远程天窗开撬
-                lastOpt = 12;
                 CPControl.GetRemoteSkylight("3", mListener);
                 break;
+            case 10:
+                // 远程开启空调
+                mHandler.sendEmptyMessage(6);
+                break;
+            case 11:
+                // 闪灯鸣笛
+                CPControl.GetCarLocating(mListener);
+                break;
+            case 12:
+                // 远程开启后备箱
+                CPControl.GetRemoteTrunk(mListener);
+                break;
+            case 13:
+                // 远程座椅加热
+                //                CPControl.GetRemoteChairHeating(mListener);
+                //                UUToast.showUUToast(getActivity(), "车锁");
+
+                dissmissWaitingDialog();
+                PopBoxCreat.createDialogRemote(getActivity(), "开启", "关闭", R.drawable.remote_open_seat_hot_selector, R.drawable.remote_close_seat_hot_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick() {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChairHeating("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick() {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChairHeating("2", mListener);
+                    }
+                });
+                break;
+
         }
     }
 
@@ -435,12 +475,15 @@ public class RemoteMainFragment extends BaseFragment implements
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+                    //                    远程操作成功
+                    Logger.e("---远程操作成功");
                     dissmissWaitingDialog();
                     if (airDialog != null) {
                         isReCall = false;
@@ -499,10 +542,12 @@ public class RemoteMainFragment extends BaseFragment implements
                     }
                     break;
                 case 4:
+                    //                    校验远程密码成功
                     dissmissWaitingDialog();
                     mHandler.sendEmptyMessage(10);
                     break;
                 case 5:
+                    //                    校验远程密码失败
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo2 = (BaseResponseInfo) msg.obj;
                     if (mInfo2 != null) {
@@ -555,6 +600,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     }
                     break;
                 case 10:
+                    //                    处理远程校验密码成功后逻辑
                     GetResult();
                     break;
                 case 11:

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="32dip"
+    android:layout_height="40dip"
     android:background="@drawable/dialog_bg_foot" >
 
-    <ImageView
+    <TextView
         android:id="@+id/dialog_foot_img_option"
-        android:layout_width="33.5dip"
-        android:layout_height="30dip"
-        android:src="@mipmap/cardialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="关闭"
+        android:textSize="14sp"
+        android:textColor="@color/dialog_btn_font_color"
+        android:gravity="center"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

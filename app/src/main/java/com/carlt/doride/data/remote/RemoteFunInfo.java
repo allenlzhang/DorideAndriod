@@ -115,4 +115,20 @@ public class RemoteFunInfo extends BaseResponseInfo {
 	public void setSelect(boolean isSelect) {
 		this.isSelect = isSelect;
 	}
+
+	@Override
+	public String toString() {
+		return "RemoteFunInfo{" +
+				"id='" + id + '\'' +
+				", api_field='" + api_field + '\'' +
+				", name='" + name + '\'' +
+				", icon_id=" + icon_id +
+				", icon_id_seleced=" + icon_id_seleced +
+				", icon_id_seleced_no=" + icon_id_seleced_no +
+				", state='" + state + '\'' +
+				", apiFieldLists=" + apiFieldLists +
+				", temperature='" + temperature + '\'' +
+				", isSelect=" + isSelect +
+				'}';
+	}
 }

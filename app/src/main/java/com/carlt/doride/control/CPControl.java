@@ -80,6 +80,15 @@ public class CPControl {
         remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_TRUNK(), param);
     }
 
+    //远程座椅加热
+    public static void GetRemoteChairHeating(String state, BaseParser.ResultCallback mListener) {
+        DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
+        HashMap param = new HashMap();
+        param.put("move_device_name", DorideApplication.MODEL_NAME);
+        param.put("rshoc", state);    //1:开启，2：关闭
+        remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_TRUNK(), param);
+    }
+
     // 1:解锁，2上锁
     public static void GetRemoteLock(String s, BaseParser.ResultCallback mListener) {
         DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
@@ -95,6 +104,15 @@ public class CPControl {
         HashMap param = new HashMap();
         param.put("move_device_name", DorideApplication.MODEL_NAME);
         param.put("rwoc", "2");
+        remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_WINDOW(), param);
+    }
+
+    //开窗
+    public static void GetRemoteChangeWinState(String state, BaseParser.ResultCallback mListener) {
+        DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
+        HashMap param = new HashMap();
+        param.put("move_device_name", DorideApplication.MODEL_NAME);
+        param.put("rwoc", state);
         remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_WINDOW(), param);
     }
 
@@ -517,7 +535,7 @@ public class CPControl {
         sysinfo.append(DorideApplication.MODEL_NAME);
         mMap.put("sysinfo", sysinfo.toString());
         String url = URLConfig.getM_LOGIN_URL();
-//        Logger.e("url---" + url);
+        //        Logger.e("url---" + url);
         DefaultStringParser parser = new DefaultStringParser(listener_login);
         parser.executePost(url, mMap);
 
