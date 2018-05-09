@@ -68,9 +68,9 @@
             android:layout_toLeftOf="@id/line_v"
             android:gravity="center"
             android:text="左侧按钮"
-            android:textColor="#2c77c0"
+            android:textColor="#478CEA"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            />
 
         <TextView
             android:id="@+id/dialog_notitle_text_btnright"
@@ -80,9 +80,9 @@
             android:layout_toRightOf="@id/line_v"
             android:gravity="center"
             android:text="右侧按钮"
-            android:textColor="#2c77c0"
+            android:textColor="#478CEA"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            />
     </RelativeLayout>
 
      <TextView

@@ -4,7 +4,9 @@ package com.carlt.doride.ui.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,7 +96,6 @@ public class PopBoxCreat {
         TextView content2 = (TextView) view.findViewById(R.id.dialog_withtitle_content2);
         TextView btn1 = (TextView) view.findViewById(R.id.dialog_withtitle_btn1);
         TextView btn2 = (TextView) view.findViewById(R.id.dialog_withtitle_btn2);
-        ImageView div = (ImageView) view.findViewById(R.id.dialog_withtitle_title_div);
         if (bt1_msg != null && !bt1_msg.equals("")) {
             btn1.setText(bt1_msg);
         }
@@ -105,11 +106,9 @@ public class PopBoxCreat {
         }
         if (title_msg != null && !title_msg.equals("")) {
             title.setVisibility(View.VISIBLE);
-            div.setVisibility(View.VISIBLE);
             title.setText(title_msg);
         } else {
             title.setVisibility(View.GONE);
-            div.setVisibility(View.GONE);
         }
         if (content1_msg != null) {
             content1.setText(content1_msg);
@@ -462,77 +461,74 @@ public class PopBoxCreat {
                                                  String content1_msg, String content2_msg, String bt1_msg, String bt2_msg,
                                                  final DialogWithTitleClick click) {
 
-        //        LayoutInflater inflater = LayoutInflater.from(context);
-        //        View view = inflater.inflate(R.layout.dialog_withtitle, null);
-        //        final Dialog dialogI = new Dialog(context, R.style.dialog);
-        //        TextView title = (TextView)view.findViewById(R.id.dialog_withtitle_title);
-        //        TextView content1 = (TextView)view.findViewById(R.id.dialog_withtitle_content1);
-        //        TextView content2 = (TextView)view.findViewById(R.id.dialog_withtitle_content2);
-        //        TextView btn1 = (TextView)view.findViewById(R.id.dialog_withtitle_btn1);
-        //        TextView btn2 = (TextView)view.findViewById(R.id.dialog_withtitle_btn2);
-        //        ImageView div = (ImageView)view.findViewById(R.id.dialog_withtitle_title_div);
-        //        if (bt1_msg != null && !bt1_msg.equals("")) {
-        //            btn1.setText(bt1_msg);
-        //        }
-        //        if (bt2_msg != null && !bt2_msg.equals("")) {
-        //            btn2.setText(bt2_msg);
-        //        } else {
-        //            btn2.setVisibility(View.GONE);
-        //        }
-        //        if (title_msg != null && !title_msg.equals("")) {
-        //            title.setVisibility(View.VISIBLE);
-        //            div.setVisibility(View.VISIBLE);
-        //            title.setText(title_msg);
-        //        } else {
-        //            title.setVisibility(View.GONE);
-        //            div.setVisibility(View.GONE);
-        //        }
-        //        if (content1_msg != null) {
-        //            content1.setText(content1_msg);
-        //            content1.setTextSize(13);
-        //        } else {
-        //            content1.setText("");
-        //        }
-        //        if (content2_msg != null && !content2_msg.equals("")) {
-        //            content2.setText(content2_msg);
-        //            content2.setVisibility(View.VISIBLE);
-        //        } else {
-        //            content2.setText("");
-        //            content2.setVisibility(View.GONE);
-        //        }
-        //
-        //        btn1.setOnClickListener(new OnClickListener() {
-        //
-        //            public void onClick(View v) {
-        //
-        //                click.onLeftClick();
-        //                dialogI.dismiss();
-        //
-        //            }
-        //        });
-        //
-        //        btn2.setOnClickListener(new OnClickListener() {
-        //
-        //            public void onClick(View v) {
-        //
-        //                click.onRightClick();
-        //                dialogI.dismiss();
-        //
-        //            }
-        //        });
-        //
-        //        int w = (int)(DorideApplication.ScreenDensity * 300);
-        //        dialogI.setCanceledOnTouchOutside(false);
-        //        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, LayoutParams.WRAP_CONTENT);
-        //        dialogI.setContentView(view, parm);
-        //        dialogI.setOnKeyListener(new OnKeyListener() {
-        //            @Override
-        //            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-        //                // TODO Auto-generated method stub
-        //                return true;
-        //            }
-        //        });
-        //        dialogI.show();
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.dialog_withtitle, null);
+                final Dialog dialogI = new Dialog(context, R.style.dialog);
+                TextView title = (TextView)view.findViewById(R.id.dialog_withtitle_title);
+                TextView content1 = (TextView)view.findViewById(R.id.dialog_withtitle_content1);
+                TextView content2 = (TextView)view.findViewById(R.id.dialog_withtitle_content2);
+                TextView btn1 = (TextView)view.findViewById(R.id.dialog_withtitle_btn1);
+                TextView btn2 = (TextView)view.findViewById(R.id.dialog_withtitle_btn2);
+                if (bt1_msg != null && !bt1_msg.equals("")) {
+                    btn1.setText(bt1_msg);
+                }
+                if (bt2_msg != null && !bt2_msg.equals("")) {
+                    btn2.setText(bt2_msg);
+                } else {
+                    btn2.setVisibility(View.GONE);
+                }
+                if (title_msg != null && !title_msg.equals("")) {
+                    title.setVisibility(View.VISIBLE);
+                    title.setText(title_msg);
+                } else {
+                    title.setVisibility(View.GONE);
+                }
+                if (content1_msg != null) {
+                    content1.setText(content1_msg);
+                    content1.setTextSize(13);
+                } else {
+                    content1.setText("");
+                }
+                if (content2_msg != null && !content2_msg.equals("")) {
+                    content2.setText(content2_msg);
+                    content2.setVisibility(View.VISIBLE);
+                } else {
+                    content2.setText("");
+                    content2.setVisibility(View.GONE);
+                }
+
+                btn1.setOnClickListener(new OnClickListener() {
+
+                    public void onClick(View v) {
+
+                        click.onLeftClick();
+                        dialogI.dismiss();
+
+                    }
+                });
+
+                btn2.setOnClickListener(new OnClickListener() {
+
+                    public void onClick(View v) {
+
+                        click.onRightClick();
+                        dialogI.dismiss();
+
+                    }
+                });
+
+                int w = (int)(DorideApplication.ScreenDensity * 300);
+                dialogI.setCanceledOnTouchOutside(false);
+                ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialogI.setContentView(view, parm);
+                dialogI.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        // TODO Auto-generated method stub
+                        return true;
+                    }
+                });
+                dialogI.show();
 
     }
 
