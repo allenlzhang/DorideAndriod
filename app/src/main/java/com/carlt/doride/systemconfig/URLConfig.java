@@ -172,7 +172,7 @@ public class URLConfig {
     private static String M_MILESINFO        = "remote/getMilesInfos";
 
     private static String M_MAINTAIN_LOG = "car/maintainLog";
-
+     //车辆故障自检
     private static String M_REMOTE_WARNINGLAMP    = "remote/warningLamp";
     //实时车况
     private static String M_REMOTE_STATUS         = "remote/status";

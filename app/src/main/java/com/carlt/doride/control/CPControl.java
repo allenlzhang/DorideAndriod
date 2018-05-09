@@ -72,11 +72,11 @@ public class CPControl {
     }
 
     //远程开启后背箱
-    public static void GetRemoteTrunk(BaseParser.ResultCallback mListener) {
+    public static void GetRemoteTrunk(String state,BaseParser.ResultCallback mListener) {
         DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
         HashMap param = new HashMap();
         param.put("move_device_name", DorideApplication.MODEL_NAME);
-        param.put("rtlu", "1");    //1:开启，2：关闭
+        param.put("rtlu", state);    //1:开启，2：关闭
         remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_TRUNK(), param);
     }
 
@@ -86,10 +86,10 @@ public class CPControl {
         HashMap param = new HashMap();
         param.put("move_device_name", DorideApplication.MODEL_NAME);
         param.put("rshoc", state);    //1:开启，2：关闭
-        remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_TRUNK(), param);
+        remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_CHAIR_HEATING(), param);
     }
 
-    // 1:解锁，2上锁
+    // 1:开锁，2上锁
     public static void GetRemoteLock(String s, BaseParser.ResultCallback mListener) {
         DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
         HashMap param = new HashMap();

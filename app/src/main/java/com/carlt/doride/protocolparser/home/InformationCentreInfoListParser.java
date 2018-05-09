@@ -38,11 +38,11 @@ public class InformationCentreInfoListParser extends BaseParser<InformationCateg
 					break;
 //				case InformationMessageInfo.C1_T2:
 //					// 21 安防提醒
-////					mInfo.setImg(R.drawable.icon_secretary_safe_2);
+////					mInfo.setIconState(R.drawable.icon_secretary_safe_2);
 //					break;
 //				case InformationMessageInfo.C1_T3:
 					// 31 奖品活动
-//					mInfo.setImg(R.drawable.secretary_reward);
+//					mInfo.setIconState(R.drawable.secretary_reward);
 //					break;
 				case InformationMessageInfo.C1_T4:
 					// 41 行车消息
@@ -50,7 +50,7 @@ public class InformationCentreInfoListParser extends BaseParser<InformationCateg
 					break;
 //				case InformationMessageInfo.C1_T5:
 //					// 51 故障提醒
-////					mInfo.setImg(R.drawable.secretary_error);
+////					mInfo.setIconState(R.drawable.secretary_error);
 //					break;
 
 				case InformationMessageInfo.C1_T6:

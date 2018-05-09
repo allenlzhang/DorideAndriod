@@ -124,11 +124,14 @@ public class RemoteMainFragment extends BaseFragment implements
     private RemoteGridControl mRControl;
 
     //天窗对话框
-    private UUDialogRemote uuDialogRemote;
+    private UUDialogRemote          uuDialogRemote;
+    private ArrayList<CarStateInfo> mCarStateDataList;
+    private CarStateInfo            carStateInfo;
 
     @Override
     public void onResume() {
         super.onResume();
+        //        CPControl.GetRemoteCarState(mListener_states);
         loadData();
     }
 
@@ -182,9 +185,13 @@ public class RemoteMainFragment extends BaseFragment implements
             if (size <= 0 && !stateStart.equals(RemoteFunInfo.STATE_SUPPORT)
                     && !stateStop.equals(RemoteFunInfo.STATE_SUPPORT)) {
                 mViewUnsupport.setVisibility(View.VISIBLE);
+                mTxtState.setVisibility(View.GONE);
+                mTxtRecorder.setVisibility(View.GONE);
                 mViewNormal.setVisibility(View.GONE);
                 return;
             } else {
+                mTxtState.setVisibility(View.VISIBLE);
+                mTxtRecorder.setVisibility(View.VISIBLE);
                 mViewUnsupport.setVisibility(View.GONE);
                 mViewNormal.setVisibility(View.VISIBLE);
                 deviceType = LoginInfo.getDeviceCategory();
@@ -197,6 +204,14 @@ public class RemoteMainFragment extends BaseFragment implements
             mViewStopmask.setVisibility(View.VISIBLE);
             mImgStart.setClickable(true);
             mImgStop.setClickable(false);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mReceiver != null) {
+            getActivity().unregisterReceiver(mReceiver);
         }
     }
 
@@ -303,15 +318,20 @@ public class RemoteMainFragment extends BaseFragment implements
                 // 远程落锁
                 //                CPControl.GetRemoteLock("2", mListener);
                 dissmissWaitingDialog();
-                PopBoxCreat.createDialogRemote(getActivity(), "落锁", "解锁", R.drawable.remote_lock_selector, R.drawable.remote_unlock_selector, new PopBoxCreat.onDialogRemoteClick() {
+                if (null != mCarStateDataList && mCarStateDataList.size() != 0) {
+
+                    carStateInfo = mCarStateDataList.get(0);
+                }
+                PopBoxCreat.createDialogRemote(getActivity(), "车锁", "开锁", "上锁", R.drawable.remote_unlock_selector, R.drawable.remote_lock_selector, new PopBoxCreat.onDialogRemoteClick() {
                     @Override
-                    public void onItemOneClick() {
+                    public void onItemOneClick(View v) {
                         showWaitingDialog(null);
+
                         CPControl.GetRemoteLock("1", mListener);
                     }
 
                     @Override
-                    public void onItemTwoClick() {
+                    public void onItemTwoClick(View v) {
                         showWaitingDialog(null);
                         CPControl.GetRemoteLock("2", mListener);
                     }
@@ -326,15 +346,19 @@ public class RemoteMainFragment extends BaseFragment implements
                 //                CPControl.GetRemoteOpenwin(mListener);
 
                 dissmissWaitingDialog();
-                PopBoxCreat.createDialogRemote(getActivity(), "开窗", "关窗", R.drawable.remote_win_down_selector, R.drawable.remote_win_up_selector, new PopBoxCreat.onDialogRemoteClick() {
+                if (null != mCarStateDataList && mCarStateDataList.size() != 0) {
+
+                    carStateInfo = mCarStateDataList.get(2);
+                }
+                PopBoxCreat.createDialogRemote(getActivity(), "车窗", "开窗", "关窗", R.drawable.remote_win_down_selector, R.drawable.remote_win_up_selector, new PopBoxCreat.onDialogRemoteClick() {
                     @Override
-                    public void onItemOneClick() {
+                    public void onItemOneClick(View v) {
                         showWaitingDialog(null);
                         CPControl.GetRemoteChangeWinState("1", mListener);
                     }
 
                     @Override
-                    public void onItemTwoClick() {
+                    public void onItemTwoClick(View v) {
                         showWaitingDialog(null);
                         CPControl.GetRemoteChangeWinState("2", mListener);
                     }
@@ -362,6 +386,9 @@ public class RemoteMainFragment extends BaseFragment implements
             case 8:
                 // 远程天窗开撬
                 CPControl.GetRemoteSkylight("3", mListener);
+            case 9:
+                // 远程天窗关撬
+                CPControl.GetRemoteSkylight("4", mListener);
                 break;
             case 10:
                 // 远程开启空调
@@ -373,7 +400,30 @@ public class RemoteMainFragment extends BaseFragment implements
                 break;
             case 12:
                 // 远程开启后备箱
-                CPControl.GetRemoteTrunk(mListener);
+                //                CPControl.GetRemoteTrunk(mListener);
+
+                dissmissWaitingDialog();
+                PopBoxCreat.createDialogRemote(getActivity(), "后备箱", "打开", "关闭", R.drawable.remote_open_truck_selector, R.drawable.remote_close_truck_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteTrunk("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteTrunk("2", mListener);
+                    }
+                });
+                break;
+            case 14:
+                //             仅支持关闭后备箱
+                CPControl.GetRemoteTrunk("2", mListener);
+                break;
+            case 15:
+                //            仅支持打开后备箱
+                CPControl.GetRemoteTrunk("1", mListener);
                 break;
             case 13:
                 // 远程座椅加热
@@ -381,15 +431,15 @@ public class RemoteMainFragment extends BaseFragment implements
                 //                UUToast.showUUToast(getActivity(), "车锁");
 
                 dissmissWaitingDialog();
-                PopBoxCreat.createDialogRemote(getActivity(), "开启", "关闭", R.drawable.remote_open_seat_hot_selector, R.drawable.remote_close_seat_hot_selector, new PopBoxCreat.onDialogRemoteClick() {
+                PopBoxCreat.createDialogRemote(getActivity(), "座椅加热", "开启", "关闭", R.drawable.remote_open_seat_hot_selector, R.drawable.remote_close_seat_hot_selector, new PopBoxCreat.onDialogRemoteClick() {
                     @Override
-                    public void onItemOneClick() {
+                    public void onItemOneClick(View v) {
                         showWaitingDialog(null);
                         CPControl.GetRemoteChairHeating("1", mListener);
                     }
 
                     @Override
-                    public void onItemTwoClick() {
+                    public void onItemTwoClick(View v) {
                         showWaitingDialog(null);
                         CPControl.GetRemoteChairHeating("2", mListener);
                     }
@@ -425,6 +475,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            Logger.e("---" + bInfo.toString());
             Message msg = new Message();
             msg.what = 2;
             msg.obj = bInfo;
@@ -478,6 +529,8 @@ public class RemoteMainFragment extends BaseFragment implements
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
+        private ArrayList<CarStateInfo> mDataList;
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -503,6 +556,9 @@ public class RemoteMainFragment extends BaseFragment implements
                         airDialog.dismiss();
                     }
                     BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
+                    if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
+                        uuDialogRemote.dismiss();
+                    }
                     if (mInfo1 != null) {
                         if (mInfo1.getFlag() == 1020) {
                             UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
@@ -514,15 +570,16 @@ public class RemoteMainFragment extends BaseFragment implements
 
                 case 2:
                     // 获取车辆状态成功
-                    ArrayList<CarStateInfo> mDataList = (ArrayList<CarStateInfo>) ((BaseResponseInfo) msg.obj).getValue();
-                    if (mDataList != null && mDataList.size() > 0) {
+                    mCarStateDataList = (ArrayList<CarStateInfo>) ((BaseResponseInfo) msg.obj).getValue();
+
+                    if (mCarStateDataList != null && mCarStateDataList.size() > 0) {
                         mGridViewState.setNumColumns(3);
                         if (mAdapterStates == null) {
                             mAdapterStates = new RemoteStatesAdapter(
-                                    getActivity(), mDataList);
+                                    getActivity(), mCarStateDataList);
                             mGridViewState.setAdapter(mAdapterStates);
                         } else {
-                            mAdapterStates.setmDataList(mDataList);
+                            mAdapterStates.setmDataList(mCarStateDataList);
                             mAdapterStates.notifyDataSetChanged();
                         }
                         dissmissWaitingDialog();
@@ -757,6 +814,10 @@ public class RemoteMainFragment extends BaseFragment implements
     @Override
     public void onPopWindowClickListener(String psw, boolean complete) {
         if (complete) {
+            if (isFirstClick) {
+                startTime = System.currentTimeMillis();
+                isFirstClick = false;
+            }
             showWaitingDialog("正在验证您的远程密码...");
             CPControl.GetRemotePswVerify(psw, mListener_verify);
         }

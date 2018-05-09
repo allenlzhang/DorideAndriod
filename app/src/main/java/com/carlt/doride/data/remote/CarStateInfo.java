@@ -69,4 +69,15 @@ public class CarStateInfo extends BaseResponseInfo {
     public void setState(String state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "CarStateInfo{" +
+                "iconId=" + iconId +
+                ", name='" + name + '\'' +
+                ", stateDes='" + stateDes + '\'' +
+                ", value='" + value + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
 }

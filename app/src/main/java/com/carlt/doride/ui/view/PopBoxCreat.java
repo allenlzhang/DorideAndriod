@@ -20,6 +20,8 @@ import com.carlt.doride.R;
 
 public class PopBoxCreat {
     private static UUUpdateDialog mUUDialog;
+    private static ImageView      ivIcon1;
+    private static ImageView      ivIcon2;
     //    private static UUUpdateChangeDialog mUUDialogChange;
 
     /**
@@ -41,9 +43,9 @@ public class PopBoxCreat {
 
     public interface onDialogRemoteClick {
 
-        void onItemOneClick();
+        void onItemOneClick(View v);
 
-        void onItemTwoClick();
+        void onItemTwoClick(View v);
     }
 
     /**
@@ -256,21 +258,41 @@ public class PopBoxCreat {
     }
 
 
-    public static void createDialogRemote(Activity context, String item1, String item2, int res1, int res2, final onDialogRemoteClick dialogRemoteClick) {
+    public static void createDialogRemote(Activity context, String title, String item1, String item2, int res1, int res2, final onDialogRemoteClick dialogRemoteClick) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_remote_no_title, null);
         LinearLayout llItem1 = view.findViewById(R.id.llItem1);
         LinearLayout llItem2 = view.findViewById(R.id.llItem2);
-        ImageView ivIcon1 = view.findViewById(R.id.ivIcon1);
-        ImageView ivIcon2 = view.findViewById(R.id.ivIcon2);
+        ivIcon1 = view.findViewById(R.id.ivIcon1);
+        ivIcon2 = view.findViewById(R.id.ivIcon2);
         TextView tvName1 = view.findViewById(R.id.tvName1);
         TextView tvName2 = view.findViewById(R.id.tvName2);
         TextView tvClose = view.findViewById(R.id.tvClose);
+        TextView tvDialogTitle = view.findViewById(R.id.tvDialogTitle);
         ivIcon1.setBackgroundResource(res1);
         ivIcon2.setBackgroundResource(res2);
         tvName1.setText(item1);
         tvName2.setText(item2);
+        tvDialogTitle.setText(title);
+        //        if (carStateInfo != null) {
+        //            if (carStateInfo.getName().equals("车锁")) {
+        //                if (carStateInfo.getState().equals("1")) {
+        //                    ivIcon2.setSelected(true);
+        //                } else if (carStateInfo.getState().equals("0")) {
+        //                    ivIcon1.setSelected(true);
+        //                }
+        //            } else {
+        //                if (carStateInfo.getState().equals("1")) {
+        //                    ivIcon1.setSelected(true);
+        //                } else if (carStateInfo.getState().equals("0")) {
+        //                    ivIcon2.setSelected(true);
+        //                }
+        //            }
+        //
+        //        }
+
+
         final Dialog dialogI = new Dialog(context, R.style.dialog);
         int w = (int) (DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -285,17 +307,18 @@ public class PopBoxCreat {
         ivIcon1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogRemoteClick.onItemOneClick();
+                dialogRemoteClick.onItemOneClick(v);
                 dialogI.dismiss();
             }
         });
         ivIcon2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogRemoteClick.onItemTwoClick();
+                dialogRemoteClick.onItemTwoClick(v);
                 dialogI.dismiss();
             }
         });
+
     }
     //    /**
     //     * 无标题dialog,需要给出是否点击外部消失

@@ -8,6 +8,7 @@ import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.google.gson.JsonObject;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +101,15 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             String state8 = mJSON_data.get("remoteSkylightPry").getAsInt() + "";
             mFunInfo8.setState(state8);
 
+            RemoteFunInfo mFunInfo9 = new RemoteFunInfo();
+            mFunInfo9.setId("9");
+            mFunInfo9.setApi_field("remoteSkylightPry");
+            mFunInfo9.setName("天窗关翘");
+            mFunInfo9.setIcon_id(R.drawable.remote_top_win_close1_selector);
+            String state9 = mJSON_data.get("remoteSkylightPry").getAsInt() + "";
+            mFunInfo9.setState(state9);
+
+
             RemoteFunInfo mFunInfo7 = new RemoteFunInfo();
             mFunInfo7.setId("7");
             mFunInfo7.setApi_field("remoteSwitchSkylight");
@@ -130,6 +140,9 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             if (state7.equals(RemoteFunInfo.STATE_SUPPORT)) {
                 apiFieldLists2.add(mFunInfo7);
             }
+            if (state9.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                apiFieldLists2.add(mFunInfo9);
+            }
 
             mFunInfo.setApiFieldLists(apiFieldLists2);
             if (state6.equals(RemoteFunInfo.STATE_SUPPORT)
@@ -158,21 +171,51 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             mFunInfo.setName("座椅加热");
             mFunInfo.setIcon_id(R.drawable.remote_seat_heating);
             state = mJSON_data.get("remoteSeatHeating").getAsInt() + "";
+            Logger.e("remoteSeatHeating----" + mJSON_data.get("remoteSeatHeating").getAsInt() + "");
             mFunInfo.setState(state);
             if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
                 mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
+            }
+            //          同时支持关闭和打开后备箱
+            RemoteFunInfo mFunInfo12 = new RemoteFunInfo();
+            mFunInfo12.setId("12");
+            mFunInfo12.setApi_field("remoteTrunk");
+            mFunInfo12.setName("打开后备箱");
+            mFunInfo12.setIcon_id(R.drawable.trunck);
+            String state12 = mJSON_data.get("remoteTrunkOn").getAsInt() + "";
+            String remoteTrunkOff = mJSON_data.get("remoteTrunkOff").getAsInt() + "";
+            Logger.e("remoteTrunkOn----" + mJSON_data.get("remoteTrunkOn").getAsInt() + "");
+            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
+            mFunInfo12.setState(state12);
+
+            //             仅支持关闭后备箱
+            RemoteFunInfo mFunInfo14 = new RemoteFunInfo();
+            mFunInfo14.setId("14");
+            mFunInfo14.setApi_field("remoteTrunk");
+            mFunInfo14.setName("关闭后备箱");
+            mFunInfo14.setIcon_id(R.drawable.trunck);
+            String state14 = mJSON_data.get("remoteTrunkOff").getAsInt() + "";
+            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
+            mFunInfo14.setState(state14);
+            //            仅支持打开后备箱
+            RemoteFunInfo mFunInfo15 = new RemoteFunInfo();
+            mFunInfo15.setId("15");
+            mFunInfo15.setApi_field("remoteTrunk");
+            mFunInfo15.setName("打开后备箱");
+            mFunInfo15.setIcon_id(R.drawable.trunck);
+            String state15 = mJSON_data.get("remoteTrunkOn").getAsInt() + "";
+            Logger.e("remoteTrunkOn----" + mJSON_data.get("remoteTrunkOn").getAsInt() + "");
+            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
+            mFunInfo15.setState(state15);
+
+            if (state12.equals(RemoteFunInfo.STATE_SUPPORT) && remoteTrunkOff.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo12);
+            } else if (state14.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo14);
+            } else if (state15.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo15);
             }
 
-            mFunInfo = new RemoteFunInfo();
-            mFunInfo.setId("12");
-            mFunInfo.setApi_field("remoteTrunk");
-            mFunInfo.setName("打开后备箱");
-            mFunInfo.setIcon_id(R.drawable.trunck);
-            state = mJSON_data.get("remoteTrunk").getAsInt() + "";
-            mFunInfo.setState(state);
-            if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
-            }
 
             mFunInfo = new RemoteFunInfo();
             mFunInfo.setId("11");

@@ -1,24 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:orientation="vertical"
-    android:layout_height="wrap_content"
-    android:background="@color/layout_background"
-    >
-    <ImageView
-        android:id="@+id/main_test_item_image"
-        android:layout_width="73dp"
-        android:layout_gravity="center"
-        android:layout_height="53dp" />
-    <TextView
-        android:layout_marginTop="12dp"
-        android:id="@+id/main_test_item_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_color_gray2"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:layout_gravity="center"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_tire_pressure"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@+id/ivIcon"
+            android:gravity="center_vertical"
+
+            android:text="--"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/ivState"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|right"
+            android:paddingLeft="5dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/ic_problem"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/text_color_gray1"
         />
 </LinearLayout>

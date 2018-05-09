@@ -18,13 +18,13 @@ import java.util.List;
  */
 
 public class WaringLampAdapter extends BaseAdapter {
-    private Context mContext;
+    private Context                  mContext;
     private List<WaringLampItemInfo> mList;
 
     private LayoutInflater inflater;
 
-    public WaringLampAdapter(Context context,List<WaringLampItemInfo> mlist) {
-        this.mContext =context;
+    public WaringLampAdapter(Context context, List<WaringLampItemInfo> mlist) {
+        this.mContext = context;
         this.mList = mlist;
         inflater = LayoutInflater.from(context);
     }
@@ -47,25 +47,28 @@ public class WaringLampAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder;
-        if (view == null){
+        if (view == null) {
             viewHolder = new ViewHolder();
-            view = inflater.inflate(R.layout.main_test_item,null);
-            viewHolder.mImg = view.findViewById(R.id.main_test_item_image);
-            viewHolder.mTxt = view.findViewById(R.id.main_test_item_text);
+            view = inflater.inflate(R.layout.main_test_item, null);
+            viewHolder.ivIcon = view.findViewById(R.id.ivIcon);
+            viewHolder.ivState = view.findViewById(R.id.ivState);
+            viewHolder.tvName = view.findViewById(R.id.tvName);
             view.setTag(viewHolder);
-        }else {
+        } else {
             viewHolder = (ViewHolder) view.getTag();
         }
         WaringLampItemInfo info = mList.get(i);
-        viewHolder.mImg.setImageResource(info.getImg());
-        viewHolder.mTxt.setText(info.getTxt());
-        viewHolder.mTxt.setTextColor(mContext.getResources().getColor(info.getColor()));
+        viewHolder.ivState.setImageResource(info.getIconState());
+        viewHolder.ivIcon.setImageResource(info.icon);
+        viewHolder.tvName.setText(info.getTxt());
+        viewHolder.tvName.setTextColor(mContext.getResources().getColor(info.getColor()));
         return view;
     }
 
-    class ViewHolder{
-        ImageView mImg;
-        TextView mTxt;
+    static class ViewHolder {
+        ImageView ivIcon;
+        ImageView ivState;
+        TextView  tvName;
     }
 
 }
