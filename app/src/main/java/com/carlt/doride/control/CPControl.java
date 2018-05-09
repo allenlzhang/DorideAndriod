@@ -251,7 +251,7 @@ public class CPControl {
         HashMap<String, String> mMap = new HashMap<String, String>();
 
         mMap.put("mobile", mRegisteParams.getMobile());
-        mMap.put("password", mRegisteParams.getPassword());
+        mMap.put("password", CipherUtils.md5(mRegisteParams.getPassword()));
         mMap.put("validate", mRegisteParams.getValidate());
         mMap.put("move_deviceid", DorideApplication.NIMEI);
         mMap.put("move_device_name", DorideApplication.MODEL_NAME);

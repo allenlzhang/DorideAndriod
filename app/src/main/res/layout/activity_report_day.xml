@@ -281,15 +281,16 @@
 
     <com.carlt.doride.ui.pull.PullToRefreshListView
         android:id="@+id/day_refresh_logList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/top4"
-        android:layout_marginTop="10dp"
-        android:background="@color/layout_background"
-        android:divider="@null"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="0dp" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/top4"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="10dp"
+
+        >
     </com.carlt.doride.ui.pull.PullToRefreshListView>
 
 </RelativeLayout>

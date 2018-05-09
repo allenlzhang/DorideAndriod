@@ -17,6 +17,8 @@ import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.home.InformationCategoryInfo;
 import com.carlt.doride.data.home.InformationCategoryInfoList;
+import com.carlt.doride.data.home.InformationMessageInfo;
+import com.carlt.doride.ui.activity.carstate.CarSaftyListActivity;
 import com.carlt.doride.ui.activity.setting.MsgManageActivity;
 
 import java.util.ArrayList;
@@ -76,11 +78,17 @@ public class InformationCentreActivity extends LoadingActivity {
                     InformationCategoryInfo mInfo = mList.get(position);
                     String title_s = mInfo.getName();
                     int type = mInfo.getId();
-                    Intent mIntent = new Intent(InformationCentreActivity.this, RemindActivity.class);
-                    mIntent.putExtra(TIPS_TITLE, title_s);
-                    mIntent.putExtra(TIPS_TYPE, type);
-                    startActivity(mIntent);
-
+//                    String lastmsg = mInfo.getLastmsg();
+//                    if (type == InformationMessageInfo.C1_T2){
+//                        Intent mIntent = new Intent(InformationCentreActivity.this, CarSaftyListActivity.class);
+//                        mIntent.putExtra("safetymsg",lastmsg);
+//                        startActivity(mIntent);
+//                    }else {
+                        Intent mIntent = new Intent(InformationCentreActivity.this, RemindActivity.class);
+                        mIntent.putExtra(TIPS_TITLE, title_s);
+                        mIntent.putExtra(TIPS_TYPE, type);
+                        startActivity(mIntent);
+//                    }
                 }
             });
 
@@ -136,7 +144,7 @@ public class InformationCentreActivity extends LoadingActivity {
             TextView mTxtDes = (TextView) convertView.findViewById(R.id.activity_information_centre_des);
             ImageView mImgIcon = (ImageView) convertView.findViewById(R.id.activity_information_centre_icon);
             ImageView mImgDot = (ImageView) convertView.findViewById(R.id.activity_information_centre_dot);
-            View line = convertView.findViewById(R.id.line);
+            View line = convertView.findViewById(R.id.list_item_secretary_line);
 
             line.setVisibility(View.VISIBLE);
             InformationCategoryInfo mInfo = mList.get(position);

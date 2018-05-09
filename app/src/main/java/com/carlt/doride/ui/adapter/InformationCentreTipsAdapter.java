@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 /**
  * 秘书提醒Adapter
- * 
+ *
  * @author daisy
  */
-public class InformationCentreTipsAdapter extends BaseAdapter{
+public class InformationCentreTipsAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
 
     private Activity mActivity;
@@ -36,7 +36,7 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
     }
 
     public InformationCentreTipsAdapter(Activity context, ArrayList<InformationMessageInfo> list,
-                                OnBottomClickListner bottomClickListner) {
+                                        OnBottomClickListner bottomClickListner) {
         mActivity = context;
         mInflater = LayoutInflater.from(mActivity);
         mBottomClickListner = bottomClickListner;
@@ -75,7 +75,7 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
             convertView.setTag(mHolder);
 
         } else {
-            mHolder = (Holder)convertView.getTag();
+            mHolder = (Holder) convertView.getTag();
         }
 
         final InformationMessageInfo mInfo = mList.get(position);
@@ -218,11 +218,19 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
 //                    case InformationMessageInfo.
 //                }
                 break;
+            case InformationMessageInfo.C1_T2:
+                mHolder.mImgDelete.setVisibility(View.VISIBLE);
+                mHolder.mView2.setVisibility(View.VISIBLE);
+                mHolder.mViewTable.setVisibility(View.GONE);
+
+                mHolder.mTextView4.setVisibility(View.GONE);
+                mHolder.mTextView5.setVisibility(View.GONE);
+                break;
         }
 
         StringBuffer mStingBuffer = new StringBuffer("");
-        if(!minTitle.equals("")){
-        	mStingBuffer.append("【");
+        if (!minTitle.equals("")) {
+            mStingBuffer.append("【");
             mStingBuffer.append(minTitle);
             mStingBuffer.append("】");
         }
@@ -231,29 +239,31 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
             mStingBuffer.append(mInfo.getTitle());
         }
         mHolder.mTextView1.setText(mStingBuffer.toString());
-
-        if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_NONE) {
-            mHolder.mTextBtn.setVisibility(View.GONE);
-            if (mInfo.getContent() != null) {
-                mHolder.mTextView2.setText(mInfo.getContent());
-            }
-        } else if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_REFERENCE) {
-            if (mInfo.getContentReference() != null) {
-                mHolder.mTextView2.setText(mInfo.getContentReference());
-            }
-            mHolder.mTextBtn.setVisibility(View.VISIBLE);
-            mHolder.mTextBtn.setText("详情");
-            mHolder.mTextBtn
-                    .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
-        } else if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_ALL) {
-            if (mInfo.getContent() != null) {
-                mHolder.mTextView2.setText(mInfo.getContent());
-            }
-            mHolder.mTextBtn.setVisibility(View.VISIBLE);
-            mHolder.mTextBtn.setText("收起");
-            mHolder.mTextBtn.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up,
-                    0);
+        if (mInfo.getContent() != null) {
+            mHolder.mTextView2.setText(mInfo.getContent());
         }
+//        if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_NONE) {
+//            mHolder.mTextBtn.setVisibility(View.GONE);
+//            if (mInfo.getContent() != null) {
+//                mHolder.mTextView2.setText(mInfo.getContent());
+//            }
+//        } else if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_REFERENCE) {
+//            if (mInfo.getContentReference() != null) {
+//                mHolder.mTextView2.setText(mInfo.getContentReference());
+//            }
+//            mHolder.mTextBtn.setVisibility(View.VISIBLE);
+//            mHolder.mTextBtn.setText("详情");
+//            mHolder.mTextBtn
+//                    .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+//        } else if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_ALL) {
+//            if (mInfo.getContent() != null) {
+//                mHolder.mTextView2.setText(mInfo.getContent());
+//            }
+//            mHolder.mTextBtn.setVisibility(View.VISIBLE);
+//            mHolder.mTextBtn.setText("收起");
+//            mHolder.mTextBtn.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up,
+//                    0);
+//        }
 
         View.OnClickListener mClickListener = new View.OnClickListener() {
 
@@ -261,16 +271,16 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
             public void onClick(View v) {
                 switch (v.getId()) {
 
-                    case R.id.list_item_secretary_btn:
-                        // 展开按钮
-                        if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_REFERENCE) {
-                            mInfo.setDetial_flag(InformationMessageInfo.FLAG_ALL);
-                        } else if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_ALL) {
-                            mInfo.setDetial_flag(InformationMessageInfo.FLAG_REFERENCE);
-                        }
-                        notifyDataSetChanged();
-
-                        break;
+//                    case R.id.list_item_secretary_btn:
+//                        // 展开按钮
+//                        if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_REFERENCE) {
+//                            mInfo.setDetial_flag(InformationMessageInfo.FLAG_ALL);
+//                        } else if (mInfo.getDetial_flag() == InformationMessageInfo.FLAG_ALL) {
+//                            mInfo.setDetial_flag(InformationMessageInfo.FLAG_REFERENCE);
+//                        }
+//                        notifyDataSetChanged();
+//
+//                        break;
                     case R.id.list_item_secretary_img_delete:
                         // 删除图标
                         mBottomClickListner.onDelete(mInfo, position);
@@ -291,7 +301,7 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
 
         mHolder.mView1.setOnClickListener(null);
         mHolder.mView2.setOnClickListener(null);
-        mHolder.mTextBtn.setOnClickListener(mClickListener);
+//        mHolder.mTextBtn.setOnClickListener(mClickListener);
         mHolder.mImgDelete.setOnClickListener(mClickListener);
         mHolder.mTextView4.setOnClickListener(mClickListener);
         mHolder.mTextView5.setOnClickListener(mClickListener);
@@ -301,31 +311,31 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
 
     private Holder initHolder(View convertView) {
         Holder holder = new Holder();
-        holder.mTextView1 = (TextView)convertView.findViewById(R.id.list_item_secretary_txt1);
-        holder.mTextView2 = (TextView)convertView.findViewById(R.id.list_item_secretary_txt2);
-        holder.mTextView3 = (TextView)convertView.findViewById(R.id.list_item_secretary_txt3);
-        holder.mTextView4 = (TextView)convertView.findViewById(R.id.list_item_secretary_txt4);
-        holder.mTextView5 = (TextView)convertView.findViewById(R.id.list_item_secretary_txt5);
+        holder.mTextView1 = (TextView) convertView.findViewById(R.id.list_item_secretary_txt1);
+        holder.mTextView2 = (TextView) convertView.findViewById(R.id.list_item_secretary_txt2);
+        holder.mTextView3 = (TextView) convertView.findViewById(R.id.list_item_secretary_txt3);
+        holder.mTextView4 = (TextView) convertView.findViewById(R.id.list_item_secretary_txt4);
+        holder.mTextView5 = (TextView) convertView.findViewById(R.id.list_item_secretary_txt5);
 
-        holder.mTextViewTable1 = (TextView)convertView
+        holder.mTextViewTable1 = (TextView) convertView
                 .findViewById(R.id.layout_secretary_report_table_txt1);
-        holder.mTextViewTable2 = (TextView)convertView
+        holder.mTextViewTable2 = (TextView) convertView
                 .findViewById(R.id.layout_secretary_report_table_txt2);
-        holder.mTextViewTable3 = (TextView)convertView
+        holder.mTextViewTable3 = (TextView) convertView
                 .findViewById(R.id.layout_secretary_report_table_txt3);
-        holder.mTextViewTable4 = (TextView)convertView
+        holder.mTextViewTable4 = (TextView) convertView
                 .findViewById(R.id.layout_secretary_report_table_txt4);
-        holder.mTextViewTable5 = (TextView)convertView
+        holder.mTextViewTable5 = (TextView) convertView
                 .findViewById(R.id.layout_secretary_report_table_txt5);
-        holder.mTextViewTable6 = (TextView)convertView
+        holder.mTextViewTable6 = (TextView) convertView
                 .findViewById(R.id.layout_secretary_report_table_txt6);
 
 //        holder.mImageViewTop = (ImageView)convertView
 //                .findViewById(R.id.list_item_secretary_img_top);
-        holder.mImgDelete = (ImageView)convertView
+        holder.mImgDelete = (ImageView) convertView
                 .findViewById(R.id.list_item_secretary_img_delete);
 
-        holder.mTextBtn = (TextView)convertView.findViewById(R.id.list_item_secretary_btn);
+//        holder.mTextBtn = (TextView)convertView.findViewById(R.id.list_item_secretary_btn);
 
         holder.mView1 = convertView.findViewById(R.id.list_item_secretary_layout1);
         holder.mView2 = convertView.findViewById(R.id.list_item_secretary_layout2);
@@ -361,7 +371,7 @@ public class InformationCentreTipsAdapter extends BaseAdapter{
 
         private ImageView mImgDelete;// 删除图标
 
-        private TextView mTextBtn;// 展开按钮
+//        private TextView mTextBtn;// 展开按钮
 
         private View mView1;// item上半部分白底layout
 

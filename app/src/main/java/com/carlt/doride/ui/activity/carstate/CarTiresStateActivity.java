@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.activity.carstate;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  *胎压监测
  */
-public class CarTiresStateActivity extends LoadingActivity {
+public class CarTiresStateActivity extends LoadingActivity implements View.OnClickListener{
 
     private TextView subHeadTxt;
     private ImageView tirePressureLay0;
@@ -44,6 +45,9 @@ public class CarTiresStateActivity extends LoadingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_tires_state);
         initTitle("胎压监测");
+        optRight.setVisibility(View.VISIBLE);
+        optRight.setText("刷新");
+        optRight.setOnClickListener(this);
         initView();
         loadingDataUI();
         initdata();
@@ -177,5 +181,15 @@ public class CarTiresStateActivity extends LoadingActivity {
     public void reTryLoadData() {
         super.reTryLoadData();
         initdata();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.head_back_text2:
+                loadingDataUI();
+                initdata();
+                break;
+        }
     }
 }

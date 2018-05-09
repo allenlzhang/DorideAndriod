@@ -142,7 +142,6 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             if (flagCode == 2997 && !t) {
                 mHandler.sendEmptyMessageDelayed(0,1000);
             } else {
-                UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
                 errorSwitch(bInfo);
             }
 
@@ -155,7 +154,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private final static String e3 = "设备连接失败，请联系您的经销商检测设备是否正常";
 
-    private final static String e4 = "您的车型排量或设备型号信息有误，请联系您的经销商进行处理";
+    private final static String e4 = "激活失败，您的车型排量不正确";
 
     private final static String e5 = "请先将爱车熄火，再重新点击激活";
     private void errorSwitch(BaseResponseInfo mBaseResponseInfo) {
@@ -163,18 +162,21 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         // 测试用
         // code=1021;
         if (code == 1020) {
+            UUToast.showUUToast(ActivateBindActivity.this,mBaseResponseInfo.getInfo());
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
             }
             PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
         }else if (code == BaseResponseInfo.ERRO){
+            UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
             mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
             }
         }else if (code == 2997) {
+            UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
             // 下发不成功的情况
             if (ActivateCount == 1) {
                 mTextViewMsg.setText(e1);
@@ -188,16 +190,17 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                 mDialog = null;
             }
         } else {
-            if (code == 3004) {
-                mTextViewMsg.setText(e4);
-            }
-            else if (code == 3005) {
-                mTextViewMsg.setText(e5);
-            }
-            else {
-                mTextViewMsg.setText(e3);
+//            if (code == 3004) {
+//                mTextViewMsg.setText(e4);
+//            }
+//            else if (code == 3005) {
+//                mTextViewMsg.setText(e5);
+//            }
+//            else {
+//                mTextViewMsg.setText(e3);
+            UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
                 mTextViewMsg.setText(mBaseResponseInfo.getInfo());
-            }
+//            }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;

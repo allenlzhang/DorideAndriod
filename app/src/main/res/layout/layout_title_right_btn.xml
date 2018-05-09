@@ -39,13 +39,16 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/head_margin_h"
-        android:background="@drawable/bottom_btn_bg"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:text="确定"
-        android:textColor="@color/text_color_write"
+        android:textColor="@color/text_color_gray3"
         android:textSize="14sp"
         android:visibility="gone"
+        />
+    <View
+        style="@style/line_h"
+        android:layout_alignParentBottom="true"
         />
 </RelativeLayout>

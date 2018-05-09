@@ -35,16 +35,16 @@ public class InformationMessageListParser extends BaseParser<InformationMessageI
 
 				String content = temp.get("content").getAsString();
 				mInfo.setContent(content);
-				mInfo.setDetial_flag(InformationMessageInfo.FLAG_NONE);
-				if (content != null && !content.equals("")) {
-					if (content.length() > InformationMessageInfo.ReferenceSize) {
-						mInfo.setDetial_flag(InformationMessageInfo.FLAG_REFERENCE);
-						String reference = content.substring(0,
-								InformationMessageInfo.ReferenceSize - 10)
-								+ "...";
-						mInfo.setContentReference(reference);
-					}
-				}
+//				mInfo.setDetial_flag(InformationMessageInfo.FLAG_NONE);
+//				if (content != null && !content.equals("")) {
+//					if (content.length() > InformationMessageInfo.ReferenceSize) {
+//						mInfo.setDetial_flag(InformationMessageInfo.FLAG_REFERENCE);
+//						String reference = content.substring(0,
+//								InformationMessageInfo.ReferenceSize - 10)
+//								+ "...";
+//						mInfo.setContentReference(reference);
+//					}
+//				}
 				int class1 = temp.get("class1").getAsInt();
 				int class2 = temp.get("class2").getAsInt();
 				mInfo.setClass1(class1);
