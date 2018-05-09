@@ -191,7 +191,7 @@ public class BaseActivity extends AppCompatActivity implements
 						// 可以推断出用户选择了“不在提示”选项，在这种情况下需要引导用户至设置页手动授权
 						if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])) {
 							new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
-									.setMessage("大乘管家获取相关权限失败:" + permissionName +
+									.setMessage("大乘智享获取相关权限失败:" + permissionName +
 											"将导致部分功能无法正常使用，需要到设置页面手动授权")//设置显示的内容
 									.setPositiveButton("去授权", new DialogInterface.OnClickListener() {//添加确定按钮
 										@Override
@@ -250,7 +250,7 @@ public class BaseActivity extends AppCompatActivity implements
 				isAllGranted = false;
 				if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
 					new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
-							.setMessage("您好，大乘管家部分功能需要如下权限：" + permissionNames +
+							.setMessage("您好，大乘智享部分功能需要如下权限：" + permissionNames +
 									" 请允许，否则将影响部分功能的正常使用。")//设置显示的内容
 							.setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
 								@Override
