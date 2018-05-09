@@ -5,16 +5,17 @@ package com.carlt.doride.data.car;
  */
 
 public class WaringLampItemInfo {
-    private int img;
+    private int    iconState;
+    public  int    icon;
     private String txt;
-    private int color;
+    private int    color;
 
-    public int getImg() {
-        return img;
+    public int getIconState() {
+        return iconState;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setIconState(int iconState) {
+        this.iconState = iconState;
     }
 
     public String getTxt() {

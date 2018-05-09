@@ -18,27 +18,26 @@ import com.carlt.doride.protocolparser.BaseParser;
 
 /**
  * 有加载效果的Activity的基类,右侧有图标的title
- *
  * @author Administrator
  */
 public class LoadingActivity extends BaseActivity {
-    protected TextView mTxtDes;// 描述文字
-    protected TextView mTxtEorrorSub;//错误信息副标题
-    protected TextView mTxtNodata;// 没有数据时的描述文字
-    protected Button mTxtRetryError;// 重试（刷新）
-    private ProgressBar mPBar;
-    private RelativeLayout mLayMain;
-    private View mMainView;
-    private View mViewLoading;// 加载View
-    private View mViewError;// 错误提示View
-    private View mViewNodata;// 没有数据View
+    protected TextView       mTxtDes;// 描述文字
+    protected TextView       mTxtEorrorSub;//错误信息副标题
+    protected TextView       mTxtNodata;// 没有数据时的描述文字
+    protected Button         mTxtRetryError;// 重试（刷新）
+    private   ProgressBar    mPBar;
+    private   RelativeLayout mLayMain;
+    private   View           mMainView;
+    private   View           mViewLoading;// 加载View
+    private   View           mViewError;// 错误提示View
+    private   View           mViewNodata;// 没有数据View
 
     LayoutInflater mInflater;
 
-    protected View backTV = null;
-    protected TextView titleTV = null;
-    protected View backTV2 = null;
-    protected TextView optRight=null;
+    protected View     backTV   = null;
+    protected TextView titleTV  = null;
+    protected View     backTV2  = null;
+    protected TextView optRight = null;
 
 
     @Override
@@ -69,21 +68,20 @@ public class LoadingActivity extends BaseActivity {
 
     /**
      * 使用此方法，需要在 setContentView activity 里 加入layout_title
-     *
      * 只有 一个文字标题和返回键的标题
      * @param titleString
      */
     protected void initTitle(String titleString) {
 
-        try{
+        try {
             backTV = $ViewByID(R.id.head_back_img1);
             titleTV = $ViewByID(R.id.head_back_txt1);
             backTV2 = $ViewByID(R.id.head_back_img2);
-        }catch (Exception e){
+        } catch (Exception e) {
             //是设置标题出错
             return;
         }
-        if(null != backTV){
+        if (null != backTV) {
             backTV.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -91,10 +89,10 @@ public class LoadingActivity extends BaseActivity {
                 }
             });
         }
-        if(null != titleTV){
+        if (null != titleTV) {
             titleTV.setText(titleString);
         }
-        if (null != backTV2){
+        if (null != backTV2) {
             backTV2.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -103,7 +101,6 @@ public class LoadingActivity extends BaseActivity {
             });
         }
     }
-
 
 
     public void onRightClick() {
@@ -116,7 +113,7 @@ public class LoadingActivity extends BaseActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.error_txt_retry:
-                   loadingDataUI();
+                    loadingDataUI();
                     reTryLoadData();
                     break;
             }
@@ -127,7 +124,6 @@ public class LoadingActivity extends BaseActivity {
 
     /**
      * 添加主View
-     *
      * @param layoutId
      */
     private void setMainView(int layoutId) {
@@ -141,7 +137,6 @@ public class LoadingActivity extends BaseActivity {
 
     /**
      * 数据加载成功
-     *
      */
     public void loadSuccessUI() {
         mViewLoading.setBackgroundResource(R.drawable.transparent_bg);
@@ -166,7 +161,6 @@ public class LoadingActivity extends BaseActivity {
 
     /**
      * 加载失败
-     *
      * @param error
      */
     public void loadonErrorUI(BaseResponseInfo error) {
@@ -209,7 +203,7 @@ public class LoadingActivity extends BaseActivity {
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            loadonErrorUI( bInfo);
+            loadonErrorUI(bInfo);
             loadDataError(bInfo);
         }
     };
@@ -224,5 +218,6 @@ public class LoadingActivity extends BaseActivity {
     public void reTryLoadData() {
         //子类选择可以实现，重新加载
     }
+
 
 }

@@ -2,6 +2,7 @@ package com.carlt.doride.base;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.ui.view.PopBoxCreat;
 
 import java.util.ArrayList;
 
@@ -284,5 +286,26 @@ public class BaseActivity extends AppCompatActivity implements
 		 * 取消授权
 		 */
 		void denied();
+	}
+	private Dialog mDialog;
+
+	public void showWaitingDialog(String msg) {
+		if (mDialog != null && mDialog.isShowing()) {
+			mDialog.dismiss();
+		}
+
+		if (msg == null) {
+			msg = "加载中...";
+		}
+
+		mDialog = PopBoxCreat.createDialogWithProgress(this,
+				msg);
+		mDialog.show();
+	}
+
+	public void dissmissWaitingDialog() {
+		if (mDialog != null && mDialog.isShowing()) {
+			mDialog.dismiss();
+		}
 	}
 }
