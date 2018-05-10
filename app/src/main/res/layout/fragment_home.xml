@@ -44,7 +44,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="22dp"
                     android:includeFontPadding="false"
-                    android:text="2016-03-09"
+                    android:text="--"
                     android:textColor="@color/text_color_gray3"
                     android:textSize="24sp" />
 
@@ -55,7 +55,7 @@
                     android:layout_marginLeft="12dp"
                     android:drawableLeft="@drawable/home_location_icon"
                     android:drawablePadding="10dp"
-                    android:text="杭州"
+                    android:text="--"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="晴转多云"
+                    android:text="--"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="13-28"
+                    android:text="--"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 

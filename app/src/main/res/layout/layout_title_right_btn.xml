@@ -40,10 +40,11 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/head_margin_h"
         android:gravity="center"
+        android:background="@drawable/bottom_btn_bg"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:text="确定"
-        android:textColor="@color/text_color_gray3"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:visibility="gone"
         />
