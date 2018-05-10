@@ -147,6 +147,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         UseInfo mUseInfo = UseInfoLocal.getUseInfo();
         if (!TextUtils.isEmpty(mUseInfo.getAccount())) {
             user_phone.setText(mUseInfo.getAccount());
+            user_phone.setSelection(mUseInfo.getAccount().length());
         }
         super.onResume();
     }
