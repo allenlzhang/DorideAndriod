@@ -35,6 +35,9 @@ import com.tencent.android.tpush.service.XGPushServiceV3;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 管理全局activity
+ */
 public class ActivityControl {
 
     private static List<Activity> mActivityList = new ArrayList<Activity>();

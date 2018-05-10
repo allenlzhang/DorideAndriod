@@ -17,7 +17,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.data.BaseResponseInfo;
 
 /**
- * Created by user on 2016/12/23.
+ * Created by liu on 2016/12/23.
  */
 
 public abstract class BaseFragment extends Fragment {

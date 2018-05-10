@@ -11,16 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.carlt.doride.base.BaseActivity;
-import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.HomeFragment;
 import com.carlt.doride.ui.fragment.RemoteMainFragment;
 import com.carlt.doride.ui.fragment.SettingMainFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * 主页面
+ */
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private HomeFragment mHomeFragment;
@@ -52,7 +51,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         init();
         mFragmentManager = getFragmentManager();
         setTabSelection(0);
-
     }
 
     @Override
@@ -163,9 +161,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            Intent intent = new Intent(MainActivity.this, UserLoginActivity.class);
-//            startActivity(intent);
-//            finish();
             ActivityControl.exit(this);
             return true;
         }
@@ -175,7 +170,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        ((BaseFragment) (fragmentAdapter.getItem(0))).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
