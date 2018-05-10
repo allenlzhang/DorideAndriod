@@ -191,17 +191,7 @@ public abstract class BaseFragment extends Fragment {
     /***
      * 加载数据调用
      */
-    public void loadData() {
-    }
-
-    protected void actLoadError(BaseResponseInfo bInfo) {
-    }
-
-    protected void actLoadNoData() {
-    }
-
-    protected void actLoadSuccess(BaseResponseInfo binfo) {
-    }
+    public abstract void loadData() ;
 
     /**
      * 简化按 ID 查找

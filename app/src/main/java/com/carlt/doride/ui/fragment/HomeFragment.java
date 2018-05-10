@@ -152,13 +152,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     @Override
     public void onResume() {
         super.onResume();
-
         loadData();
     }
 
     @Override
     public void loadData() {
-        super.loadData();
+        loadingDataUI();
         CPControl.GetInformationCentreInfoListResult(callback);
         CPControl.GetMilesInfoResult(remoteCallback);
 
@@ -258,10 +257,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+                    loadSuccessUI();
                     actLoadSuccess((BaseResponseInfo) msg.obj);
                     break;
                 case 1:
-                    actLoadError((BaseResponseInfo) msg.obj);
+                    loadonErrorUI((BaseResponseInfo) msg.obj);
                     break;
                 case 2:
                     loadRemoteSuccess((BaseResponseInfo) msg.obj);
@@ -272,6 +272,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
             }
         }
     };
+
+    @Override
+    public void reTryLoadData() {
+        loadData();
+    }
 
     private void loadRemoteError(BaseResponseInfo bInfo) {
 //        UUToast.showUUToast(getContext(),bInfo.getInfo());
@@ -291,20 +296,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
         }
     }
 
-
-    @Override
-    protected void actLoadNoData() {
-        super.actLoadNoData();
-    }
-
-    @Override
-    protected void actLoadError(BaseResponseInfo bInfo) {
-        super.actLoadError(bInfo);
-    }
-
-    @Override
     protected void actLoadSuccess(BaseResponseInfo binfo) {
-        super.actLoadSuccess(binfo);
         InformationCategoryInfoList infoList = (InformationCategoryInfoList) binfo.getValue();
         if (infoList != null) {
             // 车秘书未读信息条数

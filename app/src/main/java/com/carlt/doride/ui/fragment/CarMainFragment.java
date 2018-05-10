@@ -116,6 +116,12 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         //        IntentFilter filter = new IntentFilter();
         //        filter.addAction(CARMAIN_SAFETY);
         //        getActivity().registerReceiver(mReceiver, filter);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadData();
     }
 
@@ -133,17 +139,11 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void loadData() {
-        //        OkGo.<String>post(URLConfig.getM_CAR_MAIN_URL())
-        //                .execute(new StringCallback() {
-        //                    @Override
-        //                    public void onSuccess(Response<String> response) {
-        //                        ILog.e(TAG, response.body().toString());
-        //                    }
-        //                });
-        //CARINDEX 以及支持的配置项
+        loadingDataUI();
         BaseParser parser = new DefaultParser<CarIndexInfo>(new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
+                loadSuccessUI();
                 carinfo = ((BaseResponseInfo<CarIndexInfo>) bInfo).getValue();
                 remoteConfig();
                 ILog.e(TAG, "onSuccess---" + bInfo.toString());
@@ -152,7 +152,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void onError(BaseResponseInfo bInfo) {
                 ILog.e(TAG, "onError" + bInfo.toString());
-                actLoadError((BaseResponseInfo) bInfo);
+                loadonErrorUI((BaseResponseInfo) bInfo);
             }
         }, CarIndexInfo.class);
         HashMap params = new HashMap();
@@ -237,7 +237,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                 @Override
                 public void onError(BaseResponseInfo bInfo) {
                     ILog.e(TAG, "onError" + bInfo.toString());
-                    actLoadError((BaseResponseInfo) bInfo);
+                    loadonErrorUI((BaseResponseInfo) bInfo);
                 }
             });
             HashMap params2 = new HashMap();

@@ -45,20 +45,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private FragmentManager mFragmentManager;
 
-    private List<BaseFragment> listFragments ;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
         mFragmentManager = getFragmentManager();
-        listFragments = new ArrayList<>();
-        listFragments.add(mHomeFragment);
-        listFragments.add(mCarMainFragment);
-        listFragments.add(mRemoteMainFragment);
-        listFragments.add(mSettingMainFragment);
         setTabSelection(0);
 
     }
@@ -102,6 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }else {
                     transaction.show(mHomeFragment);
                 }
+                transaction.commit();
                 break;
             case 1:
                 mIvTabCar.setImageResource(R.drawable.tab_car_selected);
@@ -112,6 +105,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }else {
                     transaction.show(mCarMainFragment);
                 }
+                transaction.commit();
                 break;
             case 2:
                 mIvTabRemote.setImageResource(R.drawable.tab_remote_selected);
@@ -122,6 +116,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }else{
                     transaction.show(mRemoteMainFragment);
                 }
+                transaction.commit();
                 break;
             case 3:
                 mIvTabSetting.setImageResource(R.drawable.tab_my_selected);
@@ -132,16 +127,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }else {
                     transaction.show(mSettingMainFragment);
                 }
+                transaction.commit();
                 break;
             default:
                 break;
-        }
-
-        transaction.commit();
-
-        BaseFragment baseFragment = listFragments.get(index);
-        if(null != baseFragment){
-            baseFragment.loadData();
         }
     }
 

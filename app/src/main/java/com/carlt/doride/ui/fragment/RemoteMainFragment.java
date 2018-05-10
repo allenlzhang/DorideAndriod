@@ -157,7 +157,7 @@ public class RemoteMainFragment extends BaseFragment implements
                 @Override
                 public void onError(BaseResponseInfo bInfo) {
                     Logger.e(TAG, "onError" + bInfo.toString());
-                    actLoadError((BaseResponseInfo) bInfo);
+                    loadonErrorUI((BaseResponseInfo) bInfo);
                 }
             });
             HashMap params2 = new HashMap();
