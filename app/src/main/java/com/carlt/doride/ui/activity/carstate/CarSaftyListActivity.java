@@ -87,6 +87,7 @@ public class CarSaftyListActivity extends LoadingActivity {
     }
 
     private void initData() {
+        showWaitingDialog(null);
         DefaultStringParser parser = new DefaultStringParser(mCallback);
         HashMap map = new HashMap();
         map.put("class1", "21");
@@ -95,6 +96,7 @@ public class CarSaftyListActivity extends LoadingActivity {
 
     @Override
     public void loadDataSuccess(Object bInfo) {
+        dissmissWaitingDialog();
         try {
             String value = ((BaseResponseInfo<String>) bInfo).getValue();
             Gson gson = new Gson();
@@ -116,6 +118,12 @@ public class CarSaftyListActivity extends LoadingActivity {
         mPullListView.onPullUpRefreshComplete();
         setLastUpdateTime();
 
+    }
+
+    @Override
+    public void loadDataError(Object bInfo) {
+        super.loadDataError(bInfo);
+        dissmissWaitingDialog();
     }
 
     /**

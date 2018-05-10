@@ -43,6 +43,7 @@ public class CarStateNowActivity extends LoadingActivity {
         super.onResume();
 
 //        loadingDataUI();
+
         initData();
     }
 
@@ -75,12 +76,14 @@ public class CarStateNowActivity extends LoadingActivity {
     }
 
     private void initData() {
+        showWaitingDialog(null);
         DefaultParser<CarNowStatusInfo> parser = new DefaultParser<>(mCallback, CarNowStatusInfo.class);
         parser.executePost(URLConfig.getM_REMOTE_STATUS(), new HashMap());
     }
 
     @Override
     public void loadDataSuccess(Object bInfo) {
+        dissmissWaitingDialog();
         try {
             CarNowStatusInfo carNowStatusInfo = (CarNowStatusInfo) ((BaseResponseInfo) bInfo).getValue();
 
@@ -98,6 +101,12 @@ public class CarStateNowActivity extends LoadingActivity {
         mPullToRefreshListView.onPullDownRefreshComplete();
         mPullToRefreshListView.onPullUpRefreshComplete();
         setLastUpdateTime();
+    }
+
+    @Override
+    public void loadDataError(Object bInfo) {
+        super.loadDataError(bInfo);
+        dissmissWaitingDialog();
     }
 
     private void setLastUpdateTime() {

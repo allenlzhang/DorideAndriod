@@ -132,6 +132,12 @@ public class RemoteMainFragment extends BaseFragment implements
     public void onResume() {
         super.onResume();
         //        CPControl.GetRemoteCarState(mListener_states);
+
+        loadData();
+    }
+
+    @Override
+    public void reTryLoadData() {
         loadData();
     }
 
@@ -145,6 +151,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void loadData() {
+        loadingDataUI();
         if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
             carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
                 @Override
@@ -157,7 +164,8 @@ public class RemoteMainFragment extends BaseFragment implements
                 @Override
                 public void onError(BaseResponseInfo bInfo) {
                     Logger.e(TAG, "onError" + bInfo.toString());
-                    loadonErrorUI((BaseResponseInfo) bInfo);
+//                    actLoadError((BaseResponseInfo) bInfo);
+                    loadonErrorUI(bInfo);
                 }
             });
             HashMap params2 = new HashMap();
@@ -172,6 +180,7 @@ public class RemoteMainFragment extends BaseFragment implements
     private AirMainInfo mAirMainInfo1;
 
     private void loadSuss() {
+        loadSuccessUI();
         RemoteMainInfo mRemoteMainInfo = DorideApplication.getInstanse().getRemoteMainInfo();
         Logger.e("RemoteMainInfo----" + mRemoteMainInfo);
         if (mRemoteMainInfo != null) {
@@ -322,7 +331,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
                     carStateInfo = mCarStateDataList.get(0);
                 }
-                PopBoxCreat.createDialogRemote(getActivity(), "车锁", "开锁", "上锁", R.drawable.remote_unlock_selector, R.drawable.remote_lock_selector, new PopBoxCreat.onDialogRemoteClick() {
+                PopBoxCreat.createDialogRemote(getActivity(), "车锁", "解锁", "落锁", R.drawable.remote_unlock_selector, R.drawable.remote_lock_selector, new PopBoxCreat.onDialogRemoteClick() {
                     @Override
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
@@ -350,7 +359,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
                     carStateInfo = mCarStateDataList.get(2);
                 }
-                PopBoxCreat.createDialogRemote(getActivity(), "车窗", "开窗", "关窗", R.drawable.remote_win_down_selector, R.drawable.remote_win_up_selector, new PopBoxCreat.onDialogRemoteClick() {
+                PopBoxCreat.createDialogRemote(getActivity(), "车窗", "开启", "关闭", R.drawable.remote_win_down_selector, R.drawable.remote_win_up_selector, new PopBoxCreat.onDialogRemoteClick() {
                     @Override
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
@@ -403,7 +412,7 @@ public class RemoteMainFragment extends BaseFragment implements
                 //                CPControl.GetRemoteTrunk(mListener);
 
                 dissmissWaitingDialog();
-                PopBoxCreat.createDialogRemote(getActivity(), "后备箱", "打开", "关闭", R.drawable.remote_open_truck_selector, R.drawable.remote_close_truck_selector, new PopBoxCreat.onDialogRemoteClick() {
+                PopBoxCreat.createDialogRemote(getActivity(), "后备箱", "开启", "关闭", R.drawable.remote_open_truck_selector, R.drawable.remote_close_truck_selector, new PopBoxCreat.onDialogRemoteClick() {
                     @Override
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
@@ -431,7 +440,7 @@ public class RemoteMainFragment extends BaseFragment implements
                 //                UUToast.showUUToast(getActivity(), "车锁");
 
                 dissmissWaitingDialog();
-                PopBoxCreat.createDialogRemote(getActivity(), "座椅加热", "开启", "关闭", R.drawable.remote_open_seat_hot_selector, R.drawable.remote_close_seat_hot_selector, new PopBoxCreat.onDialogRemoteClick() {
+                PopBoxCreat.createDialogRemote(getActivity(), "座椅加热", "前排座椅加热", "关闭座椅加热", R.drawable.remote_open_seat_hot_selector, R.drawable.remote_close_seat_hot_selector, new PopBoxCreat.onDialogRemoteClick() {
                     @Override
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
@@ -694,6 +703,8 @@ public class RemoteMainFragment extends BaseFragment implements
                         airDialog.show();
                     }
                     break;
+                default:
+                    break;
             }
         }
     };
@@ -821,6 +832,20 @@ public class RemoteMainFragment extends BaseFragment implements
             showWaitingDialog("正在验证您的远程密码...");
             CPControl.GetRemotePswVerify(psw, mListener_verify);
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        isFirstClick = true;
+//        Logger.e("---isFirstClick----" + isFirstClick);
+//        Logger.e("---hidden----" + hidden);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isFirstClick = true;
     }
 
     private boolean getTimeOutStatus() {
