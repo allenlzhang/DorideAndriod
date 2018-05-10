@@ -179,18 +179,18 @@ public class DorideApplication extends Application {
         // Build.TIME
         // Build.TYPE // builder类型
         // Build.USER
-        Logger.e("build" + "Build.BRAND==" + Build.BRAND);
-        Logger.e("build" + "Build.CPU_ABI==" + Build.CPU_ABI);
-        Logger.e("build" + "Build.DEVICE==" + Build.DEVICE);
-        Logger.e("build" + "Build.HOST==" + Build.HOST);
-        Logger.e("build" + "Build.MANUFACTURER==" + Build.MANUFACTURER);
-        Logger.e("build" + "Build.MODEL==" + Build.MODEL);
-        Logger.e("build" + "Build.PRODUCT==" + Build.PRODUCT);
-        Logger.e("build" + "Build.TYPE==" + Build.TYPE);
-        Logger.e("build" + "Build.USER==" + Build.USER);
-        Logger.e("build" + "Build.FINGERPRINT==" + Build.FINGERPRINT);
-        Logger.e("build" + "Build.SERIAL==" + Build.SERIAL);
-        Logger.e("build" + "Build.HARDWARE==" + Build.HARDWARE);
+//        Logger.e("build" + "Build.BRAND==" + Build.BRAND);
+//        Logger.e("build" + "Build.CPU_ABI==" + Build.CPU_ABI);
+//        Logger.e("build" + "Build.DEVICE==" + Build.DEVICE);
+//        Logger.e("build" + "Build.HOST==" + Build.HOST);
+//        Logger.e("build" + "Build.MANUFACTURER==" + Build.MANUFACTURER);
+//        Logger.e("build" + "Build.MODEL==" + Build.MODEL);
+//        Logger.e("build" + "Build.PRODUCT==" + Build.PRODUCT);
+//        Logger.e("build" + "Build.TYPE==" + Build.TYPE);
+//        Logger.e("build" + "Build.USER==" + Build.USER);
+//        Logger.e("build" + "Build.FINGERPRINT==" + Build.FINGERPRINT);
+//        Logger.e("build" + "Build.SERIAL==" + Build.SERIAL);
+//        Logger.e("build" + "Build.HARDWARE==" + Build.HARDWARE);
         String m_szDevIDShort = Build.BRAND + Build.CPU_ABI + Build.DEVICE
                 + Build.HOST + Build.MANUFACTURER + Build.MODEL + Build.PRODUCT
                 + Build.TYPE + Build.USER + Build.FINGERPRINT + Build.SERIAL

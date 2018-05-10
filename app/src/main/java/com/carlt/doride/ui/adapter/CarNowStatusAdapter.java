@@ -34,7 +34,7 @@ public class CarNowStatusAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public CarNowStatusInfo.CarNowStatusItemInfo getItem(int i) {
         return mList.get(i);
     }
 

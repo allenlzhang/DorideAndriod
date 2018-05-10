@@ -1,5 +1,6 @@
 package com.carlt.doride.push;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.content.ComponentName;
@@ -52,7 +53,7 @@ public class PushService extends Service {
 			if (account != null && account.length() > 0 && password != null
 					&& password.length() > 0) {
 				// 直接调用登录接口
-				final Handler mHandler = new Handler() {
+				@SuppressLint("HandlerLeak") final Handler mHandler = new Handler() {
 
 					@Override
 					public void handleMessage(Message msg) {

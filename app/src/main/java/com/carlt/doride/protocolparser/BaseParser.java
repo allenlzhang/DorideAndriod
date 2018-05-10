@@ -1,5 +1,6 @@
 package com.carlt.doride.protocolparser;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 
@@ -24,18 +25,18 @@ import okhttp3.Response;
 
 
 public abstract class BaseParser<T> {
-    public final static String MSG_ERRO = "网络太差，连接失败了";
+    public final static String MSG_ERRO     = "网络太差，连接失败了";
     public final static String MSG_ERRO_TIP = "数据获取失败，请稍后再试";
-    public static String TAG = "http";
+    public static       String TAG          = "http";
     protected BaseResponseInfo<T> mBaseResponseInfo;
-    protected Class<T> clazz ;
-    protected JsonObject mJson;
-    private ResultCallback mResultCallback;
+    protected Class<T>            clazz;
+    protected JsonObject          mJson;
+    private   ResultCallback      mResultCallback;
     protected boolean isTest = false;// 是否是测试数据
-    protected String testFileName;// 本地模拟数据名称
-    public Handler mHandler;
+    protected String  testFileName;// 本地模拟数据名称
+    public    Handler mHandler;
 
-    private static final String LOGIN_ACTION="com.carlt.doride.LOGIN";
+    private static final String LOGIN_ACTION = "com.carlt.doride.LOGIN";
 
     public BaseParser(ResultCallback callback) {
         //TAG = this.getClass().getName();
@@ -45,7 +46,8 @@ public abstract class BaseParser<T> {
             initHandler();
         }
     }
-    public BaseParser(ResultCallback callback,Class<T> clazz) {
+
+    public BaseParser(ResultCallback callback, Class<T> clazz) {
         this.clazz = clazz;
         mBaseResponseInfo = new BaseResponseInfo();
         this.mResultCallback = callback;
@@ -62,6 +64,7 @@ public abstract class BaseParser<T> {
         isTest = test;
     }
 
+    @SuppressLint("HandlerLeak")
     public void initHandler() {
         mHandler = new Handler() {
             @Override
@@ -80,7 +83,9 @@ public abstract class BaseParser<T> {
                     case 2:
                         ActivityControl.onTokenDisable();
 
-                        UUToast.showUUToast(DorideApplication.getInstanse(),mBaseResponseInfo.getInfo());
+                        UUToast.showUUToast(DorideApplication.getInstanse(), mBaseResponseInfo.getInfo());
+                        break;
+                    default:
                         break;
                 }
             }
@@ -106,15 +111,15 @@ public abstract class BaseParser<T> {
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     parser();
                     mHandler.sendEmptyMessage(0);
-                }else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN){
+                } else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN) {
                     mHandler.sendEmptyMessage(2);
-                }else {
+                } else {
                     mHandler.sendEmptyMessage(1);
                 }
             } catch (Exception ex) {
                 mBaseResponseInfo.setFlag(BaseResponseInfo.ERRO);
                 mBaseResponseInfo.setInfo(MSG_ERRO);
-                if(null != mHandler){
+                if (null != mHandler) {
                     mHandler.sendEmptyMessage(1);
                 }
                 ILog.e(TAG, ex.getMessage() + "");
@@ -148,12 +153,12 @@ public abstract class BaseParser<T> {
                                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.ERRO) {
                                     mHandler.sendEmptyMessage(1);
                                     ILog.e(TAG, "请求失败：" + str);
-                                }else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN){
+                                } else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN) {
                                     mHandler.sendEmptyMessage(2);
                                 } else {
                                     mHandler.sendEmptyMessage(0);
                                 }
-                            }else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN){
+                            } else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN) {
                                 mHandler.sendEmptyMessage(2);
                             } else {
                                 mHandler.sendEmptyMessage(1);
@@ -194,7 +199,7 @@ public abstract class BaseParser<T> {
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     parser();
                     mHandler.sendEmptyMessage(0);
-                }else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN){
+                } else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN) {
                     mHandler.sendEmptyMessage(2);
                 } else {
                     mHandler.sendEmptyMessage(1);
@@ -233,7 +238,7 @@ public abstract class BaseParser<T> {
                             if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                                 parser();
                                 mHandler.sendEmptyMessage(0);
-                            }else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN){
+                            } else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.NO_TOKEN) {
                                 mHandler.sendEmptyMessage(2);
                             }
                         } catch (Exception ex) {

@@ -1,5 +1,6 @@
 package com.carlt.doride.control;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
 import android.content.Context;
@@ -268,10 +269,12 @@ public class ActivityControl {
 
     }
 
+    @SuppressLint("HandlerLeak")
     static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+
             if (msg.what == 1) {
                 Intent mIntent = new Intent(DorideApplication.getInstanse(),
                         UserLoginActivity.class);

@@ -46,8 +46,8 @@ public class RemoteAirAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return null;
+	public RemoteFunInfo getItem(int position) {
+		return mDataList.get(position);
 	}
 
 	@Override
