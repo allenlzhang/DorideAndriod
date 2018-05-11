@@ -1,5 +1,6 @@
 package com.carlt.doride;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,8 +24,6 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
-import com.carlt.doride.utils.FileUtil;
-import com.carlt.doride.utils.LocalConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,45 +46,32 @@ public class SplashActivity extends BaseActivity {
 
     long mMills = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        splash();
+        mHandler.sendEmptyMessageDelayed(0, 1500);
+
     }
 
     private void splash() {
-//        requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new RequestPermissionCallBack() {
-//            @Override
-//            public void granted() {
-//                FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
-//                FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
-//                FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
-//                FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
-//                FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
-//                FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
-//            }
-//
-//            @Override
-//            public void denied() {
-//                UUToast.showUUToast(DorideApplication.getInstanse(),"未获取到权限，存储权限不能用");
-//            }
-//        });
-        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
-        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
-        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
-        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
-        FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
-        FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
-//        FileUtil.openOrCreatDir(LocalConfig.mTravelImageCacheSavePath_SD);
+
+//        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
+//        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
+//        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
+//        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
+//        FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
+//        FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
+        //        FileUtil.openOrCreatDir(LocalConfig.mTravelImageCacheSavePath_SD);
 
         mUseInfo = UseInfoLocal.getUseInfo();
         useTimes = mUseInfo.getTimes();
         account = mUseInfo.getAccount();
         password = mUseInfo.getPassword();
-//        CPControl.GetVersion(listener_version);
+        //        CPControl.GetVersion(listener_version);
         getVersion();
-//        jumpLogic();
+        //        jumpLogic();
     }
 
     private void getVersion() {
@@ -93,7 +79,7 @@ public class SplashActivity extends BaseActivity {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("softtype", "android");
         params.put("version", DorideApplication.Version + "");
-        parser.executePost(URLConfig.getM_GET_APP_UPDATE(),params);
+        parser.executePost(URLConfig.getM_GET_APP_UPDATE(), params);
     }
 
     ResultCallback versionCallback = new ResultCallback() {
@@ -101,7 +87,7 @@ public class SplashActivity extends BaseActivity {
         public void onSuccess(BaseResponseInfo bInfo) {
             mVersionInfo = (VersionInfo) bInfo.getValue();
             int status = mVersionInfo.getStatus();
-            status=VersionInfo.STATUS_ENABLE;
+            status = VersionInfo.STATUS_ENABLE;
             switch (status) {
                 case VersionInfo.STATUS_ENABLE:
                     // 不升级
@@ -212,7 +198,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onRightClick() {
                 // 退出
-//                ActivityControl.onExit();
+                //                ActivityControl.onExit();
                 ActivityControl.clearAllActivity();
             }
         };
@@ -272,13 +258,14 @@ public class SplashActivity extends BaseActivity {
     }
 
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                   splash();
+                    splash();
                     break;
                 case 3:
                     useTimes++;
