@@ -100,8 +100,8 @@ public class ResetRemotePasswdActivity extends LoadingActivity implements View.O
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(ResetRemotePasswdActivity.this, "远程控制密码修改成功");
-//            Intent intent = new Intent(ResetRemotePasswdActivity.this, AccountSecurityActivity.class);
-//            startActivity(intent);
+            //            Intent intent = new Intent(ResetRemotePasswdActivity.this, AccountSecurityActivity.class);
+            //            startActivity(intent);
             finish();
         }
 

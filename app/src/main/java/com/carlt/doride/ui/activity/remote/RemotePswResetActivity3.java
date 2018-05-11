@@ -1,6 +1,7 @@
 
 package com.carlt.doride.ui.activity.remote;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -237,6 +238,7 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
 
     String remote_pwd;
 
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
 
         @Override
@@ -327,6 +329,8 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
                         UUToast.showUUToast(RemotePswResetActivity3.this, "重置远程密码失败...");
                     }
 
+                    break;
+                default:
                     break;
             }
         }

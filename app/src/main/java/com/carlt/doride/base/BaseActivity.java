@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.ui.view.PopBoxCreat;
 
@@ -143,7 +144,17 @@ public class BaseActivity extends AppCompatActivity implements
 		}
 		return false;
 	}
+	@Override
+	public void startActivity(Intent intent) {
+		super.startActivity(intent);
+		overridePendingTransition(R.anim.from_right_in, R.anim.to_left_out);
+	}
 
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(R.anim.from_left_in, R.anim.to_right_out);
+	}
 	protected void registerBeforeGoToBackGround(BeforeGoToBackground listener) {
 		if (!mBackDoList.contains(listener)) {
 			mBackDoList.add(listener);

@@ -9,7 +9,7 @@ import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.activity.remote.RemotePswResetActivity3;
 
-public class RemotePasswdManageActivity extends LoadingActivity implements View.OnClickListener{
+public class RemotePasswdManageActivity extends LoadingActivity implements View.OnClickListener {
 
     private View remote_passwd_remember;//记得原密码
     private View remote_passwd_forget;//忘记原密码
@@ -24,11 +24,11 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
     }
 
     private void initComponent() {
-        remote_passwd_remember=$ViewByID(R.id.remote_passwd_remember);
+        remote_passwd_remember = $ViewByID(R.id.remote_passwd_remember);
         remote_passwd_remember.setOnClickListener(this);
-        remote_passwd_forget=$ViewByID(R.id.remote_passwd_forget);
+        remote_passwd_forget = $ViewByID(R.id.remote_passwd_forget);
         remote_passwd_forget.setOnClickListener(this);
-        remote_set_passwd=$ViewByID(R.id.remote_set_passwd);
+        remote_set_passwd = $ViewByID(R.id.remote_set_passwd);
         remote_set_passwd.setOnClickListener(this);
 
         if (LoginInfo.isSetRemotePwd()) {
@@ -43,15 +43,15 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.remote_passwd_remember:
-                Intent resetLoginPasswd=new Intent(this,ResetRemotePasswdActivity.class);
+                Intent resetLoginPasswd = new Intent(this, ResetRemotePasswdActivity.class);
                 startActivity(resetLoginPasswd);
                 break;
             case R.id.remote_passwd_forget:
-                Intent resetLoginPasswdByPhone=new Intent(this,VcodeResetRemotePasswdActivity.class);
+                Intent resetLoginPasswdByPhone = new Intent(this, VcodeResetRemotePasswdActivity.class);
                 startActivity(resetLoginPasswdByPhone);
                 break;
             case R.id.remote_set_passwd:
-                Intent setRemotePasswd=new Intent(this,RemotePswResetActivity3.class);
+                Intent setRemotePasswd = new Intent(this, RemotePswResetActivity3.class);
                 startActivity(setRemotePasswd);
                 break;
         }

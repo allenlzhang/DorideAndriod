@@ -1,6 +1,5 @@
 package com.carlt.doride;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,12 +29,7 @@ import com.carlt.doride.utils.LocalConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.HashMap;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class SplashActivity extends BaseActivity {
 
@@ -61,23 +55,22 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void splash() {
-        requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new RequestPermissionCallBack() {
-            @Override
-            public void granted() {
-                FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
-                FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
-                FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
-                FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
-                FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
-                FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
-//                FileUtil.openOrCreatDir(LocalConfig.mTravelImageCacheSavePath_SD);
-            }
-
-            @Override
-            public void denied() {
-                UUToast.showUUToast(DorideApplication.getInstanse(),"未获取到权限，存储权限不能用");
-            }
-        });
+//        requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new RequestPermissionCallBack() {
+//            @Override
+//            public void granted() {
+//                FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
+//                FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
+//                FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
+//                FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
+//                FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
+//                FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
+//            }
+//
+//            @Override
+//            public void denied() {
+//                UUToast.showUUToast(DorideApplication.getInstanse(),"未获取到权限，存储权限不能用");
+//            }
+//        });
         FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
         FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
         FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
@@ -394,7 +387,7 @@ public class SplashActivity extends BaseActivity {
         @Override
         public void onFailed() {
             LoginControl.mDialogUpdateListener = null;
-            Intent mIntent = new Intent(mContext, UserLoginActivity.class);
+            Intent mIntent = new Intent(SplashActivity.this, UserLoginActivity.class);
             startActivity(mIntent);
         }
     };
