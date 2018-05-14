@@ -36,6 +36,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.activity.home.InformationCentreActivity;
 import com.carlt.doride.ui.activity.home.ReportActivity;
+import com.carlt.doride.utils.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,8 +56,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     private String currentDate;
     private TextView mTextView3;    //红点
     private TextView mTextView4;    //助手消息
-    private TextView mTxtObd;   //仪表盘里程
-    private TextView mTxtEnduranceMile; //续航里程
+    private TextView mTxtRunningTime;   //行驶时间
+    private TextView mTxtMile; //总里程
     private TextView mTxtAvgSpeed;  //平均速度
     private TextView mTxtAvgFuel;   //平均油耗
     private MilesInfo milesInfo;    //大乘远程 读取里程实体类
@@ -80,8 +81,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
         mTxtDate = $ViewByID(R.id.home_txt_date);
         mTextView3 = $ViewByID(R.id.activity_home_txt3);
         mTextView4 = $ViewByID(R.id.activity_home_txt4);
-        mTxtObd = $ViewByID(R.id.layout_report_grid_linear2_txt2);
-        mTxtEnduranceMile = $ViewByID(R.id.layout_report_grid_linear1_txt2);
+        mTxtRunningTime = $ViewByID(R.id.layout_report_grid_linear2_txt2);
+        mTxtMile = $ViewByID(R.id.layout_report_grid_linear1_txt2);
         mTxtAvgSpeed = $ViewByID(R.id.layout_report_grid_linear3_txt2);
         mTxtAvgFuel = $ViewByID(R.id.layout_report_grid_linear4_txt2);
         mTxtCity = $ViewByID(R.id.home_txt_city);
@@ -280,8 +281,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
 
     private void loadRemoteError(BaseResponseInfo bInfo) {
 //        UUToast.showUUToast(getContext(),bInfo.getInfo());
-        mTxtObd.setText("--");
-        mTxtEnduranceMile.setText("--");
+        mTxtRunningTime.setText("--");
+        mTxtMile.setText("--");
         mTxtAvgSpeed.setText("--");
         mTxtAvgFuel.setText("--");
     }
@@ -289,10 +290,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     protected void loadRemoteSuccess(BaseResponseInfo bInfo) {
         milesInfo = (MilesInfo) (bInfo.getValue());
         if (milesInfo != null) {
-            mTxtObd.setText(milesInfo.getObd() + "");
-            mTxtEnduranceMile.setText(milesInfo.getEnduranceMile() + "");
-            mTxtAvgSpeed.setText(milesInfo.getAvgSpeed() + "");
-            mTxtAvgFuel.setText(milesInfo.getAvgFuel() + "");
+            if (StringUtils.isEmpty(milesInfo.getRunningTime())){
+                mTxtRunningTime.setText("--");
+            }else {
+                mTxtRunningTime.setText(milesInfo.getRunningTime());
+            }
+            if (StringUtils.isEmpty(milesInfo.getObd())){
+                mTxtMile.setText("--");
+            }else {
+                mTxtMile.setText(milesInfo.getObd());
+            }
+            if (StringUtils.isEmpty(milesInfo.getAvgSpeed())){
+                mTxtAvgSpeed.setText("--");
+            }else {
+                mTxtAvgSpeed.setText(milesInfo.getAvgSpeed());
+            }
+            if (StringUtils.isEmpty(milesInfo.getAvgFuel())){
+                mTxtAvgFuel.setText("--");
+            }else {
+                mTxtAvgFuel.setText(milesInfo.getAvgFuel());
+            }
         }
     }
 

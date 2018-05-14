@@ -31,7 +31,7 @@
         <TextView
             android:id="@+id/layout_report_grid_linear1_txt1"
             style="@style/layout_report_grid_txt1"
-            android:text="总里(公里)" />
+            android:text="总里程(公里)" />
     </LinearLayout>
 
     <LinearLayout

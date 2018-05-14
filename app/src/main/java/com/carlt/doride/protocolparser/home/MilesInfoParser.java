@@ -23,10 +23,13 @@ public class MilesInfoParser extends BaseParser<MilesInfo> {
         try{
             JsonObject mJSON_data = mJson.getAsJsonObject("data");
             MilesInfo info = new MilesInfo();
-            info.setObd(mJSON_data.get("obd").getAsDouble());
-            info.setEnduranceMile(mJSON_data.get("enduranceMile").getAsDouble());
-            info.setAvgSpeed(mJSON_data.get("avgSpeed").getAsDouble());
-            info.setAvgFuel(mJSON_data.get("avgFuel").getAsDouble());
+            info.setObd(mJSON_data.get("obd").getAsInt()+"");
+            info.setEnduranceMile(mJSON_data.get("enduranceMile").getAsString());
+            info.setAvgSpeed(mJSON_data.get("avgSpeed").getAsString());
+            info.setAvgFuel(mJSON_data.get("avgFuel").getAsString());
+            info.setLeftDuel(mJSON_data.get("leftFuel").getAsString());
+            info.setRunningTime(mJSON_data.get("runningTime").getAsString());
+            info.setvBat(mJSON_data.get("vBat").getAsString());
             mBaseResponseInfo.setValue(info);
         }catch (Exception e){
             ILog.e(TAG, "--e==" + e);
