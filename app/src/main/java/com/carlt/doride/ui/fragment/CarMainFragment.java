@@ -267,9 +267,9 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             }
             int last_fault_score = carinfo.last_fault_score;
             if (last_fault_score == -1) {
-                tvScore.setText("--");
+                tvScore.setText("请先进行检测");
             } else {
-                tvScore.setText(String.valueOf(last_fault_score));
+                tvScore.setText("上次自检得分：" + String.valueOf(last_fault_score));
             }
 
         }

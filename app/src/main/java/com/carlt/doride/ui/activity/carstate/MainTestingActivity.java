@@ -31,6 +31,7 @@ public class MainTestingActivity extends LoadingActivity {
 
     private PullToRefreshListView    mPullListView;
     private TextView                 safyHeadTV;
+    private TextView                 tvTitle;
     private WaringLampInfo           waringLampInfo;
     private ListView                 mListView;
     private List<WaringLampItemInfo> dataList;
@@ -45,7 +46,7 @@ public class MainTestingActivity extends LoadingActivity {
             , R.drawable.ic_esp, R.drawable.ic_abs,
             R.drawable.ic_safety_air_bag, R.drawable.ic_engine_failure, R.drawable.ic_transmission_case};
     private             String[] iconName = {"水温报警", "胎压", "EPB电子驻车系统故障", "ESP车身稳定系统故障", "ABS"
-            , "安全气囊故障", "发动机故障", "变速箱系统故障"};
+            , "安全气囊故障", "发动机排放系统故障", "变速箱系统故障"};
     public static final String   txtTitle = "自检得分：";
 
     @Override
@@ -76,7 +77,8 @@ public class MainTestingActivity extends LoadingActivity {
         Logger.e("-----" + bInfo.toString());
         waringLampInfo = (WaringLampInfo) ((BaseResponseInfo) bInfo).getValue();
         if (waringLampInfo != null) {
-            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
+            //            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
+            safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
             if (waringLampInfo.ENGINELAMP == 1 || waringLampInfo.ABS == 1 || waringLampInfo.EPB == 1 || waringLampInfo.MTLAMP == 1) {
                 safyHeadTV.setTextColor(Color.RED);
             } else if (waringLampInfo.ESP == 1 || waringLampInfo.TPMS == 1 || waringLampInfo.WATERTMP == 1 || waringLampInfo.SRS == 1) {
@@ -115,7 +117,9 @@ public class MainTestingActivity extends LoadingActivity {
     private void initView() {
         mPullListView = $ViewByID(R.id.pullRefreshList);
         safyHeadTV = $ViewByID(R.id.layout_sub_head_txt);
-
+        tvTitle = $ViewByID(R.id.tvTitle);
+        tvTitle.setVisibility(View.VISIBLE);
+        tvTitle.setText("自检得分:");
         mListView = mPullListView.getRefreshableView();
 
         mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
@@ -147,12 +151,12 @@ public class MainTestingActivity extends LoadingActivity {
                 info.setIconState(R.drawable.ic_problem);
 
                 info.setTxt(iconName[i]);
-                info.setColor(R.color.orange);
+                info.setColor(R.color.text_color_gray3);
                 break;
             case WaringLampInfo.NOT_BRIGHT:
                 info.setIconState(R.drawable.ic_no_problem);
                 info.setTxt(iconName[i]);
-                info.setColor(R.color.text_color_gray2);
+                info.setColor(R.color.text_color_gray3);
                 break;
             default:
                 break;

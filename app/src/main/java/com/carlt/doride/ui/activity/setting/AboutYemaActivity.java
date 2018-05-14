@@ -15,7 +15,7 @@ public class AboutYemaActivity extends LoadingActivity implements OnClickListene
     private TextView about_yema_ver;
     private TextView about_yema_terms;
 
-    private final static String URL_PROVISION = "http://m.cheler.com/yema.html";// 服务条款URL
+    private final static String URL_PROVISION = "http://m.cheler.com/doride.html";// 服务条款URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

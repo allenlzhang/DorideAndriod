@@ -34,6 +34,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout mTabHome;
     private LinearLayout mTabCar;
     private LinearLayout mTabRemote;
+
     private LinearLayout mTabSetting;
 
     private ImageView mIvTabHome;
