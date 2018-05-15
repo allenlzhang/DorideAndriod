@@ -73,7 +73,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/activity_career_secretary_tips_empty"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/icon_error_bg"
+        android:src="@mipmap/icon_nodata"
         android:visibility="gone" />
 
 </RelativeLayout>

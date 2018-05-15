@@ -55,7 +55,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
 
     private UserRegisterParams registerParams = new UserRegisterParams();
 
-    private final static String URL_PROVISION = "http://m.cheler.com/yema.html";// 服务条款URL
+    private final static String URL_PROVISION = "http://m.cheler.com/doride.html";// 服务条款URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,11 +190,11 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     int flag = mBaseResponseInfo.getFlag();
                     if (flag == BaseResponseInfo.PHONE_REGISTERED) {
-                        UUToast.showUUToast(UserRegisterActivity.this, "该手机号已存在:"
-                                + mBaseResponseInfo.getInfo());
+                        UUToast.showUUToast(UserRegisterActivity.this,
+                                 mBaseResponseInfo.getInfo());
                     } else {
-                        UUToast.showUUToast(UserRegisterActivity.this, "验证码获取失败:"
-                                + mBaseResponseInfo.getInfo());
+                        UUToast.showUUToast(UserRegisterActivity.this,
+                                 mBaseResponseInfo.getInfo());
                     }
                     break;
                 case 2:

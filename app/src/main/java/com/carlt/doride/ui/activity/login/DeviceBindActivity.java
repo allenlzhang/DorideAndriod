@@ -25,6 +25,9 @@ import com.carlt.doride.utils.Log;
 
 import java.util.HashMap;
 
+/**
+ * 绑定设备
+ */
 public class DeviceBindActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView back;//返回按钮

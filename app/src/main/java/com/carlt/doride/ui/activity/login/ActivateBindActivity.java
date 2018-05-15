@@ -24,6 +24,9 @@ import com.carlt.doride.ui.view.UUToast;
 
 import java.util.HashMap;
 
+/**
+ * 激活设备
+ */
 public class ActivateBindActivity extends BaseActivity implements View.OnClickListener{
 
     private ImageView back;//返回按钮

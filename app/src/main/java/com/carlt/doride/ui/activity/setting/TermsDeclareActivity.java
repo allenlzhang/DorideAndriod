@@ -31,7 +31,7 @@ public class TermsDeclareActivity extends BaseActivity implements DownloadListen
 
     public final static String URL_INFO = "url_info";
 
-    private final static String URL_PROVISION = "http://m.cheler.com/yema.html";// 服务条款URL
+    private final static String URL_PROVISION = "http://m.cheler.com/doride.html";// 服务条款URL
 
     private final static String URL_INTRODUCE = "http://m.cheler.com";// 大迈介绍URL
 

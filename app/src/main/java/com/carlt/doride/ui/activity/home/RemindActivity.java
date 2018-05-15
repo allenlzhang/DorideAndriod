@@ -258,15 +258,15 @@ public class RemindActivity extends LoadingActivity {
 
                 if (mList.size() == 0) {
                     mPullListView.setVisibility(View.GONE);
-                    if (type == InformationMessageInfo.C1_T4 || type == InformationMessageInfo.C1_T7) {
+                    if (type == InformationMessageInfo.C1_T6) {
+                        mImgEmpty.setVisibility(View.GONE);
+                    } else {
                         mImgEmpty.setVisibility(View.VISIBLE);
                     }
                     mTxtEmpty.setVisibility(View.VISIBLE);
                 } else {
                     mPullListView.setVisibility(View.VISIBLE);
-                    if (type == InformationMessageInfo.C1_T4 || type == InformationMessageInfo.C1_T7) {
-                        mImgEmpty.setVisibility(View.GONE);
-                    }
+                    mImgEmpty.setVisibility(View.GONE);
                     mTxtEmpty.setVisibility(View.GONE);
                 }
 

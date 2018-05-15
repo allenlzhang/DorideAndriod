@@ -13,7 +13,7 @@
     <ImageView
         android:id="@+id/bind_logo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="238dp"
         android:layout_marginTop="33dp"
         android:src="@mipmap/device_bind_logo"
         android:scaleType="fitXY"
