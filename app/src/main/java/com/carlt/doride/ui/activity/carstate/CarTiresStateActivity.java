@@ -45,9 +45,6 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_tires_state);
         initTitle("胎压监测");
-        optRight.setVisibility(View.VISIBLE);
-        optRight.setText("刷新");
-        optRight.setOnClickListener(this);
         initView();
         loadingDataUI();
         initdata();
@@ -191,5 +188,50 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
                 initdata();
                 break;
         }
+    }
+
+    /**
+     * 使用此方法，需要在 setContentView activity 里 加入layout_title
+     *
+     * 只有 一个文字标题和返回键的标题
+     * @param titleString
+     */
+    protected void initTitle(String titleString) {
+
+        try{
+            backTV = $ViewByID(R.id.head_back_img1);
+            titleTV = $ViewByID(R.id.head_back_txt1);
+            backTV2 = $ViewByID(R.id.head_back_img2);
+            backTV2.setVisibility(View.VISIBLE);
+            backTV2.setBackgroundResource(R.drawable.icon_refresh_bg);
+        }catch (Exception e){
+            //是设置标题出错
+            return;
+        }
+        if(null != backTV){
+            backTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        }
+        if(null != titleTV){
+            titleTV.setText(titleString);
+        }
+        if (null != backTV2){
+            backTV2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRightClick();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onRightClick() {
+        super.onRightClick();
+        initdata();
     }
 }

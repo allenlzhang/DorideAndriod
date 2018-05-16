@@ -39,7 +39,7 @@ public class InformationCentreActivity extends LoadingActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_centre);
-        initTitle("信息中心");
+        initTitle("大乘助手");
         init();
         initData();
     }
@@ -208,6 +208,7 @@ public class InformationCentreActivity extends LoadingActivity {
             titleTV = $ViewByID(R.id.head_back_txt1);
             backTV2 = $ViewByID(R.id.head_back_img2);
             backTV2.setVisibility(View.VISIBLE);
+            backTV2.setBackgroundResource(R.drawable.icon_message_manager_bg);
         }catch (Exception e){
             //是设置标题出错
             return;

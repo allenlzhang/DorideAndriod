@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -31,7 +32,7 @@ public class LoadingActivity extends BaseActivity {
     private   View           mViewLoading;// 加载View
     private   View           mViewError;// 错误提示View
     private   View           mViewNodata;// 没有数据View
-
+    private   ImageView      mIvErrorIcon; //错误图片
     LayoutInflater mInflater;
 
     protected View     backTV   = null;
@@ -53,7 +54,7 @@ public class LoadingActivity extends BaseActivity {
         mViewLoading = findViewById(R.id.laoding_lay_main);
         mViewError = findViewById(R.id.error_lay_main);
         mViewNodata = findViewById(R.id.nodata_lay_main);
-
+        mIvErrorIcon = findViewById(R.id.info_icon);
         mTxtDes = (TextView) findViewById(R.id.laoding_txt_des);
         mTxtEorrorSub = (TextView) findViewById(R.id.error_txt_des_sub);
         mTxtNodata = (TextView) findViewById(R.id.nodata_txt_des);
@@ -177,6 +178,11 @@ public class LoadingActivity extends BaseActivity {
             info = mInfo.getInfo();
         } else {
             info = "数据加载失败，请重试...";
+        }
+        if (mInfo.getFlag()==BaseResponseInfo.ERRO){
+            mIvErrorIcon.setImageResource(R.mipmap.icon_error);
+        }else {
+            mIvErrorIcon.setImageResource(R.mipmap.icon_error_bg);
         }
         mTxtRetryError.setVisibility(View.VISIBLE);
         mTxtEorrorSub.setText(info);
