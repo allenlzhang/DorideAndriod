@@ -77,6 +77,14 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            loadData();
+        }
+    }
+
+    @Override
     public void init(View view) {
         //  胎压监测
         view1 = $ViewByID(R.id.car_main_txt_tire);
@@ -259,6 +267,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                 tvCarState.setText("爱车行驶中");
             } else if (TextUtils.equals("0", carinfo.getIsrunning())) {
                 headTxt.setText("爱车熄火中");
+                tvCarState.setText("爱车熄火中");
             }
             if (!StringUtils.isEmpty(carinfo.getSafetymsg())) {
                 viewSafetyText.setText(carinfo.getSafetymsg());

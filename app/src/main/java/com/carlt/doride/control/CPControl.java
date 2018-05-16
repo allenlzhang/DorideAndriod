@@ -72,7 +72,7 @@ public class CPControl {
     }
 
     //远程开启后背箱
-    public static void GetRemoteTrunk(String state,BaseParser.ResultCallback mListener) {
+    public static void GetRemoteTrunk(String state, BaseParser.ResultCallback mListener) {
         DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
         HashMap param = new HashMap();
         param.put("move_device_name", DorideApplication.MODEL_NAME);
@@ -174,7 +174,9 @@ public class CPControl {
                         String id = item.getId();
                         if (id.equals(airState)) {
                             item.setSelect(true);
-                            break;
+                            //                            break;
+                        } else {
+                            item.setSelect(false);
                         }
                     }
                     airMainInfo.setState(airState);

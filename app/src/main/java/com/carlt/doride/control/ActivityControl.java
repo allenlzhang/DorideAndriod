@@ -176,11 +176,12 @@ public class ActivityControl {
             @Override
             public void onLeftClick() {
                 // 注销
+                LoginInfo.setNoneedpsw(false);
                 onLogout(context);
             }
         };
-//        PopBoxCreat.createDialogWithTitle(context, "提示", "是否要注销?", "", "确定",
-//                "取消", click);
+        //        PopBoxCreat.createDialogWithTitle(context, "提示", "是否要注销?", "", "确定",
+        //                "取消", click);
         PopBoxCreat.createDialogNotitle(context, "温馨提示", "是否要注销?", "确定", "取消", click);
     }
 

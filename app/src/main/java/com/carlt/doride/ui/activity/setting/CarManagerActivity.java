@@ -31,10 +31,10 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
     private View edit_maintenance_mileage;//上次保养里程
     private View edit_maintenance_time;//上次保养时间
 
-    private TextView car_type_txt;//显示
-    private TextView purchase_time_txt;//显示
-    private TextView maintenance_mileage_txt;//显示
-    private TextView maintenance_time_txt;//显示
+    private TextView       car_type_txt;//显示
+    private TextView       purchase_time_txt;//显示
+    private TextView       maintenance_mileage_txt;//显示
+    private TextView       maintenance_time_txt;//显示
     private TimePickerView pvCustomTime;
 
 
@@ -122,7 +122,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
             }
         }
     };
-    private ResultCallback maintenCallback = new ResultCallback() {
+    private ResultCallback maintenCallback  = new ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
@@ -155,7 +155,11 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         Calendar startDate = Calendar.getInstance();
         startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2027, 2, 28);
+        Date time = endDate.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = dateFormat.format(time);
+        String[] split = format.split("-");
+        endDate.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
@@ -257,14 +261,14 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             CarSettingInfo carSettingInfo = (CarSettingInfo) bInfo.getValue();
-            if (!TextUtils.isEmpty(carSettingInfo.getCarname())&&!carSettingInfo.getCarname().equals("0")) {
+            if (!TextUtils.isEmpty(carSettingInfo.getCarname()) && !carSettingInfo.getCarname().equals("0")) {
                 car_type_txt.setText((carSettingInfo.getCarname()));
                 LoginInfo.setCarname(carSettingInfo.getCarname());
             } else {
                 car_type_txt.setText("--");
                 LoginInfo.setCarname("--");
             }
-            if (!TextUtils.isEmpty(carSettingInfo.getBuydate())&&!carSettingInfo.getBuydate().equals("0")) {
+            if (!TextUtils.isEmpty(carSettingInfo.getBuydate()) && !carSettingInfo.getBuydate().equals("0")) {
                 purchase_time_txt.setText((carSettingInfo.getBuydate()));
                 LoginInfo.setBuydate(carSettingInfo.getBuydate());
             } else {
@@ -278,7 +282,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
                 maintenance_mileage_txt.setText("--");
                 LoginInfo.setMainten_miles("--");
             }
-            if (!TextUtils.isEmpty(carSettingInfo.getMainten_date())&&!carSettingInfo.getMainten_date().equals("0")) {
+            if (!TextUtils.isEmpty(carSettingInfo.getMainten_date()) && !carSettingInfo.getMainten_date().equals("0")) {
                 maintenance_time_txt.setText(carSettingInfo.getMainten_date());
                 LoginInfo.setMainten_time(carSettingInfo.getMainten_date());
             } else {

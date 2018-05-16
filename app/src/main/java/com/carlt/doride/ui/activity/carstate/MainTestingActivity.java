@@ -71,6 +71,8 @@ public class MainTestingActivity extends LoadingActivity {
         dissmissWaitingDialog();
     }
 
+
+  
     @Override
     public void loadDataSuccess(Object bInfo) {
         dissmissWaitingDialog();
@@ -107,7 +109,6 @@ public class MainTestingActivity extends LoadingActivity {
         }
 
     }
-
     @Override
     public void reTryLoadData() {
         super.reTryLoadData();

@@ -32,7 +32,6 @@ import com.carlt.doride.data.home.InformationCategoryInfo;
 import com.carlt.doride.data.home.InformationCategoryInfoList;
 import com.carlt.doride.data.home.MilesInfo;
 import com.carlt.doride.data.home.WeatherInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.activity.home.InformationCentreActivity;
 import com.carlt.doride.ui.activity.home.ReportActivity;
@@ -49,25 +48,26 @@ import java.util.List;
  * Created by Marlon on 2018/3/15.
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener,WeatherSearch.OnWeatherSearchListener {
-    private ImageView mIvReport;    //行车报告
+public class HomeFragment extends BaseFragment implements View.OnClickListener, WeatherSearch.OnWeatherSearchListener {
+    private ImageView      mIvReport;    //行车报告
     private RelativeLayout mRlInformationCentre;    //大乘助手
-    private TextView mTxtDate;  //日期
-    private String currentDate;
-    private TextView mTextView3;    //红点
-    private TextView mTextView4;    //助手消息
-    private TextView mTxtRunningTime;   //行驶时间
-    private TextView mTxtMile; //总里程
-    private TextView mTxtAvgSpeed;  //平均速度
-    private TextView mTxtAvgFuel;   //平均油耗
-    private MilesInfo milesInfo;    //大乘远程 读取里程实体类
-    private TextView mTxtCity;      //城市
-    private TextView mTxtWeather;   //天气
-    private TextView mTxtTemputre;  //温度
-    long mMills = 0;
+    private TextView       mTxtDate;  //日期
+    private String         currentDate;
+    private TextView       mTextView3;    //红点
+    private TextView       mTextView4;    //助手消息
+    private TextView       mTxtRunningTime;   //行驶时间
+    private TextView       mTxtMile; //总里程
+    private TextView       mTxtAvgSpeed;  //平均速度
+    private TextView       mTxtAvgFuel;   //平均油耗
+    private MilesInfo      milesInfo;    //大乘远程 读取里程实体类
+    private TextView       mTxtCity;      //城市
+    private TextView       mTxtWeather;   //天气
+    private TextView       mTxtTemputre;  //温度
+    long   mMills   = 0;
     String cityName = null;
     AMapLocationClient mClient;
-    AMapLocation mLocation;
+    AMapLocation       mLocation;
+
     @Override
     protected View inflateView(LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.fragment_home, null);
@@ -157,6 +157,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            loadData();
+        }
+    }
+
+    @Override
     public void loadData() {
         loadingDataUI();
         CPControl.GetInformationCentreInfoListResult(callback);
@@ -176,7 +184,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
                 break;
             case R.id.activity_home_relative2:  //跳转信息中心
                 Intent mIntent1 = new Intent(getContext(), InformationCentreActivity.class);
-                getActivity().startActivityForResult(mIntent1,REQUESTCODE);
+                getActivity().startActivityForResult(mIntent1, REQUESTCODE);
                 break;
         }
     }
@@ -186,14 +194,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUESTCODE){
-                Log.e(TAG,"loadData  onActivityResult");
-                loadData();
+        if (requestCode == REQUESTCODE) {
+            Log.e(TAG, "loadData  onActivityResult");
+            loadData();
         }
     }
 
     private WeatherSearchQuery mquery;
-    private WeatherSearch mweathersearch;
+    private WeatherSearch      mweathersearch;
 
     @SuppressLint("NewApi")
     public void loadWeather() {
@@ -280,7 +288,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     }
 
     private void loadRemoteError(BaseResponseInfo bInfo) {
-//        UUToast.showUUToast(getContext(),bInfo.getInfo());
+        //        UUToast.showUUToast(getContext(),bInfo.getInfo());
         mTxtRunningTime.setText("--");
         mTxtMile.setText("--");
         mTxtAvgSpeed.setText("--");
@@ -290,24 +298,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
     protected void loadRemoteSuccess(BaseResponseInfo bInfo) {
         milesInfo = (MilesInfo) (bInfo.getValue());
         if (milesInfo != null) {
-            if (StringUtils.isEmpty(milesInfo.getRunningTime())){
+            if (StringUtils.isEmpty(milesInfo.getRunningTime())) {
                 mTxtRunningTime.setText("--");
-            }else {
+            } else {
                 mTxtRunningTime.setText(milesInfo.getRunningTime());
             }
-            if (StringUtils.isEmpty(milesInfo.getObd())){
+            if (StringUtils.isEmpty(milesInfo.getObd())) {
                 mTxtMile.setText("--");
-            }else {
+            } else {
                 mTxtMile.setText(milesInfo.getObd());
             }
-            if (StringUtils.isEmpty(milesInfo.getAvgSpeed())){
+            if (StringUtils.isEmpty(milesInfo.getAvgSpeed())) {
                 mTxtAvgSpeed.setText("--");
-            }else {
+            } else {
                 mTxtAvgSpeed.setText(milesInfo.getAvgSpeed());
             }
-            if (StringUtils.isEmpty(milesInfo.getAvgFuel())){
+            if (StringUtils.isEmpty(milesInfo.getAvgFuel())) {
                 mTxtAvgFuel.setText("--");
-            }else {
+            } else {
                 mTxtAvgFuel.setText(milesInfo.getAvgFuel());
             }
         }
@@ -324,23 +332,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
             ArrayList<InformationCategoryInfo> mInformationCategoryInfos = infoList.getmAllList();
             ArrayList<InformationCategoryInfo> unReadMsgInfos = new ArrayList<>();
             ArrayList<InformationCategoryInfo> readMsgInfos = new ArrayList<>();
-            for (int i = 0; i <mInformationCategoryInfos.size() ; i++) {
-                if (Integer.parseInt(mInformationCategoryInfos.get(i).getMsgcount())>0){
+            for (int i = 0; i < mInformationCategoryInfos.size(); i++) {
+                if (Integer.parseInt(mInformationCategoryInfos.get(i).getMsgcount()) > 0) {
                     unReadMsgInfos.add(mInformationCategoryInfos.get(i));
-                }else {
+                } else {
                     readMsgInfos.add(mInformationCategoryInfos.get(i));
                 }
             }
-            if (unReadMsgInfos.size()>0){
+            if (unReadMsgInfos.size() > 0) {
                 lastTime(unReadMsgInfos);
                 latestmessage = unReadMsgInfos.get(0).getLastmsg();
                 unreadmessage = unReadMsgInfos.get(0).getMsgcount();
-            }else {
+            } else {
                 lastTime(readMsgInfos);
                 latestmessage = readMsgInfos.get(0).getLastmsg();
                 unreadmessage = readMsgInfos.get(0).getMsgcount();
             }
-
 
 
             if (unreadmessage != null && unreadmessage.length() > 0) {
@@ -372,7 +379,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
             }
         }
     }
-    private void lastTime(ArrayList<InformationCategoryInfo> list){
+
+    private void lastTime(ArrayList<InformationCategoryInfo> list) {
         Collections.sort(list, new Comparator<InformationCategoryInfo>() {
             @Override
             public int compare(InformationCategoryInfo o1, InformationCategoryInfo o2) {
@@ -391,41 +399,42 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,W
 
     @Override
     public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int i) {
-            if (i == 1000) {
-                LocalWeatherForecast mLocalWeatherForecast = localWeatherForecastResult
-                        .getForecastResult();
-                List<LocalDayWeatherForecast> mDayWeatherForecasts = mLocalWeatherForecast
-                        .getWeatherForecast();
-                LocalDayWeatherForecast mDayWeatherForecast = mDayWeatherForecasts
-                        .get(0);
-                String date = mDayWeatherForecast.getDate();
-                String dayWeather = mDayWeatherForecast.getDayWeather();
-                String dayTemp = mDayWeatherForecast.getDayTemp();
-                String nightWeather = mDayWeatherForecast.getNightWeather();
-                String nightTemp = mDayWeatherForecast.getNightTemp();
-                WeatherInfo mWeatherInfo = new WeatherInfo();
-                mWeatherInfo.setTemperature(nightTemp + "~" + dayTemp + "℃");
-                if (nightWeather.equals(dayWeather)) {
-                    mWeatherInfo.setWeather(dayWeather);
-                } else {
-                    mWeatherInfo.setWeather(dayWeather + "转" + nightWeather);
-                }
-
-                weatherLoaded(mWeatherInfo);
+        if (i == 1000) {
+            LocalWeatherForecast mLocalWeatherForecast = localWeatherForecastResult
+                    .getForecastResult();
+            List<LocalDayWeatherForecast> mDayWeatherForecasts = mLocalWeatherForecast
+                    .getWeatherForecast();
+            LocalDayWeatherForecast mDayWeatherForecast = mDayWeatherForecasts
+                    .get(0);
+            String date = mDayWeatherForecast.getDate();
+            String dayWeather = mDayWeatherForecast.getDayWeather();
+            String dayTemp = mDayWeatherForecast.getDayTemp();
+            String nightWeather = mDayWeatherForecast.getNightWeather();
+            String nightTemp = mDayWeatherForecast.getNightTemp();
+            WeatherInfo mWeatherInfo = new WeatherInfo();
+            mWeatherInfo.setTemperature(nightTemp + "~" + dayTemp + "℃");
+            if (nightWeather.equals(dayWeather)) {
+                mWeatherInfo.setWeather(dayWeather);
             } else {
-                Log.e("info", "loadWeather onWeatherForecastSearched==");
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.e("info", "loadWeather handleMessage==");
-                        loadWeather();
-                    }
-                }, 5000);
+                mWeatherInfo.setWeather(dayWeather + "转" + nightWeather);
             }
-    }
-        public void weatherLoaded(Object obj) {
-            WeatherInfo info = (WeatherInfo) obj;
-            mTxtWeather.setText(info.getWeather());
-            mTxtTemputre.setText(info.getTemperature());
+
+            weatherLoaded(mWeatherInfo);
+        } else {
+            Log.e("info", "loadWeather onWeatherForecastSearched==");
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("info", "loadWeather handleMessage==");
+                    loadWeather();
+                }
+            }, 5000);
         }
+    }
+
+    public void weatherLoaded(Object obj) {
+        WeatherInfo info = (WeatherInfo) obj;
+        mTxtWeather.setText(info.getWeather());
+        mTxtTemputre.setText(info.getTemperature());
+    }
 }

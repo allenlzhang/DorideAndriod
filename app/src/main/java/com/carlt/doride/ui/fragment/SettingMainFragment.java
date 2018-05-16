@@ -87,7 +87,13 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            loadData();
+        }
+    }
     @Override
     public void init(View parent) {
         btn_person_info = parent.findViewById(R.id.btn_person_info);
@@ -191,6 +197,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 startActivity(aboutYema);
                 break;
             case R.id.btn_sign_out:
+
                 ActivityControl.logout(this.getActivity());
                 break;
 
@@ -203,6 +210,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void loadData() {
         //        showUserUI();
+        loadingDataUI();
         CarDealerParser parser = new CarDealerParser(dealerCallback);
         HashMap<String, String> params = new HashMap<>();
         parser.executePost(URLConfig.getM_GET_DEALER_INFO(), params);
@@ -211,6 +219,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private BaseParser.ResultCallback dealerCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            loadSuccessUI();
             Logger.e(TAG + bInfo.toString());
             mDealerInfo = (DealerInfo) bInfo.getValue();
             contact_us_phone.setText(mDealerInfo.getServiceTel());
@@ -218,6 +227,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
+            loadonErrorUI(bInfo);
             Logger.e(TAG, bInfo.toString());
         }
     };

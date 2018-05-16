@@ -102,7 +102,8 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
                 initTitle("设置远程控制密码");
                 break;
             default:
-                initTitle("重置解锁密码");
+                initTitle("设置远程控制密码");
+
                 break;
         }
 

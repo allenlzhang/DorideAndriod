@@ -4,7 +4,6 @@ package com.carlt.doride.ui.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +46,8 @@ public class RemoteLogAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public RemoteLogInfo getItem(int position) {
+        return mDataList.get(position);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class RemoteLogAdapter extends BaseAdapter {
         RemoteLogInfo mInfo = mDataList.get(position);
         String s = "--";
         int type = mInfo.getLogtype();
-        Log.e("info", "type==" + type);
+//        Logger.e("type-----" + type);
         if (type > 0) {
             mHolder.mTxtName.setText(adapterTypeText(type));
         } else {

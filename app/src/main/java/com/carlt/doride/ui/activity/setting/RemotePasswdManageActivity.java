@@ -8,6 +8,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.activity.remote.RemotePswResetActivity3;
+import com.carlt.doride.ui.view.UUToast;
 
 public class RemotePasswdManageActivity extends LoadingActivity implements View.OnClickListener {
 
@@ -43,18 +44,37 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.remote_passwd_remember:
-                Intent resetLoginPasswd = new Intent(this, ResetRemotePasswdActivity.class);
-                startActivity(resetLoginPasswd);
+                if (LoginInfo.isSetRemotePwd()) {
+
+                    Intent resetLoginPasswd = new Intent(this, ResetRemotePasswdActivity.class);
+                    startActivity(resetLoginPasswd);
+                } else {
+                    UUToast.showUUToast(this, "请先设置远程密码");
+                    //                    go2SettingPwdActivity();
+                    return;
+                }
+
                 break;
             case R.id.remote_passwd_forget:
-                Intent resetLoginPasswdByPhone = new Intent(this, VcodeResetRemotePasswdActivity.class);
-                startActivity(resetLoginPasswdByPhone);
+                if (LoginInfo.isSetRemotePwd()) {
+                    Intent resetLoginPasswdByPhone = new Intent(this, VcodeResetRemotePasswdActivity.class);
+                    startActivity(resetLoginPasswdByPhone);
+                } else {
+                    UUToast.showUUToast(this, "请先设置远程密码");
+                    //                    go2SettingPwdActivity();
+                    return;
+                }
+
                 break;
             case R.id.remote_set_passwd:
-                Intent setRemotePasswd = new Intent(this, RemotePswResetActivity3.class);
-                startActivity(setRemotePasswd);
+                go2SettingPwdActivity();
                 break;
         }
-        finish();
+        //        finish();
+    }
+
+    private void go2SettingPwdActivity() {
+        Intent setRemotePasswd = new Intent(this, RemotePswResetActivity3.class);
+        startActivity(setRemotePasswd);
     }
 }

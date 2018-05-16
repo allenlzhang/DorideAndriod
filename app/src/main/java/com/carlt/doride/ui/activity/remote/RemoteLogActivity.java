@@ -17,13 +17,12 @@ import java.util.HashMap;
 
 /**
  * 远程操作记录
- *
  */
 public class RemoteLogActivity extends LoadingActivity {
 
     //每一页得个数
-    private static final String COUNT = "200";
-    private ListView listView;
+    private static final String COUNT = "10";
+    private ListView         listView;
     private RemoteLogAdapter remoteLogAdapter;
 
     @Override
@@ -43,9 +42,9 @@ public class RemoteLogActivity extends LoadingActivity {
     private void initData(int offset) {
         DefaultParser defaultParser = new DefaultParser(mCallback, RemoteLogListInfo.class);
         HashMap map = new HashMap();
-        map.put("limit",COUNT);
-        map.put("offset",offset+"");
-        defaultParser.executePost(URLConfig.getM_CAR_REMOTE_LOG_OPERATION(),map);
+        map.put("limit", COUNT);
+        map.put("offset", offset + "");
+        defaultParser.executePost(URLConfig.getM_CAR_REMOTE_LOG_OPERATION(), map);
     }
 
     @Override
@@ -57,23 +56,26 @@ public class RemoteLogActivity extends LoadingActivity {
     @Override
     public void loadDataSuccess(Object bInfo) {
         try {
-            RemoteLogListInfo value =  (RemoteLogListInfo)((BaseResponseInfo)bInfo).getValue();
+            RemoteLogListInfo value = (RemoteLogListInfo) ((BaseResponseInfo) bInfo).getValue();
+
+
             ArrayList<RemoteLogInfo> logInfos = value.getList();
-            if(null == logInfos || logInfos.size() ==0){
+
+            if (null == logInfos || logInfos.size() == 0) {
                 loadNodataUI();
-            }else{
+            } else {
                 showData(logInfos);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             loadonErrorUI(null);
         }
     }
 
     private void showData(ArrayList<RemoteLogInfo> logInfos) {
-        if(remoteLogAdapter == null){
-            remoteLogAdapter = new RemoteLogAdapter(this,logInfos);
+        if (remoteLogAdapter == null) {
+            remoteLogAdapter = new RemoteLogAdapter(this, logInfos);
             listView.setAdapter(remoteLogAdapter);
-        }else{
+        } else {
             remoteLogAdapter.setmList(logInfos);
             remoteLogAdapter.notifyDataSetChanged();
         }

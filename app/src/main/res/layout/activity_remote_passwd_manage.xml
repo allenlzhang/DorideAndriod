@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="设置密码"
+            android:text="设置远程密码"
             android:textColor="@color/text_color_gray3"
             android:textSize="14sp" />
 

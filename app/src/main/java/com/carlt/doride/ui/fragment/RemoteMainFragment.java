@@ -152,27 +152,44 @@ public class RemoteMainFragment extends BaseFragment implements
     @Override
     public void loadData() {
         loadingDataUI();
-        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
-            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
-                @Override
-                public void onSuccess(BaseResponseInfo bInfo) {
-                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
-                    Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
-                    loadSuss();
-                }
+        carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
+            @Override
+            public void onSuccess(BaseResponseInfo bInfo) {
+                DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+                Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
+                loadSuss();
+            }
 
-                @Override
-                public void onError(BaseResponseInfo bInfo) {
-                    Logger.e(TAG, "onError" + bInfo.toString());
-//                    actLoadError((BaseResponseInfo) bInfo);
-                    loadonErrorUI(bInfo);
-                }
-            });
-            HashMap params2 = new HashMap();
-            carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
-        } else {
-            loadSuss();
-        }
+            @Override
+            public void onError(BaseResponseInfo bInfo) {
+                Logger.e(TAG, "onError" + bInfo.toString());
+                //                    actLoadError((BaseResponseInfo) bInfo);
+                loadonErrorUI(bInfo);
+            }
+        });
+        HashMap params2 = new HashMap();
+        carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
+        //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
+        //            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
+        //                @Override
+        //                public void onSuccess(BaseResponseInfo bInfo) {
+        //                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+        //                    Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
+        //                    loadSuss();
+        //                }
+        //
+        //                @Override
+        //                public void onError(BaseResponseInfo bInfo) {
+        //                    Logger.e(TAG, "onError" + bInfo.toString());
+        //                    //                    actLoadError((BaseResponseInfo) bInfo);
+        //                    loadonErrorUI(bInfo);
+        //                }
+        //            });
+        //            HashMap params2 = new HashMap();
+        //            carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
+        //        } else {
+        //            loadSuss();
+        //        }
     }
 
     private ArrayList<RemoteFunInfo> mRemoteFunInfos;
@@ -187,32 +204,38 @@ public class RemoteMainFragment extends BaseFragment implements
             mAirMainInfo1 = mRemoteMainInfo.getmAirMainInfo();
             LoginInfo.setChangedCar(false);
             mRemoteFunInfos = mRemoteMainInfo.getmRemoteFunInfos();
-            String stateStart = mRemoteMainInfo.getmFunInfoStart().getState();
-            String stateStop = mRemoteMainInfo.getmFunInfoStop().getState();
-            int size = mRemoteFunInfos.size();
-            Logger.e("mRemoteFunInfos.size()----" + size);
-            if (size <= 0 && !stateStart.equals(RemoteFunInfo.STATE_SUPPORT)
-                    && !stateStop.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mViewUnsupport.setVisibility(View.VISIBLE);
-                mTxtState.setVisibility(View.GONE);
-                mTxtRecorder.setVisibility(View.GONE);
-                mViewNormal.setVisibility(View.GONE);
-                return;
+            RemoteFunInfo startFunInfo = mRemoteMainInfo.getmFunInfoStart();
+            RemoteFunInfo stopFunInfo = mRemoteMainInfo.getmFunInfoStop();
+            if (startFunInfo != null && stopFunInfo != null) {
+
+
+                String stateStart = startFunInfo.getState();
+                String stateStop = stopFunInfo.getState();
+                int size = mRemoteFunInfos.size();
+                Logger.e("mRemoteFunInfos.size()----" + size);
+                if (size <= 0 && !stateStart.equals(RemoteFunInfo.STATE_SUPPORT)
+                        && !stateStop.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                    mViewUnsupport.setVisibility(View.VISIBLE);
+                    mTxtState.setVisibility(View.GONE);
+                    mTxtRecorder.setVisibility(View.GONE);
+                    mViewNormal.setVisibility(View.GONE);
+                    return;
+                } else {
+                    mTxtState.setVisibility(View.VISIBLE);
+                    mTxtRecorder.setVisibility(View.VISIBLE);
+                    mViewUnsupport.setVisibility(View.GONE);
+                    mViewNormal.setVisibility(View.VISIBLE);
+                    deviceType = LoginInfo.getDeviceCategory();
+                    mRContainer.removeAllViews();
+                    mRControl.init5x7Views(mRContainer, mRemoteFunInfos);
+                }
             } else {
-                mTxtState.setVisibility(View.VISIBLE);
-                mTxtRecorder.setVisibility(View.VISIBLE);
-                mViewUnsupport.setVisibility(View.GONE);
-                mViewNormal.setVisibility(View.VISIBLE);
-                deviceType = LoginInfo.getDeviceCategory();
-                mRContainer.removeAllViews();
-                mRControl.init5x7Views(mRContainer, mRemoteFunInfos);
+                mImgStart.setImageResource(R.drawable.remote_start);
+                mImgStop.setImageResource(R.mipmap.remote_stop_disable);
+                mViewStopmask.setVisibility(View.VISIBLE);
+                mImgStart.setClickable(true);
+                mImgStop.setClickable(false);
             }
-        } else {
-            mImgStart.setImageResource(R.drawable.remote_start);
-            mImgStop.setImageResource(R.mipmap.remote_stop_disable);
-            mViewStopmask.setVisibility(View.VISIBLE);
-            mImgStart.setClickable(true);
-            mImgStop.setClickable(false);
         }
     }
 
@@ -395,6 +418,7 @@ public class RemoteMainFragment extends BaseFragment implements
             case 8:
                 // 远程天窗开撬
                 CPControl.GetRemoteSkylight("3", mListener);
+                break;
             case 9:
                 // 远程天窗关撬
                 CPControl.GetRemoteSkylight("4", mListener);
@@ -838,8 +862,10 @@ public class RemoteMainFragment extends BaseFragment implements
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         isFirstClick = true;
-//        Logger.e("---isFirstClick----" + isFirstClick);
-//        Logger.e("---hidden----" + hidden);
+        Logger.e("---hidden----" + hidden);
+        if (!hidden) {
+            loadData();
+        }
     }
 
     @Override

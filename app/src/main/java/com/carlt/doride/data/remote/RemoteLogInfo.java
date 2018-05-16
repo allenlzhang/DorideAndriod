@@ -80,4 +80,14 @@ public class RemoteLogInfo {
     public void setLogtime(String logtime) {
         this.logtime = logtime;
     }
+
+    @Override
+    public String toString() {
+        return "RemoteLogInfo{" +
+                "logtype=" + logtype +
+                ", log_device_name='" + log_device_name + '\'' +
+                ", log_result='" + log_result + '\'' +
+                ", logtime='" + logtime + '\'' +
+                '}';
+    }
 }
