@@ -232,6 +232,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
     @Override
     public void onRightClick() {
         super.onRightClick();
+        loadingDataUI();
         initdata();
     }
 }
