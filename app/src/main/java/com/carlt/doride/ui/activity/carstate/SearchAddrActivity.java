@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Inputtips.InputtipsListener;
 import com.amap.api.services.help.InputtipsQuery;
@@ -29,6 +31,8 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.map.InputTipTask;
 import com.carlt.doride.utils.map.RouteTask;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SearchAddrActivity extends BaseActivity implements OnClickListener, TextWatcher, OnItemClickListener {
@@ -39,12 +43,13 @@ public class SearchAddrActivity extends BaseActivity implements OnClickListener,
     private TextView  mTxtSearch;// 搜索
     private ListView  mList;// 搜索结果
     private View      mLoadingLay;
-    private TextView  mErrorTxt;
 
     private AddressListAdapter mAdapter;
     private RouteTask          mRouteTask;
     private AMapLocation       current;
     private String             cityCode;
+    private TextView           errTxt;
+    private View               noNetworkView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +98,19 @@ public class SearchAddrActivity extends BaseActivity implements OnClickListener,
     private void init() {
         mList = (ListView) findViewById(R.id.searchaddr_list);
         mLoadingLay = findViewById(R.id.search_loading_lay);
-        mErrorTxt = (TextView) findViewById(R.id.search_error_text);
+        noNetworkView = findViewById(R.id.no_network_lay_main);
+        Button retryBtn = findViewById(R.id.error_txt_retry);
+        errTxt = findViewById(R.id.error_txt_des_sub);
         mAdapter = new AddressListAdapter(this, null, current);
         mList.setAdapter(mAdapter);
         mList.setOnItemClickListener(this);
         mRouteTask = RouteTask.getInstance(getApplicationContext());
-
+        retryBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchLoc(mEdtAddr.getText().toString() + "", "");
+            }
+        });
     }
 
     @Override
@@ -145,17 +157,40 @@ public class SearchAddrActivity extends BaseActivity implements OnClickListener,
      * @param city
      */
     public void searchLoc(final String addr, String city) {
+        if (TextUtils.isEmpty(addr)) {
+            UUToast.showUUToast(this, "请输入地点");
+            return;
+        }
         showLoading();
         InputtipsQuery inputquery = new InputtipsQuery(addr, city);
         inputquery.setCityLimit(true);
         Inputtips inputTips = new Inputtips(SearchAddrActivity.this, inputquery);
         inputTips.setInputtipsListener(new InputtipsListener() {
-
             @Override
             public void onGetInputtips(List<Tip> arg0, int arg1) {
                 if (arg1 == 1000) {
                     if (arg0.size() > 0) {
                         dissMissLoading();
+                        Collections.sort(arg0, new Comparator<Tip>() {
+                            @Override
+                            public int compare(Tip o1, Tip o2) {
+                                LatLonPoint llp1 = o1.getPoint();
+                                LatLonPoint llp2 = o2.getPoint();
+                                float[] ff1 = new float[4];
+                                float[] ff2 = new float[4];
+                                AMapLocation.distanceBetween(current.getLatitude(), current.getLongitude(), llp1.getLatitude(), llp1.getLongitude(), ff1);
+                                AMapLocation.distanceBetween(current.getLatitude(), current.getLongitude(), llp2.getLatitude(), llp2.getLongitude(), ff2);
+                                float dis1 = ff1[0] / 1000;
+                                float dis2 = ff2[0] / 1000;
+                                if (dis1 > dis2) {
+                                    return 1;
+                                }
+                                if (dis1 == dis2) {
+                                    return 0;
+                                }
+                                return -1;
+                            }
+                        });
                         if (mAdapter == null) {
                             mAdapter = new AddressListAdapter(SearchAddrActivity.this, arg0, current);
                             mAdapter.setText(addr);
@@ -182,21 +217,22 @@ public class SearchAddrActivity extends BaseActivity implements OnClickListener,
     }
 
     void showLoading() {
-        mErrorTxt.setVisibility(View.GONE);
+        noNetworkView.setVisibility(View.GONE);
         mLoadingLay.setVisibility(View.VISIBLE);
         mList.setVisibility(View.GONE);
     }
 
     void dissMissLoading() {
+        noNetworkView.setVisibility(View.GONE);
         mList.setVisibility(View.VISIBLE);
-        mErrorTxt.setVisibility(View.GONE);
         mLoadingLay.setVisibility(View.GONE);
     }
 
     void loadError(String s) {
         mList.setVisibility(View.GONE);
-        mErrorTxt.setVisibility(View.VISIBLE);
-        mErrorTxt.setText(s);
+        noNetworkView.setVisibility(View.VISIBLE);
+        errTxt.setVisibility(View.VISIBLE);
+        errTxt.setText(s);
         mLoadingLay.setVisibility(View.GONE);
     }
 

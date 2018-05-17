@@ -1,6 +1,9 @@
 package com.carlt.doride.ui.activity.carstate;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,7 +62,7 @@ public class CarSaftyListActivity extends LoadingActivity {
         mListView.setVerticalScrollBarEnabled(false);
         mListView.setSelector(getResources().getDrawable(R.drawable.list_divider_bg));
 
-        mPullListView.setPullLoadEnabled(false);
+        mPullListView.setPullLoadEnabled(true);
         mPullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -70,6 +73,9 @@ public class CarSaftyListActivity extends LoadingActivity {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //                上拉加载
+                //                initData();
+                mHandler.sendEmptyMessageDelayed(0, 1000);
+
             }
         });
         String safyHead = getIntent().getStringExtra("safetymsg");
@@ -79,6 +85,14 @@ public class CarSaftyListActivity extends LoadingActivity {
             safyHeadTV.setText("您还没有新的安防提醒消息");
         }
     }
+
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            mPullListView.onPullUpRefreshComplete();
+        }
+    };
 
     private void setLastUpdateTime() {
         SimpleDateFormat mDateFormat = new SimpleDateFormat("MM-dd HH:mm");
@@ -115,7 +129,7 @@ public class CarSaftyListActivity extends LoadingActivity {
         }
 
         mPullListView.onPullDownRefreshComplete();
-        mPullListView.onPullUpRefreshComplete();
+
         setLastUpdateTime();
 
     }

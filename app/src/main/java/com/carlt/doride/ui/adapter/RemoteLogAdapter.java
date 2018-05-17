@@ -74,7 +74,7 @@ public class RemoteLogAdapter extends BaseAdapter {
         RemoteLogInfo mInfo = mDataList.get(position);
         String s = "--";
         int type = mInfo.getLogtype();
-//        Logger.e("type-----" + type);
+        //        Logger.e("type-----" + type);
         if (type > 0) {
             mHolder.mTxtName.setText(adapterTypeText(type));
         } else {
@@ -123,6 +123,7 @@ public class RemoteLogAdapter extends BaseAdapter {
     public final static int TYPE_SKYLIGHT_CLOSE         = 64;//远程关闭天窗
     public final static int TYPE_SKYLIGHT_UP            = 65;//远程开侨天窗
     public final static int TYPE_TRUNKOPEN              = 71;//远程开启后备箱
+    public final static int TYPE_TRUNKCLOSE             = 72;//远程开启后备箱
     public final static int TYPE_SEATOPEN               = 81;//远程开启座椅加热
     public final static int TYPE_SEATCLOSE              = 82;//远程关闭座椅加热
     public final static int TYPE_PURIFYOPEN             = 91;//远程开启空气净化
@@ -191,6 +192,9 @@ public class RemoteLogAdapter extends BaseAdapter {
                 break;
             case TYPE_TRUNKOPEN:
                 typeString = "远程开启后备箱";
+                break;
+            case TYPE_TRUNKCLOSE:
+                typeString = "远程关闭后备箱";
                 break;
             case TYPE_SEATOPEN:
                 typeString = "远程开启座椅加热";

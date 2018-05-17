@@ -168,8 +168,8 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
                 .setLayoutRes(R.layout.sex_edit_dialog, new CustomListener() {
                     @Override
                     public void customLayout(View v) {
-                        final TextView sex_change_OK =  v.findViewById(R.id.sex_change_OK);
-                        final TextView sex_change_cancel =  v.findViewById(R.id.sex_change_cancel);
+                        final TextView sex_change_OK = v.findViewById(R.id.sex_change_OK);
+                        final TextView sex_change_cancel = v.findViewById(R.id.sex_change_cancel);
                         sex_change_OK.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -188,7 +188,7 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
                     }
                 })
 
-//                .setBgColor(Color.parseColor("#95161922"))
+                //                .setBgColor(Color.parseColor("#95161922"))
 
                 .setSelectOptions(2)
                 .setTextColorCenter(Color.BLUE)
@@ -211,7 +211,10 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(PersonInfoActivity.this, "资料修改成功");
             LoginInfo.setGender(sexFlag);
-            person_sex_txt.setText(gender);
+            if (!TextUtils.isEmpty(gender)) {
+                person_sex_txt.setText(gender);
+            }
+
             parseAvatarUrl(bInfo);
         }
 

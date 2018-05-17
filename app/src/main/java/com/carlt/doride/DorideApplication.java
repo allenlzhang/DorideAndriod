@@ -7,6 +7,7 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.Utils;
 import com.carlt.doride.dao.DBManager;
 import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.utils.CipherUtils;
@@ -91,6 +92,7 @@ public class DorideApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Logger.addLogAdapter(new AndroidLogAdapter());
+        Utils.init(this);
         instance = this;
         context = getApplicationContext();
         ApplicationContext = this.getApplicationContext();

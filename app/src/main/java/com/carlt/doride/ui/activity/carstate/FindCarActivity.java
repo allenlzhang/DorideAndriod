@@ -49,6 +49,7 @@ import com.amap.api.services.road.Crossroad;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
@@ -244,11 +245,12 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     @Override
     public void loadDataError(Object bInfo) {
         super.loadDataError(bInfo);
+        dissmissDialog();
         UUToast.showUUToast(this, "暂未获取到车辆位置");
     }
 
     private void init(Bundle savedInstanceState) {
-//        loadingDataUI();
+        //        loadingDataUI();
         mMapView = (MapView) findViewById(R.id.findcar_mapView);
         mViewInput = findViewById(R.id.findcar_lay_input);
         mTxtPos = (TextView) findViewById(R.id.findcar_txt_carpos);
@@ -342,6 +344,10 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                 reSet();
                 break;
             case R.id.head_back_text2:
+                if (!NetworkUtils.isConnected() && !NetworkUtils.isAvailableByPing()) {
+                    UUToast.showUUToast(this, "网络不可用，请稍后重试");
+                    return;
+                }
                 if (mViewInput.getVisibility() == View.VISIBLE) {
                     mViewInput.setVisibility(View.GONE);
                     mImgPLoc.setVisibility(View.GONE);
@@ -567,7 +573,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
-//        loadSuccessUI();
+        //        loadSuccessUI();
         Logger.e(aMapLocation.getErrorCode() + aMapLocation.getAddress());
         if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
             Logger.e("mFirstLoc----" + mFirstLoc);
