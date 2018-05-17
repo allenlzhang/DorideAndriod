@@ -239,6 +239,7 @@ public class RemoteMainFragment extends BaseFragment implements
         }
     }
 
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (mReceiver != null) {

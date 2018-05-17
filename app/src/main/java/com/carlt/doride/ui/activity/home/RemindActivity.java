@@ -85,9 +85,9 @@ public class RemindActivity extends LoadingActivity {
         }
 
         initSubTitle();
-        initTitle();
+        initTitle(title_s);
         init();
-        initData();
+//        initData();
     }
 
     private int count_onstart = 0;
@@ -115,9 +115,11 @@ public class RemindActivity extends LoadingActivity {
         initData();
     }
 
-    private void initTitle() {
-        initTitle(title_s);
-
+    @Override
+    protected void initTitle(String titleString) {
+        super.initTitle(titleString);
+        backTV2.setBackgroundResource(R.drawable.icon_message_manager_bg);
+        backTV2.setVisibility(View.VISIBLE);
     }
 
     private UUDialog mUUDialog;
@@ -228,12 +230,14 @@ public class RemindActivity extends LoadingActivity {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 // 下拉刷新
                 PullDown();
+
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 // 上拉刷新
                 PullUp();
+
             }
         });
     }
@@ -244,9 +248,10 @@ public class RemindActivity extends LoadingActivity {
         super.loadDataSuccess(data);
         dissmissWaitingDialog();
         if (data != null) {
-            mInfoLists = (InformationMessageInfoList) ((BaseResponseInfo) data).getValue();
+            InformationMessageInfoList mLists = (InformationMessageInfoList) ((BaseResponseInfo) data).getValue();
             if (mInfoLists != null) {
                 mList = mInfoLists.getmAllList();
+
                 if (mAdapter == null) {
                     mAdapter = new InformationCentreTipsAdapter(RemindActivity.this, mList,
                             mBottomClickListner);
@@ -332,7 +337,7 @@ public class RemindActivity extends LoadingActivity {
      */
     private void PullUp() {
         if (type > 0) {
-            int offset = mInfoLists.getOffset();
+            int offset = mList.size();
             CPControl.GetInformationMessageResult(mCallback, type);
         }
 
@@ -460,10 +465,12 @@ public class RemindActivity extends LoadingActivity {
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    mList.remove(dele_position);
-                    mAdapter.setmList(mList);
-                    mAdapter.notifyDataSetChanged();
-
+//                    mList.remove(dele_position);
+//                    mAdapter.setmList(mList);
+//                    mAdapter.notifyDataSetChanged();
+                    if (type > 0) {
+                        CPControl.GetInformationMessageResult(mCallback, type);
+                    }
                     UUToast.showUUToast(RemindActivity.this, "删除成功！");
                     break;
                 case 5:

@@ -195,43 +195,10 @@ public class InformationCentreActivity extends LoadingActivity {
         finish();
     }
 
-    /**
-     * 使用此方法，需要在 setContentView activity 里 加入layout_title
-     *
-     * 只有 一个文字标题和返回键的标题
-     * @param titleString
-     */
+    @Override
     protected void initTitle(String titleString) {
-
-        try{
-            backTV = $ViewByID(R.id.head_back_img1);
-            titleTV = $ViewByID(R.id.head_back_txt1);
-            backTV2 = $ViewByID(R.id.head_back_img2);
-            backTV2.setVisibility(View.VISIBLE);
-            backTV2.setBackgroundResource(R.drawable.icon_message_manager_bg);
-        }catch (Exception e){
-            //是设置标题出错
-            return;
-        }
-        if(null != backTV){
-            backTV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onBackPressed();
-                }
-            });
-        }
-        if(null != titleTV){
-            titleTV.setText(titleString);
-        }
-        if (null != backTV2){
-            backTV2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onRightClick();
-                }
-            });
-        }
+        super.initTitle(titleString);
+        backTV2.setVisibility(View.VISIBLE);
+        backTV2.setBackgroundResource(R.drawable.icon_message_manager_bg);
     }
-
 }
