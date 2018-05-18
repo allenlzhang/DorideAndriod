@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 
 public class ResetLoginPasswdActivity extends LoadingActivity implements View.OnClickListener {
-
+    private ImageView  old_passwd_input_toggle;
     private ImageView new_passwd_input_toggle;
     private ImageView new_passwd_input_again_toggle;
 
@@ -57,6 +57,8 @@ public class ResetLoginPasswdActivity extends LoadingActivity implements View.On
         new_passwd_input = $ViewByID(R.id.new_passwd_input);
         new_passwd_again_input = $ViewByID(R.id.new_passwd_again_input);
 
+        old_passwd_input_toggle = $ViewByID(R.id.old_passwd_input_toggle);
+        old_passwd_input_toggle.setOnClickListener(this);
         new_passwd_input_toggle = $ViewByID(R.id.new_passwd_input_toggle);
         new_passwd_input_toggle.setOnClickListener(this);
         new_passwd_input_again_toggle = $ViewByID(R.id.new_passwd_input_again_toggle);
@@ -73,6 +75,12 @@ public class ResetLoginPasswdActivity extends LoadingActivity implements View.On
                 confirmPasswd = new_passwd_again_input.getText().toString();
                 if (isCommitInvalid(passwd, newPasswd, confirmPasswd)) {
                     editPasswdRequest();
+                }
+                break;
+            case R.id.old_passwd_input_toggle:
+                ActivityControl.passwdToggle(this, old_passwd_input, old_passwd_input_toggle, view.getTag().toString());
+                if (!TextUtils.isEmpty(old_passwd_input.getText().toString())) {
+                    old_passwd_input.setSelection(old_passwd_input.getText().toString().length());
                 }
                 break;
             case R.id.new_passwd_input_toggle:
