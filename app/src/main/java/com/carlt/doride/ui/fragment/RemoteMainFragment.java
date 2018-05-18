@@ -155,6 +155,7 @@ public class RemoteMainFragment extends BaseFragment implements
         carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
+                mViewError.setVisibility(View.GONE);
                 DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
                 Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
                 loadSuss();
@@ -165,6 +166,8 @@ public class RemoteMainFragment extends BaseFragment implements
                 Logger.e(TAG, "onError" + bInfo.toString());
                 //                    actLoadError((BaseResponseInfo) bInfo);
                 loadonErrorUI(bInfo);
+                mViewUnsupport.setVisibility(View.GONE);
+                mViewError.setVisibility(View.VISIBLE);
             }
         });
         HashMap params2 = new HashMap();

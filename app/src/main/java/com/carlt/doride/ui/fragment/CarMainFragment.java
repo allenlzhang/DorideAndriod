@@ -84,8 +84,12 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    private View mLoadingView;// 加载View
+
     @Override
     public void init(View view) {
+        mLoadingView = view.findViewById(R.id.laoding_lay_main);
+
         //  胎压监测
         view1 = $ViewByID(R.id.car_main_txt_tire);
         // 定位寻车
@@ -160,6 +164,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void onError(BaseResponseInfo bInfo) {
                 ILog.e(TAG, "onError" + bInfo.toString());
+                UUToast.showUUToast(getActivity(), bInfo.getInfo());
                 loadonErrorUI((BaseResponseInfo) bInfo);
             }
         }, CarIndexInfo.class);
@@ -168,6 +173,15 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
 
         CPControl.getMilesInfos(mListener);
     }
+
+    //    private void loadingOverUI() {
+    //        mLoadingView.setVisibility(View.GONE);
+    //    }
+    //
+    //    protected void loadingUI() {
+    //        mLoadingView.setBackgroundResource(R.drawable.transparent_bg);
+    //        mLoadingView.setVisibility(View.VISIBLE);
+    //    }
 
     @SuppressLint("HandlerLeak")
     private Handler                   mHandler  = new Handler() {
@@ -246,6 +260,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                 public void onError(BaseResponseInfo bInfo) {
                     ILog.e(TAG, "onError" + bInfo.toString());
                     loadonErrorUI((BaseResponseInfo) bInfo);
+                    UUToast.showUUToast(getActivity(), bInfo.getInfo());
                 }
             });
             HashMap params2 = new HashMap();
@@ -256,6 +271,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void loadSuss() {
+        loadSuccessUI();
         if (null != carinfo) {
             if (!TextUtils.isEmpty(carinfo.getCarname())) {
                 titleTV.setSelected(true);

@@ -385,6 +385,12 @@
                 android:drawableTop="@mipmap/navigate_carmain_unpress"
                 android:text="导航同步"/>
         </LinearLayout>
-
+        <include
+            layout="@layout/layout_loading"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
     </RelativeLayout>
 </ScrollView>
