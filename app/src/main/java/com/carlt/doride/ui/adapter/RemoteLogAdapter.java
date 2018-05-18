@@ -137,7 +137,7 @@ public class RemoteLogAdapter extends BaseAdapter {
         String typeString = "--";
         switch (type) {
             case TYPE_FLASHING:
-                typeString = "声光寻车";
+                typeString = "一键寻车";
                 break;
             case TYPE_UNLOCK:
                 typeString = "远程解锁";

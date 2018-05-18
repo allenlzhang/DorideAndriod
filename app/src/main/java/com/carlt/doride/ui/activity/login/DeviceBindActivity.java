@@ -2,9 +2,7 @@ package com.carlt.doride.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.method.ReplacementTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
@@ -21,7 +19,9 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.view.UUToast;
-import com.carlt.doride.utils.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -30,7 +30,7 @@ import java.util.HashMap;
  */
 public class DeviceBindActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView back;//返回按钮
+    private ImageView    back;//返回按钮
     private LinearLayout title_bar;
 
     private TextView titleText;//页面标题
@@ -74,12 +74,12 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             if (!TextUtils.isEmpty(carTitle)) {
                 btn_select_car.setText(carTitle);
             }
-        }else {
+        } else {
             if (intent != null && !TextUtils.isEmpty(intent.getStringExtra("carType"))) {
                 btn_select_car.setText(intent.getStringExtra("carType"));
             }
         }
-        vinCode =intent.getStringExtra("vin");
+        vinCode = intent.getStringExtra("vin");
         if (!TextUtils.isEmpty(vinCode)) {
 
             car_vin_code.setText(vinCode);
@@ -144,6 +144,16 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     BaseParser.ResultCallback callback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            String value = (String) bInfo.getValue();
+            try {
+                JSONObject object = new JSONObject(value);
+                String deviceidstring = object.getString("deviceidstring");
+                LoginInfo.setDeviceidstring(deviceidstring);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
             if (!TextUtils.isEmpty(car_vin_code.getText().toString())) {
                 LoginInfo.setVin(LoginInfo.getMobile(), car_vin_code.getText().toString());
             }
@@ -152,8 +162,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             }
 
             Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
-            activateIntent.putExtra("vin",vinCode);
-            activateIntent.putExtra("carType",carTitle);
+            activateIntent.putExtra("vin", vinCode);
+            activateIntent.putExtra("carType", carTitle);
             startActivity(activateIntent);
         }
 
@@ -192,6 +202,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         back();
         super.onBackPressed();
     }
+
     public class AutoCaseTransformationMethod extends ReplacementTransformationMethod {
         /**
          * 获取要改变的字符。
@@ -211,9 +222,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
          */
         @Override
         protected char[] getReplacement() {
-            return new char[]{ 'A', 'B', 'C', 'D', 'E',
-                    'F', 'G', 'H', 'I', 'J','K','L','M',
-                    'N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
+            return new char[]{'A', 'B', 'C', 'D', 'E',
+                    'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
         }
     }
 }

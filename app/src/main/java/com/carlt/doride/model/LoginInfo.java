@@ -1420,12 +1420,11 @@ public class LoginInfo extends BaseResponseInfo {
     }
 
     public static boolean isSetRemotePwd() {
-        isSetRemotePwd = user_pref.getBoolean("isSetRemotePwd", isSetRemotePwd);
+        isSetRemotePwd = user_pref.getBoolean("isSetRemotePwd", false);
         return isSetRemotePwd;
     }
 
     public static void setSetRemotePwd(boolean isSetRemotePwd) {
-        LoginInfo.isSetRemotePwd = isSetRemotePwd;
         user_pref.edit().putBoolean("isSetRemotePwd", isSetRemotePwd).apply();
     }
 
