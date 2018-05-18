@@ -13,7 +13,11 @@ import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.control.CPControl;
+import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -21,6 +25,9 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.doride.ui.view.UUTimerDialog;
 import com.carlt.doride.ui.view.UUToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -122,7 +129,27 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            activateDevice();
+            switch (msg.what) {
+                case 0:
+                    activateDevice();
+                    break;
+                case 3:
+                    ActivityControl.initXG();
+//                    LoginControl.logic(ActivateBindActivity.this);
+                    Intent intent = new Intent(ActivateBindActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 4:
+                    BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo) msg.obj;
+                    Intent mIntent4 = new Intent(ActivateBindActivity.this,
+                            UserLoginActivity.class);
+                    finish();
+                    ActivateBindActivity.this.overridePendingTransition(R.anim.enter_alpha, R.anim.exit_alpha);
+                    startActivity(mIntent4);
+                    break;
+
+            }
             super.handleMessage(msg);
         }
     };
@@ -132,9 +159,10 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         public void onSuccess(BaseResponseInfo bInfo) {
             // 下发激活指令成功
             UUToast.showUUToast(ActivateBindActivity.this,"大乘设备已成功激活");
-            Intent intent=new Intent(ActivateBindActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent=new Intent(ActivateBindActivity.this, MainActivity.class);
+//            startActivity(intent);
+            UseInfo mUseInfo = UseInfoLocal.getUseInfo();
+            CPControl.GetLogin(mUseInfo.getAccount(), mUseInfo.getPassword(), listener_login);
         }
 
         @Override
@@ -230,4 +258,37 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    private BaseParser.ResultCallback listener_login = new BaseParser.ResultCallback() {
+
+        @Override
+        public void onSuccess(BaseResponseInfo o) {
+
+            String dataValue = (String) o.getValue();
+            JSONObject mJSON_data = null;
+            try {
+                mJSON_data = new JSONObject(dataValue);
+                LoginControl.parseLoginInfo(mJSON_data);
+                final Message msg = new Message();
+                msg.what = 3;
+                msg.obj = o;
+                mHandler.sendMessage(msg);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Message msg = new Message();
+                msg.what = 4;
+                msg.obj = o;
+                mHandler.sendMessage(msg);
+            }
+        }
+        @Override
+        public void onError(BaseResponseInfo o) {
+            Message msg = new Message();
+            msg.what = 4;
+            msg.obj = o;
+            mHandler.sendMessage(msg);
+
+        }
+
+    };
 }

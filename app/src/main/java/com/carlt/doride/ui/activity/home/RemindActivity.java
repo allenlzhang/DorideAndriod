@@ -67,9 +67,11 @@ public class RemindActivity extends LoadingActivity {
 
     public final static String TIPS_TYPE = "tips_type";
 
-    private final static int LIMIT = 10;
+    private final static int LIMIT = 20;
 
     private View MaintenanceTitle;
+
+    private boolean isLoadMore = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -249,9 +251,12 @@ public class RemindActivity extends LoadingActivity {
         dissmissWaitingDialog();
         if (data != null) {
             InformationMessageInfoList mLists = (InformationMessageInfoList) ((BaseResponseInfo) data).getValue();
-            if (mInfoLists != null) {
-                mList = mInfoLists.getmAllList();
-
+            if (mLists != null) {
+                if (isLoadMore){
+                    mList.addAll(mLists.getmAllList());
+                }else {
+                    mList = mLists.getmAllList();
+                }
                 if (mAdapter == null) {
                     mAdapter = new InformationCentreTipsAdapter(RemindActivity.this, mList,
                             mBottomClickListner);
@@ -292,7 +297,8 @@ public class RemindActivity extends LoadingActivity {
                 getCarInfo();
             } else {
             }
-            CPControl.GetInformationMessageResult(mCallback, type);
+            CPControl.GetInformationMessageResult(mCallback, type,LIMIT,0);
+            isLoadMore =false;
         } else {
             loadSuccessUI();
         }
@@ -328,7 +334,8 @@ public class RemindActivity extends LoadingActivity {
      */
     private void PullDown() {
         if (type > 0) {
-            CPControl.GetInformationMessageResult(mCallback, type);
+            CPControl.GetInformationMessageResult(mCallback, type,LIMIT,0);
+            isLoadMore = false;
         }
     }
 
@@ -338,7 +345,8 @@ public class RemindActivity extends LoadingActivity {
     private void PullUp() {
         if (type > 0) {
             int offset = mList.size();
-            CPControl.GetInformationMessageResult(mCallback, type);
+            CPControl.GetInformationMessageResult(mCallback, type,LIMIT,offset);
+            isLoadMore = true;
         }
 
     }
@@ -469,7 +477,8 @@ public class RemindActivity extends LoadingActivity {
 //                    mAdapter.setmList(mList);
 //                    mAdapter.notifyDataSetChanged();
                     if (type > 0) {
-                        CPControl.GetInformationMessageResult(mCallback, type);
+                        CPControl.GetInformationMessageResult(mCallback, type,LIMIT,0);
+                        isLoadMore = false;
                     }
                     UUToast.showUUToast(RemindActivity.this, "删除成功！");
                     break;

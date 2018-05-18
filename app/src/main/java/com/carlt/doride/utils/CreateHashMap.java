@@ -62,9 +62,9 @@ public class CreateHashMap {
      * @param class1
      * @return
      */
-    public static HashMap getMessageMap(int class1){
-        String keys[] = {"class1"};
-        String values[] = {class1+""};
+    public static HashMap getMessageMap(int class1,int limit,int offset){
+        String keys[] = {"class1","limit","offset"};
+        String values[] = {class1+"",limit+"",offset+""};
         return create(keys,values);
     }
 
