@@ -121,7 +121,11 @@ public class RemindActivity extends LoadingActivity {
     protected void initTitle(String titleString) {
         super.initTitle(titleString);
         backTV2.setBackgroundResource(R.drawable.icon_message_manager_bg);
-        backTV2.setVisibility(View.VISIBLE);
+        if (type == InformationMessageInfo.C1_T6){
+            backTV2.setVisibility(View.INVISIBLE);
+        }else {
+            backTV2.setVisibility(View.VISIBLE);
+        }
     }
 
     private UUDialog mUUDialog;
@@ -268,11 +272,11 @@ public class RemindActivity extends LoadingActivity {
 
                 if (mList.size() == 0) {
                     mPullListView.setVisibility(View.GONE);
-                    if (type == InformationMessageInfo.C1_T6) {
-                        mImgEmpty.setVisibility(View.GONE);
-                    } else {
+//                    if (type == InformationMessageInfo.C1_T6) {
+//                        mImgEmpty.setVisibility(View.GONE);
+//                    } else {
                         mImgEmpty.setVisibility(View.VISIBLE);
-                    }
+//                    }
                     mTxtEmpty.setVisibility(View.VISIBLE);
                 } else {
                     mPullListView.setVisibility(View.VISIBLE);

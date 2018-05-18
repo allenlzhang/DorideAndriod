@@ -30,6 +30,10 @@ public class CarSaftyAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(mContext);
     }
 
+    public void setmList(List<SaftyMsgInfo> mList) {
+        this.mList = mList;
+    }
+
     @Override
     public int getCount() {
         return mList.size();
