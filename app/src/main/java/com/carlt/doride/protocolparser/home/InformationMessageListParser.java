@@ -55,15 +55,15 @@ public class InformationMessageListParser extends BaseParser<InformationMessageI
 				mInfo.setMiles(temp.get("miles").getAsString());
 
 				String fuel_value = temp.get("fuel").getAsString();
-				float fuel= MyParse.parseFloat(fuel_value);
-				if (fuel < 100) {
-					fuel_value = fuel+"毫升";
-				} else {
-					fuel = (float) (fuel / 1000.0);
-					BigDecimal bd = new BigDecimal(fuel);
-					bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
-					fuel_value = bd + "升";
-				}
+//				float fuel= MyParse.parseFloat(fuel_value);
+//				if (fuel < 100) {
+//					fuel_value = fuel+"毫升";
+//				} else {
+//					fuel = (float) (fuel / 1000.0);
+//					BigDecimal bd = new BigDecimal(fuel);
+//					bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
+//					fuel_value = bd + "升";
+//				}
 				mInfo.setFuel(fuel_value);
 
 				if (temp.get("istop").getAsInt() == 1) {
