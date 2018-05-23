@@ -62,7 +62,8 @@
     <TextView
         android:id="@+id/activity_career_secretary_tips_empty"
         style="@style/public_nodata_txt"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/activity_career_secretary_img_empty"
         android:layout_marginTop="20dp"
         android:text="暂无此类型的提醒消息" />
 
@@ -70,8 +71,7 @@
         android:id="@+id/activity_career_secretary_img_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/activity_career_secretary_tips_empty"
+        android:layout_centerInParent="true"
         android:contentDescription="@string/app_name"
         android:src="@mipmap/icon_nodata"
         android:visibility="gone" />
