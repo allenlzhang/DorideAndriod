@@ -111,7 +111,7 @@
                 android:id="@+id/tab_iv_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tab_my"
+                android:src="@drawable/ic_setting_tab_normal"
                 />
             <TextView
                 android:id="@+id/tab_txt_setting"

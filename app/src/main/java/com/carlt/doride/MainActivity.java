@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 transaction.commit();
                 break;
             case 3:
-                mIvTabSetting.setImageResource(R.drawable.tab_my_selected);
+                mIvTabSetting.setImageResource(R.drawable.ic_setting_tab_select);
                 mTxtTabSetting.setTextColor(getResources().getColor(R.color.blue_txt));
                 if (mSettingMainFragment == null) {
                     mSettingMainFragment = new SettingMainFragment();
@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mTxtTabCar.setTextColor(getResources().getColor(R.color.text_color_gray1));
         mIvTabRemote.setImageResource(R.drawable.tab_remote);
         mTxtTabRemote.setTextColor(getResources().getColor(R.color.text_color_gray1));
-        mIvTabSetting.setImageResource(R.drawable.tab_my);
+        mIvTabSetting.setImageResource(R.drawable.ic_setting_tab_normal);
         mTxtTabSetting.setTextColor(getResources().getColor(R.color.text_color_gray1));
     }
 

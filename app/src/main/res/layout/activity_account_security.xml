@@ -113,7 +113,7 @@
             android:checked="false"
             android:layout_centerVertical="true" />
     </LinearLayout>
-    <View style="@style/setting_page_item_divider" />
+    <View style="@style/setting_page_item_divider" android:visibility="gone" />
     <LinearLayout
         style="@style/setting_page_item_style"
         android:layout_marginTop="10dp"

@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:gravity="center"
-        android:text="正在获取数据..."
-        android:textColor="@color/scarlet"
+        android:text="正在加载..."
+        android:textColor="@color/text_color_gray3"
         android:textSize="12sp" />
 
 </LinearLayout>
