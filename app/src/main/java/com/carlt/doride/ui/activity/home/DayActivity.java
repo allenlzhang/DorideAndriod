@@ -1,6 +1,7 @@
 
 package com.carlt.doride.ui.activity.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,18 +90,18 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
 
     private void init() {
         mInflate = LayoutInflater.from(this);
-        mImgHead = (ImageView)findViewById(R.id.day_img_headImg);
-        mTxtName = (TextView)findViewById(R.id.day_txt_userName);
-        mImgGender = (ImageView)findViewById(R.id.day_img_genderImg);
-        mTxtDriveInfo = (TextView)findViewById(R.id.day_txt_driveInfo);
-        mTxtScore = (TextView)findViewById(R.id.day_txt_driveScore);
-        mTxtMiles = (TextView)findViewById(R.id.day_txt_miles);
-        mTxtTime = (TextView)findViewById(R.id.day_txt_time);
-        mTxtOil = (TextView)findViewById(R.id.day_txt_oils);
-        mTxtAvgOil = (TextView)findViewById(R.id.day_txt_avgOils);
-        mTxtAvgSpeed = (TextView)findViewById(R.id.day_txt_avgSpeeds);
-        mTxtMaxSpeed = (TextView)findViewById(R.id.day_txt_maxSpeeds);
-        mPullToRefresh = (PullToRefreshListView)findViewById(R.id.day_refresh_logList);
+        mImgHead = (ImageView) findViewById(R.id.day_img_headImg);
+        mTxtName = (TextView) findViewById(R.id.day_txt_userName);
+        mImgGender = (ImageView) findViewById(R.id.day_img_genderImg);
+        mTxtDriveInfo = (TextView) findViewById(R.id.day_txt_driveInfo);
+        mTxtScore = (TextView) findViewById(R.id.day_txt_driveScore);
+        mTxtMiles = (TextView) findViewById(R.id.day_txt_miles);
+        mTxtTime = (TextView) findViewById(R.id.day_txt_time);
+        mTxtOil = (TextView) findViewById(R.id.day_txt_oils);
+        mTxtAvgOil = (TextView) findViewById(R.id.day_txt_avgOils);
+        mTxtAvgSpeed = (TextView) findViewById(R.id.day_txt_avgSpeeds);
+        mTxtMaxSpeed = (TextView) findViewById(R.id.day_txt_maxSpeeds);
+        mPullToRefresh = (PullToRefreshListView) findViewById(R.id.day_refresh_logList);
         listView = mPullToRefresh.getRefreshableView();
         listView.setDividerHeight(0);
     }
@@ -136,12 +137,12 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
         LogAdapter mAdapter = new LogAdapter();
         listView.setAdapter(mAdapter);
         mTxtDriveInfo.setText("今日行车" + count + "次");
-//        String avgFuel=mReportDayInfo.getAvgfuel() ;
-//        if(avgFuel!=null&&!avgFuel.equals("")&&!avgFuel.equals("--")){
-//            mTxtAvgOil.setText(mReportDayInfo.getAvgfuel());
-//        }else{
-            mTxtAvgOil.setText(mReportDayInfo.getAvgfuel());
-//        }
+        //        String avgFuel=mReportDayInfo.getAvgfuel() ;
+        //        if(avgFuel!=null&&!avgFuel.equals("")&&!avgFuel.equals("--")){
+        //            mTxtAvgOil.setText(mReportDayInfo.getAvgfuel());
+        //        }else{
+        mTxtAvgOil.setText(mReportDayInfo.getAvgfuel());
+        //        }
         mTxtOil.setText(mReportDayInfo.getSumfuel());
         mTxtMiles.setText(mReportDayInfo.getSummiles());
         mTxtTime.setText(mReportDayInfo.getSumtime());
@@ -152,33 +153,33 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
     protected void initData() {
         if (null != dayInitialValue && dayInitialValue.length() > 0
                 && !dayInitialValue.equals(nullDate)) {
-        	StringBuffer titleBuffer = new StringBuffer();
-        	String[] strings = dayInitialValue.split("-");
-        	if (strings.length > 2) {
-        		titleBuffer.append(strings[0]);
-				titleBuffer.append("-");
-				int month= MyParse.parseInt(strings[1]);
-				if(month<10){
-					titleBuffer.append("0");
-				}
-				titleBuffer.append(month);
-				titleBuffer.append("-");
-				int day=MyParse.parseInt(strings[2]);
-				if(day<10){
-					titleBuffer.append("0");
-				}
-				titleBuffer.append(day);
+            StringBuffer titleBuffer = new StringBuffer();
+            String[] strings = dayInitialValue.split("-");
+            if (strings.length > 2) {
+                titleBuffer.append(strings[0]);
+                titleBuffer.append("-");
+                int month = MyParse.parseInt(strings[1]);
+                if (month < 10) {
+                    titleBuffer.append("0");
+                }
+                titleBuffer.append(month);
+                titleBuffer.append("-");
+                int day = MyParse.parseInt(strings[2]);
+                if (day < 10) {
+                    titleBuffer.append("0");
+                }
+                titleBuffer.append(day);
 
-        	}
-        	titleBuffer.append("行车日报");
+            }
+            titleBuffer.append("行车日报");
             initTitle(titleBuffer.toString());
-        }else{
-            dayInitialValue= MyTimeUtils.getDateFormat3();
-            initTitle(dayInitialValue+ "日行车日报");
+        } else {
+            dayInitialValue = MyTimeUtils.getDateFormat3();
+            initTitle(dayInitialValue + "日行车日报");
         }
         loadingDataUI();
-        CPControl.GetDayReportResult(dayReportCallback,dayInitialValue);
-        CPControl.GetDayReportLogResult(dayLogReportCallback,dayInitialValue);
+        CPControl.GetDayReportResult(dayReportCallback, dayInitialValue);
+        CPControl.GetDayReportLogResult(dayLogReportCallback, dayInitialValue);
     }
 
     private BaseParser.ResultCallback dayReportCallback = new BaseParser.ResultCallback() {
@@ -235,6 +236,7 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
 
     private ArrayList<ReportDayLogInfo> mDayLogInfos;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -243,11 +245,12 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
                 case 0:
                     isSuccessDay = false;
                     loadonErrorUI((BaseResponseInfo) msg.obj);
+                    mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);
                     loadDataError(msg.obj);
                     break;
                 case 1:
                     isSuccessDay = true;
-                    mReportDayInfo = (ReportDayInfo)((BaseResponseInfo)msg.obj).getValue();
+                    mReportDayInfo = (ReportDayInfo) ((BaseResponseInfo) msg.obj).getValue();
                     if (isSuccessDay && isSuccessLog) {
                         loadSuccessUI();
                         loadDataSuccess(null);
@@ -259,7 +262,7 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
                     break;
                 case 3:
                     isSuccessLog = true;
-                    mDayLogInfos = (ArrayList<ReportDayLogInfo>)((BaseResponseInfo)msg.obj).getValue();
+                    mDayLogInfos = (ArrayList<ReportDayLogInfo>) ((BaseResponseInfo) msg.obj).getValue();
                     if (isSuccessDay && isSuccessLog) {
                         loadSuccessUI();
                         loadDataSuccess(null);
@@ -303,7 +306,7 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
             case R.id.listItem_day_txt_gpsTrack:
                 // // 跳转至轨迹回放页面
                 Intent mIntent = new Intent(DayActivity.this, GpsTrailActivity.class);
-                ReportDayLogInfo mDayLogInfo = (ReportDayLogInfo)v.getTag();
+                ReportDayLogInfo mDayLogInfo = (ReportDayLogInfo) v.getTag();
                 mIntent.putExtra(GpsTrailActivity.CAR_LOG_INFO, mDayLogInfo);
                 mIntent.putExtra(ReportActivity.DAY_INITIAL, dayInitialValue);
                 startActivity(mIntent);
@@ -341,49 +344,49 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
             if (convertView == null) {
                 mHolder = new ViewHolder();
                 convertView = mInflate.inflate(R.layout.list_item_report_day, null);
-                mHolder.mDriveInfo = (TextView)convertView
+                mHolder.mDriveInfo = (TextView) convertView
                         .findViewById(R.id.listItem_day_driveInfo);
-                mHolder.mScore = (TextView)convertView.findViewById(R.id.listItem_day_driveScore);
-                mHolder.mTime = (TextView)convertView
+                mHolder.mScore = (TextView) convertView.findViewById(R.id.listItem_day_driveScore);
+                mHolder.mTime = (TextView) convertView
                         .findViewById(R.id.listItem_day_txt_timeAndMiles);
                 mHolder.mMiles = convertView.findViewById(R.id.listItem_day_txt_miles);
-//                mHolder.mHurrl1 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry1);
-//                mHolder.mHurrl2 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry2);
-//                mHolder.mHurrl3 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry3);
-//                mHolder.mHurrl4 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry4);
-                mHolder.mInfoOil = (TextView)convertView
+                //                mHolder.mHurrl1 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry1);
+                //                mHolder.mHurrl2 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry2);
+                //                mHolder.mHurrl3 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry3);
+                //                mHolder.mHurrl4 = (TextView)convertView.findViewById(R.id.listItem_day_txt_hurry4);
+                mHolder.mInfoOil = (TextView) convertView
                         .findViewById(R.id.listItem_day_txt_infoOil);
-                mHolder.mAvgOil = (TextView)convertView
+                mHolder.mAvgOil = (TextView) convertView
                         .findViewById(R.id.listItem_day_txt_infoAvgOil);
-                mHolder.mAvgSpeed = (TextView)convertView
+                mHolder.mAvgSpeed = (TextView) convertView
                         .findViewById(R.id.listItem_day_txt_infoSpeed);
-                mHolder.mMaxSpeed = (TextView)convertView
+                mHolder.mMaxSpeed = (TextView) convertView
                         .findViewById(R.id.listItem_day_txt_infoMaxSpeed);
-                mHolder.mGpsTrack = (TextView)convertView
+                mHolder.mGpsTrack = (TextView) convertView
                         .findViewById(R.id.listItem_day_txt_gpsTrack);
 
                 convertView.setTag(mHolder);
             } else {
-                mHolder = (ViewHolder)convertView.getTag();
+                mHolder = (ViewHolder) convertView.getTag();
             }
 
             ReportDayLogInfo cInfo = mDayLogInfos.get(position);
-//            mHolder.mScore.setText(cInfo.getPoint());
+            //            mHolder.mScore.setText(cInfo.getPoint());
             String driveInfo = DayActivity.this.getResources().getString(
                     R.string.listItem_day_driveInfo, position + 1 + "/" + mDayLogInfos.size());
             mHolder.mDriveInfo.setText(driveInfo);
 
             String startTime = cInfo.getStarttime();
             String endTime = cInfo.getStopTime();
-            String time =  startTime+"至"+endTime+"("+cInfo.getTime()+")";
+            String time = startTime + "至" + endTime + "(" + cInfo.getTime() + ")";
 
             String miles = cInfo.getMiles();
             mHolder.mTime.setText(time);
             mHolder.mMiles.setText(miles);
-//            mHolder.mHurrl1.setText(cInfo.getBrake());
-//            mHolder.mHurrl2.setText(cInfo.getTurn());
-//            mHolder.mHurrl3.setText(cInfo.getSpeedup());
-//            mHolder.mHurrl4.setText(cInfo.getOverspeed());
+            //            mHolder.mHurrl1.setText(cInfo.getBrake());
+            //            mHolder.mHurrl2.setText(cInfo.getTurn());
+            //            mHolder.mHurrl3.setText(cInfo.getSpeedup());
+            //            mHolder.mHurrl4.setText(cInfo.getOverspeed());
             mHolder.mInfoOil.setText(cInfo.getFuel());
             mHolder.mAvgOil.setText(cInfo.getAvgfuel());
             mHolder.mAvgSpeed.setText(cInfo.getAvgspeed());

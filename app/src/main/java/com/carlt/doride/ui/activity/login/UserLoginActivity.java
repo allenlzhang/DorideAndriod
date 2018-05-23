@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -217,6 +218,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

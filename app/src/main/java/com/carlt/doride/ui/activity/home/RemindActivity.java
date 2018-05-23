@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.home;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -95,22 +96,22 @@ public class RemindActivity extends LoadingActivity {
 
     private int count_onstart = 0;
 
-    @Override
-    protected void onStart() {
-        count_onstart++;
-        if (count_onstart > 1) {
-            loadSuccessUI();
-            long l = 5000;
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    initData();
-                }
-            }, 1000 * 5);
-        }
-        super.onStart();
-    }
+//    @Override
+//    protected void onStart() {
+//        count_onstart++;
+//        if (count_onstart > 1) {
+//            loadSuccessUI();
+//            long l = 5000;
+//            new Handler().postDelayed(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    initData();
+//                }
+//            }, 1000 * 5);
+//        }
+//        super.onStart();
+//    }
 
     @Override
     public void reTryLoadData() {
@@ -409,8 +410,9 @@ public class RemindActivity extends LoadingActivity {
                 }
 
             };
-            PopBoxCreat.createDialogWithTitle(RemindActivity.this, "提示", "您确定要删除该消息吗？", "",
-                    "确定", "取消", click);
+//            PopBoxCreat.createDialogWithTitle(RemindActivity.this, "提示", "您确定要删除该消息吗？", "",
+//                    "确定", "取消", click);
+            PopBoxCreat.createDialogNotitle(RemindActivity.this, "温馨提示", "您确定要删除该消息吗？", "确定", "取消", click);
         }
 
         //
@@ -467,6 +469,7 @@ public class RemindActivity extends LoadingActivity {
     };
 
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

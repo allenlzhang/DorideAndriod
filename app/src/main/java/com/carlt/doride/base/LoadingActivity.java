@@ -30,9 +30,9 @@ public class LoadingActivity extends BaseActivity {
     private   RelativeLayout mLayMain;
     private   View           mMainView;
     private   View           mViewLoading;// 加载View
-    private   View           mViewError;// 错误提示View
-    private   View           mViewNodata;// 没有数据View
-    private   ImageView      mIvErrorIcon; //错误图片
+    public    View           mViewError;// 错误提示View
+    public    View           mViewNodata;// 没有数据View
+    public    ImageView      mIvErrorIcon; //错误图片
     LayoutInflater mInflater;
 
     protected View     backTV   = null;
@@ -179,9 +179,9 @@ public class LoadingActivity extends BaseActivity {
         } else {
             info = "数据加载失败，请重试...";
         }
-        if (mInfo.getFlag()==BaseResponseInfo.ERRO){
+        if (mInfo.getFlag() == BaseResponseInfo.ERRO) {
             mIvErrorIcon.setImageResource(R.mipmap.icon_error);
-        }else {
+        } else {
             mIvErrorIcon.setImageResource(R.mipmap.icon_error_bg);
         }
         mTxtRetryError.setVisibility(View.VISIBLE);

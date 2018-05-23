@@ -146,5 +146,12 @@
             android:layout_marginBottom="3dip"
             android:src="@drawable/arrow_up_bg"
             />
+        <View
+            android:layout_below="@+id/remote_main_img_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/text_color_gray4"
+            android:layout_marginBottom="1dp"
+            />
     </RelativeLayout>
 </RelativeLayout>

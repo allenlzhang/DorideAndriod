@@ -28,6 +28,7 @@ import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.activity.setting.CarTypeListActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
+import com.orhanobut.logger.Logger;
 import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
@@ -77,7 +78,7 @@ public class ActivityControl {
      * 信鸽注册（该方法在登录成功后调用）
      */
     public static void initXG() {
-
+        Logger.e("---信鸽注册");
         Context mContext = DorideApplication.getInstanse();
         // 新建自定义样式
         XGBasicPushNotificationBuilder build = new XGBasicPushNotificationBuilder();
