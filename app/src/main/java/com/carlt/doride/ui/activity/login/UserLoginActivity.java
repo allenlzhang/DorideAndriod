@@ -83,6 +83,10 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         initComponent();
         mUseInfo = UseInfoLocal.getUseInfo();
         resultIntent = getIntent();
+        if (!TextUtils.isEmpty(mUseInfo.getAccount())) {
+            user_phone.setText(mUseInfo.getAccount());
+            user_phone.setSelection(mUseInfo.getAccount().length());
+        }
 
     }
 
@@ -144,11 +148,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onResume() {
 
-        UseInfo mUseInfo = UseInfoLocal.getUseInfo();
-        if (!TextUtils.isEmpty(mUseInfo.getAccount())) {
-            user_phone.setText(mUseInfo.getAccount());
-            user_phone.setSelection(mUseInfo.getAccount().length());
-        }
+
         super.onResume();
     }
 

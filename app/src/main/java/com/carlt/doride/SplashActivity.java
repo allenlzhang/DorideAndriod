@@ -1,6 +1,6 @@
 package com.carlt.doride;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -258,7 +258,7 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-    @SuppressLint("HandlerLeak")
+//    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

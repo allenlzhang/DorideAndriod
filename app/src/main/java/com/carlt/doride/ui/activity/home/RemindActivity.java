@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -512,7 +513,12 @@ public class RemindActivity extends LoadingActivity {
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
-                        UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
+                        if (!TextUtils.isEmpty(mBaseResponseInfo.getInfo())){
+                            UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
+                        }else {
+                            UUToast.showUUToast(RemindActivity.this, "已经保养过了");
+                        }
+
                     }
                     break;
 
@@ -523,7 +529,12 @@ public class RemindActivity extends LoadingActivity {
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
-                        UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
+                        if (!TextUtils.isEmpty(mBaseResponseInfo.getInfo())){
+                            UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
+                        }
+//                        else {
+//                            UUToast.showUUToast(RemindActivity.this, "已经保养过了");
+//                        }
                     }
                     break;
                 case 9:
