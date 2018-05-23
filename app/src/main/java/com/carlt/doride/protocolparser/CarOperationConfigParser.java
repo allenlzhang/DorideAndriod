@@ -232,7 +232,7 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             LoginInfo.setRemoteMainInfo(mRemoteMainInfo);
 
             String remote_airconditioner_item = mJSON_data.get("remoteAirconditioner_item").getAsString();
-            Logger.e("-----" + remote_airconditioner_item);
+            Logger.e("remote_airconditioner_item-----" + remote_airconditioner_item);
             if (!TextUtils.isEmpty(remote_airconditioner_item)) {
                 String[] items = remote_airconditioner_item.split(",");
                 int index;

@@ -72,7 +72,6 @@ public class MainTestingActivity extends LoadingActivity {
     }
 
 
-  
     @Override
     public void loadDataSuccess(Object bInfo) {
         dissmissWaitingDialog();
@@ -82,11 +81,14 @@ public class MainTestingActivity extends LoadingActivity {
             //            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
             safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
             if (waringLampInfo.ENGINELAMP == 1 || waringLampInfo.ABS == 1 || waringLampInfo.EPB == 1 || waringLampInfo.MTLAMP == 1) {
+                Logger.e("if---出问题了");
                 safyHeadTV.setTextColor(Color.RED);
             } else if (waringLampInfo.ESP == 1 || waringLampInfo.TPMS == 1 || waringLampInfo.WATERTMP == 1 || waringLampInfo.SRS == 1) {
-                safyHeadTV.setTextColor(getResources().getColor(R.color.orange));
+                Logger.e("else if ---出问题了");
+                safyHeadTV.setTextColor(Color.parseColor("#efa545"));
             } else {
                 safyHeadTV.setTextColor(Color.GREEN);
+                Logger.e("else---出问题了");
             }
 
 
@@ -109,6 +111,7 @@ public class MainTestingActivity extends LoadingActivity {
         }
 
     }
+
     @Override
     public void reTryLoadData() {
         super.reTryLoadData();

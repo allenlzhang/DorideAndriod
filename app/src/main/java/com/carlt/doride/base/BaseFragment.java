@@ -198,6 +198,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void init(View view) {
+
     }
 
     /***

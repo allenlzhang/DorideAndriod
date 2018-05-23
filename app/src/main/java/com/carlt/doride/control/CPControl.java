@@ -153,7 +153,7 @@ public class CPControl {
                         isGetCurrentTempSuccess = false;
                     } else {
                         if (temp.equals("0")) {
-                            temp = "26";
+                            temp = "0";
                             isGetCurrentTempSuccess = false;
                         } else {
                             isGetCurrentTempSuccess = true;
@@ -406,8 +406,8 @@ public class CPControl {
      * 车秘书提醒
      * @param callback
      */
-    public static void GetInformationMessageResult(BaseParser.ResultCallback callback, int class1,int limit,int offset) {
-        HashMap mHashMap = CreateHashMap.getMessageMap(class1,limit,offset);
+    public static void GetInformationMessageResult(BaseParser.ResultCallback callback, int class1, int limit, int offset) {
+        HashMap mHashMap = CreateHashMap.getMessageMap(class1, limit, offset);
         InformationMessageListParser parser = new InformationMessageListParser(callback);
         parser.setTest(false);
         parser.executePost(URLConfig.getM_SAFETY_MESSAGE_URL(), mHashMap);

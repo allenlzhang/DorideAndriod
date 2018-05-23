@@ -68,4 +68,15 @@ public class AirMainInfo extends BaseResponseInfo {
 		this.isGetCurrentTempSuccess = isGetCurrentTempSuccess;
 	}
 
+	@Override
+	public String toString() {
+		return "AirMainInfo{" +
+				"functionCount='" + functionCount + '\'' +
+				", state='" + state + '\'' +
+				", isShowTemp=" + isShowTemp +
+				", currentTemp='" + currentTemp + '\'' +
+				", isGetCurrentTempSuccess=" + isGetCurrentTempSuccess +
+				", mRemoteFunInfos=" + mRemoteFunInfos +
+				'}';
+	}
 }

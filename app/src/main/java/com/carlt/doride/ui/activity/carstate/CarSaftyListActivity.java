@@ -35,10 +35,11 @@ public class CarSaftyListActivity extends LoadingActivity {
 
     private PullToRefreshListView mPullListView;
     private ListView              mListView;
-    private final static int LIMIT = 20;
-    private List<SaftyMsgInfo> saftyMsgInfoLists = new ArrayList<>();
-    private boolean isLoadMore = false;
+    private final static int                LIMIT             = 20;
+    private              List<SaftyMsgInfo> saftyMsgInfoLists = new ArrayList<>();
+    private              boolean            isLoadMore        = false;
     private CarSaftyAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +81,7 @@ public class CarSaftyListActivity extends LoadingActivity {
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //                上拉加载
                 //                initData();
-//                mHandler.sendEmptyMessageDelayed(0, 1000);
+                //                mHandler.sendEmptyMessageDelayed(0, 1000);
                 initData(saftyMsgInfoLists.size());
                 isLoadMore = true;
             }
@@ -102,6 +103,7 @@ public class CarSaftyListActivity extends LoadingActivity {
     };
 
     private void setLastUpdateTime() {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat mDateFormat = new SimpleDateFormat("MM-dd HH:mm");
         String text = mDateFormat.format(new Date(System.currentTimeMillis()));
         mPullListView.setLastUpdatedLabel(text);
@@ -112,8 +114,8 @@ public class CarSaftyListActivity extends LoadingActivity {
         DefaultStringParser parser = new DefaultStringParser(mCallback);
         HashMap map = new HashMap();
         map.put("class1", "21");
-        map.put("limit",LIMIT+"");
-        map.put("offset",offset+"");
+        map.put("limit", LIMIT + "");
+        map.put("offset", offset + "");
         parser.executePost(URLConfig.getM_SAFETY_MESSAGE_URL(), map);
     }
 
@@ -126,9 +128,9 @@ public class CarSaftyListActivity extends LoadingActivity {
             Type type = new TypeToken<List<SaftyMsgInfo>>() {
             }.getType();
             List<SaftyMsgInfo> mLists = gson.fromJson(value, type);
-            if (isLoadMore){
+            if (isLoadMore) {
                 saftyMsgInfoLists.addAll(mLists);
-            }else {
+            } else {
                 saftyMsgInfoLists = mLists;
             }
             if (null == saftyMsgInfoLists || saftyMsgInfoLists.size() == 0) {
@@ -164,7 +166,7 @@ public class CarSaftyListActivity extends LoadingActivity {
         if (adapter == null) {
             adapter = new CarSaftyAdapter(CarSaftyListActivity.this, saftyMsgInfoLists);
             mListView.setAdapter(adapter);
-        }else {
+        } else {
             adapter.setmList(saftyMsgInfoLists);
             adapter.notifyDataSetChanged();
         }

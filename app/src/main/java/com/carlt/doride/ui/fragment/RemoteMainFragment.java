@@ -156,6 +156,7 @@ public class RemoteMainFragment extends BaseFragment implements
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
                 mViewError.setVisibility(View.GONE);
+                fl_base_content.setVisibility(View.VISIBLE);
                 DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
                 Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
                 loadSuss();
@@ -166,8 +167,7 @@ public class RemoteMainFragment extends BaseFragment implements
                 Logger.e(TAG, "onError" + bInfo.toString());
                 //                    actLoadError((BaseResponseInfo) bInfo);
                 loadonErrorUI(bInfo);
-                mViewUnsupport.setVisibility(View.GONE);
-                mViewError.setVisibility(View.VISIBLE);
+                errorUi();
             }
         });
         HashMap params2 = new HashMap();
@@ -195,6 +195,12 @@ public class RemoteMainFragment extends BaseFragment implements
         //        }
     }
 
+    private void errorUi() {
+        fl_base_content.setVisibility(View.GONE);
+        mViewUnsupport.setVisibility(View.GONE);
+        mViewError.setVisibility(View.VISIBLE);
+    }
+
     private ArrayList<RemoteFunInfo> mRemoteFunInfos;
 
     private AirMainInfo mAirMainInfo1;
@@ -202,7 +208,7 @@ public class RemoteMainFragment extends BaseFragment implements
     private void loadSuss() {
         loadSuccessUI();
         RemoteMainInfo mRemoteMainInfo = DorideApplication.getInstanse().getRemoteMainInfo();
-        Logger.e("RemoteMainInfo----" + mRemoteMainInfo);
+        //        Logger.e("RemoteMainInfo----" + mRemoteMainInfo);
         if (mRemoteMainInfo != null) {
             mAirMainInfo1 = mRemoteMainInfo.getmAirMainInfo();
             LoginInfo.setChangedCar(false);
@@ -252,7 +258,6 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void init(View view) {
-        super.init(view);
         mTxtState = $ViewByID(R.id.state_car_iv);
         mTxtRecorder = $ViewByID(R.id.remote_history_iv);
         mTxtUnspport = (TextView) $ViewByID(R.id.remote_main_txt_unspport);
@@ -666,6 +671,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     dissmissWaitingDialog();
                     // 获取远程空调功能成功
                     AirMainInfo mAirMainInfo2 = (AirMainInfo) msg.obj;
+                    Logger.e("---" + mAirMainInfo2.toString());
                     if (!isReCall) {
                         if (airDialog == null || !airDialog.isShowing()) {
                             if (TextUtils.isEmpty(mAirMainInfo2.getState())
@@ -868,6 +874,10 @@ public class RemoteMainFragment extends BaseFragment implements
         Logger.e("---hidden----" + hidden);
         if (!hidden) {
             loadData();
+        } else {
+            if (mViewState.getVisibility() == View.VISIBLE) {
+                mViewState.setVisibility(View.GONE);
+            }
         }
     }
 

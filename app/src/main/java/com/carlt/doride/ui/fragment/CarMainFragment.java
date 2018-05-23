@@ -81,6 +81,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         super.onHiddenChanged(hidden);
         if (!hidden) {
             loadData();
+//            remoteConfig();
         }
     }
 
@@ -247,7 +248,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     };
 
     private void remoteConfig() {
-        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
+//        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
             carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
                 @Override
                 public void onSuccess(BaseResponseInfo bInfo) {
@@ -265,9 +266,9 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             });
             HashMap params2 = new HashMap();
             carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
-        } else {
-            loadSuss();
-        }
+//        } else {
+//            loadSuss();
+//        }
     }
 
     private void loadSuss() {

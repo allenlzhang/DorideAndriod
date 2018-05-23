@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="280dip"
-    android:layout_height="wrap_content"
-    android:background="@drawable/dialog_air_condition_bg"
-    android:orientation="vertical" >
+              android:layout_width="280dip"
+              android:layout_height="wrap_content"
+              android:background="@drawable/dialog_air_condition_bg"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="16dp" >
+        android:paddingTop="16dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -19,13 +19,13 @@
             android:text="空调控制"
             android:textColor="#333"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="12dp"
-            android:background="#c2c0c0" />
+            android:background="#c2c0c0"/>
 
         <RelativeLayout
             android:id="@+id/dialog_air_lay_tempure"
@@ -33,14 +33,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:visibility="visible" >
-			<ImageView
-			    android:id="@+id/dialog_air_img_temp_left" 
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:src="@drawable/temp_left"
-			    android:layout_centerVertical="true"
-			    android:layout_marginLeft="38dp"/>
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/dialog_air_img_temp_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="38dp"
+                android:src="@drawable/temp_left"/>
+
             <TextView
                 android:id="@+id/dialog_air_txt_tempure"
                 android:layout_width="wrap_content"
@@ -49,38 +51,40 @@
                 android:text="--"
                 android:textColor="#333"
                 android:textSize="40sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/dialog_air_txt_tempure"
                 android:layout_marginBottom="3dip"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/dialog_air_txt_tempure"
                 android:text=" ℃"
                 android:textColor="#999"
-                android:textSize="25sp"
-                android:layout_marginTop="20dp" />
+                android:textSize="25sp"/>
+
             <TextView
                 android:id="@+id/dialog_air_txt_temp_des"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/dialog_air_txt_tempure"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
                 android:text="当前温度"
                 android:textColor="#999"
                 android:textSize="14sp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/dialog_air_txt_tempure"
+                android:visibility="gone"
                 />
-            
+
             <ImageView
-			    android:id="@+id/dialog_air_img_temp_right" 
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:src="@drawable/temp_right"
-			    android:layout_centerVertical="true"
-			    android:layout_marginRight="38dp"
-			    android:layout_alignParentRight="true"/>
+                android:id="@+id/dialog_air_img_temp_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="38dp"
+                android:src="@drawable/temp_right"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -90,7 +94,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/dialog_air_txt_min"
@@ -99,7 +103,7 @@
                 android:layout_centerVertical="true"
                 android:text="18℃"
                 android:textColor="#333"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/dialog_air_txt_max"
@@ -109,7 +113,7 @@
                 android:layout_centerVertical="true"
                 android:text="32℃"
                 android:textColor="#333"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <SeekBar
                 android:id="@+id/dialog_air_seekBar"
@@ -122,14 +126,14 @@
                 android:maxHeight="10dp"
                 android:minHeight="10dp"
                 android:progress="6"
-                android:thumbOffset="10dip" />
+                android:thumbOffset="10dip"/>
         </RelativeLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#c2c0c0" />
+        android:background="#c2c0c0"/>
 
     <GridView
         android:id="@+id/dialog_air_grid"
@@ -137,8 +141,8 @@
         android:layout_height="wrap_content"
         android:numColumns="3"
         android:padding="15dp"
-        android:visibility="gone"
-        android:verticalSpacing="6dp" />
+        android:verticalSpacing="6dp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/dialog_air_lay"
@@ -146,14 +150,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="15dp"
-        android:visibility="visible" >
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:gravity="center"
-            android:weightSum="4" >
+            android:weightSum="4">
 
             <TextView
                 android:id="@+id/dialog_air_txt_coldMax"
@@ -164,7 +168,7 @@
                 android:gravity="center"
                 android:text="最大制冷"
                 android:textColor="#666"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/dialog_air_txt_heatMax"
@@ -175,8 +179,8 @@
                 android:gravity="center"
                 android:text="最大制热"
                 android:textColor="#666"
-                android:textSize="12sp" />
-            
+                android:textSize="12sp"/>
+
             <TextView
                 android:id="@+id/dialog_air_txt_defrost"
                 android:layout_width="0dp"
@@ -186,7 +190,7 @@
                 android:gravity="center"
                 android:text="一键除霜"
                 android:textColor="#666"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/dialog_air_txt_closeAir"
@@ -197,23 +201,23 @@
                 android:gravity="center"
                 android:text="关闭空调"
                 android:textColor="#333333"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
         </LinearLayout>
 
-       
+
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#c2c0c0" />
+        android:background="#c2c0c0"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:weightSum="2" >
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/dialog_air_txt_cancle"
@@ -223,12 +227,12 @@
             android:gravity="center"
             android:text="取消"
             android:textColor="#1783FE"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <View
             android:layout_width="0.5dip"
             android:layout_height="match_parent"
-            android:background="#c2c0c0" />
+            android:background="#c2c0c0"/>
 
         <TextView
             android:id="@+id/dialog_air_txt_confirm"
@@ -238,7 +242,7 @@
             android:gravity="center"
             android:text="确定"
             android:textColor="#1783FE"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
     </LinearLayout>
 
 </LinearLayout>

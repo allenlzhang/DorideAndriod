@@ -152,13 +152,14 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
                 isShowTempRegulation = false;
             }
             tempCurrent = MyParse.parseInt(mAirMainInfo.getCurrentTemp());
+            Logger.e("tempCurrent----" + mAirMainInfo.getCurrentTemp());
             tempure.setText(tempCurrent + "");
 
-            if (mAirMainInfo.isGetCurrentTempSuccess()) {
-                tempuredes.setVisibility(View.VISIBLE);
-            } else {
-                tempuredes.setVisibility(View.GONE);
-            }
+            //            if (mAirMainInfo.isGetCurrentTempSuccess()) {
+            //                tempuredes.setVisibility(View.VISIBLE);
+            //            } else {
+            //                tempuredes.setVisibility(View.GONE);
+            //            }
         } else {
             isShowTemp = true;
             isShowTempRegulation = true;
@@ -321,7 +322,12 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
             }
             clickCount++;
         } else if (arg0.equals(up)) {
+            String temp = tempure.getText().toString();
+            if (temp.equals("0")) {
+                tempCurrent = 17;
+            }
             tempCurrent++;
+
             tempure.setText(tempCurrent + "");
             refreshUIData(-1);
         } else if (arg0.equals(down)) {
@@ -506,9 +512,9 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
                     mInfo.setSelect(false);
                 }
             }
-            if (tempCurrent != MyParse.parseInt(mAirMainInfo.getCurrentTemp())) {
-                tempuredes.setText("");
-            }
+            //            if (tempCurrent != MyParse.parseInt(mAirMainInfo.getCurrentTemp())) {
+            //                tempuredes.setText("");
+            //            }
 
         }
     }
