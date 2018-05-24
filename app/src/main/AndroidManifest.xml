@@ -101,7 +101,7 @@
         <activity android:name=".ui.activity.setting.PhotoDisplayActivity"/>
         <activity android:name=".ui.activity.setting.MaintenanceMileageEditActivity"/>
         <activity android:name=".ui.activity.setting.NicknameEditActivity"/>
-        <activity android:name=".ui.activity.setting.AboutYemaActivity"/>
+        <activity android:name=".ui.activity.setting.AboutDorideActivity"/>
         <activity android:name=".ui.activity.setting.PhoneAuthenticationActivity"/>
         <activity android:name=".ui.activity.setting.ResetCetifiedPhoneActivity"/>
         <activity android:name=".ui.activity.setting.AccountSecurityActivity"/>

@@ -1,6 +1,9 @@
 package com.carlt.doride;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +26,8 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
+import com.carlt.doride.utils.FileUtil;
+import com.carlt.doride.utils.LocalConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,14 +59,50 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    private void splash() {
+    protected String[] needPermissions = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
 
-//        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
-//        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
-//        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
-//        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
-//        FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
-//        FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
+    };
+
+    private void splash() {
+        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
+        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
+        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
+        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
+        FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
+        FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            getVersion();
+        } else {
+            requestPermissions(this, needPermissions, new BaseActivity.RequestPermissionCallBack() {
+                @Override
+                public void granted() {
+                    FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
+                    FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
+                    FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
+                    FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
+                    FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
+                    FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
+                    getVersion();
+                }
+
+                @Override
+                public void denied() {
+                    //                UUToast.showUUToast(SplashActivity.this, "未获取到权限，定位功能不可用");
+                    UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到存储权限，应用即将退出");
+                    mHandler.sendEmptyMessageDelayed(10, 1000);
+                    //                finish();
+
+                }
+            });
+        }
+
+        //        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
+        //        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
+        //        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
+        //        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
+        //        FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
+        //        FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
         //        FileUtil.openOrCreatDir(LocalConfig.mTravelImageCacheSavePath_SD);
 
         mUseInfo = UseInfoLocal.getUseInfo();
@@ -69,7 +110,7 @@ public class SplashActivity extends BaseActivity {
         account = mUseInfo.getAccount();
         password = mUseInfo.getPassword();
         //        CPControl.GetVersion(listener_version);
-        getVersion();
+
         //        jumpLogic();
     }
 
@@ -86,7 +127,7 @@ public class SplashActivity extends BaseActivity {
         public void onSuccess(BaseResponseInfo bInfo) {
             mVersionInfo = (VersionInfo) bInfo.getValue();
             int status = mVersionInfo.getStatus();
-            status = VersionInfo.STATUS_ENABLE;
+            //            status = VersionInfo.STATUS_ENABLE;
             switch (status) {
                 case VersionInfo.STATUS_ENABLE:
                     // 不升级
@@ -136,7 +177,7 @@ public class SplashActivity extends BaseActivity {
         if (SplashActivity.this.isFinishing()) {
             return;
         }
-        PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "提示",
+        PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "温馨提示",
                 content, "", "重试", "退出", click);
 
     }
@@ -204,11 +245,11 @@ public class SplashActivity extends BaseActivity {
 
         String content = mVersionInfo.getRemark();
         if (content != null && content.length() > 0) {
-            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级信息",
+            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级提示",
                     content, "", "升级", "退出", click);
         } else {
             content = getResources().getString(R.string.update_2);
-            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级信息",
+            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级提示",
                     content, "", "升级", "退出", click);
         }
     }
@@ -247,17 +288,17 @@ public class SplashActivity extends BaseActivity {
 
         String content = mVersionInfo.getRemark();
         if (content != null && content.length() > 0) {
-            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级信息",
+            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级提示",
                     content, "", "升级", "以后再说", click);
         } else {
             content = getResources().getString(R.string.update_1);
-            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级信息",
+            PopBoxCreat.createDialogWithNodismiss(SplashActivity.this, "升级提示",
                     content, "", "升级", "以后再说", click);
         }
     }
 
 
-//    @SuppressLint("HandlerLeak")
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -285,6 +326,10 @@ public class SplashActivity extends BaseActivity {
                     overridePendingTransition(R.anim.enter_alpha, R.anim.exit_alpha);
                     startActivity(mIntent4);
                     break;
+                case 10:
+                    finish();
+                    break;
+
 
             }
 

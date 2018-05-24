@@ -11,12 +11,12 @@
     <TextView
         android:id="@+id/dialog_withtitle_title"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:paddingLeft="18dip"
         android:text="提示"
-        android:textColor="@color/text_color_gray3"
-        android:textSize="16sp"
+        android:textColor="#478cea"
+        android:textSize="18sp"
         android:visibility="visible"/>
 
 

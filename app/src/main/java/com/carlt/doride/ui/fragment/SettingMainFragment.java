@@ -24,7 +24,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.car.CarDealerParser;
 import com.carlt.doride.systemconfig.URLConfig;
-import com.carlt.doride.ui.activity.setting.AboutYemaActivity;
+import com.carlt.doride.ui.activity.setting.AboutDorideActivity;
 import com.carlt.doride.ui.activity.setting.AccountSecurityActivity;
 import com.carlt.doride.ui.activity.setting.CarManagerActivity;
 import com.carlt.doride.ui.activity.setting.DeviceManageActivity;
@@ -193,7 +193,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 }
                 break;
             case R.id.btn_about_yema:
-                Intent aboutYema = new Intent(this.getActivity(), AboutYemaActivity.class);
+                Intent aboutYema = new Intent(this.getActivity(), AboutDorideActivity.class);
                 startActivity(aboutYema);
                 break;
             case R.id.btn_sign_out:

@@ -10,7 +10,7 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 
-public class AboutYemaActivity extends LoadingActivity implements OnClickListener {
+public class AboutDorideActivity extends LoadingActivity implements OnClickListener {
 
     private TextView about_yema_ver;
     private TextView about_yema_terms;

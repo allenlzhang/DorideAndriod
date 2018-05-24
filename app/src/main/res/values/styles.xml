@@ -23,7 +23,7 @@
     </style>
 
     <style name="splash" parent="AppTheme">
-        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
         <item name="android:windowNoTitle">true</item>
     </style>
     <!-- 行车报告-网格内容 -->

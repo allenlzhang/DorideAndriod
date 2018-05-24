@@ -1,6 +1,7 @@
 
 package com.carlt.doride.ui.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -98,11 +99,11 @@ public class DownloadView {
     private ProgressBar mProgressBar;
 
     public void showView(String apkUrl) {
-        mTxtContent = (TextView)menuView_main.findViewById(R.id.dialog_download_content);
+        mTxtContent = (TextView) menuView_main.findViewById(R.id.dialog_download_content);
 
-        mProgressBar = (ProgressBar)menuView_main.findViewById(R.id.dialog_download_progress);
-        mTxtBtn1 = (TextView)menuView_main.findViewById(R.id.dialog_download_btn1);
-        mTxtBtn2 = (TextView)menuView_main.findViewById(R.id.dialog_download_btn2);
+        mProgressBar = (ProgressBar) menuView_main.findViewById(R.id.dialog_download_progress);
+        mTxtBtn1 = (TextView) menuView_main.findViewById(R.id.dialog_download_btn1);
+        mTxtBtn2 = (TextView) menuView_main.findViewById(R.id.dialog_download_btn2);
 
         mTxtBtn1.setOnClickListener(mClickListener);
         mTxtBtn2.setOnClickListener(mClickListener);
@@ -129,7 +130,7 @@ public class DownloadView {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                Uri contentUri = FileProvider.getUriForFile(mContext, "com.carlt.yema.fileprovider", mFile);
+                Uri contentUri = FileProvider.getUriForFile(mContext, "com.carlt.doride.fileprovider", mFile);
                 intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
             } else {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// 启动新的activity
@@ -217,6 +218,7 @@ public class DownloadView {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -224,38 +226,38 @@ public class DownloadView {
             switch (msg.what) {
                 case 0:
                     // 开始下载
-                    int defaultPro = (Integer)msg.obj;
+                    int defaultPro = (Integer) msg.obj;
                     mProgressBar.setProgress(defaultPro);
                     break;
 
                 case 1:
                     // 更新下载进度
-                    int progress = (Integer)msg.obj;
+                    int progress = (Integer) msg.obj;
                     mProgressBar.setProgress(progress);
                     mTxtContent.setText("已下载：" + progress + "%");
                     break;
                 case 2:
                     // 下载完成
-                    File mFile = (File)msg.obj;
+                    File mFile = (File) msg.obj;
                     Uri uri = Uri.fromFile(mFile);
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// 启动新的activity
                     intent.setDataAndType(uri, "application/vnd.android.package-archive");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        Uri contentUri = FileProvider.getUriForFile(mContext, "com.carlt.yema.fileprovider", mFile);
+                        Uri contentUri = FileProvider.getUriForFile(mContext, "com.carlt.doride.fileprovider", mFile);
                         intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
                     } else {
                         intent.setDataAndType(Uri.fromFile(mFile), "application/vnd.android.package-archive");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                     mContext.startActivity(intent);
-//                    ActivityControl.onExit();
+                    //                    ActivityControl.onExit();
                     ActivityControl.clearAllActivity();
                     break;
                 case 3:
                     // 下载失败
-                    String error = (String)msg.obj;
+                    String error = (String) msg.obj;
                     mTxtContent.setText(error);
                     mTxtBtn1.setText("升级");
                     break;
