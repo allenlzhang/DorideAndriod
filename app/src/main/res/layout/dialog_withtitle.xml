@@ -26,7 +26,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:minHeight="76dp"
+        android:minHeight="60dp"
         android:orientation="vertical"
         android:paddingLeft="18dp"
         android:paddingRight="18dp">
@@ -47,7 +47,7 @@
             android:gravity="center"
             android:text="test test"
             android:textColor="@color/text_color_gray3"
-            android:textSize="14sp"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <FrameLayout

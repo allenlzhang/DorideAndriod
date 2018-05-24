@@ -245,7 +245,7 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
                 case 0:
                     isSuccessDay = false;
                     loadonErrorUI((BaseResponseInfo) msg.obj);
-                    mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);
+//                    mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);
                     loadDataError(msg.obj);
                     break;
                 case 1:

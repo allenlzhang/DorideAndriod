@@ -182,7 +182,7 @@ public class LoadingActivity extends BaseActivity {
         if (mInfo.getFlag() == BaseResponseInfo.ERRO) {
             mIvErrorIcon.setImageResource(R.mipmap.icon_error);
         } else {
-            mIvErrorIcon.setImageResource(R.mipmap.icon_error_bg);
+            mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);
         }
         mTxtRetryError.setVisibility(View.VISIBLE);
         mTxtEorrorSub.setText(info);
