@@ -53,7 +53,7 @@ public class MainTestingActivity extends LoadingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tain);
-        initTitle("车况检测报告");
+        initTitle("车辆故障自检");
         initView();
         //        loadingDataUI();
         initData();
