@@ -32,7 +32,7 @@ public class CarTypeListActivity extends LoadingActivity {
     private CarTypeAdapter adapter;
     private Intent intent;
     private String optionid;//车型ID
-    private static String brandid = "21";//车系ID
+    private static String brandid = "2579";//车系ID
     private String carId;//车款ID
     private String carTitle;
     private String vinCode;

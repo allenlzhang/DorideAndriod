@@ -25,9 +25,9 @@ public class URLConfig {
     private final static String U1_DORIDE = "http://dorideapi.geni4s.com/";
 
     // 远程下发-正式服务器
-    private final static String U_R1 = "https://remote-wildhorse.geni4s.com/";
+    private final static String U_R1 = "https://remote-doride.geni4s.com/";
     // 远程下发-预发布服务器
-    private final static String U_R2 = "https://pre-remote-wildhorse.geni4s.com/";
+    private final static String U_R2 = "https://pre-remote-doride.geni4s.com/";
     // 大乘下发-测试服务器
     private final static String U_R3 = "http://remote-doride.linewin.cc/";
 

@@ -61,7 +61,7 @@ public class WaringLampAdapter extends BaseAdapter {
         viewHolder.ivState.setImageResource(info.getIconState());
         viewHolder.ivIcon.setImageResource(info.icon);
         viewHolder.tvName.setText(info.getTxt());
-        viewHolder.tvName.setTextColor(mContext.getResources().getColor(info.getColor()));
+//        viewHolder.tvName.setTextColor(mContext.getColor());
         return view;
     }
 

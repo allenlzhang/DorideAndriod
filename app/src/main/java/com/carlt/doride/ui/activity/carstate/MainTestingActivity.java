@@ -81,14 +81,11 @@ public class MainTestingActivity extends LoadingActivity {
             //            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
             safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
             if (waringLampInfo.ENGINELAMP == 1 || waringLampInfo.ABS == 1 || waringLampInfo.EPB == 1 || waringLampInfo.MTLAMP == 1) {
-                Logger.e("if---出问题了");
                 safyHeadTV.setTextColor(Color.RED);
             } else if (waringLampInfo.ESP == 1 || waringLampInfo.TPMS == 1 || waringLampInfo.WATERTMP == 1 || waringLampInfo.SRS == 1) {
-                Logger.e("else if ---出问题了");
                 safyHeadTV.setTextColor(Color.parseColor("#efa545"));
             } else {
                 safyHeadTV.setTextColor(Color.GREEN);
-                Logger.e("else---出问题了");
             }
 
 
@@ -155,12 +152,12 @@ public class MainTestingActivity extends LoadingActivity {
                 info.setIconState(R.drawable.ic_problem);
 
                 info.setTxt(iconName[i]);
-                info.setColor(R.color.text_color_gray3);
+//                info.setColor(R.color.text_color_gray3);
                 break;
             case WaringLampInfo.NOT_BRIGHT:
                 info.setIconState(R.drawable.ic_no_problem);
                 info.setTxt(iconName[i]);
-                info.setColor(R.color.text_color_gray3);
+//                info.setColor(R.color.text_color_gray3);
                 break;
             default:
                 break;

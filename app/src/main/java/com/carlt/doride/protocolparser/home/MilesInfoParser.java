@@ -25,8 +25,8 @@ public class MilesInfoParser extends BaseParser<MilesInfo> {
             MilesInfo info = new MilesInfo();
             info.setObd(mJSON_data.get("obd").getAsInt()+"");
             info.setEnduranceMile(mJSON_data.get("enduranceMile").getAsString());
-            info.setAvgSpeed(mJSON_data.get("avgSpeed").getAsString());
             info.setAvgFuel(mJSON_data.get("avgFuel").getAsString());
+            info.setAvgSpeed(mJSON_data.get("avgSpeed").getAsString());
             info.setLeftDuel(mJSON_data.get("leftFuel").getAsString());
             info.setRunningTime(mJSON_data.get("runningTime").getAsString());
             info.setvBat(mJSON_data.get("vBat").getAsString());
