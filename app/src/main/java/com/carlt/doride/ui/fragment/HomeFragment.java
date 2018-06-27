@@ -23,25 +23,32 @@ import com.amap.api.services.weather.LocalWeatherForecastResult;
 import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.amap.api.services.weather.WeatherSearch;
 import com.amap.api.services.weather.WeatherSearchQuery;
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.data.PictrueInfo;
 import com.carlt.doride.data.home.InformationCategoryInfo;
 import com.carlt.doride.data.home.InformationCategoryInfoList;
 import com.carlt.doride.data.home.MilesInfo;
 import com.carlt.doride.data.home.WeatherInfo;
 import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.protocolparser.DefaultStringParser;
+import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.home.InformationCentreActivity;
 import com.carlt.doride.ui.activity.home.ReportActivity;
+import com.carlt.doride.utils.LoadLocalImageUtil;
 import com.carlt.doride.utils.StringUtils;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -67,6 +74,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     String cityName = null;
     AMapLocationClient mClient;
     AMapLocation       mLocation;
+    private ImageView ivHomeBg;
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
@@ -77,6 +85,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void init(View view) {
         mIvReport = $ViewByID(R.id.activity_home_iv_report);
+        ivHomeBg = $ViewByID(R.id.ivHomeBg);
         mRlInformationCentre = $ViewByID(R.id.activity_home_relative2);
         mTxtDate = $ViewByID(R.id.home_txt_date);
         mTextView3 = $ViewByID(R.id.activity_home_txt3);
@@ -169,7 +178,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         loadingDataUI();
         CPControl.GetInformationCentreInfoListResult(callback);
         CPControl.GetMilesInfoResult(remoteCallback);
+        getBgImage();
+    }
 
+    private void getBgImage() {
+        BaseParser parser1 = new DefaultStringParser(new BaseParser.ResultCallback() {
+            @Override
+            public void onSuccess(BaseResponseInfo bInfo) {
+                LogUtils.e("parser1=======" + bInfo.toString());
+                String json = bInfo.getValue().toString();
+                Gson gson = new Gson();
+                PictrueInfo pictrueInfo = gson.fromJson(json, PictrueInfo.class);
+                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, ivHomeBg, R.drawable.home_bg);
+            }
+
+            @Override
+            public void onError(BaseResponseInfo bInfo) {
+
+            }
+        });
+        HashMap params1 = new HashMap();
+        params1.put("app_softtype", "1");
+        params1.put("position", "10");
+        parser1.executePost(URLConfig.getM_GET_APPSPICS_URL(), params1);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

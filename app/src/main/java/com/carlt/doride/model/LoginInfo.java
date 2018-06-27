@@ -335,6 +335,7 @@ public class LoginInfo extends BaseResponseInfo {
     private static String mainten_next_miles = "";// 距离下次保养里程
 
     private static String mainten_next_day = "";// 距离下次保养天数
+    public static  int deviceisnew ;//是否新设备：1=是，0=否
 
     private static boolean isMainten = false;// “我已保养过”按钮
     // 是否可点击 1能点击，剩余不可点击
@@ -1076,7 +1077,14 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.gender = gender;
         car_pref.edit().putString("gender", gender).apply();
     }
-
+    public static void setDeviceisnew(int deviceisnew) {
+        LoginInfo.deviceisnew = deviceisnew;
+        car_pref.edit().putInt("deviceisnew", deviceisnew).apply();
+    }
+    public static int getDeviceisnew() {
+        deviceisnew = car_pref.getInt("deviceisnew", -1);
+        return deviceisnew;
+    }
     public static boolean isMain() {
         isMain = car_pref.getBoolean("isMain", false);
         return isMain;

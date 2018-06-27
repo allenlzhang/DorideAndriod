@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.MainActivity;
 import com.carlt.doride.model.LoginInfo;
@@ -17,11 +18,10 @@ import org.json.JSONObject;
 
 /**
  * 登录控制
- *
  * @author daisy
  */
 public class LoginControl {
-    public static Activity mCtx;
+    public static Activity                            mCtx;
     public static UUUpdateDialog.DialogUpdateListener mDialogUpdateListener;
 
     public static void logic(final Activity mContext) {
@@ -104,6 +104,7 @@ public class LoginControl {
             LoginInfo.setRealname((member.optString("realname", "")));
             LoginInfo.setUsername(member.optString("username", ""));
             LoginInfo.setGender((member.optString("gender", "")));
+
             String mobile = (member.optString("mobile", ""));
             LoginInfo.setMobile(mobile);
             if (!TextUtils.isEmpty(mobile)) {
@@ -144,7 +145,7 @@ public class LoginControl {
             LoginInfo.setAuthen_card(member.optString("authen_card", ""));
 
             LoginInfo.setExpires_in((member.optString("expires_in", "")));
-//            DorideApplication.TOKEN = member.optString("access_token", "");
+            //            DorideApplication.TOKEN = member.optString("access_token", "");
             LoginInfo.setExpiresIn((member.optString("expires_in", "")));
             LoginInfo.setSSID(member.optString("SSID", ""));
             LoginInfo.setSSIDPWD(member.optString("SSIDPWD", ""));
@@ -156,7 +157,9 @@ public class LoginControl {
             LoginInfo.setSetRemotePwd(getFlagResult(isSetRemotePwd));
 
             JSONObject membercar = data.optJSONObject("membercar");
-
+            int deviceisnew = membercar.optInt("deviceisnew");
+            LogUtils.e("parseLoginInfodeviceisnew------"+deviceisnew);
+            LoginInfo.setDeviceisnew(deviceisnew);
             int membercarId = membercar.optInt("id");
             if (membercarId > 0) {
                 LoginInfo.setBindCar(true);
@@ -222,7 +225,7 @@ public class LoginControl {
 
             int secretaryid = membercar.optInt("secretaryid", 1);
 
-                LoginInfo.setSecretaryName("大乘小秘书");
+            LoginInfo.setSecretaryName("大乘小秘书");
 
             LoginInfo.setMainten_miles((membercar
                     .optString("mainten_miles", "")));

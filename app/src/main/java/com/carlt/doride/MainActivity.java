@@ -11,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.fragment.CarMainFragment;
+import com.carlt.doride.ui.fragment.CarMainFragment2;
 import com.carlt.doride.ui.fragment.HomeFragment;
 import com.carlt.doride.ui.fragment.RemoteMainFragment;
 import com.carlt.doride.ui.fragment.SettingMainFragment;
@@ -28,6 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private HomeFragment        mHomeFragment;
     private CarMainFragment     mCarMainFragment;
+    private CarMainFragment2    mCarMainFragment2;
     private RemoteMainFragment  mRemoteMainFragment;
     private SettingMainFragment mSettingMainFragment;
 
@@ -48,6 +52,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView mTxtTabSetting;
 
     private FragmentManager mFragmentManager;
+    private int             deviceisnew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setIntent(intent);
         super.onNewIntent(intent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        deviceisnew = LoginInfo.getDeviceisnew();
+//        deviceisnew=1;
+        LogUtils.e("deviceisnew========" + deviceisnew);
+    }
+
     protected String[] needPermissions = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -71,6 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //            Manifest.permission.READ_EXTERNAL_STORAGE,
             //            Manifest.permission.READ_PHONE_STATE
     };
+
     private void init() {
         mTabHome = $ViewByID(R.id.tab_ll_home);
         mTabCar = $ViewByID(R.id.tab_ll_car);
@@ -106,17 +121,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，存储权限不能用");
             }
         });
-//        requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new RequestPermissionCallBack() {
-//            @Override
-//            public void granted() {
-//
-//            }
-//
-//            @Override
-//            public void denied() {
-//                UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，存储权限不能用");
-//            }
-//        });
+        //        requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new RequestPermissionCallBack() {
+        //            @Override
+        //            public void granted() {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void denied() {
+        //                UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，存储权限不能用");
+        //            }
+        //        });
     }
 
     private void setTabSelection(int index) {
@@ -138,12 +153,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case 1:
                 mIvTabCar.setImageResource(R.drawable.tab_car_selected);
                 mTxtTabCar.setTextColor(getResources().getColor(R.color.blue_txt));
-                if (mCarMainFragment == null) {
-                    mCarMainFragment = new CarMainFragment();
-                    transaction.add(R.id.content, mCarMainFragment);
-                } else {
-                    transaction.show(mCarMainFragment);
+
+                switch (deviceisnew) {
+                    case 0:
+                        // 不是新车型
+                        if (mCarMainFragment == null) {
+                            mCarMainFragment = new CarMainFragment();
+                            transaction.add(R.id.content, mCarMainFragment);
+                        } else {
+                            transaction.show(mCarMainFragment);
+                        }
+                        break;
+                    case 1:
+                        // 是新车型
+                        if (mCarMainFragment2 == null) {
+                            mCarMainFragment2 = new CarMainFragment2();
+                            transaction.add(R.id.content, mCarMainFragment2);
+                        } else {
+                            transaction.show(mCarMainFragment2);
+                        }
+                        break;
+                    default:
+                        break;
                 }
+
                 transaction.commit();
                 break;
             case 2:
@@ -189,7 +222,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             transaction.hide(mHomeFragment);
         }
         if (mCarMainFragment != null) {
+//            switch (deviceisnew) {
+//                case 0:
+//                    transaction.hide(mCarMainFragment);
+//                    break;
+//                case 1:
+//                    transaction.hide(mCarMainFragment2);
+//                    break;
+//                default:
+//                    break;
+//            }
             transaction.hide(mCarMainFragment);
+        }
+        if (mCarMainFragment2 != null) {
+            transaction.hide(mCarMainFragment2);
         }
         if (mRemoteMainFragment != null) {
             transaction.hide(mRemoteMainFragment);

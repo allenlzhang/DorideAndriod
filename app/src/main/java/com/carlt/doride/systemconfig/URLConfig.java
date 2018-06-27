@@ -162,6 +162,7 @@ public class URLConfig {
 
     // 座驾首页
     private static String M_CAR_MAIN_URL              = "car/carIndex";
+    private static String M_GET_APPSPICS_URL              = "appspic/getAppsPics";
     private static String M_REMOTE_CAR_MILES_INFO_URL = "remote/getMilesInfos";
 
     // 日报
@@ -401,7 +402,9 @@ public class URLConfig {
     public static String getM_CAR_MAIN_URL() {
         return getDorideURL(M_CAR_MAIN_URL);
     }
-
+    public static String getM_GET_APPSPICS_URL() {
+        return getDorideURL(M_GET_APPSPICS_URL);
+    }
     public static String getM_DEVICEUPDATE_URL() {
         return getDorideURL(M_DEVICEUPDATE_URL);
     }

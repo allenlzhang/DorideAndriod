@@ -135,6 +135,11 @@ public class CarTypeListActivity extends LoadingActivity {
             if (!TextUtils.isEmpty(vinCode)) {
                 intent.putExtra("vin", vinCode);
             }
+            if (optionid.equals("2582")) {
+                LoginInfo.setDeviceisnew(1);
+            } else {
+                LoginInfo.setDeviceisnew(0);
+            }
             CarTypeListActivity.this.startActivity(intent);
             ActivityControl.finishAllCarSelectActivity();
         }
@@ -175,6 +180,11 @@ public class CarTypeListActivity extends LoadingActivity {
         public void onSuccess(BaseResponseInfo bInfo) {
             LoginInfo.setCarname(carTitle);
             UUToast.showUUToast(CarTypeListActivity.this, " 车型修改成功");
+            if (optionid.equals("2582")) {
+                LoginInfo.setDeviceisnew(1);
+            } else {
+                LoginInfo.setDeviceisnew(0);
+            }
             ActivityControl.finishAllCarSelectActivity();
         }
 

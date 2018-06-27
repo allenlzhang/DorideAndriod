@@ -50,7 +50,7 @@ import java.util.HashMap;
  * Created by liu on 2018/3/16.
  */
 
-public class CarMainFragment extends BaseFragment implements View.OnClickListener {
+public class CarMainFragment2 extends BaseFragment implements View.OnClickListener {
     private static String TAG = "CarMainFragment";
 
     private CarIndexInfo carinfo;
@@ -78,7 +78,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.fragment_carmain_layout, null, false);
+        View view = inflater.inflate(R.layout.fragment_carmain_layout2, null, false);
         return view;
     }
 

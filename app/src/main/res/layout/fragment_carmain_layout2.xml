@@ -14,7 +14,6 @@
 
         <ImageView
             android:id="@+id/ivBg"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg"/>
@@ -49,7 +48,7 @@
 
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sub_head"
             android:layout_marginTop="15dp">
@@ -58,6 +57,7 @@
             <ImageView
                 android:id="@+id/car_state_iv"
                 android:layout_width="180dp"
+                android:layout_centerInParent="true"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:src="@drawable/car_state"
@@ -65,11 +65,11 @@
 
             <TextView
                 android:id="@+id/tvCarState"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="27dip"
-                android:layout_marginLeft="70dp"
                 android:layout_marginTop="120dp"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
+
                 android:text="爱车熄火中"
                 android:textColor="@color/text_color_gray2"
                 android:textSize="14sp"/>
@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/car_state_iv"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -223,21 +224,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivBg"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/car_main_lay_safety"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:clickable="true">
-
-                <RelativeLayout
-                    android:id="@+id/car_main_lay_safety_lay2"
+                <ImageView
+                    android:id="@+id/icTips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_safe_tips"/>
+                <RelativeLayout
+                    android:layout_toRightOf="@+id/icTips"
+                    android:id="@+id/car_main_lay_safety_lay2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dip">
 
                     <TextView
@@ -257,21 +265,19 @@
                         android:src="@drawable/icon_dot"
                         android:visibility="invisible"
                         />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/car_main_lay_safety_lay2_dot2"
-                        android:src="@drawable/arrow_right"/>
                 </RelativeLayout>
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/arrow_right"/>
                 <TextView
+                    android:layout_toRightOf="@+id/icTips"
                     android:id="@+id/car_main_txt_safety"
                     android:layout_width="fill_parent"
                     android:layout_height="27dip"
                     android:layout_below="@id/car_main_lay_safety_lay2"
-                    android:gravity="center"
                     android:singleLine="true"
                     android:text="暂无消息"
                     android:textColor="@color/text_color_gray2"
@@ -284,13 +290,14 @@
                 android:layout_height="45dip"
                 android:layout_gravity="center_vertical"
                 android:background="@color/text_color_gray2"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/car_main_lay_maintain"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:clickable="true">
 
                 <RelativeLayout
@@ -347,12 +354,18 @@
 
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/tvbg"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/ll"
+            android:background="@color/layout_background"/>
 
         <LinearLayout
             android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
             android:layout_height="102dp"
-            android:layout_below="@+id/ll"
+            android:layout_below="@+id/tvbg"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
