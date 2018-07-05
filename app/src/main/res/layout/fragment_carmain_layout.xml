@@ -14,10 +14,10 @@
 
         <ImageView
             android:id="@+id/ivBg"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg"/>
+            android:src="@drawable/bg"/>
 
         <RelativeLayout
             android:id="@+id/carmian_title_lay"

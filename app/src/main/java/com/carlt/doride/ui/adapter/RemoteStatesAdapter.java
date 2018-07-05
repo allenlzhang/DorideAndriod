@@ -23,7 +23,7 @@ public class RemoteStatesAdapter extends BaseAdapter {
 
     private Context mContext;
 
-    private ArrayList<CarStateInfo> mDataList = new ArrayList<CarStateInfo>();
+    private ArrayList<CarStateInfo> mDataList;
 
     public RemoteStatesAdapter(Context context, ArrayList<CarStateInfo> dataList) {
         mInflater = LayoutInflater.from(context);

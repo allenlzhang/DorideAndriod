@@ -121,7 +121,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
 
 
 
-        subHeadTxt.setText("胎压胎温正常。 \n" + nowTimes);
+        subHeadTxt.setText("胎压正常。 \n" + nowTimes);
         // 胎压状态，1：正常；0：异常
         for (int i = 0; i < remoteDirectPressureInfos.size(); i++) {
             int pressure_status = remoteDirectPressureInfos.get(i).getPressure_status();

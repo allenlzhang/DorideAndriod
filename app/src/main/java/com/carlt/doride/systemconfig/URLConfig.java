@@ -7,7 +7,7 @@ public class URLConfig {
     public final static int VERSION_FORMAL  = 1001;// 正式服
     public final static int VERSION_PREPARE = 1002;// 预发布服
     public final static int VERSION_TEST    = 1003;// 测试服
-    public static       int flag            = VERSION_TEST;
+    public static       int flag            = VERSION_FORMAL;
 
     // 车乐测试服务器
     private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
@@ -162,7 +162,7 @@ public class URLConfig {
 
     // 座驾首页
     private static String M_CAR_MAIN_URL              = "car/carIndex";
-    private static String M_GET_APPSPICS_URL              = "appspic/getAppsPics";
+    private static String M_GET_APPSPICS_URL          = "appspic/getAppsPics";
     private static String M_REMOTE_CAR_MILES_INFO_URL = "remote/getMilesInfos";
 
     // 日报
@@ -172,8 +172,8 @@ public class URLConfig {
     //读取里程
     private static String M_MILESINFO        = "remote/getMilesInfos";
 
-    private static String M_MAINTAIN_LOG = "car/maintainLog";
-     //车辆故障自检
+    private static String M_MAINTAIN_LOG          = "car/maintainLog";
+    //车辆故障自检
     private static String M_REMOTE_WARNINGLAMP    = "remote/warningLamp";
     //实时车况
     private static String M_REMOTE_STATUS         = "remote/status";
@@ -402,9 +402,11 @@ public class URLConfig {
     public static String getM_CAR_MAIN_URL() {
         return getDorideURL(M_CAR_MAIN_URL);
     }
+
     public static String getM_GET_APPSPICS_URL() {
         return getDorideURL(M_GET_APPSPICS_URL);
     }
+
     public static String getM_DEVICEUPDATE_URL() {
         return getDorideURL(M_DEVICEUPDATE_URL);
     }
@@ -480,9 +482,11 @@ public class URLConfig {
     public static String getM_DEVICE_REMOTE_TRUNK() {
         return getUrlRemote(M_DEVICE_REMOTE_TRUNK);
     }
+
     public static String getM_DEVICE_REMOTE_CHAIR_HEATING() {
         return getUrlRemote(M_DEVICE_REMOTE_CHAIR_HEATING);
     }
+
     public static String getM_DEVICE_REMOTE_SKYLIGHT() {
         return getUrlRemote(M_DEVICE_REMOTE_SKYLIGHT);
     }

@@ -15,8 +15,9 @@
         <ImageView
             android:id="@+id/ivBg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg"/>
+            android:layout_height="360dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg"/>
 
         <RelativeLayout
             android:id="@+id/carmian_title_lay"
@@ -69,7 +70,6 @@
                 android:layout_height="27dip"
                 android:layout_marginTop="120dp"
                 android:gravity="center_horizontal"
-
                 android:text="爱车熄火中"
                 android:textColor="@color/text_color_gray2"
                 android:textSize="14sp"/>

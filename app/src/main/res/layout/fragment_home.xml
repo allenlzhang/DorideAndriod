@@ -34,7 +34,7 @@
                       android:id="@+id/ivHomeBg"
                       android:layout_width="match_parent"
                       android:src="@drawable/home_bg"
-                      android:scaleType="fitXY"
+                      android:scaleType="centerCrop"
                       android:layout_height="match_parent"/>
                  <LinearLayout
                      android:id="@+id/ll_homepage"

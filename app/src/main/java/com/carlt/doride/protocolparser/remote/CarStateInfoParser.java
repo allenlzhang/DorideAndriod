@@ -29,9 +29,10 @@ public class CarStateInfoParser extends BaseParser {
 			int[] iconId_opens = CarStateInfo.iconId_opens;
 			int[] iconId_closes = CarStateInfo.iconId_closes;
 			int length = names.length;
-			String[] apiAttrNames = { "doorLockStatus", "doorCloseStatus", "windowStatus", "engine", "AC" ,"skyWindowStatus"};
-			String[] stateClose = { "已锁", "已关", "已关", "已熄火", "关闭" , "已关"};
-			String[] stateOpen = { "未锁", "未关", "未关", "已启动", "已开启" , "未关"};
+//			String[] apiAttrNames = { "doorLockStatus", "doorCloseStatus", "windowStatus", "engine", "AC" ,"skyWindowStatus"};
+			String[] apiAttrNames = { "engine", "doorCloseStatus", "doorLockStatus", "windowStatus", "skyWindowStatus" ,"AC"};
+			String[] stateClose = { "已熄火", "已关", "已锁", "已关", "已关" , "关闭"};
+			String[] stateOpen = { "已启动", "未关", "未锁", "未关", "未关" , "已开启"};
 
 			String[] apiAttrNamesAfter = { "doorLockStatus", "doorCloseStatus",
 					"engine" };
@@ -43,23 +44,23 @@ public class CarStateInfoParser extends BaseParser {
 				mInfo.setName(names[i]);
 				String state = mJSON_data.optString(apiAttrNames[i], "");
 				mInfo.setState(state);
-				if (StringUtils.isEmpty(state)) {
-					//不支持该项目
-					continue;
-				}
-				if (state.equals("255")) {
-					continue;
-				}
+//				if (StringUtils.isEmpty(state)) {
+//					//不支持该项目
+//					continue;
+//				}
+//				if (state.equals("255")) {
+//					continue;
+//				}
 				if (i == 2) {
-						if (state.equals("0")) {
+						if (state.equals("0")|| StringUtils.isEmpty(state)||state.equals("255")) {
 							mInfo.setIconId(iconId_closes[i]);
 							mInfo.setStateDes(stateClose[i]);
 						} else {
 							mInfo.setIconId(iconId_opens[i]);
 							mInfo.setStateDes(stateOpen[i]);
 					}
-				}else if(i == 5 ){//,"开翘"
-					if (state.equals("0")) {
+				}else if(i == 4 ){//,"开翘"
+					if (state.equals("0")|| StringUtils.isEmpty(state)||state.equals("255")) {
 						mInfo.setIconId(iconId_closes[i]);
 						mInfo.setStateDes(stateClose[i]);
 					} else if(state.equals("2")) {
@@ -69,9 +70,9 @@ public class CarStateInfoParser extends BaseParser {
 						mInfo.setIconId(iconId_opens[i]);
 						mInfo.setStateDes(stateOpen[i]);
 					}
-				}else if (i == 4) {
+				}else if (i == 5) {
 						// 支持空调
-						if (state.equals("2")) {
+						if (state.equals("2")|| StringUtils.isEmpty(state)||state.equals("255")) {
 							mInfo.setIconId(iconId_closes[i]);
 							mInfo.setStateDes(stateClose[i]);
 						} else {
@@ -104,7 +105,7 @@ public class CarStateInfoParser extends BaseParser {
 
 						}
 				} else {
-					if (state.equals("0")) {
+					if (state.equals("0")|| StringUtils.isEmpty(state)||state.equals("255")) {
 						mInfo.setIconId(iconId_closes[i]);
 						mInfo.setStateDes(stateClose[i]);
 					} else {

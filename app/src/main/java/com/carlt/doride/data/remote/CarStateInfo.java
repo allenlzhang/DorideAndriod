@@ -7,17 +7,17 @@ import com.carlt.doride.data.BaseResponseInfo;
 
 public class CarStateInfo extends BaseResponseInfo {
     public final static int[] iconId_opens = {
-            R.mipmap.remote_unlock, R.mipmap.remote_door_open, R.mipmap.remote_window_open,R.mipmap.remote_engine_start,
-            R.mipmap.remote_air_open, R.mipmap.remote_top_open
+            R.mipmap.remote_engine_start, R.mipmap.remote_door_open, R.mipmap.remote_unlock,R.mipmap.remote_window_open,
+            R.mipmap.remote_top_open, R.mipmap.remote_air_open
     };
 
     public final static int[] iconId_closes = {
-            R.mipmap.remote_lock, R.mipmap.remote_door_close,R.mipmap.remote_window_close, R.mipmap.remote_engine_stop,
-            R.mipmap.remote_air_colse,R.mipmap.remote_top_close
+            R.mipmap.remote_engine_stop, R.mipmap.remote_door_close,R.mipmap.remote_lock, R.mipmap.remote_window_close,
+            R.mipmap.remote_top_close,R.mipmap.remote_air_colse
     };
 
     public final static String[] names = {
-            "车锁", "车门","车窗","发动机", "空调", "天窗"
+            "发动机", "车门","车锁","车窗", "天窗", "空调"
     };
 
     int iconId;// 状态iconid

@@ -171,6 +171,7 @@ public abstract class BaseFragment extends Fragment {
         }
         mTxtRetryError.setVisibility(View.VISIBLE);
         mTxtEorrorSub.setText(info);
+        mViewError.setVisibility(View.VISIBLE);
     }
 
     @Override

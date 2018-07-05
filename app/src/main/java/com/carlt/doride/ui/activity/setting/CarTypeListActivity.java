@@ -28,10 +28,10 @@ import java.util.HashMap;
 
 public class CarTypeListActivity extends LoadingActivity {
 
-    private ListView car_type_list;//车款列表
+    private ListView       car_type_list;//车款列表
     private CarTypeAdapter adapter;
-    private Intent intent;
-    private String optionid;//车型ID
+    private Intent         intent;
+    private String         optionid;//车型ID
     private static String brandid = "2579";//车系ID
     private String carId;//车款ID
     private String carTitle;
@@ -42,7 +42,7 @@ public class CarTypeListActivity extends LoadingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_type_list);
         intent = getIntent();
-        vinCode=intent.getStringExtra("vin");
+        vinCode = intent.getStringExtra("vin");
         optionid = intent.getStringExtra("optionid");
         loadingDataUI();
         initComponent();
@@ -71,6 +71,9 @@ public class CarTypeListActivity extends LoadingActivity {
                 CarModeInfo modeInfo = (CarModeInfo) adapterView.getItemAtPosition(i);
                 carId = modeInfo.getId();
                 carTitle = modeInfo.getTitle();
+                if (carTitle == null) {
+                    return;
+                }
                 if (intent != null && intent.getBooleanExtra("switch", false)) {
                     switchCarType();
                 } else {
@@ -131,7 +134,7 @@ public class CarTypeListActivity extends LoadingActivity {
             LoginInfo.setCarname(carTitle);
             Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
             intent.putExtra("cat_title", carTitle);
-            intent.putExtra("from","com.carlt.doride.ActivateBindActivity");
+            intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
             if (!TextUtils.isEmpty(vinCode)) {
                 intent.putExtra("vin", vinCode);
             }
