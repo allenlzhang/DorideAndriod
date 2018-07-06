@@ -20,4 +20,5 @@
         <attr name="psw_count" format="integer" />
         <attr name="border_color" format="color" />
     </declare-styleable>
+
 </resources>
