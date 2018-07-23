@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -169,6 +170,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
 
     private TimerTask task;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
