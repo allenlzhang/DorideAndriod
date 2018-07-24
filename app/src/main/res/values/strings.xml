@@ -127,4 +127,29 @@
     <string name="career_main_kilometre">公里</string>
     <string name="career_main_km_h">公里/小时</string>
 
+    <!-- 生涯-车秘书 -->
+    <string name="secretary_name">芝麻小秘书 :</string>
+    <string name="secretary_tip_title">车秘书提示标题</string>
+    <string name="secretary_tip_content">车秘书提示内容</string>
+    <string name="secretary_tip_title1">用车提醒提示标题</string>
+    <string name="secretary_tip_content1">用车提醒提示内容</string>
+    <string name="secretary_tip_maintenance">保养预约</string>
+    <string name="secretary_tip_repair">维修预约</string>
+    <string name="secretary_tip_title2">安防故障提示标题</string>
+    <string name="secretary_tip_content2">安防故障提示内容</string>
+    <string name="secretary_tip_remote">远程诊断</string>
+    <string name="secretary_tip_title3">奖品活动提示标题</string>
+    <string name="secretary_tip_content3">奖品活动提示内容</string>
+    <string name="secretary_tip_reward">领取奖品</string>
+    <string name="secretary_tip_signup">报名参加</string>
+    <string name="secretary_tip_title4">行车信息提示标题</string>
+    <string name="secretary_tip_content4">行车信息提示内容</string>
+    <string name="secretary_tip_report">查看行车报告</string>
+    <string name="secretary_question">问题描述</string>
+    <string name="secretary_adviser">推荐顾问</string>
+    <string name="secretary_adviser_name">顾问姓名</string>
+    <string name="secretary_adviser_company">顾问所属公司</string>
+    <string name="secretary_question_push">发送问题</string>
+    <string name="secretary_consult_tel">电话咨询</string>
+
 </resources>

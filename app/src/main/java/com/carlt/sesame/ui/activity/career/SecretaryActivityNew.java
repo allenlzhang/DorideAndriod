@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.career.SecretaryCategoryInfo;
@@ -175,7 +175,7 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup arg2) {
-			convertView = mInflater.inflate(R.layout.list_item_secretary_types, null);
+			convertView = mInflater.inflate(R.layout.sesame_list_item_secretary_types, null);
 			TextView mTxtTile = (TextView) convertView.findViewById(R.id.activity_career_secretary_title);
 			TextView mTxtDes = (TextView) convertView.findViewById(R.id.activity_career_secretary_des);
 			ImageView mImgIcon = (ImageView) convertView.findViewById(R.id.activity_career_secretary_icon);
