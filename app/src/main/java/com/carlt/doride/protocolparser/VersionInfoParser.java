@@ -27,23 +27,6 @@ public class VersionInfoParser extends BaseParser {
 		mBaseResponseInfo.setValue(mVersionInfo);
 	}
 
-//	public BaseResponseInfo getBaseResponseInfo(String url, String post) {
-//		try {
-//			InputStream in = CPApplication.ApplicationContext.getAssets().open(
-//					"json_version.txt");
-//			mJson = new JSONObject(FileUtil.ToString(in));
-//			Log.e("info", "Http响应--" + mJson);
-//			mBaseResponseInfo.setFlag(mJson.getString("code"));
-//			mBaseResponseInfo.setInfo(mJson.getString("msg"));
-//		} catch (Exception e) {
-//			Log.e("info", "BaseParser--e==" + e);
-//		}
-//		if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-//			parser();
-//		}
-//		return mBaseResponseInfo;
-//
-//	}
 
 	void test(){
 		String data="{\n" +

@@ -66,6 +66,23 @@ public class DorideApplication extends Application {
     public        Context           context;
     public static Context           ApplicationContext;
     /**
+     * 判断相应的页面是否显示可拖动的客服电话按钮
+     */
+    private boolean showDragFlag = false;
+
+    public boolean isShowDragFlag() {
+        return showDragFlag;
+    }
+
+    public void setShowDragFlag(boolean showDragFlag) {
+        this.showDragFlag = showDragFlag;
+    }
+
+    public static DorideApplication getInstance() {
+        return instance;
+    }
+
+    /**
      * 是否已经展示了固件下载升级提示
      */
     private       boolean           isshowupdata;
@@ -145,6 +162,10 @@ public class DorideApplication extends Application {
 
         String sha1 = sHA1(this);
         Logger.e("---" + sha1);
+    }
+
+    public static Context getAppContext() {
+        return ApplicationContext;
     }
 
     public static DorideApplication getInstanse() {

@@ -119,4 +119,12 @@
         &#041;&#060;&#062;&#091;&#093;&#123;&#125;&quot;&#044;&#046;&#059;'&#033;）</string>
     <!--信鸽推送key -->
     <string name="SECRET_KEY">4d3a5b8012846ed443b731681411ddc1</string>
+
+    <!-- 主页面-生涯 -->
+    <string name="career_main_diverlevel">驾驶证等级&#160;&#160;</string>
+    <string name="career_main_totem">图腾：</string>
+    <string name="career_main_liter">升</string>
+    <string name="career_main_kilometre">公里</string>
+    <string name="career_main_km_h">公里/小时</string>
+
 </resources>
