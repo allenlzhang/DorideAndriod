@@ -2,7 +2,7 @@ package com.carlt.sesame.ui.activity.car;
 
 import android.text.TextUtils;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.car.CarMainFunInfo;
 import com.carlt.sesame.data.remote.AirMainInfo;

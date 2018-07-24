@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical"
+    android:paddingTop="4dip" >
+
+    <include
+        android:id="@+id/sub_head"
+        layout="@layout/head_sub1" />
+
+    <RelativeLayout
+        android:id="@+id/activity_car_tire_pressure_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="71dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_sharing_bg"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/activity_car_tire_pressure_img_activate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dip"
+            android:paddingTop="3dip"
+            android:src="@drawable/tire_pressure_activate" />
+
+        <TextView
+            android:id="@+id/activity_car_tire_pressure_txt_activate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="6dip"
+            android:layout_toLeftOf="@id/activity_car_tire_pressure_img_activate"
+            android:paddingTop="3dip"
+            android:text=""
+            android:textColor="@color/text_color_gray1"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/activity_car_tire_pressure_lay_progress"
+        android:layout_width="fill_parent"
+        android:layout_height="71dip"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/activity_car_tire_pressure_txt_progress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="激活进度："
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_small_s1" />
+
+        <ProgressBar
+            android:id="@+id/activity_car_tire_pressure_progress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateOnly="false"
+            android:max="100"
+            android:maxHeight="5.5dip"
+            android:minHeight="5.5dip"
+            android:progressDrawable="@drawable/career_progress_bg" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/activity_car_tire_pressure_relative"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/activity_car_tire_pressure_bottom"
+        android:layout_below="@id/sub_head"
+        android:layout_marginTop="10dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:visibility="visible"
+        android:layout_marginBottom="15dp" >
+
+        <ImageView
+            android:id="@+id/activity_car_tire_pressure_img"
+            style="@style/public_img"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_car" >
+        </ImageView>
+
+        <com.carlt.sesame.ui.view.TirePressureView
+            android:id="@+id/activity_car_tire_pressure_lay1"
+            style="@style/car_tire_prssure_lay"
+            android:layout_alignTop="@id/activity_car_tire_pressure_img"
+            android:layout_marginTop="15dip"
+            android:layout_toLeftOf="@id/activity_car_tire_pressure_img" />
+
+        <com.carlt.sesame.ui.view.TirePressureView
+            android:id="@+id/activity_car_tire_pressure_lay2"
+            style="@style/car_tire_prssure_lay"
+            android:layout_alignTop="@id/activity_car_tire_pressure_img"
+            android:layout_marginTop="15dip"
+            android:layout_toRightOf="@id/activity_car_tire_pressure_img" />
+
+        <com.carlt.sesame.ui.view.TirePressureView
+            android:id="@+id/activity_car_tire_pressure_lay3"
+            style="@style/car_tire_prssure_lay"
+            android:layout_alignBottom="@id/activity_car_tire_pressure_img"
+            android:layout_marginBottom="15dip"
+            android:layout_toLeftOf="@id/activity_car_tire_pressure_img" />
+
+        <com.carlt.sesame.ui.view.TirePressureView
+            android:id="@+id/activity_car_tire_pressure_lay4"
+            style="@style/car_tire_prssure_lay"
+            android:layout_alignBottom="@id/activity_car_tire_pressure_img"
+            android:layout_marginBottom="15dip"
+            android:layout_toRightOf="@id/activity_car_tire_pressure_img" />
+    </RelativeLayout>
+
+</RelativeLayout>

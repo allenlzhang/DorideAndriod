@@ -121,6 +121,19 @@
         <activity android:name=".ui.activity.carstate.FindCarActivity"/>
         <activity android:name=".ui.activity.carstate.LocationSynchronizeActivity"/>
         <activity android:name=".ui.activity.remote.RemotePswResetActivity3"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarConditionActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarFillIllegalActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarListActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarForHelpActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalDetailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarSafetyActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarTestActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarTirePressureActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.FindCarActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.NavigationTocarActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.SearchAddrActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

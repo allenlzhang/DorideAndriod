@@ -6,21 +6,13 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.car.ViolationInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.adapter.QueryIllegalAdapter;
 
-//import com.baidu.mapapi.map.BaiduMap;
-//import com.baidu.mapapi.map.MapView;
-//import com.baidu.mapapi.overlayutil.PoiOverlay;
-//import com.baidu.mapapi.search.core.SearchResult;
-//import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-//import com.baidu.mapapi.search.poi.PoiCitySearchOption;
-//import com.baidu.mapapi.search.poi.PoiDetailResult;
-//import com.baidu.mapapi.search.poi.PoiResult;
-//import com.baidu.mapapi.search.poi.PoiSearch;
+
 
 /**
  * 座驾-违章查询详情页面

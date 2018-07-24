@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/sub_head"
+        layout="@layout/head_sub_normal" />
+
+    <com.carlt.sesame.ui.pull.PullToRefreshListView
+        android:id="@+id/activity_car_safety_list"
+        style="@style/public_listView" 
+        android:layout_height="match_parent"
+        android:dividerHeight="10dip"
+        android:layout_marginLeft="@dimen/layout_padding"
+        android:layout_marginRight="@dimen/layout_padding"
+        android:layout_below="@id/sub_head"/>
+
+</RelativeLayout>
