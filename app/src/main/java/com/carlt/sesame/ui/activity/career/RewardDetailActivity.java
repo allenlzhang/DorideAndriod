@@ -11,7 +11,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.data.career.PrizeInfo;
 import com.carlt.sesame.http.AsyncImageLoader;

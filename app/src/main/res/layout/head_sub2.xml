@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/layout_margin_v"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/head_sub_margin_h"
+    android:paddingRight="@dimen/head_sub_margin_h" >
+
+    <RelativeLayout
+        android:layout_width="72.5dip"
+        android:layout_height="72.5dip"
+        android:background="@drawable/icon_secretary_bg" >
+
+        <ImageView
+            android:id="@+id/layout_sub_head_img"
+            android:layout_width="51dip"
+            android:layout_height="51dip"
+            android:layout_centerInParent="true"
+            android:contentDescription="车秘书图标" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/layout_sub_head_txt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_margin_v"
+        android:layout_marginTop="@dimen/layout_margin_v"
+        android:background="@drawable/head_sub_tip_bg2"
+        android:gravity="center_vertical"
+        android:minLines="1"
+        android:paddingLeft="@dimen/head_sub_paddingl"
+        android:paddingRight="@dimen/head_sub_paddingr"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small" />
+
+</LinearLayout>

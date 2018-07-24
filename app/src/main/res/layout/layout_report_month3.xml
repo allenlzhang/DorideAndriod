@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/report_txt_large"
+        android:layout_marginTop="80dip"
+        android:text="@string/report_drive_duration" />
+
+    <ImageView
+        style="@style/public_img"
+        android:src="@drawable/icon_clock_month" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dip"
+        android:layout_gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/layout_report_month3_txt1"
+            style="@style/report_txt_huge"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/layout_report_month3_txt_hour"
+            style="@style/report_txt_small_green"
+            android:layout_alignBottom="@id/layout_report_month3_txt1"
+            android:layout_toRightOf="@id/layout_report_month3_txt1"
+            android:text="小时"
+            />
+
+        <TextView
+            android:id="@+id/layout_report_month3_txt2"
+            style="@style/report_txt_huge"
+            android:layout_toRightOf="@id/layout_report_month3_txt_hour"
+            android:text="" 
+            android:layout_marginLeft="4dip"
+            android:layout_marginRight="4dip" />
+
+        <TextView
+            android:id="@+id/layout_report_month3_txt_min"
+            style="@style/report_txt_small_green"
+           android:layout_alignBottom="@id/layout_report_month3_txt2"
+            android:layout_toRightOf="@id/layout_report_month3_txt2"
+            android:text="分钟" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/layout_report_month3_txt3"
+        style="@style/report_txt_small"
+        android:text="" />
+
+</LinearLayout>

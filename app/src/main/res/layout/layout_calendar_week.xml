@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <include
+        android:id="@+id/head_calendar"
+        layout="@layout/head_calendar" />
+
+    <ListView
+        android:id="@+id/layout_calendar_week_list"
+        style="@style/public_listView"
+        android:layout_below="@id/head_calendar"
+        android:background="@color/white"
+        android:divider="#DFDFDF"
+        android:dividerHeight="1dip" />
+
+    <include layout="@layout/loading_activity" />
+
+</RelativeLayout>

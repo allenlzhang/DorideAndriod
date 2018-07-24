@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_career_map_4s"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="fill_parent"
+        android:layout_height="75dip"
+        android:background="@drawable/illegal_detail_info_bg"
+        android:paddingLeft="13dip"
+        android:paddingRight="13dip" >
+
+        <TextView
+            android:id="@+id/activity_career_map_4s_txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="10dip"
+            android:text="4s店名称"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/activity_career_map_4s_txt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_career_map_4s_txt1"
+            android:layout_marginBottom="10dip"
+            android:text="4s店地址"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="@dimen/text_size_small" />
+
+        <ImageView
+            android:layout_width="40dip"
+            android:layout_height="41dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_top"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/activity_career_map_4s_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relative"
+        android:clickable="true" />
+
+</RelativeLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/activity_career_reward_detail_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="71dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_sharing_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="9dip"
+        android:paddingTop="12dip" >
+
+        <TextView
+            android:id="@+id/activity_career_reward_detail_text8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dip"
+            android:drawableLeft="@drawable/icon_phone_large"
+            android:drawablePadding="6dip"
+            android:text="@string/reward_4s_tel"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_large" />
+    </LinearLayout>
+
+    <ScrollView
+        style="@style/public_scrollView"
+        android:layout_above="@id/activity_career_reward_detail_layout"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="4dip"
+                android:paddingLeft="@dimen/reward_detail_padding_h"
+                android:paddingRight="@dimen/reward_detail_padding_h"
+                android:paddingTop="4dip" >
+
+                <ImageView
+                    android:id="@+id/activity_career_reward_detail_img1"
+                    android:layout_width="121dip"
+                    android:layout_height="91dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:src="@drawable/icon_default_reward" />
+
+                <TextView
+                    android:id="@+id/activity_career_reward_detail_text1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginTop="18dip"
+                    android:layout_toRightOf="@+id/activity_career_reward_detail_img1"
+                    android:singleLine="true"
+                    android:text="@string/reward_name"
+                    android:textColor="@color/text_color_gray2"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <TextView
+                    android:id="@+id/activity_career_reward_detail_text2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/activity_career_reward_detail_text1"
+                    android:layout_toRightOf="@+id/activity_career_reward_detail_img1"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:text="@string/reward_description"
+                    android:textColor="@color/text_color_gray2"
+                    android:textSize="@dimen/text_size_small_s1" />
+            </RelativeLayout>
+
+            <TextView style="@style/line_h" />
+
+            <TextView
+                android:id="@+id/activity_career_reward_detail_text3_des"
+                style="@style/career_reward_txt1"
+                android:text="@string/reward_coupon_code" />
+
+            <TextView
+                android:id="@+id/activity_career_reward_detail_text3"
+                style="@style/career_reward_txt2"
+                android:textColor="@color/text_color_green"
+                android:textSize="30sp" />
+
+            <TextView style="@style/line_h" />
+
+            <TextView
+                style="@style/career_reward_txt1"
+                android:text="@string/reward_instruction" />
+
+            <WebView
+                android:id="@+id/activity_career_reward_detail_webview1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/layout_background" />
+
+            <TextView style="@style/line_h" />
+
+            <TextView
+                android:id="@+id/activity_career_reward_detail_text5"
+                style="@style/career_reward_txt1"
+                android:text="@string/reward_4s_name" />
+
+            <WebView
+                android:id="@+id/activity_career_reward_detail_webview2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/layout_background" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

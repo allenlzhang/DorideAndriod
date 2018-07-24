@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="62dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/report_bottom_tab_bg"
+        android:gravity="right|center_vertical"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip" >
+
+        <Button
+            android:id="@+id/layout_report_summary_month"
+            android:layout_width="57.5dip"
+            android:layout_height="58.5dip"
+            android:background="@drawable/tab_report_bg"
+            android:text="月报"
+            android:textColor="@color/text_color_gray2" />
+
+        <Button
+            android:id="@+id/layout_report_summary_week"
+            android:layout_width="57.5dip"
+            android:layout_height="58.5dip"
+            android:background="@drawable/tab_report_bg"
+            android:text="周报"
+            android:textColor="@color/text_color_gray2" />
+
+        <Button
+            android:id="@+id/layout_report_summary_day"
+            android:layout_width="57.5dip"
+            android:layout_height="58.5dip"
+            android:background="@drawable/tab_report_bg"
+            android:text="日报"
+            android:textColor="@color/text_color_gray2" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_report_summary_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_layout" >
+
+        <include layout="@layout/layout_report_all" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/layout_report_summary_txt_prompt"
+        style="@style/public_nodata_txt"
+        android:text="暂无行车数据，把你的车拉出去溜溜吧！" />
+
+</RelativeLayout>

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -24,7 +24,6 @@ import com.carlt.sesame.data.career.DiagnoseInfo;
 import com.carlt.sesame.data.career.RecommendSalesInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
-import com.carlt.sesame.ui.activity.friends.DeclarationActivity;
 import com.carlt.sesame.ui.adapter.RemoteFaultAdapter;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.Log;
@@ -269,9 +268,9 @@ public class SecretaryRemoteActivity extends LoadingActivityWithTitle implements
                     mBuffer.append(mInfo.getContent());
                     mBuffer.append("\n");
                 }
-                Intent mIntent = new Intent(SecretaryRemoteActivity.this, DeclarationActivity.class);
-                mIntent.putExtra(DeclarationActivity.MSG_INFO, mBuffer.toString());
-                startActivity(mIntent);
+//                Intent mIntent = new Intent(SecretaryRemoteActivity.this, DeclarationActivity.class);
+//                mIntent.putExtra(DeclarationActivity.MSG_INFO, mBuffer.toString());
+//                startActivity(mIntent);
                 break;
             case R.id.activity_career_secretary_remote_layout2:
                 // 拨打电话,调用系统的拨号服务实现电话拨打功能

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.career.ReportDayInfo;
 import com.carlt.sesame.ui.activity.career.report.BaseFragment;
 import com.carlt.sesame.ui.view.CircleValueBar;

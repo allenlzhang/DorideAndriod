@@ -8,14 +8,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,7 +29,6 @@ import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.amap.api.services.weather.WeatherSearch;
 import com.amap.api.services.weather.WeatherSearch.OnWeatherSearchListener;
 import com.amap.api.services.weather.WeatherSearchQuery;
-import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
@@ -42,7 +38,6 @@ import com.carlt.sesame.data.career.CareerInfo;
 import com.carlt.sesame.data.career.ChallengeInfo;
 import com.carlt.sesame.data.career.WeatherInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
-import com.carlt.sesame.map.ChallengeMapActivity;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.activity.career.report.ReportActivity;
 import com.carlt.sesame.utility.Log;
@@ -311,39 +306,39 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 
 	}
 
-	private OnItemClickListener mItemClickListener = new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			int size = mArrayList.size();
-			if (position >= mArrayList.size()) {
-				position = position % size;
-			}
-			ChallengeInfo mChallengeInfo = mArrayList.get(position);
-			if (mChallengeInfo != null) {
-				String status = mChallengeInfo.getStatus();
-				if (status.equals(ChallengeInfo.STATUS_FINISHED)) {
-					// 1.已完成挑战，跳转至挑战结果（最佳纪录）
-					Intent mIntent1 = new Intent(CareerMainActivity.this,
-							ChallengeHistoryBestActivity.class);
-					mIntent1.putExtra("ChallengeInfo", mChallengeInfo);
-					startActivity(mIntent1);
-
-				} else if (status.equals(ChallengeInfo.STATUS_UNFINISHED)) {
-					// 2.未完成挑战，跳转至挑战页面
-					Intent mIntent2 = new Intent(CareerMainActivity.this,
-							ChallengeMapActivity.class);
-					mIntent2.putExtra("ChallengeInfo", mChallengeInfo);
-					startActivity(mIntent2);
-				} else if (status.equals(ChallengeInfo.STATUS_UNLOCKED)) {
-					// 3.未解锁挑战，不可点击
-
-				}
-			}
-
-		}
-	};
+//	private OnItemClickListener mItemClickListener = new OnItemClickListener() {
+//
+//		@Override
+//		public void onItemClick(AdapterView<?> parent, View view, int position,
+//				long id) {
+//			int size = mArrayList.size();
+//			if (position >= mArrayList.size()) {
+//				position = position % size;
+//			}
+//			ChallengeInfo mChallengeInfo = mArrayList.get(position);
+//			if (mChallengeInfo != null) {
+//				String status = mChallengeInfo.getStatus();
+//				if (status.equals(ChallengeInfo.STATUS_FINISHED)) {
+//					// 1.已完成挑战，跳转至挑战结果（最佳纪录）
+//					Intent mIntent1 = new Intent(CareerMainActivity.this,
+//							ChallengeHistoryBestActivity.class);
+//					mIntent1.putExtra("ChallengeInfo", mChallengeInfo);
+//					startActivity(mIntent1);
+//
+//				} else if (status.equals(ChallengeInfo.STATUS_UNFINISHED)) {
+//					// 2.未完成挑战，跳转至挑战页面
+//					Intent mIntent2 = new Intent(CareerMainActivity.this,
+//							ChallengeMapActivity.class);
+//					mIntent2.putExtra("ChallengeInfo", mChallengeInfo);
+//					startActivity(mIntent2);
+//				} else if (status.equals(ChallengeInfo.STATUS_UNLOCKED)) {
+//					// 3.未解锁挑战，不可点击
+//
+//				}
+//			}
+//
+//		}
+//	};
 
 	@Override
 	protected void LoadSuccess(Object data) {

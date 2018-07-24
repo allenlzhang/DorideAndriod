@@ -6,7 +6,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+
 
 public class OrderDayView extends LinearLayout {
 	private ImageView iv;

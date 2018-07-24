@@ -1,5 +1,5 @@
 
-package com.carlt.sesame.map;
+package com.carlt.sesame.ui.activity.career;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +15,7 @@ import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;

@@ -12,14 +12,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfoList;
-import com.carlt.sesame.map.AddressMapActivity;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.activity.car.CarFillIllegalActivity;
 import com.carlt.sesame.ui.activity.car.CarQueryIllegalActivity;
@@ -46,7 +45,6 @@ import java.util.Date;
 
 /**
  * 车秘书消息列表
- * 
  * @author daisy
  */
 public class SecretaryTipsActivity extends LoadingActivityWithTitle {
@@ -124,9 +122,9 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
     }
 
     private void initTitle() {
-        back = (ImageView)findViewById(R.id.head_back_img1);
-        title = (TextView)findViewById(R.id.head_back_txt1);
-        txtRight = (TextView)findViewById(R.id.head_back_txt2);
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
         title.setText(title_s);
@@ -184,10 +182,10 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
     // 养护提醒专有功能
     private void initSubTitle() {
         mUUDialog = PopBoxCreat.createDialogWithProgress(SecretaryTipsActivity.this, "正在加载");
-        ImageView mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
-        mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
+        ImageView mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
+        mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
 
-        havemainten = (TextView)findViewById(R.id.activity_career_secretary_tips_havemainten);
+        havemainten = (TextView) findViewById(R.id.activity_career_secretary_tips_havemainten);
 
         View lookmainten = findViewById(R.id.activity_career_secretary_tips_lookmainten);
 
@@ -256,8 +254,8 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
         } else {
             MaintenanceTitle.setVisibility(View.GONE);
         }
-        mPullListView = (PullToRefreshListView)findViewById(R.id.activity_career_secretary_tips_list);
-        mTxtEmpty = (TextView)findViewById(R.id.activity_career_secretary_tips_empty);
+        mPullListView = (PullToRefreshListView) findViewById(R.id.activity_career_secretary_tips_list);
+        mTxtEmpty = (TextView) findViewById(R.id.activity_career_secretary_tips_empty);
 
         mListView = mPullListView.getRefreshableView();
         mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
@@ -286,7 +284,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
     @Override
     protected void LoadSuccess(Object data) {
         if (data != null) {
-            mInfoLists = (SecretaryMessageInfoList)data;
+            mInfoLists = (SecretaryMessageInfoList) data;
             if (mInfoLists != null) {
                 mList = mInfoLists.getmAllList();
                 if (mAdapter == null) {
@@ -310,8 +308,8 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                 mPullListView.onPullUpRefreshComplete();
                 setLastUpdateTime();
             }
-        }else{
-            
+        } else {
+
         }
         super.LoadSuccess(data);
     }
@@ -533,8 +531,8 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                         case SecretaryMessageInfo.C1_T4_T4:
                             // 解锁勋章
 
-                            mIntent4 = new Intent(SecretaryTipsActivity.this, MedalActivity.class);
-                            startActivity(mIntent4);
+                            //                            mIntent4 = new Intent(SecretaryTipsActivity.this, MedalActivity.class);
+                            //                            startActivity(mIntent4);
                             break;
 
                         case SecretaryMessageInfo.C1_T4_T5:
@@ -654,7 +652,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                         mDialog.dismiss();
                     }
                     mAdapter.notifyDataSetChanged();
-                    String info_success = (String)msg.obj;
+                    String info_success = (String) msg.obj;
                     if (info_success != null) {
                         UUToast.showUUToast(SecretaryTipsActivity.this, info_success);
                     }
@@ -666,13 +664,13 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    String info_failed = (String)msg.obj;
+                    String info_failed = (String) msg.obj;
                     if (info_failed != null) {
                         UUToast.showUUToast(SecretaryTipsActivity.this, info_failed);
                     }
                     break;
                 case 2:
-                    SecretaryMessageInfoList mMore = (SecretaryMessageInfoList)msg.obj;
+                    SecretaryMessageInfoList mMore = (SecretaryMessageInfoList) msg.obj;
                     if (mInfoLists != null) {
                         mInfoLists.setOffset(mMore.getOffset());
                         mInfoLists.addmAllList(mMore.getmAllList());
@@ -701,7 +699,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
                         UUToast.showUUToast(SecretaryTipsActivity.this, mBaseResponseInfo.getInfo());
                     }
@@ -725,7 +723,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                         mUUDialog.dismiss();
                     }
 
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
                         UUToast.showUUToast(SecretaryTipsActivity.this, mBaseResponseInfo.getInfo());
                     }
@@ -736,7 +734,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                         mUUDialog.dismiss();
                     }
 
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
                         UUToast.showUUToast(SecretaryTipsActivity.this, mBaseResponseInfo.getInfo());
                     }
