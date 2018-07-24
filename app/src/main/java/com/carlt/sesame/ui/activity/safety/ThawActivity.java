@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -117,16 +117,8 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
 
         mViewPsw = findViewById(R.id.thaw_lay_loginpsw);
 
-        if (DorideApplication.isVisitor) {
-            // 游客模式
-            VisitorInfo mVisitorInfo = UseInfoVisitor.getVisitorInfo();
-            String pswRemote = mVisitorInfo.getPasswordRemote();
-            mEdtLoginPsw.setEnabled(false);
-            mEdtLoginPsw.setText(pswRemote);
-        } else {
             // 正常模式
             mEdtLoginPsw.setEnabled(true);
-        }
 
         mTxtOpt.setOnClickListener(this);
     }

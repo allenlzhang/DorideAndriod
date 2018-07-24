@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/head_back" />
+
+    <LinearLayout
+        android:id="@+id/verify_phone_lay_phoneold"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/verify_phone_edt_phoneold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/verify_phone_lay_phonenew"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/verify_phone_edt_phonenew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/verify_phone_edt_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:id="@+id/verify_phone_txt_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4.5dp"
+            android:background="@drawable/btn_code_bg"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/verify_phone_txt_option"
+        style="@style/public_bottom_btn_blue"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="20dip"
+        android:text="更换主机" />
+
+</LinearLayout>

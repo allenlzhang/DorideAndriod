@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/head_back" />
+
+    <LinearLayout
+        android:id="@+id/verify_identity_lay_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/verify_identity_edt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/verify_identity_lay_IDCard"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/verify_identity_edt_IDCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/verify_identity_lay_remotepsw"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/verify_identity_edt_remotepsw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/verify_identity_txt_option"
+        style="@style/public_bottom_btn_blue"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="5dip"
+        android:text="更换主机" />
+
+</LinearLayout>

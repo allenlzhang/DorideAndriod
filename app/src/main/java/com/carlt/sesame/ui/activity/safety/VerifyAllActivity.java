@@ -11,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
-import com.carlt.sesame.ui.activity.usercenter.login.LoginActivity;
 import com.carlt.sesame.ui.view.GetValidateView;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.ValidateEditText;

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/head_back" />
+
+    <com.carlt.sesame.ui.view.ValidateEditText
+        android:id="@+id/remotepsw_reset_edt_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="22dip" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/remotepsw_reset_edt_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:id="@+id/remotepsw_reset_txt_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4.5dp"
+            android:background="@drawable/btn_code_bg"
+            android:gravity="center"
+            android:text="@string/usercenter_push_validate"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/remotepsw_reset2_txt_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="@dimen/safe_margin_h"
+        android:text="请输入新密码"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <com.carlt.sesame.ui.view.PwdEditText
+        android:id="@+id/remotepsw_reset2_pwdedt1"
+        style="@style/safety_psw_edt" />
+
+    <TextView
+        android:id="@+id/remotepsw_reset2_txt_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="@dimen/safe_margin_h"
+        android:layout_marginTop="20dip"
+        android:text="请再次输入新密码"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <com.carlt.sesame.ui.view.PwdEditText
+        android:id="@+id/remotepsw_reset2_pwdedt2"
+        style="@style/safety_psw_edt" />
+
+    <TextView
+        android:id="@+id/remotepsw_reset_txt_next"
+        style="@style/public_bottom_btn_blue"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="22dip"
+        android:clickable="false"
+        android:text="修改" />
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/head_back" />
+
+    <TextView
+        android:id="@+id/remotepsw_detail_txt_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="@dimen/safe_margin_h"
+        android:layout_marginTop="20dip"
+        android:text="请输入原密码"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <com.carlt.sesame.ui.view.PwdEditText
+        android:id="@+id/remotepsw_detail_pwdedt1"
+        style="@style/safety_psw_edt" />
+
+    <TextView
+        android:id="@+id/remotepsw_detail_txt_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="@dimen/safe_margin_h"
+        android:layout_marginTop="20dip"
+        android:text="请输入新密码"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <com.carlt.sesame.ui.view.PwdEditText
+        android:id="@+id/remotepsw_detail_pwdedt2"
+        style="@style/safety_psw_edt" />
+    
+      <TextView
+        android:id="@+id/remotepsw_detail_txt_title3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="@dimen/safe_margin_h"
+        android:layout_marginTop="20dip"
+        android:text="再次输入新密码"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <com.carlt.sesame.ui.view.PwdEditText
+        android:id="@+id/remotepsw_detail_pwdedt3"
+        style="@style/safety_psw_edt" />
+
+    <TextView
+        android:id="@+id/remotepsw_detail_txt_edit"
+        style="@style/public_bottom_btn_blue"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="22dip"
+        android:text="修改" />
+
+</LinearLayout>

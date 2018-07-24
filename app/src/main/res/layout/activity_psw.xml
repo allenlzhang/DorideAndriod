@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/layout_background" >
+
+    <include layout="@layout/head_back" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dip"
+        android:layout_marginTop="11dip"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/psw_lay_login"
+            style="@style/setting_userinfo_layout1" >
+
+            <TextView
+                style="@style/setting_userinfo_text1"
+                android:layout_marginRight="45dip"
+                android:text="登录密码管理" />
+
+            <TextView
+                android:id="@+id/psw_txt_edit"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text="" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line1"
+            style="@style/setting_line_h"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:id="@+id/psw_lay_remote"
+            style="@style/setting_userinfo_layout1"
+            android:visibility="visible" >
+
+            <TextView
+                style="@style/setting_userinfo_text1"
+                android:layout_marginRight="45dip"
+                android:text="远程控制密码管理" />
+
+            <TextView
+                android:id="@+id/psw_txt_forget"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text="" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
