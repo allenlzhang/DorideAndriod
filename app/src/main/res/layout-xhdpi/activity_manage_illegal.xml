@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_background"
+        android:orientation="vertical" >
+
+        <include layout="@layout/head_sub_normal" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#00000000" />
+
+        <LinearLayout
+            android:id="@+id/activity_manage_illegal_layout2"
+            style="@style/car_illeage_linear1" >
+
+            <TextView
+                style="@style/car_illeage_txt1"
+                android:text="@string/car_city" />
+
+            <TextView
+                android:id="@+id/activity_manage_illegal_select"
+                style="@style/car_illeage_edit"
+                android:layout_width="fill_parent"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text="@string/car_illegal_city" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_manage_illegal_layout3"
+            style="@style/car_illeage_linear1" >
+
+            <TextView
+                style="@style/car_illeage_txt1"
+                android:text="@string/car_num" />
+
+            <TextView
+                android:id="@+id/activity_manage_illegal_abbr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/car_num"
+                android:textColor="@color/text_color_gray2"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/activity_manage_illegal_edit1"
+                style="@style/car_illeage_edit"
+                android:hint="@string/car_illegal_num"
+                android:text="" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/activity_manage_illegal_layout4"
+            style="@style/car_illeage_linear1"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/text_title2"
+                style="@style/car_illeage_txt1"
+                android:layout_centerVertical="true"
+                android:text="@string/car_engine" />
+
+            <ImageView
+                android:id="@+id/activity_manage_illegal_img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dip"
+                android:paddingLeft="25dip"
+                android:src="@drawable/icon_question_small" />
+
+            <EditText
+                android:id="@+id/activity_manage_illegal_edit2"
+                style="@style/car_illeage_edit"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/activity_manage_illegal_img1"
+                android:layout_toRightOf="@id/text_title2"
+                android:hint="@string/car_illegal_engine"
+                android:text="" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/activity_manage_illegal_layout5"
+            style="@style/car_illeage_linear1"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/text_title3"
+                style="@style/car_illeage_txt1"
+                android:layout_centerVertical="true"
+                android:text="@string/car_frame" />
+
+            <ImageView
+                android:id="@+id/activity_manage_illegal_img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dip"
+                android:paddingLeft="25dip"
+                android:src="@drawable/icon_question_small" />
+
+            <EditText
+                android:id="@+id/activity_manage_illegal_edit3"
+                style="@style/car_illeage_edit"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/activity_manage_illegal_img2"
+                android:layout_toRightOf="@id/text_title3"
+                android:hint="@string/car_illegal_frame" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/activity_manage_illegal_layout6"
+            style="@style/car_illeage_linear1"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/text_title4"
+                style="@style/car_illeage_txt1"
+                android:layout_centerVertical="true"
+                android:text="@string/car_certificate" />
+
+            <ImageView
+                android:id="@+id/activity_manage_illegal_img3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dip"
+                android:paddingLeft="25dip"
+                android:src="@drawable/icon_question_small" />
+
+            <EditText
+                android:id="@+id/activity_manage_illegal_edit4"
+                style="@style/car_illeage_edit"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/activity_manage_illegal_img3"
+                android:layout_toRightOf="@id/text_title4"
+                android:hint="@string/car_illegal_frame" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/activity_manage_illegal_query"
+            android:layout_width="fill_parent"
+            android:layout_height="45dip"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/layout_padding"
+            android:layout_marginRight="@dimen/layout_padding"
+            android:layout_marginTop="17dip"
+            android:background="@drawable/bottom_btn_blue"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle1" />
+    </LinearLayout>
+
+</ScrollView>

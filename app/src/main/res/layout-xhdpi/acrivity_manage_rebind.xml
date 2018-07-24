@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/head"
+        layout="@layout/head_back" />
+
+    <ImageView
+        android:id="@+id/activity_rebind_example"
+        android:layout_width="266.5dp"
+        android:layout_height="163dp"
+        android:layout_below="@id/head"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dip"
+        android:layout_marginTop="20dip"
+        android:orientation="horizontal"
+        android:src="@drawable/two_dimission_code_bg" />
+
+    <RelativeLayout
+        android:id="@+id/activity_rebind_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_rebind_example"
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edittext_bg"
+        android:paddingRight="6dip" >
+
+        <EditText
+            android:id="@+id/activity_rebind_editnum"
+            style="@style/usercenter_edit1"
+            android:layout_marginLeft="0dip"
+            android:background="@null"
+            android:hint="扫描或输入盒子序列号"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/activity_rebind_btnscan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_code_bg"
+            android:gravity="center"
+            android:text="扫一扫"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/activity_rebind_btnbind"
+        style="@style/public_bottom_btn_blue"
+        android:layout_below="@id/activity_rebind_scan"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="20dip"
+        android:text="绑定设备" />
+
+</RelativeLayout>

@@ -134,6 +134,30 @@
         <activity android:name="com.carlt.sesame.ui.activity.car.FindCarActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.car.NavigationTocarActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.car.SearchAddrActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.AboutAppActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageMaintainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditPhoneActivity1"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditPhoneActivity2"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditUserinfoActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditUserinfoDetailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.FeeLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCarActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCheckActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCommonActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCustomerServiceActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageDeviceActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageFeeActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageMessageActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageIllegalActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageReBindActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.SettingMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataDetailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataLogItemDetialActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.WebActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

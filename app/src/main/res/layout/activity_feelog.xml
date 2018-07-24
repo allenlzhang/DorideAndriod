@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <com.carlt.sesame.ui.pull.PullToRefreshListView
+        android:id="@+id/feelog_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dip" >
+    </com.carlt.sesame.ui.pull.PullToRefreshListView>
+
+    <TextView
+        android:id="@+id/feelog_txt_empty"
+        style="@style/public_nodata_txt"
+        android:text="暂时没有您的购买记录" />
+
+</RelativeLayout>

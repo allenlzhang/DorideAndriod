@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/manage_car_layout1"
+        style="@style/setting_layout1"
+        android:layout_height="74dip"
+        android:layout_marginBottom="14dip"
+        android:layout_marginTop="15dip" >
+
+        <TextView
+            android:id="@+id/car_title1"
+            style="@style/setting_userinfo_text1"
+            android:layout_marginRight="15dip"
+            android:text="车型" />
+
+        <ImageView
+            android:id="@+id/car_crrow1"
+            style="@style/setting_img2"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dip" />
+
+        <TextView
+            android:id="@+id/manage_car_txt_carname"
+            style="@style/setting_txt"
+            android:layout_toLeftOf="@id/car_crrow1"
+            android:layout_toRightOf="@id/car_title1"
+            android:clickable="true"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="right|center_vertical"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/text_color_gray1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/manage_car_layout3"
+        style="@style/setting_layout1"
+        android:layout_marginBottom="14dip" >
+
+        <TextView
+            android:id="@+id/text_title3"
+            style="@style/setting_userinfo_text1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:text="购车时间" />
+
+        <TextView
+            android:id="@+id/manage_car_txt_buydate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="4.5dip"
+            android:drawableRight="@drawable/icon_calendar"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/manage_car_layout4"
+        style="@style/setting_layout1"
+        android:layout_marginBottom="14dip" >
+
+        <TextView
+            android:id="@+id/text_title4"
+            style="@style/setting_userinfo_text1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:text="上次保养里程" />
+
+        <ImageView
+            android:id="@+id/car_crrow4"
+            style="@style/setting_img2"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dip" />
+
+        <TextView
+            android:id="@+id/manage_car_txt_maintainmile"
+            style="@style/setting_userinfo_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/car_crrow4"
+            android:text="公里" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/manage_car_layout5"
+        style="@style/setting_layout1"
+        android:layout_marginBottom="14dip" >
+
+        <TextView
+            android:id="@+id/text_title5"
+            style="@style/setting_userinfo_text1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:text="上次保养时间" />
+
+        <TextView
+            android:id="@+id/manage_car_txt_maintaindate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="4.5dip"
+            android:drawableRight="@drawable/icon_calendar"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+</LinearLayout>

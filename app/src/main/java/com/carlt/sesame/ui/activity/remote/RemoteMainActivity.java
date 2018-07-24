@@ -24,7 +24,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.control.VisitorControl;
@@ -120,12 +120,12 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 			R.drawable.remote_cold, R.drawable.remote_frost,
 			R.drawable.remote_close_air2 };
 	private final static int icon_id_seleceds[] = {
-			R.drawable.remote_hot_selected, R.drawable.remote_cold_selected,
-			R.drawable.remote_frost_selected, R.drawable.icon_close_air_press };
+			R.drawable.sesame_remote_hot_selected, R.drawable.sesame_remote_cold_selected,
+			R.drawable.sesame_remote_frost_selected, R.drawable.sesame_icon_close_air_press };
 	private final static int icon_id_seleced_nos[] = {
-			R.drawable.remote_hot_selected_no,
-			R.drawable.remote_cold_selected_no,
-			R.drawable.remote_frost_selected_no, R.drawable.icon_close_air };
+			R.drawable.sesame_remote_hot_selected_no,
+			R.drawable.sesame_remote_cold_selected_no,
+			R.drawable.sesame_remote_frost_selected_no, R.drawable.sesame_icon_close_air };
 	private final static String temps[] = { "32", "18", "32", "--" };
 
 	private AirMainInfo airMainInfo;
@@ -133,7 +133,7 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_remote_main);
+		setContentView(R.layout.sesame_activity_remote_main);
 		setTitleView(R.layout.head_remote);
 		registerBeforeGoToBackGround(this);
 		mPlayRadio = PlayRadio.getInstance(RemoteMainActivity.this);
@@ -426,7 +426,7 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 			// break;
 			// }
 		} else {
-			mImgStart.setImageResource(R.drawable.remote_start);
+			mImgStart.setImageResource(R.drawable.sesame_remote_start);
 			mImgStop.setImageResource(R.drawable.remote_stop_disable);
 			mTxtEngine.setText("远程启动车辆");
 			mViewStopmask.setVisibility(View.VISIBLE);

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.data.usercenter.VersionLog;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -19,7 +19,6 @@ import com.carlt.sesame.ui.adapter.UpdateDetailAdapter;
 
 import java.util.List;
 
-import static com.carlt.sesame.R.id.activity_update_detail_lv;
 
 public class UpdataDetailActivity extends LoadingActivityWithTitle implements View.OnClickListener,AdapterView.OnItemClickListener {
 
@@ -82,7 +81,7 @@ public class UpdataDetailActivity extends LoadingActivityWithTitle implements Vi
     }
 
     private void init() {
-        mListView = (ListView) findViewById(activity_update_detail_lv);
+        mListView = (ListView) findViewById(R.id.activity_update_detail_lv);
         mListView.setOnItemClickListener(this);
         adapter = new UpdateDetailAdapter(this);
     }

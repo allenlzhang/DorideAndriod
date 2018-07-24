@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/public_scrollView" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_background"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip" >
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="17dip"
+            android:layout_marginTop="17dip"
+            android:background="@drawable/friends_invite_item_bg"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout4"
+                style="@style/setting_msg_layout"
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox4"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox4"
+                    android:text="允许推送车辆故障信息" />
+            </RelativeLayout>
+
+            <View style="@style/setting_line" 
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout6"
+                style="@style/setting_msg_layout" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox6"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox6"
+                    android:text="允许推送车辆启动提醒" />
+            </RelativeLayout>
+
+            <View style="@style/setting_line" 
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout5"
+                style="@style/setting_msg_layout"
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox5"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox5"
+                    android:text="当爱车发生振动时提醒您" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout_check"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dip"
+                android:layout_marginLeft="18dip"
+                android:layout_marginRight="18dip"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/txt_seekbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:text="设置发生何种程度振动时才发送提醒消息"
+                    android:textColor="@color/text_color_gray1"
+                    android:textSize="@dimen/text_size_small_s2" />
+
+                <SeekBar
+                    android:id="@+id/activity_manage_message_seekbar"
+                    style="@style/report_seekbar_setting"
+                    android:layout_below="@id/txt_seekbar"
+                    android:layout_marginBottom="10dip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/activity_manage_message_seekbar"
+                    android:layout_below="@id/activity_manage_message_seekbar"
+                    android:text="轻微"
+                    android:textColor="@color/text_color_gray1"
+                    android:textSize="@dimen/text_size_small_s2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/activity_manage_message_seekbar"
+                    android:layout_centerHorizontal="true"
+                    android:text="中度"
+                    android:textColor="@color/text_color_gray1"
+                    android:textSize="@dimen/text_size_small_s2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/activity_manage_message_seekbar"
+                    android:layout_below="@id/activity_manage_message_seekbar"
+                    android:text="重度"
+                    android:textColor="@color/text_color_gray1"
+                    android:textSize="@dimen/text_size_small_s2" />
+            </RelativeLayout>
+
+            <!-- <View style="@style/setting_line" /> -->
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout8"
+                style="@style/setting_msg_layout"
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox8"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox8"
+                    android:text="当APP与芝麻盒子失去连接时提醒您" />
+            </RelativeLayout>
+
+            <View style="@style/setting_line" 
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout12"
+                style="@style/setting_msg_layout"
+                android:visibility="gone"  >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox12"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox12"
+                    android:text="允许盒子在不良驾驶时用“滴”声提示" />
+            </RelativeLayout>
+
+            <View style="@style/setting_line" 
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout7"
+                style="@style/setting_msg_layout" 
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox7"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="false" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox7"
+                    android:text="允许推送4s店优惠券及活动" />
+            </RelativeLayout>
+
+            <View style="@style/setting_line"/>
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout1"
+                style="@style/setting_msg_layout" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox1"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@style/manage_message_checkbox"
+                    android:text="允许推送行车日报" />
+            </RelativeLayout>
+
+            <View style="@style/setting_line"
+                android:visibility="gone"  />
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout2"
+                style="@style/setting_msg_layout" 
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox2"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox2"
+                    android:text="允许推送行车周报和月报" />
+            </RelativeLayout>
+
+            <View style="@style/setting_line"
+                android:visibility="gone"  />
+
+            <RelativeLayout
+                android:id="@+id/activity_manage_message_layout9"
+                style="@style/setting_msg_layout" 
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/activity_manage_message_checkbox9"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/activity_manage_message_checkbox9"
+                    android:text="获得勋章、升级驾驶证、创造新记录时提醒您" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

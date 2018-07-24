@@ -143,7 +143,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
-        view = inflater.inflate(R.layout.activity_remote_main, null, false);
+        view = inflater.inflate(R.layout.sesame_activity_remote_main, null, false);
         return view;
     }
 

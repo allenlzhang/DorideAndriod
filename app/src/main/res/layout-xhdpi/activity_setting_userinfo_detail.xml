@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/head_back" />
+
+    <RelativeLayout
+        android:id="@+id/activity_setting_userinfo_detail_layout_head_icon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="21dip"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/activity_setting_userinfo_detail_head_icon_img"
+            android:layout_width="200dip"
+            android:layout_height="200dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dip"
+            android:src="@drawable/icon_default_head" />
+
+        <View
+            android:id="@+id/line_v"
+            android:layout_width="0.5dip"
+            android:layout_height="20dip"
+            android:layout_below="@+id/activity_setting_userinfo_detail_head_icon_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="#00000000" />
+
+        <TextView
+            android:id="@+id/activity_setting_userinfo_detail_head_icon_txt1"
+            style="@style/public_bottom_btn_blue"
+            android:layout_below="@+id/activity_setting_userinfo_detail_head_icon_img"
+            android:layout_toLeftOf="@id/line_v"
+            android:clickable="false"
+            android:text="相册上传" />
+
+        <TextView
+            android:id="@+id/activity_setting_userinfo_detail_head_icon_txt2"
+            style="@style/public_bottom_btn_blue"
+            android:layout_below="@+id/activity_setting_userinfo_detail_head_icon_img"
+            android:layout_toRightOf="@id/line_v"
+            android:clickable="false"
+            android:text="拍照上传" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_setting_userinfo_detail_layout_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dip"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/activity_setting_userinfo_detail_password_edt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/activity_setting_userinfo_detail_password_edt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/activity_setting_userinfo_detail_password_edt3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_setting_userinfo_detail_layout_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <com.carlt.sesame.ui.view.NoEmojiEditText
+            android:id="@+id/activity_setting_userinfo_detail_name_edt1"
+            style="@style/usercenter_edit1"
+            android:cursorVisible="true"
+            android:hint="姓名"
+            android:maxLength="16"
+            android:textCursorDrawable="@null" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/activity_setting_userinfo_detail_layout_sex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="21dip"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <RadioButton
+            android:id="@+id/activity_setting_userinfo_detail_sex_radio1"
+            android:layout_width="fill_parent"
+            android:layout_height="37.5dip"
+            android:button="@null"
+            android:drawableRight="@drawable/check_bg_sex"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:text="男"
+            android:textColor="@color/text_color_red_rose" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dip"
+            android:background="#d2d2d2" />
+
+        <RadioButton
+            android:id="@+id/activity_setting_userinfo_detail_sex_radio2"
+            android:layout_width="fill_parent"
+            android:layout_height="37.5dip"
+            android:button="@null"
+            android:drawableRight="@drawable/check_bg_sex"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:text="女"
+            android:textColor="@color/text_color_red_rose" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dip"
+            android:background="#d2d2d2" />
+        <RadioButton
+            android:id="@+id/activity_setting_userinfo_detail_sex_radio3"
+            android:layout_width="fill_parent"
+            android:layout_height="37.5dip"
+            android:button="@null"
+            android:drawableRight="@drawable/check_bg_sex"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:text="保密"
+            android:textColor="@color/text_color_red_rose" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/activity_setting_userinfo_detail_btn"
+        style="@style/public_bottom_btn_blue"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="10dip"
+        android:text="确定" />
+
+</LinearLayout>
