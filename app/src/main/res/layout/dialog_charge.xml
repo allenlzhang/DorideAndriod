@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pick="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/charge_dialog_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/charge_txt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="充电"
+        android:textColor="@color/text_color_gray3"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#3f3f3f" />
+
+    <RadioGroup
+        android:id="@+id/charge_rg_funcs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <RadioButton
+            android:id="@+id/charge_rb_rightnow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/charge_rightnow_normal"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="立即充电"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/charge_rb_timer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/charge_timer_normal"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="定时充电"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/charge_rb_stop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/charge_stop_normal"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="停止充电"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/charge_line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#3f3f3f"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/charge_lay_time"
+        android:layout_width="fill_parent"
+        android:layout_height="170dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13.5dp"
+            android:gravity="center"
+            android:text="开始充电:"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="18sp" />
+
+        <com.carlt.sesame.ui.view.PickerView
+            android:id="@+id/charge_pickerview_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:layout_toRightOf="@id/title"
+            pick:epvMaxShowNum="5"
+            pick:epvRecycleMode="false"
+            pick:epvTextColor="@color/text_color_gray3"
+            pick:epvTextMaxScale="1.1"
+            pick:epvTextMinAlpha="0.35"
+            pick:epvTextPadding="13dp"
+            pick:epvTextSize="16sp" 
+            android:layout_marginLeft="13dp"/>
+
+        <com.carlt.sesame.ui.view.PickerView
+            android:id="@+id/charge_pickerview_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/charge_pickerview_day"
+            android:paddingRight="5dp"
+            pick:epvMaxShowNum="5"
+            pick:epvRecycleMode="false"
+            pick:epvTextColor="@color/text_color_gray3"
+            pick:epvTextMaxScale="1.1"
+            pick:epvTextMinAlpha="0.35"
+            pick:epvTextPadding="13dp"
+            pick:epvTextSize="16sp" />
+
+        <TextView
+            android:id="@+id/hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/charge_pickerview_hour"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="时"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+
+        <com.carlt.sesame.ui.view.PickerView
+            android:id="@+id/charge_pickerview_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/hour"
+            android:paddingRight="5dp"
+            pick:epvMaxShowNum="5"
+            pick:epvRecycleMode="false"
+            pick:epvTextColor="@color/text_color_gray3"
+            pick:epvTextMaxScale="1.1"
+            pick:epvTextMinAlpha="0.35"
+            pick:epvTextPadding="13dp"
+            pick:epvTextSize="16sp" />
+
+        <TextView
+            android:id="@+id/minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/charge_pickerview_minute"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="分"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="#3f3f3f"
+            android:visibility="visible" 
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="65dp"
+            android:layout_toRightOf="@id/title" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="#3f3f3f"
+            android:visibility="visible"
+            android:layout_toRightOf="@id/title"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="67dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/charge_lay_timeinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="126dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/charge_txt_timeinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="*****开始充电"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/charge_txt_time_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_charge"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="7.5dp"
+            android:paddingRight="7.5dp"
+            android:paddingTop="5dp"
+            android:text="取消定时"
+            android:textColor="@drawable/txtcolor_charge"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#3f3f3f" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp" >
+
+        <TextView
+            android:id="@+id/charge_txt_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/l1"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/l1"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="#3f3f3f" />
+
+        <TextView
+            android:id="@+id/charge_txt_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/l1"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp"
+            android:clickable="false" />
+    </RelativeLayout>
+
+</LinearLayout>

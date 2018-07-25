@@ -14,7 +14,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+
 
 public class MenuImageShow {
     private LayoutInflater inflater;

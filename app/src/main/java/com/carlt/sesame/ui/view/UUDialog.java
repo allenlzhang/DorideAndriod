@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 
 public class UUDialog extends Dialog {
 

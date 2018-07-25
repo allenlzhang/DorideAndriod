@@ -13,7 +13,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 
 public class UUTransferDialog extends Dialog implements View.OnClickListener {

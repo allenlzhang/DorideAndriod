@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/carmain_lay_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/carmain_img_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dip"
+        android:src="@drawable/icon_safety" 
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/carmain_txt_name"
+        style="@style/car_main_txt1"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/carmain_img_icon"
+        android:text="功能名称" 
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/carmain_img_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/carmain_txt_name"
+        android:layout_toRightOf="@id/carmain_txt_name"
+        android:src="@drawable/icon_dot" />
+
+</RelativeLayout>

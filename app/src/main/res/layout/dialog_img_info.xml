@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_air_condition_bg"
+    android:orientation="vertical"
+    android:padding="4dip" >
+
+    <!-- 内容部分 -->
+
+    <RelativeLayout
+        android:id="@+id/dialog_img_info_lay_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp" >
+
+        <ImageView
+            android:id="@+id/dialog_img_info_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/dialog_img_pay" />
+
+        <TextView
+            android:id="@+id/dialog_img_info_text_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dialog_img_info_img"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="内容1"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/dialog_img_info_text_content2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dialog_img_info_text_content1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="10dp"
+            android:text="内容2"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#d6d6d6" />
+
+    <RelativeLayout
+        android:id="@+id/dialog_img_info_lay_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip" >
+
+        <TextView
+            android:id="@+id/dialog_img_info_text_btnleft"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@id/line_v"
+            android:gravity="center"
+            android:text="左侧按钮"
+            android:textColor="#3ec0ea"
+            android:textSize="@dimen/text_size_middle1" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Tip;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

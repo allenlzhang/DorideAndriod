@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_air_condition_bg"
+    android:orientation="vertical"
+    android:padding="4dip" >
+
+    <!-- 标题部分 -->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="32dip"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/dialog_author_txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="bottom"
+            android:paddingLeft="18dip"
+            android:text="提示"
+            android:textColor="#45bbe6"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/dialog_author_txt_watch"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="bottom"
+            android:paddingRight="10dip"
+            android:textColor="#45bbe6"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+    </RelativeLayout>
+    <!-- 内容部分 -->
+
+    <RelativeLayout
+        android:id="@+id/dialog_author_lay_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/transfer_waiting" />
+
+        <TextView
+            android:id="@+id/dialog_author_text_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img"
+            android:layout_marginBottom="30dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="15dip"
+            android:gravity="center_horizontal"
+            android:text="内容1"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#d6d6d6" />
+
+    <RelativeLayout
+        android:id="@+id/dialog_author_lay_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip" >
+
+        <TextView
+            android:id="@+id/dialog_author_text_btnleft"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@id/line_v"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="#3EC0EA"
+            android:textSize="@dimen/text_size_middle1" />
+    </RelativeLayout>
+
+</LinearLayout>

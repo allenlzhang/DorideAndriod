@@ -9,7 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+
 
 /**
  * 扫描框

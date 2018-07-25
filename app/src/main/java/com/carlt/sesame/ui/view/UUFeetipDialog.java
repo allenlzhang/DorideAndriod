@@ -16,7 +16,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.http.AsyncImageLoader;
 import com.carlt.sesame.http.AsyncImageLoader.AsyncImageLoaderListener;
 

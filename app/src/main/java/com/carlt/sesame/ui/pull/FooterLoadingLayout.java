@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+
 
 /**
  * 这个类封装了下拉刷新的布局

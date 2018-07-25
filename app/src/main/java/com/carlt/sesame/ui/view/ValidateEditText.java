@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.utility.DisplayUtil;
 
 /**

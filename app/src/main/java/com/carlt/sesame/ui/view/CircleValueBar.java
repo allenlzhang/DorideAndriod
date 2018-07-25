@@ -11,7 +11,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+
 
 /**
  * 报告-圆形对比View
@@ -426,7 +427,6 @@ public class CircleValueBar extends View {
      * 画圆
      * 
      * @param canvas
-     * @param info <ParameterInfo>
      */
     private void drawCircle(Canvas canvas, int color, float circleX, float circleY) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -438,7 +438,6 @@ public class CircleValueBar extends View {
      * 画文字
      * 
      * @param canvas
-     * @param info
      */
     private void drawTxt(Canvas canvas, String text, int color, float textSize, float txtX,
             float txtY) {

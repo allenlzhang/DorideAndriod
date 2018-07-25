@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/grid_item_illegal_select_txt"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:text="陕西"
+        android:textColor="@color/text_color_gray3"
+        android:textSize="@dimen/text_size_small" />
+
+</LinearLayout>

@@ -22,7 +22,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.remote.AirMainInfo;
@@ -112,7 +112,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 		mResources = context.getResources();
 		this.mAirMainInfo = airMainInfo;
 		LayoutInflater inflater = LayoutInflater.from(context);
-		final View v = inflater.inflate(R.layout.dialog_air_condition, null);
+		final View v = inflater.inflate(R.layout.sesame_dialog_air_condition, null);
 //		 up = (ImageView)v.findViewById(R.id.dialog_air_img_up);
 //		 down = (ImageView)v.findViewById(R.id.dialog_air_img_down);
 

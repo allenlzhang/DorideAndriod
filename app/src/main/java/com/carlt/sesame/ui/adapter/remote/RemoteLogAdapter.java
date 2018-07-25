@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.remote.RemoteLogInfo;
 
 import java.util.ArrayList;
@@ -61,13 +61,13 @@ public class RemoteLogAdapter extends BaseAdapter {
         Holder mHolder;
         if (convertView == null) {
             mHolder = new Holder();
-            convertView = mInflater.inflate(R.layout.list_item_remotelog, null);
+            convertView = mInflater.inflate(R.layout.sesame_list_item_remotelog, null);
             convertView.setTag(mHolder);
-            mHolder.mImgIcon = (ImageView)convertView.findViewById(R.id.item_remotelog_img_icon);
-            mHolder.mTxtName = (TextView)convertView.findViewById(R.id.item_remotelog_txt_name);
-            mHolder.mTxtResult = (TextView)convertView.findViewById(R.id.item_remotelog_txt_result);
-            mHolder.mTxtDevice = (TextView)convertView.findViewById(R.id.item_remotelog_txt_device);
-            mHolder.mTxtTime = (TextView)convertView.findViewById(R.id.item_remotelog_txt_time);
+            mHolder.mImgIcon = (ImageView)convertView.findViewById(R.id.sesame_item_remotelog_img_icon);
+            mHolder.mTxtName = (TextView)convertView.findViewById(R.id.sesame_item_remotelog_txt_name);
+            mHolder.mTxtResult = (TextView)convertView.findViewById(R.id.sesame_item_remotelog_txt_result);
+            mHolder.mTxtDevice = (TextView)convertView.findViewById(R.id.sesame_item_remotelog_txt_device);
+            mHolder.mTxtTime = (TextView)convertView.findViewById(R.id.sesame_item_remotelog_txt_time);
 
         } else {
             mHolder = (Holder)convertView.getTag();

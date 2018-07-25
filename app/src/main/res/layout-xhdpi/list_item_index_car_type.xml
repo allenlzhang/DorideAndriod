@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/list_item_index_car_type_txt1"
+        android:layout_width="fill_parent"
+        android:layout_height="54dip"
+        android:gravity="center_vertical"
+        android:text="A"
+        android:textColor="#999999"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/list_item_index_car_type_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="54dip" >
+
+        <ImageView
+            android:id="@+id/list_item_index_car_type_img"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip" />
+
+        <TextView
+            android:id="@+id/list_item_index_car_type_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@id/list_item_index_car_type_img"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/text_color_gray3"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/list_item_index_car_type_subtitle"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="#E0E0E0"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dip"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+</LinearLayout>

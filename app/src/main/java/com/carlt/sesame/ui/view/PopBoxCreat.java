@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.remote.CarStateInfo;
 import com.carlt.sesame.ui.view.UUAuthorDialog.OnTimeOutListener;
 import com.carlt.sesame.ui.view.UUUpdateDialog.DialogUpdateListener;
@@ -70,7 +70,7 @@ public class PopBoxCreat {
                                              final DialogWithTitleClick click) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dialog_withtitle, null);
+        View view = inflater.inflate(R.layout.sesame_dialog_withtitle, null);
         final Dialog dialogI = new Dialog(context, R.style.dialog);
         TextView title = (TextView) view.findViewById(R.id.dialog_withtitle_title);
         TextView content1 = (TextView) view.findViewById(R.id.dialog_withtitle_content1);
@@ -152,7 +152,7 @@ public class PopBoxCreat {
                                            final DialogWithTitleClick click) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dialog_notitle, null);
+        View view = inflater.inflate(R.layout.sesame_dialog_notitle, null);
         final Dialog dialogI = new Dialog(context, R.style.dialog);
         TextView content1 = (TextView) view.findViewById(R.id.dialog_notitle_text_content1);
         TextView content2 = (TextView) view.findViewById(R.id.dialog_notitle_text_content2);
@@ -254,7 +254,7 @@ public class PopBoxCreat {
                                            final DialogWithTitleClick click, final boolean isNodismiss) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dialog_notitle, null);
+        View view = inflater.inflate(R.layout.sesame_dialog_notitle, null);
         final Dialog dialogI = new Dialog(context, R.style.dialog);
         TextView content1 = (TextView) view.findViewById(R.id.dialog_notitle_text_content1);
         TextView content2 = (TextView) view.findViewById(R.id.dialog_notitle_text_content2);
@@ -348,7 +348,7 @@ public class PopBoxCreat {
                                                  String content2_msg, String btn_msg, final DialogWithTitleClick click) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dialog_notitle_one_btn, null);
+        View view = inflater.inflate(R.layout.sesame_dialog_notitle_one_btn, null);
         final Dialog dialogI = new Dialog(context, R.style.dialog);
         TextView content1 = (TextView) view.findViewById(R.id.dialog_notitle_text_content1);
         TextView content2 = (TextView) view.findViewById(R.id.dialog_notitle_text_content2);
@@ -405,7 +405,7 @@ public class PopBoxCreat {
                                                  final DialogWithTitleClick click) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dialog_withtitle, null);
+        View view = inflater.inflate(R.layout.sesame_dialog_withtitle, null);
         final Dialog dialogI = new Dialog(context, R.style.dialog);
         TextView title = (TextView) view.findViewById(R.id.dialog_withtitle_title);
         TextView content1 = (TextView) view.findViewById(R.id.dialog_withtitle_content1);
@@ -533,10 +533,6 @@ public class PopBoxCreat {
     /**
      * 硬件升级提示框
      * @param context
-     * @param content1
-     * @param btnLeft
-     * @param btnRight
-     * @param mDialogWithTitleClick
      * @return
      */
     public static UUUpdateDialog showUUUpdateDialog(final Context context, final DialogUpdateListener mListener) {

@@ -16,7 +16,6 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.career.ReportCalendarWeekInfo;
-import com.carlt.sesame.ui.adapter.ReportCalendarWeekAdapter;
 import com.carlt.sesame.utility.Log;
 
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ public class CalendarWeek extends MenuCalendar implements OnClickListener {
 
 	private ArrayList<ReportCalendarWeekInfo> mList = new ArrayList<ReportCalendarWeekInfo>();
 
-	private ReportCalendarWeekAdapter adapter;
 
 	private Context mContext;
 
@@ -166,8 +164,6 @@ public class CalendarWeek extends MenuCalendar implements OnClickListener {
 					mImageViewR.setClickable(true);
 
 				}
-				adapter = new ReportCalendarWeekAdapter(mContext, mList);
-				mListView.setAdapter(adapter);
 				OnItemClickListener listener = new OnItemClickListener() {
 
 					@Override

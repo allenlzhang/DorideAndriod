@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false"
+    android:visible="true" >
+
+    <item
+        android:drawable="@drawable/loading_magnifier1"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier2"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier3"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier4"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier5"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier6"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier7"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier8"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier9"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier10"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier11"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier12"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier13"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier14"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier15"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier16"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier17"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier18"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_magnifier19"
+        android:duration="100"/>
+
+</animation-list>

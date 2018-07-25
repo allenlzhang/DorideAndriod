@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.car.CarModeInfo;
 import com.carlt.sesame.ui.activity.usercenter.SelectCarTypeView;
 import com.carlt.sesame.ui.activity.usercenter.SelectCarTypeView.OnCarTypeItemClick;

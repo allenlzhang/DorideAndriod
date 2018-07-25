@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.remote.CarStateInfo;
 
 import java.util.ArrayList;
@@ -59,13 +59,13 @@ public class RemoteStatesAdapter extends BaseAdapter {
         Holder mHolder;
         if (convertView == null) {
             mHolder = new Holder();
-            convertView = mInflater.inflate(R.layout.grid_remote_states_item, null);
+            convertView = mInflater.inflate(R.layout.sesame_grid_remote_states_item, null);
             convertView.setTag(mHolder);
             mHolder.mImgIcon = (ImageView)convertView
-                    .findViewById(R.id.remote_states_item_img_icon);
-            mHolder.mTxtName = (TextView)convertView.findViewById(R.id.remote_states_item_txt_name);
+                    .findViewById(R.id.sesame_remote_states_item_img_icon);
+            mHolder.mTxtName = (TextView)convertView.findViewById(R.id.sesame_remote_states_item_txt_name);
             mHolder.mTxtState = (TextView)convertView
-                    .findViewById(R.id.remote_states_item_txt_state);
+                    .findViewById(R.id.sesame_remote_states_item_txt_state);
 
         } else {
             mHolder = (Holder)convertView.getTag();

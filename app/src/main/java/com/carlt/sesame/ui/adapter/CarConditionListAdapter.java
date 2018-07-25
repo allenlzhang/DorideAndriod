@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.car.CarStatuInfo;
 
 import java.util.ArrayList;
@@ -54,11 +54,11 @@ public class CarConditionListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.list_item_car_condition, null);
             convertView.setTag(mHolder);
             mHolder.mTxtName = (TextView)convertView
-                    .findViewById(R.id.item_car_condition_txt_name);
+                    .findViewById(R.id.sesame_item_car_condition_txt_name);
             mHolder.mTxtValue = (TextView)convertView
-                    .findViewById(R.id.item_car_condition_txt_value);
+                    .findViewById(R.id.sesame_item_car_condition_txt_value);
             mHolder.mTxtUnit = (TextView)convertView.findViewById(R.id.item_car_condition_txt_unit);
-            mHolder.mLay=convertView.findViewById(R.id.item_car_condition_lay);
+            mHolder.mLay=convertView.findViewById(R.id.sesame_item_car_condition_lay);
         } else {
             mHolder = (Holder)convertView.getTag();
         }

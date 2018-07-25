@@ -13,7 +13,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 
 /**
  * 胎压监测贴士dialog

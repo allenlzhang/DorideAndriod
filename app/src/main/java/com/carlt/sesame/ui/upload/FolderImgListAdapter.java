@@ -9,7 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+
+import com.carlt.doride.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

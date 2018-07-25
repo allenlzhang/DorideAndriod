@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Scroller;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.utility.DisplayUtil;
 
 import java.util.ArrayList;

@@ -201,7 +201,6 @@ public class PwdEditText extends EditText {
     /**
      * 设置输入完成监听
      * 
-     * @param onInputFinishListener
      */
     public void setOnInputListener(OnInputListener onInputListener) {
         this.mOnInputListener = onInputListener;

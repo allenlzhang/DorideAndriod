@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical"
+    android:paddingLeft="15dip"
+    android:paddingRight="15dip" >
+
+    <RelativeLayout
+        android:id="@+id/layout_get_validate_layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="180dip" >
+
+        <ImageView
+            android:id="@+id/layout_get_validate_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:contentDescription="错误信息警示图标"
+            android:src="@drawable/icon_exclamation_mark" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:layout_toRightOf="@id/layout_get_validate_img"
+            android:text="如果您无法收到短信，请点击下方按钮，我们的客服热线4006-506-507会打电话给您，接通后系统会语音播报验证码，将听到的验证码输入到验证码框即可"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_get_validate_layout1"
+        android:layout_marginTop="30dip"
+        android:gravity="center"
+        android:text="提醒：接电话过程中不会产生任何费用"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/layout_get_validate_txt"
+        style="@style/public_bottom_btn"
+        android:layout_below="@id/text_title"
+        android:layout_marginTop="50dip"
+        android:text="请求语音播报验证码" />
+
+</RelativeLayout>

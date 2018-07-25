@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/list_item_for_help_txt1"
+        android:layout_width="fill_parent"
+        android:layout_height="36dip"
+        android:layout_marginLeft="10dip"
+        android:gravity="center_vertical"
+        android:text="求援类别"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:id="@+id/list_item_for_help_lay"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:background="@drawable/car_linear_bg" >
+
+        <TextView
+            android:id="@+id/list_item_for_help_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="10dip"
+            android:text="求援名称"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/list_item_for_help_img"
+            style="@style/public_img"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dip"
+            android:src="@drawable/icon_phone2" />
+
+        <TextView
+            android:id="@+id/list_item_for_help_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="@dimen/text_size_small" 
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dip"/>
+    </RelativeLayout>
+
+</LinearLayout>
