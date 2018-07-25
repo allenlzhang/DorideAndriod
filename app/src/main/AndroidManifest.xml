@@ -150,7 +150,6 @@
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCommonActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCustomerServiceActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageDeviceActivity"/>
-        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageFeeActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageMessageActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageIllegalActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageReBindActivity"/>

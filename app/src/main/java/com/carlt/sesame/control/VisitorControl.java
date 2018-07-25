@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.remote.AirMainInfo;
 import com.carlt.sesame.data.remote.CarStateInfo;
 import com.carlt.sesame.data.remote.RemoteLogInfo;

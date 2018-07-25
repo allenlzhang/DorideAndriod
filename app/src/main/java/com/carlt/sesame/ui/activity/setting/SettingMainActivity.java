@@ -214,8 +214,8 @@ public class SettingMainActivity extends BaseActivity {
                     break;
                 case R.id.activity_setting_layout_fee:
                     // 跳转至续费管理
-                    Intent intent9 = new Intent(SettingMainActivity.this, ManageFeeActivity.class);
-                    startActivity(intent9);
+//                    Intent intent9 = new Intent(SettingMainActivity.this, ManageFeeActivity.class);
+//                    startActivity(intent9);
                     break;
             }
         }

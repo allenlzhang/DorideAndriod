@@ -21,7 +21,7 @@
             android:layout_marginTop="6dip"
             android:drawableLeft="@drawable/icon_phone_large"
             android:drawablePadding="6dip"
-            android:text="@string/reward_4s_tel"
+            android:text="电话："
             android:textColor="@color/text_color_gray3"
             android:textSize="@dimen/text_size_large" />
     </LinearLayout>
@@ -61,7 +61,7 @@
                     android:layout_marginTop="18dip"
                     android:layout_toRightOf="@+id/activity_career_reward_detail_img1"
                     android:singleLine="true"
-                    android:text="@string/reward_name"
+                    android:text="4s店抵价券"
                     android:textColor="@color/text_color_gray2"
                     android:textSize="@dimen/text_size_middle" />
 
@@ -73,7 +73,7 @@
                     android:layout_toRightOf="@+id/activity_career_reward_detail_img1"
                     android:lines="2"
                     android:maxLines="2"
-                    android:text="@string/reward_description"
+                    android:text="奖品描述！"
                     android:textColor="@color/text_color_gray2"
                     android:textSize="@dimen/text_size_small_s1" />
             </RelativeLayout>
@@ -83,7 +83,7 @@
             <TextView
                 android:id="@+id/activity_career_reward_detail_text3_des"
                 style="@style/career_reward_txt1"
-                android:text="@string/reward_coupon_code" />
+                android:text="优惠券密码" />
 
             <TextView
                 android:id="@+id/activity_career_reward_detail_text3"
@@ -95,7 +95,7 @@
 
             <TextView
                 style="@style/career_reward_txt1"
-                android:text="@string/reward_instruction" />
+                android:text="使用说明" />
 
             <WebView
                 android:id="@+id/activity_career_reward_detail_webview1"
@@ -108,7 +108,7 @@
             <TextView
                 android:id="@+id/activity_career_reward_detail_text5"
                 style="@style/career_reward_txt1"
-                android:text="@string/reward_4s_name" />
+                android:text="4s店名称" />
 
             <WebView
                 android:id="@+id/activity_career_reward_detail_webview2"

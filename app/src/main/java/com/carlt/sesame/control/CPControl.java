@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.alipay.sdk.app.PayTask;
 import com.carlt.doride.DorideApplication;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
@@ -5981,10 +5980,7 @@ public class CPControl {
     /**
      * 续费-验证支付回调<FeeOrderInfo>
      *
-     * @param order_id
-     * @param order_name
-     * @param order_money
-     * @param paystatus
+     *
      */
     public static void GetFeeCheckResult(final GetResultListCallback listener,
                                          final String resultStatus, final String result) {
@@ -6077,12 +6073,12 @@ public class CPControl {
         new Thread() {
             @Override
             public void run() {
-                PayTask alipay = new PayTask(act);
-                String result = alipay.pay(orderInfo, true);
-                Message msg = new Message();
-                msg.what = 0;
-                msg.obj = result;
-                payHandler.sendMessage(msg);
+//                PayTask alipay = new PayTask(act);
+//                String result = alipay.pay(orderInfo, true);
+//                Message msg = new Message();
+//                msg.what = 0;
+//                msg.obj = result;
+//                payHandler.sendMessage(msg);
             }
         }.start();
     }
@@ -6156,12 +6152,7 @@ public class CPControl {
     /**
      * 旧车主获取二维码
      *
-     * @param realName
-     * @param authen_card
-     * @param phone
-     * @param code
-     * @param ownerid
-     * @param listener
+     *
      */
     public static void GetTransferQrCodeResult(final String realName,
                                                final String authen_card, final String phone, final String code,
@@ -6285,10 +6276,7 @@ public class CPControl {
 
     /**
      * 新车主检测过户结果
-     *
-     * @param outtingid
-     * @param isagree
-     * @param listener
+
      */
     public static void GetTransferNewCheckResult(final String outtingid,
                                                  final GetResultListCallback listener) {

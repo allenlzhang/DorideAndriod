@@ -15,7 +15,7 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 
 import java.util.ArrayList;
 

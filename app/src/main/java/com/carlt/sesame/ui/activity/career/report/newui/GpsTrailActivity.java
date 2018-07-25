@@ -32,7 +32,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.maps.model.TextOptions;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.career.CarLogInfo;
@@ -125,7 +125,7 @@ public class GpsTrailActivity extends LoadingActivityWithTitle implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_gps_trail);
+		setContentView(R.layout.sesame_activity_gps_trail);
 		setTitleView(R.layout.head_back);
 
 		try {

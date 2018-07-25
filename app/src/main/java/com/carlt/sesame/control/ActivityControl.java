@@ -12,14 +12,14 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.systemconfig.URLConfig;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
-import com.carlt.sesame.ui.activity.usercenter.login.LoginActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.utility.LoginChecker;
@@ -182,7 +182,7 @@ public class ActivityControl {
         mUseInfo.setPassword("");
         UseInfoLocal.setUseInfo(mUseInfo);
         TokenInfo.setToken("");
-        Intent mIntent = new Intent(context, LoginActivity.class);
+        Intent mIntent = new Intent(context, UserLoginActivity.class);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mIntent);
         SPUtils.getInstance().clear();
@@ -206,7 +206,7 @@ public class ActivityControl {
 
     public static void onTokenDisable() {
         for (Activity activity : mActivityList) {
-            if (activity instanceof LoginActivity) {
+            if (activity instanceof UserLoginActivity) {
                 BaseActivity base = (BaseActivity) activity;
                 if (base.IsShowing()) {
                     return;
@@ -222,7 +222,7 @@ public class ActivityControl {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
-                Intent mIntent = new Intent(DorideApplication.getAppContext(), LoginActivity.class);
+                Intent mIntent = new Intent(DorideApplication.getAppContext(), UserLoginActivity.class);
                 mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 DorideApplication.getAppContext().startActivity(mIntent);
             }

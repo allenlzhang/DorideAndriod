@@ -20,7 +20,6 @@ import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.MainActivity;
 import com.carlt.sesame.ui.activity.career.SecretaryTipsActivity;
 import com.carlt.sesame.ui.activity.safety.AuthorActivity;
-import com.carlt.sesame.ui.activity.setting.ManageFeeActivity;
 import com.carlt.sesame.utility.Log;
 
 public class PushService extends Service {
@@ -141,11 +140,11 @@ public class PushService extends Service {
 			// 服务提醒
 			if (LoginInfo.isMain()) {
 				// 主机-跳转至服务购买
-				Intent mIntent = new Intent(PushService.this,
-						ManageFeeActivity.class);
-				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-						| Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(mIntent);
+//				Intent mIntent = new Intent(PushService.this,
+//						ManageFeeActivity.class);
+//				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+//						| Intent.FLAG_ACTIVITY_NEW_TASK);
+//				startActivity(mIntent);
 			} else {
 				// 子机-跳转至主页面
 				Intent mIntent = new Intent(PushService.this,

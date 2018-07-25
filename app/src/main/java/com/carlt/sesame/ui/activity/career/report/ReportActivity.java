@@ -23,8 +23,6 @@ import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivityGroup;
 import com.carlt.sesame.ui.activity.career.report.newui.DayActivity;
-import com.carlt.sesame.ui.activity.career.report.newui.MonthActivity;
-import com.carlt.sesame.ui.activity.career.report.newui.WeekActivity;
 import com.carlt.sesame.utility.Log;
 import com.carlt.sesame.utility.UUToast;
 
@@ -67,7 +65,7 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main_report_layout);
+        setContentView(R.layout.sesame_activity_main_report_layout);
         container = (LinearLayout)findViewById(R.id.report_containerBody);
         initRadios();
         try {
@@ -76,30 +74,6 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
 
         }
 
-        // try {
-        // monthInitialValue = getIntent().getStringExtra(MONTH_INITIAL);
-        // if (monthInitialValue == null || monthInitialValue.length() == 0) {
-        // monthInitialValue = LoginInfo.getLately_month();
-        // }
-        // } catch (Exception e) {
-        //
-        // }
-        // try {
-        // weekInitialValue = getIntent().getStringExtra(WEEK_INITIAL);
-        // if (weekInitialValue == null || weekInitialValue.length() == 0) {
-        // weekInitialValue = LoginInfo.getLately_week();
-        // }
-        // } catch (Exception e) {
-        //
-        // }
-        // try {
-        // dayInitialValue = getIntent().getStringExtra(DAY_INITIAL);
-        // if (dayInitialValue == null || dayInitialValue.length() == 0) {
-        // dayInitialValue = LoginInfo.getLately_day();
-        // }
-        // } catch (Exception e) {
-        //
-        // }
 
         mTextView = (TextView)findViewById(R.id.report_date_select);
         mTextView.setOnClickListener(mListener);
@@ -214,12 +188,12 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
         Intent intent = null;
         switch (index) {
             case 0:
-                intent = new Intent(ReportActivity.this, MonthActivity.class);
-                intent.putExtra(MONTH_INITIAL, monthInitialValue);
+//                intent = new Intent(ReportActivity.this, MonthActivity.class);
+//                intent.putExtra(MONTH_INITIAL, monthInitialValue);
                 break;
             case 1:
-                intent = new Intent(ReportActivity.this, WeekActivity.class);
-                intent.putExtra(WEEK_INITIAL, weekInitialValue);
+//                intent = new Intent(ReportActivity.this, WeekActivity.class);
+//                intent.putExtra(WEEK_INITIAL, weekInitialValue);
                 break;
             case 2:
                 intent = new Intent(ReportActivity.this, DayActivity.class);
