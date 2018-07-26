@@ -342,7 +342,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Log.e("info", "KeyEvent.KEYCODE_BACK--login");
-            ActivityControl.onExit();
+            ActivityControl.clearAllActivity();
             System.exit(0);
             return true;
         }

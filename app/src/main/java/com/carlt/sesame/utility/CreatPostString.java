@@ -42,7 +42,7 @@ public class CreatPostString {
         // mMap.put("clienttype", "app");
         mMap.put("softtype", "android");
 
-        mMap.put("version", DorideApplication.Version + "");
+        mMap.put("version", DorideApplication.Sesame_Version_API + "");
         return CreatString(mMap);
     }
 
@@ -52,7 +52,7 @@ public class CreatPostString {
         // mMap.put("clienttype", "app");
         mMap.put("softtype", "android");
 
-        mMap.put("version", DorideApplication.Version + "");
+        mMap.put("version", DorideApplication.Sesame_Version_API + "");
         return CreatString(mMap);
     }
 
@@ -71,7 +71,7 @@ public class CreatPostString {
     // 生成登录参数
     public static String getLogin(String userName, String psWord) {
         HashMap<String, String> mMap = new HashMap<String, String>();
-        mMap.put("version", DorideApplication.Version + "");
+        mMap.put("version", DorideApplication.Sesame_Version_API + "");
         mMap.put("mobile", userName);
         mMap.put("password", psWord);
         //		mMap.put("app_type", "z");
@@ -1185,8 +1185,7 @@ public class CreatPostString {
         // }
         mMap.put("ak", key);
         mMap.put("output", "json");
-        mMap.put("mcode",
-                "F7:4C:08:E9:4E:48:37:4E:83:07:C5:6E:14:7B:A2:E1:10:3F:97:1D;com.hz17car.zotye");
+        mMap.put("mcode", "F7:4C:08:E9:4E:48:37:4E:83:07:C5:6E:14:7B:A2:E1:10:3F:97:1D;com.hz17car.zotye");
         // mMap.put("mcode",
         // "F7:4C:08:E9:4E:48:37:4E:83:07:C5:6E:14:7B:A2:E1:10:3F:97:1D;com.carlt.sesame");
         // mMap.put("mcode",
@@ -1508,7 +1507,7 @@ public class CreatPostString {
         mMap.put("order_year", order_name);
         mMap.put("order_money", order_money);
         mMap.put("softtype", "android");
-        mMap.put("version", DorideApplication.Version + "");
+        mMap.put("version", DorideApplication.Sesame_Version_API + "");
         return CreatString(mMap);
     }
 
@@ -1549,7 +1548,7 @@ public class CreatPostString {
     }
 
     private static String CreatString(HashMap<String, String> mMap) {
-        // mMap.put("version", DorideApplication.Version + "");
+        // mMap.put("version", DorideApplication.Sesame_Version_API + "");
         mMap.put("client_id", URLConfig.getClientID());
 
         if (LoginInfo.getDealerId() != null

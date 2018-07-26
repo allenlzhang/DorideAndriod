@@ -27,7 +27,8 @@ import java.util.UUID;
  */
 
 public class DorideApplication extends Application {
-    public static int Version_API = 110;
+    public static int Version_API        = 110;
+    public static int Sesame_Version_API = 126;
 
     public static int VERSION_API_REMOTE = 100;// 远程下发相关Api版本
 
@@ -85,7 +86,7 @@ public class DorideApplication extends Application {
     /**
      * 是否已经展示了固件下载升级提示
      */
-    private       boolean           isshowupdata;
+    private boolean isshowupdata;
 
     public boolean isIsshowupdata() {
         return isshowupdata;

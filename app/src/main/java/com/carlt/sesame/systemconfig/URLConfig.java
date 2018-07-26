@@ -50,7 +50,7 @@ public class URLConfig {
 
     // 获取众泰API URL
     private static String getZLinkURL(String s) {
-        String version = DorideApplication.Version + "/";
+        String version = DorideApplication.Sesame_Version_API + "/";
         String url = "";
         // 正常版
         if (DorideApplication.Formal_Version) {
