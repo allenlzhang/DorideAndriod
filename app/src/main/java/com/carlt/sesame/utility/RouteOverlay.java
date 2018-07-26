@@ -14,7 +14,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 
 import java.util.ArrayList;
 import java.util.List;

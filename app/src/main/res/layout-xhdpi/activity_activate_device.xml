@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/public_scrollView"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_background"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/head"
+            layout="@layout/head_back" />
+
+        <include
+            android:id="@+id/sub_head"
+            layout="@layout/head_sub1" />
+
+        <LinearLayout
+            android:id="@+id/activate_device_lay_saleafter"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dip"
+                android:layout_marginLeft="@dimen/usercenter_margin"
+                android:layout_marginTop="20dip"
+                android:text="1、请将盒子安装到您的爱车上"
+                android:textColor="@color/text_color_gray2"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/activate_pic1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dip"
+                android:layout_marginLeft="@dimen/usercenter_margin"
+                android:layout_marginTop="25dip"
+                android:text="2、将爱车停在平地熄火后点击下方按钮"
+                android:textColor="@color/text_color_gray2"
+                android:textSize="16sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/activate_pic2" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/activate_device_lay_salebefore"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dip"
+            android:layout_marginTop="20.5dip"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/activate_pic2" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/activity_bind_editpin"
+            style="@style/usercenter_edit1"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="@dimen/usercenter_margin"
+            android:layout_marginRight="@dimen/usercenter_margin"
+            android:background="@drawable/edittext_bg"
+            android:hint="输入车辆PIN"
+            android:textSize="@dimen/text_size_small"
+            android:maxLength="8"
+            android:digits="@string/vin_filter_string"/>
+
+        <TextView
+            android:id="@+id/activity_activate_device_btn"
+            style="@style/public_bottom_btn_blue"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="@dimen/usercenter_margin"
+            android:layout_marginRight="@dimen/usercenter_margin"
+            android:layout_marginTop="10dip"
+            android:text="激活设备" />
+    </LinearLayout>
+
+</ScrollView>

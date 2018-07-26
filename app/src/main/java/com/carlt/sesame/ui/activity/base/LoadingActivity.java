@@ -10,11 +10,11 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.ui.view.PopBoxCreat;
-import com.carlt.sesame.ui.view.UUUpdateDialog.DialogUpdateListener;
 import com.carlt.sesame.utility.UUToast;
 
 public class LoadingActivity extends BaseActivity {
@@ -121,7 +121,7 @@ public class LoadingActivity extends BaseActivity {
         }
     };
 
-    private DialogUpdateListener mDialogUpdateListener = new DialogUpdateListener() {
+    private UUUpdateDialog.DialogUpdateListener mDialogUpdateListener = new UUUpdateDialog.DialogUpdateListener() {
 
         @Override
         public void onFailed() {

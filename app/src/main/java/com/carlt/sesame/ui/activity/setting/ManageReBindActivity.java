@@ -19,7 +19,6 @@ import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.usercenter.login.ActivateActivity;
-import com.carlt.sesame.ui.activity.usercenter.scan.ScanActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.UUToast;
 
@@ -94,9 +93,9 @@ public class ManageReBindActivity extends BaseActivity implements OnClickListene
 		switch (v.getId()) {
 		case R.id.activity_rebind_btnscan:
 			// 跳转至二维码扫描页面
-			Intent intent = new Intent();
-			intent.setClass(context, ScanActivity.class);
-			startActivityForResult(intent, 0);
+//			Intent intent = new Intent();
+//			intent.setClass(context, ScanActivity.class);
+//			startActivityForResult(intent, 0);
 			break;
 
 		case R.id.activity_rebind_btnbind:

@@ -134,9 +134,35 @@
         <activity android:name="com.carlt.sesame.ui.activity.car.FindCarActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.car.NavigationTocarActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.car.SearchAddrActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.AddressMapActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.CareerMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.MaintainLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.MaintainLogDetialActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.RewardDetailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryActivityNew"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryAppointmentActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryRemoteActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryTipsActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteLogActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.AuthorActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.FreezeActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.LoginLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.ManagePswActiviy"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.MobileListActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RealNameActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswEditActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity1"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity2"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity3"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.SafetyMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.ThawActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyAllActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyIdentityActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyPhoneActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.AboutAppActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageMaintainActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageActivity"/>
@@ -157,6 +183,7 @@
         <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataDetailActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataLogItemDetialActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.WebActivity"/>
+        <activity android:name="com.carlt.sesame.ui.SesameMainActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

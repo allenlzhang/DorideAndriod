@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+
 
 /**
  * 作者：秋良

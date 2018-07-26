@@ -140,7 +140,7 @@ public class PushService extends Service {
 //			} else {
 //				// 子机-跳转至主页面
 //				Intent mIntent = new Intent(PushService.this,
-//						MainActivity.class);
+//						SesameMainActivity.class);
 //				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 //						| Intent.FLAG_ACTIVITY_NEW_TASK);
 //				startActivity(mIntent);

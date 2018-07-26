@@ -10,7 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -91,7 +91,7 @@ public class TransferHandleActivity extends BaseActivity implements OnClickListe
 			switch (msg.what) {
 			case 3:
 				UUToast.showUUToast(context, "操作成功！");
-//				Intent intent = new Intent(context,MainActivity.class);
+//				Intent intent = new Intent(context,SesameMainActivity.class);
 //				startActivity(intent);
 				ActivityControl.onLogout(context);
 				finish();
@@ -106,7 +106,7 @@ public class TransferHandleActivity extends BaseActivity implements OnClickListe
 				break;
 			case 5:
 				UUToast.showUUToast(context, "操作成功！");
-//				Intent intent = new Intent(context,MainActivity.class);
+//				Intent intent = new Intent(context,SesameMainActivity.class);
 //				startActivity(intent);
 				onBackPressed();
 				break;

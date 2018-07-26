@@ -161,7 +161,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         public void onSuccess(BaseResponseInfo bInfo) {
             // 下发激活指令成功
             UUToast.showUUToast(ActivateBindActivity.this,"大乘设备已成功激活");
-//            Intent intent=new Intent(ActivateBindActivity.this, MainActivity.class);
+//            Intent intent=new Intent(ActivateBindActivity.this, SesameMainActivity.class);
 //            startActivity(intent);
             UseInfo mUseInfo = UseInfoLocal.getUseInfo();
             CPControl.GetLogin(mUseInfo.getAccount(), mUseInfo.getPassword(), listener_login);

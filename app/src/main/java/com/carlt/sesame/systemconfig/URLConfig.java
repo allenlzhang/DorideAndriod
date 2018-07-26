@@ -5,33 +5,33 @@ import com.carlt.doride.DorideApplication;
 public class URLConfig {
     // public static boolean flag = false;
 
-    public final static int VERSION_FORMAL  = 1001;// 正式服
+    public final static int VERSION_FORMAL = 1001;// 正式服
     public final static int VERSION_PREPARE = 1002;// 预发布服
-    public final static int VERSION_TEST    = 1003;// 测试服
-    public static       int flag            = VERSION_TEST;
+    public final static int VERSION_TEST = 1003;// 测试服
+    public static int flag = VERSION_TEST;
 
     // 测试服务器
-    private final static String C1   = "0896756ebec5bc62a51b15b9a7541901";
+    private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
     // 正式服务器
-    private final static String C2   = "890ce20d220196ed6dbb0f51793e44ef";
+    private final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
     // 众泰API域名 测试服
-    private final static String U5   = "http://electricapi.linewin.cc/";
+    private final static String U5 = "http://electricapi.linewin.cc/";
     // 众泰API域名 测试服_远程下发相关
     private final static String U_R5 = "http://remote-electricapi.linewin.cc/";
     // 众泰API域名 正式服
-    private final static String U6   = "https://electricapi.geni4s.com/";
+    private final static String U6 = "https://electricapi.geni4s.com/";
     // 众泰API域名 正式服_远程下发相关
     private final static String U_R6 = "https://remote-electricapi.geni4s.com/";
     // 众泰API域名-预发布
-    private final static String U7   = "https://pre-electricapi.geni4s.com/";
+    private final static String U7 = "https://pre-electricapi.geni4s.com/";
     // 众泰API域名-预发布
     private final static String U_R7 = "https://pre-remote-electricapi.geni4s.com/";
     // 众泰API域名-游客版 测试服
-    private final static String U8   = "http://zlinkdemoapi.linewin.cc/";
+    private final static String U8 = "http://zlinkdemoapi.linewin.cc/";
     // 众泰API域名-游客版 正式服
-    private final static String U9   = "https://zlinkdemoapi.geni4s.com/";
+    private final static String U9 = "https://zlinkdemoapi.geni4s.com/";
     // 众泰API域名-游客版 预发布服
-    private final static String U10  = "https://pre-zlinkdemoapi.geni4s.com/";
+    private final static String U10 = "https://pre-zlinkdemoapi.geni4s.com/";
 
     public final static String CAR_BREAK_URL = "http://v.juhe.cn/wz/query";// 车辆违章查询
 
@@ -52,46 +52,24 @@ public class URLConfig {
     private static String getZLinkURL(String s) {
         String version = DorideApplication.Version + "/";
         String url = "";
-        if (DorideApplication.isVisitor) {
-            // 游客版
-            if (DorideApplication.Formal_Version) {
-                url = U9 + version + s;
-            } else {
-                switch (flag) {
-                    case VERSION_FORMAL:
-                        // 正式服
-                        url = U9 + version + s;
-                        break;
-                    case VERSION_PREPARE:
-                        // 预发布服
-                        url = U10 + version + s;
-                        break;
-                    case VERSION_TEST:
-                        // 测试服
-                        url = U8 + version + s;
-                        break;
-                }
-            }
+        // 正常版
+        if (DorideApplication.Formal_Version) {
+            url = U6 + version + s;
         } else {
-            // 正常版
-            if (DorideApplication.Formal_Version) {
-                url = U6 + version + s;
-            } else {
-                switch (flag) {
-                    case VERSION_FORMAL:
-                        // 正式服
-                        url = U6 + version + s;
-                        break;
+            switch (flag) {
+                case VERSION_FORMAL:
+                    // 正式服
+                    url = U6 + version + s;
+                    break;
 
-                    case VERSION_PREPARE:
-                        // 预发布服
-                        url = U7 + version + s;
-                        break;
-                    case VERSION_TEST:
-                        // 测试服
-                        url = U5 + version + s;
-                        break;
-                }
+                case VERSION_PREPARE:
+                    // 预发布服
+                    url = U7 + version + s;
+                    break;
+                case VERSION_TEST:
+                    // 测试服
+                    url = U5 + version + s;
+                    break;
             }
         }
 
@@ -613,9 +591,9 @@ public class URLConfig {
     // 安全-获取授权状态
     private static String M_SAFE_GETAUTHORIZESTATUS_URL = "safe/getAuthorizeStatus";
     //修改主机唯一标识（安卓专用）
-    private static String M_UPDATEMOVEDEVICEID          = "user/updateMoveDeviceid";
+    private static String M_UPDATEMOVEDEVICEID = "user/updateMoveDeviceid";
     // 安全-更改授权状态                               user/updateMoveDeviceid
-    private static String M_SAFE_UPDATESWITCH_URL       = "safe/updateSwitch";
+    private static String M_SAFE_UPDATESWITCH_URL = "safe/updateSwitch";
 
     // 安全-实名认证
     private static String M_SAFE_REALAUTHEN_URL = "safe/realauthen";
@@ -668,7 +646,7 @@ public class URLConfig {
     // 获取经销商信息
     private static String M_DEALER_GETDEALERINFO = "dealer/getDealerInfo";
     //版本更新日志
-    private static String M_CAR_GETVERSIONLOG    = "car/getVersionLog";
+    private static String M_CAR_GETVERSIONLOG = "car/getVersionLog";
 
     public static String getM_SUBMIT_SOS_URL_URL() {
         return getZLinkURL(M_SUBMIT_SOS_URL);
@@ -687,15 +665,17 @@ public class URLConfig {
     }
 
     public static String getM_LOGIN_URL() {
-            return getZLinkURL(M_LOGIN_NEW_URL);
+        return getZLinkURL(M_LOGIN_NEW_URL);
     }
 
     public static String getM_VERSION_URL() {
         return getZLinkURL(M_VERSION_URL);
     }
+
     public static String getM_CUR_VERSION_URL() {
         return getZLinkURL(M_CUR_VERSION_URL);
     }
+
     public static String getM_REGISTER_NEW_URL() {
         return getZLinkURL(M_REGISTER_NEW_URL);
     }

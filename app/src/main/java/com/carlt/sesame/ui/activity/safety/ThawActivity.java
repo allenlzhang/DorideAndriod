@@ -12,17 +12,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
-import com.carlt.sesame.data.VisitorInfo;
-import com.carlt.sesame.preference.UseInfoVisitor;
-import com.carlt.sesame.ui.MainActivity;
+import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
-import com.carlt.sesame.ui.activity.usercenter.login.LoginActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.Log;
 import com.carlt.sesame.utility.UUToast;
@@ -98,7 +95,7 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(ThawActivity.this, LoginActivity.class);
+                Intent mIntent = new Intent(ThawActivity.this, UserLoginActivity.class);
                 startActivity(mIntent);
                 finish();
             }
@@ -240,7 +237,7 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
                 Intent mIntent = new Intent(ThawActivity.this, SafetyMainActivity.class);
                 startActivity(mIntent);
             } else {
-                Intent mIntent = new Intent(ThawActivity.this, MainActivity.class);
+                Intent mIntent = new Intent(ThawActivity.this, SesameMainActivity.class);
                 startActivity(mIntent);
             }
             finish();

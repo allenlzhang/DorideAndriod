@@ -66,7 +66,6 @@ import com.carlt.sesame.protocolstack.DeviceUpdateInfoParser;
 import com.carlt.sesame.protocolstack.LoginInfoParser;
 import com.carlt.sesame.protocolstack.RegisterInfoParser;
 import com.carlt.sesame.protocolstack.TokenParser;
-import com.carlt.sesame.protocolstack.UserInfoParser;
 import com.carlt.sesame.protocolstack.UserOtherInfoParser;
 import com.carlt.sesame.protocolstack.VersionInfoParser;
 import com.carlt.sesame.protocolstack.car.AllCityInfoListParser;
@@ -4940,38 +4939,6 @@ public class CPControl {
         }.start();
     }
 
-    /**
-     * 获取用户基本信息
-     *
-     * @param mRegisteInfo
-     * @param listener
-     */
-    public static void GetUserInfoResult(final RegisteInfo mRegisteInfo,
-                                         final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_USERINFO_NEW_URL();
-                // Post参数
-                String post = CreatPostString.getUserInfo();
-                UserInfoParser mUserInfoParser = new UserInfoParser();
-                BaseResponseInfo mBaseResponseInfo = mUserInfoParser
-                        .getBaseResponseInfo(url, post);
-
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    listener.onFinished(mBaseResponseInfo);
-                } else {
-                    listener.onErro(mBaseResponseInfo);
-                }
-
-            }
-
-        }.start();
-    }
 
     /**
      * 获取用户基本信息

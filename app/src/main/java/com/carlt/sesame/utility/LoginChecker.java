@@ -9,7 +9,7 @@ import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
-import com.carlt.sesame.ui.MainActivity;
+import com.carlt.sesame.ui.SesameMainActivity;
 
 /**
  * @author Y.yun
@@ -106,7 +106,7 @@ public class LoginChecker extends Thread {
                     break;
                 case 2:
                   //获取用户相关信息成功
-                    MainActivity.setDotVisiable();
+                    SesameMainActivity.setDotVisiable();
                     break;
                 case 3:
                     //获取用户相关信息失败

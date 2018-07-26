@@ -21,9 +21,9 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.sesame.data.remote.CarStateInfo;
 import com.carlt.sesame.ui.view.UUAuthorDialog.OnTimeOutListener;
-import com.carlt.sesame.ui.view.UUUpdateDialog.DialogUpdateListener;
 
 import java.util.ArrayList;
 
@@ -535,7 +535,7 @@ public class PopBoxCreat {
      * @param context
      * @return
      */
-    public static UUUpdateDialog showUUUpdateDialog(final Context context, final DialogUpdateListener mListener) {
+    public static UUUpdateDialog showUUUpdateDialog(final Context context, final UUUpdateDialog.DialogUpdateListener mListener) {
         if (mUUDialog != null && mUUDialog.isShowing()) {
             return mUUDialog;
         }

@@ -101,7 +101,7 @@
             android:drawablePadding="-20dip"
             android:gravity="center"
             android:paddingLeft="45dip"
-            android:text="@string/map"
+            android:text="地图"
             android:textColor="@color/text_color_gray3"
             android:textSize="18sp" />
 
@@ -120,7 +120,7 @@
             android:drawablePadding="-20dip"
             android:gravity="center"
             android:paddingLeft="45dip"
-            android:text="@string/spit"
+            android:text="吐槽"
             android:textColor="@color/text_color_gray3"
             android:textSize="18sp" />
     </LinearLayout>

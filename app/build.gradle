@@ -11,6 +11,7 @@ android {
         }
     }
     compileSdkVersion 26
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         multiDexEnabled true
         applicationId "com.carlt.doride"
@@ -78,6 +79,6 @@ dependencies {
     implementation 'pub.devrel:easypermissions:1.0.1'
     implementation 'com.orhanobut:logger:2.2.0'
     compile 'com.blankj:utilcode:1.7.1'
-
-
+    implementation files('libs/alipaySdk-20160223.jar')
+    implementation files('libs/ZXingCode.jar')
 }

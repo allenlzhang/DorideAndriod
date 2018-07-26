@@ -27,7 +27,7 @@ import java.util.UUID;
  */
 
 public class DorideApplication extends Application {
-    public static int Version_API = 100;
+    public static int Version_API = 110;
 
     public static int VERSION_API_REMOTE = 100;// 远程下发相关Api版本
 

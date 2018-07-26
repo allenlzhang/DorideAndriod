@@ -14,17 +14,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+import com.carlt.doride.control.LoginControl;
+import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.control.LoginControl;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
-import com.carlt.sesame.ui.activity.usercenter.SelectCarBindActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.ui.view.UUTimerDialog;
@@ -398,16 +398,16 @@ public class ActivateActivity extends BaseActivity {
         	}else{
         		
         		if("1".equals(LoginInfo.getDevicetype())){//更换设备登陆进来的
-                  Intent mIntent = new Intent(ActivateActivity.this, LoginActivity.class);
+                  Intent mIntent = new Intent(ActivateActivity.this, UserLoginActivity.class);
                   startActivity(mIntent);
                   finish();
         		}else{
         			// 跳转至选车型输入序列号二合一页面
                     LoginInfo.setIsJumptoBind(LoginInfo.noJumptoBind);
-                    Intent mIntent = new Intent(ActivateActivity.this, SelectCarBindActivity.class);
-                    mIntent.putExtra(SelectCarBindActivity.FROM_NAME, ActivateActivity.this.getClass()
-                            .getName());
-                    startActivity(mIntent);
+//                    Intent mIntent = new Intent(ActivateActivity.this, SelectCarBindActivity.class);
+//                    mIntent.putExtra(SelectCarBindActivity.FROM_NAME, ActivateActivity.this.getClass()
+//                            .getName());
+//                    startActivity(mIntent);
                     finish();
         		}
         	}

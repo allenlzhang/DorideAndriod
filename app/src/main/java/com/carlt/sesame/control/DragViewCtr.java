@@ -1,5 +1,6 @@
 package com.carlt.sesame.control;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,17 +18,15 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
+import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
 import com.carlt.sesame.ui.activity.career.CareerMainActivity;
 import com.carlt.sesame.ui.activity.career.report.newui.DayActivity;
-import com.carlt.sesame.ui.activity.career.report.newui.MonthActivity;
-import com.carlt.sesame.ui.activity.career.report.newui.WeekActivity;
 import com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity;
 import com.carlt.sesame.ui.activity.safety.AuthorActivity;
 import com.carlt.sesame.ui.activity.setting.SettingMainActivity;
-import com.carlt.sesame.ui.activity.usercenter.login.LoginActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.ui.view.UUCallDialog;
@@ -36,7 +35,7 @@ import com.carlt.sesame.utility.DisplayUtil;
 import com.carlt.sesame.utility.Log;
 
 /**
- * 
+ *
  * @author liuxiangfei Description: 显示悬浮框的控制类
  */
 public class DragViewCtr {
@@ -44,7 +43,7 @@ public class DragViewCtr {
 	private static final int MOVE_LENGH = 150;
 
 	private int screenHeight;
-	
+
 	private static final String TAG = DragViewCtr.class.getSimpleName();
 
 	private int screenWidth;
@@ -84,7 +83,7 @@ public class DragViewCtr {
 	 * 对应的挂在GroupActivity或者Activity 状态栏的高度
 	 */
 	private int statusBarHeight1 = 0;
-	
+
 	/**
 	 * 系统的状态栏高度
 	 */
@@ -99,11 +98,11 @@ public class DragViewCtr {
 
 		this.sp = activity.getSharedPreferences("config", Context.MODE_PRIVATE);
 		//获取status_bar_height资源的ID  
-		int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");  
-		if (resourceId > 0) {  
-		//根据资源ID获取响应的尺寸值  
-		STATUSBARHEIGHT  = activity.getResources().getDimensionPixelSize(resourceId);  
-		statusBarHeight1 = activity.getResources().getDimensionPixelSize(resourceId);  
+		int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+		//根据资源ID获取响应的尺寸值
+		STATUSBARHEIGHT  = activity.getResources().getDimensionPixelSize(resourceId);
+		statusBarHeight1 = activity.getResources().getDimensionPixelSize(resourceId);
 		Log.e(TAG, "状态栏:" + statusBarHeight1);
 		}
 		if (checkLinkGroupActivity()) {
@@ -114,7 +113,7 @@ public class DragViewCtr {
 		initHigh = DisplayUtil.dip2px(activity, 180);
 
 		initLift = DisplayUtil.dip2px(activity, 80);
-		
+
 
 	}
 
@@ -141,7 +140,7 @@ public class DragViewCtr {
 		if (activity instanceof AuthorActivity) {
 			return;
 		}
-		if (activity instanceof LoginActivity) {
+		if (activity instanceof UserLoginActivity) {
 			return;
 		}
 
@@ -304,6 +303,7 @@ public class DragViewCtr {
 
 			}
 
+			@SuppressLint("MissingPermission")
 			@Override
 			public void onLeftClick() {
 				// 确定
@@ -348,10 +348,6 @@ public class DragViewCtr {
 		} else if (activity instanceof RemoteMainNewActivity) {
 			return true;
 		} else if (activity instanceof SettingMainActivity) {
-			return true;
-		} else if (activity instanceof MonthActivity) {
-			return true;
-		} else if (activity instanceof WeekActivity) {
 			return true;
 		} else if (activity instanceof DayActivity) {
 			return true;

@@ -1,6 +1,6 @@
 package com.carlt.sesame.protocolstack.career;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.career.SecretaryCategoryInfo;
 import com.carlt.sesame.data.career.SecretaryCategoryInfoList;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;

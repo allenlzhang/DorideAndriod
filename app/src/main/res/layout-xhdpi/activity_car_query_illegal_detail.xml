@@ -101,7 +101,7 @@
             android:layout_marginTop="6dip"
             android:drawablePadding="6dip"
             android:drawableRight="@drawable/icon_arrow_share"
-            android:text="@string/spit"
+            android:text="吐槽"
             android:textColor="@color/text_color_gray3"
             android:textSize="@dimen/text_size_large"/>
     </LinearLayout>

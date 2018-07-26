@@ -67,7 +67,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			System.exit(1);
 			// 重新启动程序，注释上面的退出程序
 			// Intent intent = new Intent();
-			// intent.setClass(mContext, MainActivity.class);
+			// intent.setClass(mContext, SesameMainActivity.class);
 			// intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			// mContext.startActivity(intent);
 			// android.os.Process.killProcess(android.os.Process.myPid());

@@ -382,7 +382,7 @@ public class VerifyAllActivity extends BaseActivity implements OnClickListener {
 				if (mDialog != null) {
 					mDialog.dismiss();
 				}
-				setResult(LoginActivity.REQUEST_CODE + 1);
+//				setResult(LoginActivity.REQUEST_CODE + 1);
 				finish();
 				break;
 

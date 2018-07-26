@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@null"
-            android:hint="@string/car_test_edit_hint"
+            android:hint="请填写爱车行驶的总里程"
             android:inputType="number"
             android:textColor="@color/text_color_gray2"
             android:textColorHint="@color/text_color_gray1"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="@string/kilometre"
+            android:text="公里"
             android:textColor="@color/text_color_gray2"
             android:textSize="@dimen/text_size_small" />
     </RelativeLayout>

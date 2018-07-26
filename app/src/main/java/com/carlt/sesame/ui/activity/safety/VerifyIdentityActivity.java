@@ -228,7 +228,7 @@ public class VerifyIdentityActivity extends BaseActivity implements OnClickListe
                 case 2:
                     // 调用无授权登录成功
                     // 返回登录页
-                    setResult(LoginActivity.REQUEST_CODE + 1);
+//                    setResult(LoginActivity.REQUEST_CODE + 1);
                     finish();
                     break;
 

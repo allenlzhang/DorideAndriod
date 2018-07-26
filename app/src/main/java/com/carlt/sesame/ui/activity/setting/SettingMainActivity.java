@@ -10,12 +10,11 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
-import com.carlt.sesame.ui.MainActivity;
+import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.safety.SafetyMainActivity;
 
@@ -235,7 +234,7 @@ public class SettingMainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MainActivity.setDotVisiable();
+        SesameMainActivity.setDotVisiable();
         phoneNum = LoginInfo.getDealerTel();
         phoneNumService = LoginInfo.getServiceTel();
         if (TextUtils.isEmpty(phoneNum) && TextUtils.isEmpty(phoneNumService)) {

@@ -11,13 +11,13 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.safety.AuthorInfo;
-import com.carlt.sesame.ui.MainActivity;
+import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.UUToast;
@@ -74,7 +74,7 @@ public class AuthorActivity extends LoadingActivityWithTitle implements OnClickL
             @Override
             public void onClick(View v) {
                 // 跳转至主页面
-                Intent mIntent = new Intent(AuthorActivity.this, MainActivity.class);
+                Intent mIntent = new Intent(AuthorActivity.this, SesameMainActivity.class);
                 startActivity(mIntent);
                 finish();
             }
@@ -102,13 +102,13 @@ public class AuthorActivity extends LoadingActivityWithTitle implements OnClickL
                 mTxtMobilename.setText(mobileName + "提出授权请求");
             } else {
                 // 拒绝授权-跳转至主页面
-                Intent mIntent = new Intent(AuthorActivity.this, MainActivity.class);
+                Intent mIntent = new Intent(AuthorActivity.this, SesameMainActivity.class);
                 startActivity(mIntent);
                 finish();
             }
         } else {
             // 拒绝授权-跳转至主页面
-            Intent mIntent = new Intent(AuthorActivity.this, MainActivity.class);
+            Intent mIntent = new Intent(AuthorActivity.this, SesameMainActivity.class);
             startActivity(mIntent);
             finish();
         }
@@ -178,7 +178,7 @@ public class AuthorActivity extends LoadingActivityWithTitle implements OnClickL
                             ActivityControl.onLogout(AuthorActivity.this);
                         } else if (isallow.equals("2")) {
                             // 拒绝授权-跳转至主页面
-                            Intent mIntent = new Intent(AuthorActivity.this, MainActivity.class);
+                            Intent mIntent = new Intent(AuthorActivity.this, SesameMainActivity.class);
                             startActivity(mIntent);
                             finish();
                         }

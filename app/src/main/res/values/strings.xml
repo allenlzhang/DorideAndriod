@@ -152,4 +152,27 @@
     <string name="secretary_question_push">发送问题</string>
     <string name="secretary_consult_tel">电话咨询</string>
 
+    <!-- 座驾-违章 -->
+    <string name="car_illegal_address">违章地点</string>
+    <string name="car_illegal_description">违章描述</string>
+    <string name="car_illegal_date">违章日期</string>
+    <string name="car_illegal_punish_score">扣0分</string>
+    <string name="car_illegal_punish_money">罚0元</string>
+    <string name="car_illegal_state">违章状态</string>
+    <string name="car_illegal_txt1">允许普奔自动推送违章信息（免费）</string>
+    <string name="car_illegal_txt2">每周推送一次</string>
+    <string name="car_illegal_city">请选择上牌城市</string>
+    <string name="car_illegal_num">请填写车牌号</string>
+    <string name="car_illegal_engine">请填写发动机号</string>
+    <string name="car_illegal_frame">请填写车架号</string>
+    <string name="car_illegal_query">开始体验</string>
+
+    <string name="car_city">上牌城市</string>
+    <string name="car_num">车&#160;&#160;牌&#160;&#160;号</string>
+    <string name="car_engine">发动机号</string>
+    <string name="car_frame">车&#160;&#160;架&#160;&#160;号</string>
+    <string name="car_certificate">登记证书号</string>
+
+    <string name="register_secretary_girl">芝麻小秘书</string>
+    <string name="register_secretary_boy">乐博士</string>
 </resources>

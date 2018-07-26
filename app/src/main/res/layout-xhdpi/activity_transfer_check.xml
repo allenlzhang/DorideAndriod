@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/head_back" />
+
+    <com.carlt.sesame.ui.view.ValidateEditText
+        android:id="@+id/transfer_edit1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dip" />
+
+    <RelativeLayout
+        android:id="@+id/transfer_relative1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transfer_edit1"
+        android:layout_marginBottom="15dip" >
+
+        <com.carlt.sesame.ui.view.ValidateEditText
+            android:id="@+id/transfer_edit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:id="@+id/transfer_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4.5dp"
+            android:background="@drawable/btn_code_bg"
+            android:gravity="center"
+            android:text="@string/usercenter_push_validate"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <com.carlt.sesame.ui.view.ValidateEditText
+        android:id="@+id/transfer_edit3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transfer_relative1"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+
+    <com.carlt.sesame.ui.view.ValidateEditText
+        android:id="@+id/transfer_edit4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transfer_edit3"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+
+    <RelativeLayout
+        android:id="@+id/transfer_relative2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transfer_edit4"
+        android:layout_marginBottom="22dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:background="@drawable/edittext_bg"
+        android:paddingRight="6dip"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/transfer_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_question_small" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/transfer_btn"
+        style="@style/public_bottom_btn_blue"
+        android:layout_below="@id/transfer_relative2"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:text="生成二维码" />
+
+</RelativeLayout>

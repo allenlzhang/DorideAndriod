@@ -352,6 +352,8 @@ public class LoginInfo extends BaseResponseInfo {
 
     private static boolean isTachograph;//是否是带记录仪设备
 
+    private static int app_type;    //APP类型 1大乘智享 2芝麻乐园
+
     public static void Destroy() {
         JSONObject destroy = null;
         try {
@@ -410,6 +412,7 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.setRegister_time(destroy.optString("register_time", ""));
         LoginInfo.setAccess_token(destroy.optString("access_token", ""));
         LoginInfo.setVin(LoginInfo.getMobile(),"");
+//        LoginInfo.setApp_type(destroy.optInt("app_type",0));
     }
 
     public static String getExpiresIn() {
@@ -1504,5 +1507,12 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.tbox_type = tbox_type;
         user_pref.edit().putString("tbox_type", tbox_type).commit();
     }
-
+    public static void setApp_type(int app_type){
+        LoginInfo.app_type = app_type;
+        user_pref.edit().putInt("app_type",app_type).commit();
+    }
+    public static int getApp_type(){
+        app_type = user_pref.getInt("app_type",app_type);
+        return app_type;
+    }
 }

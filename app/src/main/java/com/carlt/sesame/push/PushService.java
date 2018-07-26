@@ -17,7 +17,7 @@ import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
 import com.carlt.sesame.data.safety.AuthorInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
-import com.carlt.sesame.ui.MainActivity;
+import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.career.SecretaryTipsActivity;
 import com.carlt.sesame.ui.activity.safety.AuthorActivity;
 import com.carlt.sesame.utility.Log;
@@ -130,7 +130,7 @@ public class PushService extends Service {
 			} else {
 				// 子机-跳转至主页面
 				Intent mIntent = new Intent(PushService.this,
-						MainActivity.class);
+						SesameMainActivity.class);
 				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 						| Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(mIntent);
@@ -148,7 +148,7 @@ public class PushService extends Service {
 			} else {
 				// 子机-跳转至主页面
 				Intent mIntent = new Intent(PushService.this,
-						MainActivity.class);
+						SesameMainActivity.class);
 				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 						| Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(mIntent);
@@ -162,19 +162,19 @@ public class PushService extends Service {
 			if (class2 == SecretaryMessageInfo.C1_T1_T6) {
 				// 充电成功
 				Intent mIntent = new Intent(PushService.this,
-						MainActivity.class);
+						SesameMainActivity.class);
 				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 						| Intent.FLAG_ACTIVITY_NEW_TASK);
-				mIntent.putExtra(MainActivity.CURRENT_TAB, 0);
+				mIntent.putExtra(SesameMainActivity.CURRENT_TAB, 0);
 				startActivity(mIntent);
 				return;
 			} else if (class2 == SecretaryMessageInfo.C1_T1_T7) {
 				// 充电失败
 				Intent mIntent = new Intent(PushService.this,
-						MainActivity.class);
+						SesameMainActivity.class);
 				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 						| Intent.FLAG_ACTIVITY_NEW_TASK);
-				mIntent.putExtra(MainActivity.CURRENT_TAB, 2);
+				mIntent.putExtra(SesameMainActivity.CURRENT_TAB, 2);
 				startActivity(mIntent);
 				return;
 			} else {

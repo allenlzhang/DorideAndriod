@@ -1,7 +1,7 @@
 
 package com.carlt.sesame.data.remote;
 
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.BaseResponseInfo;
 
 import java.util.HashMap;

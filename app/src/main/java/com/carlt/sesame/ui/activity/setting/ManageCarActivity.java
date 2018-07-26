@@ -371,7 +371,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     ManageCarActivity.this.sendBroadcast(mIntent);
                     UUToast.showUUToast(ManageCarActivity.this, "修改车型成功！");
                     CPControl.GetCarConfigResult(null);
-                    //MainActivity.setRemoteVisible();
+                    //SesameMainActivity.setRemoteVisible();
                     break;
 
                 case 1:

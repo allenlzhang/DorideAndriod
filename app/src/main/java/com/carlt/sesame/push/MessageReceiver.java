@@ -8,12 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
-import com.carlt.sesame.map.ChallengeMapActivity;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
 import com.carlt.sesame.utility.Log;
 import com.carlt.sesame.utility.MyParse;
@@ -177,14 +176,6 @@ public class MessageReceiver extends XGPushBaseReceiver {
                     context.sendBroadcast(intent2);
                 }
                 showNotification(context, title, class1,class2);
-                break;
-            case SecretaryMessageInfo.C1_CHALLENGE:
-                // 100 挑战
-                // 将挑战广播分发出去
-                Intent intent100 = new Intent();
-                intent100.setAction(ChallengeMapActivity.CHALLENGE_STOP);
-                intent100.putExtra("content", content);
-                context.sendBroadcast(intent100);
                 break;
             case LoginInfo.Author_Message:
                 // 授权推送（只有主机才能展示）

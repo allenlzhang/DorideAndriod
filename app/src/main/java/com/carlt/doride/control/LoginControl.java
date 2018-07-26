@@ -12,6 +12,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.activity.login.DeviceBindActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUUpdateDialog;
+import com.carlt.sesame.ui.SesameMainActivity;
 
 import org.json.JSONObject;
 
@@ -39,10 +40,15 @@ public class LoginControl {
             boolean isDeviceActivate = LoginInfo.isDeviceActivate();
             Log.e("info", "isDeviceActivate==" + isDeviceActivate);
             if (isDeviceActivate) {
-
-                // 大乘绑定和激活合并，如果激活直接进入主页
-                Intent mainIntent = new Intent(mContext,
-                        MainActivity.class);
+                Intent mainIntent;
+                if (LoginInfo.getApp_type() == 1) {
+                    // 大乘绑定和激活合并，如果激活直接进入主页
+                    mainIntent = new Intent(mContext,
+                            MainActivity.class);
+                }else {
+                    mainIntent = new Intent(mContext,
+                            SesameMainActivity.class);
+                }
                 mContext.startActivity(mainIntent);
                 mContext.finish();
             } else {
@@ -246,7 +252,7 @@ public class LoginControl {
             int is_tachograph = membercar.optInt("is_tachograph", 0);
             LoginInfo.setTachograph(getFlagResult(is_tachograph + ""));
             LoginInfo.setTbox_type(membercar.optString("tbox_type"));
-
+            LoginInfo.setApp_type(data.optInt("app_type",1));
         }
     }
 

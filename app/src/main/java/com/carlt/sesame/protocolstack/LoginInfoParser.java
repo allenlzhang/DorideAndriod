@@ -2,7 +2,7 @@
 package com.carlt.sesame.protocolstack;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.R;
+import com.carlt.doride.R;
 import com.carlt.sesame.data.LoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
 
