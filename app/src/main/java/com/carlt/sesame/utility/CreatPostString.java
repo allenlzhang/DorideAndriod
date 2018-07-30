@@ -1460,7 +1460,7 @@ public class CreatPostString {
     }
 
     /**
-     * @param outtingId
+     * @param
      * @return
      */
     public static String getTransferOldCheck() {
