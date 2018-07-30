@@ -13,7 +13,7 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/head_sub_normal" />
+            layout="@layout/sesame_head_sub_normal" />
 
         <RelativeLayout
             android:id="@+id/car_fill_illegal_layout1"

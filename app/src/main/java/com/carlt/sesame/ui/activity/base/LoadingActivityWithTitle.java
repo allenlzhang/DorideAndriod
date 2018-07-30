@@ -48,7 +48,7 @@ public abstract class LoadingActivityWithTitle extends BaseActivity {
 
     @Override
     public void setContentView(int layoutResID) {
-        super.setContentView(R.layout.loading_activity_with_title);
+        super.setContentView(R.layout.sesame_loading_activity_with_title);
         mMainLayout = (RelativeLayout)findViewById(R.id.loading_activity_with_title_mainlayout);
         mTitleLay = (RelativeLayout)findViewById(R.id.loading_activity_with_title_title);
         mLoadingLayout = findViewById(R.id.loading_activity_with_title_loading_lay);

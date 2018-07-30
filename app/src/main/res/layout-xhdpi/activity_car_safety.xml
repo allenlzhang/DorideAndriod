@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/sub_head"
-        layout="@layout/head_sub_normal" />
+        layout="@layout/sesame_head_sub_normal" />
 
     <com.carlt.sesame.ui.pull.PullToRefreshListView
         android:id="@+id/activity_car_safety_list"

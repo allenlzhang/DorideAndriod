@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="245dp"
                 android:layout_marginTop="12dp"
-                layout="@layout/layout_report_grid"
+                layout="@layout/sesame_layout_report_grid"
                 android:background="@color/white" />
         </LinearLayout>
     </ScrollView>
@@ -110,7 +110,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:src="@drawable/icon_secretary" />
+            android:src="@drawable/sesame_icon_secretary" />
 
         <TextView
             android:id="@+id/activity_career_main_txt2"
@@ -150,7 +150,7 @@
                 style="@style/public_img"
                 android:layout_marginRight="4dip"
                 android:layout_marginTop="3dp"
-                android:src="@drawable/icon_horn" />
+                android:src="@drawable/sesame_icon_horn" />
 
             <TextView
                 android:id="@+id/activity_career_main_txt4"
