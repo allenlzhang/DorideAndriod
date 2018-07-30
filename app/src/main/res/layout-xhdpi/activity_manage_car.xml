@@ -21,6 +21,7 @@
         <ImageView
             android:id="@+id/car_crrow1"
             style="@style/setting_img2"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="13dip" />

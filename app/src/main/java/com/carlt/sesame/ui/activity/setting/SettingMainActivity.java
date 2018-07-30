@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.ui.activity.setting.AboutDorideActivity;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
@@ -184,21 +185,20 @@ public class SettingMainActivity extends BaseActivity {
                     // String url = "http://m.cheler.com";
                     // Uri uri = Uri.parse(url);
                     // Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
-                    Intent intent1 = new Intent(SettingMainActivity.this, AboutAppActivity.class);
+                    Intent intent1 = new Intent(SettingMainActivity.this, AboutDorideActivity.class);
                     startActivity(intent1);
                     break;
                 case R.id.activity_setting_layout7:
 
-                    Intent intent7 = new Intent(SettingMainActivity.this,
-                            ManageCustomerServiceActivity.class);
+                    Intent intent7 = new Intent(SettingMainActivity.this, ManageCustomerServiceActivity.class);
                     startActivity(intent7);
                     // 拨打客服电话
                     break;
                 case R.id.activity_setting_layout9:
                     //                    版本介绍
-                    Intent intentUpdataDetail = new Intent(SettingMainActivity.this,
-                            UpdataDetailActivity.class);
-                    startActivity(intentUpdataDetail);
+//                    Intent intentUpdataDetail = new Intent(SettingMainActivity.this,
+//                            UpdataDetailActivity.class);
+//                    startActivity(intentUpdataDetail);
                     // 拨打客服电话
                     break;
                 case R.id.activity_setting_txt2:

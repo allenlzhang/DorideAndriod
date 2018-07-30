@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.ui.view.PwdEditText;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -20,8 +21,6 @@ import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
-import com.carlt.sesame.ui.view.PwdEditText;
-import com.carlt.sesame.ui.view.PwdEditText.OnInputListener;
 import com.carlt.sesame.utility.UUToast;
 
 /**
@@ -156,53 +155,13 @@ public class RemotePswResetActivity3 extends BaseActivity implements OnClickList
         mTxtEdt.setOnClickListener(this);
     }
 
-    private boolean isInputFinish1;
 
-    private boolean isInputFinish2;
 
-    private OnInputListener mInputListener = new OnInputListener() {
+    private PwdEditText.OnInputListener mInputListener = new PwdEditText.OnInputListener() {
 
         @Override
         public void onInputChange(int viewID, int length, String password, boolean isFinished) {
-            // switch (viewID) {
-            // case R.id.remotepsw_reset3_pwdedt1:
-            // isInputFinish1 = isFinished;
-            // if (!isFinished) {
-            // mTxtEdt.setBackgroundResource(R.drawable.bottom_btn_bg_gray);
-            // mTxtEdt.setClickable(false);
-            // mTxtEdt.setOnClickListener(RemotePswResetActivity3.this);
-            // } else {
-            // if (isInputFinish2) {
-            // mTxtEdt.setBackgroundResource(R.drawable.bottom_btn_blue);
-            // mTxtEdt.setClickable(true);
-            // mTxtEdt.setOnClickListener(RemotePswResetActivity3.this);
-            // } else {
-            // mTxtEdt.setBackgroundResource(R.drawable.bottom_btn_bg_gray);
-            // mTxtEdt.setClickable(false);
-            // mTxtEdt.setOnClickListener(RemotePswResetActivity3.this);
-            // }
-            // }
-            // break;
-            //
-            // case R.id.remotepsw_reset3_pwdedt2:
-            // isInputFinish2 = isFinished;
-            // if (!isFinished) {
-            // mTxtEdt.setBackgroundResource(R.drawable.bottom_btn_bg_gray);
-            // mTxtEdt.setClickable(false);
-            // mTxtEdt.setOnClickListener(RemotePswResetActivity3.this);
-            // } else {
-            // if (isInputFinish1) {
-            // mTxtEdt.setBackgroundResource(R.drawable.bottom_btn_blue);
-            // mTxtEdt.setClickable(true);
-            // mTxtEdt.setOnClickListener(RemotePswResetActivity3.this);
-            // } else {
-            // mTxtEdt.setBackgroundResource(R.drawable.bottom_btn_bg_gray);
-            // mTxtEdt.setClickable(false);
-            // mTxtEdt.setOnClickListener(RemotePswResetActivity3.this);
-            // }
-            // }
-            // break;
-            // }
+
         }
     };
 

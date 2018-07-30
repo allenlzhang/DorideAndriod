@@ -44,7 +44,6 @@ import java.util.Calendar;
 
 /**
  * 设置-车辆管理页面
- * 
  * @author daisy
  */
 public class ManageCarActivity extends LoadingActivityWithTitle {
@@ -104,9 +103,9 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
     }
 
     private void initTitle() {
-        back = (ImageView)findViewById(R.id.head_back_img1);
-        title = (TextView)findViewById(R.id.head_back_txt1);
-        txtRight = (TextView)findViewById(R.id.head_back_txt2);
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
         title.setText("车辆管理");
@@ -128,10 +127,10 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
         mView3 = findViewById(R.id.manage_car_layout3);
         mView4 = findViewById(R.id.manage_car_layout4);
 
-        mTxtCarname = (TextView)findViewById(R.id.manage_car_txt_carname);
-        mTxtBuydate = (TextView)findViewById(R.id.manage_car_txt_buydate);
-        mTxtMaintainMile = (TextView)findViewById(R.id.manage_car_txt_maintainmile);
-        mTxtMaintainDate = (TextView)findViewById(R.id.manage_car_txt_maintaindate);
+        mTxtCarname = (TextView) findViewById(R.id.manage_car_txt_carname);
+        mTxtBuydate = (TextView) findViewById(R.id.manage_car_txt_buydate);
+        mTxtMaintainMile = (TextView) findViewById(R.id.manage_car_txt_maintainmile);
+        mTxtMaintainDate = (TextView) findViewById(R.id.manage_car_txt_maintaindate);
 
         mView1.setOnClickListener(mClickListener);
         mTxtCarname.setOnClickListener(mClickListener);
@@ -213,15 +212,15 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     // mCarTypeView.showMenu();
 
                     // 选择车款
-                    if (mCarTypeView == null) {
-                        mCarTypeView = new SelectCarTypeView(ManageCarActivity.this,
-                                mOnCarTypeItemClick);
-                    }
-                    CarModeInfo carModeInfo1 = new CarModeInfo();
-                    carModeInfo1.setTitle(SelectCarTypeView.TITLE);
-                    carModeInfo1.setId(SelectCarTypeView.OPTIONID);
-                    mCarTypeView.pullDataThird(carModeInfo1, SelectCarTypeView.TYPE_CAR);
-                    mCarTypeView.showMenu();
+                    //                    if (mCarTypeView == null) {
+                    //                        mCarTypeView = new SelectCarTypeView(ManageCarActivity.this,
+                    //                                mOnCarTypeItemClick);
+                    //                    }
+                    //                    CarModeInfo carModeInfo1 = new CarModeInfo();
+                    //                    carModeInfo1.setTitle(SelectCarTypeView.TITLE);
+                    //                    carModeInfo1.setId(SelectCarTypeView.OPTIONID);
+                    //                    mCarTypeView.pullDataThird(carModeInfo1, SelectCarTypeView.TYPE_CAR);
+                    //                    mCarTypeView.showMenu();
                     break;
                 case R.id.manage_car_txt_carname:
                     // 选择车型
@@ -366,7 +365,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     }
                     carName = SesameLoginInfo.getCarname();
                     mTxtCarname.setText(carName);
-                    Intent mIntent=new Intent();
+                    Intent mIntent = new Intent();
                     mIntent.setAction(CarMainActivity.CARMAIN_CARYEAR);
                     ManageCarActivity.this.sendBroadcast(mIntent);
                     UUToast.showUUToast(ManageCarActivity.this, "修改车型成功！");
@@ -376,17 +375,17 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
 
                 case 1:
                     // 修改车型失败
-                    BaseResponseInfo mBaseResponseInfo1 = (BaseResponseInfo)msg.obj;
-                    
+                    BaseResponseInfo mBaseResponseInfo1 = (BaseResponseInfo) msg.obj;
+
                     if (mDialog != null) {
                         mDialog.dismiss();
                     }
                     if (mBaseResponseInfo1 != null) {
-                    	if(mBaseResponseInfo1.getFlag() == 1020){
-                    		PopBoxCreat.showUUUpdateDialog(context, null);
-                    		return;
-                    	}
-                    	
+                        if (mBaseResponseInfo1.getFlag() == 1020) {
+                            PopBoxCreat.showUUUpdateDialog(context, null);
+                            return;
+                        }
+
                         String info = mBaseResponseInfo1.getInfo();
                         if (info != null && info.length() > 0) {
                             UUToast.showUUToast(ManageCarActivity.this, info);
@@ -410,7 +409,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
 
                 case 3:
                     // 修改购车日期失败
-                    BaseResponseInfo mBaseResponseInfo2 = (BaseResponseInfo)msg.obj;
+                    BaseResponseInfo mBaseResponseInfo2 = (BaseResponseInfo) msg.obj;
                     if (mDialog != null) {
                         mDialog.dismiss();
                     }
@@ -438,7 +437,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
 
                 case 5:
                     // 修改上次保养日期失败
-                    BaseResponseInfo mBaseResponseInfo3 = (BaseResponseInfo)msg.obj;
+                    BaseResponseInfo mBaseResponseInfo3 = (BaseResponseInfo) msg.obj;
                     if (mDialog != null) {
                         mDialog.dismiss();
                     }
@@ -454,7 +453,9 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     }
                     break;
             }
-        };
+        }
+
+        ;
     };
 
     /**
@@ -693,7 +694,9 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
         }
 
         super.OnImgLoadFinished(url, mBitmap);
-    };
+    }
+
+    ;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -701,7 +704,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
             View v = getCurrentFocus();
             if (isShouldHideInput(v, ev)) {
 
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }

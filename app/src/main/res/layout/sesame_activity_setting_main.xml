@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/layout_background" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/layout_background">
 
     <!-- 标题头  “设置” -->
 
@@ -12,14 +12,14 @@
         android:layout_height="40dip"
         android:background="#fafafa"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dip"
             android:src="@drawable/setting_titleicon"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:text="设置"
             android:textColor="@color/text_color_gray3"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- 分割线 -->
@@ -35,7 +35,7 @@
     <View
         android:id="@+id/line_h1"
         style="@style/line_h"
-        android:layout_below="@id/title" />
+        android:layout_below="@id/title"/>
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -43,41 +43,41 @@
         android:layout_below="@id/line_h1"
         android:layout_marginBottom="0dip"
         android:paddingBottom="0dip"
-        android:scrollbars="none" >
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout1"
                 style="@style/setting_layout1"
                 android:layout_height="74dip"
                 android:layout_marginBottom="20dip"
-                android:layout_marginTop="13dip" >
+                android:layout_marginTop="13dip">
 
                 <ImageView
                     android:id="@+id/activity_setting_img_head"
                     style="@style/img_head_icon"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="12dip" />
+                    android:layout_marginRight="12dip"/>
 
                 <TextView
                     android:id="@+id/activity_setting_txt_name"
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/activity_setting_img_head"
-                    android:text="" />
+                    android:text=""/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout7"
                 style="@style/setting_layout1"
-                android:layout_below="@id/activity_setting_layout1" 
+                android:layout_below="@id/activity_setting_layout1"
                 android:layout_marginBottom="20dip"
                 >
 
@@ -85,12 +85,12 @@
                     android:id="@+id/img7"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_customer_service" />
+                    android:src="@drawable/setting_customer_service"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img7"
-                    android:text="联系客服" />
+                    android:text="联系客服"/>
 
                 <TextView
                     android:id="@+id/activity_setting_txt1"
@@ -99,103 +99,103 @@
                     android:layout_alignParentRight="true"
                     android:gravity="center"
                     android:textColor="@color/text_color_gray2"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"/>
 
                 <ImageView
                     android:id="@+id/img8"
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout_safety"
                 style="@style/setting_layout1"
                 android:layout_below="@id/activity_setting_layout7"
-                 >
+                >
 
                 <ImageView
                     android:id="@+id/img5"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_safe" />
+                    android:src="@drawable/setting_safe"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img5"
-                    android:text="安全中心" />
+                    android:text="安全中心"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout_safety"
-                android:background="#ffffff" />
+                android:background="#ffffff"/>
 
             <View
                 android:id="@+id/line_h11"
                 style="@style/setting_line_h"
-                android:layout_below="@id/activity_setting_layout_safety" />
+                android:layout_below="@id/activity_setting_layout_safety"/>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout2"
                 style="@style/setting_layout1"
-                android:layout_below="@id/line_h11" >
+                android:layout_below="@id/line_h11">
 
                 <ImageView
                     android:id="@+id/img2"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_car" />
+                    android:src="@drawable/setting_car"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img2"
-                    android:text="车辆管理" />
+                    android:text="车辆管理"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout2"
-                android:background="#ffffff" />
+                android:background="#ffffff"/>
 
             <View
                 android:id="@+id/line_h2"
                 style="@style/setting_line_h"
-                android:layout_below="@id/activity_setting_layout2" />
+                android:layout_below="@id/activity_setting_layout2"/>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout3"
                 style="@style/setting_layout1"
                 android:layout_below="@id/line_h2"
-                android:visibility="visible" >
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/img3"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_message" />
+                    android:src="@drawable/setting_message"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img3"
-                    android:text="消息管理" />
+                    android:text="消息管理"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <View
@@ -203,67 +203,67 @@
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout3"
                 android:background="#ffffff"
-                android:visibility="visible" />
+                android:visibility="visible"/>
 
             <View
                 android:id="@+id/line_h3"
                 style="@style/setting_line_h"
                 android:layout_below="@id/activity_setting_layout3"
-                android:visibility="visible" />
+                android:visibility="visible"/>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout4"
                 style="@style/setting_layout1"
-                android:layout_below="@id/line_h3" >
+                android:layout_below="@id/line_h3">
 
                 <ImageView
                     android:id="@+id/img4"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_device" />
+                    android:src="@drawable/setting_device"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img4"
-                    android:text="设备管理" />
+                    android:text="设备管理"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout4"
-                android:background="#ffffff" />
+                android:background="#ffffff"/>
 
             <View
                 android:id="@+id/line_h4"
                 style="@style/setting_line_h"
-                android:layout_below="@id/activity_setting_layout4" />
+                android:layout_below="@id/activity_setting_layout4"/>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout5"
                 style="@style/setting_layout1"
-                android:layout_below="@id/line_h4" >
+                android:layout_below="@id/line_h4">
 
                 <ImageView
                     android:id="@+id/img15"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_general" />
+                    android:src="@drawable/setting_general"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img15"
-                    android:text="通用管理" />
+                    android:text="通用管理"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
 
@@ -272,29 +272,29 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout5"
-                android:background="#ffffff" />
+                android:background="#ffffff"/>
 
             <View
                 android:id="@+id/line_h5"
                 style="@style/setting_line_h"
-                android:layout_below="@id/activity_setting_layout5" />
+                android:layout_below="@id/activity_setting_layout5"/>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout_fee"
                 style="@style/setting_layout1"
-                android:layout_below="@id/line_h5" >
+                android:layout_below="@id/line_h5">
 
                 <ImageView
                     android:id="@+id/img6"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_fee" />
+                    android:src="@drawable/setting_fee"/>
 
                 <TextView
                     android:id="@+id/activity_setting_txt_fee"
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img6"
-                    android:text="服务购买" />
+                    android:text="服务购买"/>
 
                 <ImageView
                     android:id="@+id/activity_setting_img_dot"
@@ -304,67 +304,69 @@
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/activity_setting_txt_fee"
                     android:src="@drawable/icon_dot"
-                    android:visibility="visible" />
+                    android:visibility="visible"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout6"
                 style="@style/setting_layout1"
-                android:layout_below="@id/activity_setting_layout_fee" 
-                 >
+                android:layout_below="@id/activity_setting_layout_fee"
+                >
 
                 <ImageView
                     android:id="@+id/img16"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_about_app" />
+                    android:src="@drawable/setting_about_app"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img16"
-                    android:text="关于芝麻乐园" />
+                    android:text="@string/about_yema_txt"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout6"
-                android:background="#ffffff" />
+                android:background="#ffffff"/>
 
             <View
                 android:id="@+id/line_h9"
                 style="@style/setting_line_h"
-                android:layout_below="@id/activity_setting_layout6" />
+                android:layout_below="@id/activity_setting_layout6"/>
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout9"
                 style="@style/setting_layout1"
-                android:layout_below="@id/line_h9" >
+                android:layout_below="@id/line_h9"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/img19"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_version" />
+                    android:src="@drawable/setting_version"/>
 
                 <TextView
                     style="@style/setting_txt"
                     android:layout_toRightOf="@id/img19"
-                    android:text="版本介绍" />
+                    android:text="版本介绍"/>
 
                 <ImageView
                     style="@style/setting_img2"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <View
@@ -372,12 +374,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout_fee"
-                android:background="#ffffff" />
+                android:background="#ffffff"/>
 
             <View
                 android:id="@+id/activity_setting_line_about"
                 style="@style/setting_line_h"
-                android:layout_below="@id/activity_setting_layout_fee" />
+                android:layout_below="@id/activity_setting_layout_fee"/>
 
             <TextView
                 android:id="@+id/activity_setting_txt2"
@@ -391,12 +393,12 @@
                 android:gravity="center"
                 android:text="退出登录"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_middle" />
+                android:textSize="@dimen/text_size_middle"/>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="20dip"
-                android:layout_below="@id/activity_setting_txt2" />
+                android:layout_below="@id/activity_setting_txt2"/>
         </RelativeLayout>
     </ScrollView>
 

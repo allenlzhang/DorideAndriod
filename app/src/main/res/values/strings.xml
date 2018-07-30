@@ -46,7 +46,7 @@
     <string name="general_manager_txt">通用管理</string>
     <string name="clean_cache_txt">清除缓存</string>vart
     <string name="contact_us_txt">联系我们</string>
-    <string name="about_yema_txt">关于</string>
+    <string name="about_yema_txt">关于大乘智享</string>
     <string name="logout_txt">退出登录</string>
     <!--修改资料界面-->
     <string name="title_personinfo_edit_txt">修改资料</string>

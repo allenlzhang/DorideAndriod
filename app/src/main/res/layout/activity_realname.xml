@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/layout_background"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/layout_background"
+              android:orientation="vertical">
 
+    <include layout="@layout/head_back"/>
 
     <LinearLayout
         android:id="@+id/realname_lay_authertodo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/realname_txt_title"
@@ -23,7 +24,7 @@
             android:layout_marginTop="9dip"
             android:text="为了保证远程操作的安全性，请先进行安全认证"
             android:textColor="@color/app_white"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <LinearLayout
             android:id="@+id/realname_lay_name"
@@ -31,15 +32,15 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-            <com.carlt.doride.ui.view.ValidateEditText
+            <com.carlt.sesame.ui.view.ValidateEditText
                 android:id="@+id/realname_edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp" />
+                android:layout_marginRight="15dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -48,15 +49,15 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-            <com.carlt.doride.ui.view.ValidateEditText
+            <com.carlt.sesame.ui.view.ValidateEditText
                 android:id="@+id/realname_edt_IDCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp" />
+                android:layout_marginRight="15dp"/>
         </LinearLayout>
 
         <TextView
@@ -66,7 +67,7 @@
             android:layout_marginLeft="@dimen/usercenter_margin"
             android:layout_marginRight="@dimen/usercenter_margin"
             android:layout_marginTop="10dip"
-            android:text="提交" />
+            android:text="提交"/>
     </LinearLayout>
 
     <LinearLayout
@@ -75,13 +76,13 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="67.5dip"
             android:layout_height="67.5dip"
             android:layout_marginTop="70dip"
-            android:src="@mipmap/safe_authored" />
+            android:src="@mipmap/safe_authored"/>
 
         <TextView
             android:layout_width="fill_parent"
@@ -90,7 +91,7 @@
             android:gravity="center"
             android:text="已认证"
             android:textColor="@color/text_color_gray3"
-            android:textSize="22sp" />
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/realname_txt_userinfo"
@@ -100,7 +101,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/text_color_gray3"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </LinearLayout>

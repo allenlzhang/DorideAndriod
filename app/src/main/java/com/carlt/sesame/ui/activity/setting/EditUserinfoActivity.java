@@ -321,7 +321,7 @@ public class EditUserinfoActivity extends BaseActivity {
                     cropImageUri = Uri.fromFile(fileCropUri);
                     Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                        newUri = FileProvider.getUriForFile(this, "com.carlt.sesame.fileprovider", new File(newUri.getPath()));
+                        newUri = FileProvider.getUriForFile(this, "com.carlt.doride.fileprovider", new File(newUri.getPath()));
                     PhotoUtils.cropImageUri(this, newUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
                     break;
             }
@@ -555,7 +555,7 @@ public class EditUserinfoActivity extends BaseActivity {
                                 imageUri = Uri.fromFile(fileUri);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                                     //通过FileProvider创建一个content类型的Uri
-                                    imageUri = FileProvider.getUriForFile(EditUserinfoActivity.this, "com.carlt.sesame.fileprovider", fileUri);
+                                    imageUri = FileProvider.getUriForFile(EditUserinfoActivity.this, "com.carlt.doride.fileprovider", fileUri);
                                 PhotoUtils.takePicture(EditUserinfoActivity.this, imageUri, CODE_CAMERA_REQUEST);
                             }
 

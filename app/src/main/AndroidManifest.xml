@@ -163,7 +163,6 @@
         <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyAllActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyIdentityActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyPhoneActivity"/>
-        <activity android:name="com.carlt.sesame.ui.activity.setting.AboutAppActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageMaintainActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.EditPhoneActivity1"/>
@@ -180,7 +179,6 @@
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageIllegalActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.ManageReBindActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.SettingMainActivity"/>
-        <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataDetailActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataLogItemDetialActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.WebActivity"/>
         <activity android:name="com.carlt.sesame.ui.SesameMainActivity"/>
