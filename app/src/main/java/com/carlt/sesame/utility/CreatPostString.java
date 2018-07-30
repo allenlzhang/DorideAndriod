@@ -827,7 +827,7 @@ public class CreatPostString {
     // 更新推送设置
     public static String getUpdatePushSet(final String pushSetItemName,
                                           final String pushSetItemValue) {
-        HashMap<String, String> mMap = new HashMap<String, String>();
+        HashMap<String, String> mMap = new HashMap<>();
         if (pushSetItemName != null && pushSetItemName.length() > 0) {
 
             if (pushSetItemName.equals(ManageMessageActivity.KEY_NAMES[1])) {
