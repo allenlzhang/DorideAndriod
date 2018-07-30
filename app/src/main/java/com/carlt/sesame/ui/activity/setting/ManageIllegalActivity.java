@@ -18,7 +18,7 @@ import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultList2Callback;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CityInfo;
 import com.carlt.sesame.data.car.PostViolationInfo;
 import com.carlt.sesame.data.car.ProvinceInfo;
@@ -127,7 +127,7 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 		mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
 
 		//mImageViewSecretary.setImageResource(LoginInfo.getSecretaryImg());
-		if (!LoginInfo.getCanQueryVio().equals("1")) {
+		if (!SesameLoginInfo.getCanQueryVio().equals("1")) {
 			mTextViewSecretary.setText("第一次查询违章需要补充以下信息");
 		}else{
 			mTextViewSecretary.setText("请填写违章查询车辆的信息");
@@ -180,7 +180,7 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 	protected void LoadSuccess(Object data) {
 		super.LoadSuccess(data);
 		// 初始化数据
-		CityInfo mInfo = cityInfos.get(LoginInfo.getCity_code());
+		CityInfo mInfo = cityInfos.get(SesameLoginInfo.getCity_code());
 		if (null == mInfo) {
 			return;
 		}
@@ -197,8 +197,8 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 		mTextView2.setVisibility(View.VISIBLE);
 		mTextView2.setText(mInfo.getAbbr());
 
-		if (LoginInfo.getCarno().length() > 0) {
-			mEditText1.setText(LoginInfo.getCarno().substring(1));
+		if (SesameLoginInfo.getCarno().length() > 0) {
+			mEditText1.setText(SesameLoginInfo.getCarno().substring(1));
 		}
 
 		String string;
@@ -214,8 +214,8 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 			} else {
 				mEditText2.setHint(String.format("请输入后%s位发动机号", num));
 			}
-			if (LoginInfo.getEngineno().length() > 0) {
-				mEditText2.setText(LoginInfo.getEngineno());
+			if (SesameLoginInfo.getEngineno().length() > 0) {
+				mEditText2.setText(SesameLoginInfo.getEngineno());
 			}
 		}
 		// 是否需要车架号
@@ -230,8 +230,8 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 			} else {
 				mEditText3.setHint(String.format("请输入后%s位车架号", num));
 			}
-			if (LoginInfo.getShortstandcarno().length() > 0) {
-				mEditText3.setText(LoginInfo.getShortstandcarno());
+			if (SesameLoginInfo.getShortstandcarno().length() > 0) {
+				mEditText3.setText(SesameLoginInfo.getShortstandcarno());
 			}
 		}
 		// 是否需要登记证书号
@@ -246,8 +246,8 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 			} else {
 				mEditText2.setHint(String.format("请输入后%s位证书号", num));
 			}
-			if (LoginInfo.getRegistno().length() > 0) {
-				mEditText3.setText(LoginInfo.getRegistno());
+			if (SesameLoginInfo.getRegistno().length() > 0) {
+				mEditText3.setText(SesameLoginInfo.getRegistno());
 			}
 		}
 	}
@@ -499,14 +499,14 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 						mEditText3.setHint(String.format("请输入后%s位车架号", num));
 					}
 
-					if (!TextUtils.isEmpty(LoginInfo.getStandcarno())) {
-						if (!LoginInfo.getCanQueryVio().equals("1")) {
+					if (!TextUtils.isEmpty(SesameLoginInfo.getStandcarno())) {
+						if (!SesameLoginInfo.getCanQueryVio().equals("1")) {
 							int len = Integer.parseInt(num);
 							String res = "";
-							if (LoginInfo.getStandcarno().length() > len && len > 0) {
-								res = LoginInfo.getStandcarno().substring(LoginInfo.getStandcarno().length() - len);
+							if (SesameLoginInfo.getStandcarno().length() > len && len > 0) {
+								res = SesameLoginInfo.getStandcarno().substring(SesameLoginInfo.getStandcarno().length() - len);
 							} else{
-								res = LoginInfo.getStandcarno();
+								res = SesameLoginInfo.getStandcarno();
 							}
 							mEditText3.setText(res);
 						}

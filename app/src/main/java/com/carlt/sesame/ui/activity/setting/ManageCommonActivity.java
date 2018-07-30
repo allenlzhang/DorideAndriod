@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.UUDialog;
@@ -71,7 +71,7 @@ public class ManageCommonActivity extends LoadingActivityWithTitle implements On
 	@Override
 	protected void LoadSuccess(Object data) {
 		super.LoadSuccess(data);
-		mCheckBox1.setChecked(LoginInfo.isRemoteSoundOpen());
+		mCheckBox1.setChecked(SesameLoginInfo.isRemoteSoundOpen());
 	}
 
 	@Override
@@ -115,12 +115,12 @@ public class ManageCommonActivity extends LoadingActivityWithTitle implements On
 					mDialog.dismiss();
 				}
 
-				if (!(mCheckBox1.isChecked() && LoginInfo.isRemoteSoundOpen())) {
-					mCheckBox1.setChecked(LoginInfo.isRemoteSoundOpen());
+				if (!(mCheckBox1.isChecked() && SesameLoginInfo.isRemoteSoundOpen())) {
+					mCheckBox1.setChecked(SesameLoginInfo.isRemoteSoundOpen());
 				}
 				break;
 			case 1:
-				mCheckBox1.setChecked(LoginInfo.isRemoteSoundOpen());
+				mCheckBox1.setChecked(SesameLoginInfo.isRemoteSoundOpen());
 				UUToast.showUUToast(context, "设置失败");
 				if (mDialog != null && mDialog.isShowing()) {
 					mDialog.dismiss();

@@ -16,7 +16,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarMainInfo;
 import com.carlt.sesame.data.car.TirepressureInfo;
 import com.carlt.sesame.preference.EntryInfoLocal;
@@ -130,7 +130,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
     }
 
     private void initEntryInfo(int state) {
-        String userId = LoginInfo.getUseId();
+        String userId = SesameLoginInfo.getUseId();
         int times = 0;
         if (userId != null && userId.length() > 0) {
             times = EntryInfoLocal.getEntryTimes(userId);

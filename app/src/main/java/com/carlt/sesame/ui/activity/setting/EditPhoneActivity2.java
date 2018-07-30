@@ -14,7 +14,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.GetValidateView;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -122,7 +122,7 @@ public class EditPhoneActivity2 extends BaseActivity {
                 case R.id.editphone_txt_getcode:
                     // 获取验证码
                     if (phoneNum != null && phoneNum.length() == 11) {
-                        String phoneOld = LoginInfo.getMobile();
+                        String phoneOld = SesameLoginInfo.getMobile();
                         if (phoneNum.equals(phoneOld)) {
                             UUToast.showUUToast(EditPhoneActivity2.this, "您输入的是旧手机号哦！");
                             return;

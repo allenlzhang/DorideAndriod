@@ -15,7 +15,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.GetValidateView;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -78,7 +78,7 @@ public class VerifyAllActivity extends BaseActivity implements OnClickListener {
 
 		setContentView(R.layout.activity_verify_all);
 
-		isMain = LoginInfo.isMain();
+		isMain = SesameLoginInfo.isMain();
 		try {
 			mobile_name = getIntent().getStringExtra(MOBILE_NAME);
 			mobile_id = getIntent().getStringExtra(MOBILE_ID);

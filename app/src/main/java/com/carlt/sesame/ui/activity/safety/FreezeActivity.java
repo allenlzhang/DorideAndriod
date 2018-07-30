@@ -18,7 +18,7 @@ import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.Log;
@@ -90,7 +90,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
     }
 
     private void setContent() {
-        isFreeze = LoginInfo.isFreezing();
+        isFreeze = SesameLoginInfo.isFreezing();
         if (isFreeze) {
             // 已冻结
             back.setVisibility(View.GONE);
@@ -118,7 +118,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
             mImgIcon.setImageResource(R.drawable.safe_freezed_no);
             mTxtDes1.setText("瞬间保护账号安全");
 
-            String mobile = LoginInfo.getMobile();
+            String mobile = SesameLoginInfo.getMobile();
             if (mobile != null && mobile.length() == 11) {
                 String s1 = mobile.substring(0, 3);
                 String s2 = mobile.substring(7);

@@ -232,11 +232,9 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
             JSONObject json = new JSONObject(data);
             if (json != null) {
                 //                String avatar_url = json.optString("avatar_img");
-                //                LoginInfo.setAvatar_img(avatar_url);
                 String avatar_url = LoginInfo.getAvatar_img();
                 if (!TextUtils.isEmpty(avatar_url)) {
                     LoginInfo.setAvatar_img(avatar_url);
-                    //                    Glide.with(PersonInfoActivity.this).load(LoginInfo.getAvatar_img()).into(usr_avatar);
                     LoadLocalImageUtil.getInstance().displayCircleFromWeb(LoginInfo.getAvatar_img(), usr_avatar, R.mipmap.default_avater);
 
                 }

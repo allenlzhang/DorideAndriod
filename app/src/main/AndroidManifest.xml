@@ -184,6 +184,9 @@
         <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataLogItemDetialActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.setting.WebActivity"/>
         <activity android:name="com.carlt.sesame.ui.SesameMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.report.ReportActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.DayActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.GpsTrailActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

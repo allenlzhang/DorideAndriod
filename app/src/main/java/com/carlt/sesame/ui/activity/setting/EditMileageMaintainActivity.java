@@ -17,7 +17,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.UUToast;
@@ -48,7 +48,7 @@ public class EditMileageMaintainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_mileage);
 
-        mileage=LoginInfo.getMainten_miles();
+        mileage= SesameLoginInfo.getMainten_miles();
 
         initTitle();
         init();

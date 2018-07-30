@@ -6,7 +6,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
 
-import com.carlt.sesame.systemconfig.LocalConfig;
+import com.carlt.doride.utils.LocalConfig;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

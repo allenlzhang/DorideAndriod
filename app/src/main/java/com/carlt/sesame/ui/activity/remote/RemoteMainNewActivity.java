@@ -24,7 +24,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.remote.AirMainInfo;
 import com.carlt.sesame.data.remote.CarStateInfo;
 import com.carlt.sesame.data.remote.ChargeStatusInfo;
@@ -247,7 +247,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
             case R.id.remote_main_txt_state:
                 showWaitingDialog("正在获取车辆状态...");
                 CPControl.GetRemoteCarState(mListener_states,
-                        LoginInfo.getDeviceType());
+                        SesameLoginInfo.getDeviceType());
                 break;
             case R.id.remote_main_txt_recorder:
                 // 远程记录
@@ -465,14 +465,14 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
      * 点击逻辑
      */
     private void clickLogic() {
-        boolean hasRemotePswMd5 = LoginInfo.isSetRemotePwd();
+        boolean hasRemotePswMd5 = SesameLoginInfo.isSetRemotePwd();
         // 车辆状态view打开
         if (hasRemotePswMd5) {
             Log.e("info", "remotemain_isFirstClick==" + isFirstClick);
             if (isFirstClick) {
                 showEditDialog();
             } else {
-                if (LoginInfo.isNoneedpsw()) {
+                if (SesameLoginInfo.isNoneedpsw()) {
                     if (getTimeOutStatus()) {
                         showEditDialog();
                     } else {
@@ -486,8 +486,8 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
             DialogWithTitleClick click = new DialogWithTitleClick() {
                 @Override
                 public void onRightClick() {
-                    Log.e("info", "LoginInfo.isAuthen==" + LoginInfo.isAuthen());
-                    if (LoginInfo.isAuthen()) {
+                    Log.e("info", "LoginInfo.isAuthen==" + SesameLoginInfo.isAuthen());
+                    if (SesameLoginInfo.isAuthen()) {
                         Intent mIntent = new Intent(RemoteMainNewActivity.this,
                                 RemotePswResetActivity3.class);
                         mIntent.putExtra(RemotePswResetActivity3.TYPE,

@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.ViolationInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.adapter.QueryIllegalAdapter;
@@ -149,7 +149,7 @@ public class CarQueryIllegalDetailActivity extends LoadingActivityWithTitle
 	@Override
 	protected void LoadData() {
 		super.LoadData();
-		search(LoginInfo.getCarcity());
+		search(SesameLoginInfo.getCarcity());
 
 	}
 

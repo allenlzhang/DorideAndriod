@@ -6,7 +6,7 @@ import android.os.Message;
 
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.SesameMainActivity;
@@ -37,10 +37,10 @@ public class LoginChecker extends Thread {
         while (isCheck) {
 
             int ca = 0;
-            if (LoginInfo.Last_Login_Time < 0) {
-                LoginInfo.Last_Login_Time = System.currentTimeMillis();
+            if (SesameLoginInfo.Last_Login_Time < 0) {
+                SesameLoginInfo.Last_Login_Time = System.currentTimeMillis();
             } else {
-                int dayL = (int)(LoginInfo.Last_Login_Time / 1000 / 60 / 60 / 24);// 天数取整
+                int dayL = (int)(SesameLoginInfo.Last_Login_Time / 1000 / 60 / 60 / 24);// 天数取整
                 int dayN = (int)(System.currentTimeMillis() / 1000 / 60 / 60 / 24);// 天数取整
                 ca = dayN - dayL;
             }

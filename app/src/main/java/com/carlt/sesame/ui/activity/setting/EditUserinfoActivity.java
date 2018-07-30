@@ -30,13 +30,13 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.utils.LocalConfig;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.set.TransferOldCheckInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
-import com.carlt.sesame.systemconfig.LocalConfig;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.transfer.TransferCheckActivity;
 import com.carlt.sesame.ui.activity.transfer.TransferHandleActivity;
@@ -157,16 +157,16 @@ public class EditUserinfoActivity extends BaseActivity {
         mView5.setOnClickListener(mClickListener);
         mView6.setOnClickListener(mClickListener);
 
-        if (!LoginInfo.isMain()) {
+        if (!SesameLoginInfo.isMain()) {
             mView6.setVisibility(View.GONE);
         }
 
     }
 
     private void loadData() {
-        String imgUrl = LoginInfo.getAvatar_img();
+        String imgUrl = SesameLoginInfo.getAvatar_img();
         if (imgUrl != null && imgUrl.length() > 0) {
-            Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(LoginInfo.getAvatar_img());
+            Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(SesameLoginInfo.getAvatar_img());
             if (mBitmap != null) {
                 mImageView.setImageBitmap(mBitmap);
             } else {
@@ -176,7 +176,7 @@ public class EditUserinfoActivity extends BaseActivity {
             mImageView.setImageResource(R.drawable.icon_default_head);
         }
 
-        String mobile = LoginInfo.getMobile();
+        String mobile = SesameLoginInfo.getMobile();
         if (mobile != null && mobile.length() == 11) {
             String s1 = mobile.substring(0, 3);
             String s2 = mobile.substring(7);
@@ -186,13 +186,13 @@ public class EditUserinfoActivity extends BaseActivity {
             mTextView1.setText(mBuffer);
         }
 
-        mTextView3.setText(LoginInfo.getRealname());
+        mTextView3.setText(SesameLoginInfo.getRealname());
 
-        if (LoginInfo.getGender().equals(LoginInfo.GENDER_NAN)) {
+        if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_NAN)) {
             mTextView4.setText("男");
-        } else if (LoginInfo.getGender().equals(LoginInfo.GENDER_NV)) {
+        } else if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_NV)) {
             mTextView4.setText("女");
-        } else if (LoginInfo.getGender().equals(LoginInfo.GENDER_MI)) {
+        } else if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_MI)) {
             mTextView4.setText("保密");
         }
 
@@ -238,7 +238,7 @@ public class EditUserinfoActivity extends BaseActivity {
                 case R.id.activity_setting_userinfo_layout6:
                     //弹出安全验证页面
 
-                    if (!LoginInfo.isAuthen()) {
+                    if (!SesameLoginInfo.isAuthen()) {
                         UUToast.showUUToast(context, "您还没有实名认证，请先实名认证");
                         return;
                     }
@@ -255,7 +255,7 @@ public class EditUserinfoActivity extends BaseActivity {
     public void OnImgLoadFinished(String url, Bitmap mBitmap) {
         super.OnImgLoadFinished(url, mBitmap);
 
-        if (LoginInfo.getAvatar_img().equals(url) && mBitmap != null) {
+        if (SesameLoginInfo.getAvatar_img().equals(url) && mBitmap != null) {
             mImageView.setImageBitmap(mBitmap);
         }
     }

@@ -1,6 +1,6 @@
 package com.carlt.sesame.protocolstack;
 
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 
 import org.json.JSONObject;
 
@@ -16,7 +16,7 @@ public class TokenParser extends BaseParser {
 	@Override
 	protected void parser() {
 		JSONObject mJSON_data = mJson.optJSONObject("data");
-		LoginInfo.setToken((mJSON_data.optString("access_token", "")));
-		LoginInfo.setExpiresIn(mJSON_data.optString("expires_in", ""));
+		SesameLoginInfo.setToken((mJSON_data.optString("access_token", "")));
+		SesameLoginInfo.setExpiresIn(mJSON_data.optString("expires_in", ""));
 	}
 }

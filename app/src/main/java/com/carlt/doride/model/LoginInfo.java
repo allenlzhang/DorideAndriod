@@ -412,7 +412,6 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.setRegister_time(destroy.optString("register_time", ""));
         LoginInfo.setAccess_token(destroy.optString("access_token", ""));
         LoginInfo.setVin(LoginInfo.getMobile(),"");
-//        LoginInfo.setApp_type(destroy.optInt("app_type",0));
     }
 
     public static String getExpiresIn() {

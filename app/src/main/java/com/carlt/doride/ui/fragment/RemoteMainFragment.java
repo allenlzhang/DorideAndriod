@@ -794,7 +794,6 @@ public class RemoteMainFragment extends BaseFragment implements
         boolean hasRemotePswMd5 = LoginInfo.isSetRemotePwd();
         //TODO test data
         //        hasRemotePswMd5 = false;
-        //        LoginInfo.setNoneedpsw(false);
 
         if (mViewState.getVisibility() == View.VISIBLE) {
             // 车辆状态view打开

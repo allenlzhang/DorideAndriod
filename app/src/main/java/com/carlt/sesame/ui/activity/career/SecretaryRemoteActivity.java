@@ -18,7 +18,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CheckFaultInfo;
 import com.carlt.sesame.data.career.DiagnoseInfo;
 import com.carlt.sesame.data.career.RecommendSalesInfo;
@@ -135,7 +135,7 @@ public class SecretaryRemoteActivity extends LoadingActivityWithTitle implements
         mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
         mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
 
-        mImageViewSecretary.setImageResource(LoginInfo.getSecretaryImg());
+        mImageViewSecretary.setImageResource(SesameLoginInfo.getSecretaryImg());
         mTextViewSecretary.setText("根据你的情况，为你推荐了一位汽车顾问");
     }
 
@@ -345,7 +345,7 @@ public class SecretaryRemoteActivity extends LoadingActivityWithTitle implements
     @Override
     public void OnImgLoadFinished(String url, Bitmap mBitmap) {
         super.OnImgLoadFinished(url, mBitmap);
-        if (url.equals(LoginInfo.getSecretaryImg())) {
+        if (url.equals(SesameLoginInfo.getSecretaryImg())) {
             mImageViewSecretary.setImageBitmap(mBitmap);
         } else if (url.equals(mRecommendSalesInfo.getImgUrl())) {
             mImageView2.setImageBitmap(mBitmap);

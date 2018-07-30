@@ -1,7 +1,7 @@
 
 package com.carlt.sesame.protocolstack.career;
 
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.CareerInfo;
 import com.carlt.sesame.protocolstack.BaseParser;
 
@@ -20,9 +20,9 @@ public class ReportDateParser extends BaseParser {
     protected void parser() {
         try {
             JSONObject mJSON_data = mJson.getJSONObject("data");
-            LoginInfo.setLately_day(mJSON_data.optString("day"));
-            LoginInfo.setLately_week(mJSON_data.optString("week"));
-            LoginInfo.setLately_month(mJSON_data.optString("month"));
+            SesameLoginInfo.setLately_day(mJSON_data.optString("day"));
+            SesameLoginInfo.setLately_week(mJSON_data.optString("week"));
+            SesameLoginInfo.setLately_month(mJSON_data.optString("month"));
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block

@@ -29,7 +29,7 @@ import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarMainFunInfo;
 import com.carlt.sesame.data.car.CarMainFuncInfo;
 import com.carlt.sesame.data.car.CarMainInfo;
@@ -141,9 +141,9 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		mTextViewHead = (TextView) findViewById(R.id.car_main_txt_head);
 		mCarState = (TextView) findViewById(R.id.car_main_txt_state);
 		mCarState.setOnClickListener(this);
-		if (LoginInfo.getCarname() != null
-				&& !LoginInfo.getCarname().equals("")) {
-			mTextViewHead.setText(LoginInfo.getCarname());
+		if (SesameLoginInfo.getCarname() != null
+				&& !SesameLoginInfo.getCarname().equals("")) {
+			mTextViewHead.setText(SesameLoginInfo.getCarname());
 		}
 	}
 
@@ -183,10 +183,10 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		count++;
 		if (OnDateChageConfig.ModifyCarChanged) {
 			OnDateChageConfig.ModifyCarChanged = false;
-			Log.e("info", "carname_bbbbbbbbb==" + LoginInfo.getCarname());
-			if (LoginInfo.getCarname() != null
-					&& !LoginInfo.getCarname().equals("")) {
-				mTextViewHead.setText(LoginInfo.getCarname());
+			Log.e("info", "carname_bbbbbbbbb==" + SesameLoginInfo.getCarname());
+			if (SesameLoginInfo.getCarname() != null
+					&& !SesameLoginInfo.getCarname().equals("")) {
+				mTextViewHead.setText(SesameLoginInfo.getCarname());
 			}
 		}
 
@@ -205,7 +205,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	@Override
 	protected void LoadSuccess(Object data) {
 		mCarMainFuncInfos = new ArrayList<CarMainFuncInfo>();
-		if(LoginInfo.getCar_year()==LoginInfo.CAR_YEAR_2016){
+		if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2016){
 			for (int i = 0; i < funcNames2016.length; i++) {
 				CarMainFuncInfo mInfo = new CarMainFuncInfo();
 				mInfo.setId(i);
@@ -224,7 +224,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 				mCarMainFuncInfos.add(mInfo);
 			}
 			//胎压监测、导航同步走车款配置接口
-			CarMainFunInfo mCarMainFunInfo=LoginInfo.getCarMainFunInfo();
+			CarMainFunInfo mCarMainFunInfo= SesameLoginInfo.getCarMainFunInfo();
 			if (mCarMainFunInfo != null) {
 				ArrayList<RemoteFunInfo> mRemoteFunInfos = mCarMainFunInfo
 						.getmCarmainFunInfos();
@@ -321,11 +321,11 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 			}
 			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(DorideApplication.dpToPx(186), DorideApplication.dpToPx(186));
 			lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-			if(LoginInfo.getCar_year()==LoginInfo.CAR_YEAR_2016){
+			if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2016){
 				lp.setMargins(0, DorideApplication.dpToPx(40), 0, DorideApplication.dpToPx(30));
 				mState.setLayoutParams(lp);
 				mGridFuncs.setPadding(0, DorideApplication.dpToPx(10), 0, 0);
-			}else if(LoginInfo.getCar_year()==LoginInfo.CAR_YEAR_2018){
+			}else if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2018){
 				lp.setMargins(0, DorideApplication.dpToPx(22), 0, 0);
 				mState.setLayoutParams(lp);
 				mGridFuncs.setPadding(0, 0, 0, 0);
@@ -453,7 +453,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		case R.id.car_main_txt_state:
 			showWaitingDialog("正在获取车辆状态。。。");
 			CPControl.GetRemoteCarState(mListener_states,
-					LoginInfo.getDeviceType());
+					SesameLoginInfo.getDeviceType());
 			break;
 		}
 	}

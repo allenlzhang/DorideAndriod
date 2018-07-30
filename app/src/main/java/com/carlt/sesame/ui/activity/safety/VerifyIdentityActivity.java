@@ -16,7 +16,7 @@ import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
@@ -104,7 +104,7 @@ public class VerifyIdentityActivity extends BaseActivity implements OnClickListe
 
         mViewRemotepsw = findViewById(R.id.verify_identity_lay_remotepsw);
 
-        if (LoginInfo.isMain()) {
+        if (SesameLoginInfo.isMain()) {
             mViewRemotepsw.setVisibility(View.GONE);
             mBtnOption.setText("更换主机");
         } else {
@@ -130,7 +130,7 @@ public class VerifyIdentityActivity extends BaseActivity implements OnClickListe
             UUToast.showUUToast(VerifyIdentityActivity.this, "您还没有填写您的身份证号码哦...");
             return;
         } else {
-            if (LoginInfo.isMain()) {
+            if (SesameLoginInfo.isMain()) {
                 if (mDialog == null) {
                     mDialog = PopBoxCreat.createDialogWithProgress(VerifyIdentityActivity.this,
                             "处理中...");

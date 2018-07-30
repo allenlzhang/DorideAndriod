@@ -7,7 +7,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
 
-import com.carlt.sesame.systemconfig.LocalConfig;
+import com.carlt.doride.utils.LocalConfig;
 
 import java.io.File;
 import java.io.FileOutputStream;

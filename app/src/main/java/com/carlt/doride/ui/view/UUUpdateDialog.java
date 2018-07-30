@@ -137,7 +137,6 @@ public class UUUpdateDialog extends Dialog {
 				DeviceUpdateInfo mInfo = (DeviceUpdateInfo) msg.obj;
 				if (mInfo != null) {
 					if (mInfo.isUpgrading()) {
-						// LoginInfo.setUpgradeing(true);
 						// 升级失败
 						if (progressValue > -1 && progressValue < 121) {
 							// 六分钟内继续轮询
@@ -152,7 +151,6 @@ public class UUUpdateDialog extends Dialog {
 						}
 						return;
 					} else {
-						// LoginInfo.setUpgradeing(false);
 						String s = LoginInfo.getDeviceidstring();
 						txtProgress.setText("升级中(100%)升级成功");
 					}

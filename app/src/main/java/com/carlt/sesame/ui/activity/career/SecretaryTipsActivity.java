@@ -16,7 +16,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfoList;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -158,14 +158,14 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
         if (mTextViewSecretary != null) {
             StringBuffer sb1 = new StringBuffer();
             sb1.append("您的爱车距下次保养还有 ");
-            sb1.append(LoginInfo.getMainten_next_miles());
+            sb1.append(SesameLoginInfo.getMainten_next_miles());
             sb1.append("公里/");
-            sb1.append(LoginInfo.getMainten_next_day());
+            sb1.append(SesameLoginInfo.getMainten_next_day());
             sb1.append("天建议您及时带TA进行保养，让TA重新焕发活力");
             mTextViewSecretary.setText(sb1.toString());
 
             if (havemainten != null) {
-                if (LoginInfo.isMainten()) {
+                if (SesameLoginInfo.isMainten()) {
                     havemainten.setTextColor(getResources().getColor(R.color.cheng1));
                     havemainten
                             .setBackgroundResource(R.drawable.activity_career_secretary_tips_kuang);
@@ -198,7 +198,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                 switch (arg0.getId()) {
                     case R.id.activity_career_secretary_tips_havemainten:
                         // 已经保养过
-                        if (LoginInfo.isMainten()) {
+                        if (SesameLoginInfo.isMainten()) {
                             mUUDialog.show();
                             CPControl.GetMaintainLogResult(listener_MaintainLog);
                         }
@@ -424,7 +424,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                         startActivity(mIntent1);
                     } else if (class2 == SecretaryMessageInfo.C1_T1_T3) {
                         // 违章详情
-                        if (LoginInfo.getCanQueryVio() == "0") {
+                        if (SesameLoginInfo.getCanQueryVio() == "0") {
                             // 暂无车辆信息
                             Intent mIntent1 = new Intent(SecretaryTipsActivity.this,
                                     CarFillIllegalActivity.class);
@@ -437,7 +437,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                         }
                     } else if (class2 == SecretaryMessageInfo.C1_T1_T4) {
                         // 激活盒子，跳转至爱车体检页面
-                        if (LoginInfo.getBuydate().equals("")) {
+                        if (SesameLoginInfo.getBuydate().equals("")) {
                             if (mTestFirstView == null) {
                                 mTestFirstView = new TestFirstView(SecretaryTipsActivity.this,
                                         mOnTestBtnClick);
@@ -708,7 +708,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                 case 7:
                     // 点击保养过了成功
 
-                    if (LoginInfo.isMainten()) {
+                    if (SesameLoginInfo.isMainten()) {
 
                         havemainten.setTextColor(getResources().getColor(R.color.cheng1));
                         havemainten

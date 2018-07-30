@@ -3,7 +3,7 @@ package com.carlt.sesame.utility;
 import android.text.TextUtils;
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.RegisteInfo;
 import com.carlt.sesame.data.UploadImgInfo;
 import com.carlt.sesame.data.car.PostViolationInfo;
@@ -422,7 +422,7 @@ public class CreatPostString {
     // 生成获取远程诊断列表参数
     public static String getDiagnoseList(String id) {
         HashMap<String, String> mMap = new HashMap<String, String>();
-        mMap.put("carbrandid", LoginInfo.getBrandid());
+        mMap.put("carbrandid", SesameLoginInfo.getBrandid());
         mMap.put("id", id);
         return CreatString(mMap);
     }
@@ -710,7 +710,7 @@ public class CreatPostString {
         HashMap<String, String> mMap = new HashMap<String, String>();
 
         mMap.put("reporttype", reportType);
-        mMap.put("cartypeid", LoginInfo.getCarid());
+        mMap.put("cartypeid", SesameLoginInfo.getCarid());
         if (date != null && date.length() > 0 && !date.equals("null")) {
             mMap.put("date", date);
         }
@@ -1551,11 +1551,11 @@ public class CreatPostString {
         // mMap.put("version", DorideApplication.Sesame_Version_API + "");
         mMap.put("client_id", URLConfig.getClientID());
 
-        if (LoginInfo.getDealerId() != null
-                && LoginInfo.getDealerId().length() > 0) {
-            mMap.put("dealerId", LoginInfo.getDealerId());
+        if (SesameLoginInfo.getDealerId() != null
+                && SesameLoginInfo.getDealerId().length() > 0) {
+            mMap.put("dealerId", SesameLoginInfo.getDealerId());
         }
-        String token = LoginInfo.getToken();
+        String token = SesameLoginInfo.getToken();
         if (token != null && !token.equals("")) {
             mMap.put("token", token);
         }

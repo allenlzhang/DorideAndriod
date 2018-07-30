@@ -20,7 +20,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.safety.SafetyMainInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.activity.setting.EditPhoneActivity1;
@@ -147,7 +147,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 		SafetyMainInfo mSafetyMainInfo = (SafetyMainInfo) data;
 		String mobileCurrent = DorideApplication.MODEL_NAME;
 		mTxtMobileCurrent.setText("当前在线设备:" + mobileCurrent);
-		boolean flag = LoginInfo.isAuthen();
+		boolean flag = SesameLoginInfo.isAuthen();
 		if (flag) {
 			// 已经实名认证
 			mTxtAuthenStatus.setText("已认证");
@@ -156,7 +156,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			mTxtAuthenStatus.setText("未认证");
 		}
 
-		String mobile = LoginInfo.getMobile();
+		String mobile = SesameLoginInfo.getMobile();
 		if (mobile != null && mobile.length() == 11) {
 			String s1 = mobile.substring(0, 3);
 			String s2 = mobile.substring(7);
@@ -169,16 +169,16 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			mTxtPhone.setText("--");
 		}
 
-		if (LoginInfo.isMain()) {
+		if (SesameLoginInfo.isMain()) {
 			mViewAuther.setVisibility(View.VISIBLE);
 			mViewLineMobileList.setVisibility(View.VISIBLE);
 			mViewFreeze.setVisibility(View.VISIBLE);
-			String authen_status = LoginInfo.getAuthorize_status();
+			String authen_status = SesameLoginInfo.getAuthorize_status();
 			if (authen_status != null
-					&& authen_status.equals(LoginInfo.AUTHORIZE_STATUS_CLOSE)) {
+					&& authen_status.equals(SesameLoginInfo.AUTHORIZE_STATUS_CLOSE)) {
 				mCbAuther.setChecked(false);
 			} else if (authen_status != null
-					&& authen_status.equals(LoginInfo.AUTHORIZE_STATUS_OPEN)) {
+					&& authen_status.equals(SesameLoginInfo.AUTHORIZE_STATUS_OPEN)) {
 				mCbAuther.setChecked(true);
 			}
 			mCbAuther.setOnCheckedChangeListener(this);
@@ -188,7 +188,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			mViewFreeze.setVisibility(View.GONE);
 		}
 
-		if (LoginInfo.isNoneedpsw()) {
+		if (SesameLoginInfo.isNoneedpsw()) {
 			mCbNoneedpsw.setChecked(true);
 		} else {
 			mCbNoneedpsw.setChecked(false);
@@ -377,7 +377,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			// 实名制认证
 			Intent mIntent1 = new Intent(SafetyMainActivity.this,
 					RealNameActivity.class);
-			boolean flag = LoginInfo.isAuthen();
+			boolean flag = SesameLoginInfo.isAuthen();
 			// 测试用
 			// flag=false;
 			// 测试结束

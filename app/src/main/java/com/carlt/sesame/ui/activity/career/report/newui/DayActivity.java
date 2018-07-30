@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.CarLogInfo;
 import com.carlt.sesame.data.career.ReportDayInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
@@ -173,10 +173,10 @@ public class DayActivity extends LoadingActivityWithTitle implements
 			}
 		});
 
-		mTxtName.setText(LoginInfo.getRealname());
-		Log.e("info", "LoginInfo.getAvatar_img()==" + LoginInfo.getAvatar_img());
-		if (!LoginInfo.getAvatar_img().equals("")) {
-			Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(LoginInfo
+		mTxtName.setText(SesameLoginInfo.getRealname());
+		Log.e("info", "LoginInfo.getAvatar_img()==" + SesameLoginInfo.getAvatar_img());
+		if (!SesameLoginInfo.getAvatar_img().equals("")) {
+			Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(SesameLoginInfo
 					.getAvatar_img());
 			if (mBitmap != null) {
 				// 设置头像
@@ -188,9 +188,9 @@ public class DayActivity extends LoadingActivityWithTitle implements
 		} else {
 			mImgHead.setImageResource(R.drawable.icon_default_head);
 		}
-		if (LoginInfo.getGender().equals(LoginInfo.GENDER_NAN)) {
+		if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_NAN)) {
 			mImgGender.setImageResource(R.drawable.icon_sex_male);
-		} else if (LoginInfo.getGender().equals(LoginInfo.GENDER_NV)) {
+		} else if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_NV)) {
 			mImgGender.setImageResource(R.drawable.icon_sex_female);
 		} else {
 			mImgGender.setImageResource(R.drawable.icon_sex_secret);
@@ -371,10 +371,10 @@ public class DayActivity extends LoadingActivityWithTitle implements
 	@Override
 	public void OnImgLoadFinished(String url, Bitmap mBitmap) {
 		super.OnImgLoadFinished(url, mBitmap);
-		if (url != null && url.equals(LoginInfo.getAvatar_img())
+		if (url != null && url.equals(SesameLoginInfo.getAvatar_img())
 				&& mBitmap != null) {
 			mImgHead.setImageBitmap(mBitmap);
-		} else if (url != null && url.equals(LoginInfo.getCarlogo())
+		} else if (url != null && url.equals(SesameLoginInfo.getCarlogo())
 				&& mBitmap != null) {
 		}
 	}
@@ -451,8 +451,8 @@ public class DayActivity extends LoadingActivityWithTitle implements
 						.findViewById(R.id.listItem_day_txt_gpsTrack);
 
 				Log.e("info",
-						"LoginInfo.isGpsDevice()==" + LoginInfo.isGpsDevice());
-				if (LoginInfo.isGpsDevice()) {
+						"LoginInfo.isGpsDevice()==" + SesameLoginInfo.isGpsDevice());
+				if (SesameLoginInfo.isGpsDevice()) {
 					mHolder.mGpsTrack.setVisibility(View.VISIBLE);
 				} else {
 					mHolder.mGpsTrack.setVisibility(View.INVISIBLE);

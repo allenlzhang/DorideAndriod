@@ -97,14 +97,6 @@ public class SplashActivity extends BaseActivity {
             });
         }
 
-        //        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_SD);
-        //        FileUtil.openOrCreatDir(LocalConfig.mImageCacheSavePath_Absolute);
-        //        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_SD);
-        //        FileUtil.openOrCreatDir(LocalConfig.mDownLoadFileSavePath_Absolute);
-        //        FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
-        //        FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
-        //        FileUtil.openOrCreatDir(LocalConfig.mTravelImageCacheSavePath_SD);
-
         mUseInfo = UseInfoLocal.getUseInfo();
         useTimes = mUseInfo.getTimes();
         account = mUseInfo.getAccount();
@@ -375,6 +367,8 @@ public class SplashActivity extends BaseActivity {
             JSONObject mJSON_data = null;
             try {
                 mJSON_data = new JSONObject(dataValue);
+
+
                 LoginControl.parseLoginInfo(mJSON_data);
                 final Message msg = new Message();
                 msg.what = 3;

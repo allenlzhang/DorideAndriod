@@ -16,7 +16,6 @@ public class CreateHashMap {
         String token= LoginInfo.getAccess_token();
         ILog.e("info","token=="+token);
 //        if(!TextUtils.isEmpty(token)){
-//            params.put("token", LoginInfo.getToken());
 //        }
         if(keys != null && values != null ){
             int length_key = keys.length;

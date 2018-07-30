@@ -21,7 +21,7 @@ import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
@@ -393,17 +393,17 @@ public class ActivateActivity extends BaseActivity {
 
 
         	if(!TextUtils.isEmpty(fromName) && fromName.equals(CLASS_DEVICE_REBIND)){
-                LoginInfo.setIsJumptoBind(LoginInfo.noJumptoBind);
+                SesameLoginInfo.setIsJumptoBind(SesameLoginInfo.noJumptoBind);
                 ActivityControl.onLogout(context);
         	}else{
         		
-        		if("1".equals(LoginInfo.getDevicetype())){//更换设备登陆进来的
+        		if("1".equals(SesameLoginInfo.getDevicetype())){//更换设备登陆进来的
                   Intent mIntent = new Intent(ActivateActivity.this, UserLoginActivity.class);
                   startActivity(mIntent);
                   finish();
         		}else{
         			// 跳转至选车型输入序列号二合一页面
-                    LoginInfo.setIsJumptoBind(LoginInfo.noJumptoBind);
+                    SesameLoginInfo.setIsJumptoBind(SesameLoginInfo.noJumptoBind);
 //                    Intent mIntent = new Intent(ActivateActivity.this, SelectCarBindActivity.class);
 //                    mIntent.putExtra(SelectCarBindActivity.FROM_NAME, ActivateActivity.this.getClass()
 //                            .getName());

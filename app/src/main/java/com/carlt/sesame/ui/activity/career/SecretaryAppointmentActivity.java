@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.activity.career.order.RiLiActivity;
 
@@ -69,7 +69,7 @@ public class SecretaryAppointmentActivity extends LoadingActivityWithTitle
 		mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
 		mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
 
-		mImageViewSecretary.setImageResource(LoginInfo.getSecretaryImg());
+		mImageViewSecretary.setImageResource(SesameLoginInfo.getSecretaryImg());
 		mTextViewSecretary.setText("欢迎提前预约，可节省大量时间哦	");
 	}
 

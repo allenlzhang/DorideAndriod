@@ -1,6 +1,6 @@
 package com.carlt.sesame.http;
 
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.systemconfig.URLConfig;
 import com.carlt.sesame.utility.Log;
 
@@ -31,11 +31,11 @@ public class HttpImgPostor {
 			MultipartEntity mEntity = new MultipartEntity();
 			mEntity.addPart("client_id",
 					new StringBody(URLConfig.getClientID()));
-			if (LoginInfo.getDealerId() != null && LoginInfo.getDealerId().length() > 0) {
-				mEntity.addPart("dealerId", new StringBody(LoginInfo.getDealerId()));
+			if (SesameLoginInfo.getDealerId() != null && SesameLoginInfo.getDealerId().length() > 0) {
+				mEntity.addPart("dealerId", new StringBody(SesameLoginInfo.getDealerId()));
 			}
 
-			mEntity.addPart("token", new StringBody(LoginInfo.getToken()));
+			mEntity.addPart("token", new StringBody(SesameLoginInfo.getToken()));
 			mEntity.addPart("fileOwner", new StringBody(action));
 			mEntity.addPart("fileData", ContentBody);
 			httppost.setEntity(mEntity);

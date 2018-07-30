@@ -11,7 +11,7 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
 import com.carlt.sesame.utility.Log;
@@ -170,24 +170,24 @@ public class MessageReceiver extends XGPushBaseReceiver {
         switch (class1) {
             case SecretaryMessageInfo.C1_T2:
                 // // 21 安防故障
-                if (LoginInfo.getToken() != null && LoginInfo.getToken().length() > 0) {
+                if (SesameLoginInfo.getToken() != null && SesameLoginInfo.getToken().length() > 0) {
                     Intent intent2 = new Intent();
                     intent2.setAction(CarMainActivity.CARMAIN_SAFETY);
                     context.sendBroadcast(intent2);
                 }
                 showNotification(context, title, class1,class2);
                 break;
-            case LoginInfo.Author_Message:
+            case SesameLoginInfo.Author_Message:
                 // 授权推送（只有主机才能展示）
-                if (LoginInfo.isMain()) {
+                if (SesameLoginInfo.isMain()) {
                     showNotification(context, title, class1,class2);
                 } else {
 
                 }
                 break;
-            case LoginInfo.Feetip_Message:
+            case SesameLoginInfo.Feetip_Message:
                 // 续费推送（只有主机才能展示）
-                if (LoginInfo.isMain()) {
+                if (SesameLoginInfo.isMain()) {
                     showNotification(context, title, class1,class2);
                 } else {
 

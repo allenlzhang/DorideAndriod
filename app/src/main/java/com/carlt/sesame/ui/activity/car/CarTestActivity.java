@@ -16,7 +16,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CheckFaultInfo;
 import com.carlt.sesame.data.car.PhysicalExaminationInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
@@ -146,7 +146,7 @@ public class CarTestActivity extends BaseActivity {
         mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
         mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
 
-        mImageViewSecretary.setImageResource(LoginInfo.getSecretaryImg());
+        mImageViewSecretary.setImageResource(SesameLoginInfo.getSecretaryImg());
         mTextViewSecretary.setText("正在连接您的爱车，请稍候...");
     }
 

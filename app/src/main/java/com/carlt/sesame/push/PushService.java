@@ -12,7 +12,7 @@ import android.os.Message;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
 import com.carlt.sesame.data.safety.AuthorInfo;
@@ -47,7 +47,7 @@ public class PushService extends Service {
 		}
 		final int class1 = intent.getIntExtra(CLASS1, 0);
 		final int class2 = intent.getIntExtra(CLASS2, 0);
-		if (LoginInfo.getToken() != null && LoginInfo.getToken().length() > 0) {
+		if (SesameLoginInfo.getToken() != null && SesameLoginInfo.getToken().length() > 0) {
 			swithAction(class1, class2);
 		} else {
 
@@ -120,7 +120,7 @@ public class PushService extends Service {
 			}
 			return;
 		case AuthorInfo.REQUEST_AUTHOR:
-			if (LoginInfo.isMain()) {
+			if (SesameLoginInfo.isMain()) {
 				// 主机-跳转至授权页面
 				Intent mIntent = new Intent(PushService.this,
 						AuthorActivity.class);
@@ -136,9 +136,9 @@ public class PushService extends Service {
 				startActivity(mIntent);
 			}
 			return;
-		case LoginInfo.Feetip_Message:
+		case SesameLoginInfo.Feetip_Message:
 			// 服务提醒
-			if (LoginInfo.isMain()) {
+			if (SesameLoginInfo.isMain()) {
 				// 主机-跳转至服务购买
 //				Intent mIntent = new Intent(PushService.this,
 //						ManageFeeActivity.class);

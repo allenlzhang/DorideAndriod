@@ -20,7 +20,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivityGroup;
 import com.carlt.sesame.ui.activity.career.report.newui.DayActivity;
 import com.carlt.sesame.utility.Log;
@@ -106,9 +106,9 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
     }
     
     private void LoadSuccess(Object data) {
-        dayInitialValue = LoginInfo.getLately_day();
-        weekInitialValue = LoginInfo.getLately_week();
-        monthInitialValue = LoginInfo.getLately_month();
+        dayInitialValue = SesameLoginInfo.getLately_day();
+        weekInitialValue = SesameLoginInfo.getLately_week();
+        monthInitialValue = SesameLoginInfo.getLately_month();
         tab[checkedPos].setChecked(true);
         mLoadingLayout.setVisibility(View.GONE);
         mLayError.setVisibility(View.GONE);

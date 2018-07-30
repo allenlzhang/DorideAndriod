@@ -14,7 +14,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
@@ -84,48 +84,48 @@ public class ActivityControl {
         build.setFlags(Notification.FLAG_AUTO_CANCEL);
 
         XGPushConfig.enableDebug(mContext, true);
-        Log.e("info", "userId====" + LoginInfo.getUseId());
+        Log.e("info", "userId====" + SesameLoginInfo.getUseId());
         if (DorideApplication.Formal_Version) {
-            XGPushManager.registerPush(mContext, LoginInfo.getUseId());
+            XGPushManager.registerPush(mContext, SesameLoginInfo.getUseId());
             // 设置通知样式，样式编号为2，即build_id为2，可通过后台脚本指定
             XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-            XGPushManager.setTag(mContext, LoginInfo.getDealerId());
-            if (LoginInfo.getPush_prizeinfo_flag() == 1) {
-                XGPushManager.setTag(mContext, LoginInfo.getDealerId() + "_31");
+            XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId());
+            if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
+                XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId() + "_31");
             }
         } else {
             switch (URLConfig.flag) {
                 case URLConfig.VERSION_FORMAL:
                     //正式服
-                    XGPushManager.registerPush(mContext, LoginInfo.getUseId());
+                    XGPushManager.registerPush(mContext, SesameLoginInfo.getUseId());
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-                    XGPushManager.setTag(mContext, LoginInfo.getDealerId());
-                    if (LoginInfo.getPush_prizeinfo_flag() == 1) {
-                        XGPushManager.setTag(mContext, LoginInfo.getDealerId() + "_31");
+                    XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId());
+                    if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
+                        XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId() + "_31");
                     }
                     break;
 
                 case URLConfig.VERSION_PREPARE:
                     //预发布服
-                    XGPushManager.registerPush(mContext, LoginInfo.getUseId());
+                    XGPushManager.registerPush(mContext, SesameLoginInfo.getUseId());
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-                    XGPushManager.setTag(mContext, LoginInfo.getDealerId());
-                    if (LoginInfo.getPush_prizeinfo_flag() == 1) {
-                        XGPushManager.setTag(mContext, LoginInfo.getDealerId() + "_31");
+                    XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId());
+                    if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
+                        XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId() + "_31");
                     }
                     break;
                 case URLConfig.VERSION_TEST:
                     //测试服
 
-                    XGPushManager.registerPush(mContext, "t_" + LoginInfo.getUseId());
+                    XGPushManager.registerPush(mContext, "t_" + SesameLoginInfo.getUseId());
                     // XGPushManager.registerPush(this, "t_" +
                     // LoginInfo.getToken());
-                    Log.e("info", "LoginInfo.getToken()==" + LoginInfo.getToken());
+                    Log.e("info", "LoginInfo.getToken()==" + SesameLoginInfo.getToken());
 
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-                    XGPushManager.setTag(mContext, "t_" + LoginInfo.getDealerId());
-                    if (LoginInfo.getPush_prizeinfo_flag() == 1) {
-                        XGPushManager.setTag(mContext, "t_" + LoginInfo.getDealerId() + "_31");
+                    XGPushManager.setTag(mContext, "t_" + SesameLoginInfo.getDealerId());
+                    if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
+                        XGPushManager.setTag(mContext, "t_" + SesameLoginInfo.getDealerId() + "_31");
                     }
 
                     break;
@@ -200,7 +200,7 @@ public class ActivityControl {
         }
         mActivityList.clear();
         DorideApplication.getInstance().setShowDragFlag(false);
-        LoginInfo.Destroy();
+        SesameLoginInfo.Destroy();
         LoginChecker.stopCheck();
     }
 

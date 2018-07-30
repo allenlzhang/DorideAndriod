@@ -17,7 +17,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.career.report.ReportDateView.OnItemClick;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -83,8 +83,8 @@ public class RiLiActivity extends BaseActivity implements OnClickListener {
         txtRight = (TextView)findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
-        if(LoginInfo.getDealerUsername()!=null&&LoginInfo.getDealerUsername().length()>0){
-            title.setText(LoginInfo.getDealerUsername());
+        if(SesameLoginInfo.getDealerUsername()!=null&& SesameLoginInfo.getDealerUsername().length()>0){
+            title.setText(SesameLoginInfo.getDealerUsername());
         }else{
             title.setText("预约");
         }

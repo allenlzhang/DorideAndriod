@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.SecretaryCategoryInfo;
 import com.carlt.sesame.data.career.SecretaryCategoryInfoList;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -79,7 +79,7 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
 		mImageViewSecretary = (ImageView) findViewById(R.id.activity_career_secretary_img);
 		mTextViewSecretary = (TextView) findViewById(R.id.activity_career_secretary_txt1);
 
-		mTextViewSecretary.setText(LoginInfo.getSecretaryName() + ":");
+		mTextViewSecretary.setText(SesameLoginInfo.getSecretaryName() + ":");
 		mImageViewSecretary.setImageResource(R.drawable.icon_secretary);
 	}
 
@@ -112,9 +112,9 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
 
 			int unreadCount = mCategoryInfoLists.getUnreadCount();
 			if (unreadCount > 0) {
-				mTextViewSecretary.setText(LoginInfo.getSecretaryName() + "：您有未读消息哦！");
+				mTextViewSecretary.setText(SesameLoginInfo.getSecretaryName() + "：您有未读消息哦！");
 			} else {
-				mTextViewSecretary.setText(LoginInfo.getSecretaryName() + "：我是您的私人汽车助理");
+				mTextViewSecretary.setText(SesameLoginInfo.getSecretaryName() + "：我是您的私人汽车助理");
 			}
 		}
 		super.LoadSuccess(data);

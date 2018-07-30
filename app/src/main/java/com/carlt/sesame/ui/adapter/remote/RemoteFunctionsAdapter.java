@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 
 /**
  * 远程功能Adapter
@@ -69,8 +69,8 @@ public class RemoteFunctionsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (deviceType.equals(LoginInfo.DEVICETYPE_BEFORE)
-                || deviceType.equals(LoginInfo.DEVICETYPE_AFTER2016)) {
+        if (deviceType.equals(SesameLoginInfo.DEVICETYPE_BEFORE)
+                || deviceType.equals(SesameLoginInfo.DEVICETYPE_AFTER2016)) {
             return names.length;
         } else {
             return nameAfters.length;
@@ -101,8 +101,8 @@ public class RemoteFunctionsAdapter extends BaseAdapter {
             mHolder = (Holder)convertView.getTag();
         }
 
-        if (deviceType.equals(LoginInfo.DEVICETYPE_BEFORE)
-                || deviceType.equals(LoginInfo.DEVICETYPE_AFTER2016)) {
+        if (deviceType.equals(SesameLoginInfo.DEVICETYPE_BEFORE)
+                || deviceType.equals(SesameLoginInfo.DEVICETYPE_AFTER2016)) {
             mHolder.mImageView.setImageResource(imgIds[position]);
             mHolder.mTextView.setText(names[position]);
         } else {

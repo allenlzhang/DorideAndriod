@@ -17,7 +17,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.carlt.doride.R;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 
 /**
@@ -73,11 +73,11 @@ public class AddressMapActivity extends LoadingActivityWithTitle implements OnMa
 	@Override
 	protected void LoadData() {
 		super.LoadData();
-		if (LoginInfo.getDealerLat() > 0 && LoginInfo.getDealerLon() > 0) {
+		if (SesameLoginInfo.getDealerLat() > 0 && SesameLoginInfo.getDealerLon() > 0) {
 			mMap.clear();
 			LoadSuccess(null);
 			// // 定义Maker坐标点
-			LatLng point = new LatLng(LoginInfo.getDealerLat(), LoginInfo.getDealerLon());
+			LatLng point = new LatLng(SesameLoginInfo.getDealerLat(), SesameLoginInfo.getDealerLon());
 			MarkerOptions options = new MarkerOptions();
 			BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.arrow_top_selected);
 			options.icon(bitmap);
@@ -100,8 +100,8 @@ public class AddressMapActivity extends LoadingActivityWithTitle implements OnMa
 		txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
 		back.setImageResource(R.drawable.arrow_back);
-		if (LoginInfo.getDealerUsername() != null) {
-			title.setText(LoginInfo.getDealerUsername());
+		if (SesameLoginInfo.getDealerUsername() != null) {
+			title.setText(SesameLoginInfo.getDealerUsername());
 		}
 
 		txtRight.setVisibility(View.GONE);
@@ -119,12 +119,12 @@ public class AddressMapActivity extends LoadingActivityWithTitle implements OnMa
 		mTextView1 = (TextView) findViewById(R.id.activity_career_map_4s_txt1);
 		mTextView2 = (TextView) findViewById(R.id.activity_career_map_4s_txt2);
 
-		if (LoginInfo.getDealerUsername() != null) {
-			mTextView1.setText(LoginInfo.getDealerUsername());
+		if (SesameLoginInfo.getDealerUsername() != null) {
+			mTextView1.setText(SesameLoginInfo.getDealerUsername());
 		}
 
-		if (LoginInfo.getDealerAddres() != null) {
-			mTextView2.setText(LoginInfo.getDealerAddres());
+		if (SesameLoginInfo.getDealerAddres() != null) {
+			mTextView2.setText(SesameLoginInfo.getDealerAddres());
 		}
 	}
 

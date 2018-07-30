@@ -29,7 +29,7 @@ public class UUDialog extends Dialog {
 		super(context, R.style.dialog);
 		LayoutInflater inflater = LayoutInflater.from(context);
 		// View view = inflater.inflate(R.layout.dialog_progress, null);
-		View view = inflater.inflate(R.layout.dialog_progress_2, null);
+		View view = inflater.inflate(R.layout.sesame_dialog_progress_2, null);
 		content = (TextView) view.findViewById(R.id.progress_txt_text);
 		img = (ProgressBar) view.findViewById(R.id.progress_img_animate);
 //		Animation operatingAnim = AnimationUtils.loadAnimation(context, R.anim.dialog_rotate);

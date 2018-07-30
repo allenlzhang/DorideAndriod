@@ -33,7 +33,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.CareerInfo;
 import com.carlt.sesame.data.career.ChallengeInfo;
 import com.carlt.sesame.data.career.WeatherInfo;
@@ -166,7 +166,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 								&& arg0.getCity().length() > 0) {
 							mLocation = arg0;
 							cityName = arg0.getCity();
-							LoginInfo.setCityName(cityName);
+							SesameLoginInfo.setCityName(cityName);
 							mTextCity.setText(cityName);
 							loadWeather();
 						}
@@ -298,7 +298,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 			Intent mIntent9 = new Intent(CareerMainActivity.this,
 					ReportActivity.class);
 			mIntent9.putExtra("c", 2);
-			String date2 = LoginInfo.getLately_day();
+			String date2 = SesameLoginInfo.getLately_day();
 			mIntent9.putExtra(ReportActivity.DAY_INITIAL, date2);
 			startActivity(mIntent9);
 			break;
@@ -511,7 +511,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 	protected void LoadData() {
 		super.LoadData();
 		CPControl.GetCareerResult(listener);
-		cityName = LoginInfo.getCityName();
+		cityName = SesameLoginInfo.getCityName();
 		if (cityName == null) {
 			cityName = "北京市";
 		}

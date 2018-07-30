@@ -1,6 +1,6 @@
 package com.carlt.sesame.protocolstack.car;
 
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarMainInfo;
 import com.carlt.sesame.protocolstack.BaseParser;
 
@@ -44,9 +44,9 @@ public class CarMainParser extends BaseParser {
 					.setLastchecktime(mJSON_data.optString("lastchecktime"));
 			mCarMainInfo.setLastcheckscore(mJSON_data
 					.optString("lastcheckscore"));
-			LoginInfo.setSLCarLocating(mJSON_data.optInt("SLCarLocating"));
-			LoginInfo.setAutoCloseWinSw(mJSON_data.optInt("autoCloseWinSw"));
-			LoginInfo.setRemoteStart(mJSON_data.optInt("remoteStart"));
+			SesameLoginInfo.setSLCarLocating(mJSON_data.optInt("SLCarLocating"));
+			SesameLoginInfo.setAutoCloseWinSw(mJSON_data.optInt("autoCloseWinSw"));
+			SesameLoginInfo.setRemoteStart(mJSON_data.optInt("remoteStart"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

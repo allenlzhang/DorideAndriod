@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.sesame.control.ActivityControl;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
 import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
@@ -93,7 +93,7 @@ public class SettingMainActivity extends BaseActivity {
         mImgHead = (ImageView) findViewById(R.id.activity_setting_img_head);
         mImgDot = (ImageView) findViewById(R.id.activity_setting_img_dot);
 
-        if ("1".equals(LoginInfo.getRemoteControl())) {
+        if ("1".equals(SesameLoginInfo.getRemoteControl())) {
             findViewById(R.id.line_h4).setVisibility(View.VISIBLE);
             findViewById(R.id.activity_setting_layout5).setVisibility(View.VISIBLE);
         }
@@ -119,12 +119,12 @@ public class SettingMainActivity extends BaseActivity {
     }
 
     private void loadData() {
-        String name = LoginInfo.getRealname();
+        String name = SesameLoginInfo.getRealname();
         if (name != null && name.length() > 0) {
             mTxtName.setText(name);
         }
 
-        String imgUrl = LoginInfo.getAvatar_img();
+        String imgUrl = SesameLoginInfo.getAvatar_img();
         if (imgUrl != null && imgUrl.length() > 0) {
             Bitmap mDrawable = mAsyncImageLoader.getBitmapByUrl(imgUrl);
             if (mDrawable != null) {
@@ -135,7 +135,7 @@ public class SettingMainActivity extends BaseActivity {
         } else {
             mImgHead.setImageResource(R.drawable.icon_default_head);
         }
-        if (LoginInfo.isMain()) {
+        if (SesameLoginInfo.isMain()) {
             // mViewFee.setVisibility(View.VISIBLE);
             // mViewLine5Bg.setVisibility(View.VISIBLE);
             // mViewLine5.setVisibility(View.VISIBLE);
@@ -235,8 +235,8 @@ public class SettingMainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         SesameMainActivity.setDotVisiable();
-        phoneNum = LoginInfo.getDealerTel();
-        phoneNumService = LoginInfo.getServiceTel();
+        phoneNum = SesameLoginInfo.getDealerTel();
+        phoneNumService = SesameLoginInfo.getServiceTel();
         if (TextUtils.isEmpty(phoneNum) && TextUtils.isEmpty(phoneNumService)) {
             mView7.setVisibility(View.GONE);
             vLineAboutBg.setVisibility(View.GONE);
@@ -252,7 +252,7 @@ public class SettingMainActivity extends BaseActivity {
     @Override
     public void OnImgLoadFinished(String url, Bitmap mBitmap) {
         super.OnImgLoadFinished(url, mBitmap);
-        if (url.equals(LoginInfo.getAvatar_img()) && mBitmap != null) {
+        if (url.equals(SesameLoginInfo.getAvatar_img()) && mBitmap != null) {
             mImgHead.setImageBitmap(mBitmap);
         }
     }

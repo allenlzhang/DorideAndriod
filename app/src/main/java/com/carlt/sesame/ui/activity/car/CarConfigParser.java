@@ -3,7 +3,7 @@ package com.carlt.sesame.ui.activity.car;
 import android.text.TextUtils;
 
 import com.carlt.doride.R;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarMainFunInfo;
 import com.carlt.sesame.data.remote.AirMainInfo;
 import com.carlt.sesame.data.remote.RemoteFunInfo;
@@ -132,7 +132,7 @@ public class CarConfigParser extends BaseParser {
 			}
 
 			mRemoteMainInfo.setFunctionCount(supportCount+"");
-			LoginInfo.setRemoteMainInfo(mRemoteMainInfo);
+			SesameLoginInfo.setRemoteMainInfo(mRemoteMainInfo);
 
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId("0");
@@ -155,7 +155,7 @@ public class CarConfigParser extends BaseParser {
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mCarMainFunInfo.addmCarmainFunInfos(mFunInfo);
 			}
-			LoginInfo.setCarMainFunInfo(mCarMainFunInfo);
+			SesameLoginInfo.setCarMainFunInfo(mCarMainFunInfo);
 
 			String remote_airconditioner_item = mJSON_data
 					.optString("remote_airconditioner_item");

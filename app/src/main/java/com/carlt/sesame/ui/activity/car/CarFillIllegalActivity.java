@@ -20,7 +20,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarInfo;
 import com.carlt.sesame.data.car.CityInfo;
 import com.carlt.sesame.data.car.PostViolationInfo;
@@ -211,14 +211,14 @@ public class CarFillIllegalActivity extends LoadingActivityWithTitle implements 
 				carno = "";
 			}
 		} else {
-			cityName = LoginInfo.getCarcity();
-			cityCode = LoginInfo.getCity_code();
-			carno = LoginInfo.getCarno();
-			engineno = LoginInfo.getEngineno();
-			standcarno = LoginInfo.getShortstandcarno();
-			registno = LoginInfo.getRegistno();
+			cityName = SesameLoginInfo.getCarcity();
+			cityCode = SesameLoginInfo.getCity_code();
+			carno = SesameLoginInfo.getCarno();
+			engineno = SesameLoginInfo.getEngineno();
+			standcarno = SesameLoginInfo.getShortstandcarno();
+			registno = SesameLoginInfo.getRegistno();
 			if (carno == null || carno.equals("")) {
-				mCarInfo = CarInfoLocal.getCarInfo(LoginInfo.getMobile());
+				mCarInfo = CarInfoLocal.getCarInfo(SesameLoginInfo.getMobile());
 				if (mCarInfo != null) {
 					cityName = mCarInfo.getCityName();
 					cityCode = mCarInfo.getCityCode();
@@ -431,16 +431,16 @@ public class CarFillIllegalActivity extends LoadingActivityWithTitle implements 
 				}
 
 				if (mCarInfo != null && mCarInfo.getCarNo() != null
-						&& mCarInfo.getCarNo().equals(LoginInfo.getCarno())) {
-					LoginInfo.setCarcity(mCarInfo.getCityName());
-					LoginInfo.setCity_code(mCarInfo.getCityCode());
-					LoginInfo.setCarno(mCarInfo.getCarNo());
-					LoginInfo.setEngineno(mCarInfo.getEngineNo());
-					LoginInfo.setShortstandcarno(mCarInfo.getStandcarNo());
-					LoginInfo.setRegistno(mCarInfo.getRegistNo());
+						&& mCarInfo.getCarNo().equals(SesameLoginInfo.getCarno())) {
+					SesameLoginInfo.setCarcity(mCarInfo.getCityName());
+					SesameLoginInfo.setCity_code(mCarInfo.getCityCode());
+					SesameLoginInfo.setCarno(mCarInfo.getCarNo());
+					SesameLoginInfo.setEngineno(mCarInfo.getEngineNo());
+					SesameLoginInfo.setShortstandcarno(mCarInfo.getStandcarNo());
+					SesameLoginInfo.setRegistno(mCarInfo.getRegistNo());
 				}
 
-				CarInfoLocal.setCarInfo(mCarInfo, LoginInfo.getMobile());
+				CarInfoLocal.setCarInfo(mCarInfo, SesameLoginInfo.getMobile());
 				Intent mIntent = new Intent(CarFillIllegalActivity.this, CarQueryIllegalActivity.class);
 				Bundle mBundle = new Bundle();
 				mBundle.putSerializable(CarQueryIllegalActivity.POST_VIOLATION_INFO, mInfo);

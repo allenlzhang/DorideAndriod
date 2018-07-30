@@ -1,7 +1,7 @@
 
 package com.carlt.sesame.protocolstack.usercenter;
 
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.protocolstack.BaseParser;
 
 import org.json.JSONObject;
@@ -23,9 +23,9 @@ public class ExtInfoParser extends BaseParser {
         JSONObject mJSON_data = mJson.optJSONObject("data");
         service_time_expire = mJSON_data.optString("service_time_expire");
         if (service_time_expire.equals("1")) {
-            LoginInfo.setServiceExpire(true);
+            SesameLoginInfo.setServiceExpire(true);
         } else if (service_time_expire.equals("0")) {
-            LoginInfo.setServiceExpire(false);
+            SesameLoginInfo.setServiceExpire(false);
         }
     }
 

@@ -137,7 +137,6 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         }
 
         if (!TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            //            Glide.with(this.getActivity()).load(LoginInfo.getAvatar_img()).into(avatar);
             LoadLocalImageUtil.getInstance().displayCircleFromWeb(LoginInfo.getAvatar_img(), avatar, R.mipmap.default_avater);
         }
         if (!TextUtils.isEmpty(LoginInfo.getRealname())) {

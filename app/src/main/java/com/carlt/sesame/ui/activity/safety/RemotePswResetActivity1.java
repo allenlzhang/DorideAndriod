@@ -15,7 +15,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.ValidateEditText;
@@ -183,9 +183,9 @@ public class RemotePswResetActivity1 extends BaseActivity implements OnClickList
             int lengthEdit = idCard.length();
             String idCardPrefix = idCard.substring(0, 6);
             String idCardSuffix = idCard.substring(lengthEdit - 2, lengthEdit);
-            if (LoginInfo.isAuthen()) {
-                String authorName = LoginInfo.getAuthen_name();
-                String authorCard = LoginInfo.getAuthen_card();
+            if (SesameLoginInfo.isAuthen()) {
+                String authorName = SesameLoginInfo.getAuthen_name();
+                String authorCard = SesameLoginInfo.getAuthen_card();
                 int lengthAuthor = authorCard.length();
                 String authorCardPrefix = authorCard.substring(0, 6);
                 String authorCardSuffix = authorCard.substring(lengthAuthor - 2, lengthAuthor);

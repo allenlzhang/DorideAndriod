@@ -17,7 +17,7 @@ import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -121,7 +121,7 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
     }
 
     private void setContent() {
-        isFreeze = LoginInfo.isFreezing();
+        isFreeze = SesameLoginInfo.isFreezing();
         if (isFreeze) {
             mViewPsw.setVisibility(View.VISIBLE);
             mTxtAccount.setVisibility(View.VISIBLE);
@@ -130,7 +130,7 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
             mTxtDes1.setText("解除账号冻结");
             mTxtDes2.setText("请确认账号安全后再解除冻结");
 
-            String mobile = LoginInfo.getMobile();
+            String mobile = SesameLoginInfo.getMobile();
             if (mobile != null && mobile.length() == 11) {
                 String s1 = mobile.substring(0, 3);
                 String s2 = mobile.substring(7);

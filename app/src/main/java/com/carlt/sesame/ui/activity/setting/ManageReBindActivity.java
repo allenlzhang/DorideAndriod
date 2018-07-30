@@ -16,7 +16,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.usercenter.login.ActivateActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -101,8 +101,8 @@ public class ManageReBindActivity extends BaseActivity implements OnClickListene
 		case R.id.activity_rebind_btnbind:
 			// 绑定设备(调用初始化设置车型绑定设备接口)
 			String deviceCode = mDeviceId.getText().toString();
-			String isJumpTobind = LoginInfo.getIsJumptoBind();
-			if (isJumpTobind.equals(LoginInfo.noJumptoBind)) {
+			String isJumpTobind = SesameLoginInfo.getIsJumptoBind();
+			if (isJumpTobind.equals(SesameLoginInfo.noJumptoBind)) {
 				// 前装设备
 			} else {
 				// 后装设备

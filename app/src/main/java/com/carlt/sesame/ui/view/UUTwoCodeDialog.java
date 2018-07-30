@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
 
 public class UUTwoCodeDialog extends Dialog {
@@ -70,10 +70,10 @@ public class UUTwoCodeDialog extends Dialog {
 			mTwoCode.setImageBitmap(twoCode);
 		}
 
-		mNickName.setText(LoginInfo.getUsername());
-		String imgUrl = LoginInfo.getAvatar_img();
+		mNickName.setText(SesameLoginInfo.getUsername());
+		String imgUrl = SesameLoginInfo.getAvatar_img();
 		if (imgUrl != null && imgUrl.length() > 0) {
-			Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(LoginInfo.getAvatar_img());
+			Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(SesameLoginInfo.getAvatar_img());
 			if (mBitmap != null) {
 				mHead.setImageBitmap(mBitmap);
 			} else {
@@ -83,10 +83,10 @@ public class UUTwoCodeDialog extends Dialog {
 			mHead.setImageResource(R.drawable.icon_default_head);
 		}
 
-		if (LoginInfo.getGender().equals("1")) {
+		if (SesameLoginInfo.getGender().equals("1")) {
 			// 男
 			mGender.setImageResource(R.drawable.icon_sex_male);
-		} else if (LoginInfo.getGender().equals("2")) {
+		} else if (SesameLoginInfo.getGender().equals("2")) {
 			// 女
 			mGender.setImageResource(R.drawable.icon_sex_female);
 		} else {

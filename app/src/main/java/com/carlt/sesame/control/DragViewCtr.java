@@ -20,7 +20,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
 import com.carlt.sesame.ui.activity.career.CareerMainActivity;
 import com.carlt.sesame.ui.activity.career.report.newui.DayActivity;
@@ -126,8 +126,8 @@ public class DragViewCtr {
 		if (activity instanceof CareerMainActivity) {
 			DorideApplication.getInstance().setShowDragFlag(true);
 		}
-		if (TextUtils.isEmpty(LoginInfo.getDealerTel())
-				&& TextUtils.isEmpty(LoginInfo.getServiceTel())) {
+		if (TextUtils.isEmpty(SesameLoginInfo.getDealerTel())
+				&& TextUtils.isEmpty(SesameLoginInfo.getServiceTel())) {
 			return;
 		}
 		if (!showFlag) {
@@ -248,7 +248,7 @@ public class DragViewCtr {
 
 					@Override
 					public void clickSoft() {
-						String serviceTel = LoginInfo.getServiceTel();
+						String serviceTel = SesameLoginInfo.getServiceTel();
 						if (serviceTel != null && !serviceTel.equals("")) {
 							call(serviceTel);
 						}
@@ -256,7 +256,7 @@ public class DragViewCtr {
 
 					@Override
 					public void clickCar() {
-						String dealerTel = LoginInfo.getDealerTel();
+						String dealerTel = SesameLoginInfo.getDealerTel();
 						if (dealerTel != null && !dealerTel.equals("")) {
 							call(dealerTel);
 						}

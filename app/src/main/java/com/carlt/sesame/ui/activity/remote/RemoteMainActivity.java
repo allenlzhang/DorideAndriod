@@ -29,7 +29,7 @@ import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.control.VisitorControl;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.remote.AirMainInfo;
 import com.carlt.sesame.data.remote.CarStateInfo;
 import com.carlt.sesame.data.remote.RemoteFunInfo;
@@ -192,8 +192,8 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 	 */
 	private void GetResult() {
 		int opt = -1;
-		if (deviceType.equals(LoginInfo.DEVICETYPE_BEFORE)
-				|| deviceType.equals(LoginInfo.DEVICETYPE_AFTER2016)) {
+		if (deviceType.equals(SesameLoginInfo.DEVICETYPE_BEFORE)
+				|| deviceType.equals(SesameLoginInfo.DEVICETYPE_AFTER2016)) {
 			// 前装设备or后装2016款
 			if (selectedPos != 1) {
 				showWaitingDialog(null);
@@ -298,7 +298,7 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 			Log.e("info", "车辆状态点击22222222222222");
 			showWaitingDialog("正在获取车辆状态。。。");
 			CPControl.GetRemoteCarState(mListener_states,
-					LoginInfo.getDeviceType());
+					SesameLoginInfo.getDeviceType());
 			break;
 		case R.id.remote_main_txt_recorder:
 			// 远程记录
@@ -374,13 +374,13 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 			// LoginInfo.setDeviceType(LoginInfo.DEVICETYPE_BEFORE);
 			// 测试代码结束
 
-			deviceType = LoginInfo.getDeviceType();
+			deviceType = SesameLoginInfo.getDeviceType();
 			mAdapter.setDeviceType(deviceType);
 			mAdapter.notifyDataSetChanged();
 			mGridView.setAdapter(mAdapter);
 			mGridView.setOnItemClickListener(this);
-			if (deviceType.equals(LoginInfo.DEVICETYPE_BEFORE)
-					|| deviceType.equals(LoginInfo.DEVICETYPE_AFTER2016)) {
+			if (deviceType.equals(SesameLoginInfo.DEVICETYPE_BEFORE)
+					|| deviceType.equals(SesameLoginInfo.DEVICETYPE_AFTER2016)) {
 				// 前装设备or后装2016款
 				mGridView.setNumColumns(3);
 				mGridViewState.setNumColumns(4);
@@ -450,7 +450,7 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 	 * 点击逻辑
 	 */
 	private void clickLogic() {
-		boolean hasRemotePswMd5 = LoginInfo.isSetRemotePwd();
+		boolean hasRemotePswMd5 = SesameLoginInfo.isSetRemotePwd();
 		if (mViewState.getVisibility() == View.VISIBLE) {
 			// 车辆状态view打开
 			mViewState.setVisibility(View.GONE);
@@ -460,7 +460,7 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 				if (isFirstClick) {
 					showEditDialog();
 				} else {
-					if (LoginInfo.isNoneedpsw()) {
+					if (SesameLoginInfo.isNoneedpsw()) {
 						if (getTimeOutStatus()) {
 							showEditDialog();
 						} else {
@@ -476,8 +476,8 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 					@Override
 					public void onRightClick() {
 						Log.e("info",
-								"LoginInfo.isAuthen==" + LoginInfo.isAuthen());
-						if (LoginInfo.isAuthen()) {
+								"LoginInfo.isAuthen==" + SesameLoginInfo.isAuthen());
+						if (SesameLoginInfo.isAuthen()) {
 							Intent mIntent = new Intent(
 									RemoteMainActivity.this,
 									RemotePswResetActivity3.class);

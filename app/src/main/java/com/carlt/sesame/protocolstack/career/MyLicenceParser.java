@@ -2,7 +2,7 @@ package com.carlt.sesame.protocolstack.career;
 
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.DaoControl;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.GotMediaInfo;
 import com.carlt.sesame.data.career.LicenceLevelInfo;
 import com.carlt.sesame.data.career.UserLicenseInfo;
@@ -31,8 +31,8 @@ public class MyLicenceParser extends BaseParser {
 		JSONObject data = mJson.optJSONObject("data");
 
 		JSONObject mJSON_member = data.optJSONObject("member");
-		LoginInfo.setRealname(mJSON_member.optString("realname"));
-		LoginInfo.setGender(mJSON_member.optString("gender"));
+		SesameLoginInfo.setRealname(mJSON_member.optString("realname"));
+		SesameLoginInfo.setGender(mJSON_member.optString("gender"));
 
 		JSONObject membercar = data.optJSONObject("membercar");
 		mLicenseInfo.setCredit(membercar.optString("credit"));
@@ -45,7 +45,7 @@ public class MyLicenceParser extends BaseParser {
 		mLicenseInfo.setLicenceLevel(mLicenceLevelInfo.getLevel() + "");
 		mLicenseInfo.setLicenceName(mLicenceLevelInfo.getName());
 		mLicenseInfo.setLicencePercent(membercar.optInt("levelPercent"));
-		LoginInfo.setSummileage(membercar.optString("summiles"));
+		SesameLoginInfo.setSummileage(membercar.optString("summiles"));
 		mLicenseInfo.setSumfuel(membercar.optString("sumfuel"));
 		mLicenseInfo.setLicenceTag(membercar.optString("tag"));
 

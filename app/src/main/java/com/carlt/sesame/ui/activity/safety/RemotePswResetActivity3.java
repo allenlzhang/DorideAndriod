@@ -16,7 +16,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -231,7 +231,7 @@ public class RemotePswResetActivity3 extends BaseActivity implements OnClickList
                     CPControl.GetSetRemotePwdResult(pswNew1, listener_set);
                     break;
                 case TYPE_FORGET:
-                    String mobile = LoginInfo.getMobile();
+                    String mobile = SesameLoginInfo.getMobile();
                     CPControl.GetForgetRemotePwdResult(name, idcard, mobile, pswNew1, validate,
                             listener_forget);
                     break;

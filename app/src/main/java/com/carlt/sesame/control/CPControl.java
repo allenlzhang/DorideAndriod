@@ -2,12 +2,11 @@ package com.carlt.sesame.control;
 
 import android.app.Activity;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.RegisteInfo;
 import com.carlt.sesame.data.UploadImgInfo;
 import com.carlt.sesame.data.UseInfo;
@@ -481,7 +480,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setDeviceidstring(deviceId);
+                    SesameLoginInfo.setDeviceidstring(deviceId);
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -513,7 +512,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setDeviceActivate(true);
+                    SesameLoginInfo.setDeviceActivate(true);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -605,8 +604,8 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mParser.getReturn());
-                    String mobile = LoginInfo.getMobile();
-                    LoginInfo.setVpin(mobile, vpin);
+                    String mobile = SesameLoginInfo.getMobile();
+                    SesameLoginInfo.setVpin(mobile, vpin);
                 } else {
                     listener.onErro(mBaseResponseInfo);
                 }
@@ -863,7 +862,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setMobile(newPhoneNum);
+                    SesameLoginInfo.setMobile(newPhoneNum);
                     listener.onFinished(newPhoneNum);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -1655,7 +1654,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (listener != null) {
                     if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                        listener.onFinished(LoginInfo.getRemoteMainInfo());
+                        listener.onFinished(SesameLoginInfo.getRemoteMainInfo());
                     } else {
                         listener.onErro(mBaseResponseInfo);
                     }
@@ -1691,7 +1690,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getOtherBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setCanQueryVio("1");
+                    SesameLoginInfo.setCanQueryVio("1");
                     ArrayList<ViolationInfo> mList = mParser.getReturn();
                     listener.onFinished(mList);
                 } else {
@@ -1729,7 +1728,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getOtherBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setCanQueryVio("1");
+                    SesameLoginInfo.setCanQueryVio("1");
                     ArrayList<ViolationInfo> mList = mParser.getReturn();
                     listener.onFinished(mList);
                 } else {
@@ -1768,7 +1767,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setCanQueryVio("1");
+                    SesameLoginInfo.setCanQueryVio("1");
                     ArrayList<ViolationInfo> mList = mParser.getReturn();
                     listener.onFinished(mList);
                 } else {
@@ -1808,7 +1807,7 @@ public class CPControl {
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mBaseResponseInfo);
                     String carNo = carInfo.getCarNo();
-                    String carNoMain = LoginInfo.getCarno();
+                    String carNoMain = SesameLoginInfo.getCarno();
                     if (carNo.equals(carNoMain)) {
                         String carCityName = carInfo.getCityName();
                         String carCityCode = carInfo.getCityCode();
@@ -1816,19 +1815,19 @@ public class CPControl {
                         String standcarno = carInfo.getStandcarNo();
                         String registno = carInfo.getRegistNo();
                         if (!TextUtils.isEmpty(carCityName)) {
-                            LoginInfo.setCarcity(carCityName);
+                            SesameLoginInfo.setCarcity(carCityName);
                         }
                         if (!TextUtils.isEmpty(carCityCode)) {
-                            LoginInfo.setCity_code(carCityCode);
+                            SesameLoginInfo.setCity_code(carCityCode);
                         }
                         if (!TextUtils.isEmpty(carEnginNo)) {
-                            LoginInfo.setEngineno(carEnginNo);
+                            SesameLoginInfo.setEngineno(carEnginNo);
                         }
                         if (!TextUtils.isEmpty(standcarno)) {
-                            LoginInfo.setStandcarno(standcarno);
+                            SesameLoginInfo.setStandcarno(standcarno);
                         }
                         if (!TextUtils.isEmpty(registno)) {
-                            LoginInfo.setRegistno(registno);
+                            SesameLoginInfo.setRegistno(registno);
                         }
                     }
                 } else {
@@ -2466,12 +2465,12 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setCity_code(mInfo.getCityCodeId());
-                    LoginInfo.setRegistno(mInfo.getRegistno());
-                    LoginInfo.setCarno(mInfo.getCarno());
-                    LoginInfo.setEngineno(mInfo.getEngineno());
-                    LoginInfo.setShortstandcarno(mInfo.getStandcarno());
-                    LoginInfo.setCanQueryVio("1");
+                    SesameLoginInfo.setCity_code(mInfo.getCityCodeId());
+                    SesameLoginInfo.setRegistno(mInfo.getRegistno());
+                    SesameLoginInfo.setCarno(mInfo.getCarno());
+                    SesameLoginInfo.setEngineno(mInfo.getEngineno());
+                    SesameLoginInfo.setShortstandcarno(mInfo.getStandcarno());
+                    SesameLoginInfo.setCanQueryVio("1");
                     if (listener != null) {
                         listener.onFinished(mBaseResponseInfo);
                     }
@@ -3255,7 +3254,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    String tag = LoginInfo.getDealerId() + "_31";
+                    String tag = SesameLoginInfo.getDealerId() + "_31";
                     if (pushSetItemName
                             .equals(ManageMessageActivity.KEY_NAMES[6])) {
                         if (pushSetItemValue.equals("0")) {
@@ -3309,13 +3308,13 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    LoginInfo.setBrandid(brandid);
-                    LoginInfo.setOptionid(optionid);
-                    LoginInfo.setCarid(carid);
-                    LoginInfo.setCarname(modifyCarInfo.getCarname());
-                    LoginInfo.setCarlogo(modifyCarInfo.getCarlogo());
-                    LoginInfo.setSummileage(summiles);
-                    LoginInfo.setBuydate(buydate);
+                    SesameLoginInfo.setBrandid(brandid);
+                    SesameLoginInfo.setOptionid(optionid);
+                    SesameLoginInfo.setCarid(carid);
+                    SesameLoginInfo.setCarname(modifyCarInfo.getCarname());
+                    SesameLoginInfo.setCarlogo(modifyCarInfo.getCarlogo());
+                    SesameLoginInfo.setSummileage(summiles);
+                    SesameLoginInfo.setBuydate(buydate);
                     // String isSupSpecFunc = mParser.getValue("isSupSpecFunc");
                     //
                     // if (isSupSpecFunc.equals("1")) {
@@ -3363,11 +3362,11 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    LoginInfo.setBrandid(brandid);
-                    LoginInfo.setOptionid(optionid);
-                    LoginInfo.setCarid(carid);
-                    LoginInfo.setCarname(modifyCarInfo.getCarname());
-                    LoginInfo.setCarlogo(modifyCarInfo.getCarlogo());
+                    SesameLoginInfo.setBrandid(brandid);
+                    SesameLoginInfo.setOptionid(optionid);
+                    SesameLoginInfo.setCarid(carid);
+                    SesameLoginInfo.setCarname(modifyCarInfo.getCarname());
+                    SesameLoginInfo.setCarlogo(modifyCarInfo.getCarlogo());
                     // String isSupSpecFunc = mParser.getValue("isSupSpecFunc");
                     //
                     // if (isSupSpecFunc.equals("1")) {
@@ -3393,10 +3392,10 @@ public class CPControl {
                     // }
 
                     String year = modifyCarInfo.getYear();
-                    String deviceType = LoginInfo.getDeviceType();
+                    String deviceType = SesameLoginInfo.getDeviceType();
                     Log.e("info", "carYear==" + year);
                     Log.e("info", "deviceType==" + deviceType);
-                    LoginInfo.setCar_year(MyParse.parseInt(year));
+                    SesameLoginInfo.setCar_year(MyParse.parseInt(year));
                     // if (year != null && !year.equals("")) {
                     // if (year.equals("2017")) {
                     // if (deviceType.equals(LoginInfo.DEVICETYPE_AFTER)) {
@@ -3475,7 +3474,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    LoginInfo.setBuydate(buydate);
+                    SesameLoginInfo.setBuydate(buydate);
 
                     listener.onFinished(null);
                 } else {
@@ -3509,7 +3508,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    LoginInfo.setMainten_miles(miles);
+                    SesameLoginInfo.setMainten_miles(miles);
 
                     listener.onFinished(null);
                 } else {
@@ -3543,7 +3542,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    LoginInfo.setMainten_time(date);
+                    SesameLoginInfo.setMainten_time(date);
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -3570,7 +3569,7 @@ public class CPControl {
                         newValue, listener);
                 if (flag == null) {
                     OnDateChageConfig.RealNameChanged = true;
-                    LoginInfo.setRealname(newValue);
+                    SesameLoginInfo.setRealname(newValue);
                     listener.onFinished(newValue);
                 } else {
                     listener.onErro(flag);
@@ -3601,7 +3600,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
 
-                    LoginInfo.setMainten(false);
+                    SesameLoginInfo.setMainten(false);
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -3628,7 +3627,7 @@ public class CPControl {
                 BaseResponseInfo flag = GetUpdateUserInfoResult(
                         ACTIVION_GENDER, newValue, listener);
                 if (flag == null) {
-                    LoginInfo.setGender(newValue);
+                    SesameLoginInfo.setGender(newValue);
                     listener.onFinished(newValue);
                 } else {
                     listener.onErro(flag);
@@ -3658,7 +3657,7 @@ public class CPControl {
                                 ACTIVION_AVATAR, id, listener);
                         if (flag == null) {
                             OnDateChageConfig.AvatarChanged = true;
-                            LoginInfo.setAvatar_img(mUploadImgInfo
+                            SesameLoginInfo.setAvatar_img(mUploadImgInfo
                                     .getFilePath());
                             listener.onFinished(filePath);
                         } else {
@@ -3941,7 +3940,7 @@ public class CPControl {
                 // Post参数
                 String post = "";
 
-                if (LoginInfo.getAutoCloseWinSw() == LoginInfo.WIN_ON) {
+                if (SesameLoginInfo.getAutoCloseWinSw() == SesameLoginInfo.WIN_ON) {
                     post = CreatPostString.getAutoCloseWin("0",
                             DorideApplication.MODEL_NAME);
                 } else {
@@ -3954,10 +3953,10 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
 
-                    if (LoginInfo.getAutoCloseWinSw() == LoginInfo.WIN_ON) {
-                        LoginInfo.setAutoCloseWinSw(LoginInfo.WIN_OFF);
+                    if (SesameLoginInfo.getAutoCloseWinSw() == SesameLoginInfo.WIN_ON) {
+                        SesameLoginInfo.setAutoCloseWinSw(SesameLoginInfo.WIN_OFF);
                     } else {
-                        LoginInfo.setAutoCloseWinSw(LoginInfo.WIN_ON);
+                        SesameLoginInfo.setAutoCloseWinSw(SesameLoginInfo.WIN_ON);
                     }
                     listener.onFinished(null);
                 } else {
@@ -3989,7 +3988,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
 
-                    LoginInfo.setRemoteStart(LoginInfo.START_ON);
+                    SesameLoginInfo.setRemoteStart(SesameLoginInfo.START_ON);
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -4019,7 +4018,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setRemoteStart(LoginInfo.START_OFF);
+                    SesameLoginInfo.setRemoteStart(SesameLoginInfo.START_OFF);
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -4543,13 +4542,13 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     String summiles = mParser.getValue("summiles");
-                    LoginInfo.setSummileage(summiles);
-                    LoginInfo.setMainten_miles(mParser
+                    SesameLoginInfo.setSummileage(summiles);
+                    SesameLoginInfo.setMainten_miles(mParser
                             .getValue("mainten_miles"));
-                    LoginInfo.setMainten_time(mParser.getValue("mainten_date"));
-                    LoginInfo.setBrandid(mParser.getValue("brandid"));
-                    LoginInfo.setOptionid(mParser.getValue("optionid"));
-                    LoginInfo.setCarid(mParser.getValue("carid"));
+                    SesameLoginInfo.setMainten_time(mParser.getValue("mainten_date"));
+                    SesameLoginInfo.setBrandid(mParser.getValue("brandid"));
+                    SesameLoginInfo.setOptionid(mParser.getValue("optionid"));
+                    SesameLoginInfo.setCarid(mParser.getValue("carid"));
 
                     listener.onFinished(summiles);
                 } else {
@@ -4998,7 +4997,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 // LoginInfo.setVpin(vpin);
-                LoginInfo.setCarname(carName);
+                SesameLoginInfo.setCarname(carName);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(null);
                 } else {
@@ -5283,9 +5282,9 @@ public class CPControl {
                     listener.onFinished(mBaseResponseInfo);
                     Log.e("info", "is_freezing==" + is_freezing);
                     if (is_freezing.equals("0")) {
-                        LoginInfo.setFreezing(false);
+                        SesameLoginInfo.setFreezing(false);
                     } else {
-                        LoginInfo.setFreezing(true);
+                        SesameLoginInfo.setFreezing(true);
                     }
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -5457,7 +5456,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mBaseResponseInfo);
-                    LoginInfo.setAuthorize_status(authorize_switch);
+                    SesameLoginInfo.setAuthorize_status(authorize_switch);
                 } else {
                     listener.onErro(mBaseResponseInfo);
                 }
@@ -5493,8 +5492,8 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mBaseResponseInfo);
-                    LoginInfo.setAuthen(true);
-                    LoginInfo.setAuthen_name(authen_name);
+                    SesameLoginInfo.setAuthen(true);
+                    SesameLoginInfo.setAuthen_name(authen_name);
 
                     String cardPre = authen_card.substring(0, 6);
                     String cardSuf = authen_card.substring(
@@ -5502,7 +5501,7 @@ public class CPControl {
                     StringBuffer authen_card_handled = new StringBuffer(cardPre);
                     authen_card_handled.append("**********");
                     authen_card_handled.append(cardSuf);
-                    LoginInfo.setAuthen_card(authen_card_handled.toString());
+                    SesameLoginInfo.setAuthen_card(authen_card_handled.toString());
                 } else {
                     listener.onErro(mBaseResponseInfo);
                 }
@@ -5568,10 +5567,10 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     RemotePswInfo.setRemotePsw(remote_pwd);
-                    LoginInfo.setSetRemotePwd(true);
+                    SesameLoginInfo.setSetRemotePwd(true);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
-                    LoginInfo.setSetRemotePwd(false);
+                    SesameLoginInfo.setSetRemotePwd(false);
                     listener.onErro(mBaseResponseInfo);
                 }
             }
@@ -5648,7 +5647,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     RemotePswInfo.setRemotePsw(remote_pwd);
-                    LoginInfo.setSetRemotePwd(true);
+                    SesameLoginInfo.setSetRemotePwd(true);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -5681,9 +5680,9 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     if (lesspwd_switch.equals("1")) {
-                        LoginInfo.setNoneedpsw(true);
+                        SesameLoginInfo.setNoneedpsw(true);
                     } else {
-                        LoginInfo.setNoneedpsw(false);
+                        SesameLoginInfo.setNoneedpsw(false);
                     }
 
                     listener.onFinished(mBaseResponseInfo);
@@ -5740,9 +5739,9 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     if (new_mobile != null && !new_mobile.equals("")) {
-                        LoginInfo.setMobile(new_mobile);
+                        SesameLoginInfo.setMobile(new_mobile);
                     }
-                    LoginInfo.setMain(true);
+                    SesameLoginInfo.setMain(true);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -6288,9 +6287,9 @@ public class CPControl {
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     // 1:开启; 0:关闭
                     if ("0".equals(sound_switch)) {
-                        LoginInfo.setRemoteSoundOpen(false);
+                        SesameLoginInfo.setRemoteSoundOpen(false);
                     } else {
-                        LoginInfo.setRemoteSoundOpen(true);
+                        SesameLoginInfo.setRemoteSoundOpen(true);
                     }
                     listener.onFinished(mBaseResponseInfo);
                 } else {
@@ -6341,9 +6340,9 @@ public class CPControl {
                     // 1:开启; 0:关闭
                     String value = mParser.getValue("sound_switch");
                     if ("0".equals(value)) {
-                        LoginInfo.setRemoteSoundOpen(false);
+                        SesameLoginInfo.setRemoteSoundOpen(false);
                     } else {
-                        LoginInfo.setRemoteSoundOpen(true);
+                        SesameLoginInfo.setRemoteSoundOpen(true);
                     }
                     listener.onFinished(mBaseResponseInfo);
                 } else {
@@ -6374,7 +6373,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setDeviceActivate(false);
+                    SesameLoginInfo.setDeviceActivate(false);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -6467,19 +6466,19 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    LoginInfo.setDealerTel(mParser.getValue("tel"));
-                    LoginInfo.setServiceTel(mParser.getValue("tel1"));
-                    LoginInfo.setDealerName(mParser.getValue("name"));
-                    LoginInfo.setDealerUsername(mParser.getValue("username"));
-                    LoginInfo.setDealerAddres(mParser.getValue("addres"));
+                    SesameLoginInfo.setDealerTel(mParser.getValue("tel"));
+                    SesameLoginInfo.setServiceTel(mParser.getValue("tel1"));
+                    SesameLoginInfo.setDealerName(mParser.getValue("name"));
+                    SesameLoginInfo.setDealerUsername(mParser.getValue("username"));
+                    SesameLoginInfo.setDealerAddres(mParser.getValue("addres"));
                     String m = mParser.getValue("map");
                     String[] map = m.split(",");
                     if (map != null && map.length > 1) {
-                        LoginInfo.setDealerLat(Double.parseDouble(map[0]));
-                        LoginInfo.setDealerLon(Double.parseDouble(map[1]));
+                        SesameLoginInfo.setDealerLat(Double.parseDouble(map[0]));
+                        SesameLoginInfo.setDealerLon(Double.parseDouble(map[1]));
                     }
                     if (map.length > 2) {
-                        LoginInfo.setDealerZoom(Integer.parseInt(map[2]));
+                        SesameLoginInfo.setDealerZoom(Integer.parseInt(map[2]));
                     }
                     // 测试用
                     // LoginInfo.setDealerTel("");

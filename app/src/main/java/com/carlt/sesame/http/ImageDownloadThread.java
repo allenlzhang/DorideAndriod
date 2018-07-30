@@ -3,7 +3,7 @@ package com.carlt.sesame.http;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.carlt.sesame.systemconfig.LocalConfig;
+import com.carlt.doride.utils.LocalConfig;
 import com.carlt.sesame.utility.FileUtil;
 
 import java.io.File;

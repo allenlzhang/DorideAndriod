@@ -17,7 +17,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.adapter.CarListAdapter;
@@ -317,12 +317,12 @@ public class CarListActivity extends LoadingActivityWithTitle {
 					CarInfo mCarInfo = mCarInfos.get(i);
 					if (i == optionPos) {
 						mCarInfo.setType(CarInfo.TYPE_MY);
-						LoginInfo.setCarcity(mCarInfo.getCityName());
-						LoginInfo.setCity_code(mCarInfo.getCityCode());
-						LoginInfo.setCarno(mCarInfo.getCarNo());
-						LoginInfo.setEngineno(mCarInfo.getEngineNo());
-						LoginInfo.setShortstandcarno(mCarInfo.getStandcarNo());
-						LoginInfo.setRegistno(mCarInfo.getRegistNo());
+						SesameLoginInfo.setCarcity(mCarInfo.getCityName());
+						SesameLoginInfo.setCity_code(mCarInfo.getCityCode());
+						SesameLoginInfo.setCarno(mCarInfo.getCarNo());
+						SesameLoginInfo.setEngineno(mCarInfo.getEngineNo());
+						SesameLoginInfo.setShortstandcarno(mCarInfo.getStandcarNo());
+						SesameLoginInfo.setRegistno(mCarInfo.getRegistNo());
 					} else {
 						mCarInfo.setType(CarInfo.TYPE_OTHER);
 					}

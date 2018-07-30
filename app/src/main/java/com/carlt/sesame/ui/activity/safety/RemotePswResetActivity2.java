@@ -16,7 +16,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity;
 import com.carlt.sesame.ui.view.GetValidateView;
@@ -331,7 +331,7 @@ public class RemotePswResetActivity2 extends BaseActivity implements OnClickList
 		case R.id.remotepsw_reset_txt_code:
 			mEdtPhone.validateEdit();
 			phoneNum = mEdtPhone.getText().toString();
-			String phoneLocal = LoginInfo.getMobile();
+			String phoneLocal = SesameLoginInfo.getMobile();
 			if (phoneNum != null && phoneNum.length() == 11 && phoneNum.equals(phoneLocal)) {
 				CPControl.GetMessageValidateResult(CPControl.VALIDATE_TYPE_FINDPASSWORDREMOTE, phoneNum, listener_code);
 				count = 60;
@@ -404,7 +404,7 @@ public class RemotePswResetActivity2 extends BaseActivity implements OnClickList
 			// 调用重置远程密码接口
 			String phone = mEdtPhone.getText().toString();
 			String code = mEdtCode.getText().toString();
-			String mobile = LoginInfo.getMobile();
+			String mobile = SesameLoginInfo.getMobile();
 			String pswNew1 = mPwdEdt1.getText().toString();
 			String pswNew2 = mPwdEdt2.getText().toString();
 			if (mobile == null || mobile.length() < 1 || !phone.equals(mobile)) {

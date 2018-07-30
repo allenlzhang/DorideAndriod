@@ -21,7 +21,7 @@ import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.GetValidateView;
@@ -185,9 +185,9 @@ public class EditUserinfoDetailActivity extends BaseActivity {
         mHeadIconTxt1 = (TextView)findViewById(R.id.activity_setting_userinfo_detail_head_icon_txt1);
         mHeadIconTxt2 = (TextView)findViewById(R.id.activity_setting_userinfo_detail_head_icon_txt2);
 
-        if (LoginInfo.getAvatar_img() != null && LoginInfo.getAvatar_img().length() > 0) {
-            if (mAsyncImageLoader.getBitmapByUrl(LoginInfo.getAvatar_img()) != null) {
-                mHeadIconImg.setImageBitmap(mAsyncImageLoader.getBitmapByUrl(LoginInfo
+        if (SesameLoginInfo.getAvatar_img() != null && SesameLoginInfo.getAvatar_img().length() > 0) {
+            if (mAsyncImageLoader.getBitmapByUrl(SesameLoginInfo.getAvatar_img()) != null) {
+                mHeadIconImg.setImageBitmap(mAsyncImageLoader.getBitmapByUrl(SesameLoginInfo
                         .getAvatar_img()));
             }
         } else {
@@ -227,7 +227,7 @@ public class EditUserinfoDetailActivity extends BaseActivity {
     private void initName() {
         mNameEdt = (EditText)findViewById(R.id.activity_setting_userinfo_detail_name_edt1);
 
-        mNameEdt.setText(LoginInfo.getRealname());
+        mNameEdt.setText(SesameLoginInfo.getRealname());
 
         mNameEdt.setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -237,7 +237,7 @@ public class EditUserinfoDetailActivity extends BaseActivity {
                     mNameEdt.setText("");
                     mNameEdt.setHint("");
                 } else {
-                    mNameEdt.setText(LoginInfo.getRealname());
+                    mNameEdt.setText(SesameLoginInfo.getRealname());
                 }
             }
         });
@@ -253,10 +253,10 @@ public class EditUserinfoDetailActivity extends BaseActivity {
         mSexRadio2 = (RadioButton)findViewById(R.id.activity_setting_userinfo_detail_sex_radio2);
         mSexRadio3 = (RadioButton)findViewById(R.id.activity_setting_userinfo_detail_sex_radio3);
 
-        if (LoginInfo.getGender().equals("1")) {
+        if (SesameLoginInfo.getGender().equals("1")) {
             // 男
             mSexRadio1.setChecked(true);
-        } else if (LoginInfo.getGender().equals("2")) {
+        } else if (SesameLoginInfo.getGender().equals("2")) {
             // 女
             mSexRadio2.setChecked(true);
         }else{
@@ -344,7 +344,7 @@ public class EditUserinfoDetailActivity extends BaseActivity {
                 String name = mNameEdt.getText().toString();
                 String erroInfo = CheckInfo.checkName(name);
                 if (erroInfo.equals("")) {
-                    if (!name.equals(LoginInfo.getRealname())) {
+                    if (!name.equals(SesameLoginInfo.getRealname())) {
                         mDialog.show();
                         CPControl.GetUpadeNameResult(name, listener);
                     } else {
@@ -468,7 +468,7 @@ public class EditUserinfoDetailActivity extends BaseActivity {
     public void OnImgLoadFinished(String url, android.graphics.Bitmap mBitmap) {
         super.OnImgLoadFinished(url, mBitmap);
 
-        if (LoginInfo.getAvatar_img().equals(url)) {
+        if (SesameLoginInfo.getAvatar_img().equals(url)) {
             mHeadIconImg.setImageBitmap(mBitmap);
         }
     };

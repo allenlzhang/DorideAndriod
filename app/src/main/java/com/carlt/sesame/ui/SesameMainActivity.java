@@ -25,7 +25,7 @@ import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.AdvertiseInfo;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.VersionInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivityGroup;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
@@ -97,7 +97,7 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
 
         isTransferDialog = getIntent().getBooleanExtra("showTransferDialog", false);
             // 非游客登录版
-            if (LoginInfo.isMain()) {
+            if (SesameLoginInfo.isMain()) {
                 // CPControl.GetExtInfoResult(listener_fee);
             } else {
                 if (isTransferDialog) {

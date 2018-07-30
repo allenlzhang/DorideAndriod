@@ -129,22 +129,7 @@ public class PushService extends Service {
 			return;
 		case LoginInfo.Feetip_Message:
 			// 服务提醒
-			//if (LoginInfo.isMain()) {
-				// 主机-跳转至服务购买
-//				Intent mIntent = new Intent(PushService.this,
-//						ManageFeeActivity.class);
-//				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-//						| Intent.FLAG_ACTIVITY_NEW_TASK);
-//				startActivity(mIntent);
 			Log.e("info", "跳转至服务购买页面");
-//			} else {
-//				// 子机-跳转至主页面
-//				Intent mIntent = new Intent(PushService.this,
-//						SesameMainActivity.class);
-//				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-//						| Intent.FLAG_ACTIVITY_NEW_TASK);
-//				startActivity(mIntent);
-//			}
 			return;
 
 		case SecretaryMessageInfo.C1_T1:

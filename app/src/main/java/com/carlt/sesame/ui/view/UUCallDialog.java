@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 
 /**
  * 拨打电话对话框
@@ -55,12 +55,12 @@ public class UUCallDialog extends Dialog implements
 				return true;
 			}
 		});
-		String softTel = LoginInfo.getServiceTel();
+		String softTel = SesameLoginInfo.getServiceTel();
 		if (TextUtils.isEmpty(softTel)) {
 			txtCallSoft.setVisibility(View.GONE);
 			txtLine.setVisibility(View.GONE);
 		}
-		String carTel = LoginInfo.getDealerTel();
+		String carTel = SesameLoginInfo.getDealerTel();
 		if (TextUtils.isEmpty(carTel)) {
 			txtCallCar.setVisibility(View.GONE);
 			txtLine.setVisibility(View.GONE);

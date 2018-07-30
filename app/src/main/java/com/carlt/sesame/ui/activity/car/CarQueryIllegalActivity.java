@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.DaoControl;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.PostViolationInfo;
 import com.carlt.sesame.data.car.ViolationInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -243,11 +243,11 @@ public class CarQueryIllegalActivity extends LoadingActivityWithTitle implements
 		super.LoadData();
 		if (mInfo == null) {
 			mInfo = new PostViolationInfo();
-			mInfo.setCarno(LoginInfo.getCarno());
-			mInfo.setCityCodeId(LoginInfo.getCity_code());
-			mInfo.setEngineno(LoginInfo.getEngineno());
-			mInfo.setRegistno(LoginInfo.getRegistno());
-			mInfo.setStandcarno(LoginInfo.getShortstandcarno());
+			mInfo.setCarno(SesameLoginInfo.getCarno());
+			mInfo.setCityCodeId(SesameLoginInfo.getCity_code());
+			mInfo.setEngineno(SesameLoginInfo.getEngineno());
+			mInfo.setRegistno(SesameLoginInfo.getRegistno());
+			mInfo.setStandcarno(SesameLoginInfo.getShortstandcarno());
 		}
 
 		final PostViolationInfo temp = DaoControl.getInstance().getByCarno(mInfo.getCarno());

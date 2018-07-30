@@ -294,13 +294,5 @@ public class MonthActivity extends LoadingActivity {
         }
     };
 
-    //	@Override
-    //	public void OnImgLoadFinished(String url, Bitmap mBitmap) {
-    //		super.OnImgLoadFinished(url, mBitmap);
-    //		if (url != null && url.equals(LoginInfo.getAvatar_img())
-    //				&& mBitmap != null) {
-    //			Bitmap bitmap = ImageUtils.getRoundedCornerBitmap(mBitmap, 20);
-    //			mImgAvadar.setImageBitmap(bitmap);
-    //		}
-    //	}
+
 }

@@ -6,7 +6,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 
 import java.io.IOException;
 
@@ -38,7 +38,7 @@ public class PlayRadio {
      * @param sourceId 音频文件Id
      */
     public void playClickVoice(int sourceId) {
-        if (LoginInfo.isRemoteSoundOpen()) {
+        if (SesameLoginInfo.isRemoteSoundOpen()) {
             try {
                 if (mp == null) {
                     mp = new MediaPlayer();

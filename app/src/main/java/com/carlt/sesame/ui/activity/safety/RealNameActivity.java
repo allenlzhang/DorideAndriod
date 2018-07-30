@@ -15,7 +15,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.ValidateEditText;
@@ -127,10 +127,10 @@ public class RealNameActivity extends BaseActivity implements OnClickListener {
 			mViewAutherTodo.setVisibility(View.GONE);
 			mViewAuthered.setVisibility(View.VISIBLE);
 			StringBuffer mBuffer = new StringBuffer();
-			mBuffer.append(LoginInfo.getAuthen_name());
+			mBuffer.append(SesameLoginInfo.getAuthen_name());
 			mBuffer.append(" ");
 
-			String idCard = LoginInfo.getAuthen_card();
+			String idCard = SesameLoginInfo.getAuthen_card();
 			if (idCard != null && idCard.length() > 0) {
 				// mBuffer.append(idCard.substring(0, 6));
 				// mBuffer.append("************");

@@ -4,7 +4,7 @@ package com.carlt.sesame.protocolstack.career;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.DaoControl;
-import com.carlt.sesame.data.LoginInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.CareerInfo;
 import com.carlt.sesame.data.career.LicenceLevelInfo;
 import com.carlt.sesame.protocolstack.BaseParser;
@@ -33,7 +33,7 @@ public class CareerlParser extends BaseParser {
             String secretaryname = membercar.optString("secretaryname");
             secretaryname= DorideApplication.ApplicationContext.getResources().getString(R.string.register_secretary_girl);
             if (secretaryname != null && !secretaryname.equals("")) {
-                LoginInfo.setSecretaryName(secretaryname);
+                SesameLoginInfo.setSecretaryName(secretaryname);
             }
 
             JSONObject report = mJSON_data.getJSONObject("report");

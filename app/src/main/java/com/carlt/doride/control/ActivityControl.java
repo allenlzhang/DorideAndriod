@@ -129,7 +129,6 @@ public class ActivityControl {
                     XGPushManager.registerPush(mContext,
                             "t_" + LoginInfo.getUseId());
                     XGPushManager.registerPush(mContext, "t_" + LoginInfo.getUseId());
-                    Log.e("info", "LoginInfo.getToken()==" + LoginInfo.getAccess_token());
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
                     XGPushManager.setTag(mContext, "t_" + LoginInfo.getDealerId());
                     if (LoginInfo.getPush_prizeinfo_flag() == 1) {
