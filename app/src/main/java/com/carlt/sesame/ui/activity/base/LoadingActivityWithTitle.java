@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -91,7 +92,9 @@ public abstract class LoadingActivityWithTitle extends BaseActivity {
 
         // View mView = LayoutInflater.from(FoodCookBook.this).inflate(
         // R.layout.food_cookbook_childlayout, null);
-        mTitleLay.addView(LayoutInflater.from(this).inflate(layoutResID, null));
+     //   mTitleLay.addView(LayoutInflater.from(this).inflate(layoutResID, null));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mTitleLay.addView(LayoutInflater.from(this).inflate(layoutResID, null),params);
 
     }
 

@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 
 import com.carlt.sesame.data.SesameLoginInfo;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
@@ -54,8 +55,10 @@ public class PlayRadio {
                 mp.prepare();
             } catch (IllegalStateException e) {
                 e.printStackTrace();
+                Logger.e(e.getMessage());
             } catch (IOException e) {
                 e.printStackTrace();
+                Logger.e(e.getMessage());
             }
             mp.start();
         }

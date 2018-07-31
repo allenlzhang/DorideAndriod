@@ -2397,8 +2397,7 @@ public class CPControl {
 
                 ProvinceListJUHEParser mParser = new ProvinceListJUHEParser();
                 CityListJUHEParser mParser2 = new CityListJUHEParser(0, "rm");
-                listener.onFinished(mParser.getmProvinceInfoList(),
-                        mParser2.getmCityInfoList(), null);
+                listener.onFinished(mParser.getmProvinceInfoList(), mParser2.getmCityInfoList(), null);
             }
 
         }.start();
@@ -4275,11 +4274,9 @@ public class CPControl {
                 // 链接地址
                 String url = URLConfig.getM_LOCKING_URL();
                 // Post参数
-                String post = CreatPostString.getRemoteLock(lock,
-                        DorideApplication.MODEL_NAME);
+                String post = CreatPostString.getRemoteLock(lock, DorideApplication.MODEL_NAME);
                 DefaultParser mParser = new DefaultParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
+                BaseResponseInfo mBaseResponseInfo = mParser.getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(null);
                 } else {

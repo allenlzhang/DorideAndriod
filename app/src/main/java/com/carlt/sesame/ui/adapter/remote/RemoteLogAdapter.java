@@ -95,10 +95,10 @@ public class RemoteLogAdapter extends BaseAdapter {
         s = mInfo.getResult();
         if (s != null) {
             if (s.equals(RemoteLogInfo.result_success)) {
-                mHolder.mTxtResult.setText("操作成功");
+             //   mHolder.mTxtResult.setText("操作成功");
                 mHolder.mTxtResult.setBackgroundResource(R.drawable.text_bg_green);
             } else {
-                mHolder.mTxtResult.setText("操作失败");
+             //   mHolder.mTxtResult.setText("操作失败");
                 mHolder.mTxtResult.setBackgroundResource(R.drawable.text_bg_red);
             }
         }

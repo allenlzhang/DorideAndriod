@@ -1655,8 +1655,7 @@ public class SesameLoginInfo {
     }
 
     public static boolean isRemoteSoundOpen() {
-        return isRemoteSoundOpen = user_pref.getBoolean("isRemoteSoundOpen",
-                isRemoteSoundOpen);
+        return isRemoteSoundOpen = user_pref.getBoolean("isRemoteSoundOpen", isRemoteSoundOpen);
     }
 
     public static void setRemoteSoundOpen(boolean isRemoteSoundOpen) {

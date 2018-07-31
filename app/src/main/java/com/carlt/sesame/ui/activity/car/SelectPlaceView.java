@@ -23,8 +23,11 @@ import com.carlt.sesame.data.car.ProvinceInfo;
 import com.carlt.sesame.ui.adapter.QueryIllegalSelectCityAdapter;
 import com.carlt.sesame.ui.adapter.QueryIllegalSelectProvinceAdapter;
 import com.carlt.sesame.ui.view.SelectView;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class SelectPlaceView extends SelectView {
 
@@ -158,6 +161,7 @@ public class SelectPlaceView extends SelectView {
 		// o1 省 o2市
 		@Override
 		public void onFinished(Object o1, Object o2, Object o3) {
+
 			mListProvince = (ArrayList<ProvinceInfo>) o1;
 			mListCity = (ArrayList<CityInfo>) o2;
 

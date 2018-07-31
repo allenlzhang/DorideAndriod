@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,7 +19,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
@@ -43,9 +46,9 @@ import com.carlt.sesame.utility.UUToast;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
-public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
-        OnClickListener {
+public class RemoteMainNewActivity extends LoadingActivityWithTitle implements OnClickListener {
     public final static String ACTION_REMOTE_SETPSW = "com.carlt.sesame.action_remote_setpsw";
     public final static String ACTION_REMOTE_RESETPSW = "com.carlt.sesame.action_remote_resetpsw";
     public final static String ACTION_REMOTE_FORGETPSW = "com.carlt.sesame.action_remote_forgetpsw ";
@@ -107,7 +110,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remote_main_new);
-        setTitleView(R.layout.head_remote);
+      // setTitleView(R.layout.head_remote);
+        // right remote_history_iv  left  state_car_iv
+        setTitleView(R.layout.layout_title_remote);
         registerBeforeGoToBackGround(this);
         mPlayRadio = PlayRadio.getInstance(RemoteMainNewActivity.this);
         init();
@@ -122,9 +127,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
     }
 
     private void init() {
-        mTxtState = (TextView) findViewById(R.id.remote_main_txt_state);
+        mTxtState = (TextView) findViewById(R.id.state_car_iv);
         mTxtState.setOnClickListener(this);
-        mTxtRecorder = (TextView) findViewById(R.id.remote_main_txt_recorder);
+        mTxtRecorder = (TextView) findViewById(R.id.remote_history_iv);
         mTxtRecorder.setOnClickListener(this);
 
         mTxtItem1One = (TextView) findViewById(R.id.remote_new_txt_item1_one);
@@ -244,12 +249,12 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
             return;
         }
         switch (v.getId()) {
-            case R.id.remote_main_txt_state:
+            case R.id.state_car_iv:
                 showWaitingDialog("正在获取车辆状态...");
                 CPControl.GetRemoteCarState(mListener_states,
                         SesameLoginInfo.getDeviceType());
                 break;
-            case R.id.remote_main_txt_recorder:
+            case R.id.remote_history_iv:
                 // 远程记录
                 Intent mIntent = new Intent(RemoteMainNewActivity.this,
                         RemoteLogActivity.class);
@@ -488,14 +493,12 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
                 public void onRightClick() {
                     Log.e("info", "LoginInfo.isAuthen==" + SesameLoginInfo.isAuthen());
                     if (SesameLoginInfo.isAuthen()) {
-                        Intent mIntent = new Intent(RemoteMainNewActivity.this,
-                                RemotePswResetActivity3.class);
+                        Intent mIntent = new Intent(RemoteMainNewActivity.this, RemotePswResetActivity3.class);
                         mIntent.putExtra(RemotePswResetActivity3.TYPE,
                                 RemotePswResetActivity3.TYPE_REMOTE);
                         startActivity(mIntent);
                     } else {
-                        Intent mIntent = new Intent(RemoteMainNewActivity.this,
-                                RealNameActivity.class);
+                        Intent mIntent = new Intent(RemoteMainNewActivity.this, RealNameActivity.class);
                         mIntent.putExtra(RealNameActivity.TYPE,
                                 RealNameActivity.TYPE_REMOTE);
                         startActivity(mIntent);
@@ -712,27 +715,30 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements
 
         @Override
         public void handleMessage(Message msg) {
+
             switch (msg.what) {
                 case 0:
                     // 远程操作结果
                     switch (lastOpt) {
                         case 0:
-                            mPlayRadio.playClickVoice(R.raw.remote_unlock);
+
+             //               mPlayRadio.playClickVoice(R.raw.remote_unlock);
+
                             lastOpt = -1;
                             break;
                         case 1:
-                            mPlayRadio.playClickVoice(R.raw.remote_lock);
+                //            mPlayRadio.playClickVoice(R.raw.remote_lock);
                             lastOpt = -1;
                             break;
                         case 2:
-                            mPlayRadio.playClickVoice(R.raw.remote_finding);
+               //             mPlayRadio.playClickVoice(R.raw.remote_finding);
                             lastOpt = -1;
                             break;
                         case 3:
                             if (mAirConditionDialog != null) {
                                 mAirConditionDialog.dismiss();
                             }
-                            mPlayRadio.playClickVoice(R.raw.remote_air);
+                 //           mPlayRadio.playClickVoice(R.raw.remote_air);
                             lastOpt = -1;
                             break;
                         case 4:
