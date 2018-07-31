@@ -481,7 +481,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 	private WeatherSearch mweathersearch;
 
 	public void loadWeather() {
-		Log.e("info", "cityName==" + cityName);
+//		Log.e("info", "cityName==" + cityName);
 		if (null == cityName) {
 			return;
 		}

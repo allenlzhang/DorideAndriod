@@ -132,13 +132,13 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
         mTxtMaintainMile = (TextView) findViewById(R.id.manage_car_txt_maintainmile);
         mTxtMaintainDate = (TextView) findViewById(R.id.manage_car_txt_maintaindate);
 
-        mView1.setOnClickListener(mClickListener);
-        mTxtCarname.setOnClickListener(mClickListener);
+//        mView1.setOnClickListener(mClickListener);
+//        mTxtCarname.setOnClickListener(mClickListener);
         mTxtBuydate.setOnClickListener(mClickListener);
         mView4.setOnClickListener(mClickListener);
         mTxtMaintainDate.setOnClickListener(mClickListener);
 
-        mTxtBuydate.setOnFocusChangeListener(mChangeListener);
+//        mTxtBuydate.setOnFocusChangeListener(mChangeListener);
 
     }
 

@@ -72,7 +72,7 @@ public class SecretaryTipsAdapterNew extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup arg2) {
         Holder mHolder;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item_secretary, null);
+            convertView = mInflater.inflate(R.layout.sesame_list_item_secretary, null);
             mHolder = initHolder(convertView);
             convertView.setTag(mHolder);
 
