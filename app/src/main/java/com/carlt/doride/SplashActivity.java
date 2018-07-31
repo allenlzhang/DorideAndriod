@@ -301,7 +301,11 @@ public class SplashActivity extends BaseActivity {
                     break;
                 case 3:
                     useTimes++;
-                    ActivityControl.initXG();
+                    if (LoginInfo.getApp_type() == 1) {
+                        ActivityControl.initXG();
+                    }else {
+                        com.carlt.sesame.control.ActivityControl.initXG();
+                    }
                     LoginControl.mDialogUpdateListener = mDUpdateListener;
                     LoginControl.logic(SplashActivity.this);
                     if (!LoginInfo.isUpgradeing()) {

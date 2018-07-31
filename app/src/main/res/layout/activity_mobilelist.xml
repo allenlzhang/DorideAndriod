@@ -79,7 +79,7 @@
 
     <TextView
         android:id="@+id/mobilelist_txt_empty"
-        style="@style/public_nodata_txt"
+        style="@style/sesame_public_nodata_txt"
         android:background="#ffffff"
         android:text="您还没有其它的授权设备" />
 

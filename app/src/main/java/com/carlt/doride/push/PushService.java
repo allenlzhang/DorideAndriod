@@ -60,7 +60,11 @@ public class PushService extends Service {
 						switch (msg.what) {
 						case 0:
 							swithAction(class1);
-							ActivityControl.initXG();
+							if (LoginInfo.getApp_type() == 1) {
+								ActivityControl.initXG();
+							}else {
+								com.carlt.sesame.control.ActivityControl.initXG();
+							}
 							break;
 
 						}

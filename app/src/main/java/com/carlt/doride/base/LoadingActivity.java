@@ -60,7 +60,7 @@ public class LoadingActivity extends BaseActivity {
         mTxtNodata = (TextView) findViewById(R.id.nodata_txt_des);
         mTxtRetryError = (Button) findViewById(R.id.error_txt_retry);
         mPBar = (ProgressBar) findViewById(R.id.loading_bar_loading);
-        optRight = (TextView) findViewById(R.id.head_back_text2);
+        optRight = (TextView) findViewById(R.id.layout_title_back_text2);
 
         mTxtRetryError.setOnClickListener(mClickListener);
         setMainView(layoutResID);
@@ -75,9 +75,9 @@ public class LoadingActivity extends BaseActivity {
     protected void initTitle(String titleString) {
 
         try {
-            backTV = $ViewByID(R.id.head_back_img1);
-            titleTV = $ViewByID(R.id.head_back_txt1);
-            backTV2 = $ViewByID(R.id.head_back_img2);
+            backTV = $ViewByID(R.id.layout_title_back_img1);
+            titleTV = $ViewByID(R.id.layout_title_back_txt1);
+            backTV2 = $ViewByID(R.id.layout_title_back_img2);
         } catch (Exception e) {
             //是设置标题出错
             return;

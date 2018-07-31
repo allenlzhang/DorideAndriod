@@ -58,7 +58,7 @@ public abstract class MenuCalendar {
 		this.mContext = mContext;
 		inflater = LayoutInflater.from(mContext);
 		menuView_main = (RelativeLayout) inflater.inflate(
-				R.layout.menu_calendar_lay, null);
+				R.layout.sesame_menu_calendar_lay, null);
 		mContiner = (LinearLayout)menuView_main.findViewById(R.id.menu_calendar_lay);
 		Display disp = ((Activity) mContext).getWindowManager().getDefaultDisplay();
 		Point outP = new Point();
@@ -69,7 +69,7 @@ public abstract class MenuCalendar {
 		mTitle = (TextView) menuView_main.findViewById(R.id.head_back_txt1);
 		mShare = (TextView) menuView_main.findViewById(R.id.head_back_txt2);
 		mBack = (ImageView) menuView_main.findViewById(R.id.head_back_img1);
-		mBack.setImageResource(R.drawable.arrow_back);
+//		mBack.setImageResource(R.drawable.arrow_back);
 		mShare.setVisibility(View.GONE);
 		mBack.setOnClickListener(new OnClickListener() {
 

@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/remotelog_txt_empty"
-        style="@style/public_nodata_txt"
+        style="@style/sesame_public_nodata_txt"
         android:text="暂时没有您的远程操作记录" />
 
 </RelativeLayout>

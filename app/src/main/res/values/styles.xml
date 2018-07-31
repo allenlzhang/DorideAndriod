@@ -112,7 +112,7 @@
     </style>
 
     <!-- 公用没有数据时的text -->
-    <style name="public_nodata_txt">
+    <style name="sesame_public_nodata_txt">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:textColor">@color/text_color_gray1</item>
@@ -133,20 +133,34 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>
-
+    <style name="sesame_day_driveInfo_content">
+        <item name="android:textColor">@color/text_color_gray3</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
     <style name="listItem_day_info_title">
         <item name="android:textColor">@color/text_color_gray2</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
         <item name="android:drawablePadding">2dp</item>
     </style>
-
+    <style name="sesame_listItem_day_info_title">
+    <item name="android:textColor">#333333</item>
+    <item name="android:textSize">@dimen/text_size_small_s2</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:drawablePadding">2dp</item>
+    </style>
     <style name="listItem_day_info_txt">
         <item name="android:textColor">@color/text_color_gray3</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
     </style>
-
+    <style name="sesame_listItem_day_info_txt">
+        <item name="android:textColor">#666666</item>
+        <item name="android:textSize">@dimen/text_size_small_s2</item>
+        <item name="android:singleLine">true</item>
+    </style>
     <style name="listItem_day_hurry_txt">
         <item name="android:textColor">#999999</item>
         <item name="android:textSize">12sp</item>

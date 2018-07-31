@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/feelog_txt_empty"
-        style="@style/public_nodata_txt"
+        style="@style/sesame_public_nodata_txt"
         android:text="暂时没有您的购买记录" />
 
 </RelativeLayout>

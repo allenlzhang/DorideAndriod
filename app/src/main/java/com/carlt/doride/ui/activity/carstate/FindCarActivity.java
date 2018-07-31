@@ -257,7 +257,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
         mImgCha = (ImageView) findViewById(R.id.findcar_img_cha);
         mImgPLoc = (ImageView) findViewById(R.id.findCar_img_persion);
         mTxtPLoc = (TextView) findViewById(R.id.findCar_img_persion_txt);
-        txtRight = (TextView) findViewById(R.id.head_back_text2);
+        txtRight = (TextView) findViewById(R.id.layout_title_back_text2);
         backTV2.setVisibility(View.GONE);
         mImgPLoc.setVisibility(View.GONE);
         mTxtPLoc.setVisibility(View.GONE);
@@ -343,7 +343,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
                 clearMarkers();
                 reSet();
                 break;
-            case R.id.head_back_text2:
+            case R.id.layout_title_back_text2:
                 if (!NetworkUtils.isConnected() && !NetworkUtils.isAvailableByPing()) {
                     UUToast.showUUToast(this, "网络不可用，请稍后重试");
                     return;

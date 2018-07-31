@@ -18,6 +18,7 @@ import com.carlt.doride.control.CPControl;
 import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -136,7 +137,11 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                     activateDevice();
                     break;
                 case 3:
-                    ActivityControl.initXG();
+                    if (LoginInfo.getApp_type() == 1) {
+                        ActivityControl.initXG();
+                    }else {
+                        com.carlt.sesame.control.ActivityControl.initXG();
+                    }
 //                    LoginControl.logic(ActivateBindActivity.this);
                     Intent intent = new Intent(ActivateBindActivity.this, MainActivity.class);
                     startActivity(intent);

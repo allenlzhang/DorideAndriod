@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="36dip"
+    android:orientation="horizontal" >
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="日"
+        android:textColor="#999999" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="一"
+        android:textColor="#999999" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="二"
+        android:textColor="#999999" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="三"
+        android:textColor="#999999" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="四"
+        android:textColor="#999999" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="五"
+        android:textColor="#999999" />
+
+    <TextView
+        style="@style/rili_head_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="六"
+        android:textColor="#999999" />
+
+</LinearLayout>

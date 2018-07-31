@@ -14,12 +14,12 @@ public class CalendarDay extends MenuCalendar {
 			final OnCalendarDayClick mOnCalendarDayClick) {
 		super(mContext);
 		View child = LayoutInflater.from(mContext).inflate(
-				R.layout.report_rili_main, null);
+				R.layout.sesame_report_rili_main, null);
 		init(child);
 
 		setTitle("选择日报日期");
 		mDateView = (ReportDateView) child
-				.findViewById(R.id.report_rili_dateview);
+				.findViewById(R.id.sesame_report_rili_dateview);
 		OnItemClick mOnItemClick = new OnItemClick() {
 
 			@Override

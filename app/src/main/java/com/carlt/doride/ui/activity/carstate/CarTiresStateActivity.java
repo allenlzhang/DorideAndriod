@@ -198,7 +198,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.head_back_text2:
+            case R.id.layout_title_back_text2:
                 loadingDataUI();
                 initdata();
                 break;

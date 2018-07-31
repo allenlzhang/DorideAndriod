@@ -281,7 +281,11 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         mUseInfo.setAccount(userPhone);
         mUseInfo.setPassword(passwd);
         UseInfoLocal.setUseInfo(mUseInfo);
-        ActivityControl.initXG();
+        if (LoginInfo.getApp_type() == 1) {
+            ActivityControl.initXG();
+        }else {
+            com.carlt.sesame.control.ActivityControl.initXG();
+        }
         //业务代码，为了测试暂时注释掉
         LoginControl.logic(this);
     }

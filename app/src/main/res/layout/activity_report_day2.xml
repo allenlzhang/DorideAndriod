@@ -146,7 +146,7 @@
 
             <TextView
                 android:id="@+id/day_txt_miles"
-                style="@style/day_driveInfo_content"
+                style="@style/sesame_day_driveInfo_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -165,7 +165,7 @@
 
             <TextView
                 android:id="@+id/day_txt_time"
-                style="@style/day_driveInfo_content"
+                style="@style/sesame_day_driveInfo_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -184,7 +184,7 @@
 
             <TextView
                 android:id="@+id/day_txt_oils"
-                style="@style/day_driveInfo_content"
+                style="@style/sesame_day_driveInfo_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -216,7 +216,7 @@
 
             <TextView
                 android:id="@+id/day_txt_avgOils"
-                style="@style/day_driveInfo_content"
+                style="@style/sesame_day_driveInfo_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -235,7 +235,7 @@
 
             <TextView
                 android:id="@+id/day_txt_avgSpeeds"
-                style="@style/day_driveInfo_content"
+                style="@style/sesame_day_driveInfo_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -254,7 +254,7 @@
 
             <TextView
                 android:id="@+id/day_txt_maxSpeeds"
-                style="@style/day_driveInfo_content"
+                style="@style/sesame_day_driveInfo_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

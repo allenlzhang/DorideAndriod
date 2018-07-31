@@ -5,7 +5,7 @@
                 android:background="@color/white">
 
     <ImageView
-        android:id="@+id/head_back_img1"
+        android:id="@+id/layout_title_back_img1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -13,7 +13,7 @@
         android:src="@drawable/back_bg"/>
 
     <TextView
-        android:id="@+id/head_back_txt1"
+        android:id="@+id/layout_title_back_txt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -22,7 +22,7 @@
         android:textSize="@dimen/title_text_size"/>
 
     <ImageView
-        android:id="@+id/head_back_img2"
+        android:id="@+id/layout_title_back_img2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -32,7 +32,7 @@
         />
 
     <TextView
-        android:id="@+id/head_back_text2"
+        android:id="@+id/layout_title_back_text2"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

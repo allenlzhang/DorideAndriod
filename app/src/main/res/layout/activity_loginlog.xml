@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/loginlog_txt_empty"
-        style="@style/public_nodata_txt"
+        style="@style/sesame_public_nodata_txt"
         android:text="暂时没有您的登录信息" />
 
 </RelativeLayout>

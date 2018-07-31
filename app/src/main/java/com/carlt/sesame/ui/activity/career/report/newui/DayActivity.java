@@ -423,7 +423,7 @@ public class DayActivity extends LoadingActivityWithTitle implements
 			ViewHolder mHolder = null;
 			if (convertView == null) {
 				mHolder = new ViewHolder();
-				convertView = mInflate.inflate(R.layout.list_item_report_day,
+				convertView = mInflate.inflate(R.layout.sesame_list_item_report_day,
 						null);
 				mHolder.mDriveInfo = (TextView) convertView
 						.findViewById(R.id.listItem_day_driveInfo);
@@ -472,7 +472,7 @@ public class DayActivity extends LoadingActivityWithTitle implements
 
 			String startTime = MyTimeUtil.getTime(cInfo.getStarttime());
 			String endTime = MyTimeUtil.getTime(cInfo.getStopTime());
-			String timeAndMiles = DayActivity.this.getResources().getString(
+			@SuppressLint("StringFormatMatches") String timeAndMiles = DayActivity.this.getResources().getString(
 					R.string.listItem_day_timeAndMile, startTime, endTime,
 					cInfo.getTime(), cInfo.getMiles());
 			mHolder.mTimeAndMiles.setText(timeAndMiles);

@@ -65,7 +65,7 @@ public class ReportDateView extends LinearLayout implements OnClickListener {
         super(context, attrs);
         this.context = context;
 
-        LayoutInflater.from(context).inflate(R.layout.report_rili_date, this, true);
+        LayoutInflater.from(context).inflate(R.layout.sesame_report_rili_date, this, true);
         LinearLayout mainLayout = (LinearLayout)findViewById(R.id.date_view_layout);
         // 声明控件，并绑定事件
         Top_Date = (TextView)findViewById(R.id.head_calender_txt);
@@ -147,7 +147,7 @@ public class ReportDateView extends LinearLayout implements OnClickListener {
 
                     } else {
 
-                        btn_next_month.setImageResource(R.drawable.arrow_calendar_right);
+                        btn_next_month.setImageResource(R.drawable.sesame_arrow_calendar_right);
                         btn_next_month.setClickable(true);
 
                     }
