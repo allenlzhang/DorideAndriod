@@ -18,7 +18,7 @@
             android:layout_height="46dip"
             android:layout_centerInParent="true"
             android:contentDescription="车秘书图标"
-            android:src="@drawable/sesame_icon_secretary" />
+            android:src="@drawable/icon_secretary" />
     </RelativeLayout>
 
     <TextView

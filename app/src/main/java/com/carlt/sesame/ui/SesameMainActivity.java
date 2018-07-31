@@ -234,9 +234,9 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
         mCurrentTab = index;
         for (int i = 0; i < 4; i++) {
             if (i == index) {
-                tab[i].setTextColor(getResources().getColor(R.color.blue_light));
+                tab[i].setTextColor(getResources().getColor(R.color.blue_txt));
             } else {
-                tab[i].setTextColor(getResources().getColor(R.color.text_color_gray2));
+                tab[i].setTextColor(getResources().getColor(R.color.text_color_gray1));
             }
         }
 
@@ -298,32 +298,32 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
             switch (buttonView.getId()) {
                 case R.id.main_tab1:
                     setCurrentView(0);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my_blue), null, null);
-                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car_gray), null, null);
-                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote_gray), null, null);
-                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_setting_gray), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my_selected), null, null);
+                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car), null, null);
+                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote), null, null);
+                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_normal), null, null);
                     break;
                 case R.id.main_tab2:
                     setCurrentView(1);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my_gray), null, null);
-                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car_blue), null, null);
-                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote_gray), null, null);
-                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_setting_gray), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my), null, null);
+                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car_selected), null, null);
+                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote), null, null);
+                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_normal), null, null);
                     break;
                 case R.id.main_tab3:
                     setCurrentView(2);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my_gray), null, null);
-                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car_gray), null, null);
-                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote_blue), null, null);
-                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_setting_gray), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my), null, null);
+                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car), null, null);
+                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote_selected), null, null);
+                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_normal), null, null);
                     break;
 
                 case R.id.main_tab4:
                     setCurrentView(3);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my_gray), null, null);
-                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car_gray), null, null);
-                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote_gray), null, null);
-                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_setting_blue), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my), null, null);
+                    tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car), null, null);
+                    tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote), null, null);
+                    tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_select), null, null);
                     break;
 
             }

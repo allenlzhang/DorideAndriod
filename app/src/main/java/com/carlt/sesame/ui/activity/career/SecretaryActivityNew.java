@@ -80,7 +80,7 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
 		mTextViewSecretary = (TextView) findViewById(R.id.activity_career_secretary_txt1);
 
 		mTextViewSecretary.setText(SesameLoginInfo.getSecretaryName() + ":");
-		mImageViewSecretary.setImageResource(R.drawable.sesame_icon_secretary);
+		mImageViewSecretary.setImageResource(R.drawable.icon_secretary);
 	}
 
 	private void init() {

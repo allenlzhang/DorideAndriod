@@ -110,7 +110,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:src="@drawable/sesame_icon_secretary" />
+            android:src="@drawable/icon_secretary" />
 
         <TextView
             android:id="@+id/activity_career_main_txt2"
