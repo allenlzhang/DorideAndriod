@@ -160,11 +160,21 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             if (!TextUtils.isEmpty(LoginInfo.getCarname()) && !TextUtils.isEmpty(from) && from.equals(ACTIVATE)) {
                 btn_select_car.setText(LoginInfo.getCarname());
             }
+            int app_type = LoginInfo.getApp_type();
+            switch (app_type) {
+                case 1:
+                    //  大乘
+                    Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
+                    activateIntent.putExtra("vin", vinCode);
+                    activateIntent.putExtra("carType", carTitle);
+                    startActivity(activateIntent);
+                    break;
+                case 2:
+                    // 跳转芝麻的激活页面
+                    break;
+            }
 
-            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
-            activateIntent.putExtra("vin", vinCode);
-            activateIntent.putExtra("carType", carTitle);
-            startActivity(activateIntent);
+
         }
 
         @Override

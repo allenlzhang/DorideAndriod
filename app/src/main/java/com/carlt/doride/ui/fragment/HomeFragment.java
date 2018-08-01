@@ -82,6 +82,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         return view;
     }
 
+
+
     @Override
     public void init(View view) {
         mIvReport = $ViewByID(R.id.activity_home_iv_report);

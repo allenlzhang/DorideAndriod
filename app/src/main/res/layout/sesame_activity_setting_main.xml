@@ -203,7 +203,7 @@
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout3"
                 android:background="#ffffff"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/line_h3"
@@ -237,7 +237,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout4"
-                android:background="#ffffff"/>
+                android:background="#ffffff"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/line_h4"
@@ -247,7 +248,8 @@
             <RelativeLayout
                 android:id="@+id/activity_setting_layout5"
                 style="@style/setting_layout1"
-                android:layout_below="@id/line_h4">
+                android:layout_below="@id/line_h4"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/img15"
@@ -272,7 +274,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout5"
-                android:background="#ffffff"/>
+                android:background="#ffffff"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/line_h5"
@@ -282,7 +285,8 @@
             <RelativeLayout
                 android:id="@+id/activity_setting_layout_fee"
                 style="@style/setting_layout1"
-                android:layout_below="@id/line_h5">
+                android:layout_below="@id/line_h5"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/img6"
@@ -339,7 +343,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dip"
                 android:layout_below="@id/activity_setting_layout6"
-                android:background="#ffffff"/>
+                android:background="#ffffff"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/line_h9"

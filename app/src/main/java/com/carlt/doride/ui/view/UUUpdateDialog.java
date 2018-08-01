@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.view;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -124,6 +125,7 @@ public class UUUpdateDialog extends Dialog {
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -134,7 +136,7 @@ public class UUUpdateDialog extends Dialog {
 				if (msg.obj == null) {
 					return;
 				}
-				DeviceUpdateInfo mInfo = (DeviceUpdateInfo) msg.obj;
+				DeviceUpdateInfo mInfo = (DeviceUpdateInfo) ((BaseResponseInfo) msg.obj).getValue();
 				if (mInfo != null) {
 					if (mInfo.isUpgrading()) {
 						// 升级失败

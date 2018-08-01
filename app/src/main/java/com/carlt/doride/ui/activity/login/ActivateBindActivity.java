@@ -36,7 +36,7 @@ import java.util.HashMap;
 /**
  * 激活设备
  */
-public class ActivateBindActivity extends BaseActivity implements View.OnClickListener{
+public class ActivateBindActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView back;//返回按钮
 
@@ -49,7 +49,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private UUTimerDialog mDialog;
 
-    private String vinCode ="";
+    private String vinCode = "";
 
     private String carType = "";
 
@@ -64,7 +64,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         initSubTitle();
     }
 
-    private void initComponent(){
+    private void initComponent() {
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
         titleText = findViewById(R.id.title);
@@ -74,15 +74,15 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             vinCode = intent.getStringExtra("vin");
             carType = intent.getStringExtra("carType");
         }
-        activate_commit=findViewById(R.id.activate_commit);
+        activate_commit = findViewById(R.id.activate_commit);
         activate_commit.setOnClickListener(this);
     }
 
     private void initSubTitle() {
         mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
         mTextViewMsg = (TextView) findViewById(R.id.activate_bind_txt_msg);
-//
-//        mTextViewMsg.setText("设备绑定成功！激活设备后就能使用大乘管家的全部功能啦！");
+        //
+        //        mTextViewMsg.setText("设备绑定成功！激活设备后就能使用大乘管家的全部功能啦！");
     }
 
     @Override
@@ -102,7 +102,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                         mDialog.show();
                         listener_time = System.currentTimeMillis();
                         ActivateCount++;
-//                        mTextViewSecretary.setText("已收到激活请求，正在连接大乘设备…");
+                        //                        mTextViewSecretary.setText("已收到激活请求，正在连接大乘设备…");
                         activateDevice();
                     }
 
@@ -118,10 +118,10 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void activateDevice(){
-        DefaultStringParser parser=new DefaultStringParser(activateCallback);
-        HashMap<String,String> params=new HashMap<>();
-        parser.executePost(URLConfig.getM_DEVICE_ACTIVATE(),params);
+    private void activateDevice() {
+        DefaultStringParser parser = new DefaultStringParser(activateCallback);
+        HashMap<String, String> params = new HashMap<>();
+        parser.executePost(URLConfig.getM_DEVICE_ACTIVATE(), params);
     }
 
     private final static long ONEMIN = 1000 * 60;
@@ -129,7 +129,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     private long listener_time;
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -137,12 +137,13 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                     activateDevice();
                     break;
                 case 3:
-                    if (LoginInfo.getApp_type() == 1) {
-                        ActivityControl.initXG();
-                    }else {
-                        com.carlt.sesame.control.ActivityControl.initXG();
-                    }
-//                    LoginControl.logic(ActivateBindActivity.this);
+                    //                    if (LoginInfo.getApp_type() == 1) {
+                    //                        ActivityControl.initXG();
+                    //                    }else {
+                    //                        com.carlt.sesame.control.ActivityControl.initXG();
+                    //                    }
+                    ActivityControl.initXG();
+                    //                    LoginControl.logic(ActivateBindActivity.this);
                     Intent intent = new Intent(ActivateBindActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -161,13 +162,14 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         }
     };
 
-    BaseParser.ResultCallback activateCallback=new BaseParser.ResultCallback() {
+    BaseParser.ResultCallback activateCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             // 下发激活指令成功
-            UUToast.showUUToast(ActivateBindActivity.this,"大乘设备已成功激活");
-//            Intent intent=new Intent(ActivateBindActivity.this, SesameMainActivity.class);
-//            startActivity(intent);
+            UUToast.showUUToast(ActivateBindActivity.this, "大乘设备已成功激活");
+            //            Intent intent=new Intent(ActivateBindActivity.this, SesameMainActivity.class);
+            //            startActivity(intent);
+
             UseInfo mUseInfo = UseInfoLocal.getUseInfo();
             CPControl.GetLogin(mUseInfo.getAccount(), mUseInfo.getPassword(), listener_login);
         }
@@ -178,7 +180,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             boolean t = (System.currentTimeMillis() - listener_time) > ONEMIN;
             int flagCode = bInfo.getFlag();
             if (flagCode == 2997 && !t) {
-                mHandler.sendEmptyMessageDelayed(0,1000);
+                mHandler.sendEmptyMessageDelayed(0, 1000);
             } else {
                 errorSwitch(bInfo);
             }
@@ -195,26 +197,27 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     private final static String e4 = "激活失败，您的车型排量不正确";
 
     private final static String e5 = "请先将爱车熄火，再重新点击激活";
+
     private void errorSwitch(BaseResponseInfo mBaseResponseInfo) {
         int code = mBaseResponseInfo.getFlag();
         // 测试用
         // code=1021;
         if (code == 1020) {
-            UUToast.showUUToast(ActivateBindActivity.this,mBaseResponseInfo.getInfo());
+            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
             }
             PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
-        }else if (code == BaseResponseInfo.ERRO){
-            UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
+        } else if (code == BaseResponseInfo.ERRO) {
+            UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
             mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
             }
-        }else if (code == 2997) {
-            UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
+        } else if (code == 2997) {
+            UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
             // 下发不成功的情况
             if (ActivateCount == 1) {
                 mTextViewMsg.setText(e1);
@@ -228,17 +231,17 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                 mDialog = null;
             }
         } else {
-//            if (code == 3004) {
-//                mTextViewMsg.setText(e4);
-//            }
-//            else if (code == 3005) {
-//                mTextViewMsg.setText(e5);
-//            }
-//            else {
-//                mTextViewMsg.setText(e3);
-            UUToast.showUUToast(ActivateBindActivity.this,"激活失败");
-                mTextViewMsg.setText(mBaseResponseInfo.getInfo());
-//            }
+            //            if (code == 3004) {
+            //                mTextViewMsg.setText(e4);
+            //            }
+            //            else if (code == 3005) {
+            //                mTextViewMsg.setText(e5);
+            //            }
+            //            else {
+            //                mTextViewMsg.setText(e3);
+            UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+            mTextViewMsg.setText(mBaseResponseInfo.getInfo());
+            //            }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
@@ -246,11 +249,11 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void back(){
-        Intent backIntent=new Intent(this,DeviceBindActivity.class);
-        backIntent.putExtra("from","com.carlt.doride.ActivateBindActivity");
-        backIntent.putExtra("vin",vinCode);
-        backIntent.putExtra("carType",carType);
+    private void back() {
+        Intent backIntent = new Intent(this, DeviceBindActivity.class);
+        backIntent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
+        backIntent.putExtra("vin", vinCode);
+        backIntent.putExtra("carType", carType);
         startActivity(backIntent);
         finish();
         ActivityControl.clearAllActivity();
@@ -288,6 +291,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                 mHandler.sendMessage(msg);
             }
         }
+
         @Override
         public void onError(BaseResponseInfo o) {
             Message msg = new Message();

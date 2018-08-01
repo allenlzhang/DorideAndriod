@@ -106,12 +106,12 @@ public class LoginControl {
         if (data != null) {
             int app_type = data.optInt("app_type", 1);
             LoginInfo.setApp_type(app_type);
-            if (app_type == 1) {
+            if (app_type == 2) {
                 // 大乘
-                parseDorideLoginInfo(data);
+                parseSesameLoginInfo(data);
             } else {
                 // 芝麻
-                parseSesameLoginInfo(data);
+                parseDorideLoginInfo(data);
             }
 
 

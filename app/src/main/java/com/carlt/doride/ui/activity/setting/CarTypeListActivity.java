@@ -143,6 +143,11 @@ public class CarTypeListActivity extends LoadingActivity {
             } else {
                 LoginInfo.setDeviceisnew(0);
             }
+            if (carTitle.startsWith("E20")) {
+                LoginInfo.setApp_type(2);
+            } else if (carTitle.startsWith("大乘")) {
+                LoginInfo.setApp_type(1);
+            }
             CarTypeListActivity.this.startActivity(intent);
             ActivityControl.finishAllCarSelectActivity();
         }

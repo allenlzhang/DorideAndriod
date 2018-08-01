@@ -35,15 +35,13 @@ public class CarStateNowActivity extends LoadingActivity {
         setContentView(R.layout.activity_car_state_now);
         initTitle("实时车况");
         initView();
-        initData();
+        //        initData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-//        loadingDataUI();
-
+        loadingDataUI();
         initData();
     }
 
