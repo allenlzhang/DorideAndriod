@@ -84,8 +84,6 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 
 	private View mViewReport;// 行车日志layout
 
-	private RelativeLayout mRelativeDay;// 左上角日期layout
-
 	private RelativeLayout mRelativeLayout2;// 车秘书
 
 	private View mLinearReportGrid1;// 总油耗
@@ -120,9 +118,8 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 		setContentView(R.layout.activity_career_main);
 
 		mAsyncImageLoader = AsyncImageLoader.getInstance();
-		setTitleView(R.layout.head_main);
+		setTitleView(R.layout.head_home);
 		init();
-		initTitle();
 		LoadData();
 	}
 
@@ -138,13 +135,11 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 		mTextTime.setText(MyTimeUtil.getDateFormat3());
 		mTextWeather = (TextView) findViewById(R.id.domay_txt_topWeather);
 
-		mRelativeDay = (RelativeLayout) findViewById(R.id.head_main_lay_day);
 		mViewReport = findViewById(R.id.domay_txt_carLog);
 		mRelativeLayout2 = (RelativeLayout) findViewById(R.id.activity_career_main_relative2);
 
 		mImageView1 = (ImageView) findViewById(R.id.activity_career_main_img1);
 
-		mRelativeDay.setOnClickListener(this);
 		mViewReport.setOnClickListener(this);
 		mRelativeLayout2.setOnClickListener(this);
 	
@@ -269,20 +264,6 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 				mTextReportGrid7.setText(s2);
 			}
 		}
-	}
-
-	private TextView titleTxt2;// 标题中心文字
-
-	private void initTitle() {
-
-		// ImageView titleImg;// 标题右侧图标
-
-		// titleTxt1 = (TextView) findViewById(R.id.head_main_txt1);
-		// titleTxt2 = (TextView) findViewById(R.id.head_main_txt2);
-
-		// titleImg = (ImageView)findViewById(R.id.head_main_img);
-		//
-		// titleImg.setOnClickListener(this);
 	}
 
 	@Override

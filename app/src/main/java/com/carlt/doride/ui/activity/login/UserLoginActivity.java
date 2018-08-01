@@ -46,10 +46,10 @@ import org.json.JSONObject;
 public class UserLoginActivity extends BaseActivity implements View.OnClickListener, BaseParser.ResultCallback {
 
 
-    private TextView  login_version;//版本信息
-    private TextView  forgot_passwd;//忘记密码
+    private TextView login_version;//版本信息
+    private TextView forgot_passwd;//忘记密码
     private ImageView user_regist;//用户注册
-    private TextView  login_commit;//登录按钮
+    private TextView login_commit;//登录按钮
 
     private ImageView login_logo;//大乘Logo图片
     private ImageView passwd_toggle;//显示密码
@@ -57,10 +57,10 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     private EditText user_phone;//用户账号（手机）
     private EditText user_passwd;//用户密码
 
-    private String    userPhone;
-    private String    passwd;
+    private String userPhone;
+    private String passwd;
     private LoginInfo mLoginInfo;
-    private UseInfo   mUseInfo;// 本地记录用户使用app情况
+    private UseInfo mUseInfo;// 本地记录用户使用app情况
 
     private Dialog mDialog;// 加载
 
@@ -99,7 +99,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
     private void initComponent() {
         login_version = (TextView) findViewById(R.id.login_version);
-        login_version.setText("V"+DorideApplication.VersionName);
+        login_version.setText("V" + DorideApplication.VersionName);
         forgot_passwd = (TextView) findViewById(R.id.forgot_passwd);
         forgot_passwd.setOnClickListener(this);
         user_regist = (ImageView) findViewById(R.id.user_regist);
@@ -281,11 +281,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         mUseInfo.setAccount(userPhone);
         mUseInfo.setPassword(passwd);
         UseInfoLocal.setUseInfo(mUseInfo);
-        if (LoginInfo.getApp_type() == 1) {
-            ActivityControl.initXG();
-        }else {
-            com.carlt.sesame.control.ActivityControl.initXG();
-        }
+        ActivityControl.initXG();
         //业务代码，为了测试暂时注释掉
         LoginControl.logic(this);
     }
