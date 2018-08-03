@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,12 +15,10 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.control.LoginControl;
-import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
@@ -33,22 +30,22 @@ import com.carlt.sesame.utility.UUToast;
 
 /**
  * 激活盒子页面
- * 
  * @author daisy
  */
 
-public class ActivateActivity extends BaseActivity {
+public class SesameActivateActivity extends BaseActivity {
     private ImageView back;// 头部返回键
 
     private TextView title;// 标题文字
 
     private TextView txtRight;// 头部右侧文字
 
-    private ImageView mImageViewSecretary;// 车秘书头像
-
-    private TextView mTextViewSecretary;// 提醒消息
+    //    private ImageView mImageViewSecretary;// 车秘书头像
+    //
+    //    private TextView mTextViewSecretary;// 提醒消息
 
     private TextView mTxtActivate;// 激活盒子
+    private TextView mTxtActivateTips;
     private EditText mViewET;// PIN 编辑框
 
     private View mViewSaleafter;// 后装页面
@@ -61,21 +58,11 @@ public class ActivateActivity extends BaseActivity {
 
     public final static String FROM_NAME = "from_name";
 
-    public final static String CLASS_START = "com.carlt.sesame.ui.StartActivity";// 从启动页跳转过来的
 
-    public final static String CLASS_LOGIN = "com.carlt.sesame.ui.activity.usercenter.login.LoginActivity";// 从登录页跳转过来的
-
-    public final static String CLASS_SELECTCARBIND = "com.carlt.sesame.ui.activity.usercenter.SelectCarBindActivity";// 从注册选车绑定页跳转过来的
-
-    public final static String CLASS_SCANCODE = "com.carlt.sesame.ui.activity.usercenter.TwoDemisonCodeActivity";// 从扫描二维码页面
-
-    public final static String CLASS_DEVICE_UPDATE = "com.carlt.sesame.ui.activity.usercenter.login.DeviceUpdateActivity";// 从固件升级页跳转过来的
-    
     public final static String CLASS_DEVICE_REBIND = "com.carlt.sesame.ui.activity.setting.ManageReBindActivity";//重新绑定
 
     private String fromName;// 纪录从何处跳转的
 
-    private String need_pin;// 是否需要输入pin码 1不需要 0需要
 
     private long isOnlineTime = 1000 * 3;
 
@@ -86,29 +73,33 @@ public class ActivateActivity extends BaseActivity {
     private int times = 0;// 拉取次数
 
     private boolean isCheckThreadRun = false;
+    private String  vinCode          = "";
+
+    private String carType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activate_device);
-
+        Intent intent = getIntent();
         try {
-            fromName = getIntent().getStringExtra(FROM_NAME);
-            need_pin = getIntent().getStringExtra("need_pin");
+            //            fromName = intent.getStringExtra(FROM_NAME);
+            //            need_pin = intent.getStringExtra("need_pin");
+            vinCode = intent.getStringExtra("vin");
+            carType = intent.getStringExtra("carType");
         } catch (Exception e) {
             // TODO: handle exception
         }
 
         initTitle();
-        initSubTitle();
         init();
 
     }
 
     private void initTitle() {
-        back = (ImageView)findViewById(R.id.head_back_img1);
-        title = (TextView)findViewById(R.id.head_back_txt1);
-        txtRight = (TextView)findViewById(R.id.head_back_txt2);
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
         title.setText("激活设备");
@@ -123,36 +114,16 @@ public class ActivateActivity extends BaseActivity {
 
     }
 
-    private void initSubTitle() {
-        mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
-        mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
-
-        mTextViewSecretary.setText("设备绑定成功！激活设备后就能使用芝麻乐园的全部功能啦！");
-    }
 
     private void init() {
-        mTxtActivate = (TextView)findViewById(R.id.activity_activate_device_btn);
+        mTxtActivate = findViewById(R.id.activity_activate_device_btn);
+        mTxtActivateTips = findViewById(R.id.activate_bind_txt_msg);
 
-        mViewSaleafter = findViewById(R.id.activate_device_lay_saleafter);
-        mViewSalebefore = findViewById(R.id.activate_device_lay_salebefore);
-        mViewET = (EditText) findViewById(R.id.activity_bind_editpin);
+        mViewET = findViewById(R.id.activity_bind_editpin);
 
         mTxtActivate.setOnClickListener(mClickListener);
-//        if (LoginInfo.isInstallorder()) {
-//            // 为前装盒子
-//            mViewSaleafter.setVisibility(View.GONE);
-//            mViewSalebefore.setVisibility(View.VISIBLE);
-//        } else {
-//            // 为后装盒子
-//            mViewSalebefore.setVisibility(View.GONE);
-//            mViewSaleafter.setVisibility(View.VISIBLE);
-//        }
 
-        if(TextUtils.equals(need_pin,"0")){
-            mViewET.setVisibility(View.VISIBLE);
-        }else{
-            mViewET.setVisibility(View.GONE);
-        }
+
     }
 
     @Override
@@ -172,17 +143,17 @@ public class ActivateActivity extends BaseActivity {
                 @Override
                 public void onLeftClick() {
                     String text = mViewET.getText().toString();
-                    if(StringUtils.isEmpty(text) && TextUtils.equals(need_pin,"0")){// 0 是不需要
-                        UUToast.showUUToast(ActivateActivity.this, "请输入正确PIN码");
-                    }else {
+                    if (StringUtils.isEmpty(text)) {// 0 是不需要
+                        UUToast.showUUToast(SesameActivateActivity.this, "请输入正确PIN码");
+                    } else {
                         // 调用激活盒子接口
                         pin = text;
-                        mDialog = PopBoxCreat.createUUTimerDialog(ActivateActivity.this, "设备正在激活中(根据网络情况可能需要3-5分钟，请耐心等待)");
-                            mDialog.show();
-                            listener_time = System.currentTimeMillis();
-                            ActivateCount++;
-                            mTextViewSecretary.setText("已收到激活请求，正在连接芝麻盒子…");
-                            CPControl.GetDeviceidActivateResult(text, listener);
+                        mDialog = PopBoxCreat.createUUTimerDialog(SesameActivateActivity.this, "设备正在激活中(根据网络情况可能需要3-5分钟，请耐心等待)");
+                        mDialog.show();
+                        listener_time = System.currentTimeMillis();
+                        ActivateCount++;
+                        mTxtActivateTips.setText("已收到激活请求，正在连接…");
+                        CPControl.GetDeviceidActivateResult(text, listener);
                     }
                 }
 
@@ -192,7 +163,7 @@ public class ActivateActivity extends BaseActivity {
 
                 }
             };
-            PopBoxCreat.createDialogWithTitle(ActivateActivity.this, "激活", "您确定激活设备吗？", "", "确定",
+            PopBoxCreat.createDialogWithTitle(SesameActivateActivity.this, "激活", "您确定激活设备吗？", "", "确定",
                     "取消", click);
         }
     };
@@ -223,7 +194,7 @@ public class ActivateActivity extends BaseActivity {
         @Override
         public void onErro(Object o) {
             boolean t = (System.currentTimeMillis() - listener_time) > ONEMIN;
-            BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo)o;
+            BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo) o;
 
             int flagCode = mBaseResponseInfo.getFlag();
 
@@ -241,7 +212,7 @@ public class ActivateActivity extends BaseActivity {
                         CPControl.GetDeviceidActivateResult(pin, listener);
                     }
                 }.start();
-            }else{
+            } else {
                 Message msg = new Message();
                 msg.what = 1;
                 msg.obj = o;
@@ -255,7 +226,7 @@ public class ActivateActivity extends BaseActivity {
 
         @Override
         public void onFinished(Object o) {
-            boolean f = (Boolean)o;
+            boolean f = (Boolean) o;
             boolean t = (System.currentTimeMillis() - listener_isOnline_time) > (ONEMIN * 2);
             if (f || t) {
                 mHandler.sendEmptyMessage(2);
@@ -298,14 +269,14 @@ public class ActivateActivity extends BaseActivity {
                     if (mDialog != null) {
                         mDialog.goneWatch();
                         mDialog.setTitleText("提示");
-                        mDialog.setContentText("芝麻盒子正在更新配置，这个过程大约需要半分钟，请耐心等待");
+                        mDialog.setContentText("正在更新配置，这个过程大约需要半分钟，请耐心等待");
                     }
 
                     listener_isOnline_time = System.currentTimeMillis();
                     CPControl.GetDeviceidIsOnLineResult(listener_isOnline);
                     break;
                 case 1:
-                    BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     ErroSwitch(mBaseResponseInfo);
                     break;
                 case 2:
@@ -316,9 +287,10 @@ public class ActivateActivity extends BaseActivity {
                     reLogin();
                     break;
                 case 1003:
-                    UUToast.showUUToast(ActivateActivity.this, "芝麻盒子已成功激活");
+                    UUToast.showUUToast(SesameActivateActivity.this, "已成功激活");
                     ActivityControl.initXG();
-                    LoginControl.logic(ActivateActivity.this);
+                    LoginControl.logic(SesameActivateActivity.this);
+                    closeBeforeActivity();
                     finish();
                     break;
                 case 2003:
@@ -329,8 +301,8 @@ public class ActivateActivity extends BaseActivity {
         }
 
         /**
-		 * 
-		 */
+         *
+         */
         private void reLogin() {
             if (times < 2) {
                 UseInfo mUseInfo = UseInfoLocal.getUseInfo();
@@ -338,8 +310,9 @@ public class ActivateActivity extends BaseActivity {
                 String password = mUseInfo.getPassword();
                 CPControl.GetLogin(account, password, listener_relogin);
             } else {
-                UUToast.showUUToast(ActivateActivity.this, "芝麻盒子已成功激活");
-                LoginControl.logic(ActivateActivity.this);
+                UUToast.showUUToast(SesameActivateActivity.this, "已成功激活");
+                LoginControl.logic(SesameActivateActivity.this);
+                closeBeforeActivity();
                 finish();
             }
             times++;
@@ -347,11 +320,10 @@ public class ActivateActivity extends BaseActivity {
 
     };
 
-    private final static String e1 = "芝麻盒子连接不上，请尝试在手机信号良好的地方重新激活";
+    private void closeBeforeActivity() {
+        com.carlt.doride.control.ActivityControl.clearAllActivity();
+    }
 
-    private final static String e2 = "貌似不是很顺利哦，请拨打电话4006-506-507咨询客服";
-
-    private final static String e3 = "请先将爱车熄火，再重新点击激活";
 
     private int ActivateCount;
 
@@ -360,11 +332,7 @@ public class ActivateActivity extends BaseActivity {
         // 测试用
         // code=1021;
         if (code == 1020) {
-            // UUToast.showUUToast(this, mBaseResponseInfo.getInfo());
-            // Intent intent = new Intent(this, DeviceUpdateActivity.class);
-            // startActivity(intent);
-            // finish();
-			PopBoxCreat.showUUUpdateDialog(ActivateActivity.this, null);
+            PopBoxCreat.showUUUpdateDialog(SesameActivateActivity.this, null);
         } else if (code == 1021) {
             // PIN码验证失败，跳转至选择车辆绑定页面
             if (mDialog != null && mDialog.isShowing()) {
@@ -372,47 +340,50 @@ public class ActivateActivity extends BaseActivity {
                 mDialog = null;
             }
             UUToast.showUUToast(this, mBaseResponseInfo.getInfo());
-//            Intent intent = new Intent(this, SelectCarBindActivity.class);
-//            intent.putExtra(SelectCarBindActivity.FROM_NAME, ActivateActivity.this.getClass()
-//                    .getName());
-//            startActivity(intent);
-//            finish();
         } else {
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
             }
-            mTextViewSecretary.setText("盒子绑定成功！激活盒子后就能使用芝麻乐园的全部功能啦！");
+            mTxtActivateTips.setText("盒子绑定成功！激活盒子后就能使用大乘智享的全部功能啦！");
             UUToast.showUUToast(this, mBaseResponseInfo.getInfo());
         }
 
     }
 
     private void back() {
-        if (fromName != null) {
+        //        Intent backIntent = new Intent(this, DeviceBindActivity.class);
+        //        backIntent.putExtra("from", "com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity");
+        //        backIntent.putExtra("vin", vinCode);
+        //        backIntent.putExtra("carType", carType);
+        //        startActivity(backIntent);
+        finish();
+        //        com.carlt.doride.control.ActivityControl.clearAllActivity();
 
-
-        	if(!TextUtils.isEmpty(fromName) && fromName.equals(CLASS_DEVICE_REBIND)){
-                SesameLoginInfo.setIsJumptoBind(SesameLoginInfo.noJumptoBind);
-                ActivityControl.onLogout(context);
-        	}else{
-        		
-        		if("1".equals(SesameLoginInfo.getDevicetype())){//更换设备登陆进来的
-                  Intent mIntent = new Intent(ActivateActivity.this, UserLoginActivity.class);
-                  startActivity(mIntent);
-                  finish();
-        		}else{
-        			// 跳转至选车型输入序列号二合一页面
-                    SesameLoginInfo.setIsJumptoBind(SesameLoginInfo.noJumptoBind);
-//                    Intent mIntent = new Intent(ActivateActivity.this, SelectCarBindActivity.class);
-//                    mIntent.putExtra(SelectCarBindActivity.FROM_NAME, ActivateActivity.this.getClass()
-//                            .getName());
-//                    startActivity(mIntent);
-                    finish();
-        		}
-        	}
-        }
     }
+    //    private void back() {
+    //        if (fromName != null) {
+    //            if (!TextUtils.isEmpty(fromName) && fromName.equals(CLASS_DEVICE_REBIND)) {
+    //                SesameLoginInfo.setIsJumptoBind(SesameLoginInfo.noJumptoBind);
+    //                ActivityControl.onLogout(context);
+    //            } else {
+    //
+    //                if ("1".equals(SesameLoginInfo.getDevicetype())) {//更换设备登陆进来的
+    //                    Intent mIntent = new Intent(SesameActivateActivity.this, UserLoginActivity.class);
+    //                    startActivity(mIntent);
+    //                    finish();
+    //                } else {
+    //                    // 跳转至选车型输入序列号二合一页面
+    //                    SesameLoginInfo.setIsJumptoBind(SesameLoginInfo.noJumptoBind);
+    //                    //                    Intent mIntent = new Intent(ActivateActivity.this, SelectCarBindActivity.class);
+    //                    //                    mIntent.putExtra(SelectCarBindActivity.FROM_NAME, ActivateActivity.this.getClass()
+    //                    //                            .getName());
+    //                    //                    startActivity(mIntent);
+    //                    finish();
+    //                }
+    //            }
+    //        }
+    //    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

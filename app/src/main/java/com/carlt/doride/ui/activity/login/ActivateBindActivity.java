@@ -18,7 +18,6 @@ import com.carlt.doride.control.CPControl;
 import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -251,7 +250,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private void back() {
         Intent backIntent = new Intent(this, DeviceBindActivity.class);
-        backIntent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
+//        backIntent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
         backIntent.putExtra("vin", vinCode);
         backIntent.putExtra("carType", carType);
         startActivity(backIntent);
@@ -279,7 +278,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             try {
                 mJSON_data = new JSONObject(dataValue);
                 LoginControl.parseLoginInfo(mJSON_data);
-                final Message msg = new Message();
+                 Message msg = new Message();
                 msg.what = 3;
                 msg.obj = o;
                 mHandler.sendMessage(msg);

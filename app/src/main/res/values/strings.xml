@@ -23,9 +23,9 @@
     <string name="usercenter_pin_code">请输入车辆PIN码</string>V
     <string name="usercenter_vin_code">请输入车辆VIN码(车架号)</string>
     <string name="_car_select_type">请选择车型</string>
-    <string name="device_bind_tx">绑定设备</string>
+    <string name="device_bind_tx">绑定</string>
     <string name="device_activate_tx">激活设备</string>
-    <string name="device_activate_tip">激活设备后就能使用全部功能</string>
+    <string name="device_activate_tip">激活后就能使用大乘智享全部功能</string>
     <string name="device_activate_tip2">激活过程可能需要2-5分钟，请耐心等待</string>
     <string name="change_commit_txt">确认修改</string>
     <string name="register_passwd_txt">请输入登录密码</string>

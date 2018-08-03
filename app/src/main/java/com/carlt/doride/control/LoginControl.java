@@ -87,8 +87,8 @@ public class LoginControl {
                     } else {
                         // 设备不需要升级，跳转绑定 回填Vin码
                         Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-                        loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
-                        loginIntent.putExtra("carType", LoginInfo.getCarname());
+//                        loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
+//                        loginIntent.putExtra("carType", LoginInfo.getCarname());
                         mContext.startActivity(loginIntent);
                     }
                 }
@@ -96,8 +96,8 @@ public class LoginControl {
             }
         } else {
             Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-            loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
-            loginIntent.putExtra("carType", LoginInfo.getCarname());
+//            loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
+//            loginIntent.putExtra("carType", LoginInfo.getCarname());
             mContext.startActivity(loginIntent);
         }
     }
@@ -154,6 +154,7 @@ public class LoginControl {
         SesameLoginInfo.setAuthen_card(member.optString("authen_card", ""));
 
         SesameLoginInfo.setAccess_token((member.optString("access_token", "")));
+        LoginInfo.setAccess_token(member.optString("access_token", ""));
         SesameLoginInfo.setExpires_in((member.optString("expires_in", "")));
         SesameLoginInfo.setToken((member.optString("access_token", "")));
         TokenInfo.setToken(member.optString("access_token", ""));
@@ -355,6 +356,7 @@ public class LoginControl {
         LoginInfo.setAvatar_img((member.optString("avatar_img", "")));
         LoginInfo.setLifetime((member.optString("lifetime", "")));
         LoginInfo.setAccess_token(member.optString("access_token", ""));
+        SesameLoginInfo.setAccess_token((member.optString("access_token", "")));
         LoginInfo.setMain(getFlagResult(member.optString("is_main", "")));
         LoginInfo.setMainDevicename(member
                 .optString("move_device_name", ""));
@@ -374,7 +376,6 @@ public class LoginControl {
         LoginInfo.setAuthen_card(member.optString("authen_card", ""));
 
         LoginInfo.setExpires_in((member.optString("expires_in", "")));
-        //            DorideApplication.TOKEN = member.optString("access_token", "");
         LoginInfo.setExpiresIn((member.optString("expires_in", "")));
         LoginInfo.setSSID(member.optString("SSID", ""));
         LoginInfo.setSSIDPWD(member.optString("SSIDPWD", ""));

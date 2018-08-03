@@ -91,7 +91,10 @@
         <activity android:name=".ui.activity.carstate.CarSynchronizeLocationActivity"/>
         <activity android:name=".ui.activity.carstate.SearchAddrActivity"/>
         <activity android:name=".ui.activity.remote.RemoteLogActivity"/>
-        <activity android:name=".ui.activity.login.DeviceBindActivity"/>
+        <activity
+            android:name=".ui.activity.login.DeviceBindActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            />
         <activity android:name=".ui.activity.login.ResetPasswdActivity"/>
         <activity android:name=".ui.activity.login.ActivateBindActivity"/>
         <activity android:name=".ui.activity.login.UserRegisterActivity"/>
@@ -185,6 +188,7 @@
         <activity android:name="com.carlt.sesame.ui.activity.career.report.ReportActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.DayActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.GpsTrailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

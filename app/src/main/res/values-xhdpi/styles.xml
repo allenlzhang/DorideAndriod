@@ -677,8 +677,8 @@
         <item name="android:textColorHint">@color/text_color_gray1</item>
         <item name="android:paddingLeft">9dip</item>
         <item name="android:paddingRight">9dip</item>
-        <item name="android:paddingTop">15dip</item>
-        <item name="android:paddingBottom">15dip</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
         <item name="android:layout_marginBottom">22dip</item>
         <item name="android:layout_marginLeft">12dip</item>
         <item name="android:layout_marginRight">12dip</item>
@@ -993,7 +993,7 @@
     <!-- 公用底部长按钮样式 -->
     <style name="public_bottom_btn_blue">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">48dip</item>
+        <item name="android:layout_height">44dip</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_size_middle1</item>
         <item name="android:background">@drawable/bottom_btn_blue</item>

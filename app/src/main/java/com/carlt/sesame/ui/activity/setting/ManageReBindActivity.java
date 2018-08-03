@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.setting;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
-import com.carlt.sesame.ui.activity.usercenter.login.ActivateActivity;
+import com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.UUToast;
 
@@ -165,6 +166,7 @@ public class ManageReBindActivity extends BaseActivity implements OnClickListene
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			BaseResponseInfo rinfo = null;
@@ -177,9 +179,9 @@ public class ManageReBindActivity extends BaseActivity implements OnClickListene
 				} else {
 					UUToast.showUUToast(context, "绑定盒子成功!");
 				}
-				Intent intent = new Intent(context, ActivateActivity.class);
-				intent.putExtra(ActivateActivity.ID, DeviceId);
-				intent.putExtra(ActivateActivity.FROM_NAME, ActivateActivity.CLASS_DEVICE_REBIND);
+				Intent intent = new Intent(context, SesameActivateActivity.class);
+				intent.putExtra(SesameActivateActivity.ID, DeviceId);
+				intent.putExtra(SesameActivateActivity.FROM_NAME, SesameActivateActivity.CLASS_DEVICE_REBIND);
 				startActivity(intent);
 				finish();
 				break;
