@@ -6,15 +6,11 @@
     >
     
 
-    <!--<include-->
-        <!--android:id="@+id/top"-->
-        <!--layout="@layout/layout_title"-->
-         <!--/>-->
-
     <include
         android:id="@+id/top"
-        layout="@layout/head_back"
-        />
+        layout="@layout/layout_title"
+         />
+
     <LinearLayout
         android:id="@+id/menu_calendar_lay"
         android:layout_width="match_parent"

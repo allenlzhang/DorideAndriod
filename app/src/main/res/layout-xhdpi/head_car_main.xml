@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="44dp"
-    android:background="#FaFaFa" >
+    android:background="#F0F0F0"
+    >
 
     <TextView
         android:id="@+id/car_main_txt_head"
@@ -48,9 +49,5 @@
         android:textSize="14sp"
         android:visibility="gone" />
 
-    <View
-        android:id="@+id/line_h1"
-        style="@style/line_h"
-        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

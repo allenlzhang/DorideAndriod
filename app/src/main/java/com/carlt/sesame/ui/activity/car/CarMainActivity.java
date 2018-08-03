@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -60,11 +61,6 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	private TextView mCarState;// 车辆状态
 
 	// 一般品牌显示UI
-	private TextView mTxtCarstate;// 体检分数(圆环内显示)
-
-	private TextView mTxtSafety;// 安防
-
-	private TextView mTxtMaintain;// 养护提醒
 
 	private TextView mTxtSoc;// 电池电量
 
@@ -154,12 +150,8 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 
 	private void init() {
 
-		mTxtCarstate = (TextView) findViewById(R.id.car_main_txt_carstate);
-		mTxtSafety = (TextView) findViewById(R.id.car_main_txt_safety);
-		mTxtMaintain = (TextView) findViewById(R.id.car_main_txt_maintain);
-
 		mGridFuncs = (MyGridView) findViewById(R.id.car_main_grid_funcs);
-
+		mGridFuncs.setFocusable(false);
 		mTxtSoc = (TextView) findViewById(R.id.car_main_txt_soc);
 		mTxtSoh = (TextView) findViewById(R.id.car_main_txt_soh);
 		mProSoc = findViewById(R.id.car_main_pro_soc);
@@ -259,27 +251,11 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		if (mCarMainInfo != null) {
 			if (mCarMainInfo.isRunning()) {
 				mTextViewSecretary.setText("您的爱车正在行驶");
-				mTxtCarstate.setText("爱车正在行驶");
 			} else {
 				mTextViewSecretary.setText("您的爱车正在休息");
-				mTxtCarstate.setText("爱车正在休息");
 			}
 			// 是否有安防提醒信息
 			int safetycount = mCarMainInfo.getSafetycount();
-
-			// 安防提醒内容
-			String safetymsg = mCarMainInfo.getSafetymsg();
-			if (safetymsg != null && safetymsg.length() > 0) {
-				mTxtSafety.setText(safetymsg);
-				mTxtSafety.setTextColor(getResources().getColor(
-						R.color.text_color_gray2));
-			} else {
-				mTxtSafety.setText("暂无新消息");
-				mTxtSafety.setTextColor(getResources().getColor(
-						R.color.text_color_gray2));
-			}
-			// 养护提醒内容
-			mTxtMaintain.setText("您的养护专家");
 
 			String socValue = mCarMainInfo.getSoc();
 			String sohValue = mCarMainInfo.getSoh();
@@ -303,8 +279,8 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 			mProSoh.setLayoutParams(new FrameLayout.LayoutParams(widthSoh,
 					FrameLayout.LayoutParams.MATCH_PARENT));
 
-			mTxtSoc.setText("SOC：" + soc + "%");
-			mTxtSoh.setText("SOH：" + soh + "%");
+			mTxtSoc.setText("SOC:" + soc + "%");
+			mTxtSoh.setText("SOH:" + soh + "%");
 
 			mSvSoc.setPersent(soc);
 			mSvSoh.setPersent(soh);
@@ -319,15 +295,15 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 					}
 				}
 			}
-			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(DorideApplication.dpToPx(186), DorideApplication.dpToPx(186));
-			lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(DorideApplication.dpToPx(186), DorideApplication.dpToPx(186));
+//			lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 			if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2016){
-				lp.setMargins(0, DorideApplication.dpToPx(40), 0, DorideApplication.dpToPx(30));
-				mState.setLayoutParams(lp);
+//				lp.setMargins(0, DorideApplication.dpToPx(40), 0, DorideApplication.dpToPx(30));
+//				mState.setLayoutParams(lp);
 				mGridFuncs.setPadding(0, DorideApplication.dpToPx(10), 0, 0);
 			}else if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2018){
-				lp.setMargins(0, DorideApplication.dpToPx(22), 0, 0);
-				mState.setLayoutParams(lp);
+//				lp.setMargins(0, DorideApplication.dpToPx(22), 0, 0);
+//				mState.setLayoutParams(lp);
 				mGridFuncs.setPadding(0, 0, 0, 0);
 			}
 			if (mAdapter == null) {
