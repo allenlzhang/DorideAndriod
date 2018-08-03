@@ -169,24 +169,24 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			mTxtPhone.setText("--");
 		}
 
-		if (SesameLoginInfo.isMain()) {
-			mViewAuther.setVisibility(View.VISIBLE);
-			mViewLineMobileList.setVisibility(View.VISIBLE);
-			mViewFreeze.setVisibility(View.VISIBLE);
-			String authen_status = SesameLoginInfo.getAuthorize_status();
-			if (authen_status != null
-					&& authen_status.equals(SesameLoginInfo.AUTHORIZE_STATUS_CLOSE)) {
-				mCbAuther.setChecked(false);
-			} else if (authen_status != null
-					&& authen_status.equals(SesameLoginInfo.AUTHORIZE_STATUS_OPEN)) {
-				mCbAuther.setChecked(true);
-			}
-			mCbAuther.setOnCheckedChangeListener(this);
-		} else {
-			mViewAuther.setVisibility(View.GONE);
-			mViewLineMobileList.setVisibility(View.GONE);
-			mViewFreeze.setVisibility(View.GONE);
-		}
+//		if (SesameLoginInfo.isMain()) {
+//			mViewAuther.setVisibility(View.VISIBLE);
+//			mViewLineMobileList.setVisibility(View.VISIBLE);
+//			mViewFreeze.setVisibility(View.VISIBLE);
+//			String authen_status = SesameLoginInfo.getAuthorize_status();
+//			if (authen_status != null
+//					&& authen_status.equals(SesameLoginInfo.AUTHORIZE_STATUS_CLOSE)) {
+//				mCbAuther.setChecked(false);
+//			} else if (authen_status != null
+//					&& authen_status.equals(SesameLoginInfo.AUTHORIZE_STATUS_OPEN)) {
+//				mCbAuther.setChecked(true);
+//			}
+//			mCbAuther.setOnCheckedChangeListener(this);
+//		} else {
+//			mViewAuther.setVisibility(View.GONE);
+//			mViewLineMobileList.setVisibility(View.GONE);
+//			mViewFreeze.setVisibility(View.GONE);
+//		}
 
 		if (SesameLoginInfo.isNoneedpsw()) {
 			mCbNoneedpsw.setChecked(true);

@@ -6080,37 +6080,7 @@ public class CPControl {
         }
     }
 
-    /**
-     * 信鸽token推送到服务器<null>
-     *
-     * @param xgtoken       信鸽token
-     * @param move_deviceid 登录设备ID(手机唯一标识码)
-     */
 
-    public static void GetPushXgTokenResult(final String xgtoken,
-                                            final String move_deviceid, final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_USER_SAVEXINGETOKEN_URL();
-                // Post参数
-                String post = CreatPostString.getPushXgToken(xgtoken,
-                        move_deviceid);
-                DefaultParser mParser = new DefaultParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    listener.onFinished(mBaseResponseInfo);
-                } else {
-                    listener.onErro(mBaseResponseInfo);
-                }
-            }
-        }.start();
-    }
 
     /**
      * 旧车主获取二维码

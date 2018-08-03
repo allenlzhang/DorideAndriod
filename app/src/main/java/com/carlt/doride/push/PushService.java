@@ -110,14 +110,7 @@ public class PushService extends Service {
                 return;
             case LoginInfo.Author_Message:
                 if (LoginInfo.isMain()) {
-                    // 主机-跳转至授权页面
-//				UUToast.showUUToast();
-//				Intent mIntent = new Intent(PushService.this,
-//						AuthorActivity.class);
-//				mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-//						| Intent.FLAG_ACTIVITY_NEW_TASK);
-//				startActivity(mIntent);
-                    Log.e("info", "跳转至授权页面");
+
                 } else {
                     // 子机-跳转至主页面
                     Intent mIntent = new Intent(PushService.this,
