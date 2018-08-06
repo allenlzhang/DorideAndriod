@@ -104,6 +104,9 @@ public class SplashActivity extends BaseActivity {
         //        CPControl.GetVersion(listener_version);
 
         //        jumpLogic();
+
+        // 检查更新聚合城市信息列表
+        com.carlt.sesame.control.CPControl.GetCityInfos();
     }
 
     private void getVersion() {

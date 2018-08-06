@@ -156,11 +156,11 @@
             android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/car_main_line2"
-            android:layout_marginTop="44dip"
             android:numColumns="3"
             android:scrollbars="none"
             android:verticalSpacing="20dp"
-            android:gravity="center_vertical"
+            android:gravity="center_horizontal"
+
             />
     </RelativeLayout>
 </ScrollView>

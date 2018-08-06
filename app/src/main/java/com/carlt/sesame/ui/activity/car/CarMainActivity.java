@@ -20,8 +20,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
@@ -102,12 +100,14 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 			R.drawable.icon_safety, R.drawable.icon_findcar,
 			R.drawable.icon_navigation, R.drawable.icon_tire };
 
-	private int icons2016[] = { R.drawable.icon_phone, R.drawable.icon_magnifier,
-			R.drawable.icon_safety};
+	private int iconsNormal[] = { R.drawable.icon_phone_normal, R.drawable.icon_magnifier_normal,
+			R.drawable.icon_safety_normal, R.drawable.icon_findcar_normal,
+			R.drawable.icon_navigation_normal, R.drawable.icon_tire_selected_normal };
+	private int icons2016[] = { R.drawable.icon_phone, R.drawable.icon_magnifier, R.drawable.icon_safety};
 	private boolean isShowDots[] = { false, false, false, false, false, false };
 	
 	private int count;
-	private int clickSize ;
+	private int clickSize ; //用来统计可以点击的 图标个数
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -174,7 +174,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 			CarMainFuncInfo mInfo = new CarMainFuncInfo();
 			mInfo.setId(i);
 			mInfo.setName(funcNames[i]);
-		//	mInfo.setIcon(icons[i]);
+			mInfo.setIcon(iconsNormal[i]);
 			mInfo.setShowDot(isShowDots[i]);
 			mCarMainFuncInfosInit.add(mInfo);
 
