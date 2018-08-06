@@ -46,7 +46,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_manager);
-        initCustomTimePicker();
         initComponent();
     }
 
@@ -92,9 +91,11 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
                 startActivityForResult(editMaintenance, 0);
                 break;
             case R.id.edit_purchase_time:
+                initCustomTimePicker(purchase_time_txt.getText().toString());
                 pvCustomTime.show(purchase_time_txt);
                 break;
             case R.id.edit_maintenance_time:
+                initCustomTimePicker(maintenance_time_txt.getText().toString());
                 pvCustomTime.show(maintenance_time_txt);
                 break;
         }
@@ -140,7 +141,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         }
     };
 
-    private void initCustomTimePicker() {
+    private void initCustomTimePicker(String date) {
 
         /**
          * @description
@@ -159,6 +160,8 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String format = dateFormat.format(time);
         String[] split = format.split("-");
+        String[]selectedSplit = date.split("-");
+        selectedDate.set(Integer.parseInt(selectedSplit[0]),Integer.parseInt(selectedSplit[1])-1,Integer.parseInt(selectedSplit[2]));
         endDate.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {

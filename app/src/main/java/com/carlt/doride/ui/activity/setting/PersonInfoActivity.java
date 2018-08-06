@@ -72,7 +72,7 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
         if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
             person_nickname_txt.setText(LoginInfo.getRealname());
         }
-        initSexSelector();
+
     }
 
 
@@ -121,6 +121,7 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
                 startActivityForResult(nicknameEdit, 0);
                 break;
             case R.id.edit_person_sex:
+                initSexSelector(person_sex_txt.getText().toString());
                 mSexOptions.show();
                 break;
         }
@@ -144,8 +145,14 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void initSexSelector() {
+    private void initSexSelector(String sex) {
         sexList = Arrays.asList(sexItems);
+        int selectOptions = 0;
+        for (int i = 0; i <sexList.size() ; i++) {
+            if (TextUtils.equals(sex,sexList.get(i))){
+                selectOptions = i;
+            }
+        }
         mSexOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
@@ -190,7 +197,7 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
 
                 //                .setBgColor(Color.parseColor("#95161922"))
 
-                .setSelectOptions(2)
+                .setSelectOptions(selectOptions)
                 .setTextColorCenter(Color.BLUE)
                 .setContentTextSize(20)
                 .setDividerType(WheelView.DividerType.FILL)

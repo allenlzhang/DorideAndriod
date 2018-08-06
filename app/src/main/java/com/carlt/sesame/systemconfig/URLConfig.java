@@ -8,7 +8,6 @@ public class URLConfig {
     public final static int VERSION_FORMAL = 1001;// 正式服
     public final static int VERSION_PREPARE = 1002;// 预发布服
     public final static int VERSION_TEST = 1003;// 测试服
-    public static int flag = VERSION_TEST;
 
     // 测试服务器
     private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
@@ -56,7 +55,7 @@ public class URLConfig {
         if (DorideApplication.Formal_Version) {
             url = U6 + version + s;
         } else {
-            switch (flag) {
+            switch (com.carlt.doride.systemconfig.URLConfig.flag) {
                 case VERSION_FORMAL:
                     // 正式服
                     url = U6 + version + s;
@@ -83,7 +82,7 @@ public class URLConfig {
         if (DorideApplication.Formal_Version) {
             return U_R6 + DorideApplication.VERSION_API_REMOTE + "/" + s;
         } else {
-            switch (flag) {
+            switch (com.carlt.doride.systemconfig.URLConfig.flag) {
                 case VERSION_FORMAL:
                     // 正式服
                     return U_R6 + DorideApplication.VERSION_API_REMOTE + "/" + s;
@@ -106,7 +105,7 @@ public class URLConfig {
         if (DorideApplication.Formal_Version) {
             clientId = C2;
         } else {
-            switch (flag) {
+            switch (com.carlt.doride.systemconfig.URLConfig.flag) {
                 case VERSION_FORMAL:
                     // 正式服
                     clientId = C2;

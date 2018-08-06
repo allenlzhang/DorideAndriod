@@ -90,7 +90,9 @@ public class ManageCustomerServiceActivity extends BaseActivity {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				dragViewCtr.setShow(isChecked);
 				if(isChecked){
-					dragViewCtr.showDragCallView();
+					if (!dragViewCtr.isShowFlag()) {
+						dragViewCtr.showDragCallView();
+					}
 				}
 				else{
 					dragViewCtr.hideDragCallView();

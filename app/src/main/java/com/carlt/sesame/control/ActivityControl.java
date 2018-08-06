@@ -2,22 +2,31 @@ package com.carlt.sesame.control;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.R;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
+import com.carlt.sesame.systemconfig.URLConfig;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.utility.LoginChecker;
+import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.android.tpush.service.XGPushServiceV3;
 
 import java.util.ArrayList;
 import java.util.List;

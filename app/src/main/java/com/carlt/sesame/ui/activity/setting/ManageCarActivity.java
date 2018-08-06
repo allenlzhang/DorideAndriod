@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.TimePickerView;
+import com.bigkoo.pickerview.listener.CustomListener;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -40,7 +43,10 @@ import com.carlt.sesame.utility.UUToast;
 import net.simonvt.datepicker.DatePickDialog;
 import net.simonvt.datepicker.DatePickDialog.IgetDate;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * 设置-车辆管理页面
@@ -89,13 +95,16 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
 
     public final static String NEWDATA = "newdata";
 
+    private TimePickerView pvCustomTime;
+
+    private String carDate;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_car);
         setTitleView(R.layout.head_back);
         mDialog = PopBoxCreat.createDialogWithProgress(ManageCarActivity.this, "努力加载中...");
-
         initTitle();
         init();
         LoadData();
@@ -245,25 +254,26 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     break;
                 case R.id.manage_car_txt_buydate:
                     // 选择日期
-                    Calendar mCalendar = Calendar.getInstance();
-                    String buyDate = SesameLoginInfo.getBuydate();
-                    int year;
-                    int month;
-                    int day;
-                    if (buyDate != null && buyDate.length() > 0) {
-                        String date[] = buyDate.split("-");
-                        year = MyParse.parseInt(date[0]);
-                        month = (MyParse.parseInt(date[1]) - 1);
-                        day = MyParse.parseInt(date[2]);
-                    } else {
-                        year = mCalendar.get(Calendar.YEAR);
-                        month = mCalendar.get(Calendar.MONTH);
-                        day = mCalendar.get(Calendar.DAY_OF_MONTH);
-                    }
-                    DatePickDialog datePickDialog = new DatePickDialog(ManageCarActivity.this,
-                            mIgetDate, "", year, month, day, "确定", "取消");
-                    datePickDialog.show();
-
+//                    Calendar mCalendar = Calendar.getInstance();
+//                    String buyDate = SesameLoginInfo.getBuydate();
+//                    int year;
+//                    int month;
+//                    int day;
+//                    if (buyDate != null && buyDate.length() > 0) {
+//                        String date[] = buyDate.split("-");
+//                        year = MyParse.parseInt(date[0]);
+//                        month = (MyParse.parseInt(date[1]) - 1);
+//                        day = MyParse.parseInt(date[2]);
+//                    } else {
+//                        year = mCalendar.get(Calendar.YEAR);
+//                        month = mCalendar.get(Calendar.MONTH);
+//                        day = mCalendar.get(Calendar.DAY_OF_MONTH);
+//                    }
+//                    DatePickDialog datePickDialog = new DatePickDialog(ManageCarActivity.this,
+//                            mIgetDate, "", year, month, day, "确定", "取消");
+//                    datePickDialog.show();
+                    initCustomTimePicker(mTxtBuydate.getText().toString());
+                        pvCustomTime.show(mTxtBuydate);
                     break;
 
                 case R.id.manage_car_layout4:
@@ -274,28 +284,116 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     break;
                 case R.id.manage_car_txt_maintaindate:
                     // 修改上次保养日期
-                    Calendar mCalendar2 = Calendar.getInstance();
-                    String maintainDate = SesameLoginInfo.getMainten_time();
-                    int year2;
-                    int month2;
-                    int day2;
-                    if (maintainDate != null && maintainDate.length() > 0) {
-                        String date[] = maintainDate.split("-");
-                        year2 = MyParse.parseInt(date[0]);
-                        month2 = (MyParse.parseInt(date[1]) - 1);
-                        day2 = MyParse.parseInt(date[2]);
-                    } else {
-                        year2 = mCalendar2.get(Calendar.YEAR);
-                        month2 = mCalendar2.get(Calendar.MONTH);
-                        day2 = mCalendar2.get(Calendar.DAY_OF_MONTH);
-                    }
-                    DatePickDialog datePickDialog2 = new DatePickDialog(ManageCarActivity.this,
-                            mIgetDate2, "", year2, month2, day2, "确定", "取消");
-                    datePickDialog2.show();
+//                    Calendar mCalendar2 = Calendar.getInstance();
+//                    String maintainDate = SesameLoginInfo.getMainten_time();
+//                    int year2;
+//                    int month2;
+//                    int day2;
+//                    if (maintainDate != null && maintainDate.length() > 0) {
+//                        String date[] = maintainDate.split("-");
+//                        year2 = MyParse.parseInt(date[0]);
+//                        month2 = (MyParse.parseInt(date[1]) - 1);
+//                        day2 = MyParse.parseInt(date[2]);
+//                    } else {
+//                        year2 = mCalendar2.get(Calendar.YEAR);
+//                        month2 = mCalendar2.get(Calendar.MONTH);
+//                        day2 = mCalendar2.get(Calendar.DAY_OF_MONTH);
+//                    }
+//                    DatePickDialog datePickDialog2 = new DatePickDialog(ManageCarActivity.this,
+//                            mIgetDate2, "", year2, month2, day2, "确定", "取消");
+//                    datePickDialog2.show();
+                    initCustomTimePicker(mTxtMaintainDate.getText().toString());
+                    pvCustomTime.show(mTxtMaintainDate);
                     break;
             }
         }
     };
+
+    private void initCustomTimePicker(String date) {
+
+        /**
+         * @description
+         *
+         * 注意事项：
+         * 1.自定义布局中，id为 optionspicker 或者 timepicker 的布局以及其子控件必须要有，否则会报空指针.
+         * 具体可参考demo 里面的两个自定义layout布局。
+         * 2.因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
+         * setRangDate方法控制起始终止时间(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
+         */
+        Calendar selectedDate = Calendar.getInstance();//系统当前时间
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(2014, 0, 1);
+        Calendar endDate = Calendar.getInstance();
+        Date time = endDate.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = dateFormat.format(time);
+        String[] split = format.split("-");
+        endDate.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
+        if (!TextUtils.isEmpty(date)&&!TextUtils.equals(date,"--")&&!TextUtils.equals(date,"-")) {
+            String[] selectedSplit = date.split("-");
+            selectedDate.set(Integer.valueOf(selectedSplit[0]), Integer.valueOf(selectedSplit[1]) - 1, Integer.valueOf(selectedSplit[2]));
+        }
+        //时间选择器 ，自定义布局
+        pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+                HashMap<String, String> params = null;
+                carDate = getTime(date);
+                switch (v.getId()) {
+                    case R.id.manage_car_txt_buydate:
+                        params = new HashMap<>();
+                        params.put("buydate", carDate);
+                        CPControl.GetUpdateCarDateResult(carDate,listener_date);
+//                        modifyCarInfoRequest(params, purchaseCallback);
+                        break;
+                    case R.id.manage_car_txt_maintaindate:
+                        params = new HashMap<>();
+                        params.put("mainten_date", carDate);
+                        CPControl.GetUpdateCarMaintenDateResult(carDate,listener_date_maintain);
+//                        modifyCarInfoRequest(params, maintenCallback);
+                        break;
+                }
+            }
+        })
+
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+                .setLayoutRes(R.layout.time_edit_dialog, new CustomListener() {
+                    @Override
+                    public void customLayout(View v) {
+                        final TextView _OK = (TextView) v.findViewById(R.id.sex_change_OK);
+                        final TextView _cancel = (TextView) v.findViewById(R.id.sex_change_cancel);
+                        _OK.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                pvCustomTime.returnData();
+                                pvCustomTime.dismiss();
+                            }
+                        });
+
+                        _cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                pvCustomTime.dismiss();
+                            }
+                        });
+
+                    }
+                })
+                .setContentSize(18)
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .setLabel("年", "月", "日", "时", "分", "秒")
+                .setLineSpacingMultiplier(1.2f)
+                .setTextXOffset(0, 0, 0, 40, 0, -40)
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .setDividerColor(0xFF24AD9D)
+                .build();
+    }
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
+    }
 
     private GetResultListCallback listener_car = new GetResultListCallback() {
 
