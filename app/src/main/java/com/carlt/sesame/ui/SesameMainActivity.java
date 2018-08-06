@@ -298,14 +298,14 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
             switch (buttonView.getId()) {
                 case R.id.main_tab1:
                     setCurrentView(0);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my_selected), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_home_selected), null, null);
                     tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car), null, null);
                     tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote), null, null);
                     tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_normal), null, null);
                     break;
                 case R.id.main_tab2:
                     setCurrentView(1);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_home), null, null);
                     tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car_selected), null, null);
                     tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote), null, null);
                     tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_normal), null, null);
