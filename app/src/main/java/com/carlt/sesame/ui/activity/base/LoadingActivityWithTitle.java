@@ -179,9 +179,9 @@ public abstract class LoadingActivityWithTitle extends BaseActivity {
                 case 0:
                     BaseResponseInfo mInfo = (BaseResponseInfo)msg.obj;
                     if (mInfo.getFlag() == BaseResponseInfo.DEVICE_UPDATE) {
-                        // 盒子升级中
-                        hasData = false;
-                        mLoadingBar.setVisibility(View.GONE);
+
+
+                         mLoadingBar.setVisibility(View.GONE);
                         PopBoxCreat.showUUUpdateDialog(context, mDialogUpdateListener);
                     } else {
                         LoadErro(msg.obj);

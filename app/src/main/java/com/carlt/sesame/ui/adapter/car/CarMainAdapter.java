@@ -28,14 +28,15 @@ public class CarMainAdapter extends BaseAdapter {
 
 	private OnItemBtnClick mItemBtnClick;
 
-	public CarMainAdapter(Context context, ArrayList<CarMainFuncInfo> dataList) {
+	public CarMainAdapter(Context context ) {
 		mInflater = LayoutInflater.from(context);
-		mDataList = dataList;
+
 	}
 
 	
 	public void setmDataList(ArrayList<CarMainFuncInfo> mDataList) {
 		this.mDataList = mDataList;
+		notifyDataSetChanged();
 	}
 
 

@@ -91,21 +91,23 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	private CarMainAdapter mAdapter;
 
 	private ArrayList<CarMainFuncInfo> mCarMainFuncInfos;
+	private ArrayList<CarMainFuncInfo> mCarMainFuncInfosInit;
 
 	public final static String CARMAIN_SAFETY = "com.hz17car.carmain.safety";// 安防action
 	public final static String CARMAIN_CARYEAR = "com.hz17car.carmain.caryear";// 车款action
 
-	private String funcNames[] = { "一键求援", "违章查询", "安防提醒", "定位寻车", "导航同步",
-			"胎压监测" };
+	private String funcNames[] = { "一键求援", "违章查询", "安防提醒", "定位寻车", "导航同步", "胎压监测" };
 	private String funcNames2016[] = { "一键求援", "违章查询", "安防提醒"};
 	private int icons[] = { R.drawable.icon_phone, R.drawable.icon_magnifier,
 			R.drawable.icon_safety, R.drawable.icon_findcar,
 			R.drawable.icon_navigation, R.drawable.icon_tire };
+
 	private int icons2016[] = { R.drawable.icon_phone, R.drawable.icon_magnifier,
 			R.drawable.icon_safety};
 	private boolean isShowDots[] = { false, false, false, false, false, false };
 	
 	private int count;
+	private int clickSize ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -164,6 +166,23 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		
 		mState.setOnClickListener(this);
 
+
+		mGridFuncs.setPadding(0, DorideApplication.dpToPx(10), 0, 0);
+		mCarMainFuncInfosInit = new ArrayList<>();
+		mAdapter = new CarMainAdapter(CarMainActivity.this);
+		for (int i = 0; i < funcNames.length; i++) {
+			CarMainFuncInfo mInfo = new CarMainFuncInfo();
+			mInfo.setId(i);
+			mInfo.setName(funcNames[i]);
+		//	mInfo.setIcon(icons[i]);
+			mInfo.setShowDot(isShowDots[i]);
+			mCarMainFuncInfosInit.add(mInfo);
+
+		}
+		mAdapter.setmDataList(mCarMainFuncInfosInit);
+		mGridFuncs.setAdapter(mAdapter);
+		mGridFuncs.setOnItemClickListener(mItemClickListener);
+
 	}
 
 	@Override
@@ -198,22 +217,27 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	protected void LoadSuccess(Object data) {
 		mCarMainFuncInfos = new ArrayList<CarMainFuncInfo>();
 		if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2016){
+			clickSize = 3;
 			for (int i = 0; i < funcNames2016.length; i++) {
-				CarMainFuncInfo mInfo = new CarMainFuncInfo();
-				mInfo.setId(i);
-				mInfo.setName(funcNames[i]);
-				mInfo.setIcon(icons[i]);
-				mInfo.setShowDot(isShowDots[i]);
-				mCarMainFuncInfos.add(mInfo);
+//				CarMainFuncInfo mInfo = new CarMainFuncInfo();
+//				mInfo.setId(i);
+//				mInfo.setName(funcNames[i]);
+//				mInfo.setIcon(icons[i]);
+//				mInfo.setShowDot(isShowDots[i]);
+//				mCarMainFuncInfos.add(mInfo);
+				mCarMainFuncInfosInit.get(i).setIcon(icons[i]);
+
 			}
 		}else {
+			clickSize = 4;
 			for (int i = 0; i < 4; i++) {
-				CarMainFuncInfo mInfo = new CarMainFuncInfo();
-				mInfo.setId(i);
-				mInfo.setName(funcNames[i]);
-				mInfo.setIcon(icons[i]);
-				mInfo.setShowDot(isShowDots[i]);
-				mCarMainFuncInfos.add(mInfo);
+//				CarMainFuncInfo mInfo = new CarMainFuncInfo();
+//				mInfo.setId(i);
+//				mInfo.setName(funcNames[i]);
+//				mInfo.setIcon(icons[i]);
+//				mInfo.setShowDot(isShowDots[i]);
+//				mCarMainFuncInfos.add(mInfo);
+				mCarMainFuncInfosInit.get(i).setIcon(icons[i]);
 			}
 			//胎压监测、导航同步走车款配置接口
 			CarMainFunInfo mCarMainFunInfo= SesameLoginInfo.getCarMainFunInfo();
@@ -226,21 +250,25 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 						RemoteFunInfo mRemoteFunInfo = mRemoteFunInfos.get(i);
 						String name = mRemoteFunInfo.getId();
 						if (name.equals("0")) {
-							CarMainFuncInfo mInfo = new CarMainFuncInfo();
-							mInfo.setId(5);
-							mInfo.setName(funcNames[5]);
-							mInfo.setIcon(icons[5]);
-							mInfo.setShowDot(isShowDots[5]);
-							mCarMainFuncInfos.add(mInfo);
+//							CarMainFuncInfo mInfo = new CarMainFuncInfo();
+//							mInfo.setId(5);
+//							mInfo.setName(funcNames[5]);
+//							mInfo.setIcon(icons[5]);
+//							mInfo.setShowDot(isShowDots[5]);
+//							mCarMainFuncInfos.add(mInfo);
+							mCarMainFuncInfosInit.get(5).setIcon(icons[5]);
+							clickSize  ++ ;
 							continue;
 						}
 						if (name.equals("1")) {
-							CarMainFuncInfo mInfo = new CarMainFuncInfo();
-							mInfo.setId(4);
-							mInfo.setName(funcNames[4]);
-							mInfo.setIcon(icons[4]);
-							mInfo.setShowDot(isShowDots[4]);
-							mCarMainFuncInfos.add(mInfo);
+//							CarMainFuncInfo mInfo = new CarMainFuncInfo();
+//							mInfo.setId(4);
+//							mInfo.setName(funcNames[4]);
+//							mInfo.setIcon(icons[4]);
+//							mInfo.setShowDot(isShowDots[4]);
+//							mCarMainFuncInfos.add(mInfo);
+							mCarMainFuncInfosInit.get(4).setIcon(icons[4]);
+							clickSize  ++;
 							continue;
 						}
 					}
@@ -307,13 +335,13 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 				mGridFuncs.setPadding(0, 0, 0, 0);
 			}
 			if (mAdapter == null) {
-				mAdapter = new CarMainAdapter(CarMainActivity.this,
-						mCarMainFuncInfos);
+		//		mAdapter = new CarMainAdapter(CarMainActivity.this, mCarMainFuncInfos);
 				mGridFuncs.setAdapter(mAdapter);
 				mGridFuncs.setOnItemClickListener(mItemClickListener);
 			}
-			mAdapter.setmDataList(mCarMainFuncInfos);
 			mAdapter.notifyDataSetChanged();
+		//	mAdapter.setmDataList(mCarMainFuncInfos);
+		//	mAdapter.notifyDataSetChanged();
 		}
 		super.LoadSuccess(data);
 	}
@@ -342,12 +370,17 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	private OnItemClickListener mItemClickListener = new OnItemClickListener() {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			int funcId = mCarMainFuncInfos.get(position).getId();
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			int funcId = mCarMainFuncInfosInit.get(position).getId();
+
+			if(funcId >=  clickSize ){
+				UUToast.showUUToast(CarMainActivity.this,"该车型暂不支持!!");
+				return;
+			}
 			switch (funcId) {
 			case 0:
 				// 跳转至一键求援
+
 				Intent mIntent0 = new Intent(CarMainActivity.this, CarForHelpActivity.class);
 				startActivity(mIntent0);
 				break;
@@ -355,8 +388,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 			case 1:
 				// 跳转至违章查询
 				Intent mIntent1 = new Intent(CarMainActivity.this, CarFillIllegalActivity.class);
-				mIntent1.putExtra(CarFillIllegalActivity.CLASS_NAME,
-						CarMainActivity.this.getClass().getName());
+				mIntent1.putExtra(CarFillIllegalActivity.CLASS_NAME, CarMainActivity.this.getClass().getName());
 				startActivity(mIntent1);
 				break;
 			case 2:
@@ -364,8 +396,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 				Intent mIntent2 = new Intent(CarMainActivity.this, CarSafetyActivity.class);
 				if (mCarMainInfo != null) {
 					int safetycount = mCarMainInfo.getSafetycount();
-					mIntent2.putExtra(CarSafetyActivity.SAFETY_COUNT,
-							safetycount);
+					mIntent2.putExtra(CarSafetyActivity.SAFETY_COUNT, safetycount);
 				}
 				startActivity(mIntent2);
 				break;
