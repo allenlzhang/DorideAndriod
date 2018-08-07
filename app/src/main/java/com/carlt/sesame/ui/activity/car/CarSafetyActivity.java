@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.car;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,24 +12,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.ui.pull.PullToRefreshListView;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfoList;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
-import com.carlt.sesame.ui.activity.career.SecretaryTipsActivity;
 import com.carlt.sesame.ui.adapter.SafetyTipsAdapter;
-import com.carlt.sesame.ui.adapter.SecretaryTipsAdapterNew;
-import com.carlt.sesame.ui.pull.PullToRefreshBase;
-import com.carlt.sesame.ui.pull.PullToRefreshBase.OnRefreshListener;
-import com.carlt.sesame.ui.pull.PullToRefreshListView;
 import com.carlt.sesame.utility.UUToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 座驾-安防提醒页面
@@ -129,18 +125,18 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
         mListView.setDividerHeight(0);
         mListView.setVerticalScrollBarEnabled(false);
         mListView.setSelector(getResources().getDrawable(R.drawable.list_divider_bg));
-        mRefreshListView.setPullRefreshEnabled(true);
-        mRefreshListView.setLastUpdatedLabel("------");
-        mRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
+        mRefreshListView.setPullLoadEnabled(true);
+//        mRefreshListView.setLastUpdatedLabel("------");
+       
+        mRefreshListView.setOnRefreshListener(new com.carlt.doride.ui.pull.PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+            public void onPullDownToRefresh(com.carlt.doride.ui.pull.PullToRefreshBase<ListView> refreshView) {
                 loadOnrefresh();
             }
 
             @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                // TODO Auto-generated method stub
+            public void onPullUpToRefresh(com.carlt.doride.ui.pull.PullToRefreshBase<ListView> refreshView) {
                 loadPullUpToRefresh();
             }
         });
@@ -160,6 +156,7 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
         mRefreshListView.setLastUpdatedLabel(text);
     }
 
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             mRefreshListView.onPullDownRefreshComplete();

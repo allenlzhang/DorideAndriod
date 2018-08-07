@@ -165,6 +165,9 @@ public class DorideApplication extends Application {
         Logger.e("---" + sha1);
     }
 
+
+
+
     public static Context getAppContext() {
         return ApplicationContext;
     }

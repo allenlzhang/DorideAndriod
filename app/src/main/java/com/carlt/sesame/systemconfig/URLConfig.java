@@ -98,7 +98,6 @@ public class URLConfig {
         }
     }
 
-    ;
 
     public static String getClientID() {
         String clientId = "";
