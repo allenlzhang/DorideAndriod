@@ -28,6 +28,7 @@ import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.activity.setting.CarTypeListActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.orhanobut.logger.Logger;
 import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
 import com.tencent.android.tpush.XGPushConfig;
@@ -91,49 +92,55 @@ public class ActivityControl {
         build.setDefaults(Notification.DEFAULT_VIBRATE);
         // 是否可清除
         build.setFlags(Notification.FLAG_AUTO_CANCEL);
-
+        String useId;
+        String dealerId;
+        if (LoginInfo.getApp_type() == 1){
+            useId = LoginInfo.getUseId();
+            dealerId = LoginInfo.getDealerId();
+        }else {
+            useId = SesameLoginInfo.getUseId();
+            dealerId = SesameLoginInfo.getDealerId();
+        }
         XGPushConfig.enableDebug(mContext, true);
-        Log.e("info", "userId====" + LoginInfo.getUseId());
+        Log.e("info", "userId====" + useId);
         if (DorideApplication.Formal_Version) {
-            XGPushManager.registerPush(mContext, LoginInfo.getUseId());
+            XGPushManager.registerPush(mContext, useId);
             // 设置通知样式，样式编号为2，即build_id为2，可通过后台脚本指定
             XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-            XGPushManager.setTag(mContext, LoginInfo.getDealerId());
+            XGPushManager.setTag(mContext, dealerId);
             if (LoginInfo.getPush_prizeinfo_flag() == 1) {
-                XGPushManager.setTag(mContext, LoginInfo.getDealerId() + "_31");
+                XGPushManager.setTag(mContext, dealerId + "_31");
             }
         } else {
             switch (URLConfig.flag) {
                 case URLConfig.VERSION_FORMAL:
                     // 正式服
-                    XGPushManager.registerPush(mContext, LoginInfo.getUseId());
+                    XGPushManager.registerPush(mContext, useId);
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-                    XGPushManager.setTag(mContext, LoginInfo.getDealerId());
+                    XGPushManager.setTag(mContext, dealerId);
                     if (LoginInfo.getPush_prizeinfo_flag() == 1) {
-                        XGPushManager.setTag(mContext, LoginInfo.getDealerId()
+                        XGPushManager.setTag(mContext, dealerId
                                 + "_31");
                     }
                     break;
                 case URLConfig.VERSION_PREPARE:
                     // 预发布服
-                    XGPushManager.registerPush(mContext, LoginInfo.getUseId());
+                    XGPushManager.registerPush(mContext, useId);
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-                    XGPushManager.setTag(mContext, LoginInfo.getDealerId());
+                    XGPushManager.setTag(mContext, dealerId);
                     if (LoginInfo.getPush_prizeinfo_flag() == 1) {
-                        XGPushManager.setTag(mContext, LoginInfo.getDealerId()
+                        XGPushManager.setTag(mContext, dealerId
                                 + "_31");
                     }
                     break;
                 case URLConfig.VERSION_TEST:
                     // 测试服
-                    XGPushManager.registerPush(mContext,
-                            "t_" + LoginInfo.getUseId());
-                    XGPushManager.registerPush(mContext, "t_" + LoginInfo.getUseId());
+                    XGPushManager.registerPush(mContext, "t_" + useId);
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-                    XGPushManager.setTag(mContext, "t_" + LoginInfo.getDealerId());
+                    XGPushManager.setTag(mContext, "t_" + dealerId);
                     if (LoginInfo.getPush_prizeinfo_flag() == 1) {
                         XGPushManager.setTag(mContext,
-                                "t_" + LoginInfo.getDealerId() + "_31");
+                                "t_" + dealerId + "_31");
                     }
                     break;
             }
@@ -296,11 +303,11 @@ public class ActivityControl {
         if (!TextUtils.isEmpty(tag)) {
             if (tag.equals("on")) {
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                toggleView.setImageDrawable(context.getResources().getDrawable(R.mipmap.passwd_off, null));
+                toggleView.setImageDrawable(context.getResources().getDrawable(R.mipmap.passwd_off));
                 toggleView.setTag("off");
             } else {
                 input.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                toggleView.setImageDrawable(context.getResources().getDrawable(R.mipmap.passwd_on, null));
+                toggleView.setImageDrawable(context.getResources().getDrawable(R.mipmap.passwd_on));
                 toggleView.setTag("on");
             }
         }
