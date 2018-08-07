@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.setting;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -223,6 +224,7 @@ public class EditPhoneActivity1 extends BaseActivity {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

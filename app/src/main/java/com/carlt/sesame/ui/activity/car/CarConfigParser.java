@@ -73,10 +73,9 @@ public class CarConfigParser extends BaseParser {
 
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId(RemoteFunInfo.FUNC_UNLOCK);
-			mFunInfo.setApi_field("remote_locked");
 			mFunInfo.setName("解锁");
 			mFunInfo.setIcon_id(R.drawable.remote_new_unlock_bg);
-			state = mJSON_data.optInt("remote_locked") + "";
+			state = mJSON_data.optInt("remoteLocked") + "";
 			mFunInfo.setState(state);
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
@@ -85,10 +84,9 @@ public class CarConfigParser extends BaseParser {
 
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId(RemoteFunInfo.FUNC_LOCK);
-			mFunInfo.setApi_field("remote_locked");
 			mFunInfo.setName("落锁");
 			mFunInfo.setIcon_id(R.drawable.remote_new_lock_bg);
-			state = mJSON_data.optInt("remote_locked") + "";
+			state = mJSON_data.optInt("remoteLocked") + "";
 			mFunInfo.setState(state);
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
@@ -97,10 +95,9 @@ public class CarConfigParser extends BaseParser {
 			
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId(RemoteFunInfo.FUNC_FIND);
-			mFunInfo.setApi_field("remote_car_locating");
 			mFunInfo.setName("一键寻车");
 			mFunInfo.setIcon_id(R.drawable.remote_new_find_bg);
-			state = mJSON_data.optInt("remote_car_locating") + "";
+			state = mJSON_data.optInt("SLCarLocating") + "";
 			mFunInfo.setState(state);
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
@@ -109,10 +106,9 @@ public class CarConfigParser extends BaseParser {
 			
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId(RemoteFunInfo.FUNC_AIR);
-			mFunInfo.setApi_field("remote_airconditioner");
 			mFunInfo.setName("空调");
 			mFunInfo.setIcon_id(R.drawable.remote_new_air_bg);
-			state = mJSON_data.optInt("remote_airconditioner") + "";
+			state = mJSON_data.optInt("remoteAirconditioner") + "";
 			mFunInfo.setState(state);
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
@@ -121,10 +117,9 @@ public class CarConfigParser extends BaseParser {
 			
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId(RemoteFunInfo.FUNC_CHARGE);
-			mFunInfo.setApi_field("remote_charger");
 			mFunInfo.setName("充电");
 			mFunInfo.setIcon_id(R.drawable.remote_new_charge_bg);
-			state = mJSON_data.optInt("remote_charger") + "";
+			state = mJSON_data.optInt("remoteCharger") + "";
 			mFunInfo.setState(state);
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
@@ -136,10 +131,9 @@ public class CarConfigParser extends BaseParser {
 
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId("0");
-			mFunInfo.setApi_field("remind_pst_supervise");
 			mFunInfo.setName("胎压监测");
 			mFunInfo.setIcon_id(R.drawable.icon_tire);
-			state = mJSON_data.optInt("remind_pst_supervise") + "";
+			state = mJSON_data.optInt("PSTsupervise") + "";
 			mFunInfo.setState(state);
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mCarMainFunInfo.addmCarmainFunInfos(mFunInfo);
@@ -147,10 +141,9 @@ public class CarConfigParser extends BaseParser {
 
 			mFunInfo = new RemoteFunInfo();
 			mFunInfo.setId("1");
-			mFunInfo.setApi_field("remote_nav_sync");
 			mFunInfo.setName("导航同步");
 			mFunInfo.setIcon_id(R.drawable.icon_navigation);
-			state = mJSON_data.optInt("remote_nav_sync") + "";
+			state = mJSON_data.optInt("navigationSync") + "";
 			mFunInfo.setState(state);
 			if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
 				mCarMainFunInfo.addmCarmainFunInfos(mFunInfo);
@@ -158,7 +151,7 @@ public class CarConfigParser extends BaseParser {
 			SesameLoginInfo.setCarMainFunInfo(mCarMainFunInfo);
 
 			String remote_airconditioner_item = mJSON_data
-					.optString("remote_airconditioner_item");
+					.optString("remoteAirconditioner_item");
 			if (!TextUtils.isEmpty(remote_airconditioner_item)) {
 				String[] items = remote_airconditioner_item.split(",");
 				int index;
@@ -166,7 +159,6 @@ public class CarConfigParser extends BaseParser {
 				 if (index != -1) {
 				 mFunInfo = new RemoteFunInfo();
 				 mFunInfo.setId(RemoteFunInfo.MODE_AUTO);
-				 mFunInfo.setApi_field("automatic");
 				 mFunInfo.setName("全自动");
 				 mFunInfo.setIcon_id(R.drawable.remote_auto);
 				 mFunInfo.setIcon_id_seleced(R.drawable.remote_auto_selected);
@@ -185,7 +177,6 @@ public class CarConfigParser extends BaseParser {
 				if (index != -1) {
 					mFunInfo = new RemoteFunInfo();
 					mFunInfo.setId(RemoteFunInfo.MODE_HEAT);
-					mFunInfo.setApi_field("maxhot");
 					mFunInfo.setName("最大制热");
 					mFunInfo.setIcon_id(R.drawable.remote_hot);
 					mFunInfo.setIcon_id_seleced(R.drawable.remote_hot_selected);
@@ -204,7 +195,6 @@ public class CarConfigParser extends BaseParser {
 				if (index != -1) {
 					mFunInfo = new RemoteFunInfo();
 					mFunInfo.setId(RemoteFunInfo.MODE_COLD);
-					mFunInfo.setApi_field("maxcold");
 					mFunInfo.setName("最大制冷");
 					mFunInfo.setIcon_id(R.drawable.remote_cold);
 					mFunInfo.setIcon_id_seleced(R.drawable.remote_cold_selected);
@@ -223,7 +213,6 @@ public class CarConfigParser extends BaseParser {
 				if (index != -1) {
 					mFunInfo = new RemoteFunInfo();
 					mFunInfo.setId(RemoteFunInfo.MODE_FROG);
-					mFunInfo.setApi_field("defrost");
 					mFunInfo.setName("一键除霜");
 					mFunInfo.setIcon_id(R.drawable.remote_frost);
 					mFunInfo.setIcon_id_seleced(R.drawable.remote_frost_selected);
@@ -242,7 +231,6 @@ public class CarConfigParser extends BaseParser {
 				 if (index != -1) {
 				 mFunInfo = new RemoteFunInfo();
 				 mFunInfo.setId(RemoteFunInfo.MODE_CLEAN);
-				 mFunInfo.setApi_field("cleaning");
 				 mFunInfo.setName("座舱清洁");
 				 mFunInfo.setIcon_id(R.drawable.remote_clean);
 				 mFunInfo.setIcon_id_seleced(R.drawable.remote_clean_selected);
@@ -261,7 +249,6 @@ public class CarConfigParser extends BaseParser {
 				 if (index != -1) {
 				 mFunInfo = new RemoteFunInfo();
 				 mFunInfo.setId(RemoteFunInfo.MODE_ANION);
-				 mFunInfo.setApi_field("anion");
 				 mFunInfo.setName("负离子");
 				 mFunInfo.setIcon_id(R.drawable.remote_anion);
 				 mFunInfo.setIcon_id_seleced(R.drawable.remote_anion_selected);
@@ -280,7 +267,6 @@ public class CarConfigParser extends BaseParser {
 				 if (index != -1) {
 				 mFunInfo = new RemoteFunInfo();
 				 mFunInfo.setId(RemoteFunInfo.MODE_TEMPREGULATION);
-				 mFunInfo.setApi_field("tempAdjustment");
 				 mFunInfo.setName("温度调节");
 				 mFunInfo.setIcon_id(R.drawable.remote_regulation);
 				 mFunInfo.setIcon_id_seleced(R.drawable.remote_regulation_selected);
@@ -299,7 +285,6 @@ public class CarConfigParser extends BaseParser {
 				if (index != -1) {
 					mFunInfo = new RemoteFunInfo();
 					mFunInfo.setId(RemoteFunInfo.MODE_CLOSE);
-					mFunInfo.setApi_field("close");
 					mFunInfo.setName("关闭空调");
 					mFunInfo.setIcon_id(R.drawable.remote_close_air2);
 					mFunInfo.setIcon_id_seleced(R.drawable.icon_close_air_press);

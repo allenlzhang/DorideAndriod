@@ -146,6 +146,7 @@
 
     <RelativeLayout
         android:id="@+id/activity_setting_userinfo_layout6"
+        android:visibility="gone"
         style="@style/setting_userinfo_layout1"
         android:layout_below="@id/activity_setting_userinfo_layout5"
         android:layout_marginTop="20dp" >

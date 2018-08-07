@@ -173,7 +173,7 @@ public class SettingMainActivity extends BaseActivity {
                 case R.id.activity_setting_layout4:
                     // 跳转至设备管理-TODO
                     Intent mIntent = new Intent(context, ManageDeviceActivity.class);
-                    startActivity(mIntent);
+                     startActivity(mIntent);
                     break;
                 case R.id.activity_setting_layout5:
                     // 跳转至通用管理-TODO

@@ -19,6 +19,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser.ResultCallback;
 import com.carlt.doride.protocolparser.VersionInfoParser;
+import com.carlt.doride.push.MessageReceiver;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.doride.ui.view.DownloadView;
@@ -28,6 +29,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +51,8 @@ public class SplashActivity extends BaseActivity {
     private final static long interval = 30 * 1000;// 友盟统计-时间间隔
 
     long mMills = 0;
+    private MessageReceiver mReceiver;
+
 
 
     @Override
@@ -59,6 +63,20 @@ public class SplashActivity extends BaseActivity {
 
     }
 
+    private void registerXG() {
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
+//        filter.addAction("com.tencent.android.tpush.action.FEEDBACK");
+//        mReceiver = new MessageReceiver();
+//        registerReceiver(mReceiver, filter);
+        Intent intent = new Intent(this, MessageReceiver.class);
+        intent.setAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
+        intent.setAction("com.tencent.android.tpush.action.FEEDBACK");
+        sendBroadcast(intent);
+        Logger.e("======MessageReceiver");
+    }
+
+    
     protected String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
 

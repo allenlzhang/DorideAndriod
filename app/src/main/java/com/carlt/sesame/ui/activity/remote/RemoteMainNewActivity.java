@@ -463,7 +463,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     @Override
     protected void LoadData() {
         super.LoadData();
-        CPControl.GetCarConfigResult(listener);
+        com.carlt.doride.control.CPControl.GetCarConfigResult(listener);
     }
 
     /**
@@ -492,17 +492,17 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                 @Override
                 public void onRightClick() {
                     Log.e("info", "LoginInfo.isAuthen==" + SesameLoginInfo.isAuthen());
-                    if (SesameLoginInfo.isAuthen()) {
-                        Intent mIntent = new Intent(RemoteMainNewActivity.this, RemotePswResetActivity3.class);
-                        mIntent.putExtra(RemotePswResetActivity3.TYPE,
-                                RemotePswResetActivity3.TYPE_REMOTE);
-                        startActivity(mIntent);
-                    } else {
+//                    if (SesameLoginInfo.isAuthen()) {
+//                        Intent mIntent = new Intent(RemoteMainNewActivity.this, RemotePswResetActivity3.class);
+//                        mIntent.putExtra(RemotePswResetActivity3.TYPE,
+//                                RemotePswResetActivity3.TYPE_REMOTE);
+//                        startActivity(mIntent);
+//                    } else {
                         Intent mIntent = new Intent(RemoteMainNewActivity.this, RealNameActivity.class);
                         mIntent.putExtra(RealNameActivity.TYPE,
                                 RealNameActivity.TYPE_REMOTE);
                         startActivity(mIntent);
-                    }
+//                    }
                 }
 
                 @Override
