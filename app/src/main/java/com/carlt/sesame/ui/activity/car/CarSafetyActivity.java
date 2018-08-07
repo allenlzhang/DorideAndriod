@@ -15,8 +15,11 @@ import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
+import com.carlt.sesame.data.career.SecretaryMessageInfoList;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
+import com.carlt.sesame.ui.activity.career.SecretaryTipsActivity;
 import com.carlt.sesame.ui.adapter.SafetyTipsAdapter;
+import com.carlt.sesame.ui.adapter.SecretaryTipsAdapterNew;
 import com.carlt.sesame.ui.pull.PullToRefreshBase;
 import com.carlt.sesame.ui.pull.PullToRefreshBase.OnRefreshListener;
 import com.carlt.sesame.ui.pull.PullToRefreshListView;
@@ -25,188 +28,221 @@ import com.carlt.sesame.utility.UUToast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 座驾-安防提醒页面
- * 
+ *
  * @author daisy
  */
 public class CarSafetyActivity extends LoadingActivityWithTitle {
-	private ImageView back;// 头部返回键
+    private ImageView back;// 头部返回键
 
-	private TextView title;// 标题文字
+    private TextView title;// 标题文字
 
-	private TextView txtRight;// 头部右侧文字
+    private TextView txtRight;// 头部右侧文字
 
-	private ImageView imgRight;// 头部右侧图片
+    private ImageView imgRight;// 头部右侧图片
 
-	private ImageView mImageViewSecretary;// 车秘书头像
+    private ImageView mImageViewSecretary;// 车秘书头像
 
-	private TextView mTextViewSecretary;// 提醒消息
+    private TextView mTextViewSecretary;// 提醒消息
 
-	private ListView mListView;// 安防提醒列表
+    private ListView mListView;// 安防提醒列表
 
-	private SafetyTipsAdapter mAdapter;
+    private SafetyTipsAdapter mAdapter;
 
-	public final static String SAFETY_COUNT = "safety_count";
+    public final static String SAFETY_COUNT = "safety_count";
 
-	private int count;// 未读安防提醒条数
+    private int count;// 未读安防提醒条数
 
-	private PullToRefreshListView mRefreshListView;
+    private PullToRefreshListView mRefreshListView;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_car_safety);
-		setTitleView(R.layout.head_back);
+    private final static int LIMIT = 10;
 
-		try {
-			count = getIntent().getIntExtra(SAFETY_COUNT, 0);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+    private SecretaryMessageInfoList mInfoLists;// 接口返回的数据结构
 
-		initTitle();
-		initSubTitle();
-		init();
-		LoadData();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_car_safety);
+        setTitleView(R.layout.head_back);
 
-	}
+        try {
+            count = getIntent().getIntExtra(SAFETY_COUNT, 0);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
-	private void initTitle() {
-		back = (ImageView) findViewById(R.id.head_back_img1);
-		title = (TextView) findViewById(R.id.head_back_txt1);
-		txtRight = (TextView) findViewById(R.id.head_back_txt2);
-		imgRight = (ImageView) findViewById(R.id.head_back_img2);
+        initTitle();
+        initSubTitle();
+        init();
+        LoadData();
 
-		back.setImageResource(R.drawable.arrow_back);
-		title.setText("安防提醒");
-		txtRight.setVisibility(View.GONE);
-		imgRight.setVisibility(View.VISIBLE);
-		imgRight.setImageResource(R.drawable.icon_refresh);
+    }
 
-		back.setOnClickListener(new OnClickListener() {
+    private void initTitle() {
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
+        imgRight = (ImageView) findViewById(R.id.head_back_img2);
 
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		imgRight.setOnClickListener(new OnClickListener() {
+        back.setImageResource(R.drawable.arrow_back);
+        title.setText("安防提醒");
+        txtRight.setVisibility(View.GONE);
+        imgRight.setVisibility(View.VISIBLE);
+        imgRight.setImageResource(R.drawable.icon_refresh);
 
-			@Override
-			public void onClick(View v) {
-				// 刷新
-				LoadData();
-			}
-		});
-	}
+        back.setOnClickListener(new OnClickListener() {
 
-	private void initSubTitle() {
-		mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
-		mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        imgRight.setOnClickListener(new OnClickListener() {
 
-		String s = "";
-		if (count == 0) {
-			s = "您还没有新的安防提醒消息";
-		} else {
-			s = "您有" + count + "条安防提醒消息未读";
-		}
-		mTextViewSecretary.setText(s);
-	}
+            @Override
+            public void onClick(View v) {
+                // 刷新
+                LoadData();
+            }
+        });
+    }
 
-	private void init() {
-		mRefreshListView = (PullToRefreshListView) findViewById(R.id.activity_car_safety_list);
-		mListView = mRefreshListView.getRefreshableView();
-		mListView.setDividerHeight(0);
-		mListView.setVerticalScrollBarEnabled(false);
-		mListView.setSelector(getResources().getDrawable(R.drawable.list_divider_bg));
-		mRefreshListView.setPullRefreshEnabled(true);
-		mRefreshListView.setLastUpdatedLabel("------");
-		mRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+    private void initSubTitle() {
+        mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
+        mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
 
-			@Override
-			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-				loadOnrefresh();
-			}
+        String s = "";
+        if (count == 0) {
+            s = "您还没有新的安防提醒消息";
+        } else {
+            s = "您有" + count + "条安防提醒消息未读";
+        }
+        mTextViewSecretary.setText(s);
+    }
 
-			@Override
-			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-				// TODO Auto-generated method stub
+    private void init() {
+        mRefreshListView = (PullToRefreshListView) findViewById(R.id.activity_car_safety_list);
+        mListView = mRefreshListView.getRefreshableView();
+        mListView.setDividerHeight(0);
+        mListView.setVerticalScrollBarEnabled(false);
+        mListView.setSelector(getResources().getDrawable(R.drawable.list_divider_bg));
+        mRefreshListView.setPullRefreshEnabled(true);
+        mRefreshListView.setLastUpdatedLabel("------");
+        mRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
-			}
-		});
-	}
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                loadOnrefresh();
+            }
 
-	public void loadOnrefresh() {
-		CPControl.GetSafetyMessageResult(mLoadListener);
-	}
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                // TODO Auto-generated method stub
+                loadPullUpToRefresh();
+            }
+        });
+    }
 
-	private void setLastUpdateTime() {
-		SimpleDateFormat mDateFormat = new SimpleDateFormat("MM-dd HH:mm");
-		String text = mDateFormat.format(new Date(System.currentTimeMillis()));
-		mRefreshListView.setLastUpdatedLabel(text);
-	}
+    public void loadOnrefresh() {
+        CPControl.GetSecretaryMessageResult(LIMIT, 0, 21, listener);
+    }
 
-	Handler mHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			mRefreshListView.onPullDownRefreshComplete();
-			setLastUpdateTime();
-			if (msg.what == 0) {
-				mArrayList = (ArrayList<SecretaryMessageInfo>) msg.obj;
-				mAdapter = new SafetyTipsAdapter(CarSafetyActivity.this, mArrayList);
-				mListView.setAdapter(mAdapter);
-			} else if (msg.what == 1) {
-				BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
-				String info = "";
-				if (mInfo == null || mInfo.getInfo() == null || mInfo.getInfo().length() < 1) {
-					info = "加载失败";
-				}
-				info = mInfo.getInfo();
-				UUToast.showUUToast(CarSafetyActivity.this, info);
-			}
-		};
-	};
+    public void loadPullUpToRefresh() {
+        CPControl.GetSecretaryMessageResult(LIMIT, mArrayList.size(), 21, listener);
+    }
 
-	GetResultListCallback mLoadListener = new GetResultListCallback() {
+    private void setLastUpdateTime() {
+        SimpleDateFormat mDateFormat = new SimpleDateFormat("MM-dd HH:mm");
+        String text = mDateFormat.format(new Date(System.currentTimeMillis()));
+        mRefreshListView.setLastUpdatedLabel(text);
+    }
 
-		@Override
-		public void onFinished(Object o) {
-			Message msg = new Message();
-			msg.what = 0;
-			msg.obj = o;
-			mHandler.sendMessage(msg);
-		}
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            mRefreshListView.onPullDownRefreshComplete();
+            setLastUpdateTime();
+            if (msg.what == 0) {
+                mArrayList = (ArrayList<SecretaryMessageInfo>) msg.obj;
+                mAdapter = new SafetyTipsAdapter(CarSafetyActivity.this, mArrayList);
+                mListView.setAdapter(mAdapter);
+            } else if (msg.what == 1) {
+                BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
+                String info = "";
+                if (mInfo == null || mInfo.getInfo() == null || mInfo.getInfo().length() < 1) {
+                    info = "加载失败";
+                }
+                info = mInfo.getInfo();
+                UUToast.showUUToast(CarSafetyActivity.this, info);
+            }
+        }
 
-		@Override
-		public void onErro(Object o) {
-			Message msg = new Message();
-			msg.what = 1;
-			msg.obj = o;
-			mHandler.sendMessage(msg);
-		}
-	};
+        ;
+    };
 
-	private ArrayList<SecretaryMessageInfo> mArrayList;
+    GetResultListCallback mLoadListener = new GetResultListCallback() {
 
-	@Override
-	protected void LoadSuccess(Object data) {
-		mArrayList = (ArrayList<SecretaryMessageInfo>) data;
-		mAdapter = new SafetyTipsAdapter(this, mArrayList);
-		mListView.setAdapter(mAdapter);
+        @Override
+        public void onFinished(Object o) {
+            Message msg = new Message();
+            msg.what = 0;
+            msg.obj = o;
+            mHandler.sendMessage(msg);
+        }
 
-		super.LoadSuccess(data);
-	}
+        @Override
+        public void onErro(Object o) {
+            Message msg = new Message();
+            msg.what = 1;
+            msg.obj = o;
+            mHandler.sendMessage(msg);
+        }
+    };
 
-	@Override
-	protected void LoadErro(Object erro) {
+    private ArrayList<SecretaryMessageInfo> mArrayList = new ArrayList<>();
 
-		super.LoadErro(erro);
-	}
+    @Override
+    protected void LoadSuccess(Object data) {
+        if (data != null) {
+            mInfoLists = (SecretaryMessageInfoList) data;
+            if (mArrayList.size()>0) {
+                mArrayList = mInfoLists.getmAllList();
+            }else {
+                mArrayList.addAll(mInfoLists.getmAllList());
+            }
+            if (mAdapter == null) {
+                mAdapter = new SafetyTipsAdapter(this, mArrayList);
+                mListView.setAdapter(mAdapter);
+            } else {
+                mAdapter.setmDataList(mArrayList);
+                mAdapter.notifyDataSetChanged();
+            }
+            mRefreshListView.onPullDownRefreshComplete();
+            mRefreshListView.onPullUpRefreshComplete();
+            setLastUpdateTime();
+        }
+        super.LoadSuccess(data);
+    }
 
-	@Override
-	protected void LoadData() {
-		super.LoadData();
-		CPControl.GetSafetyMessageResult(listener);
-	}
+    @Override
+    protected void LoadErro(Object erro) {
+        BaseResponseInfo mInfo = (BaseResponseInfo) erro;
+        String info = "";
+        if (mInfo == null || mInfo.getInfo() == null || mInfo.getInfo().length() < 1) {
+            info = "加载失败";
+        } else {
+            info = mInfo.getInfo();
+        }
+        UUToast.showUUToast(CarSafetyActivity.this, info);
+
+        super.LoadErro(erro);
+    }
+
+    @Override
+    protected void LoadData() {
+        super.LoadData();
+        CPControl.GetSecretaryMessageResult(LIMIT, 0, 21, listener);
+    }
 }

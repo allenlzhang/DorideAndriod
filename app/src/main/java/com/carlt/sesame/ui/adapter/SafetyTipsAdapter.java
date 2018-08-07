@@ -23,6 +23,10 @@ public class SafetyTipsAdapter extends BaseAdapter {
 
     private ArrayList<SecretaryMessageInfo> mDataList;
 
+    public void setmDataList(ArrayList<SecretaryMessageInfo> mDataList) {
+        this.mDataList = mDataList;
+    }
+
     public SafetyTipsAdapter(Context context, ArrayList<SecretaryMessageInfo> dataList) {
         mInflater = LayoutInflater.from(context);
 
