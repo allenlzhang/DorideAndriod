@@ -3,7 +3,7 @@
     android:id="@+id/carmain_lay_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+   >
 
     <ImageView
         android:id="@+id/carmain_img_icon"

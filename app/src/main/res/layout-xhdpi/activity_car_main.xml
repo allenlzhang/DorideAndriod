@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -149,18 +150,32 @@
             android:background="#f0f0f0"
             android:layout_below="@id/car_main_ll_lay"
             />
-
+        <TextView
+            android:id="@+id/car_line_b"
+            android:layout_below="@id/car_main_line2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            />
         <com.carlt.sesame.ui.view.MyGridView
             android:id="@+id/car_main_grid_funcs"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/car_main_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/car_line_b"
             android:numColumns="3"
             android:scrollbars="none"
-            android:verticalSpacing="20dp"
+            android:verticalSpacing="10dp"
             android:gravity="center_horizontal"
-
             />
+
+        <TextView
+            android:layout_below="@id/car_main_grid_funcs"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            />
+
     </RelativeLayout>
 </ScrollView>
