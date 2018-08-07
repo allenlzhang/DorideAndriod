@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -44,8 +45,10 @@ import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.SectorView;
 import com.carlt.sesame.utility.MyParse;
 import com.carlt.sesame.utility.UUToast;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+
 
 public class CarMainActivity extends LoadingActivityWithTitle implements
 		OnClickListener {
@@ -107,7 +110,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	private boolean isShowDots[] = { false, false, false, false, false, false };
 	
 	private int count;
-	private int clickSize ; //用来统计可以点击的 图标个数
+	private String clickSize ; //用来统计可以点击的 图标个数
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -188,7 +191,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(count>0){
+		if(count > 0){
 			CPControl.GetCarMainResult(listener);
 		}
 		count++;
@@ -217,7 +220,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	protected void LoadSuccess(Object data) {
 		mCarMainFuncInfos = new ArrayList<CarMainFuncInfo>();
 		if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2016){
-			clickSize = 3;
+			clickSize = 012+"";
 			for (int i = 0; i < funcNames2016.length; i++) {
 //				CarMainFuncInfo mInfo = new CarMainFuncInfo();
 //				mInfo.setId(i);
@@ -229,7 +232,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 
 			}
 		}else {
-			clickSize = 4;
+			clickSize = 0123+"";
 			for (int i = 0; i < 4; i++) {
 //				CarMainFuncInfo mInfo = new CarMainFuncInfo();
 //				mInfo.setId(i);
@@ -257,7 +260,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 //							mInfo.setShowDot(isShowDots[5]);
 //							mCarMainFuncInfos.add(mInfo);
 							mCarMainFuncInfosInit.get(5).setIcon(icons[5]);
-							clickSize  ++ ;
+							clickSize = clickSize + 5 ;
 							continue;
 						}
 						if (name.equals("1")) {
@@ -268,7 +271,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 //							mInfo.setShowDot(isShowDots[4]);
 //							mCarMainFuncInfos.add(mInfo);
 							mCarMainFuncInfosInit.get(4).setIcon(icons[4]);
-							clickSize  ++;
+							clickSize = clickSize + 4 ;
 							continue;
 						}
 					}
@@ -372,8 +375,8 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			int funcId = mCarMainFuncInfosInit.get(position).getId();
-
-			if(funcId >=  clickSize ){
+			Logger.e(clickSize);
+			if( !clickSize.contains(funcId+"") ){
 				UUToast.showUUToast(CarMainActivity.this,"该车型暂不支持!!");
 				return;
 			}
