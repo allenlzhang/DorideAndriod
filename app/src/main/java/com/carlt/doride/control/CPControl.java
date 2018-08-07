@@ -33,6 +33,9 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.CreateHashMap;
 import com.carlt.doride.utils.FileUtil;
+import com.carlt.sesame.data.SesameLoginInfo;
+import com.carlt.sesame.ui.activity.car.CarConfigParser;
+import com.carlt.sesame.utility.CreatPostString;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.orhanobut.logger.Logger;
@@ -542,4 +545,35 @@ public class CPControl {
         parser.executePost(url, mMap);
 
     }
+
+    /**
+     * 获取用户绑定车款配置信息(芝麻远程配置项)
+     */
+    public static void GetCarConfigResult(final com.carlt.sesame.control.CPControl.GetResultListCallback listener) {
+
+        new Thread() {
+            @Override
+            public void run() {
+
+                // 链接地址
+                String url = URLConfig.getM_CAR_CURCARCONFIG_URL();
+                // Post参数
+                String post = CreatPostString.getOperationConfig();
+
+                CarConfigParser mParser = new CarConfigParser();
+                com.carlt.sesame.data.BaseResponseInfo mBaseResponseInfo = mParser
+                        .getBaseResponseInfo(url, post);
+                if (listener != null) {
+                    if (mBaseResponseInfo.getFlag() == com.carlt.sesame.data.BaseResponseInfo.SUCCESS) {
+                        listener.onFinished(SesameLoginInfo.getRemoteMainInfo());
+                    } else {
+                        listener.onErro(mBaseResponseInfo);
+                    }
+                }
+
+            }
+
+        }.start();
+    }
+
 }

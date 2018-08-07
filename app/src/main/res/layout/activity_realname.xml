@@ -23,7 +23,7 @@
             android:layout_marginRight="15dip"
             android:layout_marginTop="9dip"
             android:text="为了保证远程操作的安全性，请先进行安全认证"
-            android:textColor="@color/app_white"
+            android:textColor="@color/text_color_gray3"
             android:textSize="16sp"/>
 
         <LinearLayout

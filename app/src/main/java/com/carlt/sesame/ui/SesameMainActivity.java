@@ -78,7 +78,7 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
 
         CPControl.GetSecretaryCategoryResult(listener11);
         CPControl.GetUserOtherInfoResult(null);
-        CPControl.GetCarConfigResult(null);
+        com.carlt.doride.control.CPControl.GetCarConfigResult(null);
         LoginChecker.startCheck();
         setContentView(R.layout.activity_main_layout);
         container = (LinearLayout) findViewById(R.id.main_containerBody);
