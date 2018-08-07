@@ -220,7 +220,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	protected void LoadSuccess(Object data) {
 		mCarMainFuncInfos = new ArrayList<CarMainFuncInfo>();
 		if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2016){
-			clickSize = 012+"";
+			clickSize = "012";
 			for (int i = 0; i < funcNames2016.length; i++) {
 //				CarMainFuncInfo mInfo = new CarMainFuncInfo();
 //				mInfo.setId(i);
@@ -232,7 +232,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 
 			}
 		}else {
-			clickSize = 0123+"";
+			clickSize = "0123";
 			for (int i = 0; i < 4; i++) {
 //				CarMainFuncInfo mInfo = new CarMainFuncInfo();
 //				mInfo.setId(i);
@@ -260,7 +260,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 //							mInfo.setShowDot(isShowDots[5]);
 //							mCarMainFuncInfos.add(mInfo);
 							mCarMainFuncInfosInit.get(5).setIcon(icons[5]);
-							clickSize = clickSize + 5 ;
+							clickSize = clickSize + "5" ;
 							continue;
 						}
 						if (name.equals("1")) {
@@ -271,7 +271,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 //							mInfo.setShowDot(isShowDots[4]);
 //							mCarMainFuncInfos.add(mInfo);
 							mCarMainFuncInfosInit.get(4).setIcon(icons[4]);
-							clickSize = clickSize + 4 ;
+							clickSize = clickSize + "4";
 							continue;
 						}
 					}
