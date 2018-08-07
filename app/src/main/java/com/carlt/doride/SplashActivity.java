@@ -54,6 +54,7 @@ public class SplashActivity extends BaseActivity {
     private MessageReceiver mReceiver;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +76,7 @@ public class SplashActivity extends BaseActivity {
         Logger.e("======MessageReceiver");
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        unregisterReceiver(mReceiver);
-    }
-
+    
     protected String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
 
