@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/top"
-        layout="@layout/head_back"
+        layout="@layout/layout_title"
          />
 
     <LinearLayout

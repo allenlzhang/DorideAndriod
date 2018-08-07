@@ -58,6 +58,10 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
 
     private SecretaryMessageInfoList mInfoLists;// 接口返回的数据结构
 
+    private boolean isLoadMore = false;
+
+    private TextView mTxtNoData;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +108,7 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
                 LoadData();
             }
         });
+        mTxtNoData = findViewById(R.id.car_safety_txt_no_data);
     }
 
     private void initSubTitle() {
@@ -143,10 +148,12 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
     }
 
     public void loadOnrefresh() {
+        isLoadMore = false;
         CPControl.GetSecretaryMessageResult(LIMIT, 0, 21, listener);
     }
 
     public void loadPullUpToRefresh() {
+        isLoadMore = true;
         CPControl.GetSecretaryMessageResult(LIMIT, mArrayList.size(), 21, listener);
     }
 
@@ -204,10 +211,10 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
     protected void LoadSuccess(Object data) {
         if (data != null) {
             mInfoLists = (SecretaryMessageInfoList) data;
-            if (mArrayList.size()>0) {
-                mArrayList = mInfoLists.getmAllList();
-            }else {
+            if (isLoadMore) {
                 mArrayList.addAll(mInfoLists.getmAllList());
+            }else {
+                mArrayList = mInfoLists.getmAllList();
             }
             if (mAdapter == null) {
                 mAdapter = new SafetyTipsAdapter(this, mArrayList);
@@ -219,6 +226,11 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
             mRefreshListView.onPullDownRefreshComplete();
             mRefreshListView.onPullUpRefreshComplete();
             setLastUpdateTime();
+            if (mArrayList.size()==0){
+                mTxtNoData.setVisibility(View.VISIBLE);
+            }else {
+                mTxtNoData.setVisibility(View.GONE);
+            }
         }
         super.LoadSuccess(data);
     }
@@ -240,6 +252,7 @@ public class CarSafetyActivity extends LoadingActivityWithTitle {
     @Override
     protected void LoadData() {
         super.LoadData();
+        isLoadMore = false;
         CPControl.GetSecretaryMessageResult(LIMIT, 0, 21, listener);
     }
 }

@@ -20,5 +20,16 @@
         android:layout_marginTop="20dip"
         android:paddingTop="10dp"
         android:dividerHeight="10dip"/>
-
+    <TextView
+        android:id="@+id/car_safety_txt_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/sub_head"
+        android:textColor="@color/text_color_gray3"
+        android:textSize="14sp"
+        android:text="暂无此类型的提醒消息"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+    </TextView>
 </RelativeLayout>
