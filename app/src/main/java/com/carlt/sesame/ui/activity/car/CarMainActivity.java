@@ -375,8 +375,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			int funcId = mCarMainFuncInfosInit.get(position).getId();
-			Logger.e(clickSize);
-			if( !clickSize.contains(funcId+"") ){
+			if( !clickSize.contains(funcId + "" ) ){
 				UUToast.showUUToast(CarMainActivity.this,"该车型暂不支持!!");
 				return;
 			}
