@@ -91,7 +91,7 @@ public class CarListActivity extends LoadingActivityWithTitle {
 				if (carInfo != null) {
 					mIntent.putExtra(CarFillIllegalActivity.CAR_INFO, carInfo);
 				}
-				startActivity(mIntent);
+				CarListActivity.this.setResult(0, mIntent);
 				finish();
 			}
 		});

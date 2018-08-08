@@ -37,7 +37,7 @@ public class LoadingActivity extends BaseActivity {
 
     protected View     backTV   = null;
     protected TextView titleTV  = null;
-    protected View     backTV2  = null;
+    public View     backTV2  = null;
     protected TextView optRight = null;
 
 
@@ -86,7 +86,7 @@ public class LoadingActivity extends BaseActivity {
             backTV.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    finish();
+                    onBackPressed();
                 }
             });
         }

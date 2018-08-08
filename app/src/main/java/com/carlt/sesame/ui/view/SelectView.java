@@ -58,7 +58,7 @@ public abstract class SelectView {
 
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
-        menuView_main = inflater.inflate(R.layout.menu_calendar_lay, null);
+        menuView_main = inflater.inflate(R.layout.sesame_menu_calendar_lay, null);
         menu_bg = (LinearLayout)menuView_main.findViewById(R.id.menu_calendar_lay);
 		Display disp = ((Activity) mContext).getWindowManager().getDefaultDisplay();
 		Point outP = new Point();

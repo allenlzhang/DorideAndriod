@@ -672,6 +672,22 @@ public class FindCarActivity extends LoadingActivityWithTitle implements Locatio
 			endOpt.anchor(0.5f, 1.1f);
 			endOpt.position(mlineOption.getPoints().get(mlineOption.getPoints().size() - 1));
 			endMarker = mMap.addMarker(endOpt);
+
+			MarkerOptions startOpt = new MarkerOptions();
+			BitmapDescriptor descriptorStart = BitmapDescriptorFactory.fromResource(R.drawable.icon_loaction_user);
+			startOpt.icon(descriptorStart);
+			startOpt.anchor(0.5f, 1.1f);
+			startOpt.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
+			startMarker = mMap.addMarker(startOpt);
+
+			TextOptions toptStart = new TextOptions();
+			toptStart.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
+			toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
+			toptStart.fontColor(Color.parseColor("#FFFFFF"));
+			toptStart.text("您的位置");
+			toptStart.backgroundColor(Color.parseColor("#404040"));
+			txtStart = mMap.addText(toptStart);
+
 		} else {
 			if (mFirstCarLoc != null) {
 				TextOptions toptEnd = new TextOptions();
