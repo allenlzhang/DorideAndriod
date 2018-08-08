@@ -52,7 +52,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
     private void initComponent() {
         initTitle("车辆管理");
         edit_car_type = findViewById(R.id.edit_car_type);
-        edit_car_type.setOnClickListener(this);
+//        edit_car_type.setOnClickListener(this);
         edit_purchase_time = findViewById(R.id.edit_purchase_time);
         edit_purchase_time.setOnClickListener(this);
         edit_maintenance_mileage = findViewById(R.id.edit_maintenance_mileage);
@@ -82,9 +82,9 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         switch (view.getId()) {
 
             case R.id.edit_car_type:
-                Intent switchIntent = new Intent(this, CarModeListActivity.class);
-                switchIntent.putExtra("switch", true);//标记从车辆管理界面跳转
-                startActivity(switchIntent);
+//                Intent switchIntent = new Intent(this, CarModeListActivity.class);
+//                switchIntent.putExtra("switch", true);//标记从车辆管理界面跳转
+//                startActivity(switchIntent);
                 break;
             case R.id.edit_maintenance_mileage:
                 Intent editMaintenance = new Intent(this, MaintenanceMileageEditActivity.class);
