@@ -1,6 +1,7 @@
 package com.carlt.doride.protocolparser;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 
@@ -8,12 +9,14 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.HttpLinker;
+import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,7 +80,14 @@ public abstract class BaseParser<T> {
                         break;
                     case 1:
                         if (mResultCallback != null) {
+
                             mResultCallback.onError(mBaseResponseInfo);
+                            if( mBaseResponseInfo.getFlag() == 1020){
+
+                                Intent intent =new Intent(DorideApplication.ApplicationContext, UpDateActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                DorideApplication.ApplicationContext.startActivity(intent);
+                            }
                         }
                         break;
                     case 2:
