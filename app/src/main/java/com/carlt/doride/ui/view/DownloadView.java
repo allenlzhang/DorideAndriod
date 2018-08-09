@@ -53,8 +53,7 @@ public class DownloadView {
         mContext = context;
         inflater = LayoutInflater.from(mContext);
         menuView_main = inflater.inflate(R.layout.dialog_download, null);
-        menuPop = new UUPopupWindow(menuView_main, LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT);
+        menuPop = new UUPopupWindow(menuView_main, LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
         menuView_bg = menuView_main.findViewById(R.id.dialog_download_bg);
 
         menuView_bg.setOnClickListener(new OnClickListener() {

@@ -2,6 +2,7 @@ package com.carlt.doride.push;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -26,6 +27,8 @@ import com.tencent.android.tpush.XGPushTextMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class MessageReceiver extends XGPushBaseReceiver {
 
@@ -203,14 +206,15 @@ public class MessageReceiver extends XGPushBaseReceiver {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void showNotification(Context context, String title, int type) {
+        String id = "1";
+        String name="1";
         Intent intent = new Intent(context, PushService.class);
         intent.putExtra(PushService.CLASS1, type);
         // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
         // | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getService(context, R.string.app_name + (int) System.currentTimeMillis(), intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager nm = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         //        Notification n = new Notification(R.drawable.ic_launcher, title, System.currentTimeMillis());
         //        n.flags = Notification.FLAG_AUTO_CANCEL;
         //        n.defaults = Notification.DEFAULT_SOUND;
@@ -218,19 +222,45 @@ public class MessageReceiver extends XGPushBaseReceiver {
         //        n.setLatestEventInfo(context, context.getResources().getString(R.string.app_name), title,
         //                contentIntent);
 
-        Notification n = new Notification.Builder(context)
-                .setDefaults(Notification.DEFAULT_SOUND)
-                .setContentTitle(context.getResources().getString(R.string.app_name))
-                .setContentText(title)
-                .setContentIntent(contentIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setWhen(System.currentTimeMillis())
-                .build();
-        n.flags = Notification.FLAG_AUTO_CANCEL;
-        n.audioStreamType = android.media.AudioManager.ADJUST_LOWER;
+        // 适配8.0 通知
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_LOW);
 
-        // 每次通知完，通知ID需要变更，避免消息覆盖掉
-        nm.notify((int) System.currentTimeMillis(), n);
+            nm.createNotificationChannel(mChannel);
+            Notification n2 = new Notification.Builder(context)
+                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setContentTitle(context.getResources().getString(R.string.app_name))
+                    .setContentText(title)
+                    .setChannelId(id)
+                    .setContentIntent(contentIntent)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setWhen(System.currentTimeMillis())
+                    .build();
+            n2.flags = Notification.FLAG_AUTO_CANCEL;
+            n2.audioStreamType = android.media.AudioManager.ADJUST_LOWER;
+            nm.notify((int) System.currentTimeMillis(), n2);
+
+
+        }else {
+            Notification n = new Notification.Builder(context)
+                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setContentTitle(context.getResources().getString(R.string.app_name))
+                    .setContentText(title)
+                    .setContentIntent(contentIntent)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setWhen(System.currentTimeMillis())
+                    .build();
+            n.flags = Notification.FLAG_AUTO_CANCEL;
+            n.audioStreamType = android.media.AudioManager.ADJUST_LOWER;
+
+            // 每次通知完，通知ID需要变更，避免消息覆盖掉
+            nm.notify((int) System.currentTimeMillis(), n);
+        }
+
+
+
+
+
     }
 
 }
