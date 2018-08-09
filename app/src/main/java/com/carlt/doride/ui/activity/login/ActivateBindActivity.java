@@ -67,7 +67,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
         titleText = findViewById(R.id.title);
-        titleText.setText("激活设备");
+        titleText.setText("激活大乘智享");
         Intent intent = getIntent();
         if (intent != null) {
             vinCode = intent.getStringExtra("vin");
@@ -112,7 +112,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                     }
                 };
                 PopBoxCreat.createDialogWithTitle(ActivateBindActivity.this, "激活",
-                        "您确定激活大乘设备吗？", "", "确定", "取消", click);
+                        "您确定激活大乘智享吗？", "", "确定", "取消", click);
                 break;
         }
     }
@@ -165,7 +165,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             // 下发激活指令成功
-            UUToast.showUUToast(ActivateBindActivity.this, "大乘设备已成功激活");
+            UUToast.showUUToast(ActivateBindActivity.this, "大乘智享已成功激活");
             //            Intent intent=new Intent(ActivateBindActivity.this, SesameMainActivity.class);
             //            startActivity(intent);
 

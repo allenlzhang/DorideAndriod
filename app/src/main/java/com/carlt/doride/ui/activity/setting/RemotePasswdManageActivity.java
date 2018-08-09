@@ -75,6 +75,7 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
 
     private void go2SettingPwdActivity() {
         Intent setRemotePasswd = new Intent(this, RemotePswResetActivity3.class);
+        setRemotePasswd.putExtra(RemotePswResetActivity3.TYPE,RemotePswResetActivity3.TYPE_SAFETY);
         startActivity(setRemotePasswd);
     }
 }

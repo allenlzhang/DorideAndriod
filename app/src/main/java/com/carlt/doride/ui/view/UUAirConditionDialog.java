@@ -111,7 +111,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         mResources = context.getResources();
         this.mAirMainInfo = airMainInfo;
         LayoutInflater inflater = LayoutInflater.from(context);
-        final View v = inflater.inflate(R.layout.sesame_dialog_air_condition, null);
+        View v = inflater.inflate(R.layout.dialog_air_condition, null);
         up = (ImageView) v.findViewById(R.id.dialog_air_img_temp_right);
         down = (ImageView) v.findViewById(R.id.dialog_air_img_temp_left);
 
