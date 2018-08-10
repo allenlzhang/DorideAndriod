@@ -82,6 +82,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	private SectorView mSvSoh;// 电池健康度
 
 	private MyGridView mGridFuncs;// 底部功能按钮grid
+	private TextView carMainTxtCarstate;
 
 	private CarMainInfo mCarMainInfo;
 
@@ -139,7 +140,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	}
 
 	private void initTitle() {
-		mTextViewHead = (TextView) findViewById(R.id.car_main_txt_head);
+		mTextViewHead = (TextView) findViewById(R.id.car_main_txt_head2);
 		mCarState = (TextView) findViewById(R.id.car_main_txt_state);
 		mCarState.setOnClickListener(this);
 		if (SesameLoginInfo.getCarname() != null
@@ -165,6 +166,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		mProSohOut = findViewById(R.id.car_main_frame_soh);
 		mSvSoc = (SectorView) findViewById(R.id.car_main_sectorview_soc);
 		mSvSoh = (SectorView) findViewById(R.id.car_main_sectorview_soh);
+		carMainTxtCarstate = (TextView) findViewById(R.id.car_main_txt_carstate);
 		mState=findViewById(R.id.car_main_lay_carstate);
 		
 		mState.setOnClickListener(this);
@@ -282,8 +284,10 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		if (mCarMainInfo != null) {
 			if (mCarMainInfo.isRunning()) {
 				mTextViewSecretary.setText("您的爱车正在行驶");
+				carMainTxtCarstate.setText("您的爱车正在行驶");
 			} else {
 				mTextViewSecretary.setText("您的爱车正在休息");
+				carMainTxtCarstate.setText("您的爱车正在休息");
 			}
 			// 是否有安防提醒信息
 			int safetycount = mCarMainInfo.getSafetycount();

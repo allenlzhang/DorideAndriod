@@ -85,7 +85,7 @@
                     android:id="@+id/img7"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_customer_service"/>
+                    android:src="@mipmap/icon_contact_us"/>
 
                 <TextView
                     style="@style/setting_txt"
@@ -118,7 +118,7 @@
                     android:id="@+id/img5"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_safe"/>
+                    android:src="@mipmap/account_security"/>
 
                 <TextView
                     style="@style/setting_txt"
@@ -151,7 +151,7 @@
                     android:id="@+id/img2"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_car"/>
+                    android:src="@mipmap/account_security"/>
 
                 <TextView
                     style="@style/setting_txt"
@@ -185,7 +185,7 @@
                     android:id="@+id/img3"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_message"/>
+                    android:src="@mipmap/icon_msg_manager"/>
 
                 <TextView
                     style="@style/setting_txt"
@@ -220,7 +220,7 @@
                     android:id="@+id/img4"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_device"/>
+                    android:src="@mipmap/icon_device_manager"/>
 
                 <TextView
                     style="@style/setting_txt"
@@ -327,7 +327,7 @@
                     android:id="@+id/img16"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/setting_about_app"/>
+                    android:src="@mipmap/icon_about_yema"/>
 
                 <TextView
                     style="@style/setting_txt"

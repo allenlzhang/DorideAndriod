@@ -12,7 +12,15 @@
         android:layout_centerInParent="true"
         android:ellipsize="marquee"
         android:gravity="center"
-        android:text="远程"
+
+        android:textColor="@color/text_color_gray3"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/car_main_txt_head2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:textColor="@color/text_color_gray3"
         android:textSize="16sp" />
 

@@ -27,7 +27,7 @@
             android:layout_alignParentTop="true"
             layout="@layout/sesame_head_sub_normal"
             />
-        <ImageView
+        <RelativeLayout
             android:id="@+id/car_main_lay_carstate"
             android:layout_width="186dip"
             android:layout_height="186dip"
@@ -36,7 +36,20 @@
             android:background="@drawable/car_cycle_bg"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="20dp"
-            />
+           >
+
+            <TextView
+                android:id="@+id/car_main_txt_carstate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="35dip"
+                android:text="爱车正在行驶"
+                android:textColor="@color/text_color_gray2"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
         <View
             android:id="@id/car_main_line1"
             android:layout_width="match_parent"
