@@ -13,6 +13,7 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.adapter.RemoteLogAdapter;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
 import com.carlt.sesame.ui.pull.PullToRefreshBase;
+import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,15 +37,16 @@ public class RemoteLogActivity extends LoadingActivity {
         setContentView(R.layout.activity_remote_log);
         initTitle("远程操作记录");
         initView();
-        loadingDataUI();
+      //  loadingDataUI();
         initData(0);
     }
 
     private void initView() {
         listView = $ViewByID(R.id.remotelog_list);
         mListView = listView.getRefreshableView();
-        listView.setPullLoadEnabled(true);
 
+        listView.setPullLoadEnabled(true);
+      //  listView.setPullRefreshEnabled(true);
         listView.setOnRefreshListener(new com.carlt.doride.ui.pull.PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onPullDownToRefresh(com.carlt.doride.ui.pull.PullToRefreshBase<ListView> refreshView) {
@@ -87,9 +89,12 @@ public class RemoteLogActivity extends LoadingActivity {
             } else {
                 showData(logInfos);
             }
-            listView.onPullDownRefreshComplete();
-            listView.onPullUpRefreshComplete();
+            listView.setPullLoadEnabled(false);
             setLastUpdateTime();
+
+            listView.onPullDownRefreshComplete();
+
+
         } catch (Exception e) {
             loadonErrorUI(null);
         }
