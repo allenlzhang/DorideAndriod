@@ -82,12 +82,7 @@ public abstract class BaseParser<T> {
                         if (mResultCallback != null) {
 
                             mResultCallback.onError(mBaseResponseInfo);
-                            if( mBaseResponseInfo.getFlag() == 1020){
 
-                                Intent intent =new Intent(DorideApplication.ApplicationContext, UpDateActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                DorideApplication.ApplicationContext.startActivity(intent);
-                            }
                         }
                         break;
                     case 2:
