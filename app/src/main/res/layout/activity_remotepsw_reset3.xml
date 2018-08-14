@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/layout_background"
     android:orientation="vertical" >
+    <include layout="@layout/head_back" />
     <TextView
         android:id="@+id/remotepsw_reset3_txt_title1"
         android:layout_width="wrap_content"

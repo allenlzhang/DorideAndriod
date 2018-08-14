@@ -22,6 +22,7 @@ import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.UUToast;
+import com.orhanobut.logger.Logger;
 
 /**
  * 忘记远程解锁密码-step3设置新密码
