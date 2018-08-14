@@ -11,6 +11,7 @@ public class CarMainFuncInfo {
 	private String name;// 功能名称
 	private int icon;// 功能图标
 	private boolean isShowDot;// 是否展示红点
+	public boolean hasPermissions ;// s是否有使用权限
 	
 	public int getId() {
 		return id;

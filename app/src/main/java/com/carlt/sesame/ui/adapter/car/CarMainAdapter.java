@@ -1,6 +1,7 @@
 package com.carlt.sesame.ui.adapter.car;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class CarMainAdapter extends BaseAdapter {
 
 	
 	public void setmDataList(ArrayList<CarMainFuncInfo> mDataList) {
+
 		this.mDataList = mDataList;
 		notifyDataSetChanged();
 	}
@@ -93,6 +95,13 @@ public class CarMainAdapter extends BaseAdapter {
         }else{
         	mHolder.mImgDot.setVisibility(View.GONE);
         }
+        if( mInfo.hasPermissions ){
+			mHolder.mTxtName.setTextColor(Color.BLACK);
+			mHolder.mImgIcon.setAlpha(255);
+		}else {
+			mHolder.mTxtName.setTextColor(Color.parseColor("#999999"));
+            mHolder.mImgIcon.setAlpha(120);
+		}
 		return convertView;
 	}
 	

@@ -179,8 +179,9 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 			CarMainFuncInfo mInfo = new CarMainFuncInfo();
 			mInfo.setId(i);
 			mInfo.setName(funcNames[i]);
-			mInfo.setIcon(iconsNormal[i]);
+			mInfo.setIcon(icons[i]);
 			mInfo.setShowDot(isShowDots[i]);
+			mInfo.hasPermissions = false ;
 			mCarMainFuncInfosInit.add(mInfo);
 
 		}
@@ -193,10 +194,19 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	@Override
 	protected void onResume() {
 		super.onResume();
+
+		if(mCarMainFuncInfosInit !=null ){
+			for (int i = 0; i < mCarMainFuncInfosInit.size(); i++) {
+				mCarMainFuncInfosInit.get(i).hasPermissions = false ;
+
+			}
+		}
+
 		if(count > 0){
 			CPControl.GetCarMainResult(listener);
 		}
 		count++;
+
 		if (OnDateChageConfig.ModifyCarChanged) {
 			OnDateChageConfig.ModifyCarChanged = false;
 			Log.e("info", "carname_bbbbbbbbb==" + SesameLoginInfo.getCarname());
@@ -220,63 +230,51 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 
 	@Override
 	protected void LoadSuccess(Object data) {
+
 		mCarMainFuncInfos = new ArrayList<CarMainFuncInfo>();
+
 		if(SesameLoginInfo.getCar_year()== SesameLoginInfo.CAR_YEAR_2016){
 			clickSize = "012";
 			for (int i = 0; i < funcNames2016.length; i++) {
-//				CarMainFuncInfo mInfo = new CarMainFuncInfo();
-//				mInfo.setId(i);
-//				mInfo.setName(funcNames[i]);
-//				mInfo.setIcon(icons[i]);
-//				mInfo.setShowDot(isShowDots[i]);
-//				mCarMainFuncInfos.add(mInfo);
+
 				mCarMainFuncInfosInit.get(i).setIcon(icons[i]);
+				mCarMainFuncInfosInit.get(i).hasPermissions  = true;
 
 			}
 		}else {
 			clickSize = "0123";
 			for (int i = 0; i < 4; i++) {
-//				CarMainFuncInfo mInfo = new CarMainFuncInfo();
-//				mInfo.setId(i);
-//				mInfo.setName(funcNames[i]);
-//				mInfo.setIcon(icons[i]);
-//				mInfo.setShowDot(isShowDots[i]);
-//				mCarMainFuncInfos.add(mInfo);
+
 				mCarMainFuncInfosInit.get(i).setIcon(icons[i]);
+				mCarMainFuncInfosInit.get(i).hasPermissions  = true;
 			}
 			//胎压监测、导航同步走车款配置接口
 			CarMainFunInfo mCarMainFunInfo= SesameLoginInfo.getCarMainFunInfo();
+
 			if (mCarMainFunInfo != null) {
-				ArrayList<RemoteFunInfo> mRemoteFunInfos = mCarMainFunInfo
-						.getmCarmainFunInfos();
+				ArrayList<RemoteFunInfo> mRemoteFunInfos = mCarMainFunInfo.getmCarmainFunInfos();
 				int size = mRemoteFunInfos.size();
+
 				if (mCarMainFunInfo != null && size > 0) {
 					for (int i = 0; i < size; i++) {
 						RemoteFunInfo mRemoteFunInfo = mRemoteFunInfos.get(i);
 						String name = mRemoteFunInfo.getId();
 						if (name.equals("0")) {
-//							CarMainFuncInfo mInfo = new CarMainFuncInfo();
-//							mInfo.setId(5);
-//							mInfo.setName(funcNames[5]);
-//							mInfo.setIcon(icons[5]);
-//							mInfo.setShowDot(isShowDots[5]);
-//							mCarMainFuncInfos.add(mInfo);
+
 							mCarMainFuncInfosInit.get(5).setIcon(icons[5]);
+							mCarMainFuncInfosInit.get(5).hasPermissions  = true;
 							clickSize = clickSize + "5" ;
 							continue;
 						}
 						if (name.equals("1")) {
-//							CarMainFuncInfo mInfo = new CarMainFuncInfo();
-//							mInfo.setId(4);
-//							mInfo.setName(funcNames[4]);
-//							mInfo.setIcon(icons[4]);
-//							mInfo.setShowDot(isShowDots[4]);
-//							mCarMainFuncInfos.add(mInfo);
+
 							mCarMainFuncInfosInit.get(4).setIcon(icons[4]);
+							mCarMainFuncInfosInit.get(4).hasPermissions  = true;
 							clickSize = clickSize + "4";
 							continue;
 						}
 					}
+
 				}
 			}
 		}
@@ -346,9 +344,9 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 				mGridFuncs.setAdapter(mAdapter);
 				mGridFuncs.setOnItemClickListener(mItemClickListener);
 			}
-			mAdapter.notifyDataSetChanged();
+		//	mAdapter.setmDataList(mCarMainFuncInfosInit);
 		//	mAdapter.setmDataList(mCarMainFuncInfos);
-		//	mAdapter.notifyDataSetChanged();
+			mAdapter.notifyDataSetChanged();
 		}
 		super.LoadSuccess(data);
 	}
@@ -362,6 +360,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 	@Override
 	protected void LoadData() {
 		super.LoadData();
+
 		CPControl.GetCarMainResult(listener);
 	}
 	/**
@@ -379,6 +378,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			int funcId = mCarMainFuncInfosInit.get(position).getId();
+
 			if( !clickSize.contains(funcId + "" ) ){
 				UUToast.showUUToast(CarMainActivity.this,"该车型暂不支持!!");
 				return;
@@ -456,6 +456,8 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 			Intent mIntent1 = new Intent(CarMainActivity.this,
 					CarConditionActivity.class);
 			startActivity(mIntent1);
+
+
 			break;
 
 		case R.id.car_main_lay_maintain:
