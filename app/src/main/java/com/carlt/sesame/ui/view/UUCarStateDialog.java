@@ -93,10 +93,10 @@ public class UUCarStateDialog extends Dialog {
 
 				imgIcon.setImageResource(carStateInfo.getIconId());
 				s = carStateInfo.getStateDes();
-				String value = carStateInfo.getValue();
-				if (i == 3 && value != null && value.length() > 0) {
-					s = s + "/" + carStateInfo.getValue();
-				}
+//				String value = carStateInfo.getValue();
+//				if (i == 3 && value != null && value.length() > 0) {
+//					s = s + "/" + carStateInfo.getValue();
+//				}
 				if (s != null && s.length() > 0) {
 					mTip.setText(s);
 				} else {

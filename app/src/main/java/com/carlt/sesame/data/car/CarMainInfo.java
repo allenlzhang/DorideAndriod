@@ -24,7 +24,7 @@ public class CarMainInfo {
 	// 上次体检得分
 	private String lastcheckscore;
 	//是否正在行驶中
-	private boolean isRunning;
+	private String isRunning;
 	//电池电量
 	private String soc;
 	//电池健康度
@@ -78,11 +78,11 @@ public class CarMainInfo {
 		this.lastcheckscore = lastcheckscore;
 	}
 
-    public boolean isRunning() {
+    public String isRunning() {
         return isRunning;
     }
 
-    public void setRunning(boolean isRunning) {
+    public void setRunning(String isRunning) {
         this.isRunning = isRunning;
     }
 

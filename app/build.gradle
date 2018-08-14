@@ -10,7 +10,7 @@ android {
             storePassword 'hz17car'
         }
     }
-    compileSdkVersion 27
+    compileSdkVersion 28
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         multiDexEnabled true
@@ -82,7 +82,6 @@ dependencies {
     implementation files('libs/ZXingCode.jar')
     implementation files('libs/Xg_sdk_v3.2.5_20180720_1612.jar')
     implementation files('libs/mid-core-sdk-4.0.6.jar')
-
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

@@ -119,8 +119,8 @@ public class CarStateNowActivity extends LoadingActivity {
             mTxtView.setText("您的爱车正在行驶中");
         } else if (TextUtils.equals(carNowStatusInfo.getIsrunning(), "0")) {
             mTxtView.setText("您的爱车正在休息");
-        } else {
-            mTxtView.setText("");
+        } else if(carNowStatusInfo.getIsrunning().equals("2")){
+            mTxtView.setText("您的爱车已上电");
         }
         if (carNowStatusInfo.getList() != null && carNowStatusInfo.getList().size() != 0) {
             CarNowStatusAdapter adapter = new CarNowStatusAdapter(CarStateNowActivity.this, carNowStatusInfo.getList());

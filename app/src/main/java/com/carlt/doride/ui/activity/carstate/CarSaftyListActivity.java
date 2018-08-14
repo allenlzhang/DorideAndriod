@@ -88,7 +88,7 @@ public class CarSaftyListActivity extends LoadingActivity {
         });
         String safyHead = getIntent().getStringExtra("safetymsg");
         if (!StringUtils.isEmpty(safyHead)) {
-            safyHeadTV.setText(safyHead);
+            safyHeadTV.setText("您有新的安防提醒消息");
         } else {
             safyHeadTV.setText("您还没有新的安防提醒消息");
         }

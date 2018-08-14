@@ -180,7 +180,7 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             RemoteFunInfo mFunInfo12 = new RemoteFunInfo();
             mFunInfo12.setId("12");
             mFunInfo12.setApi_field("remoteTrunk");
-            mFunInfo12.setName("打开后备箱");
+            mFunInfo12.setName("后备箱");
             mFunInfo12.setIcon_id(R.drawable.trunck);
             String state12 = mJSON_data.get("remoteTrunkOn").getAsInt() + "";
             String remoteTrunkOff = mJSON_data.get("remoteTrunkOff").getAsInt() + "";

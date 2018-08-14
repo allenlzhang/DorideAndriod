@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -45,7 +44,6 @@ import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.SectorView;
 import com.carlt.sesame.utility.MyParse;
 import com.carlt.sesame.utility.UUToast;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -280,12 +278,15 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 		}
 		mCarMainInfo = (CarMainInfo) data;
 		if (mCarMainInfo != null) {
-			if (mCarMainInfo.isRunning()) {
+			if (mCarMainInfo.isRunning().equals("1")) {
 				mTextViewSecretary.setText("您的爱车正在行驶");
 				carMainTxtCarstate.setText("您的爱车正在行驶");
-			} else {
+			} else if(mCarMainInfo.isRunning().equals("0")){
 				mTextViewSecretary.setText("您的爱车正在休息");
 				carMainTxtCarstate.setText("您的爱车正在休息");
+			} else if (mCarMainInfo.isRunning().equals("2")) {
+				mTextViewSecretary.setText("您的爱车已上电");
+				carMainTxtCarstate.setText("您的爱车已上电");
 			}
 			// 是否有安防提醒信息
 			int safetycount = mCarMainInfo.getSafetycount();

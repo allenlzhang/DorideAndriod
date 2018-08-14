@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/line1"
         style="@style/line_v"
-        android:layout_marginTop="28dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/transparent" />
+        android:layout_marginTop="28dp"
+        android:background="@color/transparent"/>
 
     <LinearLayout
         android:id="@+id/layout_report_grid_linear1"
@@ -21,17 +22,17 @@
             android:id="@+id/layout_report_grid_img1"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/icon_mileage_bg" />
+            android:background="@drawable/icon_mileage_bg"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear1_txt2"
             style="@style/layout_report_grid_txt2"
-            android:text="--" />
+            android:text="--"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear1_txt1"
             style="@style/layout_report_grid_txt1"
-            android:text="总里程(公里)" />
+            android:text="总里程(公里)"/>
     </LinearLayout>
 
     <LinearLayout
@@ -44,67 +45,67 @@
             android:id="@+id/layout_report_grid_img2"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/icon_time_bg" />
+            android:background="@drawable/icon_time_bg"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear2_txt2"
             style="@style/layout_report_grid_txt2"
-            android:text="--" />
+            android:text="--"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear2_txt1"
             style="@style/layout_report_grid_txt1"
-            android:text="行驶时间(小时)" />
+            android:text="行驶时间(小时)"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_report_grid_linear3"
         style="@style/layout_report_grid_layout"
         android:layout_below="@id/layout_report_grid_linear1"
+        android:layout_marginBottom="29dp"
         android:layout_marginTop="28dp"
         android:layout_toLeftOf="@id/line1"
-        android:layout_marginBottom="29dp"
         >
 
         <ImageView
             android:id="@+id/layout_report_grid_img3"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/icon_speed_bg" />
+            android:background="@drawable/icon_speed_bg"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear3_txt2"
             style="@style/layout_report_grid_txt2"
-            android:text="--" />
+            android:text="--"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear3_txt1"
             style="@style/layout_report_grid_txt1"
-            android:text="平均速度(公里/小时)" />
+            android:text="平均速度(公里/小时)"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_report_grid_linear4"
         style="@style/layout_report_grid_layout"
         android:layout_below="@id/layout_report_grid_linear2"
-        android:layout_marginTop="28dp"
         android:layout_marginBottom="29dp"
+        android:layout_marginTop="28dp"
         android:layout_toRightOf="@id/line1">
 
         <ImageView
             android:id="@+id/layout_report_grid_img4"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/icon_ranking_bg" />
+            android:background="@drawable/icon_ranking_bg"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear4_txt2"
             style="@style/layout_report_grid_txt2"
-            android:text="--" />
+            android:text="--"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear4_txt1"
             style="@style/layout_report_grid_txt1"
-            android:text="平均油耗(升/百公里)" />
+            android:text="平均油耗(升/百公里)"/>
     </LinearLayout>
 </RelativeLayout>

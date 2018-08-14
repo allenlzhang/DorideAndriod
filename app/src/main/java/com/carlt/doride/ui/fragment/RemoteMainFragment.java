@@ -217,7 +217,8 @@ public class RemoteMainFragment extends BaseFragment implements
             RemoteFunInfo stopFunInfo = mRemoteMainInfo.getmFunInfoStop();
             if (startFunInfo != null && stopFunInfo != null) {
 
-
+                mImgStop.setImageResource(R.mipmap.remote_stop_selected);
+                mImgStop.setClickable(true);
                 String stateStart = startFunInfo.getState();
                 String stateStop = stopFunInfo.getState();
                 int size = mRemoteFunInfos.size();

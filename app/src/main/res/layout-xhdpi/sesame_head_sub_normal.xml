@@ -32,7 +32,6 @@
         android:minLines="1"
         android:paddingLeft="@dimen/head_sub_paddingl"
         android:paddingRight="@dimen/head_sub_paddingr"
-        android:text=""
         android:textColor="@color/text_color_gray2"
         android:textSize="@dimen/text_size_small" />
 

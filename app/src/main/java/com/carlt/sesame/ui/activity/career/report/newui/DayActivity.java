@@ -473,7 +473,7 @@ public class DayActivity extends LoadingActivityWithTitle implements
 			String startTime = MyTimeUtil.getTime(cInfo.getStarttime());
 			String endTime = MyTimeUtil.getTime(cInfo.getStopTime());
 			@SuppressLint("StringFormatMatches") String timeAndMiles = DayActivity.this.getResources().getString(
-					R.string.listItem_day_timeAndMile, startTime, endTime,
+					R.string.sesame_listItem_day_timeAndMile, startTime, endTime,
 					cInfo.getTime(), cInfo.getMiles());
 			mHolder.mTimeAndMiles.setText(timeAndMiles);
 			mHolder.mHurrl1.setText(cInfo.getBrake());
