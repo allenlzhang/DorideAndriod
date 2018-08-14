@@ -17,6 +17,7 @@ import com.carlt.doride.ui.pull.PullToRefreshBase;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -53,8 +54,7 @@ public class CarStateNowActivity extends LoadingActivity {
 
         mListView = mPullToRefreshListView.getRefreshableView();
         mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
-        mListView.setDividerHeight(getResources()
-                .getDimensionPixelSize(R.dimen.list_divider_height));
+        mListView.setDividerHeight(getResources().getDimensionPixelSize(R.dimen.list_divider_height2));
         mListView.setVerticalScrollBarEnabled(false);
         mListView.setSelector(getResources().getDrawable(R.drawable.list_divider_bg));
 
@@ -74,7 +74,9 @@ public class CarStateNowActivity extends LoadingActivity {
     }
 
     private void initData() {
-        showWaitingDialog(null);
+
+
+       showWaitingDialog(null);
         DefaultParser<CarNowStatusInfo> parser = new DefaultParser<>(mCallback, CarNowStatusInfo.class);
         parser.executePost(URLConfig.getM_REMOTE_STATUS(), new HashMap());
     }

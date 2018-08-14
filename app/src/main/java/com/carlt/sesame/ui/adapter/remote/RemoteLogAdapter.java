@@ -104,7 +104,7 @@ public class RemoteLogAdapter extends BaseAdapter {
         }
         s = mInfo.getDevice_name();
         if (s != null && s.length() > 0) {
-           mHolder.mTxtDevice.setText(s);
+           mHolder.mTxtDevice.setText("操作来源:" + s);
         } else {
             mHolder.mTxtDevice.setText("--");
         }

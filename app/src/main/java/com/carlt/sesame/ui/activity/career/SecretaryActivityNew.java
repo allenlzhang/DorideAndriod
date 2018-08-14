@@ -22,7 +22,7 @@ import com.carlt.sesame.data.career.SecretaryCategoryInfoList;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 
 import java.util.ArrayList;
-
+//芝麻小秘书
 public class SecretaryActivityNew extends LoadingActivityWithTitle {
 	private ImageView back;// 头部返回键
 

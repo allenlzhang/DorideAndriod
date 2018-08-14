@@ -43,7 +43,7 @@ public class CarNowStatusInfo extends BaseResponseInfo {
      "value": "休眠",
      "company":""
      */
-    public class CarNowStatusItemInfo{
+    public static class CarNowStatusItemInfo{
 
         private String name;
         private String value;

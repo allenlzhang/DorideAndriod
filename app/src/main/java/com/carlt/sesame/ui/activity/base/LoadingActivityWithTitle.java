@@ -215,9 +215,9 @@ public abstract class LoadingActivityWithTitle extends BaseActivity {
 
     @Override
     protected void onResume() {
-        Log.e("info", "bbbbb");
+
         if (!hasData) {
-            Log.e("info", "aaaaaaaaaa");
+
             LoadData();
         }
         super.onResume();
