@@ -188,6 +188,8 @@
         <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.DayActivity" />
         <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.GpsTrailActivity" />
         <activity android:name="com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity" />
+        <activity android:name="com.carlt.sesame.ui.activity.setting.SesameLoginPasswdManageActivity" />
+        <activity android:name="com.carlt.sesame.ui.activity.usercenter.ResetPasswordActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

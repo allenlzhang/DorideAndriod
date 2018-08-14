@@ -52,7 +52,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
     private void initComponent() {
         initTitle("车辆管理");
         edit_car_type = findViewById(R.id.edit_car_type);
-//        edit_car_type.setOnClickListener(this);
+        //        edit_car_type.setOnClickListener(this);
         edit_purchase_time = findViewById(R.id.edit_purchase_time);
         edit_purchase_time.setOnClickListener(this);
         edit_maintenance_mileage = findViewById(R.id.edit_maintenance_mileage);
@@ -82,9 +82,9 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         switch (view.getId()) {
 
             case R.id.edit_car_type:
-//                Intent switchIntent = new Intent(this, CarModeListActivity.class);
-//                switchIntent.putExtra("switch", true);//标记从车辆管理界面跳转
-//                startActivity(switchIntent);
+                //                Intent switchIntent = new Intent(this, CarModeListActivity.class);
+                //                switchIntent.putExtra("switch", true);//标记从车辆管理界面跳转
+                //                startActivity(switchIntent);
                 break;
             case R.id.edit_maintenance_mileage:
                 Intent editMaintenance = new Intent(this, MaintenanceMileageEditActivity.class);
@@ -92,6 +92,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
                 break;
             case R.id.edit_purchase_time:
                 initCustomTimePicker(purchase_time_txt.getText().toString());
+                //                initCustomTimePicker("");
                 pvCustomTime.show(purchase_time_txt);
                 break;
             case R.id.edit_maintenance_time:
@@ -152,16 +153,21 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
          * 2.因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
          * setRangDate方法控制起始终止时间(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
          */
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar selectedDate = Calendar.getInstance();//系统当前时间
         Calendar startDate = Calendar.getInstance();
-        startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
         Date time = endDate.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (TextUtils.isEmpty(date)) {
+            date = dateFormat.format(time);
+        }
+
+        startDate.set(2014, 1, 23);
+
         String format = dateFormat.format(time);
         String[] split = format.split("-");
-        String[]selectedSplit = date.split("-");
-        selectedDate.set(Integer.parseInt(selectedSplit[0]),Integer.parseInt(selectedSplit[1])-1,Integer.parseInt(selectedSplit[2]));
+        String[] selectedSplit = date.split("-");
+        selectedDate.set(Integer.parseInt(selectedSplit[0]), Integer.parseInt(selectedSplit[1]) - 1, Integer.parseInt(selectedSplit[2]));
         endDate.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {

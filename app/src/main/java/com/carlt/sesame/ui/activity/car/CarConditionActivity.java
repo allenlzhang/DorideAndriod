@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.car;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -129,6 +130,7 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 		CPControl.GetCarStatuListResult(mLoadListener);
 	}
 
+	@SuppressLint("HandlerLeak")
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			mRefreshListView.onPullDownRefreshComplete();

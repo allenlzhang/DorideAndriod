@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
-import com.carlt.sesame.ui.activity.setting.EditUserinfoDetailActivity;
+import com.carlt.sesame.ui.activity.setting.SesameLoginPasswdManageActivity;
 
 /**
  * 密码管理
@@ -72,10 +72,13 @@ public class ManagePswActiviy extends BaseActivity implements OnClickListener{
         switch (v.getId()) {
             case R.id.psw_lay_login:
                 // 登录密码
+//                Intent mIntent1 = new Intent(ManagePswActiviy.this,
+//                        EditUserinfoDetailActivity.class);
+//                mIntent1.putExtra(EditUserinfoDetailActivity.EDIT_TYPE,
+//                        EditUserinfoDetailActivity.TYPE_PASSWORD);
                 Intent mIntent1 = new Intent(ManagePswActiviy.this,
-                        EditUserinfoDetailActivity.class);
-                mIntent1.putExtra(EditUserinfoDetailActivity.EDIT_TYPE,
-                        EditUserinfoDetailActivity.TYPE_PASSWORD);
+                        SesameLoginPasswdManageActivity.class);
+
                 startActivity(mIntent1);
                 break;
 

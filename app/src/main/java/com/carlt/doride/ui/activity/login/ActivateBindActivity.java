@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,7 +54,9 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private String carType = "";
 
-    private int ActivateCount;
+    private int      ActivateCount;
+    private EditText etPinCode;
+    private String   pinCode;
 
 
     @Override
@@ -80,7 +84,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     private void initSubTitle() {
         mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
         mTextViewMsg = (TextView) findViewById(R.id.activate_bind_txt_msg);
-        //
+        etPinCode = (EditText) findViewById(R.id.etPinCode);
         //        mTextViewMsg.setText("设备绑定成功！激活设备后就能使用大乘管家的全部功能啦！");
     }
 
@@ -91,6 +95,11 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                 back();
                 break;
             case R.id.activate_commit:
+                pinCode = etPinCode.getText().toString();
+                if (TextUtils.isEmpty(pinCode)) {
+                    UUToast.showUUToast(this, "请输入pin码");
+                    return;
+                }
                 DialogWithTitleClick click = new DialogWithTitleClick() {
 
                     @Override
@@ -120,6 +129,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     private void activateDevice() {
         DefaultStringParser parser = new DefaultStringParser(activateCallback);
         HashMap<String, String> params = new HashMap<>();
+        params.put("pin", pinCode);
         parser.executePost(URLConfig.getM_DEVICE_ACTIVATE(), params);
     }
 
@@ -208,7 +218,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                 mDialog.dismiss();
                 mDialog = null;
             }
-          //  PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
+            //  PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
         } else if (code == BaseResponseInfo.ERRO) {
             UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
             mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");
@@ -251,7 +261,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private void back() {
         Intent backIntent = new Intent(this, DeviceBindActivity.class);
-//        backIntent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
+        //        backIntent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
         backIntent.putExtra("vin", vinCode);
         backIntent.putExtra("carType", carType);
         startActivity(backIntent);
@@ -279,7 +289,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             try {
                 mJSON_data = new JSONObject(dataValue);
                 LoginControl.parseLoginInfo(mJSON_data);
-                 Message msg = new Message();
+                Message msg = new Message();
                 msg.what = 3;
                 msg.obj = o;
                 mHandler.sendMessage(msg);

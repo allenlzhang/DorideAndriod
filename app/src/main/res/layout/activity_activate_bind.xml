@@ -1,53 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/layout_background"
-    tools:context=".ui.activity.login.ActivateBindActivity">
-    <include layout="@layout/layout_title" />
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/layout_background"
+              android:orientation="vertical"
+              tools:context=".ui.activity.login.ActivateBindActivity">
+
+    <include layout="@layout/layout_title"/>
 
 
     <ImageView
         android:id="@+id/activate_bind_logo"
         android:layout_width="match_parent"
-        android:layout_height="238dp"
-        android:layout_marginTop="33dp"
-        android:src="@mipmap/activate_bind_logo"
+        android:layout_height="230dp"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
-        android:contentDescription="@string/app_name" />
+        android:src="@mipmap/activate_bind_logo"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="16sp"
-        android:textColor="@color/main_page_linear_border"
-        android:layout_marginTop="35dip"
+        android:layout_marginTop="15dip"
         android:text="@string/device_activate_tip"
+        android:textColor="@color/main_page_linear_border"
+        android:textSize="14dp"
         />
+
     <TextView
         android:id="@+id/activate_bind_txt_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="14sp"
+        android:layout_marginTop="10dip"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:textColor="@color/text_color_gray2"
-        android:layout_marginTop="14dip"
         android:text="@string/device_activate_tip2"
+        android:textColor="@color/text_color_gray2"
+        android:textSize="12dp"
         />
+
+    <EditText
+        android:id="@+id/etPinCode"
+        style="@style/usercenter_edit1"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edittext_bg"
+        android:digits="@string/vin_filter_string"
+        android:hint="请输入车辆PIN码"
+        android:maxLength="8"
+        android:textSize="14dp"/>
 
     <TextView
         android:id="@+id/activate_commit"
         style="@style/public_bottom_btn"
         android:layout_height="44dp"
-        android:text="@string/device_activate_tx"
-        android:layout_marginTop="48dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/white"
         android:layout_marginRight="12dip"
+        android:layout_marginTop="20dip"
+        android:text="@string/device_activate_tx"
+        android:textColor="@color/white"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 </LinearLayout>

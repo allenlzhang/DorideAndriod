@@ -1,7 +1,9 @@
 
 package com.carlt.sesame.ui.activity.setting;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.model.LoginInfo;
+import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -225,6 +231,7 @@ public class EditPhoneActivity2 extends BaseActivity {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -268,6 +275,12 @@ public class EditPhoneActivity2 extends BaseActivity {
                         mDialog.dismiss();
                     }
                     UUToast.showUUToast(EditPhoneActivity2.this, "手机号修改成功");
+                    LoginInfo.setMobile(mEdtPhone.getText().toString());
+                    UseInfo mUseInfo = UseInfoLocal.getUseInfo();
+                    mUseInfo.setAccount(mEdtPhone.getText().toString());
+                    UseInfoLocal.setUseInfo(mUseInfo);
+                    Intent loginIntent=new Intent(EditPhoneActivity2.this, UserLoginActivity.class);
+                    startActivity(loginIntent);
                     finish();
                     break;
                 case 3:

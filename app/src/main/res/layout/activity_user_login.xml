@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/activity_usercenter_login_change"
-        android:layout_width="11dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ffff00"
         android:gravity="center"
