@@ -68,6 +68,8 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
 
     String idcard;// 身份证号
 
+    private View layoutTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +119,8 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
         mPwdEdt2 = findViewById(R.id.remotepsw_reset3_pwdedt2);
 
         mTxtEdt = findViewById(R.id.remotepsw_reset3_txt_edit);
-
+        layoutTitle = findViewById(R.id.remotepsw_reset_title);
+        layoutTitle.setVisibility(View.GONE);
         switch (type) {
             case TYPE_REALNAME:
                 mTxtEdt.setText("完成");
