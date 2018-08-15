@@ -217,8 +217,8 @@ public class RemoteMainFragment extends BaseFragment implements
             RemoteFunInfo stopFunInfo = mRemoteMainInfo.getmFunInfoStop();
             if (startFunInfo != null && stopFunInfo != null) {
 
-                mImgStop.setImageResource(R.mipmap.remote_stop_selected);
-                mImgStop.setClickable(true);
+                //                mImgStop.setImageResource(R.mipmap.remote_stop_selected);
+                //                mImgStop.setClickable(true);
                 String stateStart = startFunInfo.getState();
                 String stateStop = stopFunInfo.getState();
                 int size = mRemoteFunInfos.size();
@@ -241,10 +241,10 @@ public class RemoteMainFragment extends BaseFragment implements
                 }
             } else {
                 mImgStart.setImageResource(R.drawable.remote_start);
-                mImgStop.setImageResource(R.mipmap.remote_stop_disable);
+                //                mImgStop.setImageResource(R.mipmap.remote_stop_disable);
+                //                mImgStop.setClickable(false);
                 mViewStopmask.setVisibility(View.VISIBLE);
                 mImgStart.setClickable(true);
-                mImgStop.setClickable(false);
             }
         }
     }
@@ -579,6 +579,7 @@ public class RemoteMainFragment extends BaseFragment implements
                 case 0:
                     //                    远程操作成功
                     Logger.e("---远程操作成功");
+                    UUToastOpt.showUUToast(getActivity(), "操作成功");
                     dissmissWaitingDialog();
                     if (airDialog != null) {
                         isReCall = false;
@@ -589,7 +590,7 @@ public class RemoteMainFragment extends BaseFragment implements
                         uuDialogRemote.dismiss();
                     }
                     //                    UUToast.showUUToast(getActivity(), "操作成功");
-                    UUToastOpt.showUUToast(getActivity(), "操作成功");
+
                     break;
 
                 case 1:
@@ -602,6 +603,7 @@ public class RemoteMainFragment extends BaseFragment implements
                         uuDialogRemote.dismiss();
                     }
                     if (mInfo1 != null) {
+                        Logger.e("===" + mInfo1.getInfo());
                         if (mInfo1.getFlag() == 1020) {
                             UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
                         } else {

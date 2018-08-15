@@ -40,6 +40,9 @@ public class UUToastOptError extends Toast {
 								   int duration) {
 		if (uuTo == null) {
 			uuTo = new UUToastOptError(context);
+		} else {
+			uuTo.cancel();
+			uuTo=new UUToastOptError(context);
 		}
 		text.setText(tex);
 		toast.show();

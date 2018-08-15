@@ -22,7 +22,7 @@
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:hint="@string/usercenter_hint_phone2"
+            android:hint="请输入原登录密码"
             android:inputType="textPassword"
             android:digits="@string/pwd_filter_input_string"
             android:maxLength="32" />

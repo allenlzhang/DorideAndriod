@@ -42,13 +42,16 @@ public class UUToast extends Toast {
 			int duration) {
 		if (uuTo == null) {
 			uuTo = new UUToast(context);
+		} else {
+			uuTo.cancel();
+			uuTo=new UUToast(context);
 		}
 		text.setText(tex);
 		toast.show();
 	}
 
 	public static void showUUToast(Context context, CharSequence tex) {
-		showUUToast(context, tex, Toast.LENGTH_LONG);
+		showUUToast(context, tex, Toast.LENGTH_SHORT);
 	}
 
 }

@@ -158,7 +158,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
         Date time = endDate.getTime();
-        if (TextUtils.isEmpty(date)) {
+        if (TextUtils.isEmpty(date)||date.equals("--")) {
             date = dateFormat.format(time);
         }
 
