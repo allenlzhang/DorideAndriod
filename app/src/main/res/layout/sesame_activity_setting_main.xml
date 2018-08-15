@@ -151,7 +151,7 @@
                     android:id="@+id/img2"
                     style="@style/setting_img1"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/account_security"/>
+                    android:src="@mipmap/icon_car_manager"/>
 
                 <TextView
                     style="@style/setting_txt"
