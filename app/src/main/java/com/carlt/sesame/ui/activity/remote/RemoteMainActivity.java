@@ -1,5 +1,6 @@
 package com.carlt.sesame.ui.activity.remote;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -657,6 +658,7 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override

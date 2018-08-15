@@ -4,7 +4,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:paddingBottom="20dp"
+                android:paddingBottom="10dp"
                 android:paddingTop="15dp">
 
     <TextView
@@ -45,7 +45,7 @@
             android:id="@+id/layout_report_grid_img2"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/icon_mileage_bg"/>
+            android:background="@drawable/sesame_icon_mileage_bg"/>
 
         <TextView
             android:id="@+id/layout_report_grid_linear2_txt2"

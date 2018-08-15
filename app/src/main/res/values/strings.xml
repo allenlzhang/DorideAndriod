@@ -9,7 +9,7 @@
     <!-- 用户中心（除主tab项以外的其它杂项）marller -->
     <string name="usercenter_hint_phone">用手机号码登录</string>
     <string name="usercenter_hint_phone1">请输入手机号码</string>
-    <string name="usercenter_hint_phone2">请输入原登录密码</string>
+    <string name="usercenter_hint_phone2">请输入新登录密码</string>
     <string name="usercenter_hint_validate">请输入验证码</string>
     <string name="usercenter_hint_password">密码</string>
     <string name="usercenter_hint_password_reset">请再次输入密码</string>
