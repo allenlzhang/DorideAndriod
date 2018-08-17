@@ -243,7 +243,9 @@
             <View
                 android:id="@+id/line_h4"
                 style="@style/setting_line_h"
-                android:layout_below="@id/activity_setting_layout4"/>
+                android:layout_below="@id/activity_setting_layout4"
+                android:visibility="gone"
+                />
 
             <RelativeLayout
                 android:id="@+id/activity_setting_layout5"

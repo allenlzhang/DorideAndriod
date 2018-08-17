@@ -30,6 +30,8 @@ public class RemoteLogActivity extends LoadingActivity {
     private PullToRefreshListView listView;
     private ListView mListView;
     private RemoteLogAdapter remoteLogAdapter;
+    ArrayList<RemoteLogInfo> mlist = new ArrayList<>();
+    private  boolean isLoadMore = false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +46,24 @@ public class RemoteLogActivity extends LoadingActivity {
     private void initView() {
         listView = $ViewByID(R.id.remotelog_list);
         mListView = listView.getRefreshableView();
+        mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
+        mListView.setDividerHeight(10);
+        mListView.setVerticalScrollBarEnabled(false);
 
         listView.setPullLoadEnabled(true);
+
       //  listView.setPullRefreshEnabled(true);
         listView.setOnRefreshListener(new com.carlt.doride.ui.pull.PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onPullDownToRefresh(com.carlt.doride.ui.pull.PullToRefreshBase<ListView> refreshView) {
                 initData(0);
+                isLoadMore = false;
             }
 
             @Override
             public void onPullUpToRefresh(com.carlt.doride.ui.pull.PullToRefreshBase<ListView> refreshView) {
-
+                initData(mlist.size());
+                isLoadMore = true;
             }
         });
     }
@@ -87,13 +95,18 @@ public class RemoteLogActivity extends LoadingActivity {
             if (null == logInfos || logInfos.size() == 0) {
                 loadNodataUI();
             } else {
-                showData(logInfos);
+
+                if (isLoadMore) {
+                    mlist.addAll(logInfos);
+                } else {
+                    mlist = logInfos;
+                }
+                showData(mlist);
             }
-            listView.setPullLoadEnabled(false);
+
             setLastUpdateTime();
-
             listView.onPullDownRefreshComplete();
-
+            listView.onPullUpRefreshComplete();
 
         } catch (Exception e) {
             loadonErrorUI(null);
@@ -101,10 +114,12 @@ public class RemoteLogActivity extends LoadingActivity {
     }
 
     private void showData(ArrayList<RemoteLogInfo> logInfos) {
+
         if (remoteLogAdapter == null) {
-            remoteLogAdapter = new RemoteLogAdapter(this, logInfos);
+            remoteLogAdapter = new RemoteLogAdapter(this, mlist);
             mListView.setAdapter(remoteLogAdapter);
         } else {
+
             remoteLogAdapter.setmList(logInfos);
             remoteLogAdapter.notifyDataSetChanged();
         }

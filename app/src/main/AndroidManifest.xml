@@ -293,7 +293,7 @@
             android:name="XG_V2_ACCESS_KEY"
             android:value="A1E3L6XII13N" />
 
-        <activity android:name=".ui.activity.login.UpDateActivity"></activity>
+        <activity android:name=".ui.activity.login.UpDateActivity" />
     </application>
 
 </manifest>

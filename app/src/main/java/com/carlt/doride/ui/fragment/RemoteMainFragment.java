@@ -759,9 +759,9 @@ public class RemoteMainFragment extends BaseFragment implements
                 break;
             case R.id.remote_history_iv:
                 // 远程记录
-                Intent mIntent = new Intent(getActivity(),
-                        RemoteLogActivity.class);
+                Intent mIntent = new Intent(getActivity(), RemoteLogActivity.class);
                 startActivity(mIntent);
+
                 break;
             case R.id.remote_main_img_arrow:
                 // 收起状态栏
