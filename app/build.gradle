@@ -10,7 +10,7 @@ android {
             storePassword 'hz17car'
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion 26
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         multiDexEnabled true

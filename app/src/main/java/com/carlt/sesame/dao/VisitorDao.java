@@ -104,11 +104,7 @@ public class VisitorDao extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * @param limit
-	 *            获取条数
-	 * @param offset
-	 *            起始位置
-	 * @return
+	 *
 	 */
 	public ArrayList<RemoteLogInfo> getLists() {
 		Cursor cursor = Db.query(TABLE_VISITOR,

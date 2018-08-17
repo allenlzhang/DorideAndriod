@@ -101,7 +101,7 @@ public class PasswordCoder {
      * 
      * @param string
      * @param salt
-     * @param strict
+     * @param
      * @return
      */
     private static String mergePasswordAndSalt(String string, Object salt) {

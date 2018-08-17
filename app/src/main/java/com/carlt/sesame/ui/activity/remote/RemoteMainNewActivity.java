@@ -1,11 +1,11 @@
 package com.carlt.sesame.ui.activity.remote;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
@@ -46,7 +45,6 @@ import com.carlt.sesame.utility.UUToast;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 public class RemoteMainNewActivity extends LoadingActivityWithTitle implements OnClickListener {
     public final static String ACTION_REMOTE_SETPSW = "com.carlt.sesame.action_remote_setpsw";
@@ -711,6 +709,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -745,7 +744,8 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                             break;
                     }
                     dissmissWaitingDialog();
-                    UUToast.showUUToast(RemoteMainNewActivity.this, "操作成功");
+//                    UUToast.showUUToast(RemoteMainNewActivity.this, "操作成功");
+                    ToastUtils.showShort("操作成功");
                     break;
 
                 case 1:
@@ -758,8 +758,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                         if (mInfo1.getFlag() == 1020) {
                             PopBoxCreat.showUUUpdateDialog(context, null);
                         } else {
-                            UUToast.showUUToast(RemoteMainNewActivity.this,
-                                    mInfo1.getInfo());
+//                            UUToast.showUUToast(RemoteMainNewActivity.this,
+//                                    mInfo1.getInfo());
+                            ToastUtils.showShort(mInfo1.getInfo());
                         }
                     }
                     break;
@@ -768,8 +769,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
                     if (mInfo != null) {
-                        UUToast.showUUToast(RemoteMainNewActivity.this,
-                                mInfo.getInfo());
+//                        UUToast.showUUToast(RemoteMainNewActivity.this,
+//                                mInfo.getInfo());
+                        ToastUtils.showShort(mInfo.getInfo());
                     }
                     break;
                 case 4:
@@ -780,8 +782,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo2 = (BaseResponseInfo) msg.obj;
                     if (mInfo2 != null) {
-                        UUToast.showUUToast(RemoteMainNewActivity.this,
-                                mInfo2.getInfo());
+//                        UUToast.showUUToast(RemoteMainNewActivity.this,
+//                                mInfo2.getInfo());
+                        ToastUtils.showShort(mInfo2.getInfo());
                     }
                     isFirstClick = true;
                     break;
@@ -799,8 +802,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo3 = (BaseResponseInfo) msg.obj;
                     if (mInfo3 != null) {
-                        UUToast.showUUToast(RemoteMainNewActivity.this,
-                                mInfo3.getInfo());
+//                        UUToast.showUUToast(RemoteMainNewActivity.this,
+//                                mInfo3.getInfo());
+                        ToastUtils.showShort(mInfo3.getInfo());
                     }
                     break;
                 case 8:
@@ -838,8 +842,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     // 获取远程空调功能失败
                     BaseResponseInfo mInfo7 = (BaseResponseInfo) msg.obj;
                     if (mInfo7 != null) {
-                        UUToast.showUUToast(RemoteMainNewActivity.this,
-                                mInfo7.getInfo());
+//                        UUToast.showUUToast(RemoteMainNewActivity.this,
+//                                mInfo7.getInfo());
+                        ToastUtils.showShort(mInfo7.getInfo());
                     }
                     break;
                 case 14:

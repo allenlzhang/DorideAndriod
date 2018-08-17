@@ -201,6 +201,8 @@ public class ActivityControl {
         UseInfoLocal.setUseInfo(mUseInfo);
         //		DorideApplication.TOKEN = "";
         LoginInfo.setAccess_token("");
+//        LoginInfo.Destroy();
+        SesameLoginInfo.Destroy();
         Intent mIntent = new Intent(context, UserLoginActivity.class);
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mIntent);

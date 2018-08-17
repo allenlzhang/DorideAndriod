@@ -106,7 +106,7 @@ public class AddressListAdapter extends BaseAdapter {
 		float[] ff = new float[4];
 		AMapLocation.distanceBetween(current.getLatitude(), current.getLongitude(), llp.getLatitude(), llp.getLongitude(), ff);
 		float dis = ff[0] / 1000;
-		DecimalFormat decimalFormat = new DecimalFormat(".00");
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		mHolder.mTxtDistance.setText(decimalFormat.format(dis) + "km");
 		return convertView;
 	}

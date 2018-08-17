@@ -40,26 +40,19 @@ public class PullToRefreshScrollView extends PullToRefreshBase<ScrollView> {
         super(context, attrs, defStyle);
     }
 
-    /**
-     * @see com.nj1s.lib.pullrefresh.PullToRefreshBase#createRefreshableView(Context, AttributeSet)
-     */
     @Override
     protected ScrollView createRefreshableView(Context context, AttributeSet attrs) {
         ScrollView scrollView = new ScrollView(context);
         return scrollView;
     }
 
-    /**
-     * @see com.nj1s.lib.pullrefresh.PullToRefreshBase#isReadyForPullDown()
-     */
+
     @Override
     protected boolean isReadyForPullDown() {
         return mRefreshableView.getScrollY() == 0;
     }
 
-    /**
-     * @see com.nj1s.lib.pullrefresh.PullToRefreshBase#isReadyForPullUp()
-     */
+
     @Override
     protected boolean isReadyForPullUp() {
         View scrollViewChild = mRefreshableView.getChildAt(0);

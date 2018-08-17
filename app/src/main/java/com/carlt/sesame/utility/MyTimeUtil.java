@@ -324,7 +324,7 @@ public class MyTimeUtil {
 	/**
 	 * 获取明天日期
 	 * 
-	 * @param day
+	 * @param
 	 * @return
 	 */
 	public static String getTomorrowDate() {

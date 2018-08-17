@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/ivBg"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="340dp"
+            android:scaleType="fitXY"
             android:src="@drawable/bg"/>
 
         <RelativeLayout
@@ -60,8 +60,8 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/car_state"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:src="@drawable/car_state"/>
 
             <TextView
                 android:id="@+id/tvCarState"
@@ -69,7 +69,7 @@
                 android:layout_height="27dip"
                 android:layout_marginLeft="70dp"
                 android:layout_marginTop="120dp"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="爱车熄火中"
                 android:textColor="@color/text_color_gray2"
                 android:textSize="14sp"/>
@@ -386,11 +386,12 @@
                 android:drawableTop="@mipmap/navigate_carmain_unpress"
                 android:text="导航同步"/>
         </LinearLayout>
+
         <include
             layout="@layout/layout_loading"
-            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:visibility="gone"
             />
     </RelativeLayout>

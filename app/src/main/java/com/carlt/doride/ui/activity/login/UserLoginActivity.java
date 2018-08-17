@@ -1,12 +1,12 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -76,12 +76,28 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     private static final String TAG = "UserLoginActivity";
 
     private Intent resultIntent;
+    protected String[] needPermissions = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            
 
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
         initComponent();
+        requestPermissions(this, needPermissions, new BaseActivity.RequestPermissionCallBack() {
+            @Override
+            public void granted() {
+
+            }
+
+            @Override
+            public void denied() {
+                UUToast.showUUToast(UserLoginActivity.this, "未获取到权限，部分功能不可用");
+            }
+        });
         mUseInfo = UseInfoLocal.getUseInfo();
         resultIntent = getIntent();
         if (!TextUtils.isEmpty(mUseInfo.getAccount())) {

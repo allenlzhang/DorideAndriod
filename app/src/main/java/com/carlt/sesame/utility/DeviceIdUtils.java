@@ -81,7 +81,7 @@ public class DeviceIdUtils {
     
     /**
      * 获取指定ID的验证码
-     * @param id
+     * @param
      * @return
      */
     public static String getIdValidateCode(String idCard)
@@ -171,7 +171,7 @@ public class DeviceIdUtils {
     /**
      * 根据ID获取产品类型
      * 
-     * @param idCard
+     * @param
      *            身份编号
      * @return 年龄
      */
@@ -187,7 +187,7 @@ public class DeviceIdUtils {
     /** 
      * 产生随机的字符串 
      *   
-     * @param 字符串长度
+     * @param
      * @return 
      */ 
     public static String getRandomString(int length) {   

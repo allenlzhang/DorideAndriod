@@ -13,7 +13,7 @@ public class DisplayUtil {
 	 * 将px值转换为dip或dp值，保证尺寸大小不变
 	 * 
 	 * @param pxValue
-	 * @param scale
+	 * @param
 	 *            （DisplayMetrics类中属性density）
 	 * @return
 	 */
@@ -26,7 +26,7 @@ public class DisplayUtil {
 	 * 将dip或dp值转换为px值，保证尺寸大小不变
 	 * 
 	 * @param dipValue
-	 * @param scale
+	 * @param
 	 *            （DisplayMetrics类中属性density）
 	 * @return
 	 */
@@ -38,8 +38,8 @@ public class DisplayUtil {
 	/**
 	 * 将px值转换为sp值，保证文字大小不变
 	 * 
-	 * @param pxValue
-	 * @param fontScale
+	 * @param
+	 * @param
 	 *            （DisplayMetrics类中属性scaledDensity）
 	 * @return
 	 */
@@ -51,8 +51,8 @@ public class DisplayUtil {
 	/**
 	 * 将sp值转换为px值，保证文字大小不变
 	 * 
-	 * @param spValue
-	 * @param fontScale
+	 * @param
+	 * @param
 	 *            （DisplayMetrics类中属性scaledDensity）
 	 * @return
 	 */

@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.safety;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
+import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -24,9 +26,10 @@ import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.Log;
 import com.carlt.sesame.utility.UUToast;
 
+import java.util.List;
+
 /**
  * 解锁冻结账号
- * 
  * @author Administrator
  */
 public class ThawActivity extends BaseActivity implements OnClickListener {
@@ -76,9 +79,9 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initTitle() {
-        back = (ImageView)findViewById(R.id.head_back_img1);
-        title = (TextView)findViewById(R.id.head_back_txt1);
-        txtRight = (TextView)findViewById(R.id.head_back_txt2);
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
         title.setText("解锁冻结账号");
@@ -97,25 +100,33 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
             public void onClick(View v) {
                 Intent mIntent = new Intent(ThawActivity.this, UserLoginActivity.class);
                 startActivity(mIntent);
+                List<Activity> mActivityList = ActivityControl.mActivityList;
+                for (Activity activity : mActivityList) {
+//                    Logger.e("---" + activity);
+//                    if (activity instanceof FreezeActivity) {
+//                        finish();
+//                    }
+                    activity.finish();
+                }
                 finish();
             }
         });
     }
 
     private void init() {
-        mImgIcon = (ImageView)findViewById(R.id.thaw_img_icon);
+        mImgIcon = (ImageView) findViewById(R.id.thaw_img_icon);
 
-        mTxtAccount = (TextView)findViewById(R.id.thaw_txt_account);
-        mTxtDes1 = (TextView)findViewById(R.id.thaw_txt_des1);
-        mTxtDes2 = (TextView)findViewById(R.id.thaw_txt_des2);
-        mTxtOpt = (TextView)findViewById(R.id.thaw_txt_option);
+        mTxtAccount = (TextView) findViewById(R.id.thaw_txt_account);
+        mTxtDes1 = (TextView) findViewById(R.id.thaw_txt_des1);
+        mTxtDes2 = (TextView) findViewById(R.id.thaw_txt_des2);
+        mTxtOpt = (TextView) findViewById(R.id.thaw_txt_option);
 
-        mEdtLoginPsw = (EditText)findViewById(R.id.thaw_edt_loginpsw);
+        mEdtLoginPsw = (EditText) findViewById(R.id.thaw_edt_loginpsw);
 
         mViewPsw = findViewById(R.id.thaw_lay_loginpsw);
 
-            // 正常模式
-            mEdtLoginPsw.setEnabled(true);
+        // 正常模式
+        mEdtLoginPsw.setEnabled(true);
 
         mTxtOpt.setOnClickListener(this);
     }
@@ -177,7 +188,7 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
 
         @Override
         public void handleMessage(Message msg) {
-            BaseResponseInfo mInfo = (BaseResponseInfo)msg.obj;
+            BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
             switch (msg.what) {
                 case 0:
                     // 解冻成功

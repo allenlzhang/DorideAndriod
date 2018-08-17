@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.safety;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -155,6 +156,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

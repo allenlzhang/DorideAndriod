@@ -16,6 +16,7 @@ import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.ui.SesameMainActivity;
+import com.carlt.sesame.ui.activity.safety.FreezeActivity;
 
 import org.json.JSONObject;
 
@@ -36,19 +37,29 @@ public class LoginControl {
         String s = LoginInfo.getDeviceidstring();
         String s2 = SesameLoginInfo.getDeviceidstring();
         Log.e("info", "deviceidstring==" + s);
+        Log.e("info", "deviceidstring==" + s2);
 
         if (!TextUtils.isEmpty(s) || !TextUtils.isEmpty(s2)) {
             // 已绑定设备,判断是否激活设备
             boolean isDeviceActivate = LoginInfo.isDeviceActivate();
             boolean deviceActivate = SesameLoginInfo.isDeviceActivate();
             Log.e("info", "isDeviceActivate==" + isDeviceActivate);
+            Log.e("info", "deviceActivate==" + deviceActivate);
             if (isDeviceActivate || deviceActivate) {
                 Intent mainIntent;
                 if (LoginInfo.getApp_type() == 1) {
                     // 大乘绑定和激活合并，如果激活直接进入主页
                     mainIntent = new Intent(mContext, MainActivity.class);
                 } else {
-                    mainIntent = new Intent(mContext, SesameMainActivity.class);
+                    if (SesameLoginInfo.isFreezing()) {
+                        // 处在冻结状态
+                        mainIntent = new Intent(mContext, FreezeActivity.class);
+                        mainIntent.putExtra(FreezeActivity.FROM_NAME, mContext.getClass().getName());
+//                        mContext.startActivity(mIntent4);
+                    } else {
+                        mainIntent = new Intent(mContext, SesameMainActivity.class);
+                    }
+
                 }
                 mContext.startActivity(mainIntent);
                 mContext.finish();
@@ -87,8 +98,8 @@ public class LoginControl {
                     } else {
                         // 设备不需要升级，跳转绑定 回填Vin码
                         Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-//                        loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
-//                        loginIntent.putExtra("carType", LoginInfo.getCarname());
+                        //                        loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
+                        //                        loginIntent.putExtra("carType", LoginInfo.getCarname());
                         mContext.startActivity(loginIntent);
                     }
                 }
@@ -96,8 +107,8 @@ public class LoginControl {
             }
         } else {
             Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-//            loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
-//            loginIntent.putExtra("carType", LoginInfo.getCarname());
+            //            loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
+            //            loginIntent.putExtra("carType", LoginInfo.getCarname());
             mContext.startActivity(loginIntent);
         }
     }

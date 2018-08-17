@@ -89,8 +89,7 @@ public class PwdEditText extends EditText {
     /**
      * 构造方法
      * 
-     * @param context
-     * @param attrs
+     *
      */
     public PwdEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -190,10 +189,7 @@ public class PwdEditText extends EditText {
         /**
          * 密码改变
          * 
-         * @param viewID
-         * @param length
-         * @param password
-         * @param isFinished
+         *
          */
         void onInputChange(int viewID, int length, String password, boolean isFinished);
     }

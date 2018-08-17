@@ -32,12 +32,17 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
         remote_set_passwd = $ViewByID(R.id.remote_set_passwd);
         remote_set_passwd.setOnClickListener(this);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (LoginInfo.isSetRemotePwd()) {
             remote_set_passwd.setVisibility(View.GONE);
         } else {
             remote_set_passwd.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
@@ -75,7 +80,7 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
 
     private void go2SettingPwdActivity() {
         Intent setRemotePasswd = new Intent(this, RemotePswResetActivity3.class);
-        setRemotePasswd.putExtra(RemotePswResetActivity3.TYPE,RemotePswResetActivity3.TYPE_SAFETY);
+        setRemotePasswd.putExtra(RemotePswResetActivity3.TYPE, RemotePswResetActivity3.TYPE_SAFETY);
         startActivity(setRemotePasswd);
     }
 }

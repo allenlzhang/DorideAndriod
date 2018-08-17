@@ -4419,7 +4419,7 @@ public class CPControl {
     /**
      * 远程-车辆实时温度 成功返回 AirMainInfo
      *
-     * @param deviceType 设备类型
+     *
      */
     public static void GetRemoteCarTemp(final GetResultListCallback listener,
                                         final AirMainInfo airMainInfo) {

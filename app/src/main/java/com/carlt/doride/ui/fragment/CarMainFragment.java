@@ -341,11 +341,11 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                 headTxt.setText("您的爱车正在行驶中");
                 tvCarState.setText("爱车行驶中");
             } else if (TextUtils.equals("0", carinfo.getIsrunning())) {
-                headTxt.setText("爱车熄火中");
-                tvCarState.setText("爱车熄火中");
+                headTxt.setText("爱车休息中");
+                tvCarState.setText("爱车休息中");
             } else if(carinfo.getIsrunning().equals("2")){
                 headTxt.setText("爱车已上电");
-                tvCarState.setText("您的爱车已上电");
+                tvCarState.setText("爱车已上电");
             }
             if (!StringUtils.isEmpty(carinfo.getSafetymsg())) {
                 viewSafetyText.setText(carinfo.getSafetymsg());

@@ -81,7 +81,7 @@ public class CarInfoLocal {
     /**
      * 序列化对象
      * 
-     * @param person
+     * @param
      * @return
      * @throws IOException
      */

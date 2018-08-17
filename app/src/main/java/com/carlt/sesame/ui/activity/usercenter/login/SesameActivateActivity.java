@@ -102,7 +102,7 @@ public class SesameActivateActivity extends BaseActivity {
         txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
-        title.setText("激活设备");
+        title.setText("激活大乘智享");
         txtRight.setVisibility(View.GONE);
         back.setOnClickListener(new OnClickListener() {
 
@@ -163,7 +163,7 @@ public class SesameActivateActivity extends BaseActivity {
 
                 }
             };
-            PopBoxCreat.createDialogWithTitle(SesameActivateActivity.this, "激活", "您确定激活设备吗？", "", "确定",
+            PopBoxCreat.createDialogWithTitle(SesameActivateActivity.this, "激活", "您确定激活大乘智享吗？", "", "确定",
                     "取消", click);
         }
     };

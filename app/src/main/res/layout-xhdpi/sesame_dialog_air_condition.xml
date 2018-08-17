@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:numColumns="3"
         android:padding="15dp"
-        android:scrollbars="@null"
+        android:scrollbars="none"
         android:visibility="visible"
         android:verticalSpacing="6dp" />
 

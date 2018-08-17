@@ -209,10 +209,7 @@ public class HttpConnector {
 	 * 
 	 * @param url
 	 *            链接地址
-	 * @param startPos
-	 *            请求数据起始点
-	 * @param endPos
-	 *            请求数据终点
+	 *
 	 * @return 连接结果
 	 */
 	public int connect(String url, byte[] data) {
