@@ -59,7 +59,7 @@ public class RemindActivity extends LoadingActivity {
 
     private InformationCentreTipsAdapter mAdapter;
 
-    private ArrayList<InformationMessageInfo> mList = new ArrayList<InformationMessageInfo>();// 数据list
+    private ArrayList<InformationMessageInfo> mList = new ArrayList<>();// 数据list
 
     private String title_s;// 标题文字
 

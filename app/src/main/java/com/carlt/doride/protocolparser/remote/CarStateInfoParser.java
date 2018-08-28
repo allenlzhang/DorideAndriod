@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CarStateInfoParser extends BaseParser {
 
-    private ArrayList<CarStateInfo> mCarStateInfos = new ArrayList<CarStateInfo>();
+    private ArrayList<CarStateInfo> mCarStateInfos = new ArrayList<>();
 
     public CarStateInfoParser(ResultCallback callback) {
         super(callback);
@@ -34,11 +34,10 @@ public class CarStateInfoParser extends BaseParser {
             String[] stateClose = {"已熄火", "已关", "已锁", "已关", "已关", "关闭"};
             String[] stateOpen = {"已启动", "未关", "未锁", "未关", "未关", "已开启"};
 
-            String[] apiAttrNamesAfter = {"doorLockStatus", "doorCloseStatus",
-                    "engine"};
-            String[] stateCloseAfter = {"已锁", "已关", "已熄火"};
-            String[] stateOpenAfter = {"未锁", "未关", "已启动"};
-            int lengthAfter = apiAttrNamesAfter.length;
+//            String[] apiAttrNamesAfter = {"doorLockStatus", "doorCloseStatus", "engine"};
+//            String[] stateCloseAfter = {"已锁", "已关", "已熄火"};
+//            String[] stateOpenAfter = {"未锁", "未关", "已启动"};
+//            int lengthAfter = apiAttrNamesAfter.length;
             for (int i = 0; i < length; i++) {
                 CarStateInfo mInfo = new CarStateInfo();
                 mInfo.setName(names[i]);

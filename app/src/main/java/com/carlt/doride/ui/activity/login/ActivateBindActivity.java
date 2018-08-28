@@ -249,8 +249,13 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             //            }
             //            else {
             //                mTextViewMsg.setText(e3);
-            UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+            if (code == 1021) {
+                UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
+            } else {
+                UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+            }
             mTextViewMsg.setText(mBaseResponseInfo.getInfo());
+
             //            }
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
