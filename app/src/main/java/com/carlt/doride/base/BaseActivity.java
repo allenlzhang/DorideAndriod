@@ -249,8 +249,7 @@ public class BaseActivity extends AppCompatActivity implements
 	 * @param permissions
 	 * @param callback
 	 */
-	public void requestPermissions(final Context context, final String[] permissions,
-								   RequestPermissionCallBack callback) {
+	public void requestPermissions(final Context context, final String[] permissions, RequestPermissionCallBack callback) {
 		this.mRequestPermissionCallBack = callback;
 		StringBuilder permissionNames = new StringBuilder();
 		for (String s : permissions) {

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -114,10 +115,13 @@ public class UpDateActivity extends AppCompatActivity  {
                 DeviceUpdateInfo mInfo = (DeviceUpdateInfo) bInfo.getValue();
 
                 if (mInfo.isUpgrading()) {
-                    progress.setText("设备正在升级中，此过程可能需要2到3分钟， 请您耐心等待...");
+                    if(progress != null){
+                        progress.setText("设备正在升级中，此过程可能需要2到3分钟， 请您耐心等待...");
+                    }
+
 
                 } else {
-                    UUToast.showUUToast(UpDateActivity.this, "更新完成");
+                    UUToast.showUUToast(DorideApplication.getAppContext(), "更新完成");
                     if(disposable != null){
                         disposable.dispose();
                         disposable= null ;
@@ -128,7 +132,11 @@ public class UpDateActivity extends AppCompatActivity  {
 
             @Override
             public void onError(BaseResponseInfo bInfo) {
-                progress.setText("更新失败");
+
+                if(progress != null){
+                    progress.setText("更新失败");
+                }
+
             }
         });
 

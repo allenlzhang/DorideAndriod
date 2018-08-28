@@ -213,12 +213,15 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         // code=1021;
         if (code == 1020) {
 
-            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
+//            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
             }
             //  PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
+            Intent intent  = new Intent(ActivateBindActivity.this,UpDateActivity.class);
+            startActivity(intent);
+
         } else if (code == BaseResponseInfo.ERRO) {
             UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
             mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");

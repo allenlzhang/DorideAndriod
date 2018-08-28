@@ -27,6 +27,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.ui.activity.login.ActivateBindActivity;
+import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.control.VisitorControl;
@@ -740,7 +742,9 @@ public class RemoteMainActivity extends LoadingActivityWithTitle implements
                     BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
                     if (mInfo1 != null) {
                         if (mInfo1.getFlag() == 1020) {
-                            PopBoxCreat.showUUUpdateDialog(context, null);
+                            Intent intent  = new Intent(RemoteMainActivity.this,UpDateActivity.class);
+                            startActivity(intent);
+//                            PopBoxCreat.showUUUpdateDialog(context, null);
                         } else {
                             //						UUToast.showUUToast(RemoteMainActivity.this,
                             //								mInfo1.getInfo());

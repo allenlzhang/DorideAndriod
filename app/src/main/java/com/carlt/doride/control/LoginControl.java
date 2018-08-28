@@ -76,25 +76,25 @@ public class LoginControl {
                     // 是否需要升级
                     if (isUpdating) {
                         // 设备正在升级，跳转至升级页面
-                        PopBoxCreat.showUUUpdateDialog(mContext,
-                                new UUUpdateDialog.DialogUpdateListener() {
-
-                                    @Override
-                                    public void onSuccess() {
-                                        LoginInfo.setUpgradeing(false);
-                                        LoginControl.logic(mCtx);
-                                        if (mDialogUpdateListener != null) {
-                                            mDialogUpdateListener.onSuccess();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailed() {
-                                        if (mDialogUpdateListener != null) {
-                                            mDialogUpdateListener.onFailed();
-                                        }
-                                    }
-                                });
+//                        PopBoxCreat.showUUUpdateDialog(mContext,
+//                                new UUUpdateDialog.DialogUpdateListener() {
+//
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        LoginInfo.setUpgradeing(false);
+//                                        LoginControl.logic(mCtx);
+//                                        if (mDialogUpdateListener != null) {
+//                                            mDialogUpdateListener.onSuccess();
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailed() {
+//                                        if (mDialogUpdateListener != null) {
+//                                            mDialogUpdateListener.onFailed();
+//                                        }
+//                                    }
+//                                });
                     } else {
                         // 设备不需要升级，跳转绑定 回填Vin码
                         Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);

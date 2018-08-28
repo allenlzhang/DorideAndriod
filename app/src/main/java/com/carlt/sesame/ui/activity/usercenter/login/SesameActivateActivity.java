@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.control.LoginControl;
+import com.carlt.doride.ui.activity.login.ActivateBindActivity;
+import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -332,7 +334,9 @@ public class SesameActivateActivity extends BaseActivity {
         // 测试用
         // code=1021;
         if (code == 1020) {
-            PopBoxCreat.showUUUpdateDialog(SesameActivateActivity.this, null);
+            Intent intent  = new Intent(SesameActivateActivity.this,UpDateActivity.class);
+            startActivity(intent);
+//            PopBoxCreat.showUUUpdateDialog(SesameActivateActivity.this, null);
         } else if (code == 1021) {
             // PIN码验证失败，跳转至选择车辆绑定页面
             if (mDialog != null && mDialog.isShowing()) {

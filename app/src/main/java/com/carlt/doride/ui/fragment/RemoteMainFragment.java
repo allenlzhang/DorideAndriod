@@ -36,6 +36,8 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.activity.login.ActivateBindActivity;
+import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.doride.ui.activity.remote.RemoteLogActivity;
 import com.carlt.doride.ui.activity.remote.RemotePswResetActivity3;
 import com.carlt.doride.ui.activity.setting.VcodeResetRemotePasswdActivity;
@@ -50,6 +52,7 @@ import com.carlt.doride.ui.view.UUToastOpt;
 import com.carlt.doride.ui.view.UUToastOptError;
 import com.carlt.doride.ui.view.passwordtextview.SelectPopupWindow;
 import com.carlt.doride.utils.MyParse;
+import com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -603,9 +606,10 @@ public class RemoteMainFragment extends BaseFragment implements
                         uuDialogRemote.dismiss();
                     }
                     if (mInfo1 != null) {
-                        Logger.e("===" + mInfo1.getInfo());
                         if (mInfo1.getFlag() == 1020) {
-                            UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
+                            Intent intent  = new Intent(mCtx,UpDateActivity.class);
+                            startActivity(intent);
+//                            UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
                         } else {
                             UUToastOptError.showUUToast(getActivity(), mInfo1.getInfo());
                         }

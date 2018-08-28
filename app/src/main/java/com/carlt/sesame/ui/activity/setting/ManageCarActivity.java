@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.carlt.doride.R;
+import com.carlt.doride.ui.activity.login.ActivateBindActivity;
+import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -480,7 +482,9 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     }
                     if (mBaseResponseInfo1 != null) {
                         if (mBaseResponseInfo1.getFlag() == 1020) {
-                            PopBoxCreat.showUUUpdateDialog(context, null);
+                            Intent intent  = new Intent(ManageCarActivity.this,UpDateActivity.class);
+                            startActivity(intent);
+//                            PopBoxCreat.showUUUpdateDialog(context, null);
                             return;
                         }
 
