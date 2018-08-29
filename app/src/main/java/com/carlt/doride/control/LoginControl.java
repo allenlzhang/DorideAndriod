@@ -11,7 +11,6 @@ import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.activity.login.DeviceBindActivity;
-import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
@@ -258,11 +257,7 @@ public class LoginControl {
 
         SesameLoginInfo.setCar_year((membercar.optInt("year", 0)));
 
-        // TODO 测试代码
-        // LoginInfo.SLCarLocating = 1;
-        // LoginInfo.autoCloseWinSw = 1;
-        // LoginInfo.remoteStart = 2;
-        // LoginInfo.isSupport = true;
+
 
         String isTireable = membercar.optString("tireable", "");
 
@@ -381,8 +376,6 @@ public class LoginControl {
                 "")));
         LoginInfo
                 .setAuthen(getFlagResult(member.optString("is_authen", "")));
-
-        // 测试代码结束
         LoginInfo.setAuthen_name(member.optString("authen_name", ""));
         LoginInfo.setAuthen_card(member.optString("authen_card", ""));
 
@@ -392,9 +385,6 @@ public class LoginControl {
         LoginInfo.setSSIDPWD(member.optString("SSIDPWD", ""));
 
         String isSetRemotePwd = member.optString("is_set_remotePwd", "");
-        // 测试代码
-        // isSetRemotePwd = "0";
-        // 测试代码结束
         LoginInfo.setSetRemotePwd(getFlagResult(isSetRemotePwd));
 
         JSONObject membercar = data.optJSONObject("membercar");
@@ -433,9 +423,6 @@ public class LoginControl {
         LoginInfo.setOptionid((membercar.optString("optionid", "")));
         LoginInfo.setCarid((membercar.optString("carid", "")));
         String installorder = membercar.optInt("installorder") + "";
-        // 测试代码
-        // installorder="0";
-        // 测试代码结束
         LoginInfo.setInstallorder(getFlagResultOther(installorder));
 
         LoginInfo.setDealerId(membercar.optString("dealerid", ""));
