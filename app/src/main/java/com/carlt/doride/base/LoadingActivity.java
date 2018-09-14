@@ -2,6 +2,7 @@
 package com.carlt.doride.base;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,8 +38,9 @@ public class LoadingActivity extends BaseActivity {
 
     protected View     backTV   = null;
     protected TextView titleTV  = null;
-    public View     backTV2  = null;
+    public    View     backTV2  = null;
     protected TextView optRight = null;
+    protected TextView tvRight;
 
 
     @Override
@@ -61,6 +63,7 @@ public class LoadingActivity extends BaseActivity {
         mTxtRetryError = (Button) findViewById(R.id.error_txt_retry);
         mPBar = (ProgressBar) findViewById(R.id.loading_bar_loading);
         optRight = (TextView) findViewById(R.id.layout_title_back_text2);
+        tvRight = (TextView) findViewById(R.id.layout_title_back_text3);
 
         mTxtRetryError.setOnClickListener(mClickListener);
         setMainView(layoutResID);
@@ -172,14 +175,19 @@ public class LoadingActivity extends BaseActivity {
         mMainView.setVisibility(View.GONE);
         mPBar.setVisibility(View.GONE);
 
-        BaseResponseInfo mInfo = (BaseResponseInfo) error;
         String info = "";
-        if (mInfo != null) {
-            info = mInfo.getInfo();
+        if (error != null) {
+            String info1 = error.getInfo();
+            if (TextUtils.isEmpty(info1)) {
+                info = "数据加载失败，请重试...";
+            } else {
+                info = info1;
+            }
+
         } else {
             info = "数据加载失败，请重试...";
         }
-        if (mInfo.getFlag() == BaseResponseInfo.ERRO) {
+        if (error.getFlag() == BaseResponseInfo.ERRO) {
             mIvErrorIcon.setImageResource(R.mipmap.icon_error);
         } else {
             mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);

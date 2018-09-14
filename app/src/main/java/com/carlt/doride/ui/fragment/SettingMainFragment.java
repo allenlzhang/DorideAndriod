@@ -30,6 +30,7 @@ import com.carlt.doride.ui.activity.setting.CarManagerActivity;
 import com.carlt.doride.ui.activity.setting.DeviceManageActivity;
 import com.carlt.doride.ui.activity.setting.MsgManageActivity;
 import com.carlt.doride.ui.activity.setting.PersonInfoActivity;
+import com.carlt.doride.ui.activity.setting.FlowPackageRechargeActivity;
 import com.carlt.doride.ui.activity.setting.TravelAlbumActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.utils.CacheUtils;
@@ -53,6 +54,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     }
 
     private View btn_person_info;//用户信息item
+    private View llFlowRecharge;//用户信息item
     private View btn_travel_album;//旅行相册item
     private View btn_account_security;//账号与安全item
     private View btn_car_manager;//车辆管理item
@@ -87,6 +89,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -94,9 +97,12 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             loadData();
         }
     }
+
     @Override
     public void init(View parent) {
         btn_person_info = parent.findViewById(R.id.btn_person_info);
+        llFlowRecharge = parent.findViewById(R.id.llFlowRecharge);
+        llFlowRecharge.setOnClickListener(this);
         btn_person_info.setOnClickListener(this);
         btn_travel_album = parent.findViewById(R.id.btn_travel_album);
         btn_travel_album.setOnClickListener(this);
@@ -199,7 +205,10 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
                 ActivityControl.logout(this.getActivity());
                 break;
-
+            case R.id.llFlowRecharge:
+                //流量包充值
+                startActivity(new Intent(getActivity(), FlowPackageRechargeActivity.class));
+                break;
         }
     }
 

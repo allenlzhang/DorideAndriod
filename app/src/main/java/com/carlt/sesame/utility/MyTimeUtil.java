@@ -17,7 +17,48 @@ public class MyTimeUtil {
 			"yyyy-MM-dd", Locale.CHINESE);
 	public static SimpleDateFormat format_hhmm = new SimpleDateFormat("HH:mm",
 			Locale.CHINESE);
+	/**
+	 * 获取系统当前日期 格式：XX时xx分
+	 *
+	 * @return
+	 */
+	public static String getHM(Date date) {
+		Calendar mCalendar = Calendar.getInstance();
+		mCalendar.setTime(date);
+		mCalendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
+		int minute = mCalendar.get(Calendar.MINUTE);
+		StringBuffer mStringBuffer = new StringBuffer();
+		mStringBuffer.append(hour);
+		mStringBuffer.append("时");
+		mStringBuffer.append(minute);
+		mStringBuffer.append("分");
 
+		return mStringBuffer.toString();
+	}
+	/**
+	 * 获取系统当前日期 格式：XXXX年XX月XX日
+	 *
+	 * @return
+	 */
+	public static String getDateYMD(Date date) {
+		Calendar mCalendar = Calendar.getInstance();
+		mCalendar.setTime(date);
+		mCalendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		int year = mCalendar.get(Calendar.YEAR);
+		int month = mCalendar.get(Calendar.MONTH);
+		int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+		month++;
+		StringBuffer mStringBuffer = new StringBuffer();
+		mStringBuffer.append(year);
+		mStringBuffer.append("年");
+		mStringBuffer.append(month);
+		mStringBuffer.append("月");
+		mStringBuffer.append(day);
+		mStringBuffer.append("日");
+
+		return mStringBuffer.toString();
+	}
 	/**
 	 * 获取系统当前日期 格式：XXXX-XX-XX
 	 * 

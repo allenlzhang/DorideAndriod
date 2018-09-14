@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.sesame.ui.view.UUImgInfoDialog;
 
 
 public class PopBoxCreat {
@@ -154,7 +155,14 @@ public class PopBoxCreat {
         dialogI.show();
 
     }
-
+    public static UUImgInfoDialog createUUImgInfoDialog(final Context context, String content1,
+                                                        String content2, String btnLeft, final OnClickListener listener) {
+        UUImgInfoDialog mUUDialog = new UUImgInfoDialog(context);
+        mUUDialog.setContentText(content1, content2);
+        mUUDialog.setBtnText(btnLeft);
+        mUUDialog.setClickListener(listener);
+        return mUUDialog;
+    }
     /**
      * 无标题dialog
      * @param context

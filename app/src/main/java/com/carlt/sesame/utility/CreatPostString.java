@@ -24,7 +24,14 @@ import java.util.Map;
  */
 
 public class CreatPostString {
-
+    // 续费-续费记录
+    public static String getFeeLog(int limit, int offset,int package_type) {
+        HashMap<String, String> mMap = new HashMap<String, String>();
+        mMap.put("limit", limit + "");
+        mMap.put("offset", offset + "");
+        mMap.put("package_type", package_type+"");
+        return CreatString(mMap);
+    }
     public static String getEmptyParams() {
         HashMap<String, String> mMap = new HashMap<String, String>();
         return CreatString(mMap);
@@ -1555,7 +1562,7 @@ public class CreatPostString {
                 && SesameLoginInfo.getDealerId().length() > 0) {
             mMap.put("dealerId", SesameLoginInfo.getDealerId());
         }
-        String token = SesameLoginInfo.getToken();
+        String token = SesameLoginInfo.getAccess_token();
         if (token != null && !token.equals("")) {
             mMap.put("token", token);
         }

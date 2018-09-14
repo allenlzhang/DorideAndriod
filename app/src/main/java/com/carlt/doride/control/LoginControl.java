@@ -165,9 +165,9 @@ public class LoginControl {
 
         SesameLoginInfo.setAccess_token((member.optString("access_token", "")));
         LoginInfo.setAccess_token(member.optString("access_token", ""));
-        SesameLoginInfo.setExpires_in((member.optString("expires_in", "")));
         SesameLoginInfo.setToken((member.optString("access_token", "")));
         TokenInfo.setToken(member.optString("access_token", ""));
+        SesameLoginInfo.setExpires_in((member.optString("expires_in", "")));
         SesameLoginInfo.setExpiresIn((member.optString("expires_in", "")));
         SesameLoginInfo.setSSID(member.optString("SSID", ""));
         SesameLoginInfo.setSSIDPWD(member.optString("SSIDPWD", ""));

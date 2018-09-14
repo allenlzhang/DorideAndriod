@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.carlt.doride.ui.view.CircleProgress
+            android:id="@+id/trffic_used_precent"
+            android:layout_width="158dp"
+            android:layout_height="158dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="17dp"
+            app:antiAlias="true"
+            app:arcWidth="16dp"
+            app:bgArcColor="#E2E2E2"
+            app:bgArcWidth="@dimen/large"
+            app:hint="本月剩余"
+            app:hintColor="#666666"
+            app:hintSize="12sp"
+            app:maxProgress="100"
+            app:startAngle="0"
+            app:sweepAngle="360"
+            app:unit="共1G"
+            app:unitColor="#666666"
+            app:unitSize="12sp"
+            app:value="30"
+            app:valueSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/traffic_tips_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/traffic_used_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="60dp"
+                android:text="@string/traffic_used_status"
+                android:textColor="#666666"
+                android:textSize="14sp" 
+                android:drawableLeft="@drawable/traffic_used_txt_color_bg"
+                android:drawablePadding="5dp"
+                />
+
+            <TextView
+                android:id="@+id/traffic_remain_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/traffic_remain_status"
+                android:textColor="#666666"
+                android:textSize="14sp" 
+                android:drawableLeft="@drawable/traffic_remain_txt_color_bg"
+                android:drawablePadding="5dp"
+                />
+        </LinearLayout>
+		<LinearLayout 
+		     android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+		    >
+           
+		   <TextView
+            android:id="@+id/tvCurrentPackage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="----"
+            android:textColor="#999999"
+            android:textSize="13sp" />  
+		</LinearLayout>
+       
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#e9e9e9" />
+
+        <com.carlt.doride.ui.view.SegmentControl
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/segment_control"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:backgroundColors="@color/background_color"
+            app:boundWidth="1dp"
+            app:cornerRadius="5dp"
+            app:horizonGap="10dp"
+            app:separatorWidth="1dp"
+            app:textColors="@color/text_color"
+            app:texts="加油包|改套餐|续套餐"
+            app:verticalGap="10dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="15dp" >
+		<TextView
+		    android:id="@+id/tvEmptyHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="当前套餐已过期或剩余时间不足，请先续套餐"
+            android:textColor="#999999"
+             android:visibility="gone"
+            android:textSize="14sp" />  
+            <com.carlt.doride.ui.view.GridViewForScrollView
+                android:id="@+id/gv_package_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:paddingTop="15dp"
+                android:smoothScrollbar="true"
+                android:verticalSpacing="10dp" >
+            </com.carlt.doride.ui.view.GridViewForScrollView>
+
+            <com.carlt.doride.ui.view.ListViewForScrollView
+                android:id="@+id/lvPriceList"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"
+                android:smoothScrollbar="true" >
+            </com.carlt.doride.ui.view.ListViewForScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

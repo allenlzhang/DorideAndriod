@@ -130,7 +130,9 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         DefaultStringParser parser = new DefaultStringParser(activateCallback);
         HashMap<String, String> params = new HashMap<>();
         params.put("pin", pinCode);
-        parser.executePost(URLConfig.getM_DEVICE_ACTIVATE(), params);
+        String m_device_activate = URLConfig.getM_DEVICE_ACTIVATE();
+        String activateUrl = m_device_activate.replace("100", "101");
+        parser.executePost(activateUrl, params);
     }
 
     private final static long ONEMIN = 1000 * 60;
@@ -213,13 +215,13 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         // code=1021;
         if (code == 1020) {
 
-//            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
+            //            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
                 mDialog = null;
             }
             //  PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
-            Intent intent  = new Intent(ActivateBindActivity.this,UpDateActivity.class);
+            Intent intent = new Intent(ActivateBindActivity.this, UpDateActivity.class);
             startActivity(intent);
 
         } else if (code == BaseResponseInfo.ERRO) {

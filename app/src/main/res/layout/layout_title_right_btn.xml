@@ -47,6 +47,20 @@
         android:textSize="14sp"
         android:visibility="gone"
         />
+    <TextView
+        android:id="@+id/layout_title_back_text3"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="充值记录"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:visibility="gone"
+        />
     <View
         style="@style/line_h"
         android:layout_alignParentBottom="true"

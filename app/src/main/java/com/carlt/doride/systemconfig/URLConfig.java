@@ -13,16 +13,16 @@ public class URLConfig {
     private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
 
     // 车乐正式服务器
-    private final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
+    public final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
 
     //大乘域名 测试服
-    private final static String U1_DORIDE_TEST = "http://dorideapi.linewin.cc/";
+    public final static String U1_DORIDE_TEST = "http://dorideapi.linewin.cc/";
 
     //大乘域名 预发布服
-    private final static String U1_DORIDE_PRE = "http://pre-dorideapi.geni4s.com/";
+    public final static String U1_DORIDE_PRE = "http://pre-dorideapi.geni4s.com/";
 
     // 众泰大乘API域名 正式服
-    private final static String U1_DORIDE = "http://dorideapi.geni4s.com/";
+    public final static String U1_DORIDE = "http://dorideapi.geni4s.com/";
 
     // 远程下发-正式服务器
     private final static String U_R1 = "https://remote-doride.geni4s.com/";
@@ -104,9 +104,21 @@ public class URLConfig {
         }
         return clientId;
     }
+    // 流量包-充值记录列表
+    private static String M_TRAFFIC_PAYLOG_URL = "package/payLog";
 
-    ;
+    // 流量包-充值管理首页
+    private static String M_TRAFFIC_PURCHASE_URL = "package/getProductList";
 
+    // 流量包-订单参数
+    private static String M_TRAFFIC_ALIPAY_URL = "package/aliPay";
+
+    // 流量包-提醒
+    private static String M_TRAFFIC_WARNNING_URL = "package/getInfo";
+    //获取指定流量套餐价格
+    private static String M_CALCULATE_PRICE_URL = "package/calculatePrice";
+    // 续费-支付回调验证
+    private static String M_TRAFFIC_SYNCAPI_URL = "package/syncApi";
     // 新版登录
     private static String M_LOGIN_NEW_URL = "user/login";
 
@@ -390,7 +402,27 @@ public class URLConfig {
     public static String getM_CAR_CURCARCONFIG_URL() {
         return getDorideURL(M_CAR_CURCARCONFIG_URL);
     }
+    public static String getmTrafficPaylogUrl() {
+        return getDorideURL(M_TRAFFIC_PAYLOG_URL);
+    }
 
+    public static String getmTrafficPurchaseUrl() {
+        return getDorideURL(M_TRAFFIC_PURCHASE_URL);
+    }
+
+    public static String getmTrafficAlipayUrl() {
+        return getDorideURL(M_TRAFFIC_ALIPAY_URL);
+    }
+
+    public static String getmTrafficWarnningUrl() {
+        return getDorideURL(M_TRAFFIC_WARNNING_URL);
+    }
+    public static String getmCalculatePriceUrl() {
+        return getDorideURL(M_CALCULATE_PRICE_URL);
+    }
+    public static String getmTrafficSyncapiUrl() {
+        return getDorideURL(M_TRAFFIC_SYNCAPI_URL);
+    }
     public static String getM_SWITCHCAR_URL() {
         return getUrlRemote(M_SWITCHCAR_URL);
     }

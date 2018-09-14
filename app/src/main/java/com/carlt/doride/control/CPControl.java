@@ -1,9 +1,13 @@
 package com.carlt.doride.control;
 
 
+import android.app.Activity;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alipay.sdk.app.PayTask;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.login.UserRegisterParams;
@@ -44,6 +48,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CPControl {
+    public static final String oldVersion = "100";
+    public static final String newVersion = "101";
+
     public static void GetRemoteAir(BaseParser.ResultCallback mListener, String racoc, String oc) {
         DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
         HashMap param = new HashMap();
@@ -53,11 +60,14 @@ public class CPControl {
         remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_AIRCONDITION(), param);
     }
 
+
     public static void GetRemoteStart(BaseParser.ResultCallback mListener) {
         DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
         HashMap param = new HashMap();
         param.put("move_device_name", DorideApplication.MODEL_NAME);
-        remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_START(), param);
+        String m_device_remote_start = URLConfig.getM_DEVICE_REMOTE_START();
+        String replace = m_device_remote_start.replace(oldVersion, newVersion);
+        remoteStartParser.executePost(replace, param);
     }
 
     public static void GetCancelRemoteStart(BaseParser.ResultCallback mListener) {
@@ -211,7 +221,9 @@ public class CPControl {
     public static void GetRemoteCarState(final BaseParser.ResultCallback mListener_states) {
         CarStateInfoParser paser = new CarStateInfoParser(mListener_states);
         HashMap mapParam = new HashMap();
-        paser.executePost(URLConfig.getM_REMOTE_STATE(), mapParam);
+        String m_remote_state = URLConfig.getM_REMOTE_STATE();
+        String replace = m_remote_state.replace(oldVersion, newVersion);
+        paser.executePost(replace, mapParam);
     }
 
     public static void GetRemotePswVerify(String password, BaseParser.ResultCallback mListener_verify) {
@@ -498,6 +510,71 @@ public class CPControl {
         mapParam.put("location", location);
         mapParam.put("move_device_name", DorideApplication.MODEL_NAME);
         paser.executePost(URLConfig.getM_NAVIGATION_URL(), mapParam);
+    }
+
+    /**
+     * Description : 流量充值记录
+     */
+    public static void getFlowRechargeLogInfo(int limit, int offset, int packType, BaseParser.ResultCallback callback) {
+
+        DefaultStringParser paser = new DefaultStringParser(callback);
+        HashMap mapParam = new HashMap();
+        mapParam.put("limit", limit + "");
+        mapParam.put("offset", offset + "");
+        mapParam.put("package_type", packType + "");
+        paser.executePost(URLConfig.getmTrafficPaylogUrl(), mapParam);
+    }
+
+    /**
+     * Description : 获取套餐价格
+     */
+    public static void getCalculatePrice(String packName, String packType, BaseParser.ResultCallback callback) {
+
+        DefaultStringParser paser = new DefaultStringParser(callback);
+        HashMap mapParam = new HashMap();
+        mapParam.put("package_name", packName);
+        mapParam.put("package_type", packType);
+        paser.executePost(URLConfig.getmCalculatePriceUrl(), mapParam);
+    }
+
+    public static void getFlowPackageCheckPayResult(String resultStatus, String result, BaseParser.ResultCallback callback) {
+
+        DefaultStringParser paser = new DefaultStringParser(callback);
+        HashMap mapParam = new HashMap();
+        mapParam.put("resultStatus", resultStatus);
+        mapParam.put("result", result);
+        paser.executePost(URLConfig.getmTrafficSyncapiUrl(), mapParam);
+    }
+
+    public static void GetToPay(final Handler payHandler, final Activity act,
+                                final String orderInfo, final boolean h5) {
+        if (payHandler == null) {
+            return;
+        }
+        new Thread() {
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(act);
+                String result = alipay.pay(orderInfo, true);
+                Message msg = new Message();
+                msg.what = 0;
+                msg.obj = result;
+                payHandler.sendMessage(msg);
+            }
+        }.start();
+    }
+
+    /**
+     * Description : 创建流量包支付订单
+     */
+    public static void getFlowPackageOrderResult(String id, BaseParser.ResultCallback callback) {
+
+        DefaultStringParser paser = new DefaultStringParser(callback);
+        HashMap mapParam = new HashMap();
+        mapParam.put("product_id", id);
+        mapParam.put("softtype", "android");
+        mapParam.put("version", DorideApplication.Version_API + "");
+        paser.executePost(URLConfig.getmTrafficAlipayUrl(), mapParam);
     }
 
     public static void GetPushXgTokenResult(String xgtoken, String move_deviceid, BaseParser.ResultCallback listener) {

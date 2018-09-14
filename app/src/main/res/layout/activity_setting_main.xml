@@ -233,6 +233,39 @@
                         android:contentDescription="@string/app_name"
                         android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
+
+                <View style="@style/setting_page_item_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/llFlowRecharge"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_device_manager"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/device_recharge_txt"
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

@@ -5,9 +5,10 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.protocolparser.TrafficPackagePurchaseListParser;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.RegisteInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UploadImgInfo;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.data.car.BindDeviceInfo;
@@ -3923,7 +3924,38 @@ public class CPControl {
         }.start();
 
     }
+    /**
+     * 流量包-充值记录<TrafficPackagePurchaseLogListInfo>
+     *
+     * @param limit
+     *            每页条数
+     * @param offset
+     *            偏移量
+     */
+    public static void GetTrafficPackageLogResult(final int limit, final int offset,final int package_type,
+                                                  final GetResultListCallback listener) {
 
+        if (listener == null)
+            return;
+        new Thread() {
+            @Override
+            public void run() {
+                // 链接地址
+                String url = com.carlt.doride.systemconfig.URLConfig.getmTrafficPaylogUrl();
+                // Post参数
+                String post = CreatPostString.getFeeLog(limit, offset,package_type);
+
+                TrafficPackagePurchaseListParser mParser = new TrafficPackagePurchaseListParser();
+                BaseResponseInfo mBaseResponseInfo = mParser
+                        .getBaseResponseInfo(url, post);
+                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
+                    listener.onFinished(mParser.getReturn());
+                } else {
+                    listener.onErro(mBaseResponseInfo);
+                }
+            }
+        }.start();
+    }
     /**
      * 远程-自动升窗 成功返回onFinished(null)
      */

@@ -17,7 +17,6 @@ import com.carlt.doride.ui.pull.PullToRefreshBase;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -76,7 +75,7 @@ public class CarStateNowActivity extends LoadingActivity {
     private void initData() {
 
 
-       showWaitingDialog(null);
+        showWaitingDialog(null);
         DefaultParser<CarNowStatusInfo> parser = new DefaultParser<>(mCallback, CarNowStatusInfo.class);
         parser.executePost(URLConfig.getM_REMOTE_STATUS(), new HashMap());
     }

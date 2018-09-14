@@ -14,6 +14,7 @@ import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.LocalConfig;
+import com.carlt.sesame.systemconfig.URLConfig;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -27,7 +28,7 @@ import java.util.UUID;
  */
 
 public class DorideApplication extends Application {
-    public static int Version_API        = 110;
+    public static int Version_API        = 126;
     public static int Sesame_Version_API = 126;
 
     public static int VERSION_API_REMOTE = 100;// 远程下发相关Api版本
@@ -111,6 +112,7 @@ public class DorideApplication extends Application {
         super.onCreate();
         Logger.addLogAdapter(new AndroidLogAdapter());
         Utils.init(this);
+        URLConfig.addUrl();
         instance = this;
         context = getApplicationContext();
         ApplicationContext = this.getApplicationContext();
@@ -164,8 +166,6 @@ public class DorideApplication extends Application {
         String sha1 = sHA1(this);
         Logger.e("---" + sha1);
     }
-
-
 
 
     public static Context getAppContext() {
