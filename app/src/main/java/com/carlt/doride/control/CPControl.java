@@ -65,9 +65,9 @@ public class CPControl {
         DefaultStringParser remoteStartParser = new DefaultStringParser(mListener);
         HashMap param = new HashMap();
         param.put("move_device_name", DorideApplication.MODEL_NAME);
-        String m_device_remote_start = URLConfig.getM_DEVICE_REMOTE_START();
-        String replace = m_device_remote_start.replace(oldVersion, newVersion);
-        remoteStartParser.executePost(replace, param);
+        //        String m_device_remote_start = URLConfig.getM_DEVICE_REMOTE_START();
+        //        String replace = m_device_remote_start.replace(oldVersion, newVersion);
+        remoteStartParser.executePost(URLConfig.getM_DEVICE_REMOTE_START(), param);
     }
 
     public static void GetCancelRemoteStart(BaseParser.ResultCallback mListener) {

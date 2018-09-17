@@ -41,6 +41,7 @@ import com.carlt.doride.ui.view.SegmentControl;
 import com.carlt.doride.ui.view.UUPopupWindow;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.data.set.PayResult;
+import com.carlt.sesame.ui.view.UUImgInfoDialog;
 import com.carlt.sesame.utility.MyTimeUtil;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -61,6 +62,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Description :  流量包充值
+ * @Author     : zhanglei
+ * @Date       : 2018/9/17
+ */
 public class FlowPackageRechargeActivity extends LoadingActivity {
 
     @BindView(R.id.trffic_used_precent)
@@ -92,7 +98,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic_package_purchase);
         ButterKnife.bind(this);
-
+        //        CPControl.GetToPay(mPayHandler,
+        //                FlowPackageRechargeActivity.this, p2, false);
         initData();
         initView();
     }
@@ -116,7 +123,6 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                         LogUtils.e(response.body());
                         if (response.isSuccessful()) {
                             parseFlowInfoJson(response);
-
                         }
 
                     }
@@ -124,7 +130,6 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-
                         loadonErrorUI(new BaseResponseInfo());
                     }
                 });
@@ -293,10 +298,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                             case 1:
                                 // 改套餐
                                 position = 1;
-
                                 if (isCurrrentMoth(warnningInfo.data.service_data_end)) {
                                     tvEmptyHint.setVisibility(View.VISIBLE);
-
                                     GvPackageWrap.setVisibility(View.GONE);
                                     lvPriceList.setVisibility(View.GONE);
                                 } else {
@@ -305,7 +308,6 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                                     lvPriceList.setVisibility(View.VISIBLE);
                                 }
                                 showFlowPackageInfos(changeItems, changePriceInfos);
-
                                 break;
                             case 2:
                                 // 续套餐
@@ -313,7 +315,6 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                                 tvEmptyHint.setVisibility(View.GONE);
                                 GvPackageWrap.setVisibility(View.VISIBLE);
                                 showFlowPackageInfos(renewItems, renewPriceInfos);
-
                                 break;
                             default:
                                 break;
@@ -525,6 +526,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                     case R.id.tvCancel:
                         mPopupWindow.dismiss();
                         break;
+                    default:
+                        break;
                 }
 
             }
@@ -545,17 +548,18 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
     }
 
-    public static final String p2 = "_input_charset=\"utf-8\"&body=\"1M\"&it_b_pay=\"30m\"&notify_url=\"http%3A%2F%2Fpay.linewin.cc%2Fpackage%2FaliAppPay%2FdorideAsynCallback\"&out_trade_no=\"20180914174540705312\"&partner=\"2088131979649430\"&payment_type=\"1\"&seller_id=\"company@carlt.com.cn\"&service=\"mobile.securitypay.pay\"&subject=\"1M\"&total_fee=\"0.01\"&sign=\"k0t%2BZOV2Dei6BVXilEyNhk0Mkg1w8N4YOUM%2BQ6h9bG8GSCcXTHAXh4ktNh6mv3w%2F3ydoZKzxo0e8LMvtZWcBaJoh3XFbX1HXbL%2B03OPsF9CUtEft%2FdzWPIIs%2B9FGSHciZZyJqa%2Bd6hcYBzkj42ThI4zaVKuist67u3udcgTW2uWrHq5Yjr6uQEeVsL%2F2Q6p15Lw2AkNX3d01PtkZ1QyjgUZ1vBEf4j4BQRUlJ%2BsSfNTAjz2JCOf7%2BxXXW7glyH9uYowSzFR1JVaC5fiZMA7z35nbTa%2FobyjYAXvSvGJ28a%2FJA1r2a6HWqqAHznclrqiKRf9TkefkDQGCCmxieu8SHQ%3D%3D\"&sign_type=\"RSA\"";
+    public static final String p2 = "alipay_sdk=alipay-sdk-php-20180705&app_id=2018091161327162&biz_content=%7B%22total_fee%22%3A%220.01%22%2C%22body%22%3A%221M%22%2C%22subject%22%3A%221M%22%2C%22out_trade_no%22%3A%2220180915151255142573%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fpay.linewin.cc%2Fpackage%2FaliAppPay%2FdorideAsynCallback&sign_type=RSA2&timestamp=2018-09-15+15%3A12%3A55&version=1.0&sign=rWAyN1%2BkaaXBj4N3vjh0IW2XJAgOBTE2yJsFaM7n5tuqkDFtUqGec3hg378Lrceb6abzFpM4PYYZ%2BcGAkLOhAngNIJJDkfkGD5DmKJh8iuLQnXzVTv9XxAEv%2BIS%2BA9%2Bp3gaqK5yDL5nWQQof0bxlRN8TQpNq22YyAwodYQKV0Y0Ou7ybWkeHsRMAWf5P%2FEXJNQ020EH8N3bXPZnJdxgM9UAYkRJNS2P07nnqpQDHBAzAGyeGhFVadfSzJYu%2BOD%2FhA616K2%2FYxHb0Q78jKsQSVPPGu6n7rKh%2FFumyVcaDVj%2ByCAl%2BN0mD4TAOieBFakT88%2Fvv7UZs3CVgde%2F1kCjciA%3D%3D";
+
 
     private void parseOrderInfoJson(BaseResponseInfo bInfo) {
         Object value = bInfo.getValue();
         Gson gson = new Gson();
         FlowPackageOrderInfo orderInfo = gson.fromJson(value.toString(), FlowPackageOrderInfo.class);
         //调起支付
-        //        CPControl.GetToPay(mPayHandler,
-        //                FlowPackageRechargeActivity.this, orderInfo.request_param, false);
         CPControl.GetToPay(mPayHandler,
-                FlowPackageRechargeActivity.this, p2, false);
+                FlowPackageRechargeActivity.this, orderInfo.request_param, false);
+        //                CPControl.GetToPay(mPayHandler,
+        //                        FlowPackageRechargeActivity.this, p2, false);
     }
 
     private Date   mSuccTime;
@@ -574,6 +578,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                     String resultStatus = payResult.getResultStatus();
+                    LogUtils.e("===========" + payResult);
                     mSuccTime = new Date();
                     if (resultStatus.equals("9000") || resultStatus.equals("8000")) {
                         String[] result = resultInfo.split("&");
@@ -595,7 +600,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                         mDialog.show();
                         LogUtils.d("C_DEBUG", json.toString());
                         LogUtils.d("C_DEBUG", resultInfo);
-                        checkPayResult(resultStatus, json.toString());
+                        //                        checkPayResult(resultStatus, json.toString());
+                        checkPayResult(resultStatus, resultInfo);
                     } else {
                         UUToast.showUUToast(FlowPackageRechargeActivity.this,
                                 "支付失败!");
@@ -610,11 +616,13 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         }
 
     };
+    UUImgInfoDialog uuImgInfoDialog;
 
     private void checkPayResult(String resultStatus, String json) {
         CPControl.getFlowPackageCheckPayResult(resultStatus, json, new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
+                LogUtils.e("===========", bInfo.getValue());
                 mDialog.dismiss();
                 initData();
                 segmentControl.setSelectedIndex(0);
@@ -626,7 +634,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
                 time1 = MyTimeUtil.getDateYMD(mSuccTime);
                 time2 = MyTimeUtil.getHM(mSuccTime);
-                mDialog = PopBoxCreat.createUUImgInfoDialog(
+                uuImgInfoDialog = PopBoxCreat.createUUImgInfoDialog(
                         FlowPackageRechargeActivity.this, "充值成功", "您好，您于"
                                 + time1 + "\n" + time2 + "，成功充值流量"
                                 + packageDateParse(packageSize), "确认",
@@ -634,15 +642,19 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
                             @Override
                             public void onClick(View v) {
-                                mDialog.dismiss();
+                                uuImgInfoDialog.dismiss();
                             }
                         });
-                mDialog.show();
+                uuImgInfoDialog.mImgView.setVisibility(View.GONE);
+                uuImgInfoDialog.content1.setVisibility(View.VISIBLE);
+                uuImgInfoDialog.content2.setVisibility(View.VISIBLE);
+                uuImgInfoDialog.show();
             }
 
             @Override
             public void onError(BaseResponseInfo bInfo) {
                 mDialog.dismiss();
+                LogUtils.e("onError----" + bInfo.getValue());
                 if (bInfo != null && bInfo.getInfo() != null) {
                     UUToast.showUUToast(FlowPackageRechargeActivity.this,
                             bInfo.getInfo());
@@ -838,9 +850,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
             now = sdf.parse(d);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(now);
-            // System.out.println(sdf.format(calendar.getTime()));
             calendar.add(Calendar.MONTH, m);
-            // System.out.println(sdf.format(calendar.getTime()));
             Date time = calendar.getTime();
             resultDate = sdf.format(time);
         } catch (ParseException e) {

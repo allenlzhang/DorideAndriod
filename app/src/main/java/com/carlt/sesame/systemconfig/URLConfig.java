@@ -48,7 +48,6 @@ public class URLConfig {
     // private static String M_WEATHER_URL =
     // "http://op.juhe.cn/onebox/weather/query"; weather_uri =
     private static String            M_WEATHER_URL = "http://api.map.baidu.com/telematics/v3/weather";
-    static         String[]          urlArr        = new String[]{};
     static         ArrayList<String> urlArrayList  = new ArrayList<>();
 
 

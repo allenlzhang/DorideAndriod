@@ -14,15 +14,15 @@ import com.carlt.doride.R;
 
 public class UUImgInfoDialog extends Dialog {
 
-	protected TextView content1;
+	public TextView content1;
 
-	protected TextView content2;
+	public TextView content2;
 
-	protected TextView watch;
+	public TextView watch;
 
-	protected TextView btnLeft;// 左侧按钮
+	public TextView btnLeft;// 左侧按钮
 
-	protected ImageView mImgView;
+	public ImageView mImgView;
 
 	private final static int w_dip = 260;
 

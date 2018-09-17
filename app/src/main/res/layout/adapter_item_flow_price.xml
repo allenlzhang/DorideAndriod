@@ -52,7 +52,7 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:padding="1dp"
-                android:background="#75c3dd"
+                android:background="#478cea"
                 android:singleLine="true"/>
         </LinearLayout>
 

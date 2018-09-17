@@ -38,8 +38,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/head_margin_h"
-        android:gravity="center"
         android:background="@drawable/bottom_btn_bg"
+        android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:text="确定"
@@ -47,20 +47,24 @@
         android:textSize="14sp"
         android:visibility="gone"
         />
+
     <TextView
         android:id="@+id/layout_title_back_text3"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:background="@drawable/remote_title_bg_selecter"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:text="充值记录"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="14sp"
+        android:layout_marginRight="8dp"
         android:visibility="gone"
         />
+
     <View
         style="@style/line_h"
         android:layout_alignParentBottom="true"

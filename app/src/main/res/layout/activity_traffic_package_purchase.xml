@@ -21,7 +21,7 @@
             android:layout_marginTop="17dp"
             app:antiAlias="true"
             app:arcWidth="16dp"
-            app:bgArcColor="#E2E2E2"
+            app:bgArcColor="#dbdbdb"
             app:bgArcWidth="@dimen/large"
             app:hint="本月剩余"
             app:hintColor="#666666"

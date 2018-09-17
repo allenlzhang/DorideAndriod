@@ -15,8 +15,9 @@ import java.util.List;
 
 
 /**
- * 流量价格Adapter
- * @author daisy
+ * Description : 流量价格adapter
+ * @Author     : zhanglei
+ * @Date       : 2018/9/17
  */
 public class FlowPriceListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;

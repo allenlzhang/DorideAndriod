@@ -392,6 +392,7 @@ public class CPControl {
             }
         }.start();
     }
+
     /**
      * 版本升级接口 成功返回<VersionInfo>
      **/
@@ -416,6 +417,7 @@ public class CPControl {
             }
         }.start();
     }
+
     /**
      * 新登录接口 onFinished表示成功
      */
@@ -431,11 +433,11 @@ public class CPControl {
                 String url = URLConfig.getM_LOGIN_URL();
                 // Post参数
                 String post = CreatPostString.getLogin(userName, psWord);
-//                if (TextUtils.isEmpty(post)) {
-//                    UUToast.showUUToast(DorideApplication.getAppContext(),"权限未获取到，请在权限管理打开获取手机IMEI权限");
-//                    System.exit(0);
-//                    return;
-//                }
+                //                if (TextUtils.isEmpty(post)) {
+                //                    UUToast.showUUToast(DorideApplication.getAppContext(),"权限未获取到，请在权限管理打开获取手机IMEI权限");
+                //                    System.exit(0);
+                //                    return;
+                //                }
                 LoginInfoParser mLoginParser = new LoginInfoParser();
                 // BaseResponseInfo mBaseResponseInfo;
                 // //为了防止app在后台时间长久后，再次唤醒出现的Bug
@@ -584,8 +586,8 @@ public class CPControl {
 
     /**
      * 检测PIN码 onFinished返回String
-     *
-     * @param vpin 需要检测的PIN码
+     * @param vpin
+     *         需要检测的PIN码
      */
     public static void GetCheckVpinResult(final GetResultListCallback listener,
                                           final String vpin) {
@@ -735,9 +737,10 @@ public class CPControl {
 
     /**
      * 获取经销商车型列表(针对获取车款级别列表) onFinished返还<CarModeInfo>
-     *
-     * @param id        车型ID
-     * @param is_before 1：前装 0：后装
+     * @param id
+     *         车型ID
+     * @param is_before
+     *         1：前装 0：后装
      */
     public static void GetDealerModelListV2Result(final String id,
                                                   final String is_before, final GetResultListCallback listener) {
@@ -781,8 +784,10 @@ public class CPControl {
                 // 链接地址
                 String url = URLConfig.getM_EDITPASSWORD_URL();
                 // Post参数
-                String post = CreatPostString.getEditPassword(oldPassword,
-                        newPassword);
+                String newPwd = CipherUtils.md5(newPassword);
+                String oldPwd = CipherUtils.md5(oldPassword);
+                String post = CreatPostString.getEditPassword(oldPwd,
+                        newPwd);
 
                 DefaultParser mParser = new DefaultParser();
                 BaseResponseInfo mBaseResponseInfo = mParser
@@ -800,9 +805,10 @@ public class CPControl {
 
     /**
      * * 修改手机号第一步，验证旧手机
-     *
-     * @param oldPhoneNum 旧手机号
-     * @param oldValidate 验证码
+     * @param oldPhoneNum
+     *         旧手机号
+     * @param oldValidate
+     *         验证码
      * @param listener
      * @return String 返回一个串码code,在第二步时需要用到
      */
@@ -837,10 +843,12 @@ public class CPControl {
 
     /**
      * * 修改手机号第二步，验证新手机
-     *
-     * @param newPhoneNum 新手机号
-     * @param newValidate 验证码
-     * @param code        第一步返回的串码
+     * @param newPhoneNum
+     *         新手机号
+     * @param newValidate
+     *         验证码
+     * @param code
+     *         第一步返回的串码
      * @param listener
      * @return null
      */
@@ -962,8 +970,9 @@ public class CPControl {
                 // 链接地址
                 String url = URLConfig.getM_RETRIEVEPASSWORD_URL();
                 // Post参数
+                String md5 = CipherUtils.md5(newPassWord);
                 String post = CreatPostString.getRetrievePassword(phoneNum,
-                        newPassWord, validate);
+                        md5, validate);
 
                 DefaultParser mParser = new DefaultParser();
                 BaseResponseInfo mBaseResponseInfo = mParser
@@ -981,11 +990,14 @@ public class CPControl {
 
     /**
      * 校验验证码
-     *
-     * @param phoneNum 手机号
-     * @param type     发送验证码类型
-     * @param code     验证码
-     * @param listener 回调
+     * @param phoneNum
+     *         手机号
+     * @param type
+     *         发送验证码类型
+     * @param code
+     *         验证码
+     * @param listener
+     *         回调
      */
     public static void GetValidateCheckResult(final String phoneNum,
                                               final String type, final String code,
@@ -1270,10 +1282,12 @@ public class CPControl {
 
     /**
      * 行车轨迹回放接口 调用成功会返回ArrayList<ReportGpsInfo>
-     *
-     * @param gpsStartTime 开始时间 （1455419954）
-     * @param gpsStopTime  结束时间 （1455425054）
-     * @param runSn        GPS序号
+     * @param gpsStartTime
+     *         开始时间 （1455419954）
+     * @param gpsStopTime
+     *         结束时间 （1455425054）
+     * @param runSn
+     *         GPS序号
      */
     public static void GetCoorResult(final String gpsStartTime,
                                      final String gpsStopTime, final String runSn,
@@ -1602,9 +1616,10 @@ public class CPControl {
 
     /**
      * 导航同步到车
-     *
-     * @param position 纬度,经度 目标坐标（高德系坐标）
-     * @param location 位置名称
+     * @param position
+     *         纬度,经度 目标坐标（高德系坐标）
+     * @param location
+     *         位置名称
      */
 
     public static void GetNavigationResult(final String position,
@@ -1783,8 +1798,8 @@ public class CPControl {
 
     /**
      * 保存违章车辆信息 调用成功会返回<null>
-     *
-     * @param carInfo 车辆信息
+     * @param carInfo
+     *         车辆信息
      */
     public static void GetSaveCarResult(final CarInfo carInfo,
                                         final GetResultListCallback listener) {
@@ -1873,8 +1888,8 @@ public class CPControl {
 
     /**
      * 获取单个违章车辆信息 调用成功会返回<CarInfo>
-     *
-     * @param id violation/getCarList接口得到的主键id
+     * @param id
+     *         violation/getCarList接口得到的主键id
      */
     public static void GetCarInfoResult(final String id,
                                         final GetResultListCallback listener) {
@@ -1906,8 +1921,8 @@ public class CPControl {
 
     /**
      * 获取删除违章车辆 调用成功会返回<null>
-     *
-     * @param id violation/getCarList接口得到的主键id
+     * @param id
+     *         violation/getCarList接口得到的主键id
      */
     public static void GetDelCarResult(final String id,
                                        final GetResultListCallback listener) {
@@ -1939,8 +1954,8 @@ public class CPControl {
 
     /**
      * 获取设置为我的车辆 调用成功会返回<null>
-     *
-     * @param id violation/getCarList接口得到的主键id
+     * @param id
+     *         violation/getCarList接口得到的主键id
      */
     public static void GetSetMyCarResult(final String id,
                                          final GetResultListCallback listener) {
@@ -2429,7 +2444,6 @@ public class CPControl {
 
     /**
      * 获取所有城市
-     *
      * @param listener
      */
     public static void GetAllCityInfoResult(
@@ -2448,7 +2462,8 @@ public class CPControl {
     }
 
     /**
-     * @param listener 初始化违章信息查询
+     * @param listener
+     *         初始化违章信息查询
      */
     public static void InitViolation(final PostViolationInfo mInfo,
                                      final GetResultListCallback listener) {
@@ -3334,7 +3349,7 @@ public class CPControl {
     }
 
     private static final String seasame_haohua = "2195223";
-    private static final String seasame_jiben = "2195222";
+    private static final String seasame_jiben  = "2195222";
 
     /**
      * 修改车辆车型信息 调用成功执行onFinished() 无返回值
@@ -3865,8 +3880,8 @@ public class CPControl {
 
     /**
      * 远程-校验远程密码
-     *
-     * @param remote_pwd 远程密码(md5加密传输)
+     * @param remote_pwd
+     *         远程密码(md5加密传输)
      */
     public static void GetRemotePswVerify(final String remote_pwd,
                                           final GetResultListCallback listener) {
@@ -3924,15 +3939,15 @@ public class CPControl {
         }.start();
 
     }
+
     /**
      * 流量包-充值记录<TrafficPackagePurchaseLogListInfo>
-     *
      * @param limit
-     *            每页条数
+     *         每页条数
      * @param offset
-     *            偏移量
+     *         偏移量
      */
-    public static void GetTrafficPackageLogResult(final int limit, final int offset,final int package_type,
+    public static void GetTrafficPackageLogResult(final int limit, final int offset, final int package_type,
                                                   final GetResultListCallback listener) {
 
         if (listener == null)
@@ -3943,7 +3958,7 @@ public class CPControl {
                 // 链接地址
                 String url = com.carlt.doride.systemconfig.URLConfig.getmTrafficPaylogUrl();
                 // Post参数
-                String post = CreatPostString.getFeeLog(limit, offset,package_type);
+                String post = CreatPostString.getFeeLog(limit, offset, package_type);
 
                 TrafficPackagePurchaseListParser mParser = new TrafficPackagePurchaseListParser();
                 BaseResponseInfo mBaseResponseInfo = mParser
@@ -3956,6 +3971,7 @@ public class CPControl {
             }
         }.start();
     }
+
     /**
      * 远程-自动升窗 成功返回onFinished(null)
      */
@@ -4104,7 +4120,7 @@ public class CPControl {
                 String url = URLConfig.getM_AIRCONDITIONER_URL();
                 // Post参数
                 String post = CreatPostString.getRemoteAir(racoc,
-//						oc,
+                        //						oc,
                         DorideApplication.MODEL_NAME);
                 DefaultParser mParser = new DefaultParser();
                 BaseResponseInfo mBaseResponseInfo = mParser
@@ -4292,8 +4308,8 @@ public class CPControl {
 
     /**
      * 远程-落锁、解锁 成功返回onFinished(null)
-     *
-     * @param lock 1开锁，2上锁
+     * @param lock
+     *         1开锁，2上锁
      */
     public static void GetRemoteLock(final String lock,
                                      final GetResultListCallback listener) {
@@ -4322,10 +4338,11 @@ public class CPControl {
 
     /**
      * 获取远程充电返回onFinished <ChargeResultInfo>
-     *
      * @param listener
-     * @param command    0 立即开始充电，1 停止充电，2 定时充电
-     * @param chargeTime action 为2 时可用 充电时间 2017-08-08 11:28
+     * @param command
+     *         0 立即开始充电，1 停止充电，2 定时充电
+     * @param chargeTime
+     *         action 为2 时可用 充电时间 2017-08-08 11:28
      */
     public static void GetRemoteCharge(final String command,
                                        final String chargeTime, final GetResultListCallback listener) {
@@ -4356,7 +4373,6 @@ public class CPControl {
 
     /**
      * 取消远程定时充电返回 onFinished<null>
-     *
      * @param listener
      */
     public static void GetRemoteCancelTimeCharge(
@@ -4388,7 +4404,6 @@ public class CPControl {
 
     /**
      * 获取远程充电状态返回onFinished<ChargeStatusInfo>
-     *
      * @param listener
      */
     public static void GetRemoteChargeStatus(
@@ -4419,8 +4434,8 @@ public class CPControl {
 
     /**
      * 远程-车辆状态 成功返回<CarStateInfo>
-     *
-     * @param deviceType 设备类型
+     * @param deviceType
+     *         设备类型
      */
     public static void GetRemoteCarState(final GetResultListCallback listener,
                                          final String deviceType) {
@@ -4450,8 +4465,6 @@ public class CPControl {
 
     /**
      * 远程-车辆实时温度 成功返回 AirMainInfo
-     *
-     *
      */
     public static void GetRemoteCarTemp(final GetResultListCallback listener,
                                         final AirMainInfo airMainInfo) {
@@ -4503,8 +4516,8 @@ public class CPControl {
 
                         if (id.equals(airState)) {
                             item.setSelect(true);
-//                            break;
-                        }else {
+                            //                            break;
+                        } else {
                             item.setSelect(false);
                         }
                     }
@@ -4970,7 +4983,6 @@ public class CPControl {
 
     /**
      * 获取用户基本信息
-     *
      * @param listener
      */
     public static void GetUserOtherInfoResult(
@@ -5002,10 +5014,12 @@ public class CPControl {
 
     /**
      * 初始化设置车型绑定设备 调用成功执行onFinished 无返回值
-     *
-     * @param brandid  品牌id
-     * @param optionid 车系ID
-     * @param carid    车款ID
+     * @param brandid
+     *         品牌id
+     * @param optionid
+     *         车系ID
+     * @param carid
+     *         车款ID
      */
     public static void GetSetCarInfoResult(final String brandid,
                                            final String optionid, final String carid, final String carName,
@@ -5040,8 +5054,8 @@ public class CPControl {
 
     /**
      * 绑定设备
-     *
-     * @param vin 设备号 16位字符串
+     * @param vin
+     *         设备号 16位字符串
      * @param listener
      */
     public static void GetCarBindInfoResult(final String vin,
@@ -5143,8 +5157,8 @@ public class CPControl {
 
     /**
      * 安全-获取首页数据<SafetyMainInfo>
-     *
-     * @param move_deviceid 发起请求的设备ID
+     * @param move_deviceid
+     *         发起请求的设备ID
      */
     public static void GetSafetyMainInfoResult(
             final GetResultListCallback listener, final String move_deviceid) {
@@ -5175,9 +5189,10 @@ public class CPControl {
 
     /**
      * 安全-获取登录日志<LoginLogListInfo>
-     *
-     * @param limit  每页条数
-     * @param offset 偏移量
+     * @param limit
+     *         每页条数
+     * @param offset
+     *         偏移量
      */
 
     public static void GetLogLoginListResult(final int limit, final int offset,
@@ -5213,10 +5228,12 @@ public class CPControl {
 
     /**
      * 安全-获取授权设备列表<MobileListInfo>
-     *
-     * @param limit         每页条数
-     * @param offset        偏移量
-     * @param move_deviceid 设备唯一标识id
+     * @param limit
+     *         每页条数
+     * @param offset
+     *         偏移量
+     * @param move_deviceid
+     *         设备唯一标识id
      */
 
     public static void GetMoblieListResult(final int limit, final int offset,
@@ -5252,8 +5269,8 @@ public class CPControl {
 
     /**
      * 安全-删除授权设备<null>
-     *
-     * @param id 设备id
+     * @param id
+     *         设备id
      */
 
     public static void GetDelMobileResult(final String id,
@@ -5285,9 +5302,10 @@ public class CPControl {
 
     /**
      * 安全-冻结、解冻账户<null>
-     *
-     * @param is_freezing 0解冻，1冻结
-     * @param password    登录密码(可选，解冻时需要)
+     * @param is_freezing
+     *         0解冻，1冻结
+     * @param password
+     *         登录密码(可选，解冻时需要)
      */
 
     public static void GetFreezingResult(final String is_freezing,
@@ -5326,10 +5344,12 @@ public class CPControl {
 
     /**
      * 安全-发送授权请求<null>
-     *
-     * @param move_deviceid    设备唯一标识id
-     * @param move_device_name 设备的用户名（蓝牙共享出去的名字）
-     * @param move_model       设备型号 如iPhone6S
+     * @param move_deviceid
+     *         设备唯一标识id
+     * @param move_device_name
+     *         设备的用户名（蓝牙共享出去的名字）
+     * @param move_model
+     *         设备型号 如iPhone6S
      */
 
     public static void GetSendAuthorizeResult(final String mobile,
@@ -5394,9 +5414,10 @@ public class CPControl {
 
     /**
      * 安全-授权处理<null>
-     *
-     * @param isallow       是否允许使用 1允许 2拒绝
-     * @param move_deviceid 发起请求授权的设备id
+     * @param isallow
+     *         是否允许使用 1允许 2拒绝
+     * @param move_deviceid
+     *         发起请求授权的设备id
      */
 
     public static void GetDealAuthorize(final String isallow,
@@ -5429,8 +5450,8 @@ public class CPControl {
 
     /**
      * 安全-子设备获取授权状态<AuthorResultInfo>
-     *
-     * @param move_deviceid 设备id
+     * @param move_deviceid
+     *         设备id
      */
 
     public static void GetAuthorizeStatusResult(final String mobile,
@@ -5462,8 +5483,8 @@ public class CPControl {
 
     /**
      * 安全-获取更新主设备授权状态<null>
-     *
-     * @param authorize_switch 授权开关 0关闭，1开启
+     * @param authorize_switch
+     *         授权开关 0关闭，1开启
      */
 
     public static void GetUpdateAuthorizeStatusResult(
@@ -5497,9 +5518,10 @@ public class CPControl {
 
     /**
      * 安全-实名认证<null>
-     *
-     * @param authen_name 真实姓名
-     * @param authen_card 身份证号
+     * @param authen_name
+     *         真实姓名
+     * @param authen_card
+     *         身份证号
      */
 
     public static void GetRealNameResult(final String authen_name,
@@ -5540,9 +5562,10 @@ public class CPControl {
 
     /**
      * 安全-身份验证<null>
-     *
-     * @param authen_name 真实姓名
-     * @param authen_card 身份证号
+     * @param authen_name
+     *         真实姓名
+     * @param authen_card
+     *         身份证号
      */
 
     public static void GetAuthenticationResult(final String authen_name,
@@ -5573,8 +5596,8 @@ public class CPControl {
 
     /**
      * 安全-设置远程密码<null>
-     *
-     * @param remote_pwd 远程密码(未经md5加密的)
+     * @param remote_pwd
+     *         远程密码(未经md5加密的)
      */
 
     public static void GetSetRemotePwdResult(final String remote_pwd,
@@ -5608,9 +5631,10 @@ public class CPControl {
 
     /**
      * 安全-修改远程密码<null>
-     *
-     * @param old_remote_pwd 当前远程密码(未经md5加密的)
-     * @param new_remote_pwd 新的远程密码(未经md5加密的)
+     * @param old_remote_pwd
+     *         当前远程密码(未经md5加密的)
+     * @param new_remote_pwd
+     *         新的远程密码(未经md5加密的)
      */
 
     public static void GetResetRemotePwdResult(final String old_remote_pwd,
@@ -5646,12 +5670,16 @@ public class CPControl {
 
     /**
      * 安全-重置远程密码<null>
-     *
-     * @param authen_name   已认证姓名
-     * @param authen_card   已认证身份证号
-     * @param mobile        用户手机号
-     * @param remote_pwd    新的远程密码(未经md5加密的)
-     * @param validate_code 短信验证码
+     * @param authen_name
+     *         已认证姓名
+     * @param authen_card
+     *         已认证身份证号
+     * @param mobile
+     *         用户手机号
+     * @param remote_pwd
+     *         新的远程密码(未经md5加密的)
+     * @param validate_code
+     *         短信验证码
      */
 
     public static void GetForgetRemotePwdResult(final String authen_name,
@@ -5687,8 +5715,8 @@ public class CPControl {
 
     /**
      * 安全-更新远程控制五分钟无需密码开关状态<null>
-     *
-     * @param lesspwd_switch 1:开启;0:关闭
+     * @param lesspwd_switch
+     *         1:开启;0:关闭
      */
 
     public static void GetUpdateLessPwdResult(final String lesspwd_switch,
@@ -5724,25 +5752,8 @@ public class CPControl {
 
     /**
      * 安全-更换主机<null>
-     *
-     * @param type
-     * 1-通过验证身份方式更换 2-通过验证手机方式更换
-     * @param authen_name
-     * 已认证车主姓名（type==1时必填）
-     * @param authen_card
-     * 已认证身份证号（type==1时必填）
-     * @param old_mobile
-     * 旧主机手机号（type==2时必填）
-     * @param new_mobile
-     * 新主机手机号（type==2时必填）
-     * @param validate
-     * 验证码（type==2时必填）
-     * @param move_deviceid
-     * 主机设备唯一标识码
-     * @param move_device_name
-     * 主机设备名称
      */
-    public final static String CHANGE_BY_ID = "1";// 通过验证身份方式更换
+    public final static String CHANGE_BY_ID    = "1";// 通过验证身份方式更换
     public final static String CHANGE_BY_PHONE = "2";// 通过验证手机方式更换
 
     public static void GetChangeMainDeviceResult(final String type,
@@ -5781,14 +5792,20 @@ public class CPControl {
 
     /**
      * 安全-无授权登录<null>
-     *
-     * @param mobile           登录手机
-     * @param authen_name      用户真实姓名
-     * @param authen_card      用户已认证身份证号
-     * @param remote_pwd       远程密码(md5加密传输)
-     * @param move_deviceid    主机设备唯一标识码
-     * @param move_device_name 主机设备名称
-     * @param move_model       设备型号 如iPhone6S
+     * @param mobile
+     *         登录手机
+     * @param authen_name
+     *         用户真实姓名
+     * @param authen_card
+     *         用户已认证身份证号
+     * @param remote_pwd
+     *         远程密码(md5加密传输)
+     * @param move_deviceid
+     *         主机设备唯一标识码
+     * @param move_device_name
+     *         主机设备名称
+     * @param move_model
+     *         设备型号 如iPhone6S
      */
     public static void GetNoAuthorizeLoginResult(final String mobile,
                                                  final String authen_name, final String authen_card,
@@ -5823,18 +5840,28 @@ public class CPControl {
 
     /**
      * 安全-安全验证登录<null>
-     *
-     * @param old_mobile       旧主机号
-     * @param old_password     旧登录密码
-     * @param authen_name      用户真实姓名
-     * @param authen_card      用户已认证身份证号
-     * @param remote_pwd       远程密码(md5加密传输)
-     * @param new_mobile       新主机号
-     * @param validate         新主机号验证码
-     * @param new_password     新登录密码
-     * @param move_deviceid    主机设备唯一标识码
-     * @param move_device_name 主机设备名称
-     * @param move_model       设备型号 如iPhone6S
+     * @param old_mobile
+     *         旧主机号
+     * @param old_password
+     *         旧登录密码
+     * @param authen_name
+     *         用户真实姓名
+     * @param authen_card
+     *         用户已认证身份证号
+     * @param remote_pwd
+     *         远程密码(md5加密传输)
+     * @param new_mobile
+     *         新主机号
+     * @param validate
+     *         新主机号验证码
+     * @param new_password
+     *         新登录密码
+     * @param move_deviceid
+     *         主机设备唯一标识码
+     * @param move_device_name
+     *         主机设备名称
+     * @param move_model
+     *         设备型号 如iPhone6S
      */
     public static void GetNoAuthorizeChangeDeviceResult(
             final String old_mobile, final String old_password,
@@ -5874,10 +5901,12 @@ public class CPControl {
 
     /**
      * 安全-更换主机-主机认证<null>
-     *
-     * @param old_mobile 旧手机号
-     * @param new_mobile 新手机号
-     * @param validate   新手机验证码
+     * @param old_mobile
+     *         旧手机号
+     * @param new_mobile
+     *         新手机号
+     * @param validate
+     *         新手机验证码
      */
     public static void GetMainDeviceAuthorizeResult(final String old_mobile,
                                                     final String new_mobile, final String validate,
@@ -5937,9 +5966,10 @@ public class CPControl {
 
     /**
      * 续费-获取订单信息<FeeOrderInfo>
-     *
-     * @param order_year  订单年限
-     * @param order_money 订单价格
+     * @param order_year
+     *         订单年限
+     * @param order_money
+     *         订单价格
      */
     public static void GetFeeOrderResult(final GetResultListCallback listener,
                                          final String order_year, final String order_money) {
@@ -5974,8 +6004,6 @@ public class CPControl {
 
     /**
      * 续费-验证支付回调<FeeOrderInfo>
-     *
-     *
      */
     public static void GetFeeCheckResult(final GetResultListCallback listener,
                                          final String resultStatus, final String result) {
@@ -6005,9 +6033,10 @@ public class CPControl {
 
     /**
      * 续费-续费记录<FeeLogListInfo>
-     *
-     * @param limit  每页条数
-     * @param offset 偏移量
+     * @param limit
+     *         每页条数
+     * @param offset
+     *         偏移量
      */
     public static void GetFeeLogResult(final int limit, final int offset,
                                        final GetResultListCallback listener) {
@@ -6068,12 +6097,12 @@ public class CPControl {
         new Thread() {
             @Override
             public void run() {
-//                PayTask alipay = new PayTask(act);
-//                String result = alipay.pay(orderInfo, true);
-//                Message msg = new Message();
-//                msg.what = 0;
-//                msg.obj = result;
-//                payHandler.sendMessage(msg);
+                //                PayTask alipay = new PayTask(act);
+                //                String result = alipay.pay(orderInfo, true);
+                //                Message msg = new Message();
+                //                msg.what = 0;
+                //                msg.obj = result;
+                //                payHandler.sendMessage(msg);
             }
         }.start();
     }
@@ -6113,11 +6142,8 @@ public class CPControl {
     }
 
 
-
     /**
      * 旧车主获取二维码
-     *
-     *
      */
     public static void GetTransferQrCodeResult(final String realName,
                                                final String authen_card, final String phone, final String code,
@@ -6147,7 +6173,6 @@ public class CPControl {
 
     /**
      * 新车主过户
-     *
      * @param outtingid
      * @param listener
      */
@@ -6177,7 +6202,6 @@ public class CPControl {
 
     /**
      * 旧车主操作过户
-     *
      * @param outtingid
      * @param isagree
      * @param listener
@@ -6209,7 +6233,6 @@ public class CPControl {
 
     /**
      * 老车主检测是否有过户请求
-     *
      * @param listener
      */
     public static void GetTransferOldCheckResult(
@@ -6241,7 +6264,6 @@ public class CPControl {
 
     /**
      * 新车主检测过户结果
-
      */
     public static void GetTransferNewCheckResult(final String outtingid,
                                                  final GetResultListCallback listener) {
@@ -6353,7 +6375,6 @@ public class CPControl {
 
     /**
      * 更换设备
-     *
      * @param deviceid
      * @param listener
      */
@@ -6383,15 +6404,9 @@ public class CPControl {
 
     /**
      * 获取广告信息
-     *
-     * @param advert_type
-     * 广告类型，1=普通广告，2=续费广告
-     * @param listener
-     * <p>
-     * 返回 <AdvertiseInfo>
      */
     public final static String ADVERT_TYPE_COMMON = "1";
-    public final static String ADVERT_TYPE_FEE = "2";
+    public final static String ADVERT_TYPE_FEE    = "2";
 
     public static void GetAdvert(final String advert_type,
                                  final GetResultListCallback listener) {
@@ -6418,7 +6433,6 @@ public class CPControl {
 
     /**
      * 获取车辆位置信息
-     *
      * @param listener
      */
     public static void GetCarExtInfo(final GetResultListCallback listener) {
@@ -6447,7 +6461,6 @@ public class CPControl {
 
     /**
      * 获取经销商信息
-     *
      * @param listener
      */
     public static void GetDealerInfoResult(final GetResultListCallback listener) {
@@ -6490,11 +6503,12 @@ public class CPControl {
             }
         }.start();
     }
+
     public static SimpleDateFormat dateFormat = new SimpleDateFormat(
             "yyyy年MM月dd日");
+
     /**
      * 获取经销商信息
-     *
      * @param listener
      */
     public static void GetVersionLog(final GetResultListCallback listener) {
@@ -6524,12 +6538,12 @@ public class CPControl {
                             JSONArray jsonArray1 = jsonObject1.getJSONArray("info");
 
                             long dateTimes = 0;
-                            try{
+                            try {
                                 dateTimes = Long.parseLong(createdate);
-                            }catch (NumberFormatException e){
+                            } catch (NumberFormatException e) {
                                 e.printStackTrace();
                             }
-                            Log.e("dateTimes","dateTimes"+dateTimes);
+                            Log.e("dateTimes", "dateTimes" + dateTimes);
                             Calendar c = Calendar.getInstance();
                             c.setTimeInMillis(dateTimes * 1000);
                             Date date1 = c.getTime();
@@ -6558,7 +6572,8 @@ public class CPControl {
             }
         }.start();
     }
-    public static void GetUpdateMoveDeviceidResult(final String move_deviceid,final String validate,final String mobile,
+
+    public static void GetUpdateMoveDeviceidResult(final String move_deviceid, final String validate, final String mobile,
                                                    final GetResultListCallback listener) {
 
         if (listener == null)
@@ -6570,7 +6585,7 @@ public class CPControl {
                 String url = URLConfig.getM_UPDATEMOVEDEVICEID();
                 // Post参数
                 String post = CreatPostString
-                        .getUpdateMoveDeviceid(move_deviceid,validate,mobile);
+                        .getUpdateMoveDeviceid(move_deviceid, validate, mobile);
                 DefaultParser mParser = new DefaultParser();
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
