@@ -43,7 +43,7 @@
     <string name="car_manager_txt">车辆管理</string>
     <string name="msg_manager_txt">消息管理</string>
     <string name="device_manager_txt">设备管理</string>
-    <string name="device_recharge_txt">流量包充值</string>
+    <string name="device_recharge_txt">流量充值</string>
     <string name="general_manager_txt">通用管理</string>
     <string name="clean_cache_txt">清除缓存</string>vart
     <string name="contact_us_txt">联系我们</string>
@@ -185,4 +185,12 @@
     <string name="traffic_buy_info"><font size="14">%1$s</font>\\n<font size="12">%2$.2f元</font></string>
     <string name="traffic_buy_value">[%1$d]</string>
     <string name="traffic_buy_amount">￥%1$s</string>
+
+
+    <string name="traffic_warnning_title">流量提醒</string>
+    <string name="traffic_warnning_tips">本月您的免费流量额度已经耗尽，\n已停止您本月设备的流量共享服务\n(次月恢复)。本月如需使用该服\n务，请充值流量加油包</string>
+    <string name="traffic_warnning_no">不在提醒</string>
+    <string name="traffic_never_remind">不在提醒</string>
+    <string name="traffic_buy_now">立即充值</string>
+    <string name="i_kwon_it">我知道了</string>
 </resources>

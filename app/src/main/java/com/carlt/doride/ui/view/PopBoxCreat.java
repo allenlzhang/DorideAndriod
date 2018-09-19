@@ -5,12 +5,15 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.ui.activity.setting.FlowPackageRechargeActivity;
 import com.carlt.sesame.ui.view.UUImgInfoDialog;
 
 
@@ -50,7 +55,59 @@ public class PopBoxCreat {
 
         void onItemTwoClick(View v);
     }
+    /**
+     * 流量提醒dialog,需要给出是否点击外部消失
+     *
+     * @param context
+     * @param isNodismiss
+     */
+    public static void createTrafficDialogNotitle(final Context context,
+                                                  final boolean isNodismiss) {
 
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.traffic_dialog_notitle, null);
+        final Dialog dialogI = new Dialog(context, R.style.dialog);
+        TextView btnL = (TextView) view.findViewById(R.id.btn_traffic_buy_now);
+        TextView btnR = (TextView) view.findViewById(R.id.btn_traffic_never_remind);
+        CheckBox isSelect = (CheckBox) view.findViewById(R.id.traffic_never_remind);
+
+        isSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                DorideApplication.isTrafficTipsShow = !isChecked;
+            }
+        });
+
+        btnL.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DorideApplication.isFirstLogin = false;
+                ActivityControl.saveExitTime();
+                Intent intent = new Intent(context, FlowPackageRechargeActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+        btnR.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View v) {
+                DorideApplication.isFirstLogin = false;
+                dialogI.dismiss();
+                ActivityControl.saveExitTime();
+            }
+        });
+
+
+        int w = (int) (DorideApplication.ScreenDensity * 300);
+        ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialogI.setContentView(view, parm);
+        if (isNodismiss) {
+            dialogI.setCanceledOnTouchOutside(false);
+            dialogI.setCancelable(false);
+        }
+        dialogI.show();
+
+    }
     /**
      * 三个编辑框
      * @author liu

@@ -128,6 +128,8 @@ public class URLConfig {
         urlArrayList.add("safe/remotePwdVerify");
         urlArrayList.add("safe/resetRemotePwd");
         urlArrayList.add("safe/forgetRemotePwd");
+        urlArrayList.add("safe/forgetRemotePwd");
+        urlArrayList.add("user/setValidate");
     }
 
     public static String getClientID() {

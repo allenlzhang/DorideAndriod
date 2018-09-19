@@ -141,12 +141,22 @@
                 android:smoothScrollbar="true"
                 android:verticalSpacing="10dp" >
             </com.carlt.doride.ui.view.GridViewForScrollView>
-
+            <TextView
+                android:id="@+id/tvPriceEmptyHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:textColor="#999999"
+                android:visibility="gone"
+                android:textSize="14sp" />
             <com.carlt.doride.ui.view.ListViewForScrollView
                 android:id="@+id/lvPriceList"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="15dp"
+                android:visibility="visible"
                 android:smoothScrollbar="true" >
             </com.carlt.doride.ui.view.ListViewForScrollView>
         </LinearLayout>

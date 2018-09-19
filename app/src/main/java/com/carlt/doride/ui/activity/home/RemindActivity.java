@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
+import com.carlt.doride.data.ActivateInfo;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarSettingInfo;
 import com.carlt.doride.data.home.InformationMessageInfo;
@@ -24,6 +25,7 @@ import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.protocolparser.car.CarSettingInfoParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.activity.login.DeviceBindActivity;
 import com.carlt.doride.ui.activity.setting.CarManagerActivity;
 import com.carlt.doride.ui.activity.setting.MsgManageActivity;
 import com.carlt.doride.ui.adapter.InformationCentreTipsAdapter;
@@ -33,6 +35,11 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUDialog;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,6 +81,7 @@ public class RemindActivity extends LoadingActivity {
     private View MaintenanceTitle;
 
     private boolean isLoadMore = false;
+    private int activate_status;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,27 +99,28 @@ public class RemindActivity extends LoadingActivity {
         initSubTitle();
         initTitle(title_s);
         init();
-//        initData();
+        getActivateStatus();
+        //        initData();
     }
 
     private int count_onstart = 0;
 
-//    @Override
-//    protected void onStart() {
-//        count_onstart++;
-//        if (count_onstart > 1) {
-//            loadSuccessUI();
-//            long l = 5000;
-//            new Handler().postDelayed(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    initData();
-//                }
-//            }, 1000 * 5);
-//        }
-//        super.onStart();
-//    }
+    //    @Override
+    //    protected void onStart() {
+    //        count_onstart++;
+    //        if (count_onstart > 1) {
+    //            loadSuccessUI();
+    //            long l = 5000;
+    //            new Handler().postDelayed(new Runnable() {
+    //
+    //                @Override
+    //                public void run() {
+    //                    initData();
+    //                }
+    //            }, 1000 * 5);
+    //        }
+    //        super.onStart();
+    //    }
 
     @Override
     public void reTryLoadData() {
@@ -123,9 +132,9 @@ public class RemindActivity extends LoadingActivity {
     protected void initTitle(String titleString) {
         super.initTitle(titleString);
         backTV2.setBackgroundResource(R.drawable.icon_message_manager_bg);
-        if (type == InformationMessageInfo.C1_T6){
+        if (type == InformationMessageInfo.C1_T6) {
             backTV2.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             backTV2.setVisibility(View.VISIBLE);
         }
     }
@@ -258,9 +267,9 @@ public class RemindActivity extends LoadingActivity {
         if (data != null) {
             InformationMessageInfoList mLists = (InformationMessageInfoList) ((BaseResponseInfo) data).getValue();
             if (mLists != null) {
-                if (isLoadMore){
+                if (isLoadMore) {
                     mList.addAll(mLists.getmAllList());
-                }else {
+                } else {
                     mList = mLists.getmAllList();
                 }
                 if (mAdapter == null) {
@@ -274,11 +283,11 @@ public class RemindActivity extends LoadingActivity {
 
                 if (mList.size() == 0) {
                     mPullListView.setVisibility(View.GONE);
-//                    if (type == InformationMessageInfo.C1_T6) {
-//                        mImgEmpty.setVisibility(View.GONE);
-//                    } else {
-                        mImgEmpty.setVisibility(View.VISIBLE);
-//                    }
+                    //                    if (type == InformationMessageInfo.C1_T6) {
+                    //                        mImgEmpty.setVisibility(View.GONE);
+                    //                    } else {
+                    mImgEmpty.setVisibility(View.VISIBLE);
+                    //                    }
                     mTxtEmpty.setVisibility(View.VISIBLE);
                 } else {
                     mPullListView.setVisibility(View.VISIBLE);
@@ -303,8 +312,8 @@ public class RemindActivity extends LoadingActivity {
                 getCarInfo();
             } else {
             }
-            CPControl.GetInformationMessageResult(mCallback, type,LIMIT,0);
-            isLoadMore =false;
+            CPControl.GetInformationMessageResult(mCallback, type, LIMIT, 0);
+            isLoadMore = false;
         } else {
             loadSuccessUI();
         }
@@ -340,7 +349,7 @@ public class RemindActivity extends LoadingActivity {
      */
     private void PullDown() {
         if (type > 0) {
-            CPControl.GetInformationMessageResult(mCallback, type,LIMIT,0);
+            CPControl.GetInformationMessageResult(mCallback, type, LIMIT, 0);
             isLoadMore = false;
         }
     }
@@ -351,7 +360,7 @@ public class RemindActivity extends LoadingActivity {
     private void PullUp() {
         if (type > 0) {
             int offset = mList.size();
-            CPControl.GetInformationMessageResult(mCallback, type,LIMIT,offset);
+            CPControl.GetInformationMessageResult(mCallback, type, LIMIT, offset);
             isLoadMore = true;
         }
 
@@ -410,8 +419,8 @@ public class RemindActivity extends LoadingActivity {
                 }
 
             };
-//            PopBoxCreat.createDialogWithTitle(RemindActivity.this, "提示", "您确定要删除该消息吗？", "",
-//                    "确定", "取消", click);
+            //            PopBoxCreat.createDialogWithTitle(RemindActivity.this, "提示", "您确定要删除该消息吗？", "",
+            //                    "确定", "取消", click);
             PopBoxCreat.createDialogNotitle(RemindActivity.this, "温馨提示", "您确定要删除该消息吗？", "确定", "取消", click);
         }
 
@@ -422,8 +431,24 @@ public class RemindActivity extends LoadingActivity {
             int class1 = mInfo.getClass1();
             int class2 = mInfo.getClass2();
             switch (class1) {
+                case InformationMessageInfo.C1_T1:
+                    //                    InformationMessageInfo info1 = mList.get(mList.size() - 1);
+                    //                    if (info1.getClass2() != 1104) {
+                    //                        if (class2 == 1110) {
+                    //                            Intent intent = new Intent(RemindActivity.this, DeviceBindActivity.class);
+                    //                            startActivity(intent);
+                    //                        }
+                    //                    }
+                    //                    isJump();
 
-                case 41:
+                    if (activate_status == 3) {
+                        Intent intent = new Intent(RemindActivity.this, DeviceBindActivity.class);
+                        startActivity(intent);
+                    } else if (activate_status == 1) {
+                        showTipDialog("正在激活中");
+                    }
+                    break;
+                case InformationMessageInfo.C1_T4:
                     // 41 行车信息
 
                     Intent mIntent4;
@@ -441,11 +466,47 @@ public class RemindActivity extends LoadingActivity {
                             startActivity(mIntent4);
                             break;
                     }
-
+                    break;
             }
 
         }
     };
+    private void showTipDialog(String info) {
+        com.carlt.sesame.ui.view.PopBoxCreat.createDialogNotitleOneBtn(this, "温馨提示", info, "确定", new com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick() {
+            @Override
+            public void onLeftClick() {
+            }
+
+            @Override
+            public void onRightClick() {
+            }
+        });
+    }
+    private void getActivateStatus() {
+        OkGo.<String>post(URLConfig.getCheckIsActivate_URL())
+                .params("client_id", URLConfig.getClientID())
+                .params("token", LoginInfo.getAccess_token())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Logger.e(response.body());
+                        String body = response.body();
+                        Gson gson = new Gson();
+
+                        ActivateInfo activateInfo = gson.fromJson(body, ActivateInfo.class);
+                        //                        activateInfo.data.activate_status = 1;
+                        if (activateInfo.code == 200) {
+                            activate_status = activateInfo.data.activate_status;
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                    }
+                });
+    }
 
 
     //删除车秘书提醒回调
@@ -481,11 +542,11 @@ public class RemindActivity extends LoadingActivity {
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-//                    mList.remove(dele_position);
-//                    mAdapter.setmList(mList);
-//                    mAdapter.notifyDataSetChanged();
+                    //                    mList.remove(dele_position);
+                    //                    mAdapter.setmList(mList);
+                    //                    mAdapter.notifyDataSetChanged();
                     if (type > 0) {
-                        CPControl.GetInformationMessageResult(mCallback, type,LIMIT,0);
+                        CPControl.GetInformationMessageResult(mCallback, type, LIMIT, 0);
                         isLoadMore = false;
                     }
                     UUToast.showUUToast(RemindActivity.this, "删除成功！");
@@ -516,9 +577,9 @@ public class RemindActivity extends LoadingActivity {
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
-                        if (!TextUtils.isEmpty(mBaseResponseInfo.getInfo())){
+                        if (!TextUtils.isEmpty(mBaseResponseInfo.getInfo())) {
                             UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
-                        }else {
+                        } else {
                             UUToast.showUUToast(RemindActivity.this, "已经保养过了");
                         }
 
@@ -532,12 +593,12 @@ public class RemindActivity extends LoadingActivity {
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
-                        if (!TextUtils.isEmpty(mBaseResponseInfo.getInfo())){
+                        if (!TextUtils.isEmpty(mBaseResponseInfo.getInfo())) {
                             UUToast.showUUToast(RemindActivity.this, mBaseResponseInfo.getInfo());
                         }
-//                        else {
-//                            UUToast.showUUToast(RemindActivity.this, "已经保养过了");
-//                        }
+                        //                        else {
+                        //                            UUToast.showUUToast(RemindActivity.this, "已经保养过了");
+                        //                        }
                     }
                     break;
                 case 9:

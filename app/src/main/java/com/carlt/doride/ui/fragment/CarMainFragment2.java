@@ -95,6 +95,7 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
 
     @Override
     public void init(View view) {
+        getActivateStatus("正在激活中");
         mLoadingView = view.findViewById(R.id.laoding_lay_main);
         ivBg = view.findViewById(R.id.ivBg);
 

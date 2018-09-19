@@ -234,38 +234,55 @@
                         android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider"/>
+                <View
+                    android:id="@+id/lineFlow"
+                    style="@style/setting_page_item_divider"/>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/llFlowRecharge"
                     style="@style/setting_page_item_style"
                     android:layout_width="match_parent">
 
                     <ImageView
+                        android:id="@+id/ic1"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/icon_device_manager"/>
+                        android:src="@mipmap/ic_flow"/>
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/tvFlow"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="14dp"
-                        android:layout_weight="1"
+                        android:layout_toRightOf="@+id/ic1"
                         android:gravity="center_vertical"
                         android:text="@string/device_recharge_txt"
                         android:textColor="@color/main_page_linear_border"
                         android:textSize="14sp"/>
 
                     <ImageView
+                        android:id="@+id/icFlowDot"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/tvFlow"
+                        android:src="@drawable/icon_dot"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:src="@mipmap/arrow_right"/>
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout

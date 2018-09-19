@@ -64,8 +64,6 @@ import butterknife.ButterKnife;
 
 /**
  * Description :  流量包充值
- * @Author     : zhanglei
- * @Date       : 2018/9/17
  */
 public class FlowPackageRechargeActivity extends LoadingActivity {
 
@@ -83,6 +81,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     SegmentControl        segmentControl;
     @BindView(R.id.tvEmptyHint)
     TextView              tvEmptyHint;
+    @BindView(R.id.tvPriceEmptyHint)
+    TextView              tvPriceEmptyHint;
     @BindView(R.id.gv_package_wrap)
     GridViewForScrollView GvPackageWrap;
     @BindView(R.id.lvPriceList)
@@ -262,7 +262,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     }
 
     private void initView() {
-        initTitle("流量包充值");
+        initTitle("流量充值");
         tvRight.setText("充值记录");
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setOnClickListener(new View.OnClickListener() {
@@ -292,6 +292,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                                 position = 0;
                                 tvEmptyHint.setVisibility(View.GONE);
                                 GvPackageWrap.setVisibility(View.VISIBLE);
+                                tvPriceEmptyHint.setVisibility(View.GONE);
                                 showFlowPackageInfos(refuleItems, refulePriceInfos);
 
                                 break;
@@ -307,11 +308,13 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                                     GvPackageWrap.setVisibility(View.VISIBLE);
                                     lvPriceList.setVisibility(View.VISIBLE);
                                 }
+                                tvPriceEmptyHint.setVisibility(View.GONE);
                                 showFlowPackageInfos(changeItems, changePriceInfos);
                                 break;
                             case 2:
                                 // 续套餐
                                 position = 2;
+                                tvPriceEmptyHint.setVisibility(View.GONE);
                                 tvEmptyHint.setVisibility(View.GONE);
                                 GvPackageWrap.setVisibility(View.VISIBLE);
                                 showFlowPackageInfos(renewItems, renewPriceInfos);
@@ -380,6 +383,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                 adapter.setSeclection(pos);
                 adapter.notifyDataSetChanged();
                 String item = adapter.getItem(pos);
+
                 switch (position) {
                     case 0:
                         // 加油包
@@ -411,7 +415,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                         break;
                 }
 
-                showPackagePriceList(flowPriceDataList);
+                showPackagePriceList(flowPriceDataList, null);
 
             }
         });
@@ -421,14 +425,14 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
      * Description : 改套餐请求接口拉取套餐种类
      */
     private void changePackageFlow(String item) {
-
+        tvPriceEmptyHint.setVisibility(View.GONE);
         mPorgressDialog.show();
         CPControl.getCalculatePrice(item, "4", new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
                 //                LogUtils.e(bInfo.getValue());
                 mPorgressDialog.dismiss();
-                parsePackagePrice(bInfo.getValue());
+                parsePackagePrice(bInfo);
             }
 
             @Override
@@ -668,16 +672,14 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
     private FlowPriceInfo mFlowPriceInfo;
 
-    private void showPackagePriceList(ArrayList<FlowPriceInfo> flowPriceDataList) {
+    private void showPackagePriceList(ArrayList<FlowPriceInfo> flowPriceDataList, BaseResponseInfo bInfo) {
         if (flowPriceDataList != null && flowPriceDataList.size() != 0) {
             lvPriceList.setVisibility(View.VISIBLE);
-
+            tvPriceEmptyHint.setVisibility(View.GONE);
             FlowPriceListAdapter priceListAdapter = new FlowPriceListAdapter(
                     this, flowPriceDataList);
             lvPriceList.setAdapter(priceListAdapter);
             sv.smoothScrollTo(0, 0);
-            //            setGridViewHeight(package_wrap);
-            //            setListViewHeight(lvPriceList);
             priceListAdapter
                     .setOnTvRechargeListener(new FlowPriceListAdapter.TvRechargeClickListener() {
 
@@ -702,19 +704,25 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
         } else {
             lvPriceList.setVisibility(View.GONE);
+            tvPriceEmptyHint.setVisibility(View.VISIBLE);
+            if (bInfo != null) {
+                tvPriceEmptyHint.setText(bInfo.getInfo());
+            }
         }
     }
 
-    protected void parsePackagePrice(Object o1) {
+    protected void parsePackagePrice(BaseResponseInfo bInfo) {
         String flowTerm = "";
         String finalDate = "";
-        LogUtils.e("====", o1.toString());
+        LogUtils.e("====", bInfo.toString());
+        //        bInfo.setValue("[]");
+        Object value = bInfo.getValue();
         if (warnningInfo.data != null) {
             flowTerm = warnningInfo.data.service_data_end;
             finalDate = warnningInfo.data.final_service_data_end;
         }
         try {
-            JSONArray ja = new JSONArray(o1.toString());
+            JSONArray ja = new JSONArray(value.toString());
             ArrayList<FlowPriceInfo> changePrices = new ArrayList<>();
             for (int i = 0; i < ja.length(); i++) {
                 FlowPriceInfo info1 = new FlowPriceInfo();
@@ -730,7 +738,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
             }
             LogUtils.e("changePrices====",
                     changePrices.toString());
-            showPackagePriceList(changePrices);
+            showPackagePriceList(changePrices, bInfo);
+
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

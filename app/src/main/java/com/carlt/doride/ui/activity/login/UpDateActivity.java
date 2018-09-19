@@ -1,7 +1,7 @@
 package com.carlt.doride.ui.activity.login;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -51,6 +50,7 @@ public class UpDateActivity extends AppCompatActivity  {
     boolean complete = false;
     Disposable disposable ;
     protected Unbinder mUnbinder;
+    int time = 180 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,39 +71,70 @@ public class UpDateActivity extends AppCompatActivity  {
                 .into(updateImg);
 
 
-        // 轮询更新
-        Observable.interval(1, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
+        disposable  = Observable.interval(1, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<Long>() {
                     @Override
-                    public void accept(Long along) throws Exception {
+                    public void accept(Long aLong) throws Exception {
                         doNetWork();
                     }
                 })
-                .subscribe(new Observer<Long>() {
+                .subscribe(new Consumer<Long>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable = d;
+                    public void accept(Long aLong) throws Exception {
+                        time--;
+                        if (time <= 0) {
+                            if(progress != null){
+                                progress.setText("更新失败");
+                            }
+                            disposable.dispose();
+                        }
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onNext(Long aBoolean) {
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        Logger.e(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void accept(Throwable throwable) throws Exception {
+                        Logger.e(throwable.getMessage());
                     }
                 });
+
+        // 轮询更新
+//         Observable.interval(1, TimeUnit.SECONDS)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnNext(new Consumer<Long>() {
+//                    @Override
+//                    public void accept(Long along) throws Exception {
+//                        doNetWork();
+//                    }
+//                })
+//                .subscribe(new Observer<Long>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                        disposable = d;
+//                    }
+//
+//                    @Override
+//                    public void onNext(Long aBoolean) {
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        time -- ;
+//                        if(time <= 0){
+//                            disposable.dispose();
+//                        }
+//                        Logger.e(e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
+
     }
 
     private void doNetWork() {
@@ -111,9 +142,7 @@ public class UpDateActivity extends AppCompatActivity  {
         CPControl.GetDeviceUpdateResult(s, new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
-
                 DeviceUpdateInfo mInfo = (DeviceUpdateInfo) bInfo.getValue();
-
                 if (mInfo.isUpgrading()) {
                     if(progress != null){
                         progress.setText("设备正在升级中，此过程可能需要2到3分钟， 请您耐心等待...");
@@ -136,6 +165,11 @@ public class UpDateActivity extends AppCompatActivity  {
                 if(progress != null){
                     progress.setText("更新失败");
                 }
+
+                if(disposable != null){
+                    disposable.dispose();
+                }
+
 
             }
         });
@@ -165,6 +199,5 @@ public class UpDateActivity extends AppCompatActivity  {
             mUnbinder.unbind();
         }
     }
-
 
 }

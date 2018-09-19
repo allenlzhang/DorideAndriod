@@ -104,7 +104,8 @@ public class SesameLoginInfo {
     private static String cId = "";// 车辆ID
 
     // 品牌ID
-    private static String brandid = "";
+    private static String brandid         = "";
+    private static int    activate_status = -1;
 
     // 颜色
     private static String color = "";
@@ -711,6 +712,16 @@ public class SesameLoginInfo {
     public static String getBrandid() {
         brandid = car_pref.getString("brandid", brandid);
         return brandid;
+    }
+
+    public static int getActivate_status() {
+        activate_status = car_pref.getInt("activate_status", -1);
+        return activate_status;
+    }
+
+    public static void setActivate_status(int activate_status) {
+        SesameLoginInfo.activate_status = activate_status;
+        car_pref.edit().putInt("activate_status", activate_status).commit();
     }
 
     public static void setBrandid(String brandid) {

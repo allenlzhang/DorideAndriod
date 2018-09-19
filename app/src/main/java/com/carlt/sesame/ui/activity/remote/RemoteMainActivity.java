@@ -27,7 +27,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.ui.activity.login.ActivateBindActivity;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;

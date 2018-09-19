@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.os.Handler;
 import android.os.Message;
@@ -35,8 +36,12 @@ import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.android.tpush.service.XGPushServiceV3;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * 管理全局activity
@@ -67,6 +72,12 @@ public class ActivityControl {
         }
     }
 
+    public static void removeAllActivity() {
+        for (Activity activity : mActivityList) {
+            activity.finish();
+        }
+    }
+
     public static Activity getTopActivity() {
         if (mActivityList != null) {
             int size = mActivityList.size();
@@ -94,10 +105,10 @@ public class ActivityControl {
         build.setFlags(Notification.FLAG_AUTO_CANCEL);
         String useId;
         String dealerId;
-        if (LoginInfo.getApp_type() == 1){
+        if (LoginInfo.getApp_type() == 1) {
             useId = LoginInfo.getUseId();
             dealerId = LoginInfo.getDealerId();
-        }else {
+        } else {
             useId = SesameLoginInfo.getUseId();
             dealerId = SesameLoginInfo.getDealerId();
         }
@@ -201,7 +212,7 @@ public class ActivityControl {
         UseInfoLocal.setUseInfo(mUseInfo);
         //		DorideApplication.TOKEN = "";
         LoginInfo.setAccess_token("");
-//        LoginInfo.Destroy();
+        //        LoginInfo.Destroy();
         SesameLoginInfo.Destroy();
         Intent mIntent = new Intent(context, UserLoginActivity.class);
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -235,6 +246,7 @@ public class ActivityControl {
                 mActivityList.get(i).finish();
             }
         }
+        saveExitTime();
         mActivityList.clear();
     }
 
@@ -313,6 +325,15 @@ public class ActivityControl {
                 toggleView.setTag("on");
             }
         }
+    }
+
+    public static void saveExitTime() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String extiLoginTime = sdf.format(date);
+        SharedPreferences.Editor editor = DorideApplication.getAppContext().getSharedPreferences("LastLoginTime", MODE_PRIVATE).edit();
+        editor.putString("LoginTime" + LoginInfo.getMobile(), extiLoginTime);
+        editor.apply();
     }
 
     public static void finishAllCarSelectActivity() {

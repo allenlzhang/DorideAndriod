@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.control.LoginControl;
-import com.carlt.doride.ui.activity.login.ActivateBindActivity;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -29,6 +29,9 @@ import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.ui.view.UUTimerDialog;
 import com.carlt.sesame.utility.StringUtils;
 import com.carlt.sesame.utility.UUToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 激活盒子页面
@@ -172,17 +175,35 @@ public class SesameActivateActivity extends BaseActivity {
 
     private long listener_time;
 
-    GetResultListCallback listener_relogin = new GetResultListCallback() {
-
+    BaseParser.ResultCallback listener_relogin = new BaseParser.ResultCallback() {
         @Override
-        public void onFinished(Object o) {
+        public void onSuccess(com.carlt.doride.data.BaseResponseInfo bInfo) {
             mHandler.sendEmptyMessage(1003);
+            String dataValue = (String) bInfo.getValue();
+            JSONObject mJSON_data = null;
+            try {
+                mJSON_data = new JSONObject(dataValue);
+                LoginControl.parseLoginInfo(mJSON_data);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+            }
         }
 
         @Override
-        public void onErro(Object o) {
+        public void onError(com.carlt.doride.data.BaseResponseInfo bInfo) {
             mHandler.sendEmptyMessage(2003);
         }
+        //        @Override
+//        public void onFinished(Object o) {
+//            mHandler.sendEmptyMessage(1003);
+//        }
+//
+//        @Override
+//        public void onErro(Object o) {
+//            mHandler.sendEmptyMessage(2003);
+//        }
 
     };
 
@@ -306,11 +327,15 @@ public class SesameActivateActivity extends BaseActivity {
          *
          */
         private void reLogin() {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+                mDialog = null;
+            }
             if (times < 2) {
                 UseInfo mUseInfo = UseInfoLocal.getUseInfo();
                 String account = mUseInfo.getAccount();
                 String password = mUseInfo.getPassword();
-                CPControl.GetLogin(account, password, listener_relogin);
+                com.carlt.doride.control.CPControl.GetLogin(account, password, listener_relogin);
             } else {
                 UUToast.showUUToast(SesameActivateActivity.this, "已成功激活");
                 LoginControl.logic(SesameActivateActivity.this);

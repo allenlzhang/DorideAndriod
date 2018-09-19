@@ -83,9 +83,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
 
-
     @Override
     public void init(View view) {
+        getActivateStatus("激活会在24小时内完成。激活未完成前，无法使用APP全部功能，请耐心等候。");
         mIvReport = $ViewByID(R.id.activity_home_iv_report);
         ivHomeBg = $ViewByID(R.id.ivHomeBg);
         mRlInformationCentre = $ViewByID(R.id.activity_home_relative2);
@@ -160,6 +160,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mClient.setLocationOption(mLocationOption);
         mClient.startLocation();
     }
+
 
     @Override
     public void onResume() {

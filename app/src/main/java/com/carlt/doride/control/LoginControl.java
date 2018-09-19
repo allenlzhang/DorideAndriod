@@ -11,6 +11,7 @@ import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.activity.login.DeviceBindActivity;
+import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
@@ -40,70 +41,114 @@ public class LoginControl {
 
         if (!TextUtils.isEmpty(s) || !TextUtils.isEmpty(s2)) {
             // 已绑定设备,判断是否激活设备
-            boolean isDeviceActivate = LoginInfo.isDeviceActivate();
-            boolean deviceActivate = SesameLoginInfo.isDeviceActivate();
-            Log.e("info", "isDeviceActivate==" + isDeviceActivate);
-            Log.e("info", "deviceActivate==" + deviceActivate);
-            if (isDeviceActivate || deviceActivate) {
-                Intent mainIntent;
-                if (LoginInfo.getApp_type() == 1) {
-                    // 大乘绑定和激活合并，如果激活直接进入主页
-                    mainIntent = new Intent(mContext, MainActivity.class);
-                } else {
-                    if (SesameLoginInfo.isFreezing()) {
-                        // 处在冻结状态
-                        mainIntent = new Intent(mContext, FreezeActivity.class);
-                        mainIntent.putExtra(FreezeActivity.FROM_NAME, mContext.getClass().getName());
-//                        mContext.startActivity(mIntent4);
-                    } else {
-                        mainIntent = new Intent(mContext, SesameMainActivity.class);
-                    }
-
-                }
-                mContext.startActivity(mainIntent);
-                mContext.finish();
-            } else {
-                // 未激活设备
-                String vin = LoginInfo.getVin(LoginInfo.getMobile());
-                String vin2 = LoginInfo.getVin(SesameLoginInfo.getMobile());
-                if (vin == null || vin.equals("")) {
-                    Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-
-                    mContext.startActivity(loginIntent);
-                } else {
-                    boolean isUpdating = LoginInfo.isUpgradeing();
-                    // 是否需要升级
-                    if (isUpdating) {
-                        // 设备正在升级，跳转至升级页面
-//                        PopBoxCreat.showUUUpdateDialog(mContext,
-//                                new UUUpdateDialog.DialogUpdateListener() {
-//
-//                                    @Override
-//                                    public void onSuccess() {
-//                                        LoginInfo.setUpgradeing(false);
-//                                        LoginControl.logic(mCtx);
-//                                        if (mDialogUpdateListener != null) {
-//                                            mDialogUpdateListener.onSuccess();
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailed() {
-//                                        if (mDialogUpdateListener != null) {
-//                                            mDialogUpdateListener.onFailed();
-//                                        }
-//                                    }
-//                                });
-                    } else {
-                        // 设备不需要升级，跳转绑定 回填Vin码
+            //            boolean isDeviceActivate = LoginInfo.isDeviceActivate();
+            //            boolean deviceActivate = SesameLoginInfo.isDeviceActivate();
+            //            Log.e("info", "isDeviceActivate==" + isDeviceActivate);
+            //            Log.e("info", "deviceActivate==" + deviceActivate);
+            int activate_status = LoginInfo.getActivate_status();
+            Log.e("info", "activate_status==" + activate_status);
+            //            activate_status=2;
+            switch (activate_status) {
+                case 0:
+                    //未激活
+                case 3:
+                    //激活失败
+                    String vin = LoginInfo.getVin(LoginInfo.getMobile());
+                    String vin2 = LoginInfo.getVin(SesameLoginInfo.getMobile());
+                    if (vin == null || vin.equals("")) {
                         Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-                        //                        loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
-                        //                        loginIntent.putExtra("carType", LoginInfo.getCarname());
+                        mContext.startActivity(loginIntent);
+                    } else {
+                        Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
                         mContext.startActivity(loginIntent);
                     }
-                }
+                    break;
+                case 1:
+                    //正在激活
+                case 2:
+                    //激活成功
+                    Intent mainIntent;
+                    if (LoginInfo.getApp_type() == 1) {
+                        // 大乘绑定和激活合并，如果激活直接进入主页
+                        mainIntent = new Intent(mContext, MainActivity.class);
+                    } else {
+                        if (SesameLoginInfo.isFreezing()) {
+                            // 处在冻结状态
+                            mainIntent = new Intent(mContext, FreezeActivity.class);
+                            mainIntent.putExtra(FreezeActivity.FROM_NAME, mContext.getClass().getName());
+                        } else {
+                            mainIntent = new Intent(mContext, SesameMainActivity.class);
+                        }
 
+                    }
+                    mContext.startActivity(mainIntent);
+                    mContext.finish();
+
+                    break;
+                default:
+                    Intent loginIntent = new Intent(mContext, UserLoginActivity.class);
+                    mContext.startActivity(loginIntent);
+                    break;
             }
+            //            if (isDeviceActivate || deviceActivate) {
+            //                Intent mainIntent;
+            //                if (LoginInfo.getApp_type() == 1) {
+            //                    // 大乘绑定和激活合并，如果激活直接进入主页
+            //                    mainIntent = new Intent(mContext, MainActivity.class);
+            //                } else {
+            //                    if (SesameLoginInfo.isFreezing()) {
+            //                        // 处在冻结状态
+            //                        mainIntent = new Intent(mContext, FreezeActivity.class);
+            //                        mainIntent.putExtra(FreezeActivity.FROM_NAME, mContext.getClass().getName());
+            //                    } else {
+            //                        mainIntent = new Intent(mContext, SesameMainActivity.class);
+            //                    }
+            //
+            //                }
+            //                mContext.startActivity(mainIntent);
+            //                mContext.finish();
+            //            } else {
+            //                // 未激活设备
+            //                String vin = LoginInfo.getVin(LoginInfo.getMobile());
+            //                String vin2 = LoginInfo.getVin(SesameLoginInfo.getMobile());
+            //                if (vin == null || vin.equals("")) {
+            //                    Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
+            //
+            //                    mContext.startActivity(loginIntent);
+            //                } else {
+            //                    boolean isUpdating = LoginInfo.isUpgradeing();
+            //                    // 是否需要升级
+            //                    if (isUpdating) {
+            //                        // 设备正在升级，跳转至升级页面
+            //                        //                        PopBoxCreat.showUUUpdateDialog(mContext,
+            //                        //                                new UUUpdateDialog.DialogUpdateListener() {
+            //                        //
+            //                        //                                    @Override
+            //                        //                                    public void onSuccess() {
+            //                        //                                        LoginInfo.setUpgradeing(false);
+            //                        //                                        LoginControl.logic(mCtx);
+            //                        //                                        if (mDialogUpdateListener != null) {
+            //                        //                                            mDialogUpdateListener.onSuccess();
+            //                        //                                        }
+            //                        //                                    }
+            //                        //
+            //                        //                                    @Override
+            //                        //                                    public void onFailed() {
+            //                        //                                        if (mDialogUpdateListener != null) {
+            //                        //                                            mDialogUpdateListener.onFailed();
+            //                        //                                        }
+            //                        //                                    }
+            //                        //                                });
+            //                    } else {
+            //                        // 设备不需要升级，跳转绑定 回填Vin码
+            //                        Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
+            //                        //                        loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
+            //                        //                        loginIntent.putExtra("carType", LoginInfo.getCarname());
+            //                        mContext.startActivity(loginIntent);
+            //                    }
+            //                }
+            //
+            //            }
         } else {
             Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
             //            loginIntent.putExtra("vin", LoginInfo.getVin(LoginInfo.getMobile()));
@@ -165,9 +210,9 @@ public class LoginControl {
 
         SesameLoginInfo.setAccess_token((member.optString("access_token", "")));
         LoginInfo.setAccess_token(member.optString("access_token", ""));
+        SesameLoginInfo.setExpires_in((member.optString("expires_in", "")));
         SesameLoginInfo.setToken((member.optString("access_token", "")));
         TokenInfo.setToken(member.optString("access_token", ""));
-        SesameLoginInfo.setExpires_in((member.optString("expires_in", "")));
         SesameLoginInfo.setExpiresIn((member.optString("expires_in", "")));
         SesameLoginInfo.setSSID(member.optString("SSID", ""));
         SesameLoginInfo.setSSIDPWD(member.optString("SSIDPWD", ""));
@@ -202,7 +247,8 @@ public class LoginControl {
         } else {
             SesameLoginInfo.setGpsDevice(false);
         }
-
+        SesameLoginInfo.setActivate_status((membercar.optInt("activate_status", -1)));
+        LoginInfo.setActivate_status((membercar.optInt("activate_status", -1)));
         SesameLoginInfo.setBrandid((membercar.optString("brandid", "")));
         SesameLoginInfo.setDevicetype((membercar.optString("devicetype", "")));
         SesameLoginInfo.setOptionid((membercar.optString("optionid", "")));
@@ -256,7 +302,6 @@ public class LoginControl {
         }
 
         SesameLoginInfo.setCar_year((membercar.optInt("year", 0)));
-
 
 
         String isTireable = membercar.optString("tireable", "");
@@ -417,7 +462,8 @@ public class LoginControl {
         } else {
             LoginInfo.setGpsDevice(false);
         }
-
+        LoginInfo.setActivate_status((membercar.optInt("activate_status", -1)));
+        SesameLoginInfo.setActivate_status((membercar.optInt("activate_status", -1)));
         LoginInfo.setBrandid((membercar.optString("brandid", "")));
         LoginInfo.setDevicetype((membercar.optString("devicetype", "")));
         LoginInfo.setOptionid((membercar.optString("optionid", "")));

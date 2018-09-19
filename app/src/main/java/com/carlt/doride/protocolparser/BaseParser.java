@@ -1,22 +1,22 @@
 package com.carlt.doride.protocolparser;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.HttpLinker;
-import com.carlt.doride.ui.activity.login.UpDateActivity;
-import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,8 +87,18 @@ public abstract class BaseParser<T> {
                         break;
                     case 2:
                         ActivityControl.onTokenDisable();
-
-                        UUToast.showUUToast(DorideApplication.getInstanse(), mBaseResponseInfo.getInfo());
+                        //                        ActivityControl.removeAllActivity();
+                        //                        Intent mIntent = new Intent(DorideApplication.getInstanse(),
+                        //                                UserLoginActivity.class);
+                        //                        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //                        DorideApplication.getInstanse().startActivity(mIntent);
+                        //                        UUToast.showUUToast(DorideApplication.getInstanse(), mBaseResponseInfo.getInfo());
+                        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                        ToastUtils.setBackgroundColor(R.drawable.toast_bg);
+                        ToastUtils.setMessageColor(Color.WHITE);
+                        //                        ToastUtils.setView(R.layout.toast);
+                        //                        ToastUtils.showCustomShort();
+                        ToastUtils.showLong(mBaseResponseInfo.getInfo());
                         break;
                     default:
                         break;

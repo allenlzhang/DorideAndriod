@@ -98,7 +98,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
 
             mImgIcon.setImageResource(R.drawable.safe_freezed);
             mTxtDes1.setText("账号已经冻结");
-            mTxtDes2.setText("账号冻结解除前任何人都无法使用芝麻乐园");
+            mTxtDes2.setText("账号冻结解除前任何人都无法使用大乘智享");
             mTxtOpt.setText("解冻账号");
         } else {
             // 未冻结

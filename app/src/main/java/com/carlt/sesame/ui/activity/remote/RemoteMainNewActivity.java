@@ -23,7 +23,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.ui.activity.login.ActivateBindActivity;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -85,7 +84,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
     private final static long INVALID_DURATION = 5 * 60 * 1000;// 密码实效时长
     private RemoteReceiver mReceiver;
-    private PlayRadio mPlayRadio;
+    private PlayRadio      mPlayRadio;
     private int lastOpt = -1;
     boolean isFirstClick;
     String password;
@@ -288,7 +287,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     }
 
     private ArrayList<RemoteFunInfo> mRemoteFunInfos;
-    private AirMainInfo mAirMainInfo;
+    private AirMainInfo              mAirMainInfo;
 
     @Override
     protected void LoadSuccess(Object data) {
@@ -806,8 +805,6 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo3 = (BaseResponseInfo) msg.obj;
                     if (mInfo3 != null) {
-//                        UUToast.showUUToast(RemoteMainNewActivity.this,
-//                                mInfo3.getInfo());
                         ToastUtils.showShort(mInfo3.getInfo());
                     }
                     break;
@@ -846,8 +843,6 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     // 获取远程空调功能失败
                     BaseResponseInfo mInfo7 = (BaseResponseInfo) msg.obj;
                     if (mInfo7 != null) {
-//                        UUToast.showUUToast(RemoteMainNewActivity.this,
-//                                mInfo7.getInfo());
                         ToastUtils.showShort(mInfo7.getInfo());
                     }
                     break;

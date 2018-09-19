@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.carlt.doride.R;
-import com.carlt.doride.ui.activity.login.ActivateBindActivity;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -42,7 +41,6 @@ import com.carlt.sesame.utility.MyParse;
 import com.carlt.sesame.utility.MyTimeUtil;
 import com.carlt.sesame.utility.UUToast;
 
-import net.simonvt.datepicker.DatePickDialog;
 import net.simonvt.datepicker.DatePickDialog.IgetDate;
 
 import java.text.SimpleDateFormat;
@@ -365,7 +363,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     public void customLayout(View v) {
                         final TextView _OK = (TextView) v.findViewById(R.id.sex_change_OK);
                         final TextView _cancel = (TextView) v.findViewById(R.id.sex_change_cancel);
-                        _OK.setOnClickListener(new View.OnClickListener() {
+                        _OK.setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 pvCustomTime.returnData();
@@ -373,7 +371,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                             }
                         });
 
-                        _cancel.setOnClickListener(new View.OnClickListener() {
+                        _cancel.setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 pvCustomTime.dismiss();

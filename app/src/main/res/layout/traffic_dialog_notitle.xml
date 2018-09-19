@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_air_condition_bg"
+    android:orientation="vertical" >
+
+    <!-- 内容部分 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="15dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dip"
+            android:layout_marginTop="15dip"
+            android:text="@string/traffic_warnning_title"
+            android:textColor="#050000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dip"
+            android:gravity="center_horizontal"
+            android:text="@string/traffic_warnning_tips"
+            android:textColor="#050000"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/traffic_never_remind"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/traffic_warnning_check"
+            android:button="@null"
+            android:checked="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginLeft="15dp"
+            android:text="@string/traffic_never_remind"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#d6d6d6" />
+
+    <RelativeLayout
+        android:id="@+id/traffic_dialog_notitle_lay_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip"
+        android:visibility="visible" >
+
+        <View
+            android:id="@+id/line_v"
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:background="#d6d6d6" />
+
+        <TextView
+            android:id="@+id/btn_traffic_buy_now"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@id/line_v"
+            android:gravity="center"
+            android:text="@string/traffic_buy_now"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btn_traffic_never_remind"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_toEndOf="@+id/line_v"
+            android:layout_toRightOf="@+id/line_v"
+            android:gravity="center"
+            android:text="@string/i_kwon_it"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</LinearLayout>

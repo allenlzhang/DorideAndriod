@@ -16,7 +16,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.data.ActivateInfo;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.model.LoginInfo;
+import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.sesame.ui.view.PopBoxCreat;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by liu on 2016/12/23.
@@ -53,7 +65,57 @@ public abstract class BaseFragment extends Fragment {
             init(mView);
         }
         Log.e("BaseFragment", this.getClass().getSimpleName() + "onCreateView");
+        //        getActivateStatus();
         return mView;
+    }
+
+    protected void getActivateStatus(final String info) {
+        OkGo.<String>post(URLConfig.getCheckIsActivate_URL())
+                .params("client_id", URLConfig.getClientID())
+                .params("token", LoginInfo.getAccess_token())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Logger.e(response.body());
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        JSONObject jo = null;
+                        try {
+                            jo = new JSONObject(response.body());
+                            int code = jo.getInt("code");
+//                            String msg = jo.getString("msg");
+                            if (code == 200) {
+                                ActivateInfo activateInfo = gson.fromJson(body, ActivateInfo.class);
+                                if (activateInfo.data.activate_status == 1) {
+                                    showTipDialog(info);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        //                        activateInfo.data.activate_status = 1;
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                    }
+                });
+    }
+
+    private void showTipDialog(String info) {
+        PopBoxCreat.createDialogNotitleOneBtn(mCtx, "温馨提示", info, "确定", new PopBoxCreat.DialogWithTitleClick() {
+            @Override
+            public void onLeftClick() {
+            }
+
+            @Override
+            public void onRightClick() {
+            }
+        });
     }
 
     /**
@@ -171,7 +233,7 @@ public abstract class BaseFragment extends Fragment {
         }
         mTxtRetryError.setVisibility(View.VISIBLE);
         mTxtEorrorSub.setText(info);
-//        mViewError.setVisibility(View.VISIBLE);
+        //        mViewError.setVisibility(View.VISIBLE);
     }
 
     @Override

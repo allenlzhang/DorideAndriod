@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,7 +15,10 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.model.LoginInfo;
+import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.CarMainFragment2;
 import com.carlt.doride.ui.fragment.HomeFragment;
@@ -23,6 +27,16 @@ import com.carlt.doride.ui.fragment.SettingMainFragment;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 主页面
@@ -61,6 +75,84 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         init();
         mFragmentManager = getFragmentManager();
         setTabSelection(0);
+        if (LoginInfo.getTbox_type().equals("4G")) {
+            initFlowInfo();
+        }
+    }
+
+    private void initFlowInfo() {
+        //        getFlowProductList();
+        //        loadingDataUI();
+        OkGo.<String>post(URLConfig.getmTrafficWarnningUrl())
+                .params("client_id", URLConfig.getClientID())
+                .params("dealerId", LoginInfo.getDealerId())
+                .params("token", LoginInfo.getAccess_token())
+                .params("deviceType", "android")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtils.e(response.body());
+                        if (response.isSuccessful()) {
+                            parseFlowInfoJson(response);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        //                        loadonErrorUI(new BaseResponseInfo());
+                    }
+                });
+    }
+
+    public static final String tip = "本月您的免费流量额度已经耗尽，已停止您本月设备的流量共享服务(次月恢复)。本月如需使用该服务，请充值流量加油包";
+
+    private void parseFlowInfoJson(Response<String> response) {
+        if (response != null) {
+            JSONObject jo = null;
+            try {
+                jo = new JSONObject(response.body());
+                int code = jo.getInt("code");
+                String msg = jo.getString("msg");
+                Gson gson = new Gson();
+                if (code == 200) {
+                    TrafficPackageWarnningInfo warnningInfo = gson.fromJson(response.body(), TrafficPackageWarnningInfo.class);
+                    LoginInfo.setFlowWarn(warnningInfo.data.limit_warning);
+                    String residual_data = warnningInfo.data.residual_data;
+                    residual_data = "0";
+                    if (Double.valueOf(residual_data) <= 0) {
+                        //本月流量已用完
+                        //                        PopBoxCreat.createDialogNotitle(MainActivity.this, "温馨提示",
+                        //                                tip, "立即购买", "我知道了", , true);
+                        //                        PopBoxCreat.createDialogNotitleOneBtn(MainActivity.this, "温馨提示", tip, "确定", new PopBoxCreat.DialogWithTitleClick() {
+                        //                            @Override
+                        //                            public void onLeftClick() {
+                        //
+                        //                            }
+                        //
+                        //                            @Override
+                        //                            public void onRightClick() {
+                        //
+                        //                            }
+                        //                        });
+                        isTodayFirstLogin();
+                    }
+                } else {
+                    BaseResponseInfo baseResponseInfo = new BaseResponseInfo();
+                    baseResponseInfo.setFlag(BaseResponseInfo.ERRO);
+                    baseResponseInfo.setInfo(msg);
+                    //                    loadonErrorUI(baseResponseInfo);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+
     }
 
     @Override
@@ -73,7 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         deviceisnew = LoginInfo.getDeviceisnew();
-//        deviceisnew=1;
+        //        deviceisnew=1;
         LogUtils.e("deviceisnew========" + deviceisnew);
     }
 
@@ -222,16 +314,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             transaction.hide(mHomeFragment);
         }
         if (mCarMainFragment != null) {
-//            switch (deviceisnew) {
-//                case 0:
-//                    transaction.hide(mCarMainFragment);
-//                    break;
-//                case 1:
-//                    transaction.hide(mCarMainFragment2);
-//                    break;
-//                default:
-//                    break;
-//            }
+            //            switch (deviceisnew) {
+            //                case 0:
+            //                    transaction.hide(mCarMainFragment);
+            //                    break;
+            //                case 1:
+            //                    transaction.hide(mCarMainFragment2);
+            //                    break;
+            //                default:
+            //                    break;
+            //            }
             transaction.hide(mCarMainFragment);
         }
         if (mCarMainFragment2 != null) {
@@ -274,6 +366,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tab_ll_setting:
                 setTabSelection(3);
                 break;
+        }
+    }
+
+    private void isTodayFirstLogin() {
+        String todayTime = null;
+        // 取
+        SharedPreferences preferences = getSharedPreferences("LastLoginTime",
+                MODE_PRIVATE);
+        String lastTime = preferences.getString(
+                "LoginTime" + LoginInfo.getMobile(), "2018-04-02");
+        // Toast.makeText(MainActivity.this, "value="+date,
+        // Toast.LENGTH_SHORT).show();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+        todayTime = df.format(new Date());// 获取当前的日期
+        LogUtils.e("lastTime----" + lastTime);
+        LogUtils.e("todayTime---" + todayTime);
+        LogUtils.e("DorideApplication.isTrafficTipsShow---" + DorideApplication.isTrafficTipsShow);
+        if (!lastTime.equals(todayTime) && DorideApplication.isTrafficTipsShow) { // 如果两个时间段相等
+            com.carlt.doride.ui.view.PopBoxCreat.createTrafficDialogNotitle(MainActivity.this, false);
+            ActivityControl.saveExitTime();
         }
     }
 }

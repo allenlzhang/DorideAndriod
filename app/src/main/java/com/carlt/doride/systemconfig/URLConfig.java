@@ -124,7 +124,7 @@ public class URLConfig {
 
     // 新版注册
     private static String M_REGISTER_NEW_URL = "user/register";
-
+    private static String M_CheckIsActivate_URL       = "car/checkIsActivate";
     // 获取设备升级状态
     private static String M_DEVICEUPDATE_URL = "user/checkIsUpgrade";
 
@@ -314,7 +314,9 @@ public class URLConfig {
     public static String getM_SECURITY_MESSAGE_URL() {
         return getDorideURL(M_SECURITY_MESSAGE_URL);
     }
-
+    public static String getCheckIsActivate_URL() {
+        return getDorideURL(M_CheckIsActivate_URL);
+    }
     public static String getM_REPORTDAY_URL() {
         return getDorideURL(M_REPORTDAY_URL);
     }

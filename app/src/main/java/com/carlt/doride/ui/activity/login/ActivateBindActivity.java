@@ -28,6 +28,7 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.doride.ui.view.UUTimerDialog;
 import com.carlt.doride.ui.view.UUToast;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -176,20 +177,21 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     BaseParser.ResultCallback activateCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            Logger.e(bInfo.toString());
             // 下发激活指令成功
-            UUToast.showUUToast(ActivateBindActivity.this, "大乘智享已成功激活");
-            //            Intent intent=new Intent(ActivateBindActivity.this, SesameMainActivity.class);
-            //            startActivity(intent);
-
+            //            UUToast.showUUToast(ActivateBindActivity.this, "大乘智享已成功激活");
             UseInfo mUseInfo = UseInfoLocal.getUseInfo();
             CPControl.GetLogin(mUseInfo.getAccount(), mUseInfo.getPassword(), listener_login);
+
+
         }
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-
+            Logger.e(bInfo.toString());
             boolean t = (System.currentTimeMillis() - listener_time) > ONEMIN;
             int flagCode = bInfo.getFlag();
+            //            errorSwitch(bInfo);
             if (flagCode == 2997 && !t) {
                 mHandler.sendEmptyMessageDelayed(0, 1000);
             } else {
@@ -211,62 +213,64 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private void errorSwitch(BaseResponseInfo mBaseResponseInfo) {
         int code = mBaseResponseInfo.getFlag();
-        // 测试用
-        // code=1021;
-        if (code == 1020) {
 
-            //            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
-            if (mDialog != null && mDialog.isShowing()) {
-                mDialog.dismiss();
-                mDialog = null;
-            }
-            //  PopBoxCreat.showUUUpdateDialog(ActivateBindActivity.this, null);
+        if (code == 202) {
+            //激活第一步已成功
+            UseInfo mUseInfo = UseInfoLocal.getUseInfo();
+            CPControl.GetLogin(mUseInfo.getAccount(), mUseInfo.getPassword(), listener_login);
+        } else if (code == 1020) {
             Intent intent = new Intent(ActivateBindActivity.this, UpDateActivity.class);
             startActivity(intent);
 
         } else if (code == BaseResponseInfo.ERRO) {
             UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
             mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");
-            if (mDialog != null && mDialog.isShowing()) {
-                mDialog.dismiss();
-                mDialog = null;
-            }
-        } else if (code == 2997) {
-            UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
-            // 下发不成功的情况
-            if (ActivateCount == 1) {
-                mTextViewMsg.setText(e1);
-            } else if (ActivateCount == 2) {
-                mTextViewMsg.setText(e2);
-            } else if (ActivateCount > 2) {
-                mTextViewMsg.setText(e3);
-            }
-            if (mDialog != null && mDialog.isShowing()) {
-                mDialog.dismiss();
-                mDialog = null;
-            }
+
         } else {
-            //            if (code == 3004) {
-            //                mTextViewMsg.setText(e4);
-            //            }
-            //            else if (code == 3005) {
-            //                mTextViewMsg.setText(e5);
-            //            }
-            //            else {
-            //                mTextViewMsg.setText(e3);
-            if (code == 1021) {
-                UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
-            } else {
-                UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
-            }
+//            if (code == 2999) {
+//                UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
+//            } else {
+//                UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+//            }
+
+            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
             mTextViewMsg.setText(mBaseResponseInfo.getInfo());
 
-            //            }
-            if (mDialog != null && mDialog.isShowing()) {
-                mDialog.dismiss();
-                mDialog = null;
-            }
+
         }
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
+        //        else if (code == 2997) {
+        //            UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+        //            // 下发不成功的情况
+        //            if (ActivateCount == 1) {
+        //                mTextViewMsg.setText(e1);
+        //            } else if (ActivateCount == 2) {
+        //                mTextViewMsg.setText(e2);
+        //            } else if (ActivateCount > 2) {
+        //                mTextViewMsg.setText(e3);
+        //            }
+        //            if (mDialog != null && mDialog.isShowing()) {
+        //                mDialog.dismiss();
+        //                mDialog = null;
+        //            }
+        //        }
+        //        else {
+        //            if (code == 1999) {
+        //                UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
+        //            } else {
+        //                UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+        //            }
+        //            mTextViewMsg.setText(mBaseResponseInfo.getInfo());
+        //
+        //            //            }
+        //            if (mDialog != null && mDialog.isShowing()) {
+        //                mDialog.dismiss();
+        //                mDialog = null;
+        //            }
+        //        }
     }
 
     private void back() {
