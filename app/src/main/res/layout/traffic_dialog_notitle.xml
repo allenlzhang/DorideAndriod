@@ -22,8 +22,7 @@
             android:layout_marginTop="15dip"
             android:text="@string/traffic_warnning_title"
             android:textColor="#050000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="16dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -32,7 +31,7 @@
             android:gravity="center_horizontal"
             android:text="@string/traffic_warnning_tips"
             android:textColor="#050000"
-            android:textSize="14sp" />
+            android:textSize="13dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,16 +40,16 @@
         android:orientation="horizontal">
         <CheckBox
             android:id="@+id/traffic_never_remind"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/traffic_warnning_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/check_bg"
             android:button="@null"
             android:checked="false"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="13dp"
             android:textColor="#666666"
             android:layout_marginLeft="15dp"
             android:text="@string/traffic_never_remind"/>
@@ -82,9 +81,9 @@
             android:layout_toLeftOf="@id/line_v"
             android:gravity="center"
             android:text="@string/traffic_buy_now"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="#3ec0ea"
+            android:textSize="16dp"
+            />
 
         <TextView
             android:id="@+id/btn_traffic_never_remind"
@@ -96,9 +95,9 @@
             android:layout_toRightOf="@+id/line_v"
             android:gravity="center"
             android:text="@string/i_kwon_it"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="#3ec0ea"
+            android:textSize="16dp"
+             />
     </RelativeLayout>
 
 </LinearLayout>

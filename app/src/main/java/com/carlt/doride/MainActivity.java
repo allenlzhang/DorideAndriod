@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         init();
         mFragmentManager = getFragmentManager();
         setTabSelection(0);
+        LogUtils.e("LoginInfo.getTbox_type()====" + LoginInfo.getTbox_type());
         if (LoginInfo.getTbox_type().equals("4G")) {
             initFlowInfo();
         }
@@ -120,7 +121,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     TrafficPackageWarnningInfo warnningInfo = gson.fromJson(response.body(), TrafficPackageWarnningInfo.class);
                     LoginInfo.setFlowWarn(warnningInfo.data.limit_warning);
                     String residual_data = warnningInfo.data.residual_data;
-                    residual_data = "0";
+//                    residual_data = "0";
                     if (Double.valueOf(residual_data) <= 0) {
                         //本月流量已用完
                         //                        PopBoxCreat.createDialogNotitle(MainActivity.this, "温馨提示",

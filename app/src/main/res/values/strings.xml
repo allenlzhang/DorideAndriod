@@ -189,8 +189,8 @@
 
     <string name="traffic_warnning_title">流量提醒</string>
     <string name="traffic_warnning_tips">本月您的免费流量额度已经耗尽，\n已停止您本月设备的流量共享服务\n(次月恢复)。本月如需使用该服\n务，请充值流量加油包</string>
-    <string name="traffic_warnning_no">不在提醒</string>
-    <string name="traffic_never_remind">不在提醒</string>
-    <string name="traffic_buy_now">立即充值</string>
+    <string name="traffic_warnning_no">不再提醒</string>
+    <string name="traffic_never_remind">不再提醒</string>
+    <string name="traffic_buy_now">立即购买</string>
     <string name="i_kwon_it">我知道了</string>
 </resources>
