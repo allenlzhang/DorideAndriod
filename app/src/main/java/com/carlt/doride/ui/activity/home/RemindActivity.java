@@ -450,7 +450,7 @@ public class RemindActivity extends LoadingActivity {
                     break;
                 case InformationMessageInfo.C1_T4:
                     // 41 行车信息
-
+                    Logger.e(" mInfo.getDate()==========" + mInfo.getDate());
                     Intent mIntent4;
                     switch (class2) {
                         case InformationMessageInfo.C1_T4_T1:
@@ -471,6 +471,7 @@ public class RemindActivity extends LoadingActivity {
 
         }
     };
+
     private void showTipDialog(String info) {
         com.carlt.sesame.ui.view.PopBoxCreat.createDialogNotitleOneBtn(this, "温馨提示", info, "确定", new com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick() {
             @Override
@@ -482,6 +483,7 @@ public class RemindActivity extends LoadingActivity {
             }
         });
     }
+
     private void getActivateStatus() {
         OkGo.<String>post(URLConfig.getCheckIsActivate_URL())
                 .params("client_id", URLConfig.getClientID())

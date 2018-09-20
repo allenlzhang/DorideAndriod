@@ -30,8 +30,7 @@ public class MonthActivity extends LoadingActivity {
     private TextView mTxtSumFuel;    //本月总油耗
     private TextView mTxtSumMailes;    //本月总行程
     private TextView mTxtMaxSpeed;    //最高时速
-    private TextView mTxtAvgFuel;
-    ;    //平均油耗
+    private TextView mTxtAvgFuel;//平均油耗
     private TextView mTxtSumTime;    //本月行车时间
     private TextView mTxtAvgSpeed;    //本月平均速度
 
@@ -57,12 +56,12 @@ public class MonthActivity extends LoadingActivity {
         setContentView(R.layout.activity_report_month);
         initTitle("行车月报");
         initView();
-        //		try {
-        //			monthInitialValue = getIntent().getStringExtra(
-        //					ReportActivity.MONTH_INITIAL);
-        //		} catch (Exception e) {
-        //			// TODO: handle exception
-        //		}
+        try {
+            monthInitialValue = getIntent().getStringExtra(
+                    ReportActivity.MONTH_INITIAL);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         if (monthInitialValue == null || monthInitialValue.equals("")) {
             monthInitialValue = getMonthAgo(Calendar.getInstance().getTime());
         }
@@ -211,7 +210,6 @@ public class MonthActivity extends LoadingActivity {
     }
 
 
-
     private BaseParser.ResultCallback listener_month = new BaseParser.ResultCallback() {
 
         @Override
@@ -246,7 +244,7 @@ public class MonthActivity extends LoadingActivity {
                 case 3:
                     //拉取月报数据失败
                     loadonErrorUI((BaseResponseInfo) msg.obj);
-//                    mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);
+                    //                    mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);
                     loadDataError(msg.obj);
                     break;
             }

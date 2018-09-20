@@ -71,7 +71,7 @@ public class ReportActivity extends BaseActivityGroup implements CompoundButton.
 
         try {
             dayInitialValue = getIntent().getStringExtra(DAY_INITIAL);
-            monthInitialValue = getIntent().getStringExtra(DAY_INITIAL);
+            monthInitialValue = getIntent().getStringExtra(MONTH_INITIAL);
         } catch (Exception e) {
 
         }
