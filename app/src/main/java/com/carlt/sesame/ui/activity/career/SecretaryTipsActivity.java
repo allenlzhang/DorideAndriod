@@ -38,6 +38,7 @@ import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.ui.view.UUDialog;
 import com.carlt.sesame.utility.UUToast;
+import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -285,6 +286,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
     protected void LoadSuccess(Object data) {
         if (data != null) {
             mInfoLists = (SecretaryMessageInfoList) data;
+            Logger.e("行车信息-------------" + data.toString());
             if (mInfoLists != null) {
                 mList = mInfoLists.getmAllList();
                 if (mAdapter == null) {

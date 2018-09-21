@@ -17,6 +17,7 @@ import com.carlt.sesame.http.HttpImgPostor;
 import com.carlt.sesame.http.HttpPostor;
 import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.utility.Log;
+import com.orhanobut.logger.Logger;
 
 import org.apache.http.entity.mime.content.FileBody;
 import org.json.JSONObject;
@@ -51,7 +52,7 @@ public abstract class BaseParser {
 
 		try {
 			String s1 = mHttpPostor.getResult();
-			Log.e("http", "Http响应--" + s1);
+			Logger.e("Http响应--" + s1);
 			mJson = new JSONObject(s1);
 			mBaseResponseInfo.setFlag(mJson.getString("code"));
 			mBaseResponseInfo.setInfo(mJson.getString("msg"));
@@ -200,7 +201,7 @@ public abstract class BaseParser {
 
 		try {
 			String s1 = mHttpPostor.getResult();
-			Log.e("http", "Http响应--" + s1);
+			Logger.e("Http响应--" + s1);
 			mJson = new JSONObject(s1);
 			mBaseResponseInfo.setFlag(mJson.getString("code"));
 			mBaseResponseInfo.setInfo(mJson.getString("msg"));

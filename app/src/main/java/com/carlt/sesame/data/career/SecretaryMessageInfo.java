@@ -64,6 +64,7 @@ public class SecretaryMessageInfo {
 	public final static int C1_T4_T4 = 4104;// 4104 解锁勋章
 	public final static int C1_T4_T5 = 4105;// 4105 创造新记录
 	public final static int C1_T4_T6 = 4106;// 4106 升级驾驶证
+	public final static int C1_T4_T9 = 4109;// 4109 电动车日报
 
 	public final static int C1_T6_T1 = 6101;// 6101 养护建议
 
@@ -274,4 +275,31 @@ public class SecretaryMessageInfo {
 		this.isgot = isgot;
 	}
 
+	@Override
+	public String toString() {
+		return "SecretaryMessageInfo{" +
+				"id='" + id + '\'' +
+				", userid='" + userid + '\'' +
+				", dealerid='" + dealerid + '\'' +
+				", relid='" + relid + '\'' +
+				", isoffical=" + isoffical +
+				", title='" + title + '\'' +
+				", content='" + content + '\'' +
+				", contentReference='" + contentReference + '\'' +
+				", istop=" + istop +
+				", class1=" + class1 +
+				", class2=" + class2 +
+				", img='" + img + '\'' +
+				", miles='" + miles + '\'' +
+				", fuel='" + fuel + '\'' +
+				", point='" + point + '\'' +
+				", avgfuel='" + avgfuel + '\'' +
+				", sumtime='" + sumtime + '\'' +
+				", maxspeed='" + maxspeed + '\'' +
+				", date='" + date + '\'' +
+				", createdate='" + createdate + '\'' +
+				", detial_flag=" + detial_flag +
+				", isgot=" + isgot +
+				'}';
+	}
 }

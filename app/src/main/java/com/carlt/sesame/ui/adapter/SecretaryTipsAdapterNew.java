@@ -264,6 +264,36 @@ public class SecretaryTipsAdapterNew extends BaseAdapter {
                         // }
                         mHolder.mTextViewTable6.setText("");
                         break;
+                    case SecretaryMessageInfo.C1_T4_T9:
+                        minTitle = "日报";
+                        mHolder.mTextView4.setVisibility(View.VISIBLE);
+                        mHolder.mTextView4.setText("查看行车报告");
+
+                        mHolder.mViewTable.setVisibility(View.VISIBLE);
+                        if (mInfo.getMiles() != null) {
+                            mHolder.mTextViewTable1.setText(mInfo.getMiles());
+                        }
+                        if (mInfo.getFuel() != null) {
+                            mHolder.mTextViewTable2.setText(mInfo.getFuel());
+                        }
+                        // if (mInfo.getPoint() != null) {
+                        // mHolder.mTextViewTable3.setText(mInfo.getPoint());
+                        // }
+                        if (mInfo.getMaxspeed() != null) {
+                            mHolder.mTextViewTable3.setText(mInfo.getMaxspeed());
+                        }
+                        if (mInfo.getAvgfuel() != null) {
+                            mHolder.mTextViewTable4.setText(mInfo.getAvgfuel());
+                        }
+                        if (mInfo.getSumtime() != null) {
+                            mHolder.mTextViewTable5.setText(mInfo.getSumtime());
+                        }
+
+                        // if (mInfo.getMaxspeed() != null) {
+                        // mHolder.mTextViewTable6.setText(mInfo.getMaxspeed());
+                        // }
+                        mHolder.mTextViewTable6.setText("");
+                        break;
                     case SecretaryMessageInfo.C1_T4_T2:
                         minTitle = "周报";
                         mHolder.mTextView4.setVisibility(View.VISIBLE);
