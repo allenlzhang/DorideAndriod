@@ -511,6 +511,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
 
                     Intent mIntent4;
                     switch (class2) {
+                        case SecretaryMessageInfo.C1_T4_T9:
                         case SecretaryMessageInfo.C1_T4_T1:
                             mIntent4 = new Intent(SecretaryTipsActivity.this, ReportActivity.class);
                             mIntent4.putExtra("c", 2);
