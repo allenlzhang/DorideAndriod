@@ -1,5 +1,6 @@
 package com.carlt.sesame.ui.activity.base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -68,7 +69,12 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
         ActivityControl.removeActivity(this);
         super.onDestroy();
     }
-
+    protected String[] needPermissions = {
+            Manifest.permission.CALL_PHONE,
+            //            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            //            Manifest.permission.READ_EXTERNAL_STORAGE,
+            //            Manifest.permission.READ_PHONE_STATE
+    };
     /**
      * 显示打电话的按钮，必须在onResume方法里调用
      */
@@ -76,8 +82,9 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
         if (dragViewCtr == null) {
             dragViewCtr = new DragViewCtr(this);
         }
-
         dragViewCtr.showDragCallView();
+
+
     }
 
     @Override
@@ -219,7 +226,7 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
                         // 可以推断出用户选择了“不在提示”选项，在这种情况下需要引导用户至设置页手动授权
                         if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])) {
                             new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
-                                    .setMessage("芝麻乐园获取相关权限失败:" + permissionName +
+                                    .setMessage("大乘智享获取相关权限失败:" + permissionName +
                                             "将导致部分功能无法正常使用，需要到设置页面手动授权")//设置显示的内容
                                     .setPositiveButton("去授权", new DialogInterface.OnClickListener() {//添加确定按钮
                                         @Override
@@ -281,7 +288,7 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
                 isAllGranted = false;
                 if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
                     new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
-                            .setMessage("您好，芝麻乐园部分功能需要如下权限：" + permissionNames +
+                            .setMessage("您好，大乘智享部分功能需要如下权限：" + permissionNames +
                                     " 请允许，否则将影响部分功能的正常使用。")//设置显示的内容
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
                                 @Override

@@ -54,7 +54,6 @@ public class SplashActivity extends BaseActivity {
     private MessageReceiver mReceiver;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,11 +63,11 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void registerXG() {
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
-//        filter.addAction("com.tencent.android.tpush.action.FEEDBACK");
-//        mReceiver = new MessageReceiver();
-//        registerReceiver(mReceiver, filter);
+        //        IntentFilter filter = new IntentFilter();
+        //        filter.addAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
+        //        filter.addAction("com.tencent.android.tpush.action.FEEDBACK");
+        //        mReceiver = new MessageReceiver();
+        //        registerReceiver(mReceiver, filter);
         Intent intent = new Intent(this, MessageReceiver.class);
         intent.setAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
         intent.setAction("com.tencent.android.tpush.action.FEEDBACK");
@@ -76,9 +75,10 @@ public class SplashActivity extends BaseActivity {
         Logger.e("======MessageReceiver");
     }
 
-    
+
     protected String[] needPermissions = {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CALL_PHONE
 
     };
 
@@ -107,7 +107,7 @@ public class SplashActivity extends BaseActivity {
                 @Override
                 public void denied() {
                     //                UUToast.showUUToast(SplashActivity.this, "未获取到权限，定位功能不可用");
-                    UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到存储权限，应用即将退出");
+                    UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，应用即将退出");
                     mHandler.sendEmptyMessageDelayed(10, 1000);
                     //                finish();
 
