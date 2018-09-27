@@ -57,7 +57,11 @@ public class URLConfig {
         String url = "";
         // 正常版
         if (DorideApplication.Formal_Version) {
-            url = U6 + version + s;
+            if (urlArrayList.contains(s)) {
+                url = com.carlt.doride.systemconfig.URLConfig.U1_DORIDE + version + s;
+            } else {
+                url = U6 + version + s;
+            }
         } else {
             switch (com.carlt.doride.systemconfig.URLConfig.flag) {
                 case VERSION_FORMAL:
@@ -119,6 +123,7 @@ public class URLConfig {
     public static void addUrl() {
         urlArrayList.add("user/accesstoken");
         urlArrayList.add("user/editinfo");
+        urlArrayList.add("user/setValidate");
         urlArrayList.add("safe/checkPassword");
         urlArrayList.add("safe/retrievePassword");
         urlArrayList.add("safe/editPassword");
@@ -129,7 +134,6 @@ public class URLConfig {
         urlArrayList.add("safe/resetRemotePwd");
         urlArrayList.add("safe/forgetRemotePwd");
         urlArrayList.add("safe/forgetRemotePwd");
-        urlArrayList.add("user/setValidate");
     }
 
     public static String getClientID() {

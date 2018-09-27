@@ -1,5 +1,6 @@
 package com.carlt.sesame.control;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -29,6 +30,7 @@ public class VisitorControl implements OnClickListener {
 	// 空调对话框
 	private UUAirConditionDialog mAirDialog;
 	// 模拟延时处理请求
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			if (msg.what == 100) {

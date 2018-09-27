@@ -1,5 +1,6 @@
 package com.carlt.sesame.ui.activity.safety;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -260,6 +261,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {

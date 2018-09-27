@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.usercenter;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +13,13 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
+import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.GetValidateView;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -29,7 +32,6 @@ import java.util.TimerTask;
 
 /**
  * 重设密码页面
- * 
  * @author daisy
  */
 public class ResetPasswordActivity extends BaseActivity implements OnClickListener {
@@ -66,9 +68,9 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
     }
 
     private void initTitle() {
-        back = (ImageView)findViewById(R.id.head_back_img1);
-        title = (TextView)findViewById(R.id.head_back_txt1);
-        txtRight = (TextView)findViewById(R.id.head_back_txt2);
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
         title.setText("重设登录密码");
@@ -85,33 +87,33 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
     }
 
     private void init() {
-        mEditText1 = (ValidateEditText)findViewById(R.id.activity_usercenter_reset_password_edit1);
-        mEditText2 = (ValidateEditText)findViewById(R.id.activity_usercenter_reset_password_edit2);
-        mEditText3 = (ValidateEditText)findViewById(R.id.activity_usercenter_reset_password_edit3);
-        mEditText4 = (ValidateEditText)findViewById(R.id.activity_usercenter_reset_password_edit4);
-        
+        mEditText1 = (ValidateEditText) findViewById(R.id.activity_usercenter_reset_password_edit1);
+        mEditText2 = (ValidateEditText) findViewById(R.id.activity_usercenter_reset_password_edit2);
+        mEditText3 = (ValidateEditText) findViewById(R.id.activity_usercenter_reset_password_edit3);
+        mEditText4 = (ValidateEditText) findViewById(R.id.activity_usercenter_reset_password_edit4);
+
         mEditText1.setEditHint("请填写手机号");
         mEditText1.setmLength(11);
         mEditText1.setmType(ValidateEditText.TYPE_NUM);
         mEditText1.setNextEditText(mEditText2);
-        
-        
+
+
         mEditText2.setEditHint("请输入验证码");
         mEditText2.setmType(ValidateEditText.TYPE_NUM);
         mEditText2.setNextEditText(mEditText3);
-        
-        
+
+
         mEditText3.setEditHint("请输入新密码");
         mEditText3.setmType(ValidateEditText.TYPE_PDT);
         mEditText3.setNextEditText(mEditText4);
-        
-        
+
+
         mEditText4.setEditHint("再次输入密码");
         mEditText4.setmType(ValidateEditText.TYPE_COFT);
         mEditText4.setmConfirmEdit(mEditText3.getmEditText());
-        
-        mTextView1 = (TextView)findViewById(R.id.activity_usercenter_reset_password_txt1);
-        mTextView2 = (TextView)findViewById(R.id.activity_usercenter_reset_password_txt2);
+
+        mTextView1 = (TextView) findViewById(R.id.activity_usercenter_reset_password_txt1);
+        mTextView2 = (TextView) findViewById(R.id.activity_usercenter_reset_password_txt2);
 
         mTextView1.setOnClickListener(this);
         mTextView2.setOnClickListener(this);
@@ -157,6 +159,7 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -178,7 +181,7 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
                     mTextView1.setText(R.string.usercenter_push_validate1);
                     mTextView1.setBackgroundResource(R.drawable.btn_code_bg);
 
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     int flag = mBaseResponseInfo.getFlag();
                     if (flag == BaseResponseInfo.VALIDATE_LIMIT) {
                         if (mValidateView == null) {
@@ -204,7 +207,7 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     if (mBaseResponseInfo != null) {
                         String info = mBaseResponseInfo.getInfo();
                         if (info != null && info.length() > 0) {
@@ -267,9 +270,11 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
         switch (v.getId()) {
             case R.id.activity_usercenter_reset_password_txt1:
                 // 发送验证码
-            	mEditText1.validateEdit();
+                mEditText1.validateEdit();
                 phoneNum = mEditText1.getText().toString();
-                if (phoneNum != null && phoneNum.length() == 11) {
+                String mobile = SesameLoginInfo.getMobile();
+                LogUtils.e("====" + mobile);
+                if (phoneNum.equals(mobile)) {
                     CPControl.GetMessageValidateResult(CPControl.VALIDATE_TYPE_FINDPASSWORD,
                             phoneNum, listener1);
                     count = 60;
@@ -293,11 +298,11 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
                 }
                 break;
             case R.id.activity_usercenter_reset_password_txt2:
-            	mEditText1.validateEdit();
-            	mEditText2.validateEdit();
-            	mEditText3.validateEdit();
-            	mEditText4.validateEdit();
-            	
+                mEditText1.validateEdit();
+                mEditText2.validateEdit();
+                mEditText3.validateEdit();
+                mEditText4.validateEdit();
+
                 // 重设密码
                 phoneNum = mEditText1.getText().toString();
                 validate = mEditText2.getText().toString();

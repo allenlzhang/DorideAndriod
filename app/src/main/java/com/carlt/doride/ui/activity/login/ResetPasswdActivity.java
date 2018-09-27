@@ -96,6 +96,7 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.bt_verification_send:
                 String cellPhone = forget_passwd_phone_et.getText().toString();
+                String mobile = LoginInfo.getMobile();
                 if (TextUtils.isEmpty(cellPhone) || !StringUtils.checkCellphone(cellPhone)) {
                     UUToast.showUUToast(this, getResources().getString(R.string.cell_phone_error));
                 } else {

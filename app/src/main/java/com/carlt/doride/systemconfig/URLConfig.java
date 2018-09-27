@@ -7,7 +7,7 @@ public class URLConfig {
     public final static int VERSION_FORMAL  = 1001;// 正式服
     public final static int VERSION_PREPARE = 1002;// 预发布服
     public final static int VERSION_TEST    = 1003;// 测试服
-    public static       int flag            = VERSION_FORMAL;
+    public static       int flag            = VERSION_TEST;
 
     // 车乐测试服务器
     private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
