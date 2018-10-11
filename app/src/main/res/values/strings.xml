@@ -130,7 +130,7 @@
     <string name="career_main_km_h">公里/小时</string>
 
     <!-- 生涯-车秘书 -->
-    <string name="secretary_name">芝麻小秘书 :</string>
+    <string name="secretary_name">小秘书 :</string>
     <string name="secretary_tip_title">车秘书提示标题</string>
     <string name="secretary_tip_content">车秘书提示内容</string>
     <string name="secretary_tip_title1">用车提醒提示标题</string>
@@ -175,7 +175,7 @@
     <string name="car_frame">车&#160;&#160;架&#160;&#160;号</string>
     <string name="car_certificate">登记证书号</string>
 
-    <string name="register_secretary_girl">芝麻小秘书</string>
+    <string name="register_secretary_girl">小秘书</string>
     <string name="register_secretary_boy">乐博士</string>
 
     <string name="traffic_used_status">已用流量:%1$s</string>

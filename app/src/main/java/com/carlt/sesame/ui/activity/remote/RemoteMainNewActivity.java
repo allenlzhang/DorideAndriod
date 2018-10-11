@@ -20,10 +20,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
+import com.carlt.doride.utils.LoadLocalImageUtil;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -42,20 +47,27 @@ import com.carlt.sesame.ui.view.UUAirConditionDialog;
 import com.carlt.sesame.ui.view.UUChargeDialog;
 import com.carlt.sesame.utility.PlayRadio;
 import com.carlt.sesame.utility.UUToast;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class RemoteMainNewActivity extends LoadingActivityWithTitle implements OnClickListener {
-    public final static String ACTION_REMOTE_SETPSW = "com.carlt.sesame.action_remote_setpsw";
-    public final static String ACTION_REMOTE_RESETPSW = "com.carlt.sesame.action_remote_resetpsw";
+    public final static String ACTION_REMOTE_SETPSW    = "com.carlt.sesame.action_remote_setpsw";
+    public final static String ACTION_REMOTE_RESETPSW  = "com.carlt.sesame.action_remote_resetpsw";
     public final static String ACTION_REMOTE_FORGETPSW = "com.carlt.sesame.action_remote_forgetpsw ";
 
     private TextView mTxtState;// 车辆状态
     private TextView mTxtRecorder;// 远程记录
 
-    private TextView mTxtItem1One;
+    private TextView  mTxtItem1One;
+    private ImageView imgCenter;
+    private ImageView imgCenter1;
+    private ImageView imgCenter2;
+    private ImageView imgCenter3;
+    private ImageView imgCenter4;
 
     private TextView mTxtItem1Two;
     private TextView mTxtItem2Two;
@@ -87,29 +99,29 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     private PlayRadio      mPlayRadio;
     private int lastOpt = -1;
     boolean isFirstClick;
-    String password;
-    long startTime;
-    Dialog mDialog;
+    String  password;
+    long    startTime;
+    Dialog  mDialog;
 
-    private final static String names[] = {"最大制热", "最大制冷", "一键除霜", "关闭空调"};
-    private final static int icon_ids[] = {R.drawable.sesame_remote_hot,
+    private final static String names[]               = {"最大制热", "最大制冷", "一键除霜", "关闭空调"};
+    private final static int    icon_ids[]            = {R.drawable.sesame_remote_hot,
             R.drawable.sesame_remote_cold, R.drawable.sesame_remote_frost,
             R.drawable.remote_close_air2};
-    private final static int icon_id_seleceds[] = {
+    private final static int    icon_id_seleceds[]    = {
             R.drawable.sesame_remote_hot_selected, R.drawable.sesame_remote_cold_selected,
             R.drawable.sesame_remote_frost_selected, R.drawable.sesame_icon_close_air_press};
-    private final static int icon_id_seleced_nos[] = {
+    private final static int    icon_id_seleced_nos[] = {
             R.drawable.sesame_remote_hot_selected_no,
             R.drawable.sesame_remote_cold_selected_no,
             R.drawable.sesame_remote_frost_selected_no, R.drawable.sesame_icon_close_air};
-    private final static String temps[] = {"32", "18", "32", "--"};
-    private final static String ids[] = {"5", "4", "3", "8"};
+    private final static String temps[]               = {"32", "18", "32", "--"};
+    private final static String ids[]                 = {"5", "4", "3", "8"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remote_main_new);
-      // setTitleView(R.layout.head_remote);
+        // setTitleView(R.layout.head_remote);
         // right remote_history_iv  left  state_car_iv
         setTitleView(R.layout.layout_title_remote);
         registerBeforeGoToBackGround(this);
@@ -127,6 +139,11 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
     private void init() {
         mTxtState = (TextView) findViewById(R.id.state_car_iv);
+        imgCenter = findViewById(R.id.img_center);
+        imgCenter1 = findViewById(R.id.img_center1);
+        imgCenter2 = findViewById(R.id.img_center2);
+        imgCenter3 = findViewById(R.id.img_center3);
+        imgCenter4 = findViewById(R.id.img_center4);
         mTxtState.setOnClickListener(this);
         mTxtRecorder = (TextView) findViewById(R.id.remote_history_iv);
         mTxtRecorder.setOnClickListener(this);
@@ -172,6 +189,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
         mViewThree = findViewById(R.id.remote_new_lay_three);
         mViewFour = findViewById(R.id.remote_new_lay_four);
         mViewFive = findViewById(R.id.remote_new_lay_five);
+        getBgImage();
     }
 
     /**
@@ -195,7 +213,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                 // 弹出空调页面-TODO
                 // mDialog.dismiss();
                 // AirMainInfo airMainInfo = new AirMainInfo();
-//			mAirMainInfo.setShowTemp(true);
+                //			mAirMainInfo.setShowTemp(true);
                 mHandler.sendEmptyMessage(12);
                 // 测试数据
                 // airMainInfo.setState("1");
@@ -221,6 +239,54 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                 CPControl.GetRemoteChargeStatus(mListener_chargeStatus);
                 break;
         }
+    }
+
+    private void getBgImage() {
+        BaseParser parser1 = new DefaultStringParser(new BaseParser.ResultCallback() {
+            @Override
+            public void onSuccess(com.carlt.doride.data.BaseResponseInfo bInfo) {
+                LogUtils.e("parser1=======" + bInfo.toString());
+                String json = bInfo.getValue().toString();
+                Gson gson = new Gson();
+                PictrueInfo pictrueInfo = gson.fromJson(json, PictrueInfo.class);
+                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter, R.drawable.remote_new_bg);
+                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter1, R.drawable.remote_new_bg);
+                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter2, R.drawable.remote_new_bg);
+                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter3, R.drawable.remote_new_bg);
+                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter4, R.drawable.remote_new_bg);
+//                if (mViewOne.getVisibility() == View.VISIBLE) {
+//                    Glide.with(RemoteMainNewActivity.this)
+//                            .load(pictrueInfo.filePath)
+//                            .into(imgCenter);
+//                } else if (mViewTwo.getVisibility() == View.VISIBLE) {
+//                    Glide.with(RemoteMainNewActivity.this)
+//                            .load(pictrueInfo.filePath)
+//                            .into(imgCenter1);
+//                } else if (mViewThree.getVisibility() == View.VISIBLE) {
+//                    Glide.with(RemoteMainNewActivity.this)
+//                            .load(pictrueInfo.filePath)
+//                            .into(imgCenter2);
+//                } else if (mViewFour.getVisibility() == View.VISIBLE) {
+//                    Glide.with(RemoteMainNewActivity.this)
+//                            .load(pictrueInfo.filePath)
+//                            .into(imgCenter3);
+//                } else if (mViewFive.getVisibility() == View.VISIBLE) {
+//                    Glide.with(RemoteMainNewActivity.this)
+//                            .load(pictrueInfo.filePath)
+//                            .into(imgCenter4);
+//                }
+
+            }
+
+            @Override
+            public void onError(com.carlt.doride.data.BaseResponseInfo bInfo) {
+
+            }
+        });
+        HashMap params1 = new HashMap();
+        params1.put("app_softtype", "1");
+        params1.put("position", "22");
+        parser1.executePost(com.carlt.sesame.systemconfig.URLConfig.getM_GET_APPSPICS_URL(), params1);
     }
 
     @Override
@@ -463,6 +529,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     protected void LoadData() {
         super.LoadData();
         com.carlt.doride.control.CPControl.GetCarConfigResult(listener);
+
     }
 
     /**
@@ -722,30 +789,30 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     switch (lastOpt) {
                         case 0:
 
-             //               mPlayRadio.playClickVoice(R.raw.remote_unlock);
+                            //               mPlayRadio.playClickVoice(R.raw.remote_unlock);
 
                             lastOpt = -1;
                             break;
                         case 1:
-                //            mPlayRadio.playClickVoice(R.raw.remote_lock);
+                            //            mPlayRadio.playClickVoice(R.raw.remote_lock);
                             lastOpt = -1;
                             break;
                         case 2:
-               //             mPlayRadio.playClickVoice(R.raw.remote_finding);
+                            //             mPlayRadio.playClickVoice(R.raw.remote_finding);
                             lastOpt = -1;
                             break;
                         case 3:
                             if (mAirConditionDialog != null) {
                                 mAirConditionDialog.dismiss();
                             }
-                 //           mPlayRadio.playClickVoice(R.raw.remote_air);
+                            //           mPlayRadio.playClickVoice(R.raw.remote_air);
                             lastOpt = -1;
                             break;
                         case 4:
                             break;
                     }
                     dissmissWaitingDialog();
-//                    UUToast.showUUToast(RemoteMainNewActivity.this, "操作成功");
+                    //                    UUToast.showUUToast(RemoteMainNewActivity.this, "操作成功");
                     ToastUtils.showShort("操作成功");
                     break;
 
@@ -757,12 +824,12 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
                     if (mInfo1 != null) {
                         if (mInfo1.getFlag() == 1020) {
-                            Intent intent  = new Intent(RemoteMainNewActivity.this,UpDateActivity.class);
+                            Intent intent = new Intent(RemoteMainNewActivity.this, UpDateActivity.class);
                             startActivity(intent);
-//                            PopBoxCreat.showUUUpdateDialog(context, null);
+                            //                            PopBoxCreat.showUUUpdateDialog(context, null);
                         } else {
-//                            UUToast.showUUToast(RemoteMainNewActivity.this,
-//                                    mInfo1.getInfo());
+                            //                            UUToast.showUUToast(RemoteMainNewActivity.this,
+                            //                                    mInfo1.getInfo());
                             ToastUtils.showShort(mInfo1.getInfo());
                         }
                     }
@@ -772,8 +839,8 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
                     if (mInfo != null) {
-//                        UUToast.showUUToast(RemoteMainNewActivity.this,
-//                                mInfo.getInfo());
+                        //                        UUToast.showUUToast(RemoteMainNewActivity.this,
+                        //                                mInfo.getInfo());
                         ToastUtils.showShort(mInfo.getInfo());
                     }
                     break;
@@ -785,8 +852,8 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo2 = (BaseResponseInfo) msg.obj;
                     if (mInfo2 != null) {
-//                        UUToast.showUUToast(RemoteMainNewActivity.this,
-//                                mInfo2.getInfo());
+                        //                        UUToast.showUUToast(RemoteMainNewActivity.this,
+                        //                                mInfo2.getInfo());
                         ToastUtils.showShort(mInfo2.getInfo());
                     }
                     isFirstClick = true;
@@ -850,7 +917,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     // 获取远程车辆温度成功
                     dissmissWaitingDialog();
                     mAirMainInfo = (AirMainInfo) msg.obj;
-//				mAirMainInfo.setShowTemp(true);
+                    //				mAirMainInfo.setShowTemp(true);
                     mAirConditionDialog = new UUAirConditionDialog(
                             RemoteMainNewActivity.this, mAirMainInfo);
                     mAirConditionDialog.mListener = mListener;
@@ -861,7 +928,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     // 获取远程车辆温度失败
                     dissmissWaitingDialog();
                     mAirMainInfo = (AirMainInfo) msg.obj;
-//				mAirMainInfo.setShowTemp(true);
+                    //				mAirMainInfo.setShowTemp(true);
                     mAirConditionDialog = new UUAirConditionDialog(
                             RemoteMainNewActivity.this, mAirMainInfo);
                     mAirConditionDialog.mListener = mListener;

@@ -25,6 +25,7 @@ public class CarMainInfo {
 	private String lastcheckscore;
 	//是否正在行驶中
 	private String isRunning;
+	public String charging_status;
 	//电池电量
 	private String soc;
 	//电池健康度

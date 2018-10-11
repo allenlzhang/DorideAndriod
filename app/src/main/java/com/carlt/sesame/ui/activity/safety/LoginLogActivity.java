@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.safety;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -193,7 +194,7 @@ public class LoginLogActivity extends LoadingActivityWithTitle {
 
         }
     };
-
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

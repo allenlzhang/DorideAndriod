@@ -54,7 +54,7 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
 		txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
 		back.setImageResource(R.drawable.arrow_back);
-		title.setText("我的芝麻小秘书");
+		title.setText("大乘助手");
 		txtRight.setText("");
 		txtRight.setVisibility(View.GONE);
 		back.setOnClickListener(new OnClickListener() {

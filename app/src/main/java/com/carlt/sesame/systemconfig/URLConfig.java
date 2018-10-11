@@ -134,6 +134,7 @@ public class URLConfig {
         urlArrayList.add("safe/resetRemotePwd");
         urlArrayList.add("safe/forgetRemotePwd");
         urlArrayList.add("safe/forgetRemotePwd");
+        urlArrayList.add("appspic/getAppsPics");
     }
 
     public static String getClientID() {
@@ -473,10 +474,10 @@ public class URLConfig {
     private static String M_INVITE_PRIZE_URL = "group/invitePrize";
 
     // 座驾首页
-    private static String M_CAR_MAIN_URL = "car/carIndex";
-
+    private static String M_CAR_MAIN_URL     = "car/carIndex";
+    private static String M_GET_APPSPICS_URL = "appspic/getAppsPics";
     // 分享行车报告回调
-    private static String M_REPORTSHARE_URL = "life/reportShare";
+    private static String M_REPORTSHARE_URL  = "life/reportShare";
 
     // 分享驾驶证等级回调
     private static String M_LICENSESHARE_URL = "life/licenseShare";
@@ -690,7 +691,9 @@ public class URLConfig {
     public static String getM_SUBMIT_EVALUATION_URL() {
         return getZLinkURL(M_SUBMIT_EVALUATION_URL);
     }
-
+    public static String getM_GET_APPSPICS_URL() {
+        return getZLinkURL(M_GET_APPSPICS_URL);
+    }
     public static String getM_ORDER_LIST_URL() {
         return getZLinkURL(M_ORDER_LIST_URL);
     }

@@ -204,7 +204,7 @@
         <activity android:name="com.carlt.sesame.ui.activity.setting.SesameLoginPasswdManageActivity"/>
         <activity android:name="com.carlt.sesame.ui.activity.usercenter.ResetPasswordActivity"/>
         <activity android:name=".ui.activity.setting.TrafficPackagePurchaseLogActivity"/>
-
+        <activity android:name=".ui.activity.login.ActivateHelpActivity"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.carlt.doride.fileprovider"

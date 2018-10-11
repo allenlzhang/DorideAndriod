@@ -39,6 +39,7 @@ import java.util.HashMap;
 public class DeviceBindActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView    back;//返回按钮
+    private ImageView    ivHelp;//返回按钮
     private LinearLayout title_bar;
 
     private TextView titleText;//页面标题
@@ -78,7 +79,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     }
 
     private void setBindData() {
-//        carTitle = LoginInfo.getCarname();
+        //        carTitle = LoginInfo.getCarname();
         if (!TextUtils.isEmpty(from) && from.equals(ACTIVATE)) {
             String cat_title = intent.getStringExtra("cat_title");
             if (!TextUtils.isEmpty(cat_title)) {
@@ -107,6 +108,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
     private void initComponent() {
         back = findViewById(R.id.back);
+        ivHelp = findViewById(R.id.ivHelp);
         back.setOnClickListener(this);
         titleText = findViewById(R.id.title);
         titleText.setText("绑定车辆");
@@ -116,6 +118,15 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         bind_commit.setOnClickListener(this);
         car_vin_code = findViewById(R.id.car_vin_code);
         car_vin_code.setTransformationMethod(new AutoCaseTransformationMethod());
+
+
+        ivHelp.setVisibility(View.VISIBLE);
+        ivHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DeviceBindActivity.this, ActivateHelpActivity.class));
+            }
+        });
     }
 
 
@@ -152,7 +163,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    public final static String  FROM_NAME = "from_name";
+    public final static String FROM_NAME = "from_name";
 
 
     private void bindSesameDevice() {

@@ -43,7 +43,15 @@
         android:layout_marginRight="@dimen/head_margin_h"
         android:visibility="gone" 
         android:src="@drawable/icon_set"/>
-
+    <ImageView
+        android:id="@+id/ivHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:src="@mipmap/ic_activate_help"
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/main_page_head_line"
         style="@style/line_h"

@@ -67,6 +67,7 @@ public class LoadLocalImageUtil {
     public void displayFromWeb(String uri, ImageView imageView, int defaulePic) {
         Glide.with(UiUtils.getContext())
                 .load(uri)
+                .error(defaulePic)
                 .into(imageView);
     }
 

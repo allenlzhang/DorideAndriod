@@ -41,6 +41,7 @@ import java.util.HashMap;
 public class ActivateBindActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView back;//返回按钮
+    private ImageView ivHelp;//返回按钮
 
     private TextView titleText;//页面标题
     private TextView activate_commit;//绑定激活按钮
@@ -70,6 +71,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
     private void initComponent() {
         back = findViewById(R.id.back);
+        ivHelp = findViewById(R.id.ivHelp);
         back.setOnClickListener(this);
         titleText = findViewById(R.id.title);
         titleText.setText("激活大乘智享");
@@ -80,6 +82,13 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         }
         activate_commit = findViewById(R.id.activate_commit);
         activate_commit.setOnClickListener(this);
+        ivHelp.setVisibility(View.VISIBLE);
+        ivHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivateBindActivity.this, ActivateHelpActivity.class));
+            }
+        });
     }
 
     private void initSubTitle() {
@@ -227,11 +236,11 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");
 
         } else {
-//            if (code == 2999) {
-//                UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
-//            } else {
-//                UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
-//            }
+            //            if (code == 2999) {
+            //                UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
+            //            } else {
+            //                UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+            //            }
 
             UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
             mTextViewMsg.setText(mBaseResponseInfo.getInfo());

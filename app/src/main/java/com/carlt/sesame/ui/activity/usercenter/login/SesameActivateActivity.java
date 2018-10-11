@@ -17,6 +17,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.ui.activity.login.ActivateHelpActivity;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 
 public class SesameActivateActivity extends BaseActivity {
     private ImageView back;// 头部返回键
+    private ImageView ivHelp;// 头部返回键
 
     private TextView title;// 标题文字
 
@@ -105,6 +107,7 @@ public class SesameActivateActivity extends BaseActivity {
         back = (ImageView) findViewById(R.id.head_back_img1);
         title = (TextView) findViewById(R.id.head_back_txt1);
         txtRight = (TextView) findViewById(R.id.head_back_txt2);
+        ivHelp =  findViewById(R.id.ivHelp);
 
         back.setImageResource(R.drawable.arrow_back);
         title.setText("激活大乘智享");
@@ -116,7 +119,13 @@ public class SesameActivateActivity extends BaseActivity {
                 back();
             }
         });
-
+        ivHelp.setVisibility(View.VISIBLE);
+        ivHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SesameActivateActivity.this, ActivateHelpActivity.class));
+            }
+        });
     }
 
 

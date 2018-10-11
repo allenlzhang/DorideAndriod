@@ -37,6 +37,7 @@
             android:layout_width="249dp"
             android:layout_height="331dp"
             android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
             android:layout_centerInParent="true"
             android:src="@drawable/remote_new_bg" />
 

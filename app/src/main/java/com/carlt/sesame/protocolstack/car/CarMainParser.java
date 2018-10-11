@@ -29,6 +29,7 @@ public class CarMainParser extends BaseParser {
 
 			String isRuning=mJSON_data.optString("isrunning");
 			mCarMainInfo.setRunning(isRuning);
+			mCarMainInfo.charging_status=mJSON_data.optString("charging_status");
 
 			mCarMainInfo.setSoc(mJSON_data.optString("SOC"));
 			mCarMainInfo.setSoh(mJSON_data.optString("SOH"));

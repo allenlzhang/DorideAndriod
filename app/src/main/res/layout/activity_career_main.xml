@@ -21,7 +21,7 @@
                 android:layout_height="175dp">
 
                 <LinearLayout
-                    android:id="@+id/top"
+                    android:id="@+id/lltop"
                     android:layout_width="match_parent"
                     android:layout_height="172dp"
                     android:background="@drawable/domay_top_bg"
@@ -120,7 +120,7 @@
             android:layout_marginRight="15dip"
             android:layout_marginTop="2dip"
             android:layout_toRightOf="@id/activity_career_main_img1"
-            android:text="芝麻小秘书 :"
+            android:text="大乘助手 :"
             android:textColor="@color/text_color_gray3"
             android:textSize="@dimen/text_size_middle1"/>
 
