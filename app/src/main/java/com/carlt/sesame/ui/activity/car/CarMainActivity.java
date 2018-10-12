@@ -1,6 +1,7 @@
 package com.carlt.sesame.ui.activity.car;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -488,7 +489,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
     protected void LoadData() {
         super.LoadData();
 
-        CPControl.GetCarMainResult(listener);
+//        CPControl.GetCarMainResult(listener);
         getBgImage();
         getCarImage();
     }
@@ -603,6 +604,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
         }
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

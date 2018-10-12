@@ -8,8 +8,7 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/ivCarMainBg"
             android:layout_width="match_parent"
@@ -18,16 +17,14 @@
             android:layout_above="@+id/car_main_line1"
             android:scaleType="fitEnd"
             android:focusable="true"
-            android:focusableInTouchMode="true"
-            />
+            android:focusableInTouchMode="true"/>
 
         <include
             android:id="@+id/sub_head"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            layout="@layout/sesame_head_sub_normal"
-            />
+            layout="@layout/sesame_head_sub_normal"/>
         <RelativeLayout
             android:id="@+id/car_main_lay_carstate"
             android:layout_width="186dip"

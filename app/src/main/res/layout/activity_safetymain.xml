@@ -108,7 +108,8 @@
     <RelativeLayout
         android:id="@+id/safetymain_lay_mobilelog"
         style="@style/setting_userinfo_layout1"
-        android:layout_marginBottom="11dip">
+        android:layout_marginBottom="11dip"
+        android:visibility="gone">
 
         <TextView
             style="@style/setting_userinfo_text1"
@@ -133,8 +134,8 @@
 
         <RelativeLayout
             android:id="@+id/safetymain_lay_authorize"
-            android:visibility="gone"
-            style="@style/setting_userinfo_layout1">
+            style="@style/setting_userinfo_layout1"
+            android:visibility="gone">
 
             <CheckBox
                 android:id="@+id/safetymain_checkbox_authorize"

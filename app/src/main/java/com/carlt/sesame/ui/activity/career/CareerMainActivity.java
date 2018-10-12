@@ -170,7 +170,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
 //                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, ivHomeBg, R.drawable.home_bg);
                 Glide.with(CareerMainActivity.this).load(pictrueInfo.filePath).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnmation) {
                         Drawable drawable = new BitmapDrawable(resource);
                         lltop.setBackgroundDrawable(drawable);
                     }
