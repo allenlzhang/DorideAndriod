@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/layout_background">
+    >
 
 
     <ImageView
@@ -22,10 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/error_txt_des_sub"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dip"
+        android:layout_marginTop="15dp"
         android:background="@null"
         android:text="点击重试"
-        android:textColor="@color/app_white"
+        android:textColor="@color/text_color_gray3"
         android:textSize="14sp"/>
 
     <TextView

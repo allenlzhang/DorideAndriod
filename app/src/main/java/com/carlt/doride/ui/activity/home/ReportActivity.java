@@ -68,25 +68,10 @@ public class ReportActivity extends BaseActivityGroup implements CompoundButton.
 
         }
 
-        // try {
-        // monthInitialValue = getIntent().getStringExtra(MONTH_INITIAL);
-        // if (monthInitialValue == null || monthInitialValue.length() == 0) {
-        // monthInitialValue = LoginInfo.getLately_month();
-        // }
-        // } catch (Exception e) {
-        //
-        // }
-        // try {
-        // weekInitialValue = getIntent().getStringExtra(WEEK_INITIAL);
-        // if (weekInitialValue == null || weekInitialValue.length() == 0) {
-        // weekInitialValue = LoginInfo.getLately_week();
-        // }
-        // } catch (Exception e) {
-        //
-        // }
+
         try {
             dayInitialValue = getIntent().getStringExtra(DAY_INITIAL);
-            monthInitialValue = getIntent().getStringExtra(DAY_INITIAL);
+            monthInitialValue = getIntent().getStringExtra(MONTH_INITIAL);
         } catch (Exception e) {
 
         }
@@ -123,10 +108,6 @@ public class ReportActivity extends BaseActivityGroup implements CompoundButton.
     }
 
     protected void LoadSuccess() {
-//        if(TextUtils.isEmpty(dayInitialValue)){
-//            dayInitialValue = LoginInfo.getLately_day();
-//        }
-//        monthInitialValue = LoginInfo.getLately_month();
         tab[checkedPos].setChecked(true);
         mLoadingLayout.setVisibility(View.GONE);
         mLayError.setVisibility(View.GONE);

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/item_mobile_img_change"
+        android:layout_width="wrap_content"
+        android:layout_height="64dip"
+        android:scaleType="fitCenter"
+        android:src="@drawable/change_master" 
+        android:layout_marginLeft="5dip"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dip"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/safe_margin_h"
+        android:paddingLeft="@dimen/safe_margin_h"
+         android:layout_toRightOf="@id/item_mobile_img_change" >
+
+        <TextView
+            android:id="@+id/item_mobile_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical"
+            android:text="手机展示名称"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/item_mobile_txt_waitingauthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/item_mobile_txt_name"
+            android:layout_marginBottom="7dip"
+            android:layout_marginTop="10dip"
+            android:layout_toRightOf="@id/item_mobile_txt_name"
+            android:gravity="center_vertical"
+            android:text="(等待授权)"
+            android:textColor="#f1523d"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/item_mobile_txt_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="删除"
+            android:textColor="#666"
+            android:textSize="14sp" />
+        
+
+        <LinearLayout
+            android:id="@+id/item_mobile_lay_waitingauthor"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/item_mobile_txt_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:text="同意"
+                android:textColor="#007aff"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/item_mobile_txt_refuse"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="拒绝"
+                android:textColor="#007aff"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_mobile_txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_mobile_txt_name"
+            android:layout_marginRight="5dip"
+            android:gravity="center_vertical"
+            android:text="授权时间"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_mobile_txt_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_mobile_txt_name"
+            android:layout_toRightOf="@id/item_mobile_txt_time"
+            android:gravity="center_vertical"
+            android:text="手机型号"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#E0E0E0" />
+    </RelativeLayout>
+
+</RelativeLayout>

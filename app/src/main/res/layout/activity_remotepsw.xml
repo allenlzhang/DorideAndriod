@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/layout_background" >
+
+    <include layout="@layout/head_back" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dip"
+        android:layout_marginTop="11dip"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/remotepsw_lay_edit"
+            style="@style/setting_userinfo_layout1" >
+
+            <TextView
+                style="@style/setting_userinfo_text1"
+                android:layout_marginRight="45dip"
+                android:text="修改远程控制密码" />
+
+            <TextView
+                android:id="@+id/remotepsw_txt_edit"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text="" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line1"
+            style="@style/setting_line_h" />
+
+        <RelativeLayout
+            android:id="@+id/remotepsw_lay_forget"
+            style="@style/setting_userinfo_layout1" >
+
+            <TextView
+                style="@style/setting_userinfo_text1"
+                android:layout_marginRight="45dip"
+                android:text="忘记远程控制密码" />
+
+            <TextView
+                android:id="@+id/remotepsw_txt_forget"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text="" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

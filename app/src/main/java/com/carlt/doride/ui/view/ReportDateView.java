@@ -214,7 +214,7 @@ public class ReportDateView extends LinearLayout implements OnClickListener {
         View div1 = new View(context);
         div1.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT,
                 ReportDateConfig.getDiv_Height()));
-        div1.setBackgroundColor(getResources().getColor(R.color.item_bg));
+        div1.setBackgroundColor(getResources().getColor(R.color.white));
         layContent.addView(div1);
         for (int iRow = 0; iRow < 6; iRow++) {
 
@@ -223,7 +223,7 @@ public class ReportDateView extends LinearLayout implements OnClickListener {
             View div = new View(context);
             div.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT,
                     ReportDateConfig.getDiv_Height()));
-            div.setBackgroundColor(getResources().getColor(R.color.item_bg));
+            div.setBackgroundColor(getResources().getColor(R.color.white));
             layContent.addView(div);
         }
 
@@ -254,7 +254,7 @@ public class ReportDateView extends LinearLayout implements OnClickListener {
             View div = new View(context);
             div.setLayoutParams(new LayoutParams(ReportDateConfig.getDiv_Height(),
                     android.view.ViewGroup.LayoutParams.FILL_PARENT));
-            div.setBackgroundColor(getResources().getColor(R.color.item_bg));
+            div.setBackgroundColor(getResources().getColor(R.color.white));
             layRow.addView(div);
         }
 

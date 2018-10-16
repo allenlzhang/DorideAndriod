@@ -34,7 +34,7 @@ public class CarNowStatusAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public CarNowStatusInfo.CarNowStatusItemInfo getItem(int i) {
         return mList.get(i);
     }
 
@@ -57,6 +57,9 @@ public class CarNowStatusAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         CarNowStatusInfo.CarNowStatusItemInfo info = mList.get(i);
+
+
+
         if (!StringUtils.isEmpty(info.getName())) {
             viewHolder.mTxtName.setText(info.getName());
         }else {

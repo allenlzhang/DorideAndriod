@@ -7,11 +7,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -21,16 +20,14 @@ import com.carlt.doride.ui.view.UUToast;
 
 import java.util.HashMap;
 
-public class AccountSecurityActivity extends BaseActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener{
-
-    private ImageView back;//返回
-    private TextView title;//标题
+public class AccountSecurityActivity extends LoadingActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener{
 
     private TextView verified_phone;//显示手机号码的文本
 
     private View certified_phone_manage;//显示绑定手机的item
     private View logined_passwd_reset;//登录密码管理的item
     private View remote_passwd_reset;//远程控制密码管理item
+    private CheckBox fingerprint_toggle_ctr;//远程控制无密解锁item
     private CheckBox btn_remote_no_passwd_ctr;//远程控制无密解锁item
     private Dialog mDialog;
 
@@ -40,6 +37,7 @@ public class AccountSecurityActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_security);
+        initTitle("账号与安全");
         initComponent();
     }
 
@@ -50,11 +48,6 @@ public class AccountSecurityActivity extends BaseActivity implements View.OnClic
     }
 
     private void initComponent() {
-        title=$ViewByID(R.id.title);
-        title.setText(getResources().getString(R.string.account_security));
-
-        back=$ViewByID(R.id.back);
-        back.setOnClickListener(this);
         certified_phone_manage=$ViewByID(R.id.certified_phone_manage);
         certified_phone_manage.setOnClickListener(this);
         logined_passwd_reset=$ViewByID(R.id.logined_passwd_reset);
@@ -64,6 +57,8 @@ public class AccountSecurityActivity extends BaseActivity implements View.OnClic
         btn_remote_no_passwd_ctr=$ViewByID(R.id.btn_remote_no_passwd_ctr);
         btn_remote_no_passwd_ctr.setOnCheckedChangeListener(this);
         btn_remote_no_passwd_ctr.setOnClickListener(this);
+        fingerprint_toggle_ctr=$ViewByID(R.id.fingerprint_toggle_ctr);
+        fingerprint_toggle_ctr.setOnCheckedChangeListener(this);
         verified_phone=$ViewByID(R.id.verified_phone);
 
 
@@ -86,9 +81,6 @@ public class AccountSecurityActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
-                finish();
-                break;
             case R.id.certified_phone_manage:
                 Intent phoneManage=new Intent(this,PhoneAuthenticationActivity.class);
                 startActivity(phoneManage);

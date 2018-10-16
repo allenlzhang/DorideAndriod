@@ -45,8 +45,13 @@ public class NicknameEditActivity extends LoadingActivity implements View.OnClic
         nickname_input_commit.setOnClickListener(this);
         Intent intent = getIntent();
         oldName = intent.getStringExtra("nickname");
+        if (!TextUtils.isEmpty(oldName)) {
+            nickname_input.setText(oldName);
+            nickname_input.setSelection(oldName.length());
+        }
         nickname_input.addTextChangedListener(watcher);
     }
+
     TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -57,7 +62,7 @@ public class NicknameEditActivity extends LoadingActivity implements View.OnClic
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String editable = nickname_input.getText().toString();
             String str = stringFilter(editable);
-            if(!editable.equals(str)) {
+            if (!editable.equals(str)) {
                 nickname_input.setText(str);
                 //设置新的光标所在位置
                 nickname_input.setSelection(str.length());
@@ -69,6 +74,7 @@ public class NicknameEditActivity extends LoadingActivity implements View.OnClic
 
         }
     };
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

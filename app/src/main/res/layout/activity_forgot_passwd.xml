@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/login_bg"
+    android:background="@color/layout_background"
     tools:context="com.carlt.doride.ui.activity.login.ResetPasswdActivity">
     <include layout="@layout/layout_title" />
     <EditText
@@ -40,7 +40,7 @@
             android:layout_height="30dip"
             android:gravity="center"
             android:text="@string/usercenter_push_validate"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_gray3"
             android:layout_marginRight="10dip"
             android:background="@drawable/verification_send_bg"
             android:textSize="14sp"/>
@@ -63,7 +63,9 @@
             android:gravity="center_vertical"
             android:hint="@string/usercenter_hint_phone2"
             android:inputType="textPassword"
-            android:maxLength="11" />
+            android:maxLength="32"
+            android:digits="@string/pwd_filter_input_string"
+            />
 
         <ImageView
             android:id="@+id/change_passwd_toggle"
@@ -94,7 +96,9 @@
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:inputType="textPassword"
-            android:maxLength="11" />
+            android:maxLength="32"
+            android:digits="@string/pwd_filter_input_string"
+            />
 
         <ImageView
             android:id="@+id/change_passwd_again_toggle"
@@ -114,7 +118,7 @@
         android:text="@string/change_commit_txt"
         android:layout_marginTop="49dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -21,16 +22,17 @@ import java.util.HashMap;
 
 public class CarModeListActivity extends LoadingActivity {
 
-    private ListView car_mode_list;//车型列表
+    private ListView       car_mode_list;//车型列表
     private CarModeAdapter adapter;//车型列表适配器
-    private Intent intent;
-    private String vinCode;
+    private Intent         intent;
+    private String         vinCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_mode_list);
-        intent=getIntent();
-        vinCode=intent.getStringExtra("vin");
+        intent = getIntent();
+        vinCode = intent.getStringExtra("vin");
         loadingDataUI();
         initComponent();
         initData();
@@ -38,21 +40,21 @@ public class CarModeListActivity extends LoadingActivity {
 
     /**
      * 初始化UI
-     *
-     * */
-    private void initComponent(){
+     */
+    private void initComponent() {
         initTitle("车型");
-        car_mode_list=$ViewByID(R.id.car_mode_list);
+        car_mode_list = $ViewByID(R.id.car_mode_list);
         car_mode_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CarModeInfo mCarModeInfo= (CarModeInfo) adapterView.getItemAtPosition(i);
-                Intent intentType=new Intent(CarModeListActivity.this,CarTypeListActivity.class);
-                intentType.putExtra("optionid",mCarModeInfo.getId());
-                if (intent!=null) {
-                    intentType.putExtra("switch",intent.getBooleanExtra("switch",false));//标记从车辆管理界面跳转
+                CarModeInfo mCarModeInfo = (CarModeInfo) adapterView.getItemAtPosition(i);
+                Intent intentType = new Intent(CarModeListActivity.this, CarTypeListActivity.class);
+                LogUtils.e("optionid=====" + mCarModeInfo.getId());
+                intentType.putExtra("optionid", mCarModeInfo.getId());
+                if (intent != null) {
+                    intentType.putExtra("switch", intent.getBooleanExtra("switch", false));//标记从车辆管理界面跳转
                     if (!TextUtils.isEmpty(vinCode)) {
-                        intentType.putExtra("vin",vinCode);
+                        intentType.putExtra("vin", vinCode);
                     }
                 }
                 CarModeListActivity.this.startActivity(intentType);
@@ -61,24 +63,24 @@ public class CarModeListActivity extends LoadingActivity {
     }
 
     /*
-    * 获取车型列表
-    *
-    * */
-    private void initData(){
-        CarModeInfoListParser parser=new CarModeInfoListParser(mCallback);
-        HashMap<String,String> params=new HashMap<>();
-        params.put("brandid","21");
-        parser.executePost(URLConfig.getM_CAR_MODE_LIST(),params);
+     * 获取车型列表
+     *
+     * */
+    private void initData() {
+        CarModeInfoListParser parser = new CarModeInfoListParser(mCallback);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("brandid", "21");
+        parser.executePost(URLConfig.getM_CAR_MODE_LIST(), params);
     }
 
 
     @Override
     public void loadDataSuccess(Object bInfo) {
         try {
-            BaseResponseInfo<ArrayList<CarModeInfo>> baseResponseInfo= (BaseResponseInfo<ArrayList<CarModeInfo>>) bInfo;
-            ArrayList<CarModeInfo> carModeInfos= (ArrayList<CarModeInfo>) baseResponseInfo.getValue();
+            BaseResponseInfo<ArrayList<CarModeInfo>> baseResponseInfo = (BaseResponseInfo<ArrayList<CarModeInfo>>) bInfo;
+            ArrayList<CarModeInfo> carModeInfos = (ArrayList<CarModeInfo>) baseResponseInfo.getValue();
             if (carModeInfos != null && carModeInfos.size() > 0) {
-                adapter = new CarModeAdapter(this,carModeInfos);
+                adapter = new CarModeAdapter(this, carModeInfos);
                 car_mode_list.setAdapter(adapter);
             } else {
                 loadNodataUI();

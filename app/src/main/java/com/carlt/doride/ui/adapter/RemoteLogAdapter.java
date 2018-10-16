@@ -4,7 +4,6 @@ package com.carlt.doride.ui.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 /**
  * 远程登录记录Adapter
- *
  * @author daisy
  */
 public class RemoteLogAdapter extends BaseAdapter {
@@ -48,8 +46,8 @@ public class RemoteLogAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public RemoteLogInfo getItem(int position) {
+        return mDataList.get(position);
     }
 
     @Override
@@ -76,7 +74,7 @@ public class RemoteLogAdapter extends BaseAdapter {
         RemoteLogInfo mInfo = mDataList.get(position);
         String s = "--";
         int type = mInfo.getLogtype();
-        Log.e("info", "type==" + type);
+        //        Logger.e("type-----" + type);
         if (type > 0) {
             mHolder.mTxtName.setText(adapterTypeText(type));
         } else {
@@ -92,7 +90,7 @@ public class RemoteLogAdapter extends BaseAdapter {
         }
         s = mInfo.getLog_device_name();
         if (!TextUtils.isEmpty(s)) {
-            mHolder.mTxtDevice.setText(s);
+            mHolder.mTxtDevice.setText("操作来源:" + s);
         } else {
             mHolder.mTxtDevice.setText("--");
         }
@@ -106,39 +104,40 @@ public class RemoteLogAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public final static int TYPE_FLASHING = 11;//闪灯鸣笛
-    public final static int TYPE_UNLOCK = 21;//解锁
-    public final static int TYPE_LOCK = 22;//落锁
-    public final static int TYPE_START = 31;//启动
-    public final static int TYPE_STOP = 41;//熄火
-    public final static int TYPE_AIROPEN = 51;//远程开启空调
-    public final static int TYPE_AIRCLOSE = 52;//远程关闭空调
-    public final static int TYPE_AIRDEFROST = 53;//空调/一键除霜
-    public final static int TYPE_AIRCOLD = 54;//空调/最大制冷
-    public final static int TYPE_AIRHOT = 55;//空调/最大制热
-    public final static int TYPE_AIRANION = 56;//空调/负离子
-    public final static int TYPE_AIRCLEAN = 57;//空调/座舱清洁
-    public final static int TYPE_AIRTEMP = 58;//空调/温度调节
-    public final static int TYPE_WINOPEN = 61;//远程开窗
-    public final static int TYPE_WINCLOSE = 62;//远程关窗
-    public final static int TYPE_SKYLIGHT_OPEN = 63;//远程开启天窗
-    public final static int TYPE_SKYLIGHT_CLOSE = 64;//远程关闭天窗
-    public final static int TYPE_SKYLIGHT_UP = 65;//远程开侨天窗
-    public final static int TYPE_TRUNKOPEN = 71;//远程开启后备箱
-    public final static int TYPE_SEATOPEN = 81;//远程开启座椅加热
-    public final static int TYPE_SEATCLOSE = 82;//远程关闭座椅加热
-    public final static int TYPE_PURIFYOPEN = 91;//远程开启空气净化
-    public final static int TYPE_PURIFYCLOSE = 92;//远程关闭空气净化
-    public final static int TYPE_START_INPOWER = 93;// 远程立即充电
-    public final static int TYPE_TIMEING_INPOWER = 94;// 远程定时冲电
-    public final static int TYPE_STOP_INPOWER = 95; //远程停止充电
+    public final static int TYPE_FLASHING               = 11;//闪灯鸣笛
+    public final static int TYPE_UNLOCK                 = 21;//解锁
+    public final static int TYPE_LOCK                   = 22;//落锁
+    public final static int TYPE_START                  = 31;//启动
+    public final static int TYPE_STOP                   = 41;//熄火
+    public final static int TYPE_AIROPEN                = 51;//远程开启空调
+    public final static int TYPE_AIRCLOSE               = 52;//远程关闭空调
+    public final static int TYPE_AIRDEFROST             = 53;//空调/一键除霜
+    public final static int TYPE_AIRCOLD                = 54;//空调/最大制冷
+    public final static int TYPE_AIRHOT                 = 55;//空调/最大制热
+    public final static int TYPE_AIRANION               = 56;//空调/负离子
+    public final static int TYPE_AIRCLEAN               = 57;//空调/座舱清洁
+    public final static int TYPE_AIRTEMP                = 58;//空调/温度调节
+    public final static int TYPE_WINOPEN                = 61;//远程开窗
+    public final static int TYPE_WINCLOSE               = 62;//远程关窗
+    public final static int TYPE_SKYLIGHT_OPEN          = 63;//远程开启天窗
+    public final static int TYPE_SKYLIGHT_CLOSE         = 64;//远程关闭天窗
+    public final static int TYPE_SKYLIGHT_UP            = 65;//远程开侨天窗
+    public final static int TYPE_TRUNKOPEN              = 71;//远程开启后备箱
+    public final static int TYPE_TRUNKCLOSE             = 72;//远程开启后备箱
+    public final static int TYPE_SEATOPEN               = 81;//远程开启座椅加热
+    public final static int TYPE_SEATCLOSE              = 82;//远程关闭座椅加热
+    public final static int TYPE_PURIFYOPEN             = 91;//远程开启空气净化
+    public final static int TYPE_PURIFYCLOSE            = 92;//远程关闭空气净化
+    public final static int TYPE_START_INPOWER          = 93;// 远程立即充电
+    public final static int TYPE_TIMEING_INPOWER        = 94;// 远程定时冲电
+    public final static int TYPE_STOP_INPOWER           = 95; //远程停止充电
     public final static int TYPE_CANCEL_TIMEING_INPOWER = 96; //取消定时充电
 
     private String adapterTypeText(int type) {
         String typeString = "--";
         switch (type) {
             case TYPE_FLASHING:
-                typeString = "声光寻车";
+                typeString = "一键寻车";
                 break;
             case TYPE_UNLOCK:
                 typeString = "远程解锁";
@@ -194,6 +193,9 @@ public class RemoteLogAdapter extends BaseAdapter {
             case TYPE_TRUNKOPEN:
                 typeString = "远程开启后备箱";
                 break;
+            case TYPE_TRUNKCLOSE:
+                typeString = "远程关闭后备箱";
+                break;
             case TYPE_SEATOPEN:
                 typeString = "远程开启座椅加热";
                 break;
@@ -225,7 +227,7 @@ public class RemoteLogAdapter extends BaseAdapter {
         return typeString;
     }
 
-    class Holder {
+    static class Holder {
 
         private TextView mTxtName;// 操作名称
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <RelativeLayout
+        android:id="@+id/select_car_layout_data"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <com.carlt.sesame.ui.view.IndexListView
+            android:id="@+id/layout_select_car_type_list1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <ListView
+            android:id="@+id/layout_select_car_type_list2"
+            style="@style/public_listView"
+            android:divider="#d2d2d2"
+            android:dividerHeight="1dip" />
+    </RelativeLayout>
+
+    <include layout="@layout/loading_activity" />
+
+</RelativeLayout>

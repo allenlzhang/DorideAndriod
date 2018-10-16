@@ -3,7 +3,7 @@ package com.carlt.doride.utils;
 
 import android.os.Environment;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 
 public class LocalConfig {
 
@@ -29,37 +29,37 @@ public class LocalConfig {
      * 记录图片资源保存PATH SD卡
      */
     public static String mImageCacheSavePath_SD = Environment.getExternalStorageDirectory()
-            .toString() + "/yema/img/";
+            .toString() + "/doride/img/";
 
     /**
      * 记录图片资源保存PATH 内部存储器
      */
-    public static String mImageCacheSavePath_Absolute = YemaApplication.getInstanse()
-            .getCacheDir().getAbsolutePath() + "/yema/img/";
+    public static String mImageCacheSavePath_Absolute = DorideApplication.getInstanse()
+            .getCacheDir().getAbsolutePath() + "/doride/img/";
 
     /**
      * 记录下载文件保存PATH SD卡
      */
     public static String mDownLoadFileSavePath_SD = Environment.getExternalStorageDirectory()
-            .toString() + "/yema/down/";
+            .toString() + "/doride/down/";
 
     /**
      * 记录下载文件保存PATH 内部存储器
      */
-    public static String mDownLoadFileSavePath_Absolute = YemaApplication.getInstanse()
-            .getCacheDir().getAbsolutePath() + "/yema/down/";
+    public static String mDownLoadFileSavePath_Absolute = DorideApplication.getInstanse()
+            .getCacheDir().getAbsolutePath() + "/doride/down/";
 
     /**
      * 记录下载文件保存PATH SD卡
      */
     public static String mErroLogSavePath_SD = Environment.getExternalStorageDirectory().toString()
-            + "/yema/log/";
+            + "/doride/log/";
 
     /**
      * 记录轨迹文件保存PATH SD卡
      */
     public static String mTracksSavePath_SD = Environment
-            .getExternalStorageDirectory().toString() + "/yema/tracks/";
+            .getExternalStorageDirectory().toString() + "/doride/tracks/";
 
     /**
      *  获取下载文件的路径

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_car_lay_main"
+    android:layout_width="match_parent"
+    android:layout_height="55dip"
+    android:background="@drawable/violation_item_bg" >
+
+    <ImageView
+        android:id="@+id/item_car_img_del"
+        android:layout_width="34dip"
+        android:layout_height="55dip"
+        android:layout_centerVertical="true"
+        android:src="@drawable/violation_garbage_bg" 
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/item_car_txt_carno"
+        android:layout_width="wrap_content"
+        android:layout_height="55dip"
+        android:layout_marginLeft="13dip"
+        android:layout_toRightOf="@id/item_car_img_del"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textColor="#333"
+        android:textSize="18sp" 
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/item_car_txt_type"
+        android:layout_width="110dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="13dip"
+        android:background="@drawable/btn_violation_bg"
+        android:gravity="center"
+        android:paddingBottom="5dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="5dip"
+        android:text="设置为我的车辆"
+        android:textColor="@color/text_color_blue_light"
+        android:textSize="12sp" />
+
+</RelativeLayout>

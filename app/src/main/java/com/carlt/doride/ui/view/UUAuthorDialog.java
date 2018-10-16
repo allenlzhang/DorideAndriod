@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -53,7 +53,7 @@ public class UUAuthorDialog extends Dialog implements android.view.View.OnClickL
 
 		btnLeft = (TextView) view.findViewById(R.id.dialog_author_text_btnleft);
 		watch = (TextView) view.findViewById(R.id.dialog_author_text_watch);
-		int w = (int) (YemaApplication.ScreenDensity * w_dip);
+		int w = (int) (DorideApplication.ScreenDensity * w_dip);
 		setCanceledOnTouchOutside(true);
 		ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, LayoutParams.WRAP_CONTENT);
 		setContentView(view, parm);

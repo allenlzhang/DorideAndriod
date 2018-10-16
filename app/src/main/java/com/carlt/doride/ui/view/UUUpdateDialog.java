@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.view;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,8 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.DeviceUpdateInfo;
@@ -69,7 +70,7 @@ public class UUUpdateDialog extends Dialog {
 				R.anim.dialog_rotate);
 		LinearInterpolator lin = new LinearInterpolator();
 		operatingAnim.setInterpolator(lin);
-		int w = (int) (YemaApplication.ScreenDensity * w_dip);
+		int w = (int) (DorideApplication.ScreenDensity * w_dip);
 		setCanceledOnTouchOutside(false);
 		setCancelable(false);
 		ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, w);
@@ -124,6 +125,7 @@ public class UUUpdateDialog extends Dialog {
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -134,17 +136,16 @@ public class UUUpdateDialog extends Dialog {
 				if (msg.obj == null) {
 					return;
 				}
-				DeviceUpdateInfo mInfo = (DeviceUpdateInfo) msg.obj;
+				DeviceUpdateInfo mInfo = (DeviceUpdateInfo) ((BaseResponseInfo) msg.obj).getValue();
 				if (mInfo != null) {
 					if (mInfo.isUpgrading()) {
-						// LoginInfo.setUpgradeing(true);
 						// 升级失败
 						if (progressValue > -1 && progressValue < 121) {
 							// 六分钟内继续轮询
 							polling();
 						} else {
 							destoryTimer();
-							UUToast.showUUToast(mContext, "野马盒子升级失败...");
+							UUToast.showUUToast(mContext, "大乘盒子升级失败...");
 							dismiss();
 							if (mDialogUpdateListener != null) {
 								mDialogUpdateListener.onFailed();
@@ -152,7 +153,6 @@ public class UUUpdateDialog extends Dialog {
 						}
 						return;
 					} else {
-						// LoginInfo.setUpgradeing(false);
 						String s = LoginInfo.getDeviceidstring();
 						txtProgress.setText("升级中(100%)升级成功");
 					}
@@ -166,7 +166,7 @@ public class UUUpdateDialog extends Dialog {
 					polling();
 				} else {
 					destoryTimer();
-					UUToast.showUUToast(mContext, "野马盒子升级失败...");
+					UUToast.showUUToast(mContext, "大乘盒子升级失败...");
 					dismiss();
 					if (mDialogUpdateListener != null) {
 						mDialogUpdateListener.onFailed();

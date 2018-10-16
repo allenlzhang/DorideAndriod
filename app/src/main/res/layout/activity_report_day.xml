@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/layout_background" >
-
+    <View
+        style="@style/line_h"/>
     <RelativeLayout
         android:id="@+id/top1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/layout_background"
+        android:background="@color/white"
          >
 
         <com.carlt.doride.ui.view.CircleImageView
@@ -19,7 +20,7 @@
             android:layout_marginTop="14dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="17dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/default_avater"
             />
@@ -42,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_color_gray3"
                     android:textSize="@dimen/text_size_small" />
 
                 <ImageView
@@ -61,7 +62,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
                 android:singleLine="true"
-                android:textColor="@color/text_color_gray1"
+                android:textColor="@color/text_color_gray2"
                 android:textSize="14sp" />
             <!-- android:layout_alignBottom="@+id/day_txt_driveInfo" -->
 
@@ -86,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top1"
-        android:background="@color/layout_background"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingBottom="2.5dp"
         android:paddingLeft="21dp"
@@ -105,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:text="今日里程"
                 android:textSize="14sp"
-                android:textColor="@color/text_color_gray1"
+                android:textColor="@color/text_color_gray2"
                 />
 
             <TextView
@@ -114,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp"
                 />
         </LinearLayout>
@@ -130,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="行车时间"
-                android:textColor="@color/text_color_gray1"
+                android:textColor="@color/text_color_gray2"
                 android:textSize="14sp"
                 />
 
@@ -140,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp"
                 />
         </LinearLayout>
@@ -153,7 +154,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top2"
-        android:background="@color/layout_background"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingBottom="2.5dp"
         android:paddingLeft="21dp"
@@ -172,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:text="今日油耗"
                 android:textSize="14sp"
-                android:textColor="@color/text_color_gray1"
+                android:textColor="@color/text_color_gray2"
                 />
 
             <TextView
@@ -181,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp"
                 />
         </LinearLayout>
@@ -198,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:text="平均油耗"
                 android:textSize="14sp"
-                android:textColor="@color/text_color_gray1"
+                android:textColor="@color/text_color_gray2"
                 />
 
             <TextView
@@ -206,7 +207,7 @@
                 style="@style/day_driveInfo_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp"
                 android:layout_marginLeft="10dp"
                 />
@@ -218,7 +219,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top3"
-        android:background="@color/layout_background"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingBottom="7dp"
         android:paddingLeft="21dp"
@@ -237,7 +238,7 @@
                 android:layout_height="wrap_content"
                 android:text="平均速度"
                 android:textSize="14sp"
-                android:textColor="@color/text_color_gray1"
+                android:textColor="@color/text_color_gray2"
                 />
 
             <TextView
@@ -246,7 +247,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:textSize="14sp"
                 />
         </LinearLayout>
@@ -262,7 +263,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="最高速度"
-                android:textColor="@color/text_color_gray1"
+                android:textColor="@color/text_color_gray2"
                 android:textSize="14sp"
                 />
 
@@ -272,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_gray3"
                 android:layout_marginLeft="10dp"
                 />
         </LinearLayout>
@@ -280,15 +281,16 @@
 
     <com.carlt.doride.ui.pull.PullToRefreshListView
         android:id="@+id/day_refresh_logList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/top4"
-        android:layout_marginTop="15dp"
-        android:background="@color/layout_background"
-        android:divider="@null"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="0dp" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/top4"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="10dp"
+
+        >
     </com.carlt.doride.ui.pull.PullToRefreshListView>
 
 </RelativeLayout>

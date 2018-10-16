@@ -14,8 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 
@@ -55,8 +55,8 @@ public class UUDialogBaseLoading extends Dialog {
         progress = (ProgressBar)mainView.findViewById(R.id.dialog_baseloading_loading_bar);
         msg = (TextView)mainView.findViewById(R.id.dialog_baseloading_loading_text);
 
-        int w = (int)(YemaApplication.ScreenDensity * w_dip);
-        int h = (int)(YemaApplication.ScreenDensity * h_dip);
+        int w = (int)(DorideApplication.ScreenDensity * w_dip);
+        int h = (int)(DorideApplication.ScreenDensity * h_dip);
         setCanceledOnTouchOutside(false);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, h);
         setContentView(mainView, parm);

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 
 /**
  * 用户进入胎压主页信息统计
@@ -31,7 +31,7 @@ public class EntryInfoLocal {
     }
 
     private static boolean readConfig() {
-        SharedPreferences sp = YemaApplication.getInstanse().getSharedPreferences(ENTRY_INFO,
+        SharedPreferences sp = DorideApplication.getInstanse().getSharedPreferences(ENTRY_INFO,
                 Context.MODE_PRIVATE);
 
         if (sp != null) {
@@ -48,7 +48,7 @@ public class EntryInfoLocal {
     }
 
     private static boolean saveConfig() {
-        SharedPreferences sp = YemaApplication.getInstanse().getSharedPreferences(ENTRY_INFO,
+        SharedPreferences sp = DorideApplication.getInstanse().getSharedPreferences(ENTRY_INFO,
                 Context.MODE_PRIVATE);
 
         if (sp != null) {

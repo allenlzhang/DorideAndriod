@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 行车日志list_item -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/layout_background"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip" >
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="30.5dip"
+        android:layout_height="293dip"
+        android:visibility="gone" >
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:background="#D6D6D6" />
+
+        <TextView
+            android:id="@+id/list_item_report_day_txt1"
+            android:layout_width="30.5dip"
+            android:layout_height="30dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="9dip"
+            android:background="@drawable/text_bg_cycle_green"
+            android:gravity="center"
+            android:text="分"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small_s2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="290dip"
+        android:layout_toRightOf="@id/relative_layout"
+        android:background="@drawable/table_bg_report_day_log" >
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dip"
+                android:layout_marginRight="10dip"
+                android:text=""
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公里"
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_item_report_day_linear"
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:layout_below="@id/linear_layout"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt5"
+                android:layout_width="0dip"
+                android:layout_height="30dip"
+                android:layout_marginRight="2dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="急转弯："
+                android:textColor="@color/text_color_gray3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt4"
+                android:layout_width="0dip"
+                android:layout_height="30dip"
+                android:layout_marginLeft="12dip"
+                android:layout_marginRight="2dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="急刹车："
+                android:textColor="@color/text_color_gray3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt6"
+                android:layout_width="0dip"
+                android:layout_height="30dip"
+                android:layout_marginLeft="12dip"
+                android:layout_marginRight="2dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="急加速："
+                android:textColor="@color/text_color_gray3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt7"
+                android:layout_width="0dip"
+                android:layout_height="30dip"
+                android:layout_marginRight="2dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="高转速："
+                android:textColor="@color/text_color_gray3"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_h"
+            style="@style/setting_line"
+            android:layout_below="@id/list_item_report_day_linear" 
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"/>
+
+        <View
+            android:id="@+id/line_v"
+            android:layout_width="0.5dip"
+            android:layout_height="15dip"
+            android:layout_below="@id/line_h"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="7dip"
+            android:background="#00000000" />
+
+        <LinearLayout
+            android:id="@+id/list_item_report_day_linear1"
+            android:layout_width="fill_parent"
+            android:layout_height="60dip"
+            android:layout_below="@id/line_h"
+            android:layout_toLeftOf="@id/line_v"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dip"
+                android:drawableLeft="@drawable/icon_oil_gray"
+                android:drawablePadding="2dip"
+                android:text="电耗"
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="2dip"
+                android:text=""
+                android:textColor="@color/text_color_gray2"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_item_report_day_linear2"
+            android:layout_width="fill_parent"
+            android:layout_height="60dip"
+            android:layout_below="@id/line_h"
+            android:layout_toRightOf="@id/line_v"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dip"
+                android:drawableLeft="@drawable/icon_oil_avg_gray"
+                android:drawablePadding="2dip"
+                android:text="百公里电耗"
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="2dip"
+                android:text=""
+                android:textColor="@color/text_color_gray2"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_h3"
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dip"
+            android:layout_below="@id/list_item_report_day_linear1"
+            android:background="@color/transparent" />
+
+        <LinearLayout
+            android:id="@+id/list_item_report_day_linear3"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_below="@id/line_h3"
+            android:layout_toLeftOf="@id/line_v"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dip"
+                android:drawableLeft="@drawable/icon_speed_avg_gray"
+                android:drawablePadding="2dip"
+                android:text="均速"
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="2dip"
+                android:text=""
+                android:textColor="@color/text_color_gray2"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_item_report_day_linear4"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_below="@id/line_h3"
+            android:layout_toRightOf="@id/line_v"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dip"
+                android:drawableLeft="@drawable/icon_speed_max_gray"
+                android:drawablePadding="2dip"
+                android:text="最高时速"
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/list_item_report_day_txt11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="2dip"
+                android:text=""
+                android:textColor="@color/text_color_gray2"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/icon_car_log"
+        android:layout_marginLeft="9dip" />
+
+</RelativeLayout>

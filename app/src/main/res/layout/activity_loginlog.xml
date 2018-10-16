@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.carlt.sesame.ui.pull.PullToRefreshListView
+        android:id="@+id/loginlog_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dip" >
+    </com.carlt.sesame.ui.pull.PullToRefreshListView>
+
+    <TextView
+        android:id="@+id/loginlog_txt_empty"
+        style="@style/sesame_public_nodata_txt"
+        android:text="暂时没有您的登录信息" />
+
+</RelativeLayout>

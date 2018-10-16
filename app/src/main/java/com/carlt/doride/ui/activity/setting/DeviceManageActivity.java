@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.activity.setting;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,10 +10,10 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.model.LoginInfo;
 
-public class DeviceManageActivity extends BaseActivity implements View.OnClickListener{
+public class DeviceManageActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView back;
-    private TextView title;
+    private TextView  title;
 
     private TextView device_binded_index;
 
@@ -24,15 +25,18 @@ public class DeviceManageActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initComponent() {
-        back=$ViewByID(R.id.back);
+        back = $ViewByID(R.id.back);
         back.setOnClickListener(this);
 
         title = $ViewByID(R.id.title);
         title.setText(getResources().getString(R.string.device_manager_txt));
 
-        device_binded_index= $ViewByID(R.id.device_binded_index);
-        device_binded_index.setText(String.format(getResources().getString(R.string.device_binded_txt), LoginInfo.getDeviceidstring()));
-
+        device_binded_index = $ViewByID(R.id.device_binded_index);
+        if (TextUtils.isEmpty(LoginInfo.getDeviceidstring())) {
+            device_binded_index.setText("--");
+        } else {
+            device_binded_index.setText(String.format(getResources().getString(R.string.device_binded_txt), LoginInfo.getDeviceidstring()));
+        }
     }
 
     @Override

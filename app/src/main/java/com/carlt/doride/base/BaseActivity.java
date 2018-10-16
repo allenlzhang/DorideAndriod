@@ -2,6 +2,7 @@ package com.carlt.doride.base;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +23,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.ui.view.PopBoxCreat;
 
 import java.util.ArrayList;
 
@@ -141,7 +144,17 @@ public class BaseActivity extends AppCompatActivity implements
 		}
 		return false;
 	}
+	@Override
+	public void startActivity(Intent intent) {
+		super.startActivity(intent);
+		overridePendingTransition(R.anim.from_right_in, R.anim.to_left_out);
+	}
 
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(R.anim.from_left_in, R.anim.to_right_out);
+	}
 	protected void registerBeforeGoToBackGround(BeforeGoToBackground listener) {
 		if (!mBackDoList.contains(listener)) {
 			mBackDoList.add(listener);
@@ -191,7 +204,7 @@ public class BaseActivity extends AppCompatActivity implements
 						// 可以推断出用户选择了“不在提示”选项，在这种情况下需要引导用户至设置页手动授权
 						if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])) {
 							new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
-									.setMessage("野马管家获取相关权限失败:" + permissionName +
+									.setMessage("大乘智享获取相关权限失败:" + permissionName +
 											"将导致部分功能无法正常使用，需要到设置页面手动授权")//设置显示的内容
 									.setPositiveButton("去授权", new DialogInterface.OnClickListener() {//添加确定按钮
 										@Override
@@ -236,8 +249,7 @@ public class BaseActivity extends AppCompatActivity implements
 	 * @param permissions
 	 * @param callback
 	 */
-	public void requestPermissions(final Context context, final String[] permissions,
-								   RequestPermissionCallBack callback) {
+	public void requestPermissions(final Context context, final String[] permissions, RequestPermissionCallBack callback) {
 		this.mRequestPermissionCallBack = callback;
 		StringBuilder permissionNames = new StringBuilder();
 		for (String s : permissions) {
@@ -250,7 +262,7 @@ public class BaseActivity extends AppCompatActivity implements
 				isAllGranted = false;
 				if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
 					new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
-							.setMessage("您好，野马管家部分功能需要如下权限：" + permissionNames +
+							.setMessage("您好，大乘智享部分功能需要如下权限：" + permissionNames +
 									" 请允许，否则将影响部分功能的正常使用。")//设置显示的内容
 							.setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
 								@Override
@@ -284,5 +296,26 @@ public class BaseActivity extends AppCompatActivity implements
 		 * 取消授权
 		 */
 		void denied();
+	}
+	private Dialog mDialog;
+
+	public void showWaitingDialog(String msg) {
+		if (mDialog != null && mDialog.isShowing()) {
+			mDialog.dismiss();
+		}
+
+		if (msg == null) {
+			msg = "加载中...";
+		}
+
+		mDialog = PopBoxCreat.createDialogWithProgress(this,
+				msg);
+		mDialog.show();
+	}
+
+	public void dissmissWaitingDialog() {
+		if (mDialog != null && mDialog.isShowing()) {
+			mDialog.dismiss();
+		}
 	}
 }

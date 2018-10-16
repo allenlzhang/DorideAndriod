@@ -1,0 +1,173 @@
+
+package com.carlt.sesame.ui.activity.base;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.carlt.doride.R;
+import com.carlt.doride.ui.view.UUUpdateDialog;
+import com.carlt.sesame.control.CPControl.GetResultListCallback;
+import com.carlt.sesame.data.BaseResponseInfo;
+import com.carlt.sesame.ui.view.PopBoxCreat;
+import com.carlt.sesame.utility.UUToast;
+
+public class LoadingActivity extends BaseActivity {
+
+    private RelativeLayout mMainLayout;
+
+    private View mMainView;
+
+    private View mLoadingLayout;
+
+    private TextView mLoadingTextView;
+
+    private View mLoadingBar;
+
+    private View mLayError;// 错误信息展示layout
+
+    private TextView mTextError;// 错误信息展示text
+
+    private TextView mTextRetry;// 重试按钮
+
+    private boolean hasData = true;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    protected void onResume() {
+        if (!hasData) {
+            LoadData();
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(R.layout.loading_activity);
+        mMainLayout = (RelativeLayout)findViewById(R.id.loading_activity_mainlayout);
+        mLoadingLayout = findViewById(R.id.loading_activity_loading_lay);
+        mLoadingTextView = (TextView)findViewById(R.id.loading_activity_loading_text);
+        mLoadingBar = findViewById(R.id.loading_activity_loading_bar);
+
+        mLayError = findViewById(R.id.loading_activity_lay_error);
+        mTextError = (TextView)findViewById(R.id.loading_activity_text_error);
+        mTextRetry = (TextView)findViewById(R.id.loading_activity_text_retry);
+
+        mTextRetry.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                LoadData();
+            }
+        });
+
+        mMainView = LayoutInflater.from(this).inflate(layoutResID, null);
+        mMainLayout.addView(mMainView, 0);
+        mLoadingBar.setVisibility(View.VISIBLE);
+        mLoadingTextView.setText("等待中");
+        mLoadingLayout.setVisibility(View.VISIBLE);
+
+    }
+
+    protected void LoadSuccess(Object data) {
+        hasData = true;
+        mMainView.setVisibility(View.VISIBLE);
+        mLoadingLayout.setVisibility(View.GONE);
+        mLayError.setVisibility(View.GONE);
+    }
+
+    protected void LoadErro(Object erro) {
+        mMainView.setVisibility(View.GONE);
+        mLoadingLayout.setVisibility(View.GONE);
+        BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo)erro;
+        hasData = false;
+        if (null != mBaseResponseInfo && null != mBaseResponseInfo.getInfo()) {
+            mTextError.setText(mBaseResponseInfo.getInfo());
+            UUToast.showUUToast(this, mBaseResponseInfo.getInfo());
+        } else {
+            mTextError.setText("获取数据失败");
+            UUToast.showUUToast(this, "获取数据失败");
+        }
+        mLayError.setVisibility(View.VISIBLE);
+    }
+
+    protected GetResultListCallback listener = new GetResultListCallback() {
+
+        @Override
+        public void onFinished(Object o) {
+            Message msg = new Message();
+            msg.what = 1;
+            msg.obj = o;
+            mHandler.sendMessage(msg);
+        }
+
+        @Override
+        public void onErro(Object o) {
+            Message msg = new Message();
+            msg.what = 0;
+            msg.obj = o;
+            mHandler.sendMessage(msg);
+
+        }
+    };
+
+    private UUUpdateDialog.DialogUpdateListener mDialogUpdateListener = new UUUpdateDialog.DialogUpdateListener() {
+
+        @Override
+        public void onFailed() {
+            // 升级失败，重新调用当前接口
+            LoadData();
+        }
+
+        @Override
+        public void onSuccess() {
+            // 升级成功，重新调用当前接口
+            LoadData();
+        }
+    };
+
+    private Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    BaseResponseInfo mInfo = (BaseResponseInfo)msg.obj;
+                    if (mInfo.getFlag() == BaseResponseInfo.DEVICE_UPDATE) {
+                        // 盒子升级中
+                        hasData = false;
+                        mLoadingBar.setVisibility(View.GONE);
+                        PopBoxCreat.showUUUpdateDialog(LoadingActivity.this, mDialogUpdateListener);
+                    } else {
+                        LoadErro(msg.obj);
+                    }
+                    break;
+                case 1:
+                    LoadSuccess(msg.obj);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
+
+    protected void LoadData() {
+        mMainView.setVisibility(View.GONE);
+        mLoadingBar.setVisibility(View.VISIBLE);
+        mLoadingTextView.setText("等待中");
+        mLoadingLayout.setVisibility(View.VISIBLE);
+        mLayError.setVisibility(View.GONE);
+    };
+
+}

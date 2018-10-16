@@ -1,49 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/title_height"
-    android:background="@color/main_page_head_bg">
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height"
+                android:background="@color/white">
 
     <ImageView
-        android:id="@+id/head_back_img1"
+        android:id="@+id/layout_title_back_img1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/head_margin_h"
-        android:src="@drawable/back_bg" />
+        android:src="@drawable/back_bg"/>
 
     <TextView
-        android:id="@+id/head_back_txt1"
+        android:id="@+id/layout_title_back_txt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="@dimen/title_text_size" />
+        android:textColor="@color/text_color_gray3"
+        android:textSize="@dimen/title_text_size"/>
 
     <ImageView
-        android:id="@+id/head_back_img2"
+        android:id="@+id/layout_title_back_img2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/head_margin_h"
-        android:src="@drawable/icon_message_manager_bg"
+        android:visibility="gone"
         />
 
     <TextView
-        android:id="@+id/head_back_text2"
-        android:layout_width="wrap_content"
+        android:id="@+id/layout_title_back_text2"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="4dp"
-        android:text="确定"
-        android:textColor="@color/app_white"
-        android:textSize="14sp"
-        android:background="@drawable/position_input_bg"
         android:layout_marginRight="@dimen/head_margin_h"
+        android:background="@drawable/bottom_btn_bg"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="14sp"
         android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/layout_title_back_text3"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/remote_title_bg_selecter"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="充值记录"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_marginRight="8dp"
+        android:visibility="gone"
+        />
+
+    <View
+        style="@style/line_h"
+        android:layout_alignParentBottom="true"
         />
 </RelativeLayout>

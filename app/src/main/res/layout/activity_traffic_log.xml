@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <com.carlt.doride.ui.view.SegmentControl
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segment_control"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:textSize="14sp"
+        app:backgroundColors="@color/background_color"
+        app:boundWidth="1dp"
+        app:cornerRadius="5dp"
+        app:horizonGap="10dp"
+        app:separatorWidth="1dp"
+        app:textColors="@color/text_color"
+        app:texts="加油包|改套餐|续套餐"
+        app:verticalGap="10dp"/>
+
+    <com.carlt.doride.ui.pull.PullToRefreshListView
+        android:id="@+id/traffic_log_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/segment_control"
+        android:cacheColorHint="#00000000"
+        android:divider="@drawable/traffic_package_log_divider"
+        android:dividerHeight="1dp"
+        android:fastScrollEnabled="false"
+        android:smoothScrollbar="true"/>
+
+    <TextView
+        android:id="@+id/traffic_log_txt_empty"
+        style="@style/public_nodata_txt"
+        android:layout_centerInParent="true"
+        android:text="暂时没有您的充值记录"
+        android:visibility="gone"/>
+
+</RelativeLayout>

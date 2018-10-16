@@ -30,13 +30,17 @@ public class CarSaftyAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(mContext);
     }
 
+    public void setmList(List<SaftyMsgInfo> mList) {
+        this.mList = mList;
+    }
+
     @Override
     public int getCount() {
         return mList.size();
     }
 
     @Override
-    public Object getItem(int i) {
+    public SaftyMsgInfo getItem(int i) {
         return mList.get(i);
     }
 
@@ -70,9 +74,9 @@ public class CarSaftyAdapter extends BaseAdapter {
                 case InformationMessageInfo.C1_T2_T1:
                     viewHolder.mImg.setImageResource(R.drawable.icon_shake);
                     break;
-//                case InformationMessageInfo.C1_T2_T2:
-//                    viewHolder.mImg.setImageResource(R.drawable.icon_collision_alarm);
-//                    break;
+                //                case InformationMessageInfo.C1_T2_T2:
+                //                    viewHolder.mImg.setImageResource(R.drawable.icon_collision_alarm);
+                //                    break;
                 case InformationMessageInfo.C1_T2_T3:
                     viewHolder.mImg.setImageResource(R.drawable.icon_tire_pressure);
                     break;
@@ -116,11 +120,11 @@ public class CarSaftyAdapter extends BaseAdapter {
         return view;
     }
 
-    class ViewHolder {
+    static class ViewHolder {
         ImageView mImg;
-        TextView mTxtTitle;
-        TextView mTxtMsg;
-        TextView mTxtDate;
+        TextView  mTxtTitle;
+        TextView  mTxtMsg;
+        TextView  mTxtDate;
     }
 
 }

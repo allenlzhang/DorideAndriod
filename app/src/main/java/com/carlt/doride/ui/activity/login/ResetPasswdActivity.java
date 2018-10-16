@@ -24,6 +24,7 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
 
 import java.util.HashMap;
@@ -95,14 +96,14 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.bt_verification_send:
                 String cellPhone = forget_passwd_phone_et.getText().toString();
+                String mobile = LoginInfo.getMobile();
                 if (TextUtils.isEmpty(cellPhone) || !StringUtils.checkCellphone(cellPhone)) {
                     UUToast.showUUToast(this, getResources().getString(R.string.cell_phone_error));
                 } else {
                     CPControl.GetMessageValidateResult("2", cellPhone, validateCodeListener);
                     count = 60;
                     bt_verification_send.setText(count + "秒后重发");
-                    bt_verification_send.setClickable(false);
-                    bt_verification_send.setBackgroundResource(R.mipmap.btn_code_gray);
+                    bt_verification_send.setEnabled(false);
 
                     task = new TimerTask() {
 
@@ -160,9 +161,8 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                             task.cancel();
                         }
                     }
-                    bt_verification_send.setClickable(true);
+                    bt_verification_send.setEnabled(true);
                     bt_verification_send.setText(R.string.usercenter_push_validate1);
-                    bt_verification_send.setBackgroundResource(R.drawable.verification_sending_bg);
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     int flag = mBaseResponseInfo.getFlag();
@@ -208,9 +208,8 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                                 task.cancel();
                             }
                         }
-                        bt_verification_send.setClickable(true);
+                        bt_verification_send.setEnabled(true);
                         bt_verification_send.setText(R.string.usercenter_push_validate1);
-                        bt_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
                     }
                     break;
             }
@@ -259,7 +258,7 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
         HashMap<String,String> params=new HashMap<>();
         params.put("mobile",phone);
         params.put("validate",vCode);
-        params.put("newpassword",againPasswd);
+        params.put("newpassword", CipherUtils.md5(againPasswd));
         parser.executePost(URLConfig.getM_PASSWORD_RETRIEVE(),params);
     }
 

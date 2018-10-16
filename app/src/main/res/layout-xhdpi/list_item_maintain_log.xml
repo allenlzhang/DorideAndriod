@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip" >
+
+    <RelativeLayout
+        android:id="@+id/item_maintain_log_titlelay"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true" >
+
+        <TextView
+            android:id="@+id/item_maintain_log_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/item_maintain_log_commend"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/item_maintain_log_title"
+            android:gravity="center_vertical"
+            android:text="(芝麻推荐)"
+            android:textColor="#eaaca7"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/item_maintain_log_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dip"
+            android:src="@drawable/list_item_maintain_log_s" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_maintain_log_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="3dip"
+        android:textColor="#999999"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+</LinearLayout>

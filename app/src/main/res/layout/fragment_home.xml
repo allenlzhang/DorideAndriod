@@ -1,72 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/layout_background"
-    >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
     <FrameLayout
         android:id="@+id/fl_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@mipmap/title_image" />
+            android:src="@mipmap/iv_top_logo"/>
     </FrameLayout>
-    <LinearLayout
-        android:id="@+id/ll_homepage"
-        android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:background="@drawable/home_bg"
-        android:orientation="vertical"
-        android:layout_below="@+id/fl_title"
-        android:paddingLeft="10dp">
-        <TextView
-            android:id="@+id/home_txt_date"
-            android:layout_width="wrap_content"
-            android:layout_height="18dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="6dp"
-            android:textSize="16sp"
-            android:includeFontPadding="false"
-            android:textColor="#ffffff" />
 
-        <ImageView
-            android:id="@+id/activity_home_iv_report"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/home_driving_report_icon" />
-    </LinearLayout>
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_homepage"
-        android:layout_above="@+id/iv_line"
-        >
-        <include
-            layout="@layout/layout_report_grid"
+        android:layout_above="@id/iv_line"
+        android:layout_below="@id/fl_title">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="175dp">
+
+                <ImageView
+                    android:id="@+id/ivHomeBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/home_bg"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_homepage"
+                    android:layout_width="match_parent"
+                    android:layout_height="175dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/home_txt_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="22dp"
+                        android:includeFontPadding="false"
+                        android:text="--"
+                        android:textColor="@color/text_color_gray3"
+                        android:textSize="24sp"/>
+
+                    <TextView
+                        android:id="@+id/home_txt_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:drawableLeft="@drawable/home_location_icon"
+                        android:drawablePadding="10dp"
+                        android:text="--"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/home_txt_weather"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:text="--"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/home_txt_temputre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:text="--"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"/>
+
+                    <ImageView
+                        android:id="@+id/activity_home_iv_report"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/home_report_icon_bg"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <include
+                layout="@layout/layout_report_grid"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
     </ScrollView>
 
     <ImageView
         android:id="@+id/iv_line"
-        android:layout_above="@+id/activity_home_relative2"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/text_color_gray3"
-        />
+        android:layout_height="10dp"
+        android:layout_above="@id/activity_home_relative2"
+        android:background="@color/layout_background"/>
+
     <RelativeLayout
         android:id="@+id/activity_home_relative2"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:paddingLeft="20dip"
-        android:paddingRight="20dip"
-        >
+        android:paddingRight="20dip">
 
         <ImageView
             android:id="@+id/activity_home_img1"
@@ -75,7 +127,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="12dip"
-            android:src="@drawable/icon_information_centre" />
+            android:src="@drawable/icon_doride_assistant"/>
 
         <TextView
             android:id="@+id/activity_home_txt2"
@@ -85,9 +137,9 @@
             android:layout_marginRight="15dip"
             android:layout_marginTop="2dip"
             android:layout_toRightOf="@id/activity_home_img1"
-            android:text="信息中心"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:text="大乘助手"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/activity_home_txt3"
@@ -98,13 +150,12 @@
             android:layout_toRightOf="@id/activity_home_txt2"
             android:background="@drawable/circle_orange"
             android:gravity="center"
-            android:textColor="@color/white"
             android:paddingLeft="1dp"
             android:paddingRight="1dp"
+            android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:visibility="gone"
-            />
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -119,7 +170,7 @@
                 style="@style/public_img"
                 android:layout_marginRight="4dip"
                 android:layout_marginTop="3dp"
-                android:src="@drawable/icon_horn" />
+                android:src="@drawable/icon_horn"/>
 
             <TextView
                 android:id="@+id/activity_home_txt4"
@@ -131,7 +182,7 @@
                 android:singleLine="true"
                 android:text=""
                 android:textColor="@color/text_color_gray1"
-                android:textSize="13sp" />
+                android:textSize="14sp"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

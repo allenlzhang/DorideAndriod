@@ -6,22 +6,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <!-- 座驾主页面 -->
     <style name="car_main_txt1">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_color_write</item>
+        <item name="android:textColor">@color/title_bg</item>
         <item name="android:textSize">@dimen/text_size_small_s1</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="splash" parent="AppTheme">
-        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
         <item name="android:windowNoTitle">true</item>
     </style>
     <!-- 行车报告-网格内容 -->
@@ -45,12 +47,26 @@
     <style name="layout_report_grid_txt2">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text_color_gray3</item>
         <item name="android:textSize">24sp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
+    <style name="sesame_layout_report_grid_txt2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_color_gray3</item>
+        <item name="android:textSize">@dimen/text_size_middle1</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
 
+    <style name="sesame_layout_report_grid_txt1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_color_gray1</item>
+        <item name="android:textSize">@dimen/text_size_small_s2</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
 
     <!-- 垂直方向分割线 -->
     <style name="line_v">
@@ -75,7 +91,7 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-   <!-- 公用List样式 -->
+    <!-- 公用List样式 -->
     <style name="public_listView" parent="android:Widget.ListView">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -92,11 +108,11 @@
     <style name="line_h">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">0.5dip</item>
-        <item name="android:background">@color/text_color_gray1</item>
+        <item name="android:background">@color/text_color_gray4</item>
     </style>
 
     <!-- 公用没有数据时的text -->
-    <style name="public_nodata_txt">
+    <style name="sesame_public_nodata_txt">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:textColor">@color/text_color_gray1</item>
@@ -117,20 +133,34 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>
-
+    <style name="sesame_day_driveInfo_content">
+        <item name="android:textColor">@color/text_color_gray3</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
     <style name="listItem_day_info_title">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text_color_gray2</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
         <item name="android:drawablePadding">2dp</item>
     </style>
-
+    <style name="sesame_listItem_day_info_title">
+    <item name="android:textColor">#333333</item>
+    <item name="android:textSize">@dimen/text_size_small_s2</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:drawablePadding">2dp</item>
+    </style>
     <style name="listItem_day_info_txt">
-        <item name="android:textColor">@color/text_color_gray1</item>
+        <item name="android:textColor">@color/text_color_gray3</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
     </style>
-
+    <style name="sesame_listItem_day_info_txt">
+        <item name="android:textColor">#666666</item>
+        <item name="android:textSize">@dimen/text_size_small_s2</item>
+        <item name="android:singleLine">true</item>
+    </style>
     <style name="listItem_day_hurry_txt">
         <item name="android:textColor">#999999</item>
         <item name="android:textSize">12sp</item>
@@ -153,7 +183,6 @@
     <style name="secretary_tips_linear_time">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/secretary_tips_linear_time_bg</item>
         <item name="android:padding">12dip</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_gravity">bottom</item>
@@ -175,7 +204,7 @@
     <style name="report_calendar_month_linear1">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">55dip</item>
-        <item name="android:background">#2e2d33</item>
+        <item name="android:background">@color/white</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
@@ -185,14 +214,14 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">#2e2d33</item>
+        <item name="android:background">@color/white</item>
     </style>
     <!-- <item name="android:background">@drawable/calendar_report_cell_bg</item> -->
     <style name="report_calendar_month_txt1">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_color_gray3</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
     </style>
@@ -208,15 +237,14 @@
     <style name="report_calendar_month_linev">
         <item name="android:layout_width">1dip</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">#171922</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="report_calendar_month_lineh">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">1dip</item>
-        <item name="android:background">#171922</item>
+        <item name="android:background">@color/white</item>
     </style>
-
 
 
     <style name="rili_head_text">
@@ -235,7 +263,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text_color_gray2</item>
     </style>
     <!-- report day style -->
     <style name="day_tag_style">
@@ -247,5 +275,20 @@
         <item name="android:gravity">center</item>
     </style>
 
-
+    <style name="vcode_style">
+        <item name="android:textColor">@color/text_color_gray3</item>
+        <item name="android:textSize">@dimen/text_size_small_s1</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:text">@string/usercenter_push_validate</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@drawable/verification_send_bg</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!--密码输入框弹出动画-->
+    <style name="dialog_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
 </resources>

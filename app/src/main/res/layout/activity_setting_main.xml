@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_color"
+              android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@mipmap/title_image" />
+            android:src="@mipmap/iv_top_logo"/>
     </FrameLayout>
 
     <ScrollView
@@ -29,18 +31,18 @@
                 android:id="@+id/btn_person_info"
                 style="@style/setting_page_item_style"
                 android:layout_width="match_parent"
-                android:layout_height="79dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg">
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/avatar"
-                    android:layout_width="50dip"
-                    android:layout_height="50dip"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
                     android:contentDescription="@string/app_name"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/default_avater" />
+                    />
 
                 <TextView
                     android:id="@+id/tx_person_name"
@@ -49,16 +51,16 @@
                     android:layout_marginLeft="8dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/user_name_default"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:text="--"
+                    android:textColor="@color/main_page_linear_border"
+                    android:textSize="14sp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:contentDescription="@string/app_name"
-                    android:src="@mipmap/arrow_right" />
+                    android:src="@mipmap/arrow_right"/>
             </LinearLayout>
 
             <LinearLayout
@@ -66,15 +68,16 @@
                 style="@style/setting_page_item_style"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg">
+                android:background="@color/white"
+                android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="18dip"
-                    android:layout_height="18dip"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:contentDescription="@string/app_name"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_travel_album" />
+                    android:src="@mipmap/icon_travel_album"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -83,22 +86,22 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/travel_phone_album"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textColor="@color/main_page_linear_border"
+                    android:textSize="14sp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:contentDescription="@string/app_name"
-                    android:src="@mipmap/arrow_right" />
+                    android:src="@mipmap/arrow_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -107,12 +110,12 @@
                     android:layout_width="match_parent">
 
                     <ImageView
-                        android:layout_width="18dip"
-                        android:layout_height="18dip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/account_security" />
+                        android:src="@mipmap/account_security"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -121,18 +124,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/account_security"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider" />
+                <View style="@style/setting_page_item_divider"/>
 
                 <LinearLayout
                     android:id="@+id/btn_car_manager"
@@ -140,12 +143,12 @@
                     android:layout_width="match_parent">
 
                     <ImageView
-                        android:layout_width="18dip"
-                        android:layout_height="18dip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/icon_car_manager" />
+                        android:src="@mipmap/icon_car_manager"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -154,18 +157,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/car_manager_txt"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider" />
+                <View style="@style/setting_page_item_divider"/>
 
                 <LinearLayout
                     android:id="@+id/btn_msg_manager"
@@ -173,12 +176,12 @@
                     android:layout_width="match_parent">
 
                     <ImageView
-                        android:layout_width="18dip"
-                        android:layout_height="18dip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/icon_msg_manager" />
+                        android:src="@mipmap/icon_msg_manager"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -187,18 +190,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/msg_manager_txt"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider" />
+                <View style="@style/setting_page_item_divider"/>
 
                 <LinearLayout
                     android:id="@+id/btn_device_manager"
@@ -206,12 +209,12 @@
                     android:layout_width="match_parent">
 
                     <ImageView
-                        android:layout_width="18dip"
-                        android:layout_height="18dip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/icon_device_manager" />
+                        android:src="@mipmap/icon_device_manager"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -220,37 +223,88 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/device_manager_txt"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/lineFlow"
+                    style="@style/setting_page_item_divider"/>
+
+                <RelativeLayout
+                    android:id="@+id/llFlowRecharge"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent">
+
+                    <ImageView
+                        android:id="@+id/ic1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/ic_flow"/>
+
+                    <TextView
+                        android:id="@+id/tvFlow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_toRightOf="@+id/ic1"
+                        android:gravity="center_vertical"
+                        android:text="@string/device_recharge_txt"
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/icFlowDot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/tvFlow"
+                        android:src="@drawable/icon_dot"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right"/>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@color/setting_item_bg"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/btn_clean_cache"
                     style="@style/setting_page_item_style"
-                    android:layout_width="match_parent">
+                    android:layout_width="match_parent"
+                    android:visibility="gone">
 
                     <ImageView
-                        android:layout_width="18dip"
-                        android:layout_height="18dip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/icon_clean_cache" />
+                        android:src="@mipmap/icon_clean_cache"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -259,28 +313,31 @@
                         android:gravity="center_vertical"
                         android:text="@string/clean_cache_txt"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/cache_size"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="14dp"
-                        android:paddingRight="12dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
+                        android:paddingRight="12dp"
                         android:text="--"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider" />
+                <View
+                    style="@style/setting_page_item_divider"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:id="@+id/btn_contact_us"
@@ -288,12 +345,12 @@
                     android:layout_width="match_parent">
 
                     <ImageView
-                        android:layout_width="18dip"
-                        android:layout_height="18dip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/icon_contact_us" />
+                        android:src="@mipmap/icon_contact_us"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -301,41 +358,44 @@
                         android:layout_marginLeft="14dp"
                         android:gravity="center_vertical"
                         android:text="@string/contact_us_txt"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
+
                     <TextView
-                        android:layout_width="0dp"
                         android:id="@+id/contact_us_phone"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
-                        android:paddingRight="12dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="@string/contact_us_txt"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:paddingRight="12dp"
+                        android:text=""
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider" />
+                <View style="@style/setting_page_item_divider"/>
 
                 <LinearLayout
                     android:id="@+id/btn_about_yema"
                     style="@style/setting_page_item_style"
+
                     android:layout_width="match_parent">
 
                     <ImageView
-                        android:layout_width="18dip"
-                        android:layout_height="18dip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/icon_about_yema" />
+                        android:src="@mipmap/icon_about_yema"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -344,15 +404,15 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/about_yema_txt"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@string/app_name"
-                        android:src="@mipmap/arrow_right" />
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -361,14 +421,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginBottom="18dp"
-                android:layout_marginLeft="18dip"
-                android:layout_marginRight="18dip"
-                android:layout_marginTop="15dip"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="77dip"
                 android:background="@drawable/login_out_btn_bg"
                 android:gravity="center"
                 android:text="@string/logout_txt"
                 android:textColor="@color/scarlet"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
         </LinearLayout>
 
 

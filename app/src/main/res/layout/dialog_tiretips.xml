@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:paddingBottom="20dip" >
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="40dip"
+        android:layout_marginLeft="17dip"
+        android:gravity="center_vertical"
+        android:text="激活提示"
+        android:textColor="#45bbe6"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/img_line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_title"
+        android:background="@drawable/dialog_divider" />
+
+    <View
+        android:id="@+id/view_tips"
+        android:layout_width="235dip"
+        android:layout_height="203dip"
+        android:layout_below="@id/img_line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/dialog_txt" />
+
+    <TextView
+        android:id="@+id/tiretips_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:layout_below="@id/view_tips"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="56dip"
+        android:layout_marginRight="56dip"
+        android:layout_marginTop="25dip"
+        android:background="@drawable/setting_bottom_btn_bg"
+        android:gravity="center"
+        android:text="我知道了"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+</RelativeLayout>

@@ -194,7 +194,7 @@ public class GpsTrailActivity extends LoadingActivity implements
 		mMapView.onCreate(savedInstanceState);
 		mMap = mMapView.getMap();
 		mMap.setOnMapLoadedListener(this);
-		mMap.setMapType(AMap.MAP_TYPE_NIGHT);
+//		mMap.setMapType(AMap.MAP_TYPE_NIGHT);
 		UiSettings uiSeting = mMap.getUiSettings();
 		uiSeting.setMyLocationButtonEnabled(false);
 		// uiSeting.setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
@@ -399,7 +399,7 @@ public class GpsTrailActivity extends LoadingActivity implements
 			BitmapDescriptor descriptorStart =
 			BitmapDescriptorFactory.fromView(getMyView(mCarLogInfo.getStarttime(),R.drawable.gps_icon_start));
 			startOpt.icon(descriptorStart);
-			startOpt.anchor(0.5f, 0.4f);
+			startOpt.anchor(0.5f, 0.6f);
 			startOpt.position(mStart);
 			DisplayMetrics dm = new DisplayMetrics();
 			WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -418,7 +418,7 @@ public class GpsTrailActivity extends LoadingActivity implements
 			BitmapDescriptor descriptorEnd = BitmapDescriptorFactory
 					.fromView(getMyView(mCarLogInfo.getStopTime(),R.drawable.gps_icon_stop));
 			endOpt.icon(descriptorEnd);
-			endOpt.anchor(0.5f, 0.4f);
+			endOpt.anchor(0.5f, 0.6f);
 			endOpt.position(mEnd);
 			mMap.addMarker(endOpt);
 			Marker marker2 = mMap.addMarker(endOpt);

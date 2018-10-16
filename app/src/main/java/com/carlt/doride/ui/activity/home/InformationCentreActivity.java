@@ -12,11 +12,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.LoadingActivity2;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.home.InformationCategoryInfo;
 import com.carlt.doride.data.home.InformationCategoryInfoList;
+import com.carlt.doride.data.home.InformationMessageInfo;
+import com.carlt.doride.ui.activity.carstate.CarSaftyListActivity;
 import com.carlt.doride.ui.activity.setting.MsgManageActivity;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
  * Created by Marlon on 2018/3/16.
  */
 
-public class InformationCentreActivity extends LoadingActivity2 {
+public class InformationCentreActivity extends LoadingActivity {
 
     public final static String TIPS_TITLE = "tips_title";
 
@@ -37,7 +39,7 @@ public class InformationCentreActivity extends LoadingActivity2 {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_centre);
-        initTitle("信息中心");
+        initTitle("大乘助手");
         init();
         initData();
     }
@@ -76,11 +78,17 @@ public class InformationCentreActivity extends LoadingActivity2 {
                     InformationCategoryInfo mInfo = mList.get(position);
                     String title_s = mInfo.getName();
                     int type = mInfo.getId();
-                    Intent mIntent = new Intent(InformationCentreActivity.this, RemindActivity.class);
-                    mIntent.putExtra(TIPS_TITLE, title_s);
-                    mIntent.putExtra(TIPS_TYPE, type);
-                    startActivity(mIntent);
-
+//                    String lastmsg = mInfo.getLastmsg();
+//                    if (type == InformationMessageInfo.C1_T2){
+//                        Intent mIntent = new Intent(InformationCentreActivity.this, CarSaftyListActivity.class);
+//                        mIntent.putExtra("safetymsg",lastmsg);
+//                        startActivity(mIntent);
+//                    }else {
+                        Intent mIntent = new Intent(InformationCentreActivity.this, RemindActivity.class);
+                        mIntent.putExtra(TIPS_TITLE, title_s);
+                        mIntent.putExtra(TIPS_TYPE, type);
+                        startActivity(mIntent);
+//                    }
                 }
             });
 
@@ -136,7 +144,7 @@ public class InformationCentreActivity extends LoadingActivity2 {
             TextView mTxtDes = (TextView) convertView.findViewById(R.id.activity_information_centre_des);
             ImageView mImgIcon = (ImageView) convertView.findViewById(R.id.activity_information_centre_icon);
             ImageView mImgDot = (ImageView) convertView.findViewById(R.id.activity_information_centre_dot);
-            View line = convertView.findViewById(R.id.line);
+            View line = convertView.findViewById(R.id.list_item_secretary_line);
 
             line.setVisibility(View.VISIBLE);
             InformationCategoryInfo mInfo = mList.get(position);
@@ -187,41 +195,10 @@ public class InformationCentreActivity extends LoadingActivity2 {
         finish();
     }
 
-    /**
-     * 使用此方法，需要在 setContentView activity 里 加入layout_title
-     *
-     * 只有 一个文字标题和返回键的标题
-     * @param titleString
-     */
+    @Override
     protected void initTitle(String titleString) {
-
-        try{
-            backTV = $ViewByID(R.id.head_back_img1);
-            titleTV = $ViewByID(R.id.head_back_txt1);
-            backTV2 = $ViewByID(R.id.head_back_img2);
-        }catch (Exception e){
-            //是设置标题出错
-            return;
-        }
-        if(null != backTV){
-            backTV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onBackPressed();
-                }
-            });
-        }
-        if(null != titleTV){
-            titleTV.setText(titleString);
-        }
-        if (null != backTV2){
-            backTV2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onRightClick();
-                }
-            });
-        }
+        super.initTitle(titleString);
+        backTV2.setVisibility(View.VISIBLE);
+        backTV2.setBackgroundResource(R.drawable.icon_message_manager_bg);
     }
-
 }

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <RelativeLayout
+        android:id="@+id/top1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp" >
+
+        <ImageView
+            android:id="@+id/day_img_headImg"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/day_img_headImg" >
+
+            <LinearLayout
+                android:id="@+id/nameLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/day_txt_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/text_color_gray2"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:id="@+id/day_img_genderImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="3dp"
+                     />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/day_txt_driveInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameLine"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_color_gray3"
+                android:textSize="@dimen/text_size_small_s2" />
+            <!-- android:layout_alignBottom="@+id/day_txt_driveInfo" -->
+
+            <TextView
+                android:id="@+id/day_txt_driveScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6.5dp"
+                android:layout_toRightOf="@+id/day_txt_driveInfo"
+                android:textColor="#3fc299"
+                android:textSize="@dimen/text_size_small" 
+                 android:layout_below="@+id/nameLine"
+                 android:visibility="gone"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/day_line_tagContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/day_img_headImg"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:visibility="gone" >
+
+            <TextView
+                style="@style/day_tag_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="危险驾驶" />
+
+            <TextView
+                style="@style/day_tag_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="危险驾驶" />
+
+            <TextView
+                style="@style/day_tag_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="危险驾驶" />
+
+            <TextView
+                style="@style/day_tag_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="危险驾驶" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/top1"
+        android:background="#c2c0c0" />
+
+    <LinearLayout
+        android:id="@+id/top2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="2.5dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:weightSum="3" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日里程" />
+
+            <TextView
+                android:id="@+id/day_txt_miles"
+                style="@style/sesame_day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="行车时间" />
+
+            <TextView
+                android:id="@+id/day_txt_time"
+                style="@style/sesame_day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日电耗" />
+
+            <TextView
+                android:id="@+id/day_txt_oils"
+                style="@style/sesame_day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top2"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:weightSum="3" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="百公里电耗" />
+
+            <TextView
+                android:id="@+id/day_txt_avgOils"
+                style="@style/sesame_day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平均速度" />
+
+            <TextView
+                android:id="@+id/day_txt_avgSpeeds"
+                style="@style/sesame_day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/day_driveInfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最高速度" />
+
+            <TextView
+                android:id="@+id/day_txt_maxSpeeds"
+                style="@style/sesame_day_driveInfo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/l2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/top3"
+        android:background="#c2c0c0" />
+
+    <com.carlt.sesame.ui.pull.PullToRefreshListView
+        android:id="@+id/day_refresh_logList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/l2"
+        android:layout_marginTop="5dp"
+        android:background="@color/layout_background"
+        android:divider="@null"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="0dp" 
+        android:scrollbars="none">
+    </com.carlt.sesame.ui.pull.PullToRefreshListView>
+
+</RelativeLayout>

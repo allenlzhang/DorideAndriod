@@ -31,6 +31,7 @@ import com.amap.api.maps.model.CircleOptions;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.maps.model.Text;
@@ -48,9 +49,10 @@ import com.amap.api.services.road.Crossroad;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
+import com.blankj.utilcode.util.NetworkUtils;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
-import com.carlt.doride.base.LoadingActivity2;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -60,45 +62,47 @@ import com.carlt.doride.utils.map.RouteTask;
 import com.carlt.doride.utils.map.SensorEventHelper;
 import com.carlt.doride.utils.map.WalkRouteOverlay;
 import com.google.gson.JsonParser;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
 /**
  * 定位寻车
  */
-public class FindCarActivity extends LoadingActivity2 implements LocationSource, AMapLocationListener, View.OnClickListener {
+public class FindCarActivity extends LoadingActivity implements LocationSource, AMapLocationListener, View.OnClickListener {
 
-    private View mViewInput;// 输入框
-    private TextView mTxtPos;// 爱车位置
+    private View      mViewInput;// 输入框
+    private TextView  mTxtPos;// 爱车位置
     private ImageView mImgCha;// 叉号按钮
     private ImageView mImgPLoc;// che的位置
-    private TextView mTxtPLoc;
-    private TextView txtRight;//title 右侧按钮
+    private TextView  mTxtPLoc;
+    private TextView  txtRight;//title 右侧按钮
 
-    private MapView mMapView;
-    private AMap mMap;
+    private MapView            mMapView;
+    private AMap               mMap;
     private AMapLocationClient mLocationClient;
-    private AMapLocation mFirstLoc;
-    private LatLng mFirstCarLoc;
-    private RouteTask mRouteTask;
-    private Dialog mPDialog;
-    private PolylineOptions mlineOption;
-    private WalkPath mPath;
-    private WalkRouteResult mResult;
-    private String locName;// 终点位置
-    private String fromLocName;// 从另一页跳转
-    private Marker mLocMarker;
-    private Circle mLocCircle;
+    private AMapLocation       mFirstLoc;
+    private LatLng             mFirstCarLoc;
+    private RouteTask          mRouteTask;
+    private Dialog             mPDialog;
+    private PolylineOptions    mlineOption;
+    private WalkPath           mPath;
+    private WalkRouteResult    mResult;
+    private String             locName;// 终点位置
+    private String             fromLocName;// 从另一页跳转
+    private Marker             mLocMarker;
+    private Circle             mLocCircle;
     private boolean isMyLocenable = false;
-    private boolean isNeedRefresh=false;//是否需要刷新
-    private AMapLocation mCurrentLoc;
+    private boolean isNeedRefresh = false;//是否需要刷新
+    private AMapLocation      mCurrentLoc;
     private SensorEventHelper mSensorHelper;
-    private final static int ZOOM = 20;// 缩放级别
-    private Text txtStart;
-    private Text txtEnd;
-    private Marker endMarker;
+    private final static int ZOOM = 17;// 缩放级别
+    private Text     txtStart;
+    private Text     txtEnd;
+    private Marker   endMarker;
     private Polyline mRouteLine;
-    private Marker startMarker;
+    private Marker   startMarker;
+    private LatLng   location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +110,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
         setContentView(R.layout.activity_find_car);
         initTitle("车辆定位");
         init(savedInstanceState);
-        loadingDataUI();
+
         initData();
     }
 
@@ -158,48 +162,59 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
     }
 
     private void initData() {
+        showProgressDialog();
         CPControl.GetCarExtInfo(mCallback);
-//        loadDataSuccess(null);
+        //        loadDataSuccess(null);
     }
 
     @Override
     public void loadDataSuccess(Object bInfo) {
         super.loadDataSuccess(bInfo);
-       // "position":"120.132851,30.281979",
-//		 data = "108.95224799262152,34.19749321831597";
-//      String value = "{'position':'120.132851,30.281979'}";
+        // "position":"120.132851,30.281979",
+        //		 data = "108.95224799262152,34.19749321831597";
+        //      String value = "{'position':'120.132851,30.281979'}";
         String value = (String) ((BaseResponseInfo) bInfo).getValue();
         JsonParser jsonParser = new JsonParser();
-      String  data =  jsonParser.parse(value).getAsJsonObject().get("position").getAsString();
+        String data = jsonParser.parse(value).getAsJsonObject().get("position").getAsString();
+        Logger.e("-----" + bInfo.toString());
         if (data != null && !TextUtils.isEmpty(data.toString())) {
-                String ss = data.toString();
-                String[] ll = ss.split(",");
-                if (ll.length > 1) {
-                    LatLng latLng = new LatLng(Double.valueOf(ll[1]), Double.valueOf(ll[0]));
-                    CoordinateConverter converter = new CoordinateConverter(this);
-                    converter.from(CoordinateConverter.CoordType.GPS);
-                    converter.coord(latLng);
-                    mFirstCarLoc = converter.convert();
-                    getAddress(mFirstCarLoc);
-                } else {
-                    UUToast.showUUToast(this, "暂未获取到车辆位置");
-                }
-                drawFirstLine();
+            String ss = data.toString();
+            String[] ll = ss.split(",");
+            if (ll.length > 1) {
+                LatLng latLng = new LatLng(Double.valueOf(ll[1]), Double.valueOf(ll[0]));
+                CoordinateConverter converter = new CoordinateConverter(this);
+                converter.from(CoordinateConverter.CoordType.GPS);
+                converter.coord(latLng);
+                mFirstCarLoc = converter.convert();
+                getAddress(mFirstCarLoc);
             } else {
                 UUToast.showUUToast(this, "暂未获取到车辆位置");
+                //                if (mCurrentLoc != null) {
+                //                    LatLng location = new LatLng(mCurrentLoc.getLatitude(),
+                //                            mCurrentLoc.getLongitude());
+                //                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,
+                //                            ZOOM));
+                //                }
+
             }
+            drawFirstLine();
+        } else {
+            UUToast.showUUToast(this, "暂未获取到车辆位置");
+
+        }
+        dissmissDialog();
     }
 
     public void getAddress(LatLng ll) {
         GeocodeSearch geocoderSearch = new GeocodeSearch(this);
         geocoderSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
             @Override
-            public void onRegeocodeSearched(RegeocodeResult arg0, int arg1) {
+            public void onRegeocodeSearched(RegeocodeResult aMapLocation, int arg1) {
                 if (arg1 == 1000) {
-                    if (arg0 != null && arg0.getRegeocodeAddress() != null && arg0.getRegeocodeAddress().getFormatAddress() != null) {
+                    if (aMapLocation != null && aMapLocation.getRegeocodeAddress() != null && aMapLocation.getRegeocodeAddress().getFormatAddress() != null) {
                         // locName =
-                        // arg0.getRegeocodeAddress().getFormatAddress();
-                        RegeocodeAddress raddress = arg0.getRegeocodeAddress();
+                        // aMapLocation.getRegeocodeAddress().getFormatAddress();
+                        RegeocodeAddress raddress = aMapLocation.getRegeocodeAddress();
                         String building = raddress.getBuilding();
                         String bname = raddress.getBusinessAreas().size() > 0 ? raddress.getBusinessAreas().get(0).getName() : "";
                         String adCode = raddress.getAdCode();
@@ -218,7 +233,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
             }
 
             @Override
-            public void onGeocodeSearched(GeocodeResult arg0, int arg1) {
+            public void onGeocodeSearched(GeocodeResult aMapLocation, int arg1) {
             }
 
         });
@@ -230,27 +245,45 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
     @Override
     public void loadDataError(Object bInfo) {
         super.loadDataError(bInfo);
+        dissmissDialog();
         UUToast.showUUToast(this, "暂未获取到车辆位置");
     }
 
     private void init(Bundle savedInstanceState) {
+        //        loadingDataUI();
         mMapView = (MapView) findViewById(R.id.findcar_mapView);
         mViewInput = findViewById(R.id.findcar_lay_input);
         mTxtPos = (TextView) findViewById(R.id.findcar_txt_carpos);
         mImgCha = (ImageView) findViewById(R.id.findcar_img_cha);
         mImgPLoc = (ImageView) findViewById(R.id.findCar_img_persion);
         mTxtPLoc = (TextView) findViewById(R.id.findCar_img_persion_txt);
-        txtRight = (TextView) findViewById(R.id.head_back_text2);
+        txtRight = (TextView) findViewById(R.id.layout_title_back_text2);
         backTV2.setVisibility(View.GONE);
         mImgPLoc.setVisibility(View.GONE);
         mTxtPLoc.setVisibility(View.GONE);
         mViewInput.setVisibility(View.GONE);
         txtRight.setVisibility(View.VISIBLE);
-        txtRight.setText("修改终点");
+        txtRight.setText("终点变更");
         mMapView.onCreate(savedInstanceState);
         mMap = mMapView.getMap();
         mMap.setLocationSource(this);
-        mMap.setMapType(AMap.MAP_TYPE_NIGHT);
+
+        // 定位图标样式
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
+        Bitmap bMap = BitmapFactory.decodeResource(this.getResources(),
+                R.mipmap.icon_loc);
+        BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
+        myLocationStyle.myLocationIcon(des);
+        myLocationStyle.strokeColor(STROKE_COLOR);
+        myLocationStyle.radiusFillColor(FILL_COLOR);
+        myLocationStyle.strokeWidth(1.0f);
+        myLocationStyle.anchor(0.5f, 0.5f);
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);
+        myLocationStyle.showMyLocation(true);
+        mMap.setMyLocationStyle(myLocationStyle);
+
+
+        //        mMap.setMapType(AMap.MAP_TYPE_NIGHT);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
         setMylocEnable(false);
@@ -262,6 +295,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
         mRouteTask = RouteTask.getInstance(getApplicationContext());
 
         mSensorHelper = new SensorEventHelper(this);
+
         if (mSensorHelper != null) {
             mSensorHelper.registerSensorListener();
         }
@@ -270,7 +304,10 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
         if (mLocationClient == null) {
             mLocationClient = new AMapLocationClient(this);
             AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
-            mLocationOption.setInterval(2000);
+            //            mLocationOption.setInterval(2000);
+            //            设置只定位一次
+            mLocationOption.setOnceLocation(true);
+            mLocationOption.setOnceLocationLatest(true);
             // 设置定位监听
             mLocationClient.setLocationListener(this);
             // 设置为高精度定位模式
@@ -306,13 +343,17 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
                 clearMarkers();
                 reSet();
                 break;
-            case R.id.head_back_text2:
+            case R.id.layout_title_back_text2:
+                if (!NetworkUtils.isConnected() && !NetworkUtils.isAvailableByPing()) {
+                    UUToast.showUUToast(this, "网络不可用，请稍后重试");
+                    return;
+                }
                 if (mViewInput.getVisibility() == View.VISIBLE) {
                     mViewInput.setVisibility(View.GONE);
                     mImgPLoc.setVisibility(View.GONE);
                     mTxtPLoc.setVisibility(View.GONE);
                     initTitle("终点变更");
-                    txtRight.setText("修改终点");
+                    txtRight.setText("终点变更");
                     // 点击确定开始导航画线
                     BitmapDescriptor bd = BitmapDescriptorFactory.fromResource(R.mipmap.icon_loaction_car);
                     int w = mMapView.getWidth() / 2 + bd.getWidth() / 2;
@@ -333,7 +374,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
                     pe.longitude = ll.longitude;
                     pe.latitue = ll.latitude;
                     clearMarkers();
-                    mCurrentLoc=null;
+                    mCurrentLoc = null;
                     drawLine(ps, pe);
                     locName = "";
                     getAddress(ll);
@@ -371,7 +412,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
                         TextOptions toptStart = new TextOptions();
                         toptStart.position(ll);
-                        toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                        toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                         toptStart.fontColor(Color.parseColor("#FFFFFF"));
                         toptStart.text("您的位置");
                         toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -395,7 +436,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
     private void reSet() {
         mViewInput.setVisibility(View.GONE);
-        txtRight.setText("修改终点");
+        txtRight.setText("终点变更");
         setMylocEnable(true);
         mImgPLoc.setVisibility(View.GONE);
         mTxtPLoc.setVisibility(View.GONE);
@@ -418,7 +459,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
             TextOptions toptEnd = new TextOptions();
             toptEnd.position(mlineOption.getPoints().get(mlineOption.getPoints().size() - 1));
-            toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+            toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
             toptEnd.fontColor(Color.parseColor("#FFFFFF"));
             toptEnd.text("爱车位置");
             toptEnd.backgroundColor(Color.parseColor("#404040"));
@@ -434,7 +475,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
             if (mFirstCarLoc != null) {
                 TextOptions toptEnd = new TextOptions();
                 toptEnd.position(mFirstCarLoc);
-                toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptEnd.fontColor(Color.parseColor("#FFFFFF"));
                 toptEnd.text("爱车位置");
                 toptEnd.backgroundColor(Color.parseColor("#404040"));
@@ -457,12 +498,11 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
                 TextOptions toptStart = new TextOptions();
                 toptStart.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
-                toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptStart.fontColor(Color.parseColor("#FFFFFF"));
                 toptStart.text("您的位置");
                 toptStart.backgroundColor(Color.parseColor("#404040"));
                 txtStart = mMap.addText(toptStart);
-
 
 
                 CameraUpdate update = CameraUpdateFactory.newLatLngZoom(mFirstCarLoc, 18);
@@ -477,7 +517,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
                 TextOptions toptStart = new TextOptions();
                 toptStart.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
-                toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptStart.fontColor(Color.parseColor("#FFFFFF"));
                 toptStart.text("您的位置");
                 toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -500,8 +540,8 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
                     PositionEntity pe = new PositionEntity();
                     pe.longitude = Double.parseDouble(latlng.split(",")[1]);
                     pe.latitue = Double.parseDouble(latlng.split(",")[0]);
-                    Log.e("info", "pe.longitude=="+pe.longitude);
-                    Log.e("info", "pe.latitue=="+pe.latitue);
+                    Log.e("info", "pe.longitude==" + pe.longitude);
+                    Log.e("info", "pe.latitue==" + pe.latitue);
                     mFirstCarLoc = new LatLng(pe.latitue, pe.longitude);
                     CameraUpdate update = CameraUpdateFactory.newLatLngZoom(mFirstCarLoc, ZOOM);
                     //mMap.animateCamera(update);
@@ -517,7 +557,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
                     TextOptions toptStart = new TextOptions();
                     toptStart.position(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
-                    toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                    toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                     toptStart.fontColor(Color.parseColor("#FFFFFF"));
                     toptStart.text("您的位置");
                     toptStart.backgroundColor(Color.parseColor("#404040"));
@@ -530,22 +570,35 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
     public void clearMarkers() {
         mMap.clear();
     }
+
     @Override
-    public void onLocationChanged(AMapLocation arg0) {
-        if (arg0 != null && arg0.getErrorCode() == 0) {
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        //        loadSuccessUI();
+        Logger.e(aMapLocation.getErrorCode() + aMapLocation.getAddress());
+        if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
+            Logger.e("mFirstLoc----" + mFirstLoc);
 
             if (mFirstLoc == null) {
-                mFirstLoc = arg0;
+                mFirstLoc = aMapLocation;
+
+                LatLng location = new LatLng(aMapLocation.getLatitude(),
+                        aMapLocation.getLongitude());
+                addCircle(location, aMapLocation.getAccuracy());// 添加定位精度圆
+                addMarker(location);// 添加定位图标
+                mSensorHelper.setCurrentMarker(mLocMarker);// 定位图标旋转
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,
+                        ZOOM));
                 // 开始导航画线
                 drawFirstLine();
+            } else {
             }
 
-            mFirstLoc = arg0;
+            mFirstLoc = aMapLocation;
 
             if (isMyLocenable) {
                 if (mCurrentLoc != null) {
-                    if (mCurrentLoc.getLatitude() == arg0.getLatitude()
-                            && mCurrentLoc.getLongitude() == arg0
+                    if (mCurrentLoc.getLatitude() == aMapLocation.getLatitude()
+                            && mCurrentLoc.getLongitude() == aMapLocation
                             .getLongitude()) {
                         isNeedRefresh = false;
                     } else {
@@ -554,7 +607,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
                 } else {
                     isNeedRefresh = true;
                 }
-                if(isNeedRefresh){
+                if (isNeedRefresh) {
                     // 显示更新 定位蓝点
                     if (mLocMarker != null) {
                         mLocMarker.remove();
@@ -569,18 +622,23 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
                     addCircle(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()), mFirstLoc.getAccuracy());
                     addMarker(new LatLng(mFirstLoc.getLatitude(), mFirstLoc.getLongitude()));
                     mSensorHelper.setCurrentMarker(mLocMarker);// 定位图标旋转
+
+
                 }
-                mCurrentLoc = arg0;
+
+                mCurrentLoc = aMapLocation;
             }
 
         } else {
-            String errText = "定位失败," + arg0.getErrorCode() + ": " + arg0.getErrorInfo();
+            String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
             Log.e("AmapErr", errText);
         }
     }
 
     private static final int STROKE_COLOR = Color.argb(180, 3, 145, 255);
-    private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
+    private static final int FILL_COLOR   = Color.argb(10, 0, 0, 180);
+    private OnLocationChangedListener mListener;
+
 
     private void addCircle(LatLng latlng, double radius) {
         CircleOptions options = new CircleOptions();
@@ -621,7 +679,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
                 UUToast.showUUToast(this, "正在定位您的位置");
                 TextOptions toptEnd = new TextOptions();
                 toptEnd.position(mFirstCarLoc);
-                toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptEnd.fontColor(Color.parseColor("#FFFFFF"));
                 toptEnd.text("爱车位置");
                 toptEnd.backgroundColor(Color.parseColor("#404040"));
@@ -636,6 +694,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
             }
         }
     }
+
     void showProgressDialog() {
         dissmissDialog();
         mPDialog = PopBoxCreat.createDialogWithProgress(this, "正在处理请稍等...");
@@ -701,17 +760,16 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
                 TextOptions toptStart = new TextOptions();
                 toptStart.position(lls);
-                toptStart.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptStart.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptStart.fontColor(Color.parseColor("#FFFFFF"));
                 toptStart.text("您的位置");
                 toptStart.backgroundColor(Color.parseColor("#404040"));
                 txtStart = mMap.addText(toptStart);
 
 
-
                 TextOptions toptEnd = new TextOptions();
                 toptEnd.position(lle);
-                toptEnd.fontSize((int) (YemaApplication.ScaledDensity * 14));
+                toptEnd.fontSize((int) (DorideApplication.ScaledDensity * 14));
                 toptEnd.fontColor(Color.parseColor("#FFFFFF"));
                 toptEnd.text("爱车位置");
                 toptEnd.backgroundColor(Color.parseColor("#404040"));
@@ -731,7 +789,7 @@ public class FindCarActivity extends LoadingActivity2 implements LocationSource,
 
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
-
+        mListener = onLocationChangedListener;
     }
 
     @Override

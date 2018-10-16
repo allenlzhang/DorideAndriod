@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/main_color"
-    tools:context="com.carlt.doride.ui.activity.setting.VcodeResetRemotePasswdActivity">
-    <include layout="@layout/layout_title" />
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_color"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical"
+              tools:context="com.carlt.doride.ui.activity.setting.VcodeResetRemotePasswdActivity">
+
     <EditText
         android:id="@+id/remote_phone_input"
         style="@style/usercenter_edit1"
-        android:background="@drawable/login_input_bg"
-        android:layout_marginTop="10dip"
-        android:gravity="center_vertical"
         android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/login_input_bg"
+        android:gravity="center_vertical"
         android:hint="@string/certified_code_input_txt"
         android:inputType="number"
         android:maxLength="11"/>
+
     <LinearLayout
         style="@style/login_input_bg"
         android:layout_marginTop="10dp"
@@ -27,70 +28,73 @@
             android:id="@+id/remote_code_input"
             style="@style/usercenter_edit1"
             android:layout_width="0dip"
-            android:layout_weight="1"
-            android:background="@null"
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="0dip"
             android:layout_marginRight="0dip"
+            android:layout_weight="1"
+            android:background="@null"
             android:hint="@string/usercenter_hint_validate"
             android:inputType="number"
             android:maxLength="6"/>
+
         <TextView
             android:id="@+id/remote_verification_send"
-            android:layout_width="80dip"
-            android:layout_height="30dip"
-            android:gravity="center"
-            android:text="@string/usercenter_push_validate"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dip"
-            android:background="@drawable/verification_send_bg"
-            android:textSize="14sp"/>
+            style="@style/vcode_style"/>
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="12sp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
-        android:text="@string/new_remote_passwd_txt"/>
-    <com.carlt.doride.ui.view.PasswordView
+        android:text="@string/new_remote_passwd_txt"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="12sp"/>
+
+    <com.carlt.doride.ui.view.PwdEditText
         android:id="@+id/new_remote_passwd"
         android:layout_width="match_parent"
+        android:layout_height="44dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="5dp"
-        android:layout_height="wrap_content"
-        app:passwordLength="6"
-        app:borderColor="@color/setting_item_divider_bg"
-        app:mode="rect"/>
+        android:background="@drawable/romote_edit_bg"
+        android:cursorVisible="false"
+        android:inputType="number"
+        android:maxLength="6"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="12sp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
-        android:text="@string/new_remote_passwd_again_txt"/>
-    <com.carlt.doride.ui.view.PasswordView
+        android:text="@string/new_remote_passwd_again_txt"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="12sp"/>
+
+    <com.carlt.doride.ui.view.PwdEditText
         android:id="@+id/new_remote_vcode_passwd_again"
         android:layout_width="match_parent"
+        android:layout_height="44dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="12dp"
-        android:layout_height="wrap_content"
-        app:passwordLength="6"
-        app:borderColor="@color/setting_item_divider_bg"
-        app:mode="rect"/>
+        android:layout_marginTop="5dp"
+        android:background="@drawable/romote_edit_bg"
+        android:cursorVisible="false"
+        android:inputType="number"
+        android:maxLength="6"
+        />
+
     <TextView
         android:id="@+id/forget_reset_remote_commit"
         style="@style/public_bottom_btn"
         android:layout_height="44dp"
-        android:text="@string/edit_commit"
-        android:layout_marginTop="49dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
+        android:layout_marginTop="49dip"
+        android:text="@string/edit_commit"
+        android:textColor="@color/white"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 </LinearLayout>

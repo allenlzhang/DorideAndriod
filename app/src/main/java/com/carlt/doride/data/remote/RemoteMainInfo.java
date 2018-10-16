@@ -45,7 +45,7 @@ public class RemoteMainInfo extends BaseResponseInfo {
 	}
 
 	public void setDeviceCategory(String deviceCategory) {
-		RemoteMainInfo.deviceCategory = deviceCategory;
+		this.deviceCategory = deviceCategory;
 	}
 
 	public String getFunctionCount() {
@@ -107,5 +107,19 @@ public class RemoteMainInfo extends BaseResponseInfo {
 
 	public void setDirectPSTsupervise(String directPSTsupervise) {
 		this.directPSTsupervise = directPSTsupervise;
+	}
+
+	@Override
+	public String toString() {
+		return "RemoteMainInfo{" +
+				"status=" + status +
+				", functionCount='" + functionCount + '\'' +
+				", mFunInfoStart=" + mFunInfoStart +
+				", mFunInfoStop=" + mFunInfoStop +
+				", mRemoteFunInfos=" + mRemoteFunInfos +
+				", mAirMainInfo=" + mAirMainInfo +
+				", navigationSync='" + navigationSync + '\'' +
+				", directPSTsupervise='" + directPSTsupervise + '\'' +
+				'}';
 	}
 }

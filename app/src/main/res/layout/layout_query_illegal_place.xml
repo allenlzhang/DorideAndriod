@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <RelativeLayout
+        android:id="@+id/layout_query_illegal_place_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:id="@+id/title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dip"
+            android:text="热门城市"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="@dimen/text_size_middle" />
+
+        <GridView
+            android:id="@+id/layout_query_illegal_place_grid1"
+            style="@style/public_gridView"
+            android:layout_below="@id/title1"
+            android:layout_marginBottom="18dip"
+            android:numColumns="5" />
+
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_query_illegal_place_grid1"
+            android:layout_marginBottom="15dip"
+            android:text="选择省份"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="@dimen/text_size_middle" />
+
+        <GridView
+            android:id="@+id/layout_query_illegal_place_grid2"
+            style="@style/public_gridView"
+            android:layout_below="@id/title2"
+            android:layout_marginBottom="10dip"
+            android:numColumns="5" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/layout_query_illegal_place_grid3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dp"
+        android:divider="@drawable/line_h"
+        android:dividerHeight="1dp"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true"
+        android:visibility="gone" 
+        android:scrollbars="none"/>
+
+    <include layout="@layout/loading_activity" />
+
+</RelativeLayout>

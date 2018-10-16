@@ -1,6 +1,6 @@
 package com.carlt.doride.utils;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.model.LoginInfo;
 
 import java.util.HashMap;
@@ -16,7 +16,6 @@ public class CreateHashMap {
         String token= LoginInfo.getAccess_token();
         ILog.e("info","token=="+token);
 //        if(!TextUtils.isEmpty(token)){
-//            params.put("token", LoginInfo.getToken());
 //        }
         if(keys != null && values != null ){
             int length_key = keys.length;
@@ -62,9 +61,9 @@ public class CreateHashMap {
      * @param class1
      * @return
      */
-    public static HashMap getMessageMap(int class1){
-        String keys[] = {"class1"};
-        String values[] = {class1+""};
+    public static HashMap getMessageMap(int class1,int limit,int offset){
+        String keys[] = {"class1","limit","offset"};
+        String values[] = {class1+"",limit+"",offset+""};
         return create(keys,values);
     }
 
@@ -104,23 +103,23 @@ public class CreateHashMap {
         return create(key,values);
     }
 
-    public static HashMap getUpdatePushSet(String close1,String close2,String close3){
-        String key[] = {"report","class2_6201","class2_6202"};
-        String values[] = {close1,close2,close3};
+    public static HashMap getUpdatePushSet(String close2,String close3){
+        String key[] = {"startup","report"};
+        String values[] = {close2,close3};
         return create(key,values);
     }
 
 
     // 生成登录参数
     public static HashMap getLogin(String userName, String psWord) {
-        StringBuffer sysinfo = new StringBuffer(YemaApplication.ANDROID_VERSION);
+        StringBuffer sysinfo = new StringBuffer(DorideApplication.ANDROID_VERSION);
         sysinfo.append(",");
-        sysinfo.append(YemaApplication.DISPLAY);
+        sysinfo.append(DorideApplication.DISPLAY);
         sysinfo.append(",");
-        sysinfo.append(YemaApplication.MODEL_NAME);
+        sysinfo.append(DorideApplication.MODEL_NAME);
         String keys[] = {"mobile","password","move_deviceid","move_device_name","move_model","softtype","version","sysinfo"};
-        String values[] ={userName,CipherUtils.md5(psWord),YemaApplication.NIMEI,YemaApplication.MODEL_NAME,YemaApplication.MODEL,"android",
-                YemaApplication.Version_API + "",sysinfo.toString()};
+        String values[] ={userName,CipherUtils.md5(psWord),DorideApplication.NIMEI,DorideApplication.MODEL_NAME,DorideApplication.MODEL,"android",
+                DorideApplication.Version_API + "",sysinfo.toString()};
 
         return create(keys,values);
     }

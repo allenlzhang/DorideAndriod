@@ -17,4 +17,11 @@ public class RemoteLogListInfo {
     public void setList(ArrayList<RemoteLogInfo> list) {
         this.list = list;
     }
+
+    @Override
+    public String toString() {
+        return "RemoteLogListInfo{" +
+                "list=" + list +
+                '}';
+    }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dip"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/safe_margin_h"
+        android:paddingRight="@dimen/safe_margin_h" >
+
+        <ImageView 
+            android:id="@+id/sesame_item_remotelog_img_icon"
+            android:layout_width="44.5dip"
+            android:layout_height="44.5dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13.5dip"
+            android:visibility="gone"/>
+
+
+
+        <TextView
+            android:id="@+id/sesame_item_remotelog_txt_name"
+            android:layout_below="@id/item_remotelog_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dip"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical"
+            android:text="远程操作类别名称"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/sesame_item_remotelog_img_icon"/>
+        <TextView
+            android:id="@+id/sesame_item_remotelog_txt_device"
+            android:layout_below="@+id/sesame_item_remotelog_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="操作来源："
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/sesame_item_remotelog_img_icon" />
+
+
+        <TextView
+            android:id="@+id/sesame_item_remotelog_txt_result"
+            android:layout_below="@+id/item_remotelog_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dip"
+            android:layout_marginTop="10dip"
+            android:layout_alignBottom="@id/item_remotelog_txt_name"
+            android:layout_alignParentRight="true"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/sesame_item_remotelog_txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sesame_item_remotelog_txt_result"
+            android:text="操作时间"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#E0E0E0" />
+
+    </RelativeLayout>
+
+</LinearLayout>

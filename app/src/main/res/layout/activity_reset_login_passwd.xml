@@ -6,17 +6,36 @@
     android:orientation="vertical"
     android:background="@color/main_color"
     tools:context=".ui.activity.setting.ResetLoginPasswdActivity">
-    <include layout="@layout/layout_title" />
-    <EditText
-        android:id="@+id/old_passwd_input"
-        style="@style/usercenter_edit1"
-        android:background="@drawable/login_input_bg"
-        android:layout_marginTop="10dip"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="0dp"
-        android:hint="@string/old_passwd_txt"
-        android:inputType="textPassword"
-        android:maxLength="32"/>
+    <LinearLayout
+        style="@style/login_input_bg"
+        android:layout_marginTop="10dip">
+
+        <EditText
+            android:id="@+id/old_passwd_input"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/usercenter_edit1"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dip"
+            android:layout_marginRight="0dip"
+            android:background="@null"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:hint="请输入原登录密码"
+            android:inputType="textPassword"
+            android:digits="@string/pwd_filter_input_string"
+            android:maxLength="32" />
+
+        <ImageView
+            android:id="@+id/old_passwd_input_toggle"
+            android:layout_width="25dp"
+            android:layout_marginRight="10dip"
+            android:layout_gravity="center_vertical"
+            android:layout_height="25dp"
+            android:tag="off"
+            android:src="@mipmap/passwd_off" />
+    </LinearLayout>
     <LinearLayout
         style="@style/login_input_bg"
         android:layout_marginTop="10dip">
@@ -35,6 +54,7 @@
             android:gravity="center_vertical"
             android:hint="@string/usercenter_hint_phone2"
             android:inputType="textPassword"
+            android:digits="@string/pwd_filter_input_string"
             android:maxLength="32" />
 
         <ImageView
@@ -62,6 +82,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="@string/usercenter_hint_password_reset"
+            android:digits="@string/pwd_filter_input_string"
             android:inputType="textPassword"
             android:maxLength="32" />
 
@@ -83,7 +104,6 @@
         android:text="@string/edit_commit"
         android:layout_marginTop="33dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

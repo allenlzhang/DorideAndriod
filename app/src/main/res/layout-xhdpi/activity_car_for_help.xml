@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <ListView
+        android:id="@+id/activity_car_for_help_list"
+        style="@style/public_listView"
+        android:divider="#D4D4D4"
+        android:dividerHeight="1dip" />
+	<View 
+	    android:layout_below="@id/activity_car_for_help_list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="#d4d4d4"/>
+</RelativeLayout>

@@ -65,30 +65,30 @@ public class LocationSynchronizeActivity extends BaseActivity implements
         AMap.OnCameraChangeListener, View.OnClickListener {
 
     private static final int STROKE_COLOR = Color.argb(180, 3, 145, 255);
-    private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
+    private static final int FILL_COLOR   = Color.argb(10, 0, 0, 180);
 
     private ImageView back;// 头部返回键
-    private TextView title;// 标题文字
-    private TextView txtRight;// 头部右侧文字
+    private TextView  title;// 标题文字
+    private TextView  txtRight;// 头部右侧文字
 
-    private View mViewInput;// 输入框
-    private View mViewAddr;// 目的地详细信息展示框
-    private View mViewSend;// 导航同步到车整个view
-    private TextView mTxtTip;// 顶部提示信息
-    private TextView mTxtAddrinfo;// 目的地文字信息
-    private TextView mTxtAddrName;// 目的地名称
-    private TextView mTxtAddrDetail;// 目的地详情
-    private TextView mTxtSend;// 导航同步到车按钮
+    private View      mViewInput;// 输入框
+    private View      mViewAddr;// 目的地详细信息展示框
+    private View      mViewSend;// 导航同步到车整个view
+    private TextView  mTxtTip;// 顶部提示信息
+    private TextView  mTxtAddrinfo;// 目的地文字信息
+    private TextView  mTxtAddrName;// 目的地名称
+    private TextView  mTxtAddrDetail;// 目的地详情
+    private TextView  mTxtSend;// 导航同步到车按钮
     private ImageView mImgBack;// 顶部框中的返回按钮
     private ImageView mImgCha;// 叉号
     private ImageView mImgDestination;// 目的地的位置
 
-    private MapView mMapView;
-    private AMap mMap;
-    private AMapLocationClient mLocationClient;
-    private AMapLocation mCurrentLoc;
-    private LatLng mFirstCarLoc;
-    private LatLng mDestinationLoc;// 目的地坐标
+    private MapView                                  mMapView;
+    private AMap                                     mMap;
+    private AMapLocationClient                       mLocationClient;
+    private AMapLocation                             mCurrentLoc;
+    private LatLng                                   mFirstCarLoc;
+    private LatLng                                   mDestinationLoc;// 目的地坐标
     private LocationSource.OnLocationChangedListener mListener;
     private String destinationName = "";// 目的地名称
     private String destinationAddr = "";// 目的地地址
@@ -99,7 +99,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
     private boolean isMyLocenable = true;
     private SensorEventHelper mSensorHelper;
 
-    private final static int TYPE_LOCATION = 1;// 定位UI
+    private final static int TYPE_LOCATION    = 1;// 定位UI
     private final static int TYPE_DESTINATION = 2;// 目的地UI
 
     private boolean isShowDestination;// 是否将目的地移动到地图中心
@@ -121,10 +121,10 @@ public class LocationSynchronizeActivity extends BaseActivity implements
         mMapView.onCreate(savedInstanceState);
         mMap = mMapView.getMap();
         mMap.setLocationSource(this);
-        mMap.setMapType(AMap.MAP_TYPE_NIGHT);
+        //        设置夜间模式
+        //        mMap.setMapType(AMap.MAP_TYPE_NIGHT);
         // 定位图标样式
-        MyLocationStyle myLocationStyle;
-        myLocationStyle = new MyLocationStyle();
+        MyLocationStyle  myLocationStyle = new MyLocationStyle();
         Bitmap bMap = BitmapFactory.decodeResource(this.getResources(),
                 R.mipmap.icon_loc);
         BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
@@ -237,6 +237,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
         }
         mLocationClient = null;
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -342,7 +343,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
             mHandler.sendMessage(msg);
         }
     };
-    private Handler mHandler = new Handler() {
+    private Handler                   mHandler            = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
@@ -581,6 +582,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {

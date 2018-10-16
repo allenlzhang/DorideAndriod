@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7f000000" 
+    android:id="@+id/layout_edit_head_icon">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="20dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="20dip" >
+
+        <TextView
+            android:id="@+id/layout_edit_head_icon_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="46dip"
+            android:layout_marginBottom="15dip"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center"
+            android:text="拍照"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/layout_edit_head_icon_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="46dip"
+            android:layout_marginBottom="15dip"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center"
+            android:text="从本地相册选择"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/layout_edit_head_icon_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="46dip"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_middle" />
+    </LinearLayout>
+
+</RelativeLayout>

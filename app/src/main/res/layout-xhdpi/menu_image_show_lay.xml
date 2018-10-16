@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_food_change_list_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/menu_image_show_lay_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/head_sub_paddingl"
+        android:paddingRight="@dimen/head_sub_paddingr"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small" 
+        android:layout_marginLeft="37dip"
+        android:layout_marginRight="37dip"/>
+
+</RelativeLayout>

@@ -1,14 +1,17 @@
 package com.carlt.doride.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,13 +19,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -34,6 +36,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.doride.ui.activity.remote.RemoteLogActivity;
 import com.carlt.doride.ui.activity.remote.RemotePswResetActivity3;
 import com.carlt.doride.ui.activity.setting.VcodeResetRemotePasswdActivity;
@@ -46,8 +49,9 @@ import com.carlt.doride.ui.view.UUDialogRemote;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUToastOpt;
 import com.carlt.doride.ui.view.UUToastOptError;
-import com.carlt.doride.utils.ILog;
+import com.carlt.doride.ui.view.passwordtextview.SelectPopupWindow;
 import com.carlt.doride.utils.MyParse;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,12 +60,11 @@ import java.util.TimerTask;
 
 /**
  * Created by liu on 2018/3/16.
- * <p>
  * 远程页面
  */
 
 public class RemoteMainFragment extends BaseFragment implements
-        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener {
+        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener, SelectPopupWindow.OnPopWindowClickListener {
     public final static String ACTION_REMOTE_SETPSW = "com.carlt.doride.action_remote_setpsw";
 
     public final static String ACTION_REMOTE_RESETPSW = "com.carlt.doride.action_remote_resetpsw";
@@ -72,7 +75,7 @@ public class RemoteMainFragment extends BaseFragment implements
     private static String TAG = "RemoteMainFragment";
     private View view;
     //效果声音播放组件
-//    private PlayRadio mPlayRadio;
+    //    private PlayRadio mPlayRadio;
 
     private View mTxtState;// 车辆状态
 
@@ -92,7 +95,7 @@ public class RemoteMainFragment extends BaseFragment implements
     // 汽车状态相关
     private View mViewState;// 汽车状态
 
-    private GridView mGridViewState;// 汽车状态
+    private MyGridView mGridViewState;// 汽车状态
 
     private ImageView mImgArrow;// 收起箭头
 
@@ -121,11 +124,23 @@ public class RemoteMainFragment extends BaseFragment implements
 
     private RemoteGridControl mRControl;
 
-    private int lastOpt = -1;
-
     //天窗对话框
-    private UUDialogRemote uuDialogRemote;
+    private UUDialogRemote          uuDialogRemote;
+    private ArrayList<CarStateInfo> mCarStateDataList;
+    private CarStateInfo            carStateInfo;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //        CPControl.GetRemoteCarState(mListener_states);
+
+        loadData();
+    }
+
+    @Override
+    public void reTryLoadData() {
+        loadData();
+    }
 
     @Override
     protected View inflateView(LayoutInflater inflater) {
@@ -137,26 +152,54 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void loadData() {
-        if (YemaApplication.getInstanse().getRemoteMainInfo() == null) {
-            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
-                @Override
-                public void onSuccess(BaseResponseInfo bInfo) {
-                    YemaApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
-                    ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
-                    loadSuss();
-                }
+        loadingDataUI();
+        carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
+            @Override
+            public void onSuccess(BaseResponseInfo bInfo) {
+                mViewError.setVisibility(View.GONE);
+                fl_base_content.setVisibility(View.VISIBLE);
+                DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+                Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
+                loadSuss();
+            }
 
-                @Override
-                public void onError(BaseResponseInfo bInfo) {
-                    ILog.e(TAG, "onError" + bInfo.toString());
-                    actLoadError((BaseResponseInfo) bInfo);
-                }
-            });
-            HashMap params2 = new HashMap();
-            carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
-        } else {
-            loadSuss();
-        }
+            @Override
+            public void onError(BaseResponseInfo bInfo) {
+                Logger.e(TAG, "onError" + bInfo.toString());
+                //                    actLoadError((BaseResponseInfo) bInfo);
+                loadonErrorUI(bInfo);
+                errorUi();
+            }
+        });
+        HashMap params2 = new HashMap();
+        carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
+        //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
+        //            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
+        //                @Override
+        //                public void onSuccess(BaseResponseInfo bInfo) {
+        //                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+        //                    Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
+        //                    loadSuss();
+        //                }
+        //
+        //                @Override
+        //                public void onError(BaseResponseInfo bInfo) {
+        //                    Logger.e(TAG, "onError" + bInfo.toString());
+        //                    //                    actLoadError((BaseResponseInfo) bInfo);
+        //                    loadonErrorUI(bInfo);
+        //                }
+        //            });
+        //            HashMap params2 = new HashMap();
+        //            carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
+        //        } else {
+        //            loadSuss();
+        //        }
+    }
+
+    private void errorUi() {
+        fl_base_content.setVisibility(View.GONE);
+        mViewUnsupport.setVisibility(View.GONE);
+        mViewError.setVisibility(View.VISIBLE);
     }
 
     private ArrayList<RemoteFunInfo> mRemoteFunInfos;
@@ -164,38 +207,60 @@ public class RemoteMainFragment extends BaseFragment implements
     private AirMainInfo mAirMainInfo1;
 
     private void loadSuss() {
-        RemoteMainInfo mRemoteMainInfo = YemaApplication.getInstanse().getRemoteMainInfo();
+        loadSuccessUI();
+        RemoteMainInfo mRemoteMainInfo = DorideApplication.getInstanse().getRemoteMainInfo();
+        //        Logger.e("RemoteMainInfo----" + mRemoteMainInfo);
         if (mRemoteMainInfo != null) {
             mAirMainInfo1 = mRemoteMainInfo.getmAirMainInfo();
             LoginInfo.setChangedCar(false);
             mRemoteFunInfos = mRemoteMainInfo.getmRemoteFunInfos();
-            String stateStart = mRemoteMainInfo.getmFunInfoStart().getState();
-            String stateStop = mRemoteMainInfo.getmFunInfoStop().getState();
-            int size = mRemoteFunInfos.size();
-            if (size <= 0 && !stateStart.equals(RemoteFunInfo.STATE_SUPPORT)
-                    && !stateStop.equals(RemoteFunInfo.STATE_SUPPORT)) {
-                mViewUnsupport.setVisibility(View.VISIBLE);
-                mViewNormal.setVisibility(View.GONE);
-                return;
+            RemoteFunInfo startFunInfo = mRemoteMainInfo.getmFunInfoStart();
+            RemoteFunInfo stopFunInfo = mRemoteMainInfo.getmFunInfoStop();
+            if (startFunInfo != null && stopFunInfo != null) {
+
+                //                mImgStop.setImageResource(R.mipmap.remote_stop_selected);
+                //                mImgStop.setClickable(true);
+                String stateStart = startFunInfo.getState();
+                String stateStop = stopFunInfo.getState();
+                int size = mRemoteFunInfos.size();
+                Logger.e("mRemoteFunInfos.size()----" + size);
+                if (size <= 0 && !stateStart.equals(RemoteFunInfo.STATE_SUPPORT)
+                        && !stateStop.equals(RemoteFunInfo.STATE_SUPPORT)) {
+                    mViewUnsupport.setVisibility(View.VISIBLE);
+                    mTxtState.setVisibility(View.GONE);
+                    mTxtRecorder.setVisibility(View.GONE);
+                    mViewNormal.setVisibility(View.GONE);
+                    return;
+                } else {
+                    mTxtState.setVisibility(View.VISIBLE);
+                    mTxtRecorder.setVisibility(View.VISIBLE);
+                    mViewUnsupport.setVisibility(View.GONE);
+                    mViewNormal.setVisibility(View.VISIBLE);
+                    deviceType = LoginInfo.getDeviceCategory();
+                    mRContainer.removeAllViews();
+                    mRControl.init5x7Views(mRContainer, mRemoteFunInfos);
+                }
             } else {
-                mViewUnsupport.setVisibility(View.GONE);
-                mViewNormal.setVisibility(View.VISIBLE);
-                deviceType = LoginInfo.getDeviceCategory();
-                mRContainer.removeAllViews();
-                mRControl.init5x7Views(mRContainer, mRemoteFunInfos);
+                mImgStart.setImageResource(R.drawable.remote_start);
+                //                mImgStop.setImageResource(R.mipmap.remote_stop_disable);
+                //                mImgStop.setClickable(false);
+                mViewStopmask.setVisibility(View.VISIBLE);
+                mImgStart.setClickable(true);
             }
-        } else {
-            mImgStart.setImageResource(R.drawable.remote_start);
-            mImgStop.setImageResource(R.mipmap.remote_stop_disable);
-            mViewStopmask.setVisibility(View.VISIBLE);
-            mImgStart.setClickable(true);
-            mImgStop.setClickable(false);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mReceiver != null) {
+            getActivity().unregisterReceiver(mReceiver);
         }
     }
 
     @Override
     public void init(View view) {
-        super.init(view);
+        getActivateStatus("正在激活中");
         mTxtState = $ViewByID(R.id.state_car_iv);
         mTxtRecorder = $ViewByID(R.id.remote_history_iv);
         mTxtUnspport = (TextView) $ViewByID(R.id.remote_main_txt_unspport);
@@ -212,7 +277,7 @@ public class RemoteMainFragment extends BaseFragment implements
         // 生成广播处理
         mReceiver = new RemoteReceiver();
         IntentFilter filter = new IntentFilter();
-        mRControl.setOnItemClick(mItemClick1);
+        //        mRControl.setOnItemClick(mItemClick1);
         filter.addAction(ACTION_REMOTE_SETPSW);
         filter.addAction(ACTION_REMOTE_RESETPSW);
         filter.addAction(ACTION_REMOTE_FORGETPSW);
@@ -227,9 +292,9 @@ public class RemoteMainFragment extends BaseFragment implements
         mViewNormal.setOnClickListener(this);
         mViewNormal.setOnTouchListener(this);
         mImgArrow.setOnClickListener(this);
-        mViewUnsupport.setMinimumWidth(YemaApplication.ScreenWith);
-        mViewUnsupport.setMinimumHeight(YemaApplication.ScreenHeight
-                - YemaApplication.dpToPx(44) - YemaApplication.dpToPx(56));
+        mViewUnsupport.setMinimumWidth(DorideApplication.ScreenWith);
+        mViewUnsupport.setMinimumHeight(DorideApplication.ScreenHeight
+                - DorideApplication.dpToPx(44) - DorideApplication.dpToPx(56));
     }
 
     RemoteFunInfo skyWindowsInfo = null;
@@ -259,6 +324,7 @@ public class RemoteMainFragment extends BaseFragment implements
         public void onClick(View v) {
             RemoteFunInfo mInfo = (RemoteFunInfo) v.getTag();
             selectedPos = MyParse.parseInt(mInfo.getId());
+            Logger.e("---" + mInfo.toString());
             if (selectedPos == 5) {
                 //天窗
                 skyWindowsInfo = mInfo;
@@ -280,52 +346,69 @@ public class RemoteMainFragment extends BaseFragment implements
         }
         switch (selectedPos) {
             case -2:
-                lastOpt = 0;
                 CPControl.GetRemoteStart(mListener);
                 break;
             case -1:
                 // 远程熄火
-                lastOpt = 1;
                 CPControl.GetCancelRemoteStart(mListener);
                 break;
-            case 11:
-                // 闪灯鸣笛
-                lastOpt = 2;
-                CPControl.GetCarLocating(mListener);
-                break;
-            case 12:
-                // 远程开启后备箱
-                lastOpt = 5;
-                CPControl.GetRemoteTrunk(mListener);
-                break;
-            case 10:
-                // 远程开启空调
-                lastOpt = 3;
-                mHandler.sendEmptyMessage(6);
-                break;
+
             case 1:
                 // 远程解锁
-                lastOpt = 6;
-                CPControl.GetRemoteLock("1", mListener);
-                break;
+                //                CPControl.GetRemoteLock("1", mListener);
+
             case 2:
                 // 远程落锁
-                lastOpt = 7;
-                CPControl.GetRemoteLock("2", mListener);
+                //                CPControl.GetRemoteLock("2", mListener);
+                dissmissWaitingDialog();
+                if (null != mCarStateDataList && mCarStateDataList.size() != 0) {
+
+                    carStateInfo = mCarStateDataList.get(0);
+                }
+                PopBoxCreat.createDialogRemote(getActivity(), "车锁", "解锁", "落锁", R.drawable.remote_unlock_selector, R.drawable.remote_lock_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick(View v) {
+                        showWaitingDialog(null);
+
+                        CPControl.GetRemoteLock("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteLock("2", mListener);
+                    }
+                });
                 break;
             case 4://升起车窗，关窗
                 //
-                lastOpt = 8;
-                CPControl.GetRemoteClosewin(mListener);
-                break;
+                //                CPControl.GetRemoteClosewin(mListener);
+                //                break;
             case 3:
                 // 降下车窗,开窗
-                lastOpt = 9;
-                CPControl.GetRemoteOpenwin(mListener);
+                //                CPControl.GetRemoteOpenwin(mListener);
+
+                dissmissWaitingDialog();
+                if (null != mCarStateDataList && mCarStateDataList.size() != 0) {
+
+                    carStateInfo = mCarStateDataList.get(2);
+                }
+                PopBoxCreat.createDialogRemote(getActivity(), "车窗", "开启", "关闭", R.drawable.remote_win_down_selector, R.drawable.remote_win_up_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChangeWinState("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChangeWinState("2", mListener);
+                    }
+                });
                 break;
             case 5:
                 // 天窗
-                lastOpt = 13;
                 dissmissWaitingDialog();
                 if (skyWindowsInfo != null) {
                     uuDialogRemote = new UUDialogRemote(getActivity());
@@ -337,19 +420,76 @@ public class RemoteMainFragment extends BaseFragment implements
                 break;
             case 6:
                 // 远程开启天窗
-                lastOpt = 10;
                 CPControl.GetRemoteSkylight("1", mListener);
                 break;
             case 7:
                 // 远程关闭天窗
-                lastOpt = 11;
                 CPControl.GetRemoteSkylight("2", mListener);
                 break;
             case 8:
                 // 远程天窗开撬
-                lastOpt = 12;
                 CPControl.GetRemoteSkylight("3", mListener);
                 break;
+            case 9:
+                // 远程天窗关撬
+                CPControl.GetRemoteSkylight("4", mListener);
+                break;
+            case 10:
+                // 远程开启空调
+                mHandler.sendEmptyMessage(6);
+                break;
+            case 11:
+                // 闪灯鸣笛
+                CPControl.GetCarLocating(mListener);
+                break;
+            case 12:
+                // 远程开启后备箱
+                //                CPControl.GetRemoteTrunk(mListener);
+
+                dissmissWaitingDialog();
+                PopBoxCreat.createDialogRemote(getActivity(), "后备箱", "开启", "关闭", R.drawable.remote_open_truck_selector, R.drawable.remote_close_truck_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteTrunk("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteTrunk("2", mListener);
+                    }
+                });
+                break;
+            case 14:
+                //             仅支持关闭后备箱
+                CPControl.GetRemoteTrunk("2", mListener);
+                break;
+            case 15:
+                //            仅支持打开后备箱
+                CPControl.GetRemoteTrunk("1", mListener);
+                break;
+            case 13:
+                // 远程座椅加热
+                //                CPControl.GetRemoteChairHeating(mListener);
+                //                UUToast.showUUToast(getActivity(), "车锁");
+
+                dissmissWaitingDialog();
+                PopBoxCreat.createDialogRemote(getActivity(), "座椅加热", "前排座椅加热", "关闭座椅加热", R.drawable.remote_open_seat_hot_selector, R.drawable.remote_close_seat_hot_selector, new PopBoxCreat.onDialogRemoteClick() {
+                    @Override
+                    public void onItemOneClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChairHeating("1", mListener);
+                    }
+
+                    @Override
+                    public void onItemTwoClick(View v) {
+                        showWaitingDialog(null);
+                        CPControl.GetRemoteChairHeating("2", mListener);
+                    }
+                });
+                break;
+
         }
     }
 
@@ -379,6 +519,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            Logger.e("---" + bInfo.toString());
             Message msg = new Message();
             msg.what = 2;
             msg.obj = bInfo;
@@ -429,12 +570,18 @@ public class RemoteMainFragment extends BaseFragment implements
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
+
+        private ArrayList<CarStateInfo> mDataList;
 
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
+                    //                    远程操作成功
+                    Logger.e("---远程操作成功");
+                    UUToastOpt.showUUToast(getActivity(), "操作成功");
                     dissmissWaitingDialog();
                     if (airDialog != null) {
                         isReCall = false;
@@ -444,8 +591,8 @@ public class RemoteMainFragment extends BaseFragment implements
                     if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
                         uuDialogRemote.dismiss();
                     }
-//                    UUToast.showUUToast(getActivity(), "操作成功");
-                    UUToastOpt.showUUToast(getActivity(), "操作成功");
+                    //                    UUToast.showUUToast(getActivity(), "操作成功");
+
                     break;
 
                 case 1:
@@ -454,9 +601,14 @@ public class RemoteMainFragment extends BaseFragment implements
                         airDialog.dismiss();
                     }
                     BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
+                    if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
+                        uuDialogRemote.dismiss();
+                    }
                     if (mInfo1 != null) {
                         if (mInfo1.getFlag() == 1020) {
-                            UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
+                            Intent intent  = new Intent(mCtx,UpDateActivity.class);
+                            startActivity(intent);
+//                            UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
                         } else {
                             UUToastOptError.showUUToast(getActivity(), mInfo1.getInfo());
                         }
@@ -465,15 +617,16 @@ public class RemoteMainFragment extends BaseFragment implements
 
                 case 2:
                     // 获取车辆状态成功
-                    ArrayList<CarStateInfo> mDataList = (ArrayList<CarStateInfo>) ((BaseResponseInfo) msg.obj).getValue();
-                    if (mDataList != null && mDataList.size() > 0) {
+                    mCarStateDataList = (ArrayList<CarStateInfo>) ((BaseResponseInfo) msg.obj).getValue();
+
+                    if (mCarStateDataList != null && mCarStateDataList.size() > 0) {
                         mGridViewState.setNumColumns(3);
                         if (mAdapterStates == null) {
                             mAdapterStates = new RemoteStatesAdapter(
-                                    getActivity(), mDataList);
+                                    getActivity(), mCarStateDataList);
                             mGridViewState.setAdapter(mAdapterStates);
                         } else {
-                            mAdapterStates.setmDataList(mDataList);
+                            mAdapterStates.setmDataList(mCarStateDataList);
                             mAdapterStates.notifyDataSetChanged();
                         }
                         dissmissWaitingDialog();
@@ -493,10 +646,12 @@ public class RemoteMainFragment extends BaseFragment implements
                     }
                     break;
                 case 4:
+                    //                    校验远程密码成功
                     dissmissWaitingDialog();
                     mHandler.sendEmptyMessage(10);
                     break;
                 case 5:
+                    //                    校验远程密码失败
                     dissmissWaitingDialog();
                     BaseResponseInfo mInfo2 = (BaseResponseInfo) msg.obj;
                     if (mInfo2 != null) {
@@ -522,6 +677,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     dissmissWaitingDialog();
                     // 获取远程空调功能成功
                     AirMainInfo mAirMainInfo2 = (AirMainInfo) msg.obj;
+                    Logger.e("---" + mAirMainInfo2.toString());
                     if (!isReCall) {
                         if (airDialog == null || !airDialog.isShowing()) {
                             if (TextUtils.isEmpty(mAirMainInfo2.getState())
@@ -549,6 +705,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     }
                     break;
                 case 10:
+                    //                    处理远程校验密码成功后逻辑
                     GetResult();
                     break;
                 case 11:
@@ -585,6 +742,8 @@ public class RemoteMainFragment extends BaseFragment implements
                         airDialog.show();
                     }
                     break;
+                default:
+                    break;
             }
         }
     };
@@ -603,9 +762,9 @@ public class RemoteMainFragment extends BaseFragment implements
                 break;
             case R.id.remote_history_iv:
                 // 远程记录
-                Intent mIntent = new Intent(getActivity(),
-                        RemoteLogActivity.class);
+                Intent mIntent = new Intent(getActivity(), RemoteLogActivity.class);
                 startActivity(mIntent);
+
                 break;
             case R.id.remote_main_img_arrow:
                 // 收起状态栏
@@ -640,8 +799,7 @@ public class RemoteMainFragment extends BaseFragment implements
     private void clickLogic() {
         boolean hasRemotePswMd5 = LoginInfo.isSetRemotePwd();
         //TODO test data
-//        hasRemotePswMd5 = false;
-//        LoginInfo.setNoneedpsw(false);
+        //        hasRemotePswMd5 = false;
 
         if (mViewState.getVisibility() == View.VISIBLE) {
             // 车辆状态view打开
@@ -649,16 +807,19 @@ public class RemoteMainFragment extends BaseFragment implements
         } else {
             if (hasRemotePswMd5) {
                 if (isFirstClick) {
-                    showEditDialog();
+                    //                    showEditDialog();
+                    showEditPop();
                 } else {
                     if (LoginInfo.isNoneedpsw()) {
                         if (getTimeOutStatus()) {
-                            showEditDialog();
+                            //                            showEditDialog();
+                            showEditPop();
                         } else {
                             GetResult();
                         }
                     } else {
-                        showEditDialog();
+                        //                        showEditDialog();
+                        showEditPop();
                     }
 
                 }
@@ -682,6 +843,53 @@ public class RemoteMainFragment extends BaseFragment implements
 
             }
         }
+    }
+
+    private void showEditPop() {
+        SelectPopupWindow pwdPop = new SelectPopupWindow(getActivity(), this);
+        Rect rect = new Rect();
+        getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+        int winHeight = getActivity().getWindow().getDecorView().getHeight();
+        pwdPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, winHeight - rect.bottom);
+        pwdPop.tvForgetPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent resetLoginPasswdByPhone = new Intent(getActivity(), VcodeResetRemotePasswdActivity.class);
+                startActivity(resetLoginPasswdByPhone);
+            }
+        });
+    }
+
+    @Override
+    public void onPopWindowClickListener(String psw, boolean complete) {
+        if (complete) {
+            if (isFirstClick) {
+                startTime = System.currentTimeMillis();
+                isFirstClick = false;
+            }
+            showWaitingDialog("正在验证您的远程密码...");
+            CPControl.GetRemotePswVerify(psw, mListener_verify);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        isFirstClick = true;
+        Logger.e("---hidden----" + hidden);
+        if (!hidden) {
+            loadData();
+        } else {
+            if (mViewState.getVisibility() == View.VISIBLE) {
+                mViewState.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isFirstClick = true;
     }
 
     private boolean getTimeOutStatus() {
@@ -713,13 +921,13 @@ public class RemoteMainFragment extends BaseFragment implements
         TextView btn2 = (TextView) view
                 .findViewById(R.id.dialog_withedit_new_btn2);
 
-        TextView btnForget= (TextView) view
+        TextView btnForget = (TextView) view
                 .findViewById(R.id.dialog_withedit_forget_psw);
 
         btnForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resetLoginPasswdByPhone=new Intent(getActivity(),VcodeResetRemotePasswdActivity.class);
+                Intent resetLoginPasswdByPhone = new Intent(getActivity(), VcodeResetRemotePasswdActivity.class);
                 startActivity(resetLoginPasswdByPhone);
             }
         });
@@ -776,7 +984,7 @@ public class RemoteMainFragment extends BaseFragment implements
             }
         });
 
-        int w = (int) (YemaApplication.ScreenDensity * 300);
+        int w = (int) (DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogI.setContentView(view, parm);
@@ -821,6 +1029,7 @@ public class RemoteMainFragment extends BaseFragment implements
     }
 
     private RemoteReceiver mReceiver;
+
 
     public class RemoteReceiver extends BroadcastReceiver {
         @Override

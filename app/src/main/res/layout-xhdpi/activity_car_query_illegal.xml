@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/sesame_head_sub_normal" />
+
+    <ListView
+        android:id="@+id/activity_car_query_illegal_list"
+        style="@style/public_listView"
+        android:divider="@color/transparent"
+        android:dividerHeight="9dip" 
+        android:layout_marginTop="0dip"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+</LinearLayout>

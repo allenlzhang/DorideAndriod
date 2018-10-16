@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
-import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PhoneAuthenticationActivity extends BaseActivity implements View.OnClickListener {
+public class PhoneAuthenticationActivity extends LoadingActivity implements View.OnClickListener {
 
     private ImageView back;//返回按钮
     private TextView title;//标题
@@ -54,19 +54,15 @@ public class PhoneAuthenticationActivity extends BaseActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_authentication);
+        initTitle("修改手机号码");
         initComponent();
     }
 
     private void initComponent() {
-        back = findViewById(R.id.back);
-        back.setOnClickListener(this);
         certified_input_commit = findViewById(R.id.certified_input_commit);
         certified_input_commit.setOnClickListener(this);
         certified_verification_send = findViewById(R.id.certified_verification_send);
         certified_verification_send.setOnClickListener(this);
-
-        title = findViewById(R.id.title);
-        title.setText("修改手机号码");
         certified_phone_input = findViewById(R.id.certified_phone_input);
         certified_code_input = findViewById(R.id.certified_code_input);
     }
@@ -74,9 +70,6 @@ public class PhoneAuthenticationActivity extends BaseActivity implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
-                finish();
-                break;
             case R.id.certified_verification_send:
                 phoneNum = certified_phone_input.getText().toString();
                 if (phoneNum != null && StringUtils.checkCellphone(phoneNum)) {
@@ -89,7 +82,7 @@ public class PhoneAuthenticationActivity extends BaseActivity implements View.On
                     count = 60;
                     certified_verification_send.setText(count + "秒后重发");
                     certified_verification_send.setClickable(false);
-                    certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+                    certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
 
                     task = new TimerTask() {
 
@@ -153,7 +146,7 @@ public class PhoneAuthenticationActivity extends BaseActivity implements View.On
             }
             certified_verification_send.setClickable(true);
             certified_verification_send.setText("重发验证码");
-            certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+            certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
             int flag = bInfo.getFlag();
             UUToast.showUUToast(PhoneAuthenticationActivity.this, "验证码获取失败:" + bInfo.getInfo());
         }
@@ -215,7 +208,7 @@ public class PhoneAuthenticationActivity extends BaseActivity implements View.On
                         }
                         certified_verification_send.setClickable(true);
                         certified_verification_send.setText("重发验证码");
-                        certified_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
+                        certified_verification_send.setBackgroundResource(R.drawable.verification_send_pressed_no);
                     }
                     break;
             }

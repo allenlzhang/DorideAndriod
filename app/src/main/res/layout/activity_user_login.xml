@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/login_bg"
-    android:orientation="vertical"
-    android:id="@+id/layout_login">
+    android:orientation="vertical">
+
     <Button
         android:id="@+id/activity_usercenter_login_change"
-        android:layout_width="100dip"
-        android:layout_height="30dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#ffff00"
         android:gravity="center"
         android:onClick="switchServer"
         android:text="测 试"
         android:textColor="#ff00ff"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone"
+        />
+
     <ImageView
         android:id="@+id/login_logo"
         android:layout_width="260dp"
-        android:layout_height="96dp"
+        android:layout_height="26dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:src="@mipmap/login_logo"
-        android:contentDescription="@string/app_name" />
+        android:layout_marginTop="135dp"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/login_logo" />
 
     <TextView
         android:id="@+id/login_version"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
         android:gravity="center"
+        android:paddingRight="6dip"
         android:text="V1.0.0"
         android:textColor="@color/text_color_gray1"
-        android:layout_marginTop="8dip"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:paddingRight="6dip" />
+        android:textStyle="bold" />
 
 
     <LinearLayout
         style="@style/login_input_bg"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="47dp">
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:contentDescription="@string/app_name"
@@ -69,68 +73,77 @@
         android:layout_marginTop="10dip">
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:contentDescription="@string/app_name"
-            android:src="@mipmap/login_edit_pwd" />
+            android:src="@mipmap/login_edit_pwd"/>
 
         <EditText
             android:id="@+id/user_passwd"
-            android:layout_width="0dp"
-            android:layout_weight="1"
             style="@style/usercenter_edit1"
+            android:layout_width="0dp"
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="0dip"
             android:layout_marginRight="0dip"
+            android:layout_weight="1"
+            android:background="@null"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:selectAllOnFocus="true"
-            android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入密码"
             android:inputType="textPassword"
-            android:maxLength="32" />
+            android:digits="@string/pwd_filter_input_string"
+            android:maxLength="32"
+            />
 
         <ImageView
             android:id="@+id/passwd_toggle"
-            android:layout_width="25dp"
-            android:layout_marginRight="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_height="25dp"
-            android:tag="off"
-            android:src="@mipmap/passwd_off" />
+            android:layout_marginRight="10dip"
+            android:src="@mipmap/passwd_off"
+            android:tag="off" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/login_commit"
         style="@style/public_bottom_btn"
         android:layout_height="44dp"
-        android:text="@string/usercenter_login"
-        android:layout_marginTop="27dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
+        android:layout_marginTop="27dip"
+        android:text="@string/usercenter_login"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <TextView
+    <ImageView
         android:id="@+id/user_regist"
-        style="@style/text_common"
-        android:text="@string/usercenter_register"
-        android:layout_marginTop="30dip"
-        android:layout_marginLeft="30dip"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginRight="30dip" />
-
-    <TextView
-        style="@style/text_common"
-        android:id="@+id/forgot_passwd"
-        android:text="@string/usercenter_forget_password"
-        android:layout_gravity="left"
-        android:gravity="left|bottom"
+        android:src="@mipmap/login_regist"
+        android:layout_marginTop="44dp"
+        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginLeft="12dp" />
+        >
+        <TextView
+            android:id="@+id/forgot_passwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="left|bottom"
+            android:text="@string/usercenter_forget_password" />
+    </RelativeLayout>
 
 </LinearLayout>

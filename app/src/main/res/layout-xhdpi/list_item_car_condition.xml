@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/sesame_item_car_condition_lay"
+        android:layout_width="match_parent"
+        android:layout_height="50dip" >
+
+        <TextView
+            android:id="@+id/sesame_item_car_condition_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dip"
+            android:textColor="#666"
+            android:textSize="@dimen/text_size_small_s1" />
+
+        <TextView
+            android:id="@+id/item_car_condition_txt_unit"
+            android:layout_width="60dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="14dip"
+            android:gravity="center_vertical"
+            android:textColor="#666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/sesame_item_car_condition_txt_value"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/item_car_condition_txt_unit"
+            android:layout_toRightOf="@+id/item_car_condition_txt_name"
+            android:gravity="center_vertical|right"
+            android:textColor="#333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D2D2D2" />
+
+</LinearLayout>

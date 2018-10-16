@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/layout_background"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dip"
+        android:layout_marginTop="11dip"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/safetymain_lay_realname"
+            style="@style/setting_userinfo_layout1">
+
+            <TextView
+                style="@style/setting_userinfo_text1"
+                android:layout_marginRight="45dip"
+                android:text="实名制认证"/>
+
+            <TextView
+                android:id="@+id/safetymain_txt_state"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text="认证状态"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line1"
+            style="@style/setting_line_h"/>
+
+        <RelativeLayout
+            android:id="@+id/safetymain_lay_phone"
+            style="@style/setting_userinfo_layout1">
+
+            <TextView
+                style="@style/setting_userinfo_text1"
+                android:layout_marginRight="45dip"
+                android:text="绑定手机"/>
+
+            <TextView
+                android:id="@+id/safetymain_txt_phone"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text="手机号"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line2"
+            style="@style/setting_line_h"/>
+
+        <RelativeLayout
+            android:id="@+id/safetymain_lay_psw"
+            style="@style/setting_userinfo_layout1">
+
+            <TextView
+                style="@style/setting_userinfo_text1"
+                android:layout_marginRight="45dip"
+                android:text="密码管理"/>
+
+            <TextView
+                android:id="@+id/safetymain_txt_loginpsw"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text=""/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/safetymain_lay_noneedpsw"
+        style="@style/setting_userinfo_layout1"
+        android:layout_marginBottom="11dip"
+        android:visibility="visible">
+
+        <CheckBox
+            android:id="@+id/safetymain_checkbox_noneedpsw"
+            style="@style/manage_message_checkbox"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            style="@style/setting_txt_single"
+            android:layout_toLeftOf="@id/activity_manage_message_checkbox4"
+            android:text="远程控制5分钟无需密码"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/safetymain_txt_mobilecurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dip"
+        android:paddingLeft="14dip"
+        android:text="当前在线设备"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:id="@+id/safetymain_lay_mobilelog"
+        style="@style/setting_userinfo_layout1"
+        android:layout_marginBottom="11dip"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/setting_userinfo_text1"
+            android:layout_marginRight="45dip"
+            android:text="近期登录记录"/>
+
+        <TextView
+            android:id="@+id/safetymain_txt_mobilelog"
+            style="@style/setting_userinfo_text2"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="13dip"
+            android:drawableRight="@drawable/arrow_right2"
+            android:text=""/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dip"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/safetymain_lay_authorize"
+            style="@style/setting_userinfo_layout1"
+            android:visibility="gone">
+
+            <CheckBox
+                android:id="@+id/safetymain_checkbox_authorize"
+                style="@style/manage_message_checkbox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                style="@style/setting_txt_single"
+                android:layout_toLeftOf="@id/activity_manage_message_checkbox4"
+                android:text="是否允许手机授权"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/safetymain_line_mobilelist_top"
+            style="@style/setting_line_h"
+            android:layout_width="wrap_content"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/safetymain_lay_mobilelist"
+            style="@style/setting_userinfo_layout1"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/title_mobilelist"
+                style="@style/setting_userinfo_text1"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dip"
+                android:text="授权设备列表"/>
+
+            <View
+                android:id="@+id/safetymain_view_dot"
+                android:layout_width="8dip"
+                android:layout_height="8dip"
+                android:layout_alignTop="@id/title_mobilelist"
+                android:layout_toRightOf="@id/title_mobilelist"
+                android:background="@drawable/circle_darkered"/>
+
+            <TextView
+                android:id="@+id/safetymain_txt_mobilelist"
+                style="@style/setting_userinfo_text2"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="13dip"
+                android:drawableRight="@drawable/arrow_right2"
+                android:text=""/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/safetymain_lay_freeze"
+        style="@style/setting_userinfo_layout1"
+        android:layout_marginBottom="11dip">
+
+        <TextView
+            style="@style/setting_userinfo_text1"
+            android:layout_marginRight="45dip"
+            android:text="快速冻结账号"/>
+
+        <TextView
+            android:id="@+id/safetymain_txt_freeze"
+            style="@style/setting_userinfo_text2"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="13dip"
+            android:drawableRight="@drawable/arrow_right2"
+            android:text=""/>
+    </RelativeLayout>
+
+</LinearLayout>

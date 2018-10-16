@@ -7,8 +7,8 @@
     <RelativeLayout
         android:id="@+id/item_car_condition_lay"
         android:layout_width="match_parent"
-        android:layout_height="60dip"
-        android:background="#2e2d33"
+        android:layout_height="48dp"
+        android:background="@color/white"
         android:gravity="center_vertical"
         >
 
@@ -17,20 +17,20 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small_s1"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="@dimen/text_size_small"
             android:layout_marginLeft="12dp"
             />
 
         <TextView
+            android:layout_marginTop="3dp"
             android:id="@+id/item_car_condition_txt_unit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-
             android:layout_marginRight="12dip"
             android:gravity="center_vertical"
-            android:textColor="@color/text_color_gray1"
+            android:textColor="@color/text_color_gray3"
             android:textSize="14sp" />
 
         <TextView
@@ -42,15 +42,14 @@
             android:paddingRight="5dp"
             android:paddingLeft="5dp"
             android:gravity="center_vertical|right"
-            android:textColor="@color/text_color_gray1"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_color_gray3"
+            android:textSize="18sp"/>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#4d4d4d"
+        android:background="@color/text_color_gray4"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         />

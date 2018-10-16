@@ -30,15 +30,11 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
     private View edit_purchase_time;//购车时间
     private View edit_maintenance_mileage;//上次保养里程
     private View edit_maintenance_time;//上次保养时间
-    private View edit_insured_time;//上次投保时间
-    private View edit_nspection_time;//上次年检时间
 
-    private TextView car_type_txt;//显示
-    private TextView purchase_time_txt;//显示
-    private TextView maintenance_mileage_txt;//显示
-    private TextView maintenance_time_txt;//显示
-    private TextView insured_time_txt;//显示
-    private TextView nspection_time_txt;//显示
+    private TextView       car_type_txt;//显示
+    private TextView       purchase_time_txt;//显示
+    private TextView       maintenance_mileage_txt;//显示
+    private TextView       maintenance_time_txt;//显示
     private TimePickerView pvCustomTime;
 
 
@@ -50,24 +46,19 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_manager);
-        initCustomTimePicker();
         initComponent();
     }
 
     private void initComponent() {
         initTitle("车辆管理");
         edit_car_type = findViewById(R.id.edit_car_type);
-        edit_car_type.setOnClickListener(this);
+        //        edit_car_type.setOnClickListener(this);
         edit_purchase_time = findViewById(R.id.edit_purchase_time);
         edit_purchase_time.setOnClickListener(this);
         edit_maintenance_mileage = findViewById(R.id.edit_maintenance_mileage);
         edit_maintenance_mileage.setOnClickListener(this);
         edit_maintenance_time = findViewById(R.id.edit_maintenance_time);
         edit_maintenance_time.setOnClickListener(this);
-        edit_insured_time = findViewById(R.id.edit_insured_time);
-        edit_insured_time.setOnClickListener(this);
-        edit_nspection_time = findViewById(R.id.edit_nspection_time);
-        edit_nspection_time.setOnClickListener(this);
 
         car_type_txt = findViewById(R.id.car_type_txt);
         if (!TextUtils.isEmpty(LoginInfo.getCarname())) {
@@ -78,8 +69,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         purchase_time_txt = findViewById(R.id.purchase_time_txt);
         maintenance_mileage_txt = findViewById(R.id.maintenance_mileage_txt);
         maintenance_time_txt = findViewById(R.id.maintenance_time_txt);
-        insured_time_txt = findViewById(R.id.insured_time_txt);
-        nspection_time_txt = findViewById(R.id.nspection_time_txt);
     }
 
     @Override
@@ -93,25 +82,22 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         switch (view.getId()) {
 
             case R.id.edit_car_type:
-                Intent switchIntent = new Intent(this, CarModeListActivity.class);
-                switchIntent.putExtra("switch", true);//标记从车辆管理界面跳转
-                startActivity(switchIntent);
+                //                Intent switchIntent = new Intent(this, CarModeListActivity.class);
+                //                switchIntent.putExtra("switch", true);//标记从车辆管理界面跳转
+                //                startActivity(switchIntent);
                 break;
             case R.id.edit_maintenance_mileage:
                 Intent editMaintenance = new Intent(this, MaintenanceMileageEditActivity.class);
                 startActivityForResult(editMaintenance, 0);
                 break;
             case R.id.edit_purchase_time:
+                initCustomTimePicker(purchase_time_txt.getText().toString());
+                //                initCustomTimePicker("");
                 pvCustomTime.show(purchase_time_txt);
                 break;
             case R.id.edit_maintenance_time:
+                initCustomTimePicker(maintenance_time_txt.getText().toString());
                 pvCustomTime.show(maintenance_time_txt);
-                break;
-            case R.id.edit_insured_time:
-                pvCustomTime.show(insured_time_txt);
-                break;
-            case R.id.edit_nspection_time:
-                pvCustomTime.show(nspection_time_txt);
                 break;
         }
     }
@@ -138,7 +124,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
             }
         }
     };
-    private ResultCallback maintenCallback = new ResultCallback() {
+    private ResultCallback maintenCallback  = new ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
@@ -155,43 +141,8 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
             }
         }
     };
-    private ResultCallback nspectionCallback = new ResultCallback() {
-        @Override
-        public void onSuccess(BaseResponseInfo bInfo) {
-            UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
-            nspection_time_txt.setText(carDate);
-            LoginInfo.setRegister_time(carDate);
-        }
 
-        @Override
-        public void onError(BaseResponseInfo bInfo) {
-            if (!TextUtils.isEmpty(bInfo.getInfo())) {
-                UUToast.showUUToast(CarManagerActivity.this, bInfo.getInfo());
-            } else {
-                UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改失败");
-            }
-        }
-    };
-    private ResultCallback insuredCallback = new ResultCallback() {
-        @Override
-        public void onSuccess(BaseResponseInfo bInfo) {
-            UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
-            insured_time_txt.setText(carDate);
-            LoginInfo.setInsurance_time(carDate);
-        }
-
-        @Override
-        public void onError(BaseResponseInfo bInfo) {
-            if (!TextUtils.isEmpty(bInfo.getInfo())) {
-                UUToast.showUUToast(CarManagerActivity.this, bInfo.getInfo());
-            } else {
-                UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改失败");
-            }
-        }
-    };
-
-
-    private void initCustomTimePicker() {
+    private void initCustomTimePicker(String date) {
 
         /**
          * @description
@@ -202,11 +153,22 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
          * 2.因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
          * setRangDate方法控制起始终止时间(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
          */
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar selectedDate = Calendar.getInstance();//系统当前时间
         Calendar startDate = Calendar.getInstance();
-        startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2027, 2, 28);
+        Date time = endDate.getTime();
+        if (TextUtils.isEmpty(date)||date.equals("--")) {
+            date = dateFormat.format(time);
+        }
+
+        startDate.set(2014, 1, 23);
+
+        String format = dateFormat.format(time);
+        String[] split = format.split("-");
+        String[] selectedSplit = date.split("-");
+        selectedDate.set(Integer.parseInt(selectedSplit[0]), Integer.parseInt(selectedSplit[1]) - 1, Integer.parseInt(selectedSplit[2]));
+        endDate.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
@@ -223,16 +185,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
                         params = new HashMap<>();
                         params.put("mainten_date", carDate);
                         modifyCarInfoRequest(params, maintenCallback);
-                        break;
-                    case R.id.insured_time_txt:
-                        params = new HashMap<>();
-                        params.put("insurance_time", carDate);
-                        modifyCarInfoRequest(params, insuredCallback);
-                        break;
-                    case R.id.nspection_time_txt:
-                        params = new HashMap<>();
-                        params.put("register_time", carDate);
-                        modifyCarInfoRequest(params, nspectionCallback);
                         break;
                 }
             }
@@ -318,41 +270,33 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             CarSettingInfo carSettingInfo = (CarSettingInfo) bInfo.getValue();
-            if (!TextUtils.isEmpty(carSettingInfo.getCarname())) {
+            if (!TextUtils.isEmpty(carSettingInfo.getCarname()) && !carSettingInfo.getCarname().equals("0")) {
                 car_type_txt.setText((carSettingInfo.getCarname()));
                 LoginInfo.setCarname(carSettingInfo.getCarname());
             } else {
                 car_type_txt.setText("--");
+                LoginInfo.setCarname("--");
             }
-            if (!TextUtils.isEmpty(carSettingInfo.getBuydate())) {
+            if (!TextUtils.isEmpty(carSettingInfo.getBuydate()) && !carSettingInfo.getBuydate().equals("0")) {
                 purchase_time_txt.setText((carSettingInfo.getBuydate()));
                 LoginInfo.setBuydate(carSettingInfo.getBuydate());
             } else {
                 purchase_time_txt.setText("--");
+                LoginInfo.setBuydate("--");
             }
             if (!TextUtils.isEmpty(carSettingInfo.getMainten_miles())) {
                 maintenance_mileage_txt.setText(String.format(getResources().getString(R.string.last_maintenance_mileage), Integer.parseInt(carSettingInfo.getMainten_miles())));
                 LoginInfo.setMainten_miles(carSettingInfo.getMainten_miles());
             } else {
                 maintenance_mileage_txt.setText("--");
+                LoginInfo.setMainten_miles("--");
             }
-            if (!TextUtils.isEmpty(carSettingInfo.getMainten_date())) {
+            if (!TextUtils.isEmpty(carSettingInfo.getMainten_date()) && !carSettingInfo.getMainten_date().equals("0")) {
                 maintenance_time_txt.setText(carSettingInfo.getMainten_date());
                 LoginInfo.setMainten_time(carSettingInfo.getMainten_date());
             } else {
                 maintenance_time_txt.setText("--");
-            }
-            if (!TextUtils.isEmpty(carSettingInfo.getInsurance_time())) {
-                insured_time_txt.setText(carSettingInfo.getInsurance_time());
-                LoginInfo.setInsurance_time(carSettingInfo.getInsurance_time());
-            } else {
-                insured_time_txt.setText("--");
-            }
-            if (!TextUtils.isEmpty(carSettingInfo.getRegister_time())) {
-                nspection_time_txt.setText(carSettingInfo.getRegister_time());
-                LoginInfo.setRegister_time(carSettingInfo.getRegister_time());
-            } else {
-                nspection_time_txt.setText("--");
+                LoginInfo.setMainten_time("--");
             }
         }
 

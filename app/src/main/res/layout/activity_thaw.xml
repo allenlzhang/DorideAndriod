@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include layout="@layout/head_back" />
+
+    <ImageView
+        android:id="@+id/thaw_img_icon"
+        android:layout_width="67.5dip"
+        android:layout_height="67.5dip"
+        android:layout_marginTop="45dip"
+        android:src="@drawable/safe_freezed_release" />
+
+    <TextView
+        android:id="@+id/thaw_txt_des1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dip"
+        android:text="描述"
+        android:textColor="@color/text_color_gray2"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/thaw_txt_des2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dip"
+        android:text="描述"
+        android:textColor="@color/text_color_gray2"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/thaw_txt_account"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dip"
+        android:text="当前账号"
+        android:textColor="@color/text_color_gray1"
+        android:textSize="14sp" 
+        android:layout_marginLeft="9dip"/>
+
+    <LinearLayout
+        android:id="@+id/thaw_lay_loginpsw"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/thaw_edt_loginpsw"
+            style="@style/usercenter_edit1"
+            android:cursorVisible="true"
+            android:hint="请输入登录密码"
+            android:textCursorDrawable="@null" 
+            android:inputType="textPassword"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/thaw_txt_option"
+        style="@style/public_bottom_btn_blue"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="20dip"
+        android:text="操作" />
+
+</LinearLayout>

@@ -4,6 +4,7 @@
     <item android:drawable="@drawable/login_commit_pressed" android:state_pressed="true"></item>
     <item android:drawable="@drawable/login_commit_pressed" android:state_focused="true"></item>
     <item android:drawable="@drawable/login_commit_pressed" android:state_selected="true"></item>
+    <item android:drawable="@drawable/login_commit_enabled" android:state_enabled="false"/>
     <item android:drawable="@drawable/login_commit_common"></item>
 
 </selector>

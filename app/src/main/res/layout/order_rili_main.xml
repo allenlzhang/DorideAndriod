@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/rili_dateview_title"
+            layout="@layout/head_back" />
+
+        <include
+            android:id="@+id/rili_calendar_title"
+            layout="@layout/head_order_calendar" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <com.carlt.sesame.ui.activity.career.order.TimeView
+                android:id="@+id/rili_timeview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone" />
+
+            <com.carlt.sesame.ui.activity.career.order.OrderDateView
+                android:id="@+id/order_rili_dateview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

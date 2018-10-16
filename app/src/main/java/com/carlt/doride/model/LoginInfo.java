@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.carlt.doride.YemaApplication;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarMainFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
@@ -30,27 +30,29 @@ public class LoginInfo extends BaseResponseInfo {
 
     public static final String PREF_EXT = "user_ext_pref";
 
-    public static final int SERVICE_TIME_TNORMAL = 0;// 正常
-    public static final int SERVICE_TIME_TNEAR = 1;// 即将到期
+    public static final int SERVICE_TIME_TNORMAL  = 0;// 正常
+    public static final int SERVICE_TIME_TNEAR    = 1;// 即将到期
     public static final int SERVICE_TIME_TARRAIVE = 2;// 已到期
-    public static final int SERVICE_TIME_TOVER = 3;// 透支了
-    public static final int SERVICE_TIME_CANCEL = 4;// 已销户(不支持续费)
+    public static final int SERVICE_TIME_TOVER    = 3;// 透支了
+    public static final int SERVICE_TIME_CANCEL   = 4;// 已销户(不支持续费)
 
     // 车乐拍
     public static String ssid = "";
 
     public static String ssidpwd = "";
 
-    private static SharedPreferences user_pref = YemaApplication.getInstanse()
+    private static SharedPreferences user_pref = DorideApplication.getInstanse()
             .getSharedPreferences(PREF_USER, Context.MODE_PRIVATE);
 
-    private static SharedPreferences car_pref = YemaApplication.getInstanse()
+    private static SharedPreferences car_pref = DorideApplication.getInstanse()
             .getSharedPreferences(PREF_CAR, Context.MODE_PRIVATE);
 
-    private static SharedPreferences user_ext_pref = YemaApplication.getInstanse().getSharedPreferences(PREF_EXT,
-                    Context.MODE_PRIVATE);
+    private static SharedPreferences user_ext_pref = DorideApplication.getInstanse().getSharedPreferences(PREF_EXT,
+            Context.MODE_PRIVATE);
 
-    /** 城市名 缓存 非登录下发 */
+    /**
+     * 城市名 缓存 非登录下发
+     */
     private static String cityName = "";
 
     public static String getCityName() {
@@ -69,11 +71,11 @@ public class LoginInfo extends BaseResponseInfo {
     // TOKEN生命周期
     private static String expiresIn = "";
     // 经销商id
-    private static String dealerId = "";
+    private static String dealerId  = "";
     // 用户ID
-    private static String useId = "";
+    private static String useId     = "";
     // 手机号
-    private static String mobile = "";
+    private static String mobile    = "";
     // 是否是游客
     private static boolean isVisitor;
 
@@ -108,7 +110,9 @@ public class LoginInfo extends BaseResponseInfo {
 
     private static String expires_in = "";// 授权生命周期
 
-    /** 车辆信息 **/
+    /**
+     * 车辆信息
+     **/
     private static String cId = "";// 车辆ID
 
     // 品牌ID
@@ -157,10 +161,10 @@ public class LoginInfo extends BaseResponseInfo {
 
     private static String city_code_id = "";
 
-    private static String city_code = "";
-
+    private static String city_code       = "";
+    private static int    activate_status = -1;
     // 车牌号
-    private static String carno = "";
+    private static String carno           = "";
 
     // 激活时走前装还是后装， 1前装 0非前装
     private static boolean isInstallorder;
@@ -177,14 +181,17 @@ public class LoginInfo extends BaseResponseInfo {
 
     public final static String DEVICECATEGORY_X7 = "3";// 大迈X7
     // 设备真实顺序 0后装，1前装，2后装2016款，3大迈X7(v1.3.0版本添加默认值 0)
-    private static String deviceCategory = "0";
+    private static      String deviceCategory    = "0";
 
     private static String tbox_type;
+    private static String limit_warning;
 
     // 短位车架号
     private static String shortstandcarno = "";
 
-    /** 4S店信息 **/
+    /**
+     * 4S店信息
+     **/
     private static String dealerName = "";
 
     // 车系id
@@ -199,7 +206,9 @@ public class LoginInfo extends BaseResponseInfo {
     // 车标
     private static String carlogo = "";
 
-    /** 以下信息是违章查询使用到的信息 **/
+    /**
+     * 以下信息是违章查询使用到的信息
+     **/
     // 能否进行违章查询
     private static String canQueryVio = "";
 
@@ -221,16 +230,18 @@ public class LoginInfo extends BaseResponseInfo {
     // 购车日期
     private static String buydate = "";
 
-    /** 用户信息 **/
+    /**
+     * 用户信息
+     **/
     // 真实姓名
     private static String realname = "";
 
     // 设备串号
     private static String deviceidstring = "";
     // 车辆PIN码
-    private static String pin = "";
+    private static String pin            = "";
     // 车辆VIN码
-    private static String vin = "";
+    private static String vin            = "";
 
     // 服务时间是否即将到期
     private static boolean isServiceExpire;
@@ -302,18 +313,22 @@ public class LoginInfo extends BaseResponseInfo {
     // 认证身份证号
     private static String authen_card = "";
 
-    /** 秘书信息 **/
+    /**
+     * 秘书信息
+     **/
     // 车秘书名称
     private static String secretaryName = "";
 
-    /** 4S店信息 **/
+    /**
+     * 4S店信息
+     **/
     private static String dealerUsername = "";
-    private static String dealerAddres = "";
-    private static double dealerLat = -1;
-    private static double dealerLon = -1;
-    private static int dealerZoom = 18;
-    private static String dealerTel = "";
-    private static String serviceTel = "";// 客服电话
+    private static String dealerAddres   = "";
+    private static double dealerLat      = -1;
+    private static double dealerLon      = -1;
+    private static int    dealerZoom     = 18;
+    private static String dealerTel      = "";
+    private static String serviceTel     = "";// 客服电话
 
     private static int push_prizeinfo_flag = 1;
 
@@ -335,12 +350,13 @@ public class LoginInfo extends BaseResponseInfo {
     private static String mainten_next_miles = "";// 距离下次保养里程
 
     private static String mainten_next_day = "";// 距离下次保养天数
+    public static int deviceisnew;//是否新设备：1=是，0=否
 
-    private static boolean isMainten = false;// “我已保养过”按钮
+    private static boolean isMainten         = false;// “我已保养过”按钮
     // 是否可点击 1能点击，剩余不可点击
-    public static int service_time_type = 0;
-    public static String service_time_end = "";// 到期日期
-    public static String service_time_days = "";// 可用天数
+    public static  int     service_time_type = 0;
+    public static  String  service_time_end  = "";// 到期日期
+    public static  String  service_time_days = "";// 可用天数
 
     private static RemoteMainInfo remoteMainInfo;// 远程首页数据
     private static CarMainFunInfo carMainFunInfo;// 座驾首页支持的功能数据
@@ -350,6 +366,8 @@ public class LoginInfo extends BaseResponseInfo {
     private static boolean isDemoAccount;// 是否是演示账号
 
     private static boolean isTachograph;//是否是带记录仪设备
+
+    private static int app_type;    //APP类型 1大乘智享 2芝麻乐园
 
     public static void Destroy() {
         JSONObject destroy = null;
@@ -364,7 +382,7 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.setAvatar_img((destroy.optString("avatar_img", "")));
         LoginInfo.setMobile((destroy.optString("mobile", "")));
         LoginInfo.setVisitor(destroy.optBoolean("isVisitor"));
-//        YemaApplication.TOKEN = "";
+        //        DorideApplication.TOKEN = "";
         LoginInfo.setExpiresIn((destroy.optString("expires_in", "")));
         LoginInfo.setDealerId((destroy.optString("expires_in", "")));
         LoginInfo.setUseId((destroy.optString("uid", "")));
@@ -408,7 +426,7 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.setInsurance_time(destroy.optString("insurance_time", ""));
         LoginInfo.setRegister_time(destroy.optString("register_time", ""));
         LoginInfo.setAccess_token(destroy.optString("access_token", ""));
-        LoginInfo.setVin(LoginInfo.getMobile(),"");
+        LoginInfo.setVin(LoginInfo.getMobile(), "");
     }
 
     public static String getExpiresIn() {
@@ -592,7 +610,7 @@ public class LoginInfo extends BaseResponseInfo {
     }
 
     public static String getAccess_token() {
-        if(TextUtils.isEmpty(access_token)){
+        if (TextUtils.isEmpty(access_token)) {
             access_token = user_pref.getString("access_token", access_token);
         }
         return access_token;
@@ -631,6 +649,16 @@ public class LoginInfo extends BaseResponseInfo {
     public static void setBrandid(String brandid) {
         LoginInfo.brandid = brandid;
         car_pref.edit().putString("brandid", brandid).apply();
+    }
+
+    public static int getActivate_status() {
+        LoginInfo.activate_status = car_pref.getInt("activate_status", -1);
+        return LoginInfo.activate_status;
+    }
+
+    public static void setActivate_status(int activate_status) {
+        LoginInfo.activate_status = activate_status;
+        car_pref.edit().putInt("activate_status", activate_status).commit();
     }
 
     public static String getColor() {
@@ -1077,6 +1105,16 @@ public class LoginInfo extends BaseResponseInfo {
         car_pref.edit().putString("gender", gender).apply();
     }
 
+    public static void setDeviceisnew(int deviceisnew) {
+        LoginInfo.deviceisnew = deviceisnew;
+        car_pref.edit().putInt("deviceisnew", deviceisnew).apply();
+    }
+
+    public static int getDeviceisnew() {
+        deviceisnew = car_pref.getInt("deviceisnew", -1);
+        return deviceisnew;
+    }
+
     public static boolean isMain() {
         isMain = car_pref.getBoolean("isMain", false);
         return isMain;
@@ -1420,12 +1458,11 @@ public class LoginInfo extends BaseResponseInfo {
     }
 
     public static boolean isSetRemotePwd() {
-        isSetRemotePwd = user_pref.getBoolean("isSetRemotePwd", isSetRemotePwd);
+        isSetRemotePwd = user_pref.getBoolean("isSetRemotePwd", false);
         return isSetRemotePwd;
     }
 
     public static void setSetRemotePwd(boolean isSetRemotePwd) {
-        LoginInfo.isSetRemotePwd = isSetRemotePwd;
         user_pref.edit().putBoolean("isSetRemotePwd", isSetRemotePwd).apply();
     }
 
@@ -1498,4 +1535,22 @@ public class LoginInfo extends BaseResponseInfo {
         user_pref.edit().putString("tbox_type", tbox_type).commit();
     }
 
+    public static String getFlowWarn() {
+        return user_pref.getString("limit_warning", tbox_type);
+    }
+
+    public static void setFlowWarn(String limit_warning) {
+        LoginInfo.limit_warning = limit_warning;
+        user_pref.edit().putString("limit_warning", limit_warning).commit();
+    }
+
+    public static void setApp_type(int app_type) {
+        LoginInfo.app_type = app_type;
+        user_pref.edit().putInt("app_type", app_type).commit();
+    }
+
+    public static int getApp_type() {
+        app_type = user_pref.getInt("app_type", app_type);
+        return app_type;
+    }
 }

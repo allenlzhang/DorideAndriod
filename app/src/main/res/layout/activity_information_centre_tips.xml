@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/layout_background"
-    android:orientation="vertical">
+    android:background="@color/layout_background">
 
     <LinearLayout
         android:id="@+id/activity_career_secretary_tips_title"
@@ -25,19 +25,12 @@
             android:orientation="horizontal"
             android:paddingRight="10dp">
 
-            <TextView
+            <ImageView
                 android:id="@+id/activity_career_secretary_tips_car"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_blue_rec"
-                android:gravity="center_horizontal"
-                android:paddingBottom="3dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="3dp"
-                android:text="不准确？点这里！"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                />
 
             <TextView
                 android:id="@+id/activity_career_secretary_tips_havemainten"
@@ -60,16 +53,17 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/activity_career_secretary_tips_title"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="10dp"></com.carlt.doride.ui.pull.PullToRefreshListView>
+        android:paddingTop="10dp"/>
 
 
     <TextView
         android:id="@+id/activity_career_secretary_tips_empty"
         style="@style/public_nodata_txt"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/activity_career_secretary_img_empty"
         android:layout_marginTop="20dp"
         android:text="暂无此类型的提醒消息" />
 
@@ -77,10 +71,9 @@
         android:id="@+id/activity_career_secretary_img_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/activity_career_secretary_tips_empty"
+        android:layout_centerInParent="true"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/icon_error_bg"
+        android:src="@mipmap/icon_nodata"
         android:visibility="gone" />
 
 </RelativeLayout>

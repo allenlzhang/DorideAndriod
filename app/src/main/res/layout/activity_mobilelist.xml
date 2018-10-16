@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/mobilelist_txt_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/safe_margin_h"
+            android:text="您的主机"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dip" >
+            <TextView
+                android:id="@+id/mobilelist_txt_option"
+                android:layout_width="wrap_content"
+                android:layout_height="45dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/safe_margin_h"
+                android:paddingRight="@dimen/safe_margin_h"
+                android:singleLine="true"
+                android:text="更换主机"
+                android:textColor="#007aff"
+                android:textSize="16sp" 
+                android:layout_alignParentRight="true"
+                android:visibility="gone"/>
+            
+            <TextView
+                android:id="@+id/mobilelist_txt_host"
+                android:layout_width="fill_parent"
+                android:layout_height="45dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/safe_margin_h"
+                android:paddingRight="@dimen/safe_margin_h"
+                android:singleLine="true"
+                android:text="主机名称"
+                android:textColor="@color/text_color_gray2"
+                android:textSize="16sp" 
+                android:layout_toLeftOf="@id/mobilelist_txt_option"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/mobilelist_txt_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/safe_margin_h"
+            android:text="授权设备"
+            android:textColor="@color/text_color_gray2"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <com.carlt.sesame.ui.pull.PullToRefreshListView
+        android:id="@+id/mobilelist_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dip"
+        android:background="#ffffff"
+        android:paddingLeft="@dimen/layout_margin_h"
+        android:paddingRight="@dimen/layout_margin_h" >
+    </com.carlt.sesame.ui.pull.PullToRefreshListView>
+
+    <TextView
+        android:id="@+id/mobilelist_txt_empty"
+        style="@style/sesame_public_nodata_txt"
+        android:background="#ffffff"
+        android:text="您还没有其它的授权设备" />
+
+</LinearLayout>

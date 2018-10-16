@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
 
     private UserRegisterParams registerParams = new UserRegisterParams();
 
-    private final static String URL_PROVISION = "http://m.cheler.com/yema.html";// 服务条款URL
+    private final static String URL_PROVISION = "http://m.cheler.com/doride.html";// 服务条款URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +118,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     CPControl.GetMessageValidateResult("1", cellPhone, validateCodeListener);
                     count = 60;
                     register_verification_send.setText(count + "秒后重发");
-                    register_verification_send.setClickable(false);
-                    register_verification_send.setBackgroundResource(R.mipmap.btn_code_gray);
+                    register_verification_send.setEnabled(false);
 
                     task = new TimerTask() {
 
@@ -170,6 +170,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
 
     private TimerTask task;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -185,18 +186,17 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                             task.cancel();
                         }
                     }
-                    register_verification_send.setClickable(true);
+                    register_verification_send.setEnabled(true);
                     register_verification_send.setText(R.string.usercenter_push_validate1);
-                    register_verification_send.setBackgroundResource(R.drawable.verification_sending_bg);
 
                     mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     int flag = mBaseResponseInfo.getFlag();
                     if (flag == BaseResponseInfo.PHONE_REGISTERED) {
-                        UUToast.showUUToast(UserRegisterActivity.this, "该手机号已存在:"
-                                + mBaseResponseInfo.getInfo());
+                        UUToast.showUUToast(UserRegisterActivity.this,
+                                 mBaseResponseInfo.getInfo());
                     } else {
-                        UUToast.showUUToast(UserRegisterActivity.this, "验证码获取失败:"
-                                + mBaseResponseInfo.getInfo());
+                        UUToast.showUUToast(UserRegisterActivity.this,
+                                 mBaseResponseInfo.getInfo());
                     }
                     break;
                 case 2:
@@ -231,9 +231,8 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                                 task.cancel();
                             }
                         }
-                        register_verification_send.setClickable(true);
+                        register_verification_send.setEnabled(true);
                         register_verification_send.setText(R.string.usercenter_push_validate1);
-                        register_verification_send.setBackgroundResource(R.drawable.verification_send_bg);
                     }
                     break;
             }
@@ -281,9 +280,9 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         register_commit.setClickable(isChecked);
         if (isChecked) {
-            register_commit.setBackgroundResource(R.drawable.bottom_btn_bg);
+            register_commit.setEnabled(true);
         } else {
-            register_commit.setBackgroundResource(R.drawable.bottom_btn_gray);
+            register_commit.setEnabled(false);
         }
 
     }

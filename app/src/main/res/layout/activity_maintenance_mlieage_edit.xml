@@ -6,8 +6,6 @@
     android:background="@color/main_color"
     android:orientation="vertical"
     tools:context="com.carlt.doride.ui.activity.setting.MaintenanceMileageEditActivity">
-    <include
-        layout="@layout/layout_title"/>
     <EditText
         android:id="@+id/maintenance_mileage_input"
         android:layout_width="match_parent"
@@ -15,7 +13,7 @@
         android:layout_marginLeft="12dip"
         android:layout_marginRight="12dip"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textColorHint="@color/text_color_gray1"
         android:paddingLeft="12dp"
         android:textSize="14sp"
@@ -30,7 +28,6 @@
         android:text="@string/edit_commit"
         android:layout_marginTop="49dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
         android:textSize="16sp"
         android:textStyle="bold" />

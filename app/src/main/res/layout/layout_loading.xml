@@ -4,22 +4,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     >
-    <TextView
-        android:id="@+id/laoding_txt_des"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="15dp"
-        android:text="正在加载"
-        android:textColor="@color/app_white"
-        android:textSize="14sp"/>
+
     <ProgressBar
         android:id="@+id/loading_bar_loading"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/laoding_txt_des"
+        android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:indeterminateDrawable="@drawable/page_loading"/>
+
+    <TextView
+        android:id="@+id/laoding_txt_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="12dp"
+        android:text="正在加载..."
+        android:layout_below="@+id/loading_bar_loading"
+        android:textColor="@color/text_color_gray3"
+        android:textSize="14sp"/>
 </RelativeLayout>

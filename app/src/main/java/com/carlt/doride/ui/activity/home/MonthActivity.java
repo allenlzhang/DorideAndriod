@@ -1,13 +1,14 @@
 package com.carlt.doride.ui.activity.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.YemaApplication;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -26,273 +27,270 @@ import java.util.Date;
 
 public class MonthActivity extends LoadingActivity {
 
-	private TextView mTxtSumFuel;	//本月总油耗
-	private TextView mTxtSumMailes;	//本月总行程
-	private TextView mTxtMaxSpeed;	//最高时速
-	private TextView mTxtAvgFuel;;	//平均油耗
-	private TextView mTxtSumTime;	//本月行车时间
-	private TextView mTxtAvgSpeed;	//本月平均速度
+    private TextView mTxtSumFuel;    //本月总油耗
+    private TextView mTxtSumMailes;    //本月总行程
+    private TextView mTxtMaxSpeed;    //最高时速
+    private TextView mTxtAvgFuel;//平均油耗
+    private TextView mTxtSumTime;    //本月行车时间
+    private TextView mTxtAvgSpeed;    //本月平均速度
 
 
-	private String monthInitialValue = "";
+    private String monthInitialValue = "";
 
-//	private AsyncImageLoader mAsyncImageLoader = AsyncImageLoader.getInstance();
-
-
-	private TextView mTxtFuel;// 从插上OBD盒子到现在的总油耗
-	private BarGraph mBarGraghFuel;// 油耗柱状图
-
-	private TextView mTxtMiles;// 从插上OBD盒子到现在的总里程
-	private BarGraph mBarGraghMiles;// 里程柱状图
-	
-	private TextView mTxtTime;// 从插上OBD盒子到现在的总时间
-	private BarGraph mBarGraghTime;// 时间柱状图
+    //	private AsyncImageLoader mAsyncImageLoader = AsyncImageLoader.getInstance();
 
 
+    private TextView mTxtFuel;// 从插上OBD盒子到现在的总油耗
+    private BarGraph mBarGraghFuel;// 油耗柱状图
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_report_month);
-		initTitle("行车月报");
-		initView();
-//		try {
-//			monthInitialValue = getIntent().getStringExtra(
-//					ReportActivity.MONTH_INITIAL);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-		if (monthInitialValue == null || monthInitialValue.equals("")) {
-			monthInitialValue = getMonthAgo(Calendar.getInstance().getTime());
-		}
-		loadingDataUI();
-		initData();
+    private TextView mTxtMiles;// 从插上OBD盒子到现在的总里程
+    private BarGraph mBarGraghMiles;// 里程柱状图
 
-	}
-	/**
-	 *获取一个月前的日期
-	 * @param date 传入的日期
-	 * @return
-	 */
-	public static String getMonthAgo(Date date) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.add(Calendar.MONTH, -1);
-		String monthAgo = simpleDateFormat.format(calendar.getTime());
-		return monthAgo;
-	}
-	private void initData() {
-		if (monthInitialValue != null && monthInitialValue.length() > 0) {
-			StringBuffer titleBuffer = new StringBuffer();
-			if (monthInitialValue.equals("0000-00-00")) {
-				titleBuffer.append(MyTimeUtils.getDateFormat6());
-				titleBuffer.append("行车月报");
-			} else {
-				String[] strings = monthInitialValue.split("-");
-
-				if (strings.length > 1) {
-					titleBuffer.append(strings[0]);
-					titleBuffer.append("年");
-					int month = MyParse.parseInt(strings[1]);
-					if (month < 10) {
-						titleBuffer.append("0");
-					}
-					titleBuffer.append(month);
-					titleBuffer.append("月");
-				}
-				titleBuffer.append("行车月报");
-			}
-			initTitle(titleBuffer.toString());
-		}
-
-		CPControl.GetMonthReportResult(listener_month,monthInitialValue);
-	}
-
-	private void initView() {
-		mTxtFuel=(TextView) findViewById(R.id.report_month_txt_fuel);
-		mBarGraghFuel = (BarGraph) findViewById(R.id.report_month_bargraph_fuel);
-		
-		mTxtMiles=(TextView) findViewById(R.id.report_month_txt_miles);
-		mBarGraghMiles = (BarGraph) findViewById(R.id.report_month_bargraph_miles);
-		
-		mTxtTime=(TextView) findViewById(R.id.report_month_txt_time);
-		mBarGraghTime = (BarGraph) findViewById(R.id.report_month_bargraph_time);
+    private TextView mTxtTime;// 从插上OBD盒子到现在的总时间
+    private BarGraph mBarGraghTime;// 时间柱状图
 
 
-		mTxtSumFuel = findViewById(R.id.item_report_month_txt_value1);
-		mTxtSumMailes = findViewById(R.id.item_report_month_txt_value2);
-		mTxtMaxSpeed = findViewById(R.id.item_report_month_txt_value3);
-		mTxtAvgFuel = findViewById(R.id.item_report_month_txt_value4);
-		mTxtSumTime = findViewById(R.id.item_report_month_txt_value5);
-		mTxtAvgSpeed = findViewById(R.id.item_report_month_txt_value6);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_report_month);
+        initTitle("行车月报");
+        initView();
+        try {
+            monthInitialValue = getIntent().getStringExtra(
+                    ReportActivity.MONTH_INITIAL);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        if (monthInitialValue == null || monthInitialValue.equals("")) {
+            monthInitialValue = getMonthAgo(Calendar.getInstance().getTime());
+        }
+        loadingDataUI();
+        initData();
 
-	}
+    }
 
-	private ReportMonthInfo mReportMonthInfo;
+    /**
+     * 获取一个月前的日期
+     * @param date
+     *         传入的日期
+     * @return
+     */
+    public static String getMonthAgo(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, -1);
+        String monthAgo = simpleDateFormat.format(calendar.getTime());
+        return monthAgo;
+    }
 
-	@Override
-	public void loadDataSuccess (Object data) {
-		super.loadDataSuccess(data);
-		if (!StringUtils.isEmpty(mReportMonthInfo.getSumfuel())){
-			mTxtSumFuel.setText(mReportMonthInfo.getSumfuel());
-		}else {
-			mTxtSumFuel.setText("--");
-		}
+    private void initData() {
+        if (monthInitialValue != null && monthInitialValue.length() > 0) {
+            StringBuffer titleBuffer = new StringBuffer();
+            if (monthInitialValue.equals("0000-00-00")) {
+                titleBuffer.append(MyTimeUtils.getDateFormat6());
+                titleBuffer.append("行车月报");
+            } else {
+                String[] strings = monthInitialValue.split("-");
 
-		if (!StringUtils.isEmpty(mReportMonthInfo.getSummiles())){
-			mTxtSumMailes.setText(mReportMonthInfo.getSummiles());
-		}else {
-			mTxtSumMailes.setText("--");
-		}
+                if (strings.length > 1) {
+                    titleBuffer.append(strings[0]);
+                    titleBuffer.append("年");
+                    int month = MyParse.parseInt(strings[1]);
+                    if (month < 10) {
+                        titleBuffer.append("0");
+                    }
+                    titleBuffer.append(month);
+                    titleBuffer.append("月");
+                }
+                titleBuffer.append("行车月报");
+            }
+            initTitle(titleBuffer.toString());
+        }
 
-		if (!StringUtils.isEmpty(mReportMonthInfo.getMaxspeed())){
-			mTxtMaxSpeed.setText(mReportMonthInfo.getMaxspeed());
-		}else {
-			mTxtMaxSpeed.setText("--");
-		}
+        CPControl.GetMonthReportResult(listener_month, monthInitialValue);
+    }
 
-		if (!StringUtils.isEmpty(mReportMonthInfo.getAvgfuel())){
-			mTxtAvgFuel.setText(mReportMonthInfo.getAvgfuel());
-		}else {
-			mTxtAvgFuel.setText("--");
-		}
+    private void initView() {
+        mTxtFuel = (TextView) findViewById(R.id.report_month_txt_fuel);
+        mBarGraghFuel = (BarGraph) findViewById(R.id.report_month_bargraph_fuel);
 
-		if (!StringUtils.isEmpty(mReportMonthInfo.getSumtime())){
-			mTxtSumTime.setText(mReportMonthInfo.getSumtime());
-		}else {
-			mTxtSumTime.setText("--");
-		}
+        mTxtMiles = (TextView) findViewById(R.id.report_month_txt_miles);
+        mBarGraghMiles = (BarGraph) findViewById(R.id.report_month_bargraph_miles);
 
-		if (!StringUtils.isEmpty(mReportMonthInfo.getAvgspeed())){
-			mTxtAvgSpeed.setText(mReportMonthInfo.getAvgspeed());
-		}else {
-			mTxtAvgSpeed.setText("--");
-		}
+        mTxtTime = (TextView) findViewById(R.id.report_month_txt_time);
+        mBarGraghTime = (BarGraph) findViewById(R.id.report_month_bargraph_time);
 
-		MonthStatisticChartInfo mMonthStatisticChartInfo=(MonthStatisticChartInfo) ((BaseResponseInfo)data).getValue();
-		if(mMonthStatisticChartInfo!=null){
-			mTxtFuel.setText(monthInitialValue.split("-")[0]+"年");
-			mBarGraghFuel.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
-			mBarGraghFuel.setBarColor(getResources().getColor(R.color.orange));
-			mBarGraghFuel.setTxtColor(getResources().getColor(R.color.text_color_gray1));
-			mBarGraghFuel.setTextSize(YemaApplication.dpToPx(12));
-			mBarGraghFuel.setType(BarGraph.TYPE_FUEL);
 
-			mTxtMiles.setText(monthInitialValue.split("-")[0]+"年");
-			mBarGraghMiles.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
-			mBarGraghMiles.setBarColor(getResources().getColor(R.color.bar_gragh_miles_color));
-			mBarGraghMiles.setTxtColor(getResources().getColor(R.color.text_color_gray1));
-			mBarGraghMiles.setTextSize(YemaApplication.dpToPx(12));
-			mBarGraghMiles.setType(BarGraph.TYPE_MILES);
+        mTxtSumFuel = findViewById(R.id.item_report_month_txt_value1);
+        mTxtSumMailes = findViewById(R.id.item_report_month_txt_value2);
+        mTxtMaxSpeed = findViewById(R.id.item_report_month_txt_value3);
+        mTxtAvgFuel = findViewById(R.id.item_report_month_txt_value4);
+        mTxtSumTime = findViewById(R.id.item_report_month_txt_value5);
+        mTxtAvgSpeed = findViewById(R.id.item_report_month_txt_value6);
 
-			mTxtTime.setText(monthInitialValue.split("-")[0]+"年");
-			mBarGraghTime.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
-			mBarGraghTime.setBarColor(getResources().getColor(R.color.bar_gragh_time_color));
-			mBarGraghTime.setTxtColor(getResources().getColor(R.color.text_color_gray1));
-			mBarGraghTime.setTextSize(YemaApplication.dpToPx(12));
-			mBarGraghTime.setType(BarGraph.TYPE_TIME);
-		}
-		
-		if (monthInitialValue.equals("0000-00-00")) {
-		} else {
-			String[] strings = monthInitialValue.split("-");
-			if (strings.length > 1) {
-				int month = MyParse.parseInt(strings[1]);
-				mBarGraghFuel.setLightNum(month);
-				mBarGraghMiles.setLightNum(month);
-				mBarGraghTime.setLightNum(month);
-			}
-		}
-	}
+    }
 
-	private BaseParser.ResultCallback listener_month = new BaseParser.ResultCallback() {
+    private ReportMonthInfo mReportMonthInfo;
 
-		@Override
-		public void onSuccess(BaseResponseInfo bInfo) {
-			Message msg = new Message();
-			msg.what = 2;
-			msg.obj = bInfo;
-			mHandler.sendMessage(msg);
-		}
+    @Override
+    public void loadDataSuccess(Object data) {
+        super.loadDataSuccess(data);
+        if (!StringUtils.isEmpty(mReportMonthInfo.getSumfuel())) {
+            mTxtSumFuel.setText(mReportMonthInfo.getSumfuel());
+        } else {
+            mTxtSumFuel.setText("--");
+        }
 
-		@Override
-		public void onError(BaseResponseInfo bInfo) {
-			Message msg = new Message();
-			msg.what = 3;
-			msg.obj = bInfo;
-			mHandler.sendMessage(msg);
-		}
+        if (!StringUtils.isEmpty(mReportMonthInfo.getSummiles())) {
+            mTxtSumMailes.setText(mReportMonthInfo.getSummiles());
+        } else {
+            mTxtSumMailes.setText("--");
+        }
 
-	};
+        if (!StringUtils.isEmpty(mReportMonthInfo.getMaxspeed())) {
+            mTxtMaxSpeed.setText(mReportMonthInfo.getMaxspeed());
+        } else {
+            mTxtMaxSpeed.setText("--");
+        }
 
-	private Handler mHandler = new Handler() {
+        if (!StringUtils.isEmpty(mReportMonthInfo.getAvgfuel())) {
+            mTxtAvgFuel.setText(mReportMonthInfo.getAvgfuel());
+        } else {
+            mTxtAvgFuel.setText("--");
+        }
 
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case 2:
-				//拉取月报数据成功
-				mReportMonthInfo= (ReportMonthInfo) ((BaseResponseInfo) msg.obj).getValue();
-				CPControl.GetMonthReportLogResult(mCallback,monthInitialValue);
-				break;
-			case 3:
-				//拉取月报数据失败
-				loadonErrorUI((BaseResponseInfo) msg.obj);
-				loadDataError(msg.obj);
-				break;
-			}
-		}
+        if (!StringUtils.isEmpty(mReportMonthInfo.getSumtime())) {
+            mTxtSumTime.setText(mReportMonthInfo.getSumtime());
+        } else {
+            mTxtSumTime.setText("--");
+        }
 
-	};
+        if (!StringUtils.isEmpty(mReportMonthInfo.getAvgspeed())) {
+            mTxtAvgSpeed.setText(mReportMonthInfo.getAvgspeed());
+        } else {
+            mTxtAvgSpeed.setText("--");
+        }
 
-	@Override
-	public void reTryLoadData() {
-		super.reTryLoadData();
-		initData();
-	}
+        MonthStatisticChartInfo mMonthStatisticChartInfo = (MonthStatisticChartInfo) ((BaseResponseInfo) data).getValue();
+        if (mMonthStatisticChartInfo != null) {
+            mTxtFuel.setText(monthInitialValue.split("-")[0] + "年");
+            mBarGraghFuel.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
+            mBarGraghFuel.setBarColor(getResources().getColor(R.color.orange));
+            mBarGraghFuel.setTxtColor(getResources().getColor(R.color.text_color_gray1));
+            mBarGraghFuel.setTextSize(DorideApplication.dpToPx(12));
+            mBarGraghFuel.setType(BarGraph.TYPE_FUEL);
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
+            mTxtMiles.setText(monthInitialValue.split("-")[0] + "年");
+            mBarGraghMiles.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
+            mBarGraghMiles.setBarColor(getResources().getColor(R.color.bar_gragh_miles_color));
+            mBarGraghMiles.setTxtColor(getResources().getColor(R.color.text_color_gray1));
+            mBarGraghMiles.setTextSize(DorideApplication.dpToPx(12));
+            mBarGraghMiles.setType(BarGraph.TYPE_MILES);
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == ReportActivity.MENU) {
-			selectDate();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+            mTxtTime.setText(monthInitialValue.split("-")[0] + "年");
+            mBarGraghTime.setMonthStatisticCharInfo(mMonthStatisticChartInfo);
+            mBarGraghTime.setBarColor(getResources().getColor(R.color.bar_gragh_time_color));
+            mBarGraghTime.setTxtColor(getResources().getColor(R.color.text_color_gray1));
+            mBarGraghTime.setTextSize(DorideApplication.dpToPx(12));
+            mBarGraghTime.setType(BarGraph.TYPE_TIME);
+        }
 
-	/**
-	 * 弹出日期选择框
-	 */
-	private void selectDate() {
-		CalendarMonth mCalendarMonth = new CalendarMonth(MonthActivity.this,
-				mCalendarMonthClick);
-		mCalendarMonth.showMenu();
-	}
+        if (monthInitialValue.equals("0000-00-00")) {
+        } else {
+            String[] strings = monthInitialValue.split("-");
+            if (strings.length > 1) {
+                int month = MyParse.parseInt(strings[1]);
+                mBarGraghFuel.setLightNum(month);
+                mBarGraghMiles.setLightNum(month);
+                mBarGraghTime.setLightNum(month);
+            }
+        }
+    }
 
-	private CalendarMonth.OnCalendarMonthClick mCalendarMonthClick = new CalendarMonth.OnCalendarMonthClick() {
 
-		@Override
-		public void onClick(String date) {
-			monthInitialValue = date;
-			loadingDataUI();
-			initData();
-		}
-	};
+    private BaseParser.ResultCallback listener_month = new BaseParser.ResultCallback() {
 
-//	@Override
-//	public void OnImgLoadFinished(String url, Bitmap mBitmap) {
-//		super.OnImgLoadFinished(url, mBitmap);
-//		if (url != null && url.equals(LoginInfo.getAvatar_img())
-//				&& mBitmap != null) {
-//			Bitmap bitmap = ImageUtils.getRoundedCornerBitmap(mBitmap, 20);
-//			mImgAvadar.setImageBitmap(bitmap);
-//		}
-//	}
+        @Override
+        public void onSuccess(BaseResponseInfo bInfo) {
+            Message msg = new Message();
+            msg.what = 2;
+            msg.obj = bInfo;
+            mHandler.sendMessage(msg);
+        }
+
+        @Override
+        public void onError(BaseResponseInfo bInfo) {
+            Message msg = new Message();
+            msg.what = 3;
+            msg.obj = bInfo;
+            mHandler.sendMessage(msg);
+        }
+
+    };
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 2:
+                    //拉取月报数据成功
+                    mReportMonthInfo = (ReportMonthInfo) ((BaseResponseInfo) msg.obj).getValue();
+                    CPControl.GetMonthReportLogResult(mCallback, monthInitialValue);
+                    break;
+                case 3:
+                    //拉取月报数据失败
+                    loadonErrorUI((BaseResponseInfo) msg.obj);
+                    //                    mIvErrorIcon.setImageResource(R.mipmap.icon_nodata);
+                    loadDataError(msg.obj);
+                    break;
+            }
+        }
+
+    };
+
+    @Override
+    public void reTryLoadData() {
+        super.reTryLoadData();
+        initData();
+    }
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == ReportActivity.MENU) {
+            selectDate();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 弹出日期选择框
+     */
+    private void selectDate() {
+        CalendarMonth mCalendarMonth = new CalendarMonth(MonthActivity.this,
+                mCalendarMonthClick);
+        mCalendarMonth.showMenu();
+    }
+
+    private CalendarMonth.OnCalendarMonthClick mCalendarMonthClick = new CalendarMonth.OnCalendarMonthClick() {
+
+        @Override
+        public void onClick(String date) {
+            monthInitialValue = date;
+            loadingDataUI();
+            initData();
+        }
+    };
+
+
 }

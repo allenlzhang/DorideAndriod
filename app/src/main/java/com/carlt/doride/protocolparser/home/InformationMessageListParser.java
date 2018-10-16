@@ -35,16 +35,16 @@ public class InformationMessageListParser extends BaseParser<InformationMessageI
 
 				String content = temp.get("content").getAsString();
 				mInfo.setContent(content);
-				mInfo.setDetial_flag(InformationMessageInfo.FLAG_NONE);
-				if (content != null && !content.equals("")) {
-					if (content.length() > InformationMessageInfo.ReferenceSize) {
-						mInfo.setDetial_flag(InformationMessageInfo.FLAG_REFERENCE);
-						String reference = content.substring(0,
-								InformationMessageInfo.ReferenceSize - 10)
-								+ "...";
-						mInfo.setContentReference(reference);
-					}
-				}
+//				mInfo.setDetial_flag(InformationMessageInfo.FLAG_NONE);
+//				if (content != null && !content.equals("")) {
+//					if (content.length() > InformationMessageInfo.ReferenceSize) {
+//						mInfo.setDetial_flag(InformationMessageInfo.FLAG_REFERENCE);
+//						String reference = content.substring(0,
+//								InformationMessageInfo.ReferenceSize - 10)
+//								+ "...";
+//						mInfo.setContentReference(reference);
+//					}
+//				}
 				int class1 = temp.get("class1").getAsInt();
 				int class2 = temp.get("class2").getAsInt();
 				mInfo.setClass1(class1);
@@ -55,15 +55,15 @@ public class InformationMessageListParser extends BaseParser<InformationMessageI
 				mInfo.setMiles(temp.get("miles").getAsString());
 
 				String fuel_value = temp.get("fuel").getAsString();
-				float fuel= MyParse.parseFloat(fuel_value);
-				if (fuel < 100) {
-					fuel_value = fuel+"毫升";
-				} else {
-					fuel = (float) (fuel / 1000.0);
-					BigDecimal bd = new BigDecimal(fuel);
-					bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
-					fuel_value = bd + "升";
-				}
+//				float fuel= MyParse.parseFloat(fuel_value);
+//				if (fuel < 100) {
+//					fuel_value = fuel+"毫升";
+//				} else {
+//					fuel = (float) (fuel / 1000.0);
+//					BigDecimal bd = new BigDecimal(fuel);
+//					bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
+//					fuel_value = bd + "升";
+//				}
 				mInfo.setFuel(fuel_value);
 
 				if (temp.get("istop").getAsInt() == 1) {
@@ -92,22 +92,4 @@ public class InformationMessageListParser extends BaseParser<InformationMessageI
 
 	}
 
-	//
-	// public BaseResponseInfo getBaseResponseInfo(String url, String post) {
-	// try {
-	// InputStream in = CPApplication.ApplicationContext.getAssets().open(
-	// "json_order2.txt");
-	// mJson = new JSONObject(FileUtil.ToString(in));
-	// Log.e("info", "Http响应--" + mJson);
-	// mBaseResponseInfo.setFlag(mJson.getString("code"));
-	// mBaseResponseInfo.setInfo(mJson.getString("msg"));
-	// } catch (Exception e) {
-	// Log.e("info", "BaseParser--e==" + e);
-	// }
-	// if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-	// parser();
-	// }
-	// return mBaseResponseInfo;
-	//
-	// }
 }

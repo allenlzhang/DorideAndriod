@@ -36,9 +36,11 @@ public class UUToastOpt extends Toast {
 		toast.setGravity(Gravity.CENTER, 0, 0);
 	}
 
-	public static void showUUToast(Context context, CharSequence tex,
-                                   int duration) {
+	public static void showUUToast(Context context, CharSequence tex, int duration) {
 		if (uuTo == null) {
+			uuTo = new UUToastOpt(context);
+		} else {
+			uuTo.cancel();
 			uuTo = new UUToastOpt(context);
 		}
 		text.setText(tex);

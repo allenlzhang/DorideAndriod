@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/login_bg"
-    tools:context="com.carlt.doride.ui.activity.login.ActivateBindActivity">
+    android:background="#f0f0f0"
+    >
+
     <include layout="@layout/layout_title" />
+
     <EditText
         android:id="@+id/register_phone_input"
         style="@style/usercenter_edit1"
@@ -15,8 +16,9 @@
         android:gravity="center_vertical"
         android:layout_marginBottom="0dp"
         android:hint="@string/usercenter_hint_phone1"
-        android:inputType="number|textPhonetic"
-        android:maxLength="11"/>
+        android:inputType="number"
+        android:maxLength="11" />
+
     <LinearLayout
         style="@style/login_input_bg"
         android:layout_marginTop="10dp"
@@ -38,12 +40,12 @@
             android:id="@+id/register_verification_send"
             android:layout_width="80dip"
             android:layout_height="30dip"
-            android:gravity="center"
-            android:text="@string/usercenter_push_validate"
-            android:textColor="@color/black"
             android:layout_marginRight="10dip"
             android:background="@drawable/verification_send_bg"
-            android:textSize="14sp"/>
+            android:gravity="center"
+            android:text="@string/usercenter_push_validate"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="14sp" />
     </LinearLayout>
     <LinearLayout
         style="@style/login_input_bg"
@@ -63,17 +65,18 @@
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:inputType="textPassword"
-            android:maxLength="32" />
+            android:maxLength="32"
+            android:digits="@string/pwd_filter_input_string"
+            />
 
         <ImageView
             android:id="@+id/register_passwd_toggle"
-            android:layout_width="25dp"
-            android:layout_marginRight="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_height="25dp"
-            android:tag="off"
+            android:layout_marginRight="10dip"
             android:src="@mipmap/passwd_off"
-             />
+            android:tag="off" />
     </LinearLayout>
     <LinearLayout
 
@@ -94,16 +97,18 @@
             android:inputType="textPassword"
             android:focusableInTouchMode="true"
             android:focusable="true"
-            android:maxLength="32" />
+            android:maxLength="32"
+            android:digits="@string/pwd_filter_input_string"
+            />
 
         <ImageView
             android:id="@+id/register_passwd_again_toggle"
-            android:layout_width="25dp"
-            android:layout_marginRight="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_height="25dp"
-            android:tag="off"
-            android:src="@mipmap/passwd_off"/>
+            android:layout_marginRight="10dip"
+            android:src="@mipmap/passwd_off"
+            android:tag="off" />
     </LinearLayout>
     <RelativeLayout
         android:id="@+id/register_lay_declaration"
@@ -115,8 +120,8 @@
 
         <CheckBox
             android:id="@+id/register_check"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:button="@drawable/check_bg"
@@ -128,9 +133,9 @@
             android:layout_height="fill_parent"
             android:layout_toRightOf="@id/register_check"
             android:gravity="center_vertical"
-            android:text="我已阅读并同意"
+            android:text="已阅读并同意"
             android:textColor="@color/text_color_gray1"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/register_txt_declaration"
@@ -139,18 +144,18 @@
             android:layout_toRightOf="@id/text_title"
             android:gravity="center_vertical"
             android:text="《服务条款及免责声明》"
-            android:textColor="@color/scarlet"
-            android:textSize="13sp" />
+            android:textColor="#478cea"
+            android:textSize="14sp" />
     </RelativeLayout>
     <TextView
         android:id="@+id/register_commit"
         style="@style/public_bottom_btn"
         android:layout_height="44dp"
-        android:text="@string/register_commit_txt"
-        android:layout_marginTop="33dip"
         android:layout_marginLeft="12dip"
-        android:textColor="@color/black"
         android:layout_marginRight="12dip"
+        android:layout_marginTop="33dip"
+        android:text="@string/register_commit_txt"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold" />
 </LinearLayout>

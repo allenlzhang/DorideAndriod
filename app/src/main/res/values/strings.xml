@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YEMA</string>
+    <string name="app_name">大乘智享</string>
 
     <string name="version">V %1$s</string>
     <string name="terms_of_service">《<u>服务条款</u>》</string>
@@ -9,7 +9,7 @@
     <!-- 用户中心（除主tab项以外的其它杂项）marller -->
     <string name="usercenter_hint_phone">用手机号码登录</string>
     <string name="usercenter_hint_phone1">请输入手机号码</string>
-    <string name="usercenter_hint_phone2">请设置新登录密码</string>
+    <string name="usercenter_hint_phone2">请输入新登录密码</string>
     <string name="usercenter_hint_validate">请输入验证码</string>
     <string name="usercenter_hint_password">密码</string>
     <string name="usercenter_hint_password_reset">请再次输入密码</string>
@@ -21,11 +21,12 @@
     <string name="usercenter_push_validate1">重发验证码</string>
     <string name="_car_real_condation">实时车况</string>
     <string name="usercenter_pin_code">请输入车辆PIN码</string>V
-    <string name="usercenter_vin_code">请输入车辆VIN码</string>
+    <string name="usercenter_vin_code">请输入车辆VIN码(车架号)</string>
     <string name="_car_select_type">请选择车型</string>
-    <string name="device_bind_tx">绑定设备</string>
-    <string name="device_activate_tx">激活设备</string>
-    <string name="device_activate_tip">激活设备后就能使用全部功能</string>
+    <string name="device_bind_tx">绑定</string>
+    <string name="device_activate_tx">激活</string>
+    <string name="device_activate_tip">激活后就能使用大乘智享全部功能</string>
+    <string name="device_activate_tip2">激活过程可能需要2-5分钟，请耐心等待</string>
     <string name="change_commit_txt">确认修改</string>
     <string name="register_passwd_txt">请输入登录密码</string>
     <string name="register_passwd_again_txt">请再次输入密码</string>
@@ -36,16 +37,17 @@
 
     <!--我的界面-->
     <string name="default_time_txt">2018-3-17</string>
-    <string name="user_name_default">野马车主B3718</string>
+    <string name="user_name_default">大乘车主B3718</string>
     <string name="travel_phone_album">旅行相册</string>
     <string name="account_security">账号与安全</string>
     <string name="car_manager_txt">车辆管理</string>
     <string name="msg_manager_txt">消息管理</string>
     <string name="device_manager_txt">设备管理</string>
+    <string name="device_recharge_txt">流量充值</string>
     <string name="general_manager_txt">通用管理</string>
     <string name="clean_cache_txt">清除缓存</string>vart
     <string name="contact_us_txt">联系我们</string>
-    <string name="about_yema_txt">关于</string>
+    <string name="about_yema_txt">关于大乘智享</string>
     <string name="logout_txt">退出登录</string>
     <!--修改资料界面-->
     <string name="title_personinfo_edit_txt">修改资料</string>
@@ -55,7 +57,7 @@
     <string name="person_sex_default_txt">保密</string>
     <!--修改资料界面-->
     <string name="car_type_txt">车型</string>
-    <string name="car_type_txt_default">野马 B10 2018,风尚款</string>
+    <string name="car_type_txt_default">大乘 B10 2018,风尚款</string>
     <string name="car_purchase_time_txt">购车时间</string>
     <string name="last_maintenance_mileage_txt">上次保养里程</string>
     <string name="last_maintenance_mileage">%1$d km</string>
@@ -105,12 +107,90 @@
     <string name="device_binded_txt">已绑定设备: %1$s</string>
     <!--清除缓存-->
     <string name="cache_clean_tips">确定清除缓存？</string>
+    <string name="update_1">"野马增添新功能了，是否需要更新为新版本？"</string>
+    <string name="update_2">"野马增添新功能了，便于您继续使用，请更新为新版本。"</string>
+    <string name="update_erro">"网络连接失败，请检查联网"</string>
 
     <string name="listItem_day_driveInfo">今日驾驶%1$s次</string>
     <string name="day_score">分</string>
     <string name="listItem_day_timeAndMile">%1$s至%2$s(%3$s)</string>
+    <string name="sesame_listItem_day_timeAndMile">%1$s至%2$s(%3$s) %4$s公里</string>"
     <string name="vin_filter_string">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-
+    <string name="pwd_filter_input_string">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+        &#126;&#096;&#064;&#035;&#036;&#037;&#094;&#038;&#042;-&#095;&#061;&#043;&#124;\\&#063;&#047;&#040;
+        &#041;&#060;&#062;&#091;&#093;&#123;&#125;&quot;&#044;&#046;&#059;'&#033;）</string>
     <!--信鸽推送key -->
     <string name="SECRET_KEY">4d3a5b8012846ed443b731681411ddc1</string>
+
+    <!-- 主页面-生涯 -->
+    <string name="career_main_diverlevel">驾驶证等级&#160;&#160;</string>
+    <string name="career_main_totem">图腾：</string>
+    <string name="career_main_liter">升</string>
+    <string name="career_main_kilometre">公里</string>
+    <string name="career_main_km_h">公里/小时</string>
+
+    <!-- 生涯-车秘书 -->
+    <string name="secretary_name">大乘助手:</string>
+    <string name="secretary_tip_title">车秘书提示标题</string>
+    <string name="secretary_tip_content">车秘书提示内容</string>
+    <string name="secretary_tip_title1">用车提醒提示标题</string>
+    <string name="secretary_tip_content1">用车提醒提示内容</string>
+    <string name="secretary_tip_maintenance">保养预约</string>
+    <string name="secretary_tip_repair">维修预约</string>
+    <string name="secretary_tip_title2">安防故障提示标题</string>
+    <string name="secretary_tip_content2">安防故障提示内容</string>
+    <string name="secretary_tip_remote">远程诊断</string>
+    <string name="secretary_tip_title3">奖品活动提示标题</string>
+    <string name="secretary_tip_content3">奖品活动提示内容</string>
+    <string name="secretary_tip_reward">领取奖品</string>
+    <string name="secretary_tip_signup">报名参加</string>
+    <string name="secretary_tip_title4">行车信息提示标题</string>
+    <string name="secretary_tip_content4">行车信息提示内容</string>
+    <string name="secretary_tip_report">查看行车报告</string>
+    <string name="secretary_question">问题描述</string>
+    <string name="secretary_adviser">推荐顾问</string>
+    <string name="secretary_adviser_name">顾问姓名</string>
+    <string name="secretary_adviser_company">顾问所属公司</string>
+    <string name="secretary_question_push">发送问题</string>
+    <string name="secretary_consult_tel">电话咨询</string>
+
+    <!-- 座驾-违章 -->
+    <string name="car_illegal_address">违章地点</string>
+    <string name="car_illegal_description">违章描述</string>
+    <string name="car_illegal_date">违章日期</string>
+    <string name="car_illegal_punish_score">扣0分</string>
+    <string name="car_illegal_punish_money">罚0元</string>
+    <string name="car_illegal_state">违章状态</string>
+    <string name="car_illegal_txt1">允许普奔自动推送违章信息（免费）</string>
+    <string name="car_illegal_txt2">每周推送一次</string>
+    <string name="car_illegal_city">请选择上牌城市</string>
+    <string name="car_illegal_num">请填写车牌号</string>
+    <string name="car_illegal_engine">请填写发动机号</string>
+    <string name="car_illegal_frame">请填写车架号</string>
+    <string name="car_illegal_query">开始体验</string>
+
+    <string name="car_city">上牌城市</string>
+    <string name="car_num">车&#160;&#160;牌&#160;&#160;号</string>
+    <string name="car_engine">发动机号</string>
+    <string name="car_frame">车&#160;&#160;架&#160;&#160;号</string>
+    <string name="car_certificate">登记证书号</string>
+
+    <string name="register_secretary_girl">小秘书</string>
+    <string name="register_secretary_boy">乐博士</string>
+
+    <string name="traffic_used_status">已用流量:%1$s</string>
+    <string name="traffic_remain_status">剩余流量:%1$s</string>
+    <string name="traffic_log_buy_value">[ %1$s ]</string>
+
+    <string name="traffic_buy_info"><font size="14">%1$s</font>\\n<font size="12">%2$.2f元</font></string>
+    <string name="traffic_buy_value">[%1$d]</string>
+    <string name="traffic_buy_amount">￥%1$s</string>
+
+
+    <string name="traffic_warnning_title">流量提醒</string>
+    <string name="traffic_warnning_tips">本月您的免费流量额度已经耗尽，\n已停止您本月设备的流量共享服务\n(次月恢复)。本月如需使用该服\n务，请充值流量加油包</string>
+    <string name="traffic_warnning_no">不再提醒</string>
+    <string name="traffic_never_remind">不再提醒</string>
+    <string name="traffic_buy_now">立即购买</string>
+    <string name="i_kwon_it">我知道了</string>
 </resources>

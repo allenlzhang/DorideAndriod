@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_color"
-    android:orientation="vertical"
-    tools:context=".ui.activity.setting.MsgManageActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_color"
+              android:orientation="vertical"
+              tools:context=".ui.activity.setting.MsgManageActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -13,64 +13,55 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="10dp"
-        android:background="@color/setting_item_bg"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
             style="@style/setting_page_item_style"
-            android:layout_marginTop="10dp"
-            android:background="@color/setting_item_bg"
             android:gravity="center_vertical"
-
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/insurance_expiration_reminder_txt"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textColor="@color/text_color_gray3"
+                android:textSize="14sp"/>
 
 
             <CheckBox
                 android:id="@+id/insurance_expiration_reminder"
                 style="@style/manage_message_checkbox"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"/>
         </LinearLayout>
 
-        <View style="@style/setting_page_item_divider" />
 
         <LinearLayout
             style="@style/setting_page_item_style"
-            android:layout_marginTop="10dp"
-            android:background="@color/setting_item_bg"
             android:gravity="center_vertical"
-
-
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/annual_inspection_reminder_txt"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:text="允许推送启动提醒"
+                android:textColor="@color/text_color_gray3"
+                android:textSize="14sp"/>
 
 
             <CheckBox
-                android:id="@+id/annual_inspection_reminder"
+                android:id="@+id/cb_start_reminding"
                 style="@style/manage_message_checkbox"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"/>
         </LinearLayout>
 
-        <View style="@style/setting_page_item_divider" />
+        <View style="@style/setting_page_item_divider"/>
 
         <LinearLayout
             style="@style/setting_page_item_style"
-            android:layout_marginTop="10dp"
-            android:background="@color/setting_item_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -79,14 +70,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/driving_report_txt"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textColor="@color/text_color_gray3"
+                android:textSize="14sp"/>
 
 
             <CheckBox
                 android:id="@+id/driving_report"
                 style="@style/manage_message_checkbox"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

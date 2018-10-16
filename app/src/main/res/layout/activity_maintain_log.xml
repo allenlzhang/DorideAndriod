@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="10dip" >
+
+    <TextView
+        android:id="@+id/maintain_log_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dip"
+        android:background="#5483C7"
+        android:gravity="center"
+        android:text="现  在  预  约"
+        android:textColor="#ffffff"
+        android:textSize="20sp" 
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/maintain_log_btn"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/sub_head"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dip"
+            layout="@layout/sesame_head_sub_normal" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:background="#e5e5e5"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="11dip"
+                android:layout_height="14dip"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dip"
+                android:src="@drawable/icon_maintain_advice" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dip"
+                android:gravity="center_vertical"
+                android:text="保养建议"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/maintain_log_listview"
+            style="@style/public_listView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/maintain_log_txt_nodata"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="该车型暂无保养建议项目 T_T"
+        android:textColor="#999999"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

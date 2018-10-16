@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.ActivityControl;
@@ -21,6 +22,13 @@ import com.carlt.doride.ui.activity.login.DeviceBindActivity;
 import com.carlt.doride.ui.adapter.CarTypeAdapter;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.sesame.data.SesameLoginInfo;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,11 +36,11 @@ import java.util.HashMap;
 
 public class CarTypeListActivity extends LoadingActivity {
 
-    private ListView car_type_list;//车款列表
+    private ListView       car_type_list;//车款列表
     private CarTypeAdapter adapter;
-    private Intent intent;
-    private String optionid;//车型ID
-    private static String brandid = "21";//车系ID
+    private Intent         intent;
+    private String         optionid;//车型ID
+    private static String brandid = "2579";//车系ID
     private String carId;//车款ID
     private String carTitle;
     private String vinCode;
@@ -42,7 +50,7 @@ public class CarTypeListActivity extends LoadingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_type_list);
         intent = getIntent();
-        vinCode=intent.getStringExtra("vin");
+        vinCode = intent.getStringExtra("vin");
         optionid = intent.getStringExtra("optionid");
         loadingDataUI();
         initComponent();
@@ -71,6 +79,9 @@ public class CarTypeListActivity extends LoadingActivity {
                 CarModeInfo modeInfo = (CarModeInfo) adapterView.getItemAtPosition(i);
                 carId = modeInfo.getId();
                 carTitle = modeInfo.getTitle();
+                if (carTitle == null) {
+                    return;
+                }
                 if (intent != null && intent.getBooleanExtra("switch", false)) {
                     switchCarType();
                 } else {
@@ -113,16 +124,76 @@ public class CarTypeListActivity extends LoadingActivity {
 
             @Override
             public void onRightClick() {
-                DefaultStringParser parser = new DefaultStringParser(addResult);
-                HashMap<String, String> params = new HashMap<>();
-                params.put("brandid", brandid);
-                params.put("optionid", optionid);
-                params.put("carid", carId);
-                parser.executePost(URLConfig.getM_CAR_ADD_CAR(), params);
+                if (carTitle.startsWith("E20")) {
+
+                    LoginInfo.setApp_type(2);
+                    addSesameCar();
+                } else if (carTitle.startsWith("大乘")) {
+                    LoginInfo.setApp_type(1);
+                    addDorideCar();
+                }
+
 
             }
         });
 
+    }
+
+    private void addSesameCar() {
+        // TODO: 2018/8/2  
+//        String dorideToken = LoginInfo.getAccess_token();
+//        String dorideToken = SesameLoginInfo.getAccess_token();
+        OkGo.<String>post(com.carlt.sesame.systemconfig.URLConfig.getM_SET_CAR_INFO_URL())
+                .params("client_id", com.carlt.sesame.systemconfig.URLConfig.getClientID())
+                .params("dealerId", SesameLoginInfo.getDealerId())
+                .params("token", SesameLoginInfo.getAccess_token())
+                .params("deviceType", "android")
+                .params("brandid", brandid)
+                .params("optionid", optionid)
+                .params("carid", carId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtils.e("===" + response.body());
+                        String body = response.body();
+                        try {
+                            JSONObject jo = new JSONObject(body);
+                            int code = jo.getInt("code");
+                            if (code == 200) {
+                                LoginInfo.setCarname(carTitle);
+                                Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
+                                intent.putExtra("cat_title", carTitle);
+                                intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
+                                if (!TextUtils.isEmpty(vinCode)) {
+                                    intent.putExtra("vin", vinCode);
+                                }
+                                SesameLoginInfo.setDeviceActivate(true);
+                                CarTypeListActivity.this.startActivity(intent);
+                                ActivityControl.finishAllCarSelectActivity();
+                            } else {
+                                UUToast.showUUToast(CarTypeListActivity.this, " 车型绑定失败");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+
+                        UUToast.showUUToast(CarTypeListActivity.this, " 车型绑定失败");
+                    }
+                });
+    }
+
+    private void addDorideCar() {
+        DefaultStringParser parser = new DefaultStringParser(addResult);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("brandid", brandid);
+        params.put("optionid", optionid);
+        params.put("carid", carId);
+        parser.executePost(URLConfig.getM_CAR_ADD_CAR(), params);
     }
 
     BaseParser.ResultCallback addResult = new BaseParser.ResultCallback() {
@@ -131,10 +202,20 @@ public class CarTypeListActivity extends LoadingActivity {
             LoginInfo.setCarname(carTitle);
             Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
             intent.putExtra("cat_title", carTitle);
-            intent.putExtra("from","com.carlt.doride.ActivateBindActivity");
+            intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
             if (!TextUtils.isEmpty(vinCode)) {
                 intent.putExtra("vin", vinCode);
             }
+            if (optionid.equals("2582")) {
+                LoginInfo.setDeviceisnew(1);
+            } else {
+                LoginInfo.setDeviceisnew(0);
+            }
+            //            if (carTitle.startsWith("E20")) {
+            //                LoginInfo.setApp_type(2);
+            //            } else if (carTitle.startsWith("大乘")) {
+            //                LoginInfo.setApp_type(1);
+            //            }
             CarTypeListActivity.this.startActivity(intent);
             ActivityControl.finishAllCarSelectActivity();
         }
@@ -175,6 +256,11 @@ public class CarTypeListActivity extends LoadingActivity {
         public void onSuccess(BaseResponseInfo bInfo) {
             LoginInfo.setCarname(carTitle);
             UUToast.showUUToast(CarTypeListActivity.this, " 车型修改成功");
+            if (optionid.equals("2582")) {
+                LoginInfo.setDeviceisnew(1);
+            } else {
+                LoginInfo.setDeviceisnew(0);
+            }
             ActivityControl.finishAllCarSelectActivity();
         }
 

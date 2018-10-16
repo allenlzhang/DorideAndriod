@@ -50,9 +50,6 @@ public class TravelAlbumActivity extends LoadingActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_album);
         initTitle("旅行相册");
-        setBtnOptVisible(true);
-        setBtnOptText("编辑");
-        setOnBtnOptClickListener(this);
         initComponent();
     }
 
@@ -225,7 +222,6 @@ public class TravelAlbumActivity extends LoadingActivity implements View.OnClick
 
     private void changeAlbumStatus() {
         if (idEditing) {
-            setBtnOptText(getResources().getString(R.string.travel_album_cancel));
             album_image_item_opt.setVisibility(View.VISIBLE);
             idEditing = false;
             isSelectAll=false;
@@ -234,7 +230,6 @@ public class TravelAlbumActivity extends LoadingActivity implements View.OnClick
                 adapter.notifyDataSetChanged();
             }
         } else {
-            setBtnOptText(getResources().getString(R.string.travel_album_edit));
             idEditing = true;
             album_image_item_opt.setVisibility(View.GONE);
             cancelSelectall();

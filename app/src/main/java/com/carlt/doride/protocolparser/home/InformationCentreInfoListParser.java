@@ -36,14 +36,14 @@ public class InformationCentreInfoListParser extends BaseParser<InformationCateg
 					// 11 用车消息
 					mInfo.setImg(R.drawable.icon_secretary_car);
 					break;
-//				case InformationMessageInfo.C1_T2:
-//					// 21 安防提醒
-////					mInfo.setImg(R.drawable.icon_secretary_safe_2);
-//					break;
-				case InformationMessageInfo.C1_T3:
+				case InformationMessageInfo.C1_T2:
+					// 21 安防提醒
+					mInfo.setImg(R.drawable.icon_secretary_safe);
+					break;
+//				case InformationMessageInfo.C1_T3:
 					// 31 奖品活动
 //					mInfo.setImg(R.drawable.secretary_reward);
-					break;
+//					break;
 				case InformationMessageInfo.C1_T4:
 					// 41 行车消息
 					mInfo.setImg(R.drawable.icon_secretary_car_log);
@@ -57,10 +57,10 @@ public class InformationCentreInfoListParser extends BaseParser<InformationCateg
 					// 61 保养提醒
 					mInfo.setImg(R.drawable.icon_secretary_maintain);
 					break;
-				case InformationMessageInfo.C1_T7:
-					// 62 车辆关怀
-					mInfo.setImg(R.drawable.icon_secretary_car_care);
-					break;
+//				case InformationMessageInfo.C1_T7:
+//					// 62 车辆关怀
+//					mInfo.setImg(R.drawable.icon_secretary_car_care);
+//					break;
 				}
 				String lastmsg = temp.get("lastmsg").getAsString();
 				if (lastmsg == null || lastmsg.equals("")) {

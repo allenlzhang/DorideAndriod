@@ -29,6 +29,7 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
+import com.carlt.doride.utils.LoadLocalImageUtil;
 import com.carlt.doride.utils.PhotoUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -70,12 +71,12 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avatar_display);
         intent = getIntent();
-        initTitle("");
+        initTitle("修改资料");
+        optRight.setVisibility(View.VISIBLE);
+        optRight.setText("修改");
+        optRight.setOnClickListener(this);
         initComponent();
-        setBtnOptText("修改");
-        setBtnOptVisible(true);
-        setOnBtnOptClickListener(this);
-        loadSuccessUI();
+//        loadSuccessUI();
         if (!TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
             Glide.with(this).load(LoginInfo.getAvatar_img()).into(image_display);
         } else {
@@ -97,7 +98,7 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
     @Override
     protected void onResume() {
         if ( !TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            Glide.with(this).load(LoginInfo.getAvatar_img()).into(image_display);
+            LoadLocalImageUtil.getInstance().displayFromWeb(LoginInfo.getAvatar_img(), image_display, R.mipmap.default_avater);
         } else {
             image_display.setImageResource(R.mipmap.default_avater);
         }
@@ -107,7 +108,7 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnOpt:
+            case R.id.layout_title_back_text2:
                 if (this.view.getVisibility() == View.GONE) {
                     this.view.setVisibility(View.VISIBLE);
                 } else {

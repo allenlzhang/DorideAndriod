@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/remote_main_lay_state"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/layout_background"
+                android:visibility="gone" >
+
+                <GridView
+                    android:id="@+id/remote_main_gridView_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginTop="15dip"
+                    android:horizontalSpacing="10dip"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:verticalSpacing="15dip" />
+
+                <ImageView
+                    android:id="@+id/remote_main_img_arrow"
+                    android:layout_width="33dip"
+                    android:layout_height="30dip"
+                    android:layout_below="@id/remote_main_gridView_state"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="3dip"
+                    android:src="@drawable/arrow_up_bg" />
+
+                <View
+                    style="@style/line_h"
+                    android:layout_below="@id/remote_main_img_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/remote_main_lay_normal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/remote_main_lay_state" >
+
+                <RelativeLayout
+                    android:id="@+id/remote_main_lay_engine"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="42.5dip"
+                    android:layout_marginTop="30dip" >
+
+                    <ImageView
+                        android:id="@+id/remote_main_img_start"
+                        android:layout_width="250.5dip"
+                        android:layout_height="250dip"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/remote_start" />
+
+                    <View
+                        android:id="@+id/remote_main_view_stop_mask"
+                        android:layout_width="224.5dip"
+                        android:layout_height="35dip"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="210dip" />
+
+                    <ImageView
+                        android:id="@+id/remote_main_img_stop"
+                        android:layout_width="89dip"
+                        android:layout_height="34dip"
+                        android:layout_below="@id/remote_main_img_start"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="-40dip"
+                        android:src="@drawable/remote_stop" />
+
+                    <TextView
+                        android:id="@+id/remote_main_txt_engine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/remote_main_img_stop"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="70dip"
+                        android:text="远程启动车辆"
+                        android:textColor="#333"
+                        android:textSize="16sp"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <com.carlt.sesame.ui.view.MyGridView
+                    android:id="@+id/remote_main_gridView_function"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@id/remote_main_lay_engine"
+                    android:layout_marginBottom="15dip"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:horizontalSpacing="20dip"
+                    android:minHeight="400dip"
+                    android:numColumns="3"
+                    android:scrollbars="none"
+                    android:verticalSpacing="18dip" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

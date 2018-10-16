@@ -44,19 +44,18 @@
         android:gravity="center" >
 
         <ImageView
-            android:id="@+id/img"
+            android:id="@+id/iconState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dip"
-            android:contentDescription="@string/app_name"
             android:src="@mipmap/user_center_auth" />
 
         <TextView
             android:id="@+id/dialog_author_text_content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/img"
+            android:layout_below="@+id/iconState"
             android:layout_marginBottom="15dip"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"

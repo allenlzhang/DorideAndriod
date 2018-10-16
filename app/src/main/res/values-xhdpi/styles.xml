@@ -479,7 +479,7 @@
     <style name="report_calendar_month_linear1">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">55dip</item>
-        <item name="android:background">#ffffff</item>
+        <item name="android:background">@color/white</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
@@ -489,20 +489,20 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">#2e2d33</item>
+        <item name="android:background">@color/white</item>
     </style>
     <!-- <item name="android:background">@drawable/calendar_report_cell_bg</item> -->
     <style name="report_calendar_month_txt1">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_color_gray3</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="report_calendar_month_txt2">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/circle_orange</item>
         <item name="android:textSize">12sp</item>
@@ -512,17 +512,17 @@
     <style name="report_calendar_month_linev">
         <item name="android:layout_width">1dip</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">#171922</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="report_calendar_month_lineh">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dip</item>
-        <item name="android:background">#171922</item>
+        <item name="android:background">@color/white</item>
     </style>
     <!-- 我的奖品 -->
     <style name="career_reward_txt1">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_color_gray2</item>
         <item name="android:textSize">@dimen/text_size_small</item>
@@ -534,7 +534,7 @@
     </style>
 
     <style name="career_reward_txt2">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_color_gray1</item>
         <item name="android:textSize">@dimen/text_size_small_s1</item>
@@ -546,7 +546,7 @@
     </style>
 
     <style name="career_reward_txt3">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_color_gray1</item>
         <item name="android:textSize">@dimen/text_size_small_s1</item>
@@ -567,7 +567,7 @@
     <!--</style>-->
 
     <style name="secretary_tips_txt2">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_color_gray1</item>
         <item name="android:textSize">@dimen/text_size_small_s1</item>
@@ -578,7 +578,7 @@
     </style>
 
     <style name="secretary_tips_txt3">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_color_gray1</item>
         <item name="android:textSize">@dimen/text_size_small_s3</item>
@@ -591,7 +591,7 @@
     </style>
 
     <style name="car_tire_prssure_txt1">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_size_middle</item>
@@ -600,7 +600,7 @@
     </style>
 
     <style name="car_tire_prssure_txt2">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">10sp</item>
@@ -611,7 +611,7 @@
     <!-- 座驾-违章查询 -->
 
     <style name="car_illeage_linear1">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
@@ -631,7 +631,7 @@
     </style>
 
     <style name="car_illeage_edit">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_color_gray2</item>
         <item name="android:textSize">@dimen/text_size_small</item>
@@ -643,13 +643,13 @@
     <!-- 车圈 -->
     <!-- 车圈-主页面item -->
     <style name="friends_main_item_layout1">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:visibility">gone</item>
     </style>
 
     <style name="friends_main_item_txt">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_color_gray2</item>
         <item name="android:textSize">@dimen/text_size_small</item>
@@ -658,7 +658,7 @@
 
     <!-- 车圈-邀请好友 -->
     <style name="friends_invite_layout1">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">46.5dip</item>
         <item name="android:paddingLeft">@dimen/friends_invite_padding_h</item>
         <item name="android:paddingRight">@dimen/friends_invite_padding_h</item>
@@ -669,16 +669,16 @@
 
     <!-- 用户中心(其它杂项) -->
     <style name="usercenter_edit1">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/main_page_linear_border</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/edittext_bg</item>
         <item name="android:textColorHint">@color/text_color_gray1</item>
         <item name="android:paddingLeft">9dip</item>
         <item name="android:paddingRight">9dip</item>
-        <item name="android:paddingTop">15dip</item>
-        <item name="android:paddingBottom">15dip</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
         <item name="android:layout_marginBottom">22dip</item>
         <item name="android:layout_marginLeft">12dip</item>
         <item name="android:layout_marginRight">12dip</item>
@@ -879,7 +879,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text_color_gray2</item>
     </style>
 
     <!-- 安全中心 -->
@@ -988,5 +988,15 @@
         <item name="android:paddingRight">12dip</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- 公用底部长按钮样式 -->
+    <style name="public_bottom_btn_blue">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">44dip</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_middle1</item>
+        <item name="android:background">@drawable/bottom_btn_blue</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

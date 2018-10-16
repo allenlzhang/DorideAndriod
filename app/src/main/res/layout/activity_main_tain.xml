@@ -6,15 +6,19 @@
     android:background="@color/layout_background"
     android:orientation="vertical"
     tools:context="com.carlt.doride.ui.activity.carstate.MainTestingActivity">
-    <GridView
-        android:layout_marginTop="20dp"
-        android:numColumns="2"
-        android:verticalSpacing="34dp"
-        android:id="@+id/gridView"
-        android:layout_gravity="center"
-        android:gravity="center"
+
+    <include
+        android:id="@+id/activity_car_safty_sub"
+        layout="@layout/head_sub_normal"/>
+
+
+    <com.carlt.doride.ui.pull.PullToRefreshListView
+        android:id="@+id/pullRefreshList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </GridView>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_below="@id/activity_car_safty_sub"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"/>
     
 </LinearLayout>

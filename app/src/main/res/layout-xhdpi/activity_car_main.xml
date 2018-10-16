@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:scrollbars="none"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ivCarMainBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/car_main_bg"
+            android:layout_above="@+id/car_main_line1"
+            android:scaleType="fitEnd"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
+
+        <include
+            android:id="@+id/sub_head"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            layout="@layout/sesame_head_sub_normal"/>
+        <RelativeLayout
+            android:id="@+id/car_main_lay_carstate"
+            android:layout_width="186dip"
+            android:layout_height="186dip"
+            android:layout_below="@+id/sub_head"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/car_cycle_bg"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+           >
+
+            <TextView
+                android:id="@+id/car_main_txt_carstate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="35dip"
+                android:text="爱车正在行驶"
+                android:textColor="@color/text_color_gray2"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@id/car_main_line1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f0f0f0"
+            android:layout_below="@id/car_main_lay_carstate"
+            />
+        <LinearLayout
+            android:id="@+id/car_main_ll_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/car_main_line1"
+            >
+            <RelativeLayout
+                android:id="@+id/car_main_lay_soc"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:id="@+id/car_main_txt_soc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="SOC:"
+                    android:textColor="@color/text_color_gray3"
+                    android:textSize="16sp" />
+                <View
+                    android:id="@+id/line_middle_soc"
+                    android:layout_width="3dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/car_main_txt_soc"
+                    android:layout_centerHorizontal="true" />
+                <com.carlt.sesame.ui.view.SectorView
+                    android:id="@+id/car_main_sectorview_soc"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_below="@id/car_main_txt_soc"
+                    android:layout_toLeftOf="@id/line_middle_soc" />
+                <FrameLayout
+                    android:id="@+id/car_main_frame_soc"
+                    android:layout_width="28dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/car_main_txt_soc"
+                    android:layout_marginTop="1.5dp"
+                    android:layout_toRightOf="@id/line_middle_soc"
+                    android:background="@drawable/progress_bg_soc"
+                    android:padding="1dp" >
+                    <View
+                        android:id="@+id/car_main_pro_soc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </RelativeLayout>
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#f0f0f0"
+                />
+            <RelativeLayout
+                android:id="@+id/car_main_lay_soh"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:id="@+id/car_main_txt_soh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="SOH:"
+                    android:textColor="@color/text_color_gray3"
+                    android:textSize="16sp" />
+                <View
+                    android:id="@+id/line_middle_soh"
+                    android:layout_width="3dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/car_main_txt_soh"
+                    android:layout_centerHorizontal="true" />
+                <com.carlt.sesame.ui.view.SectorView
+                    android:id="@+id/car_main_sectorview_soh"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_below="@id/car_main_txt_soh"
+                    android:layout_toLeftOf="@id/line_middle_soh" />
+                <FrameLayout
+                    android:id="@+id/car_main_frame_soh"
+                    android:layout_width="28dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/car_main_txt_soh"
+                    android:layout_marginTop="1.5dp"
+                    android:layout_toRightOf="@id/line_middle_soh"
+                    android:background="@drawable/progress_bg_soh"
+                    android:padding="1dp" >
+                    <View
+                        android:id="@+id/car_main_pro_soh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </RelativeLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/car_main_line2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f0f0f0"
+            android:layout_below="@id/car_main_ll_lay"
+            />
+        <TextView
+            android:id="@+id/car_line_b"
+            android:layout_below="@id/car_main_line2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            />
+        <com.carlt.sesame.ui.view.MyGridView
+            android:id="@+id/car_main_grid_funcs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/car_line_b"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:verticalSpacing="10dp"
+            android:gravity="center_horizontal"
+            />
+
+        <TextView
+            android:layout_below="@id/car_main_grid_funcs"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+</ScrollView>

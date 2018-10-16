@@ -59,7 +59,7 @@ import java.util.LinkedHashMap;
 
             addColumns2Map(entityType.getSuperclass(), columnMap);
         } catch (Throwable e) {
-            ILog.e("Yema~",e.getMessage());
+            ILog.e("Doride~",e.getMessage());
         }
     }
 }

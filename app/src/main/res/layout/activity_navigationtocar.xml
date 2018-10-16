@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/navigationtocar_mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/navigationtocar_img_destination"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/icon_destination"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/navigationtocar_img_persion_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/navigationtocar_img_destination"
+        android:layout_centerHorizontal="true"
+        android:background="#404040"
+        android:text="爱车位置"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/navigationtocar_lay_input"
+        android:layout_width="fill_parent"
+        android:layout_height="41dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/position_input_bg"
+        android:paddingLeft="14dp"
+        android:paddingRight="12dp" >
+
+        <ImageView
+            android:id="@+id/navigationtocar_img_p"
+            android:layout_width="16dp"
+            android:layout_height="22.5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_magnifier_search" />
+
+        <TextView
+            android:id="@+id/navigationtocar_txt_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/navigationtocar_img_p"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="查找地点、公交、地铁"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="#333333"
+            android:textColorHint="#666666"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/navigationtocar_lay_addr"
+        android:layout_width="fill_parent"
+        android:layout_height="41dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/position_input_bg"
+        android:paddingLeft="14dp"
+        android:paddingRight="12dp" >
+
+        <ImageView
+            android:id="@+id/navigationtocar_img_back"
+            android:layout_width="33.5dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_back" />
+
+        <ImageView
+            android:id="@+id/navigationtocar_img_cha"
+            android:layout_width="33.5dp"
+            android:layout_height="33.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:src="@drawable/icon_cross" />
+
+        <TextView
+            android:id="@+id/navigationtocar_txt_addrinfo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/navigationtocar_img_cha"
+            android:layout_toRightOf="@id/navigationtocar_img_back"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:text="目的地地址信息"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/navigationtocar_lay_send"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp" >
+
+        <View
+            android:id="@+id/line_h_m"
+            android:layout_width="100dp"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent" />
+
+        <TextView
+            android:id="@+id/navigationtocar_txt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/navigation_btn_bg"
+            android:drawableLeft="@drawable/icon_navigation_send"
+            android:drawablePadding="3dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:text="导航同步到车"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/navigationtocar_txt_addrname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/line_h_m"
+            android:layout_toLeftOf="@id/navigationtocar_txt_send"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/navigationtocar_txt_addrdetail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line_h_m"
+            android:layout_toLeftOf="@id/navigationtocar_txt_send"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="#666"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

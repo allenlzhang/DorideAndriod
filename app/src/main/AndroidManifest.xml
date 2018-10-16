@@ -1,125 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.carlt.doride">
+          package="com.carlt.doride">
 
     <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!-- 用于访问网络，网络定位需要上网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 用于写入缓存数据到扩展存储卡 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 用于读取缓存数据到扩展存储卡 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- 用于申请调用A-GPS模块 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <!-- 用于申请获取蓝牙信息进行室内定位 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <!-- 【必须】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <!-- 【常用】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!-- 【可选】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BATTERY_STATS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BATTERY_STATS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
-        android:name=".YemaApplication"
+        android:name=".DorideApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
         <!-- 高德 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="90eead545ff2bc5407490fbae5aab92a" />
+            android:value="f036ecfdd460d90feb0a8d74eea4159b"/>
 
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!--<activity android:name=".ui.TestActivity"/>-->
-        <activity android:name=".ui.activity.login.UserLoginActivity" />
-        <activity android:name=".ui.activity.home.RemindActivity" />
-        <activity android:name=".ui.activity.home.ReportActivity" />
-        <activity android:name=".ui.activity.home.MonthActivity" />
-        <activity android:name=".ui.activity.home.DayActivity" />
-        <activity android:name=".ui.activity.home.InformationCentreActivity" />
-        <activity android:name=".ui.activity.home.GpsTrailActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.activity.carstate.CarSaftyListActivity" />
-        <activity android:name=".ui.activity.carstate.MainTestingActivity" />
-        <activity android:name=".ui.activity.carstate.CarStateNowActivity" />
-        <activity android:name=".ui.activity.carstate.CarLocationActivity" />
-        <activity android:name=".ui.activity.carstate.CarSynchronizeLocationActivity" />
-        <activity android:name=".ui.activity.carstate.SearchAddrActivity" />
-        <activity android:name=".ui.activity.remote.RemoteLogActivity" />
-        <activity android:name=".ui.activity.login.DeviceBindActivity" />
-        <activity android:name=".ui.activity.login.ResetPasswdActivity" />
-        <activity android:name=".ui.activity.login.ActivateBindActivity" />
-        <activity android:name=".ui.activity.login.UserRegisterActivity" />
-        <activity android:name=".ui.activity.setting.PersonInfoActivity" />
-        <activity android:name=".ui.activity.setting.CarManagerActivity" />
-        <activity android:name=".ui.activity.setting.TravelAlbumActivity" />
-        <activity android:name=".ui.activity.setting.PhotoDisplayActivity" />
-        <activity android:name=".ui.activity.setting.MaintenanceMileageEditActivity" />
-        <activity android:name=".ui.activity.setting.NicknameEditActivity" />
-        <activity android:name=".ui.activity.setting.AboutYemaActivity" />
-        <activity android:name=".ui.activity.setting.PhoneAuthenticationActivity" />
-        <activity android:name=".ui.activity.setting.ResetCetifiedPhoneActivity" />
-        <activity android:name=".ui.activity.setting.AccountSecurityActivity" />
-        <activity android:name=".ui.activity.carstate.CarTiresStateActivity" />
-        <activity android:name=".ui.activity.setting.RemotePasswdManageActivity" />
-        <activity android:name=".ui.activity.setting.ResetRemotePasswdActivity" />
-        <activity android:name=".ui.activity.setting.VcodeResetRemotePasswdActivity" />
-        <activity android:name=".ui.activity.setting.GeneralManageActivity" />
-        <activity android:name=".ui.activity.setting.MsgManageActivity" />
-        <activity android:name=".ui.activity.setting.DeviceManageActivity" />
-        <activity android:name=".ui.activity.setting.LoginPasswdManageActivity" />
-        <activity android:name=".ui.activity.setting.ResetLoginPasswdActivity" />
-        <activity android:name=".ui.activity.setting.VcodeResetPasswdActivity" />
-        <activity android:name=".ui.activity.setting.TermsDeclareActivity" />
-        <activity android:name=".ui.activity.setting.CarModeListActivity" />
-        <activity android:name=".ui.activity.setting.CarTypeListActivity" />
-        <activity android:name=".ui.activity.setting.PersonAvatarActivity" />
-        <activity android:name=".ui.activity.carstate.FindCarActivity" />
-        <activity android:name=".ui.activity.carstate.LocationSynchronizeActivity" />
-        <activity android:name=".ui.activity.remote.RemotePswResetActivity3" />
-
+        <!-- <activity android:name=".ui.TestActivity"/> -->
+        <activity
+            android:name=".ui.activity.login.UserLoginActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".ui.activity.home.RemindActivity"/>
+        <activity android:name=".ui.activity.home.ReportActivity"/>
+        <activity android:name=".ui.activity.home.MonthActivity"/>
+        <activity android:name=".ui.activity.home.DayActivity"/>
+        <activity android:name=".ui.activity.home.InformationCentreActivity"/>
+        <activity android:name=".ui.activity.home.GpsTrailActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ui.activity.carstate.CarSaftyListActivity"/>
+        <activity android:name=".ui.activity.carstate.MainTestingActivity"/>
+        <activity android:name=".ui.activity.carstate.CarStateNowActivity"/>
+        <activity android:name=".ui.activity.carstate.CarLocationActivity"/>
+        <activity android:name=".ui.activity.carstate.CarSynchronizeLocationActivity"/>
+        <activity android:name=".ui.activity.carstate.SearchAddrActivity"/>
+        <activity android:name=".ui.activity.remote.RemoteLogActivity"/>
+        <activity
+            android:name=".ui.activity.login.DeviceBindActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name=".ui.activity.login.ResetPasswdActivity"/>
+        <activity android:name=".ui.activity.login.ActivateBindActivity"/>
+        <activity android:name=".ui.activity.login.UserRegisterActivity"/>
+        <activity android:name=".ui.activity.setting.PersonInfoActivity"/>
+        <activity android:name=".ui.activity.setting.CarManagerActivity"/>
+        <activity android:name=".ui.activity.setting.TravelAlbumActivity"/>
+        <activity android:name=".ui.activity.setting.PhotoDisplayActivity"/>
+        <activity android:name=".ui.activity.setting.MaintenanceMileageEditActivity"/>
+        <activity android:name=".ui.activity.setting.NicknameEditActivity"/>
+        <activity android:name=".ui.activity.setting.AboutDorideActivity"/>
+        <activity android:name=".ui.activity.setting.PhoneAuthenticationActivity"/>
+        <activity android:name=".ui.activity.setting.ResetCetifiedPhoneActivity"/>
+        <activity android:name=".ui.activity.setting.AccountSecurityActivity"/>
+        <activity android:name=".ui.activity.carstate.CarTiresStateActivity"/>
+        <activity android:name=".ui.activity.setting.RemotePasswdManageActivity"/>
+        <activity android:name=".ui.activity.setting.ResetRemotePasswdActivity"/>
+        <activity android:name=".ui.activity.setting.VcodeResetRemotePasswdActivity"/>
+        <activity android:name=".ui.activity.setting.MsgManageActivity"/>
+        <activity android:name=".ui.activity.setting.DeviceManageActivity"/>
+        <activity android:name=".ui.activity.setting.LoginPasswdManageActivity"/>
+        <activity android:name=".ui.activity.setting.ResetLoginPasswdActivity"/>
+        <activity android:name=".ui.activity.setting.VcodeResetPasswdActivity"/>
+        <activity android:name=".ui.activity.setting.TermsDeclareActivity"/>
+        <activity android:name=".ui.activity.setting.CarModeListActivity"/>
+        <activity android:name=".ui.activity.setting.CarTypeListActivity"/>
+        <activity android:name=".ui.activity.setting.PersonAvatarActivity"/>
+        <activity android:name=".ui.activity.carstate.FindCarActivity"/>
+        <activity android:name=".ui.activity.carstate.LocationSynchronizeActivity"/>
+        <activity android:name=".ui.activity.remote.RemotePswResetActivity3"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarConditionActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarFillIllegalActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarListActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarForHelpActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalDetailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarSafetyActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarTestActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.CarTirePressureActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.FindCarActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.NavigationTocarActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.car.SearchAddrActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.AddressMapActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.CareerMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.MaintainLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.MaintainLogDetialActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.RewardDetailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryActivityNew"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryAppointmentActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryRemoteActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryTipsActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.AuthorActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.FreezeActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.LoginLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.ManagePswActiviy"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.MobileListActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RealNameActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswEditActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity1"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity2"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity3"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.SafetyMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.ThawActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyAllActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyIdentityActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.safety.VerifyPhoneActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageMaintainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditMileageActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditPhoneActivity1"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditPhoneActivity2"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditUserinfoActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.EditUserinfoDetailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.FeeLogActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCarActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCheckActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCommonActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageCustomerServiceActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageDeviceActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageMessageActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageIllegalActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.ManageReBindActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.SettingMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.UpdataLogItemDetialActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.WebActivity"/>
+        <activity android:name="com.carlt.sesame.ui.SesameMainActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.report.ReportActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.DayActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.career.report.newui.GpsTrailActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.setting.SesameLoginPasswdManageActivity"/>
+        <activity android:name="com.carlt.sesame.ui.activity.usercenter.ResetPasswordActivity"/>
+        <activity android:name=".ui.activity.setting.TrafficPackagePurchaseLogActivity"/>
+        <activity android:name=".ui.activity.login.ActivateHelpActivity"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.carlt.doride.fileprovider"
@@ -129,65 +214,69 @@
             <!-- 提供共享路径 -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
         <!-- 【必须】 信鸽receiver广播接收 -->
         <receiver
             android:name="com.tencent.android.tpush.XGPushReceiver"
             android:process=":xg_service_v3">
             <intent-filter android:priority="0x7fffffff">
+
                 <!-- 【必须】 信鸽SDK的内部广播 -->
-                <action android:name="com.tencent.android.tpush.action.SDK" />
-                <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
+                <action android:name="com.tencent.android.tpush.action.SDK"/>
+                <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE"/>
                 <!-- 【必须】 系统广播：开屏和网络切换 -->
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
                 <!-- 【可选】 一些常用的系统广播，增强信鸽service的复活机会，请根据需要选择。当然，你也可以添加APP自定义的一些广播让启动service -->
-                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name=".push.MessageReceiver"
             android:exported="true">
             <intent-filter>
+
                 <!-- 接收消息透传 -->
-                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
+                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE"/>
                 <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
-                <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
+                <action android:name="com.tencent.android.tpush.action.FEEDBACK"/>
             </intent-filter>
         </receiver>
-
         <!-- 【注意】 如果被打开的activity是启动模式为SingleTop，SingleTask或SingleInstance，请根据通知的异常自查列表第8点处理 -->
         <activity
             android:name="com.tencent.android.tpush.XGPushActivity"
             android:exported="false">
             <intent-filter>
+
                 <!-- 若使用AndroidStudio，请设置android:name="android.intent.action" -->
-                <action android:name="android.intent.action" />
+                <action android:name="android.intent.action"/>
             </intent-filter>
         </activity>
-        <service android:name="com.amap.api.location.APSService" />
+
+        <service android:name="com.amap.api.location.APSService"/>
         <service
             android:name=".push.PushService"
             android:exported="true"
-            android:persistent="true" />
+            android:persistent="true"/>
 
         <!-- 【必须】 信鸽service -->
         <service
             android:name="com.tencent.android.tpush.service.XGPushServiceV3"
             android:exported="true"
             android:persistent="true"
-            android:process=":xg_service_v3" />
+            android:process=":xg_service_v3"/>
 
         <!-- 【必须】 提高service的存活率 -->
         <service
             android:name="com.tencent.android.tpush.rpc.XGRemoteService"
             android:exported="true">
             <intent-filter>
+
                 <!-- 【必须】 请修改为当前APP包名 .PUSH_ACTION, 如demo的包名为：com.qq.xgdemo -->
-                <action android:name="com.carlt.doride.PUSH_ACTION" />
+                <action android:name="com.carlt.doride.PUSH_ACTION"/>
             </intent-filter>
         </service>
 
@@ -195,29 +284,34 @@
         <provider
             android:name="com.tencent.android.tpush.XGPushProvider"
             android:authorities="com.carlt.doride.AUTH_XGPUSH"
-            android:exported="true" />
+            android:exported="true"/>
 
         <!-- 【必须】 【注意】authorities修改为 包名.TPUSH_PROVIDER, 如demo的包名为：com.qq.xgdemo -->
         <provider
             android:name="com.tencent.android.tpush.SettingsContentProvider"
             android:authorities="com.carlt.doride.TPUSH_PROVIDER"
-            android:exported="false" />
+            android:exported="false"/>
 
-        <!-- 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo-->
+        <!-- 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo -->
         <provider
             android:name="com.tencent.mid.api.MidProvider"
             android:authorities="com.carlt.doride.TENCENT.MID.V3"
-            android:exported="true"></provider>
-
-
+            android:exported="true"/>
 
         <!-- 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->
         <meta-data
             android:name="XG_V2_ACCESS_ID"
-            android:value="2100279265" />
+            android:value="2100282145"/>
         <!-- 【必须】 请将YOUR_ACCESS_KEY修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
         <meta-data
             android:name="XG_V2_ACCESS_KEY"
-            android:value="AD5EA63GJ25R" />
+            android:value="A1E3L6XII13N"/>
+
+        <activity
+            android:name=".ui.activity.login.UpDateActivity"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".ui.activity.setting.FlowPackageRechargeActivity">
+        </activity>
     </application>
+
 </manifest>

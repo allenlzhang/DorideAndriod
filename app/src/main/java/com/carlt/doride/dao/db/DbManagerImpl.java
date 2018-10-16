@@ -92,7 +92,7 @@ public final class DbManagerImpl extends DbBase {
                     try {
                         dao.dropDb();
                     } catch (DbException e) {
-                        ILog.e("Yema~",e.getMessage());
+                        ILog.e("doride~",e.getMessage());
                     }
                 }
             }
@@ -509,7 +509,7 @@ public final class DbManagerImpl extends DbBase {
                 try {
                     statement.releaseReference();
                 } catch (Throwable ex) {
-                    ILog.e("Yema~",ex.getMessage());
+                    ILog.e("doride~",ex.getMessage());
                 }
             }
         }
@@ -528,7 +528,7 @@ public final class DbManagerImpl extends DbBase {
                 try {
                     statement.releaseReference();
                 } catch (Throwable ex) {
-                    ILog.e("Yema~",ex.getMessage());
+                    ILog.e("doride~",ex.getMessage());
                 }
             }
         }

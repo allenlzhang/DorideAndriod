@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_car_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/head_back" />
+
+    <RelativeLayout
+        android:id="@+id/sub_head"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title" >
+
+        <include layout="@layout/head_sub3" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_car_test_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bottom_sharing_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="15dip"
+        android:paddingTop="15dip"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/activity_car_test_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dip"
+            android:drawablePadding="6dip"
+            android:drawableRight="@drawable/icon_arrow_share"
+            android:text="远程诊断，排除故障"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_middle" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/activity_car_test_list"
+        style="@style/public_listView"
+        android:layout_above="@id/activity_car_test_layout"
+        android:layout_below="@id/sub_head"
+        android:dividerHeight="0dip" >
+    </ListView>
+
+</RelativeLayout>
