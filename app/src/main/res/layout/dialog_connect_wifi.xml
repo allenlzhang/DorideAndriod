@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dip"
+    android:layout_height="230dip"
+    android:background="@drawable/dialog_wifi_connect_bg"
+    android:paddingTop="50dp" >
+
+    <ImageView
+        android:id="@+id/dialog_connect_img_in"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/main_connect_dialog_car" />
+
+    <ImageView
+        android:id="@+id/dialog_connect_img_out"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/main_connect_dialog_circle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_connect_img_out"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="正在连接设备"
+        android:textColor="#666666"
+        android:textSize="16sp" />
+
+</RelativeLayout>

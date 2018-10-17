@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp"
+        android:text="同步时间"
+        android:textColor="@color/text_color_gray2"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:id="@+id/manage_pie_show_time"
+        style="@style/setting_layout1"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/time_tv"
+            style="@style/setting_userinfo_text1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:text="记录仪时间设置" 
+            />
+
+        <ImageView
+            style="@style/setting_img2"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dip" />
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/activity_setting_time_ok"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        style="@style/public_bottom_btn"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:clickable="true"
+        android:text="确定" />
+
+</LinearLayout>

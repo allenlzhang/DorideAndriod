@@ -369,6 +369,8 @@ public class LoginInfo extends BaseResponseInfo {
 
     private static int app_type;    //APP类型 1大乘智享 2芝麻乐园
 
+    public static boolean isDrivingRecorder = true;// 行车记录标识， 0不是 1是
+
     public static void Destroy() {
         JSONObject destroy = null;
         try {

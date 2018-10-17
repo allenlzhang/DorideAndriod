@@ -8,12 +8,17 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.Utils;
+import com.carlt.chelepie.view.gl.GLES20Support;
+import com.carlt.chelepie.view.gl.HHVideoView;
+import com.carlt.chelepie.view.gl.HVideoView;
+import com.carlt.chelepie.view.gl.IVideoView;
 import com.carlt.doride.dao.DBManager;
 import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.LocalConfig;
+import com.carlt.doride.utils.Log;
 import com.carlt.sesame.systemconfig.URLConfig;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -108,7 +113,60 @@ public class DorideApplication extends Application {
     public void setRemoteMainInfo(RemoteMainInfo remoteMainInfo) {
         this.remoteMainInfo = remoteMainInfo;
     }
+    /**
+     * 是否直播
+     */
+    private boolean isMonitor = true;
 
+    public boolean isMonitor() {
+        return isMonitor;
+    }
+    public void setMonitor(boolean isMonitor) {
+        this.isMonitor = isMonitor;
+    }
+    /**
+     * 记录播放最后时间
+     */
+    private String playStringtime ;
+
+    public String getPlayStringtime() {
+        return playStringtime;
+    }
+    public void setPlayStringtime(String playStringtime) {
+        this.playStringtime = playStringtime;
+    }
+
+    /**
+     * 是否是从小屏幕跳转大大屏幕的操作
+     */
+    boolean toFullFlag = false;
+
+    public boolean isToFullFlag() {
+        return toFullFlag;
+    }
+    public void setToFullFlag(boolean toFullFlag) {
+        this.toFullFlag = toFullFlag;
+    }
+    private IVideoView videoView = null;
+
+    private boolean supportopenGLES20;
+    public IVideoView getVideoView() {
+        if (null == videoView) {
+            Log.e("HVideoView", "videoView null ");
+            if (supportopenGLES20) {
+                videoView = new HHVideoView(this);
+            } else {
+                videoView = new HVideoView(this);
+            }
+        }
+        else{
+            Log.e("HVideoView", "videoView not null ");
+        }
+        return videoView;
+    }
+    public void setVideoView(IVideoView mvideoView) {
+        videoView = mvideoView;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -141,7 +199,7 @@ public class DorideApplication extends Application {
 
         NIMEI = getNewUniquePsuedoID();
         IMEI = getUniquePsuedoID();
-
+        supportopenGLES20 = GLES20Support.detectOpenGLES20(this);
         // 屏幕信息
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);

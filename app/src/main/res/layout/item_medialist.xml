@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="144.5dp"
+    android:layout_height="97dp" >
+
+    <View
+        android:id="@+id/medialist_view_bottomLine"
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="51.5dp"
+        android:background="#b3b3b3" />
+
+    <RelativeLayout
+        android:id="@+id/medialist_lay_mediainfo"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/medialist_img_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/def_backgroud_pic"/>
+
+        <ImageView
+            android:id="@+id/medialist_img_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp" />
+
+        <ImageView
+            android:id="@+id/medialist_img_hasdown"
+            android:src="@drawable/tag_hasdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+             />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_alignParentBottom="true"
+            android:background="#7f000000" />
+
+        <TextView
+            android:id="@+id/medialist_txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="3dp"
+            android:gravity="center"
+            android:text="文件时间"
+            android:textColor="@color/white"
+            android:textSize="12sp" 
+            android:layout_marginBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/medialist_txt_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="3dp"
+            android:gravity="center"
+            android:text="文件大小"
+            android:textColor="@color/white"
+            android:textSize="12sp" 
+            android:layout_marginBottom="3dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

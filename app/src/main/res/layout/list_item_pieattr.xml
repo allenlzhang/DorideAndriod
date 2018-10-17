@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/item_pieattr_lay_config"
+        android:layout_width="match_parent"
+        android:layout_height="47dip"
+        android:orientation="vertical"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/item_pieattr_txt_config"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <SeekBar
+            android:id="@+id/item_pieattr_sb_config"
+            style="@style/pie_seekbar"
+            android:thumbOffset="0dip"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dip"
+    android:background="@drawable/dialog_upgrade_bg"
+    >
+
+    <TextView
+        android:id="@+id/dialog_upgrade_txt_tip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/dialog_upgrade_gif_bg"
+        android:gravity="center|bottom"
+        android:textColor="#333"
+        android:textSize="18sp" />
+
+    <com.carlt.chelepie.view.gif.GifView
+        android:id="@+id/dialog_upgrade_gif_bg"
+        android:layout_width="65dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/line"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"/>
+        <!--gif:delay="1"-->
+        <!--gif:src="@raw/icon_upgrading"-->
+        <!--gif:stop="true" -->
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_above="@+id/dialog_upgrade_txt_btn"
+        android:layout_marginTop="10dp"
+        android:background="#c2c0c0" />
+
+    <TextView
+        android:id="@+id/dialog_upgrade_txt_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+</RelativeLayout>

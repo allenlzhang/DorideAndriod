@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <View
+        style="@style/line_setting_h"
+        android:layout_marginTop="10dip" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:background="#fafafa"
+        android:paddingBottom="14dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="14dip" >
+
+        <TextView
+            android:id="@+id/manage_storage_txt_format"
+            android:layout_width="86dip"
+            android:layout_height="33dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="格式化存储卡"
+            android:textColor="#ffffff"
+            android:textSize="12sp" 
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/setting_bottom_btn_bg"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/manage_storage_txt_format"
+            android:text="设备（摄像头）存储空间"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/manage_storage_txt_unuse_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/manage_storage_txt_format"
+            android:text="可用空间"
+            android:textColor="#27c14c"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/manage_storage_txt_hasuse_box"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/manage_storage_txt_unuse_box"
+            android:text="已用空间"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <View style="@style/line_setting_h" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:background="#fafafa"
+        android:paddingBottom="14dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="14dip" >
+
+        <TextView
+            android:id="@+id/manage_storage_txt_empty"
+            android:layout_width="86dip"
+            android:layout_height="33dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="清空应用缓存"
+            android:textColor="#ffffff"
+            android:textSize="12sp" 
+            android:background="@drawable/setting_bottom_btn_bg"
+            android:layout_marginLeft="10dip"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/manage_storage_txt_empty"
+            android:text="手机存储空间"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/manage_storage_txt_unuse_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/manage_storage_txt_empty"
+            android:text="剩余空间"
+            android:textColor="@color/red_rose"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/manage_storage_txt_hasuse_local"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/manage_storage_txt_unuse_local"
+            android:text="应用大小"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View style="@style/line_setting_h" />
+
+</LinearLayout>

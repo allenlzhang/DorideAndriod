@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/medialist_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/head_height"
+        layout="@layout/head_back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/medialist_title" >
+
+        <LinearLayout
+            android:id="@+id/medialist_lay_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/main_page_head_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/medialist_txt_all"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="全部"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/medialist_txt_capture"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="抓拍"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/medialist_txt_event"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="事件"
+                android:textColor="@color/text_color_gray1"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/medialist_view_underline"
+            android:layout_width="120dp"
+            android:layout_height="2dp"
+            android:layout_below="@id/medialist_lay_tabs"
+            android:background="@color/blue_light" />
+
+        <TextView
+            android:id="@+id/main_page_head_line"
+            style="@style/line_h"
+            android:layout_below="@id/medialist_view_underline"
+            android:background="@drawable/line_h" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/medialist_vpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/main_page_head_line"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:background="#ffffff"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation" />
+
+        <LinearLayout
+            android:id="@+id/medialist_lay_loading"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/main_page_head_line"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ProgressBar
+                android:id="@+id/medialist_loading_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateDrawable="@drawable/page_loading_xml"
+                android:maxHeight="29dip"
+                android:maxWidth="43dip"
+                android:minHeight="29dip"
+                android:minWidth="43dip" >
+            </ProgressBar>
+
+            <TextView
+                android:id="@+id/medialist_loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:text="等待中..."
+                android:textColor="#999999"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/medialist_lay_error"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/main_page_head_line"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone" 
+            >
+
+            <ImageView
+                android:id="@+id/medialist_img_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:id="@+id/medialist_txt_errorinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:text=""
+                android:textColor="#999999"
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/medialist_txt_retryinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/btn_connectwifi_bg"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:text="连接摄像头Wi-Fi"
+                android:textColor="@color/txt_color_connectwifi"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

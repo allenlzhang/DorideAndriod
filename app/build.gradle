@@ -32,9 +32,10 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
+    sourceSets{
+        main{
+            jniLibs.srcDir 'jniLibs'
+            jni.srcDirs = []
         }
     }
     lintOptions {
@@ -84,4 +85,5 @@ dependencies {
     implementation files('libs/mid-core-sdk-4.0.6.jar')
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation files('libs/photoview.jar')
 }

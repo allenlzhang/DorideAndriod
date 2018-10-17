@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/thumbnail_gallery_lay"
+        android:layout_width="fill_parent"
+        android:layout_height="150dip" >
+
+        <com.linewin.chelepie.ui.view.CoverFlow
+            android:id="@+id/thumbnail_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <ImageView
+            android:id="@+id/thumbnail_play"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/main_btn_live_select_no"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/thumbnail_text_time"
+        android:layout_width="200dip"
+        android:layout_height="30dip"
+        android:layout_below="@id/thumbnail_gallery_lay"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@color/text_color_gray3"
+        android:textSize="18sp" />
+
+    <com.carlt.chelepie.view.CutSeekBar
+        android:id="@+id/thumbnail_cutbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:visibility="gone" />
+        <!--app:duration="10"-->
+        <!--app:height="47dip"-->
+        <!--app:maxValue="300"-->
+        <!--app:minValue="0"-->
+        <!--app:width="fill_parent" -->
+
+
+    <SeekBar
+        android:id="@+id/thumbnail_seekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/thumbnail_cutbar"
+         android:layout_alignParentBottom="true"
+        android:background="@drawable/thumbnail_seekbar_bg1"
+        android:progressDrawable="@drawable/thumbnail_seekbar_bg"
+        android:thumb="@drawable/thumbnail_seekbar_thumb"
+        android:visibility="visible" />
+
+</RelativeLayout>

@@ -17,6 +17,8 @@ public class MyTimeUtil {
 			"yyyy-MM-dd", Locale.CHINESE);
 	public static SimpleDateFormat format_hhmm = new SimpleDateFormat("HH:mm",
 			Locale.CHINESE);
+	public static final SimpleDateFormat FORMAT3 = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+	public static final String ENDTIME = "2037-01-01 00:00:00";
 	/**
 	 * 获取系统当前日期 格式：XX时xx分
 	 *
@@ -376,4 +378,132 @@ public class MyTimeUtil {
 		return DateFormat.format(mCalendar.getTime());
 	}
 
+
+	/**
+	 * 回放开始时间 传入日期转换
+	 *
+	 * @param date
+	 * @return
+	 */
+	public static String getFormatTime(Date date) {
+		return commonFormat.format(date);
+	}
+
+	/**
+	 * 根据协议解析时间
+	 stream_year				8		全局时间年，1表示2001年，后面类推，不得出现0
+	 stream_month			4		全局时间月，不得出现0
+	 stream_date				5		全局时间日，不得出现0
+	 stream_hour				5		全局时间时，24小时制
+	 stream_minute			6		全局时间分
+	 stream_second			6		全局时间秒
+	 * @param buf
+	 * @return
+	 */
+	public static String paserFramData(byte[] buf){
+
+		int year = buf[0] + 2000;
+
+		int mouth = (byte) ((buf[1] & 0xf0) >> 4);
+
+		int day = (byte) ((byte) ((buf[1] & 0x0f) * 2) + (byte) ((buf[2] & 0x80) >> 7));
+
+		int hours = (byte) ((buf[2] & 0x7c) >> 2);
+
+		int min = (byte) ((byte) ((buf[2] & 0x03) * 16) + (byte) ((buf[3] & 0xf0) >> 4));
+
+		int sece = (byte) ((byte) ((buf[3] & 0x0f) * 4) + (byte) ((buf[4] & 0xc0) >> 6));
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(year).append("-").append(formartData1(mouth)).append("-").append(formartData1(day)).append(" ").append(formartData1(hours)).append(":").append(formartData1(min)).append(":").append(formartData1(sece));
+		Date parseDate = parseDate(sb.toString());
+		long times = parseDate.getTime() + 8 * 60 * 60 *1000;
+//		long times = parseDate.getTime();
+		String string = commonFormat.format(new Date(times));
+		return string;
+	}
+	private static SimpleDateFormat formatterMMSS = new SimpleDateFormat("mm:ss");//初始化Formatter的转换格式。
+	public static String formartTime1(long i){
+
+		String hms = formatterMMSS.format(i);
+		return hms;
+	}
+	private static String formartData1(int i){
+
+		StringBuilder sb2 = new StringBuilder();
+		if(i<10){
+			sb2.append("0").append(i);
+		}else{
+			sb2.append(i);
+		}
+		return sb2.toString();
+	}
+	public static Date parseDate(String date){
+		try {
+			return commonFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static long paserFramData2(byte[] buf){
+
+		int year = buf[0] + 2000;
+
+		int mouth = (byte) ((buf[1] & 0xf0) >> 4);
+
+		int day = (byte) ((byte) ((buf[1] & 0x0f) * 2) + (byte) ((buf[2] & 0x80) >> 7));
+
+		int hours = (byte) ((buf[2] & 0x7c) >> 2);
+
+		int min = (byte) ((byte) ((buf[2] & 0x03) * 16) + (byte) ((buf[3] & 0xf0) >> 4));
+
+		int sece = (byte) ((byte) ((buf[3] & 0x0f) * 4) + (byte) ((buf[4] & 0xc0) >> 6));
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(year).append("-").append(formartData1(mouth)).append("-").append(formartData1(day)).append(" ").append(formartData1(hours)).append(":").append(formartData1(min)).append(":").append(formartData1(sece));
+		Date parseDate = parseDate(sb.toString());
+		long times = parseDate.getTime() + 8 * 60 * 60 *1000;
+//		long times = parseDate.getTime();
+		return times;
+	}
+	/**
+	 * 获取回放结束时间，当前时间加一年
+	 *
+	 * @return
+	 */
+	public static String getPlayBackEndTime() {
+		Calendar mCalendar = Calendar.getInstance();
+		mCalendar.add(Calendar.YEAR, 1);
+		return commonFormat.format(mCalendar.getTime());
+	}
+	//返回期（HH:mm:ss）
+	public static String parseDate3(String date){
+		try {
+			return FORMAT3.format(commonFormat.parse(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	//返回期（yyyyMMdd）
+	public static String parseDate2(String date){
+		try {
+			return DateFormat.format(commonFormat.parse(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	/**
+	 *
+	 * 获取文件名称时间
+	 *
+	 * @param date
+	 * @return
+	 */
+	public static String getTimeFileName(String preffex, String date) {
+		date = date.replace(" ", "_").replace("-", "").replace(":", "");
+		return preffex + date;
+	}
 }

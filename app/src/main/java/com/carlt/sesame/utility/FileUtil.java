@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.StatFs;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.carlt.doride.utils.LocalConfig;
@@ -25,7 +26,9 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -381,5 +384,50 @@ public class FileUtil {
 
 		return hex.toString();
 	}
+	private static List<File> filesList = new ArrayList<File>();
 
+	public static void setFilesList(List<File> filesList) {
+		FileUtil.filesList = filesList;
+	}
+
+	/**
+	 * 获取已下载文件
+	 */
+	public static List<File> getHasDownFile(String path) {
+		String absolutePath;// 文件绝对路径
+		File dir = new File(path);
+		if (dir.exists()) {
+			File[] files = dir.listFiles();// 该文件目录下文件全部放入数组
+			if (files.length == 0) {
+				return null;
+			} else {
+				for (File fileItem : files) {
+					if (fileItem.isDirectory()) {
+						getHasDownFile(fileItem.getAbsolutePath());
+
+					} else {
+						absolutePath = fileItem.getAbsolutePath();
+						int postion1 = absolutePath.lastIndexOf("/");
+						String absolutePath1 = absolutePath.substring(0,
+								postion1);
+						int length = absolutePath1.length();
+						int postion2 = absolutePath1.lastIndexOf("/");
+						String folderName = absolutePath1.substring(postion2+1,
+								length);
+						if (TextUtils.equals(folderName,
+								LocalConfig.DIR_CAPTURE)
+								|| TextUtils.equals(folderName,
+								LocalConfig.DIR_CROP)
+								|| TextUtils.equals(folderName,
+								LocalConfig.DIR_EVENT)) {
+							filesList.add(fileItem);
+						}
+					}
+				}
+			}
+		} else {
+		}
+		return filesList;
+
+	}
 }

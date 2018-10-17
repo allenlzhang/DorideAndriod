@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="210dip"
+    android:layout_height="400dip"
+    android:background="@drawable/dialog_bg"
+    android:padding="4dip" >
+    <TextView
+        android:id="@+id/dialog_txt_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="设备Wi-Fi"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/text_color_gray3"
+        />
+    <ListView
+        android:id="@+id/dialog_list_listview"
+        style="@style/public_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#DBDADA"
+        android:dividerHeight="1dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:layout_below="@id/dialog_txt_list_title"
+        />
+
+</RelativeLayout>

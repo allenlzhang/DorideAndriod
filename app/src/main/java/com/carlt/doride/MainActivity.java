@@ -1,11 +1,11 @@
 package com.carlt.doride;
 
 import android.Manifest;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +22,7 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.CarMainFragment2;
 import com.carlt.doride.ui.fragment.HomeFragment;
+import com.carlt.doride.ui.fragment.RecorderMainFragment;
 import com.carlt.doride.ui.fragment.RemoteMainFragment;
 import com.carlt.doride.ui.fragment.SettingMainFragment;
 import com.carlt.doride.ui.view.UUToast;
@@ -47,22 +48,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private CarMainFragment     mCarMainFragment;
     private CarMainFragment2    mCarMainFragment2;
     private RemoteMainFragment  mRemoteMainFragment;
+    private RecorderMainFragment mRecorderMainFragemnt;
     private SettingMainFragment mSettingMainFragment;
 
     private LinearLayout mTabHome;
     private LinearLayout mTabCar;
     private LinearLayout mTabRemote;
-
+    private LinearLayout mTabPie;
     private LinearLayout mTabSetting;
 
     private ImageView mIvTabHome;
     private ImageView mIvTabCar;
     private ImageView mIvTabRemote;
+    private ImageView mIvTabPie;
     private ImageView mIvTabSetting;
 
     private TextView mTxtTabHome;
     private TextView mTxtTabCar;
     private TextView mTxtTabRemote;
+    private TextView mTxtTabPie;
     private TextView mTxtTabSetting;
 
     private FragmentManager mFragmentManager;
@@ -73,7 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        mFragmentManager = getFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
         setTabSelection(0);
         LogUtils.e("LoginInfo.getTbox_type()====" + LoginInfo.getTbox_type());
         if (LoginInfo.getTbox_type().equals("4G")) {
@@ -183,18 +187,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mTabHome = $ViewByID(R.id.tab_ll_home);
         mTabCar = $ViewByID(R.id.tab_ll_car);
         mTabRemote = $ViewByID(R.id.tab_ll_remote);
+        mTabPie = $ViewByID(R.id.tab_ll_pie);
         mTabSetting = $ViewByID(R.id.tab_ll_setting);
         mIvTabHome = $ViewByID(R.id.tab_iv_home);
         mIvTabCar = $ViewByID(R.id.tab_iv_car);
         mIvTabRemote = $ViewByID(R.id.tab_iv_remote);
+        mIvTabPie = $ViewByID(R.id.tab_iv_pie);
         mIvTabSetting = $ViewByID(R.id.tab_iv_setting);
         mTxtTabHome = $ViewByID(R.id.tab_txt_home);
         mTxtTabCar = $ViewByID(R.id.tab_txt_car);
         mTxtTabRemote = $ViewByID(R.id.tab_txt_remote);
+        mTxtTabPie = $ViewByID(R.id.tab_txt_pie);
         mTxtTabSetting = $ViewByID(R.id.tab_txt_setting);
         mTabHome.setOnClickListener(this);
         mTabCar.setOnClickListener(this);
         mTabRemote.setOnClickListener(this);
+        mTabPie.setOnClickListener(this);
         mTabSetting.setOnClickListener(this);
 
         requestPermissions(this, needPermissions, new BaseActivity.RequestPermissionCallBack() {
@@ -284,6 +292,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 transaction.commit();
                 break;
             case 3:
+                mIvTabPie.setImageResource(R.drawable.tab_pie_selected);
+                mTxtTabPie.setTextColor(getResources().getColor(R.color.blue_txt));
+                if (mRecorderMainFragemnt == null){
+                    mRecorderMainFragemnt = new RecorderMainFragment();
+                    transaction.add(R.id.content,mRecorderMainFragemnt);
+                }else{
+                    transaction.show(mRecorderMainFragemnt);
+                }
+                transaction.commit();
+                break;
+            case 4:
                 mIvTabSetting.setImageResource(R.drawable.ic_setting_tab_select);
                 mTxtTabSetting.setTextColor(getResources().getColor(R.color.blue_txt));
                 if (mSettingMainFragment == null) {
@@ -306,6 +325,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mTxtTabCar.setTextColor(getResources().getColor(R.color.text_color_gray1));
         mIvTabRemote.setImageResource(R.drawable.tab_remote);
         mTxtTabRemote.setTextColor(getResources().getColor(R.color.text_color_gray1));
+        mIvTabPie.setImageResource(R.drawable.tab_pie);
+        mTxtTabPie.setTextColor(getResources().getColor(R.color.text_color_gray1));
         mIvTabSetting.setImageResource(R.drawable.ic_setting_tab_normal);
         mTxtTabSetting.setTextColor(getResources().getColor(R.color.text_color_gray1));
     }
@@ -332,6 +353,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         if (mRemoteMainFragment != null) {
             transaction.hide(mRemoteMainFragment);
+        }
+        if (mRecorderMainFragemnt != null){
+            transaction.hide(mRecorderMainFragemnt);
         }
         if (mSettingMainFragment != null) {
             transaction.hide(mSettingMainFragment);
@@ -364,8 +388,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tab_ll_remote:
                 setTabSelection(2);
                 break;
-            case R.id.tab_ll_setting:
+            case R.id.tab_ll_pie:
                 setTabSelection(3);
+                break;
+            case R.id.tab_ll_setting:
+                setTabSelection(4);
                 break;
         }
     }

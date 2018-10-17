@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -25,12 +26,13 @@ import android.widget.EditText;
 
 import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.http.AsyncImageLoader;
 import com.carlt.doride.ui.view.PopBoxCreat;
 
 import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity implements
-		BeforeGoToBackground {
+		BeforeGoToBackground, AsyncImageLoader.AsyncImageLoaderListener {
 
 	/** 标识是否还有页面显示 */
 	protected boolean mIsShowing = false;
@@ -281,6 +283,11 @@ public class BaseActivity extends AppCompatActivity implements
 			mRequestPermissionCallBack.granted();
 			return;
 		}
+	}
+
+	@Override
+	public void OnImgLoadFinished(String url, Bitmap mBitmap) {
+
 	}
 
 	/**

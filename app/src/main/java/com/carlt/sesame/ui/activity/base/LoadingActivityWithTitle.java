@@ -25,6 +25,8 @@ public abstract class LoadingActivityWithTitle extends BaseActivity {
 
     private View mMainView;
 
+    private View mNodataLayout;
+
     private View mLoadingLayout;
 
     private TextView mLoadingTextView;
@@ -53,6 +55,7 @@ public abstract class LoadingActivityWithTitle extends BaseActivity {
         mMainLayout = (RelativeLayout)findViewById(R.id.loading_activity_with_title_mainlayout);
         mTitleLay = (RelativeLayout)findViewById(R.id.loading_activity_with_title_title);
         mLoadingLayout = findViewById(R.id.loading_activity_with_title_loading_lay);
+        mNodataLayout = findViewById(R.id.loading_activity_with_title_lay_nodata);
         mLoadingTextView = (TextView)findViewById(R.id.loading_activity_with_title_loading_text);
         mLoadingBar = findViewById(R.id.loading_activity_with_title_loading_bar);
         
@@ -101,6 +104,11 @@ public abstract class LoadingActivityWithTitle extends BaseActivity {
 
     public void setTitleView(View title) {
         mTitleLay.addView(title);
+    }
+
+    protected void LoadNodata() {
+        mLoadingLayout.setVisibility(View.GONE);
+        mNodataLayout.setVisibility(View.VISIBLE);
     }
 
     protected void LoadSuccess(Object data) {

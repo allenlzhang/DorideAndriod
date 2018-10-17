@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="210dip"
+    android:layout_height="230dip"
+    android:background="@drawable/dialog_wifi_connect_bg"
+    android:paddingTop="30dp" >
+
+    <ImageView
+        android:id="@+id/dialog_connect_img_in"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/main_connect_dialog_car" />
+
+    <ImageView
+        android:id="@+id/dialog_connect_img_out"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/main_connect_dialog_circle" />
+
+    <TextView
+        android:id="@+id/dialog_connect_txt_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_connect_img_out"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="正在努力下载视频"
+        android:textColor="#666666"
+        android:textSize="16sp" />
+    
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/dialog_connect_txt_tip"
+        android:layout_marginTop="20dp"
+        android:background="#C2C0C0" />
+
+    <TextView
+        android:id="@+id/dialog_connect_txt_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:gravity="center"
+        android:text="取消下载"
+        android:textColor="#666666"
+        android:textSize="16sp" />
+
+</RelativeLayout>

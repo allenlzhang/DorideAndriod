@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/head_height"
+    android:background="#b2000000" >
+
+    <TextView
+        android:id="@+id/live_back_txt_back"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/head_margin_h"
+        android:background="@drawable/back_arrow_bg"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/live_back_txt_wifi"
+        android:layout_width="120dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dip"
+        android:drawableLeft="@drawable/pie_wifi"
+        android:gravity="center_vertical"
+        android:text="下载速度"
+        android:ellipsize="end"  
+           android:singleLine="true" 
+        android:textColor="#ffffff"
+        android:textSize="16sp" 
+        android:layout_marginRight="@dimen/head_margin_h"/>
+
+    <ImageView
+        android:id="@+id/live_back_img_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dip"
+        android:layout_toLeftOf="@id/live_back_txt_wifi"
+        android:src="@drawable/pie_config" />
+
+    <ImageView
+        android:id="@+id/live_back_img_silence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dip"
+        android:layout_toLeftOf="@id/live_back_img_setting"
+        android:src="@drawable/pie_silence_close" />
+
+    <ImageView
+        android:id="@+id/live_back_img_10s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dip"
+        android:visibility="gone"
+        android:layout_toLeftOf="@id/live_back_img_silence"
+        android:src="@drawable/pie_10s_close" />
+
+    <ImageView
+        android:id="@+id/live_back_img_quality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dip"
+        android:layout_toLeftOf="@id/live_back_img_10s"
+        android:src="@drawable/pie_hd" />
+
+    <ImageView
+        android:id="@+id/live_back_img_config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/live_back_img_quality"
+        android:src="@drawable/pie_brightness" />
+
+</RelativeLayout>

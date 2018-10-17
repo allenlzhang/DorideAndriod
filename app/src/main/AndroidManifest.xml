@@ -205,6 +205,21 @@
         <activity android:name="com.carlt.sesame.ui.activity.usercenter.ResetPasswordActivity"/>
         <activity android:name=".ui.activity.setting.TrafficPackagePurchaseLogActivity"/>
         <activity android:name=".ui.activity.login.ActivateHelpActivity"/>
+
+        <activity android:name="com.carlt.chelepie.view.activity.ActivityWithTitle"/>
+        <activity android:name="com.carlt.chelepie.view.activity.EditPienameActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.FullLiveActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.FullPlayActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.HasDownListActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.ManagePieActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.ManageStorageActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.ManageTimesActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.MyMediaListActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.PicViewPagerActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.PlaybackActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.PlayerActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.VideoQualityActivity"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.carlt.doride.fileprovider"

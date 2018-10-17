@@ -8,6 +8,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
+import com.carlt.chelepie.control.DaoPieDownloadControl;
+import com.carlt.chelepie.data.recorder.PieDownloadInfo;
+import com.carlt.chelepie.data.recorder.PieInfo;
+import com.carlt.chelepie.utils.MyComparator;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.login.UserRegisterParams;
@@ -37,15 +41,20 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.CreateHashMap;
 import com.carlt.doride.utils.FileUtil;
+import com.carlt.doride.utils.LocalConfig;
 import com.carlt.sesame.data.SesameLoginInfo;
+import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.activity.car.CarConfigParser;
 import com.carlt.sesame.utility.CreatPostString;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.orhanobut.logger.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class CPControl {
     public static final String oldVersion = "100";
@@ -652,5 +661,40 @@ public class CPControl {
 
         }.start();
     }
+    /**
+     * 获取车乐拍--已下载列表
+     */
 
+    public static void GetHasDownListResult(final com.carlt.sesame.control.CPControl.GetResultListCallback listener) {
+
+        if (listener == null)
+            return;
+        new Thread() {
+            @Override
+            public void run() {
+                // 链接地址
+                String path = LocalConfig.GetMediaPathMain(UseInfoLocal
+                        .getUseInfo().getAccount());
+                List<File> files = new ArrayList<File>();
+                com.carlt.sesame.utility.FileUtil.setFilesList(files);
+                files = com.carlt.sesame.utility.FileUtil.getHasDownFile(path);
+                List<PieDownloadInfo> pieDownloadInfos = new ArrayList<PieDownloadInfo>();
+                if (files != null) {
+                    Collections.sort(files, new MyComparator.CreatTimeComparator());
+                    int size = files.size();
+                    for (int i = 0; i < size; i++) {
+                        String fileName = files.get(i).getName();
+                        com.carlt.sesame.utility.Log.e("info", "files.get(i).getName()==" + fileName);
+                        PieDownloadInfo info = DaoPieDownloadControl.getInstance()
+                                .getByFileName(fileName,
+                                        PieInfo.getInstance().getDeviceName());
+                        if (info != null) {
+                            pieDownloadInfos.add(info);
+                        }
+                    }
+                }
+                listener.onFinished(pieDownloadInfos);
+            }
+        }.start();
+    }
 }

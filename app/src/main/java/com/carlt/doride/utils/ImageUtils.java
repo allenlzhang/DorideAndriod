@@ -2,11 +2,18 @@
 package com.carlt.doride.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +29,24 @@ import java.util.Random;
  * 
  */
 public class ImageUtils {
+
+    /**
+     *  yuv 转 bitmap
+     * @param data
+     * @param width
+     * @param height
+     * @return
+     */
+    public static Bitmap convertYuv2Bitmap(byte[] data, int width, int height) {
+        YuvImage yuvimage = new YuvImage(data, ImageFormat.NV21, width, height, null);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        yuvimage.compressToJpeg(new Rect(0, 0, width, height), 80, baos);
+        byte[] jdata = baos.toByteArray();
+        BitmapFactory.Options bitmapFatoryOptions = new BitmapFactory.Options();
+        bitmapFatoryOptions.inPreferredConfig = Bitmap.Config.RGB_565;
+        Bitmap bmp = BitmapFactory.decodeByteArray(jdata, 0, jdata.length, bitmapFatoryOptions);
+        return bmp;
+    }
 
     /**
      * 压缩图片
@@ -112,5 +137,21 @@ public class ImageUtils {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
                 true);
     }
-    
+    //保存文件到指定路径
+    public static boolean saveImageToGallery(Context context, String bmpPath,String fileName) {
+        // 首先保存图片
+        File file = new File(bmpPath);
+        try {
+            //把文件插入到系统图库
+            MediaStore.Images.Media.insertImage(context.getContentResolver(), bmpPath, fileName, null);
+            //保存图片后发送广播通知更新数据库
+            Uri uri = Uri.fromFile(file);
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+            FileUtil.deleteFile(file);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_background"
+        android:orientation="vertical"
+        android:paddingTop="15dip" >
+
+        <View style="@style/line_setting_h" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_name"
+                style="@style/setting_layout1" >
+
+                <TextView
+                    android:id="@+id/text_title1"
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="设备Wi-Fi命名" />
+
+                <ImageView
+                    android:id="@+id/pie_crrow1"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip" />
+
+                <TextView
+                    android:id="@+id/manage_pie_txt_name"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_crrow1"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View style="@style/line_setpie_h" />
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_delete"
+                style="@style/setting_layout1"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/text_title0"
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="删除摄像头" />
+
+                <ImageView
+                    android:id="@+id/pie_crrow3"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip" />
+
+                <TextView
+                    android:id="@+id/manage_pie_txt_delete"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_crrow3"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/line_setpie_h"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_psw"
+                style="@style/setting_layout1" >
+
+                <TextView
+                    android:id="@+id/text_title2"
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="设置设备Wi-Fi密码" />
+
+                <ImageView
+                    android:id="@+id/pie_crrow2"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip" />
+
+                <TextView
+                    android:id="@+id/manage_pie_txt_psw"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_crrow2"
+                    android:text="" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/line_setting_h" />
+
+        <View
+            style="@style/line_setting_h"
+            android:layout_marginTop="15dip" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_linked"
+                style="@style/setting_layout1" >
+
+                <CheckBox
+                    android:id="@+id/manage_pie_cb_linked"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/manage_pie_cb_linked"
+                    android:text="抓拍关联视频" />
+            </RelativeLayout>
+
+            <View style="@style/line_setpie_h" />
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_sound"
+                style="@style/setting_layout1" >
+
+                <CheckBox
+                    android:id="@+id/manage_pie_cb_sound"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/manage_pie_cb_sound"
+                    android:text="录像时录音" />
+            </RelativeLayout>
+
+            <View style="@style/line_setpie_h" />
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_mic"
+                style="@style/setting_layout1"
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/manage_pie_cb_mic"
+                    style="@style/manage_message_checkbox"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    style="@style/setting_txt_single"
+                    android:layout_toLeftOf="@id/manage_pie_cb_mic"
+                    android:text="麦克风增强" />
+            </RelativeLayout>
+
+            <View
+                style="@style/line_setpie_h"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_mode"
+                style="@style/setting_layout1"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/text_title3"
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="摄像模式" />
+
+                <ImageView
+                    android:id="@+id/pie_crrow4"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip" />
+
+                <TextView
+                    android:id="@+id/manage_pie_txt_mode"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_crrow4"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/line_setpie_h"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_quality"
+                style="@style/setting_layout1" >
+
+                <TextView
+                    android:id="@+id/text_title4"
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="图像质量" />
+
+                <ImageView
+                    android:id="@+id/pie_crrow5"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip" />
+
+                <TextView
+                    android:id="@+id/manage_pie_txt_quality"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_crrow5"
+                    android:text="" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_imgconfig"
+                style="@style/setting_layout1"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/text_title6"
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="图片饱和度、亮度、对比度等信息" />
+
+                <ImageView
+                    android:id="@+id/pie_arrow6"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/manage_pie_txt_imgconfig"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_arrow6"
+                    android:text="" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/line_setting_h" />
+
+        <View
+            style="@style/line_setting_h"
+            android:layout_marginTop="15dip" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/layout_background"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_lay_storage"
+                style="@style/setting_layout1" >
+
+                <TextView
+                    android:id="@+id/text_title5"
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="存储空间管理" />
+
+                <ImageView
+                    android:id="@+id/pie_crrow6"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip" />
+
+                <TextView
+                    android:id="@+id/manage_pie_txt_storage"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_crrow6"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/line_setting_h"
+                android:layout_marginTop="15dip" />
+
+            <RelativeLayout
+                android:id="@+id/manage_pie_setting_time"
+                style="@style/setting_layout1" >
+
+                <TextView
+                    style="@style/setting_userinfo_text1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:text="记录仪时间设置" />
+
+                <ImageView
+                    android:id="@+id/pie_crrow7"
+                    style="@style/setting_img2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dip" />
+
+                <TextView
+                    android:id="@+id/manage_pie_time"
+                    style="@style/setting_userinfo_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/pie_crrow7"
+                    android:text="" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/line_setting_h" />
+    </LinearLayout>
+
+</ScrollView>

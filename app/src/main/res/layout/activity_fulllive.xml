@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/fulllive_videoview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/recorder_play_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dip"
+        layout="@layout/recorder_play_control" />
+
+    <include
+        android:id="@+id/play_lay_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        layout="@layout/layout_paly_loading" />
+
+    <RelativeLayout
+        android:id="@+id/fullLive_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_fullplay"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/readyToPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/main_btn_play_selector" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/recorder_play_head"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/head_height"
+        layout="@layout/head_live" />
+
+</RelativeLayout>

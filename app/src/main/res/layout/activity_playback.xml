@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/head"
+        layout="@layout/head_recorder" />
+
+    <RelativeLayout
+        android:id="@+id/head_sub"
+        android:layout_width="120dp"
+        android:layout_height="@dimen/head_height"
+        android:layout_below="@id/head"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dip"
+        android:background="#b2000000"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/playback_textday"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="date"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/playback_preday"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/head_margin_h"
+            android:src="@drawable/playback_preday" />
+
+        <ImageView
+            android:id="@+id/playback_nextday"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/head_margin_h"
+            android:src="@drawable/playback_nextday" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_down_pie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/head"
+        android:layout_margin="10dip"
+        android:layout_marginTop="10dip" >
+
+        <ImageView
+            android:id="@+id/playback_img_handle"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/pie_clip" />
+
+        <TextView
+            android:id="@+id/playback_txt_downloading"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_alignTop="@+id/playback_img_handle"
+            android:layout_marginLeft="-10dp"
+            android:layout_toRightOf="@+id/playback_img_handle"
+            android:background="@drawable/pie_warn"
+            android:visibility="gone" />
+    </RelativeLayout>
+        <ImageView
+            android:id="@+id/pie_cut_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+             android:layout_below="@id/head"
+              android:layout_marginTop="10dip"
+             android:layout_toLeftOf="@id/rl_down_pie"
+            android:visibility="gone"
+            android:src="@drawable/pie_cut_back" />
+    
+    <com.linewin.chelepie.ui.view.recorder.ThumbnailView
+        android:id="@+id/playback_thumbnailview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/head_sub"
+        android:layout_marginBottom="1dip" />
+
+</RelativeLayout>

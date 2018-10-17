@@ -6,6 +6,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,11 +22,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.carlt.chelepie.view.EditDialog2;
+import com.carlt.chelepie.view.EditDialog3;
+import com.carlt.chelepie.view.WifiListDialog;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.ui.activity.setting.FlowPackageRechargeActivity;
 import com.carlt.sesame.ui.view.UUImgInfoDialog;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 
 public class PopBoxCreat {
@@ -32,6 +42,7 @@ public class PopBoxCreat {
     private static ImageView      ivIcon2;
     //    private static UUUpdateChangeDialog mUUDialogChange;
 
+    private static EditDialog2 mEditDialog;
     /**
      * 带标题弹出框 title_msg="";则无标题
      */
@@ -676,6 +687,7 @@ public class PopBoxCreat {
         return mUUDialog;
     }
 
+
     //
     //    public static UUTwoCodeDialog showTwoCodeDialog(Context context, Bitmap bit, OnClickListener mClick) {
     //		UUTwoCodeDialog mDialog = new UUTwoCodeDialog(context, mClick);
@@ -824,145 +836,144 @@ public class PopBoxCreat {
     //
     //	}
     //
-    //    private static EditDialog2 mEditDialog;
-    //
-    //    private static EditDialog3 mEditDialog3;
-    //    /**
-    //     *
-    //     * @param context
-    //     * @param title_msg
-    //     * @param hint
-    //     * @param inputType
-    //     * @param btnL
-    //     * @param btnR
-    //     * @param dialogWithEditClick
-    //     * @return
-    //     */
-    //    public static EditDialog2 createDialogWithedit2(final Context context, String title_msg,
-    //                                                    String hint, int inputType, String btnL, String btnR, DialogWithEditClick dialogWithEditClick) {
-    //    	if(mEditDialog != null){
-    //    		mEditDialog.dismiss();
-    //    	}
-    //
-    //        mEditDialog = new EditDialog2(context);
-    //        mEditDialog.setTitleString(title_msg);
-    //        mEditDialog.setEditType(inputType);
-    //        mEditDialog.setHintTxt(hint);
-    //        mEditDialog.setBtnL(btnL);
-    //        mEditDialog.setBtnR(btnR);
-    //        mEditDialog.setDialogWithTitleClick(dialogWithEditClick);
-    //        	final EditText editT = mEditDialog.getEditT();
-    //        	editT.setFilters(new InputFilter[]{new InputFilter.LengthFilter(25)});
-    //        	editT.addTextChangedListener(new TextWatcher() {
-    //				@Override
-    //				public void onTextChanged(CharSequence s, int start, int before, int count) {
-    //					String editable = editT.getText().toString();
-    //			          String str = stringFilter(editable.toString());
-    //			          if(!editable.equals(str)){
-    //			        	  editT.setText(str);
-    //			              //设置新的光标所在位置
-    //			        	  editT.setSelection(str.length());
-    //			          }
-    //				}
-    //
-    //				@Override
-    //				public void beforeTextChanged(CharSequence s, int start, int count,
-    //                                              int after) {
-    //				}
-    //
-    //				@Override
-    //				public void afterTextChanged(Editable s) {
-    //
-    //				}
-    //			});
-    //        return mEditDialog;
-    //    }
-    //
-    //    public static EditDialog2 createDialogWithedit2_16lenth(final Context context, String title_msg,
-    //                                                            String hint, int inputType, String btnL, String btnR, DialogWithEditClick dialogWithEditClick) {
-    //    	if(mEditDialog != null){
-    //    		mEditDialog.dismiss();
-    //    	}
-    //
-    //        mEditDialog = new EditDialog2(context);
-    //        mEditDialog.setTitleString(title_msg);
-    //        mEditDialog.setEditType(inputType);
-    //        mEditDialog.setHintTxt(hint);
-    //        mEditDialog.setBtnL(btnL);
-    //        mEditDialog.setBtnR(btnR);
-    //        mEditDialog.setDialogWithTitleClick(dialogWithEditClick);
-    //        	final EditText editT = mEditDialog.getEditT();
-    //        	editT.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-    //        	editT.addTextChangedListener(new TextWatcher() {
-    //				@Override
-    //				public void onTextChanged(CharSequence s, int start, int before, int count) {
-    //					String editable = editT.getText().toString();
-    //			          String str = stringFilter(editable.toString());
-    //			          if(!editable.equals(str)){
-    //			        	  editT.setText(str);
-    //			              //设置新的光标所在位置
-    //			        	  editT.setSelection(str.length());
-    //			          }
-    //				}
-    //
-    //				@Override
-    //				public void beforeTextChanged(CharSequence s, int start, int count,
-    //                                              int after) {
-    //				}
-    //
-    //				@Override
-    //				public void afterTextChanged(Editable s) {
-    //
-    //				}
-    //			});
-    //        return mEditDialog;
-    //    }
-    //
-    //    public static WifiListDialog createDialogWifilist(final Context context,
-    //            DialogWithEditClick dialogWithEditClick) {
-    //        WifiListDialog mWifiListDialog = new WifiListDialog(context);
-    //        mWifiListDialog.setmDialogWithTitleClick(dialogWithEditClick);
-    //        mWifiListDialog.setCancelable(true);
-    //        mWifiListDialog.setCanceledOnTouchOutside(true);
-    //        mWifiListDialog.doItemClick();
-    //        return mWifiListDialog;
-    //    }
-    //    public static String stringFilter(String str)throws PatternSyntaxException {
-    //        // 仅仅同意字母、数字和汉字
-    ////        String   regEx  =  "[^a-zA-Z0-9\u4E00-\u9FA5]";
-    //        // 仅仅同意字母、数字和汉字
-    //        String regEx  =  "[^a-zA-Z0-9]";
-    //        Pattern p   =   Pattern.compile(regEx);
-    //        Matcher m   =   p.matcher(str);
-    //        return   m.replaceAll("").trim();
-    //    }
-    //
-    //    /**
-    //     * 带三个编辑款
-    //     * @param context
-    //     * @param title_msg
-    //     * @param hint
-    //     * @param hint2
-    //     * @param hint3
-    //     * @param inputType
-    //     * @param btnL
-    //     * @param btnR
-    //     * @param dialogWithEditClick
-    //     * @return
-    //     */
-    //    public static EditDialog3 createDialogWithedit3(final Context context, String title_msg,
-    //                                                    String hint, String hint2, String hint3, int inputType, String btnL, String btnR, DialogWithEditClick2 dialogWithEditClick) {
-    //    	if(mEditDialog != null){
-    //    		mEditDialog.dismiss();
-    //    	}
-    //
-    //    	mEditDialog3 = new EditDialog3(context);
-    //    	mEditDialog3.setTitleString(title_msg);
-    //    	mEditDialog3.setEditType(inputType);
-    //    	mEditDialog3.setHintTxt(hint,hint2,hint3);
-    //    	mEditDialog3.setBtnL(btnL);
-    //    	mEditDialog3.setBtnR(btnR);
-    //    	mEditDialog3.setDialogWithTitleClick(dialogWithEditClick);
-    //    	return mEditDialog3;
-    //    }
+
+        private static EditDialog3 mEditDialog3;
+        /**
+         *
+         * @param context
+         * @param title_msg
+         * @param hint
+         * @param inputType
+         * @param btnL
+         * @param btnR
+         * @param dialogWithEditClick
+         * @return
+         */
+        public static EditDialog2 createDialogWithedit2(final Context context, String title_msg,
+                                                        String hint, int inputType, String btnL, String btnR, DialogWithEditClick dialogWithEditClick) {
+        	if(mEditDialog != null){
+        		mEditDialog.dismiss();
+        	}
+
+            mEditDialog = new EditDialog2(context);
+            mEditDialog.setTitleString(title_msg);
+            mEditDialog.setEditType(inputType);
+            mEditDialog.setHintTxt(hint);
+            mEditDialog.setBtnL(btnL);
+            mEditDialog.setBtnR(btnR);
+            mEditDialog.setDialogWithTitleClick(dialogWithEditClick);
+            	final EditText editT = mEditDialog.getEditT();
+            	editT.setFilters(new InputFilter[]{new InputFilter.LengthFilter(25)});
+            	editT.addTextChangedListener(new TextWatcher() {
+    				@Override
+    				public void onTextChanged(CharSequence s, int start, int before, int count) {
+    					String editable = editT.getText().toString();
+    			          String str = stringFilter(editable.toString());
+    			          if(!editable.equals(str)){
+    			        	  editT.setText(str);
+    			              //设置新的光标所在位置
+    			        	  editT.setSelection(str.length());
+    			          }
+    				}
+
+    				@Override
+    				public void beforeTextChanged(CharSequence s, int start, int count,
+                                                  int after) {
+    				}
+
+    				@Override
+    				public void afterTextChanged(Editable s) {
+
+    				}
+    			});
+            return mEditDialog;
+        }
+
+        public static EditDialog2 createDialogWithedit2_16lenth(final Context context, String title_msg,
+                                                                String hint, int inputType, String btnL, String btnR, DialogWithEditClick dialogWithEditClick) {
+        	if(mEditDialog != null){
+        		mEditDialog.dismiss();
+        	}
+
+            mEditDialog = new EditDialog2(context);
+            mEditDialog.setTitleString(title_msg);
+            mEditDialog.setEditType(inputType);
+            mEditDialog.setHintTxt(hint);
+            mEditDialog.setBtnL(btnL);
+            mEditDialog.setBtnR(btnR);
+            mEditDialog.setDialogWithTitleClick(dialogWithEditClick);
+            	final EditText editT = mEditDialog.getEditT();
+            	editT.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
+            	editT.addTextChangedListener(new TextWatcher() {
+    				@Override
+    				public void onTextChanged(CharSequence s, int start, int before, int count) {
+    					String editable = editT.getText().toString();
+    			          String str = stringFilter(editable.toString());
+    			          if(!editable.equals(str)){
+    			        	  editT.setText(str);
+    			              //设置新的光标所在位置
+    			        	  editT.setSelection(str.length());
+    			          }
+    				}
+
+    				@Override
+    				public void beforeTextChanged(CharSequence s, int start, int count,
+                                                  int after) {
+    				}
+
+    				@Override
+    				public void afterTextChanged(Editable s) {
+
+    				}
+    			});
+            return mEditDialog;
+        }
+
+        public static WifiListDialog createDialogWifilist(final Context context,
+                DialogWithEditClick dialogWithEditClick) {
+            WifiListDialog mWifiListDialog = new WifiListDialog(context);
+            mWifiListDialog.setmDialogWithTitleClick(dialogWithEditClick);
+            mWifiListDialog.setCancelable(true);
+            mWifiListDialog.setCanceledOnTouchOutside(true);
+            mWifiListDialog.doItemClick();
+            return mWifiListDialog;
+        }
+        public static String stringFilter(String str)throws PatternSyntaxException {
+            // 仅仅同意字母、数字和汉字
+    //        String   regEx  =  "[^a-zA-Z0-9\u4E00-\u9FA5]";
+            // 仅仅同意字母、数字和汉字
+            String regEx  =  "[^a-zA-Z0-9]";
+            Pattern p   =   Pattern.compile(regEx);
+            Matcher m   =   p.matcher(str);
+            return   m.replaceAll("").trim();
+        }
+
+        /**
+         * 带三个编辑款
+         * @param context
+         * @param title_msg
+         * @param hint
+         * @param hint2
+         * @param hint3
+         * @param inputType
+         * @param btnL
+         * @param btnR
+         * @param dialogWithEditClick
+         * @return
+         */
+        public static EditDialog3 createDialogWithedit3(final Context context, String title_msg,
+                                                        String hint, String hint2, String hint3, int inputType, String btnL, String btnR, DialogWithEditClick2 dialogWithEditClick) {
+        	if(mEditDialog != null){
+        		mEditDialog.dismiss();
+        	}
+
+        	mEditDialog3 = new EditDialog3(context);
+        	mEditDialog3.setTitleString(title_msg);
+        	mEditDialog3.setEditType(inputType);
+        	mEditDialog3.setHintTxt(hint,hint2,hint3);
+        	mEditDialog3.setBtnL(btnL);
+        	mEditDialog3.setBtnR(btnR);
+        	mEditDialog3.setDialogWithTitleClick(dialogWithEditClick);
+        	return mEditDialog3;
+        }
 }

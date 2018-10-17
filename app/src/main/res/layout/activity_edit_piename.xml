@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/head_back" />
+
+    <RelativeLayout
+        android:id="@+id/edit_piename_lay_name"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_below="@id/title"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="21dip"
+        android:background="@drawable/edittext_bg_focused_no"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/edit_piename_edt_name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:gravity="left|center_vertical"
+            android:hint=""
+            android:maxLength="16"
+            android:textColor="@color/text_color_gray3"
+            android:textColorHint="@color/text_color_gray1"
+            android:textSize="@dimen/text_size_middle" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/edit_piename_btn"
+        style="@style/public_bottom_btn"
+        android:layout_below="@id/edit_piename_lay_name"
+        android:layout_marginLeft="@dimen/usercenter_margin"
+        android:layout_marginRight="@dimen/usercenter_margin"
+        android:layout_marginTop="30dip"
+        android:text="确定"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="我的摄像头"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/edit_piename_txt_name"
+             android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dip"
+            android:text="摄像头名称"
+            android:textColor="@color/text_color_gray1"
+            android:textSize="14sp"
+            android:gravity="center" />
+    </LinearLayout>
+
+</RelativeLayout>

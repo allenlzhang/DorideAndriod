@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/head_back" />
+
+    <RadioGroup
+        android:id="@+id/video_quality_rg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/setting_lay_bg"
+        android:divider="@drawable/line_h"
+        android:orientation="vertical" 
+        android:paddingLeft="10dip"
+        android:showDividers="middle"
+        android:paddingRight="1dip"
+        android:layout_marginLeft="1dip"
+        android:layout_marginRight="1dip">
+
+        <RadioButton
+            android:id="@+id/video_quality_rb_fhd"
+            android:layout_width="fill_parent"
+            android:layout_height="52dip"
+            android:button="@null"
+            android:drawableRight="@drawable/icon_blue"
+            android:gravity="center_vertical"
+            android:text="全高清（FHD）"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/video_quality_rb_hd"
+            android:layout_width="fill_parent"
+            android:layout_height="52dip"
+            android:button="@null"
+            android:drawableRight="@drawable/icon_blue"
+            android:gravity="center_vertical"
+            android:text="高清（HD）"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+</LinearLayout>

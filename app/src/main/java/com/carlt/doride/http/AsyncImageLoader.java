@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.carlt.chelepie.utils.ThumbnailDownloadThread;
+
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
@@ -79,10 +81,10 @@ public class AsyncImageLoader {
 		}
 	};
 
-	private HashMap<String, ImageDownloadThread> mDownloadThreadList = new HashMap<String, ImageDownloadThread>();
+	private HashMap<String, Thread> mDownloadThreadList = new HashMap<String, Thread>();
 
 	public synchronized void AddmDownloadThreadList(String url,
-			ImageDownloadThread mImageDownloadThread) {
+			Thread mImageDownloadThread) {
 		mDownloadThreadList.put(url, mImageDownloadThread);
 	}
 
@@ -123,4 +125,48 @@ public class AsyncImageLoader {
 		return mBitmap;
 	}
 
+	public Bitmap getBitmapByUrlLocalThumbnailPic(String path, int width,
+												  int height) {
+		if (path == null || path.equals("")) {
+			return null;
+		}
+
+		Bitmap mBitmap = null;
+		SoftReference<Bitmap> mReference = imageCache.get(path);
+		if (mReference != null) {
+			mBitmap = mReference.get();
+		}
+		if (mBitmap == null) {
+			// 加载图片
+			if (!mDownloadThreadList.containsKey(path)) {
+				// 队列不存在
+				ThumbnailDownloadThread mThumbnailDownloadThread = new ThumbnailDownloadThread(
+						path,width,height,ThumbnailDownloadThread.TYPE_PIC);
+				mThumbnailDownloadThread.start();
+			}
+		}
+
+		return mBitmap;
+	}
+
+	public Bitmap getBitmapByUrlLocalThumbnailVideo(String path) {
+		if (path == null || path.equals("")) {
+			return null;
+		}
+		Bitmap mBitmap = null;
+		SoftReference<Bitmap> mReference = imageCache.get(path);
+		if (mReference != null) {
+			mBitmap = mReference.get();
+		}
+		if (mBitmap == null) {
+			// 加载图片
+			if (!mDownloadThreadList.containsKey(path)) {
+				// 队列不存在
+				ThumbnailDownloadThread mThumbnailDownloadThread = new ThumbnailDownloadThread(
+						path,0,0,ThumbnailDownloadThread.TYPE_VIDEO);
+				mThumbnailDownloadThread.start();
+			}
+		}
+		return mBitmap;
+	}
 }

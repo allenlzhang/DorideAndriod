@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="4dip" >
+
+    <TextView
+        android:id="@+id/dialog_toast_txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="标题"
+        android:textColor="#333333"
+        android:textSize="18sp" 
+        android:layout_marginTop="19dip"/>
+
+    <ImageView
+        android:id="@+id/dialog_toast_img_icon"
+        android:layout_width="63dip"
+        android:layout_height="39dip" />
+
+    <com.carlt.chelepie.view.gif.GifView
+        android:id="@+id/dialog_toast_gif_icon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+        <!--gif:delay="1"-->
+        <!--gif:src="@raw/chelerpie_starting"-->
+        <!--gif:stop="true" -->
+
+    <TextView
+        android:id="@+id/dialog_toast_txt_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="提示文字"
+        android:textColor="#999999"
+        android:textSize="14sp"
+        android:layout_marginTop="10dip" />
+
+</LinearLayout>

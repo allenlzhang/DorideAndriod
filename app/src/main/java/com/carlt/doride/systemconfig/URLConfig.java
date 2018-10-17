@@ -8,7 +8,9 @@ public class URLConfig {
     public final static int VERSION_PREPARE = 1002;// 预发布服
     public final static int VERSION_TEST    = 1003;// 测试服
     public static       int flag            = VERSION_TEST;
-
+    public static String host = "172.20.120.1";// 杭州
+    // 端口号
+    public final static int FtpPort = 10021;
     // 车乐测试服务器
     private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
 

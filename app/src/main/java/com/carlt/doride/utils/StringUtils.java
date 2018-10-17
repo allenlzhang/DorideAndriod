@@ -44,7 +44,25 @@ public class StringUtils {
 
     private StringUtils() {
     }
+    private volatile static String speeds = "0.0B/S";
 
+    private volatile static long speed = 0;
+
+    public static void setSpeeds(String speeds) {
+        StringUtils.speeds = speeds;
+    }
+
+    public static void setSpeed(long speed) {
+        StringUtils.speed = speed;
+    }
+
+    public static String caculateSpeeds() {
+        return speeds;
+    }
+
+    public static long caculateSpeedLong() {
+        return speed;
+    }
     public final static String EMPTY = "--";
 
     private final static Pattern emailer = Pattern

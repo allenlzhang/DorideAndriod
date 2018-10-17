@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <RelativeLayout
+        android:id="@+id/videoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </RelativeLayout>
+    
+        
+     <RelativeLayout
+          android:id="@+id/player_progress_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="#00000000"
+        android:visibility="gone"
+         >
+       <ProgressBar
+        android:id="@+id/player_progress_loadbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/page_loading_xml"
+        android:maxHeight="29dip"
+        android:maxWidth="43dip"
+        android:minHeight="29dip"
+        android:minWidth="43dip" />
+       <TextView  android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频缓冲中..."
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/player_progress_loadbar"
+            android:layout_marginTop="15dp"
+            />
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/player_imgLay"
+        android:layout_width="320dp"
+        android:layout_height="160dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:background="#ffffff"
+        android:padding="1dp"
+        android:visibility="gone" 
+        >
+
+        <ImageView
+            android:id="@+id/recorder_player_img_capture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_lay"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:onClick="bottomClick"
+        android:background="#B2000000" >
+
+        <ImageView
+            android:id="@+id/player_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:clickable="true"
+            android:src="@drawable/player_play_selector" />
+
+        <TextView
+            android:id="@+id/play_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/player_play_btn"
+            android:text="--/--"
+            android:textColor="#FFF"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/player_cut_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:visibility="invisible"
+            android:clickable="true"
+            android:src="@drawable/player_cut_selector" />
+
+        <ImageView
+            android:id="@+id/player_download_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@+id/player_cut_btn"
+            android:clickable="true"
+            android:src="@drawable/player_download_selector" />
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="45dp"
+        android:max="100"
+        android:progress="0" />
+    
+    <TextView
+        android:id="@+id/tv_err_msg"
+        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+             android:text=""
+            android:textSize="15sp"
+            android:textColor="#fff"
+        ></TextView>
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.carlt.sesame.ui.view.gif;
+package com.carlt.chelepie.view.gif;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;

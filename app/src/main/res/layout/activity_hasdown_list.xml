@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/hasdown_list_swiperefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp" >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hasdown_list_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:divider="#ff0000"
+            android:dividerHeight="10dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/hasdown_list_lay_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:visibility="gone" >
+
+        <View
+            android:id="@+id/hasdown_list_line_h"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/text_color_gray3" />
+
+        <View
+            android:id="@+id/hasdown_list_line_v"
+            android:layout_width="0.5dp"
+            android:layout_height="28dp"
+            android:layout_centerInParent="true"
+            android:background="@color/text_color_gray3" />
+
+        <TextView
+            android:id="@+id/hasdown_list_txt_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/hasdown_list_line_v"
+            android:gravity="center"
+            android:text="全选"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/hasdown_list_txt_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/hasdown_list_line_v"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="#f65c5c"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -33,7 +33,7 @@ import java.util.Locale;
  * 作者：秋良 描述：工具类 主要包括读写文件，数据流等方法
  */
 public class FileUtil {
-
+    private final static long TEMP_TOTAL_TIME = 7 * 24 * 60 * 60 * 1000;// 7天
     /**
      * 获取扩展卡路径
      */
@@ -427,5 +427,102 @@ public class FileUtil {
         }
         return fileFullName;
     }
+    /**
+     * 删除超过一周的TEMP文件
+     */
+    public static void deleteTimeoutTemp(String path) {
+        deleteTemp(path,TEMP_TOTAL_TIME);
+    }
 
+    /**
+     * 删除 temp文件
+     * @param path 路径
+     * @param times 存在多久的
+     */
+    public static void deleteTemp(String path,long times) {
+        long fileCreateTime;// 文件创建时间
+        String absolutePath;// 文件绝对路径
+        long currentTime = System.currentTimeMillis();
+        File dir = new File(path);
+        if (dir.exists()) {
+            File[] files = dir.listFiles();// 该文件目录下文件全部放入数组
+            if (files.length == 0) {
+                return;
+            } else {
+                for (File fileItem : files) {
+                    if (fileItem.isDirectory()) {
+                        deleteTemp(fileItem.getAbsolutePath(),times);
+                    } else {
+                        fileCreateTime = fileItem.lastModified();
+                        absolutePath = fileItem.getAbsolutePath();
+                        if (absolutePath.contains(LocalConfig.DIR_TEMP) || absolutePath.contains(LocalConfig.DIR_THUMBNAIL)) {
+                            if (((currentTime - fileCreateTime) > times) || times < 1) {
+                                deleteFile(fileItem);
+                            }
+                        }
+
+                    }
+                }
+            }
+        } else {
+        }
+    }
+
+    public final static int KB = 1024;
+    public final static int MB = 1024 * 1024;
+    public static String getFileShowSize(int length, DecimalFormat df) {
+        if (length < 0) {
+            return "";
+        }
+        if (df == null) {
+            df = new DecimalFormat("0.00");
+        }
+        StringBuffer showLen = new StringBuffer();
+        if (length < KB) {
+            showLen.append(length);
+            showLen.append("B");
+        } else if (length >= KB && length < (MB)) {
+            showLen.append(df.format((double) length / KB));
+            showLen.append("KB");
+        } else if (length >= (1024 * 1024)) {
+            showLen.append(df.format((double) length / (MB)));
+            showLen.append("MB");
+        }
+        return showLen.toString();
+    }
+
+    /**
+     *  判断是否存在文件
+     * @param path 路径
+     * @param fileName 文件名
+     * @return 文件地址
+     */
+    public static String getExistPath(String path, String fileName) {
+        String absolutePath = null;// 文件绝对路径
+        File dir = new File(path);
+        if (dir.exists()) {
+            File[] files = dir.listFiles();// 该文件目录下文件全部放入数组
+            if (files.length == 0) {
+                return null;
+            } else {
+                for (File fileItem : files) {
+                    if (fileItem.isDirectory()) {
+                        absolutePath = getExistPath(fileItem.getAbsolutePath(),fileName);
+                        if(isExist(absolutePath) && absolutePath.contains(fileName)){
+                            return absolutePath;
+                        }
+                    } else {
+                        if(isExist(fileItem.getAbsolutePath()) && fileItem.getAbsolutePath().contains(fileName)){
+                            absolutePath = fileItem.getAbsolutePath();
+                            return absolutePath;
+                        }
+                    }
+                }
+            }
+        } else {
+            return null;
+        }
+        return absolutePath;
+
+    }
 }

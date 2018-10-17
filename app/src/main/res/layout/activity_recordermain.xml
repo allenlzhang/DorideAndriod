@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         >
+
+        <!-- 标题头  “发现” -->
+
+        <LinearLayout
+            android:id="@+id/line_head"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical" >
+            <RelativeLayout
+                android:id="@+id/titleHead"
+                android:layout_width="fill_parent"
+                android:layout_height="44dip"
+                android:background="#000000"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_color_gray3"
+                    android:text="行车记录"
+                    android:textSize="17sp"/>
+
+                <ImageView
+                    android:id="@+id/recordermain_img_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="5dip"
+                    android:src="@drawable/recorder_set" />
+
+                <ImageView
+                    android:id="@+id/recorder_main_connect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dip"
+                    android:src="@drawable/reconnect_chelepie"
+                    android:visibility="visible" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/recordermain_lay_video"
+                android:layout_width="fill_parent"
+                android:layout_height="220dip"
+                android:background="#000000" >
+
+                <RelativeLayout
+                    android:id="@+id/recordermain_lay_play"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:visibility="gone" >
+
+                    <RelativeLayout
+                        android:id="@+id/recordermain_videov_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <RelativeLayout
+                        android:id="@+id/recordermain_proBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#000000"
+                        android:visibility="gone" >
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:indeterminateDrawable="@drawable/page_loading_xml"
+                            android:maxHeight="29dip"
+                            android:maxWidth="43dip"
+                            android:minHeight="29dip"
+                            android:minWidth="43dip" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/recordermain_img_full"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="center"
+                        android:src="@drawable/recorder_full" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/recordermain_lay_ready"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/main_live_bg" />
+
+                    <TextView
+                        android:id="@+id/recordermain_txt_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/main_btn_play_selector" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#f0f0f0"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@color/white"
+                 >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/recorder_bottom_bg"
+                    />
+                <TextView
+                    android:id="@+id/recordermain_txt_album"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:background="@drawable/btn_recorder"
+                    android:text="进入相册" 
+                    android:layout_marginTop="22dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
