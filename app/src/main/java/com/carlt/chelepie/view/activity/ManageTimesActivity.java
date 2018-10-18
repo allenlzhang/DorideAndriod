@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.view.TimePickerDialog;
 import com.carlt.doride.R;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUDialog;
 import com.carlt.doride.ui.view.UUToast;
@@ -109,10 +111,10 @@ public class ManageTimesActivity extends ActivityWithTitle implements
 
 	}
 
-	private CPControl.GetResultListCallback listener_time = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_time = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Log.e("info", "onFinished");
 			runOnUiThread(new Runnable() {
 				@Override
@@ -125,7 +127,7 @@ public class ManageTimesActivity extends ActivityWithTitle implements
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo bInfo) {
 			Log.e("info", "onErro");
 			runOnUiThread(new Runnable() {
 				@Override

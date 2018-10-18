@@ -2,13 +2,14 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.FileInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
 import com.carlt.doride.utils.Log;
@@ -43,7 +44,7 @@ public class RecorderDownloadVideoThumbnailParser extends
 
 	private long clientId;
 
-	public RecorderDownloadVideoThumbnailParser(CPControl.GetResultListCallback listener,
+	public RecorderDownloadVideoThumbnailParser(BaseParser.ResultCallback listener,
 			List<PieDownloadInfo> listsPinfo) {
 		super(listener, BaseResponseInfo.class);
 		MSG_FAIL = "下载视频缩略图失败";

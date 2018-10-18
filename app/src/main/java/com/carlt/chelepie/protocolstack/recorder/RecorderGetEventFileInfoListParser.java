@@ -4,14 +4,15 @@ import android.os.SystemClock;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadListInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.BitConverter;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
@@ -46,7 +47,7 @@ public class RecorderGetEventFileInfoListParser extends RecorderBaseParserNew<Pi
 	 * @param isContinue
 	 *            是否接着上次请求 默认先请求三次从视频开始，完了后自动开始请求图片
 	 */
-	public RecorderGetEventFileInfoListParser(CPControl.GetResultListCallback listener, String beginTime, boolean isContinue) {
+	public RecorderGetEventFileInfoListParser(BaseParser.ResultCallback listener, String beginTime, boolean isContinue) {
 		super(listener, PieDownloadListInfo.class);
 		MSG_FAIL = "获取文件列表信息失败";
 		MSG_SUCC = "获取文件列表信息成功";

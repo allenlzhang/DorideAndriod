@@ -10,6 +10,8 @@ import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.download.PieDownloadControl;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.BitConverter;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 import org.json.JSONException;
@@ -187,15 +189,18 @@ public class DeviceConnectManager implements Runnable {
 		mIsConnect = false;
 	}
 	
-	private CPControl.GetResultListCallback listener_time = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_time = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
+
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo bInfo) {
+
 		}
+
 	};
 
 	/**

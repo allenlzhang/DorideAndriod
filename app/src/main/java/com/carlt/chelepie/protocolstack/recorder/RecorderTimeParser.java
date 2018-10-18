@@ -2,13 +2,14 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.systemconfig.ActionConfig;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 public class RecorderTimeParser extends RecorderBaseParserNew {
 	long mTime = 0;
-	public RecorderTimeParser(CPControl.GetResultListCallback listener, long time) {
+	public RecorderTimeParser(BaseParser.ResultCallback listener, long time) {
 		super(listener, BaseResponseInfo.class);
 		mRequestID = ActionConfig.MID_NOTIFY_TIME;
 		mTime = time;

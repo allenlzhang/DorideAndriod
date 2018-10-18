@@ -3,7 +3,6 @@ package com.carlt.chelepie.control;
 import android.util.Log;
 
 
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieVersion;
 import com.carlt.chelepie.data.recorder.ThumbnailInfo;
@@ -40,7 +39,8 @@ import com.carlt.chelepie.protocolstack.recorder.StopMonitorParser;
 import com.carlt.chelepie.protocolstack.recorder.StopPlayBackParser;
 import com.carlt.chelepie.protocolstack.recorder.TakePhotoParser;
 import com.carlt.chelepie.utils.TarAndGz;
-import com.carlt.doride.http.FileDownloadThread;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
 import com.carlt.sesame.control.CPControl;
@@ -142,7 +142,7 @@ public class RecorderControl {
 
 	/**
 	 * 通知固件升级
-	 * 
+	 *
 	 * @param listener
 	 *            进度提醒
 	 * @param filePath
@@ -157,7 +157,7 @@ public class RecorderControl {
 
 	/**
 	 * 按天下载预览图接口
-	 * 
+	 *
 	 * @param day
 	 *            (yyyymmdd) 返回ArrayList<ThumbnailInfo>
 	 */
@@ -260,7 +260,7 @@ public class RecorderControl {
 
 	/**
 	 * 取出文件夹下所有缩略图并按时间排序
-	 * 
+	 *
 	 * @param folder
 	 *            (yyyymmdd) 返回ArrayList<ThumbnailInfo>
 	 */
@@ -330,11 +330,11 @@ public class RecorderControl {
 
 	/**
 	 * 获取车乐拍设置信息
-	 * 
+	 *
 	 * @param listener
 	 * @return null 访问成功后通过PieInfo获取信息
 	 */
-	public static void getRecorderSetting(final GetResultListCallback listener) {
+	public static void getRecorderSetting(final BaseParser.ResultCallback listener) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -348,33 +348,33 @@ public class RecorderControl {
 
 	/**
 	 * 获取硬件SD卡信息
-	 * 
+	 *
 	 * @param listener
 	 * @return PieSDcardInfo
 	 */
-	public static void getRecorderSD(final GetResultListCallback listener) {
+	public static void getRecorderSD(BaseParser.ResultCallback listener) {
 		RecorderStorageParser parser = new RecorderStorageParser(listener);
 		parser.start();
 	}
 
 	/**
 	 * 格式化硬件SD卡
-	 * 
+	 *
 	 * @param listener
 	 * @return null
 	 */
-	public static void formatRecorderSD(final GetResultListCallback listener,RecorderFormatSDParser.JinduResultListCallback jinduListener) {
+	public static void formatRecorderSD(BaseParser.ResultCallback listener,RecorderFormatSDParser.JinduResultListCallback jinduListener) {
 		RecorderFormatSDParser mParser = new RecorderFormatSDParser(listener, BaseResponseInfo.class,jinduListener);
 		mParser.start();
 	}
 
 	/**
 	 * 修改设备名称
-	 * 
+	 *
 	 * @param listener
 	 * @return null
 	 */
-	public static void EditPieName(final String name, final GetResultListCallback listener) {
+	public static void EditPieName(final String name, BaseParser.ResultCallback listener) {
 		EditPieNameParser mParser = new EditPieNameParser(listener);
 		mParser.setSsid(name);
 		mParser.start();
@@ -382,11 +382,11 @@ public class RecorderControl {
 
 	/**
 	 * 修改设备密码
-	 * 
+	 *
 	 * @param listener
 	 * @return null
 	 */
-	public static void EditPiePassword(String psw, GetResultListCallback listener) {
+	public static void EditPiePassword(String psw, BaseParser.ResultCallback listener) {
 		EditPiePasswordParser mParser = new EditPiePasswordParser(listener);
 		mParser.setPassword(psw);
 		mParser.start();
@@ -394,68 +394,68 @@ public class RecorderControl {
 
 	/**
 	 * 获取车乐拍版本信息
-	 * 
+	 *
 	 * @param listener
 	 * @return
 	 */
-	public static void getPieVersion(final GetResultListCallback listener) {
+	public static void getPieVersion(final BaseParser.ResultCallback listener) {
 		PieVersionParser mParser = new PieVersionParser(listener, PieVersion.class);
 		mParser.start();
 	}
 	/**
 	 * 设置视频
-	 * 
+	 *
 	 * @param listener
 	 *            * 以下参数传空视为不改
 	 * @param quality
 	 *            画质区分低，中，高 0:SD1080,1:HD720,
 	 * @return
 	 */
-	public static void setVideoSize(final int quality, final GetResultListCallback listener) {
+	public static void setVideoSize(final int quality, final BaseParser.ResultCallback listener) {
 		SetVideoParser mParser = new SetVideoParser(listener);
 		mParser.setQuality(quality);
 		mParser.start();
 	}
-	public static void setStopMonitorParser(final GetResultListCallback listener) {
+	public static void setStopMonitorParser(final BaseParser.ResultCallback listener) {
 		StopMonitorParser mParser = new StopMonitorParser(listener);
 		mParser.start();
 	}
 
 	/**
-	 * 
+	 *
 	 * 设置抓拍是否录制视频
-	 * 
+	 *
 	 * @param listener
 	 */
-	public static void setCaptureRecordVideo(final GetResultListCallback listener) {
+	public static void setCaptureRecordVideo(final BaseParser.ResultCallback listener) {
 		RecorderCaptureRecordParser mParser = new RecorderCaptureRecordParser(listener);
 		mParser.start();
 	}
 
 	/**
 	 * 设置音频
-	 * 
+	 *
 	 * @param listener
 	 *            * 以下参数传空视为不改
 //	 * @param MicEnhance
 //	 *            麦克风增强开关 * @param MicEnhance 麦克风增强（谭工说要给他的，具体干啥的不知道）
 	 * @return
 	 */
-	public static void setAudio(final GetResultListCallback listener) {
+	public static void setAudio(final BaseParser.ResultCallback listener) {
 		SetAudioParser mParser = new SetAudioParser(listener);
 		mParser.start();
 	}
 
 	/**
 	 * 设置录像时是否录音
-	 * 
+	 *
 	 * @param listener
 	 *            * 以下参数传空视为不改
 	 * @param RecordingSound
 	 *            录像时录音
 	 * @return
 	 */
-	public static void setStream(final Boolean RecordingSound, final CPControl.GetResultListCallback listener) {
+	public static void setStream(final Boolean RecordingSound, final BaseParser.ResultCallback listener) {
 		SetStreamParser mParser = new SetStreamParser(listener, BaseResponseInfo.class);
 		if (RecordingSound != null) {
 			// mParser.setAudio_enable(RecordingSound);
@@ -465,7 +465,7 @@ public class RecorderControl {
 
 	/**
 	 * 设置视频
-	 * 
+	 *
 	 * @param listener
 	 * @param brightness
 	 *            亮度
@@ -475,7 +475,7 @@ public class RecorderControl {
 	 *            饱和
 	 * @return
 	 */
-	public static void setVideoColor(final int brightness, final int contrast, final int saturation, final CPControl.GetResultListCallback listener) {
+	public static void setVideoColor(final int brightness, final int contrast, final int saturation, final BaseParser.ResultCallback listener) {
 		SetImgParser imgParser = new SetImgParser(listener);
 		imgParser.setBrightness(brightness);
 		imgParser.setContrast(contrast);
@@ -483,14 +483,14 @@ public class RecorderControl {
 		imgParser.start();
 	}
 
-	public static void getStorageInfo(final CPControl.GetResultListCallback listener) {
+	public static void getStorageInfo(final BaseParser.ResultCallback listener) {
 		RecorderStorageParser parser = new RecorderStorageParser(listener);
 		parser.start();
 	}
 
 	/**
 	 * 上传固件程序
-	 * 
+	 *
 	 * @param filePath
 	 *            文件本地路径
 	 * @param listener
@@ -520,31 +520,31 @@ public class RecorderControl {
 
 	/**
 	 * 删除文件
-	 * 
+	 *
 	 * @param listener
 	 * @return
 	 */
-	public static void deleteFile(final PieDownloadInfo pieInfo, final GetResultListCallback listener) {
+	public static void deleteFile(final PieDownloadInfo pieInfo, final BaseParser.ResultCallback listener) {
 		DeleteFileParser mParser = new DeleteFileParser(listener,pieInfo);
 		mParser.start();
 	}
 
 	/**
 	 * 拍照
-	 * 
+	 *
 	 * @param listener
 	 * @return
 	 */
-	public static void takePhoto(final GetResultListCallback listener) {
+	public static void takePhoto(final BaseParser.ResultCallback listener) {
 		TakePhotoParser mParser = new TakePhotoParser(listener);
 		mParser.start();
 	}
 
 	/**
 	 * 重启车乐拍
-	 * 
+	 *
 	 */
-	public static void getRestarPie(final GetResultListCallback listener) {
+	public static void getRestarPie(final BaseParser.ResultCallback listener) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -556,9 +556,9 @@ public class RecorderControl {
 
 	/**
 	 * 恢复出厂设置
-	 * 
+	 *
 	 */
-	public static void getRestoreFactory(final GetResultListCallback listener) {
+	public static void getRestoreFactory(final BaseParser.ResultCallback listener) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -569,19 +569,19 @@ public class RecorderControl {
 	}
 
 	/**
-	 * 
+	 *
 	 * 开始直播
 	 */
-	public static void startMonitor(final GetResultListCallback listener) {
+	public static void startMonitor(BaseParser.ResultCallback listener) {
 		StartMonitorParser monitorParser = new StartMonitorParser(listener);
 		monitorParser.start();
 	}
 
 	/**
-	 * 
+	 *
 	 * 开始回放
 	 */
-	public static void startPlayback(final GetResultListCallback listener, final String startTime) {
+	public static void startPlayback(BaseParser.ResultCallback listener, final String startTime) {
 		StartPlayBackParser parser = new StartPlayBackParser(listener, startTime);
 		parser.start();
 	}
@@ -589,22 +589,22 @@ public class RecorderControl {
 	 * 回放停止
 	 * @param listener
 	 */
-	public static void stopPlayback(final GetResultListCallback listener) {
+	public static void stopPlayback(BaseParser.ResultCallback listener) {
 		StopPlayBackParser parser = new StopPlayBackParser(listener);
 		parser.start();
 	}
 
 	/**
 	 * 获取系统信息
-	 * 
+	 *
 	 * @param listener
 	 */
-	public static void getSysInfo(final GetResultListCallback listener) {
+	public static void getSysInfo(BaseParser.ResultCallback listener) {
 		RecorderSettingParser rsp = new RecorderSettingParser(listener);
 		rsp.start();
 	}
-	
-	public static void BindDevice(final GetResultListCallback listener, final String uid) {
+
+	public static void BindDevice(BaseParser.ResultCallback listener, final String uid) {
 		RecorderBindDeviceParser bindDeviceParser = new RecorderBindDeviceParser(listener, uid);
 		bindDeviceParser.start();
 	}
@@ -622,42 +622,42 @@ public class RecorderControl {
 //		RecorderGetCaptureFileInfoListParser parser = new RecorderGetCaptureFileInfoListParser(listener, startTime, endTime, type);
 //		parser.start();
 //	}
-	
-	
-	public static void PausePlayBack(final GetResultListCallback listener) {
+
+
+	public static void PausePlayBack(final BaseParser.ResultCallback listener) {
 		PausePlayBackParser parser = new PausePlayBackParser(listener);
 		parser.start();
 	}
 
-	public static void ContinuePlayBack(final GetResultListCallback listener) {
+	public static void ContinuePlayBack(final BaseParser.ResultCallback listener) {
 		ContinuePlayBackParser parser = new ContinuePlayBackParser(listener);
 		parser.start();
-	}	
-	
+	}
+
 	/**
 	 * 获取抓拍文件列表
-	 * 
+	 *
 	 * @param listener
 	 * @param startTime
 	 *            可传null
 	 * @param isContinue
 	 *            是否接着上次请求
 	 */
-	public static void getCaptureFilelist(final GetResultListCallback listener, String startTime, boolean isContinue) {
+	public static void getCaptureFilelist(final BaseParser.ResultCallback listener, String startTime, boolean isContinue) {
 		RecorderGetCaptureFileInfoListParser parser = new RecorderGetCaptureFileInfoListParser(listener, startTime, isContinue);
 		parser.start();
 	}
 
-	public static void getEventFilelist(final GetResultListCallback listener, String startTime, boolean isContinue) {
+	public static void getEventFilelist(BaseParser.ResultCallback listener, String startTime, boolean isContinue) {
 		RecorderGetEventFileInfoListParser parser = new RecorderGetEventFileInfoListParser(listener, startTime, isContinue);
 		parser.start();
 	}
-	public static void getAllVedioFilelist(final GetResultListCallback listener, String startTime, boolean isContinue) {
+	public static void getAllVedioFilelist(final BaseParser.ResultCallback listener, String startTime, boolean isContinue) {
 		RecorderGetHVideoFileInfoListParser parser = new RecorderGetHVideoFileInfoListParser(listener, startTime, isContinue);
 		parser.start();
 	}
-	
-	
+
+
 	static RecorderDownloadFileParser recorderDownloadFileParser = null;
 	/**
 	 * 下载文件
@@ -677,11 +677,11 @@ public class RecorderControl {
 			recorderDownloadFileParser.stopDownload();
 		}
 	}
-	
+
 	/**
 	 * App向记录仪下发对时时间
 	 */
-	public static void setRecorderTime(final GetResultListCallback listener,long time) {
+	public static void setRecorderTime(BaseParser.ResultCallback listener,long time) {
 		RecorderTimeParser parser = new RecorderTimeParser(listener,time);
 		parser.start();
 	}

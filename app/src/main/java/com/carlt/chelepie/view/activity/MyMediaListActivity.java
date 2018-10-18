@@ -19,7 +19,6 @@ import com.carlt.chelepie.control.DeviceConnControl;
 import com.carlt.chelepie.control.DeviceConnListener;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadListInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
@@ -30,6 +29,8 @@ import com.carlt.chelepie.view.fragment.MediaAllFragment;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.control.CPControl;
@@ -313,36 +314,36 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 		});
 	}
 
- 	public CPControl.GetResultListCallback listener1 = new CPControl.GetResultListCallback() {
-		
+ 	public BaseParser.ResultCallback listener1 = new BaseParser.ResultCallback() {
+
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.obj = o;
 			msg.what = 1 ;
 			mHandler.sendMessage(msg);
 		}
-		
+
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.obj = o;
 			msg.what = 2 ;
 			mHandler.sendMessage(msg);
 		}
 	};
-	CPControl.GetResultListCallback listener2 = new CPControl.GetResultListCallback() {
-		
+	BaseParser.ResultCallback listener2 = new BaseParser.ResultCallback() {
+
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.obj = o;
 			msg.what = 3 ;
 			mHandler.sendMessage(msg);
 		}
-		
+
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.obj = o;
 			msg.what = 4 ;

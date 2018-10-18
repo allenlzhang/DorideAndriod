@@ -2,10 +2,10 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.systemconfig.ActionConfig;
-import com.carlt.sesame.control.CPControl;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 
 public class SetImgParser extends RecorderBaseParserNew<BaseResponseInfo> {
 	private int brightness;
@@ -25,7 +25,7 @@ public class SetImgParser extends RecorderBaseParserNew<BaseResponseInfo> {
 		this.saturate = saturate;
 	}
 
-	public SetImgParser(CPControl.GetResultListCallback listener) {
+	public SetImgParser(BaseParser.ResultCallback listener) {
 		super(listener, BaseResponseInfo.class);
 		mRequestID = ActionConfig.MID_CONFIG_SET;
 	}

@@ -45,7 +45,9 @@ import com.carlt.chelepie.view.gl.IVideoView;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.UUPopupWindow;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
@@ -357,50 +359,47 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         }
     };
 
-    private CPControl.GetResultListCallback listener_imgconfig = new CPControl.GetResultListCallback() {
+    private BaseParser.ResultCallback listener_imgconfig = new BaseParser.ResultCallback() {
 
         @Override
-        public void onFinished(Object o) {
+        public void onSuccess(BaseResponseInfo bInfo) {
             Message msg = new Message();
             msg.what = 7;
             mHandler.sendMessage(msg);
-
         }
 
         @Override
-        public void onErro(Object o) {
+        public void onError(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 8;
             msg.obj = o;
             mHandler.sendMessage(msg);
-
         }
+
     };
 
-    private CPControl.GetResultListCallback listener_quality = new CPControl.GetResultListCallback() {
+    private BaseParser.ResultCallback listener_quality = new BaseParser.ResultCallback() {
 
         @Override
-        public void onFinished(Object o) {
+        public void onSuccess(BaseResponseInfo bInfo) {
             Message msg = new Message();
             msg.what = 9;
             mHandler.sendMessage(msg);
-
         }
 
         @Override
-        public void onErro(Object o) {
+        public void onError(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 10;
             msg.obj = o;
             mHandler.sendMessage(msg);
-
         }
     };
 
-    private CPControl.GetResultListCallback listener_playback = new CPControl.GetResultListCallback() {
+    private BaseParser.ResultCallback listener_playback = new BaseParser.ResultCallback() {
 
         @Override
-        public void onFinished(Object o) {
+        public void onSuccess(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 13;
             msg.obj = o;
@@ -408,12 +407,11 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         }
 
         @Override
-        public void onErro(Object o) {
+        public void onError(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 14;
             msg.obj = o;
             mHandler.sendMessage(msg);
-
         }
     };
 
@@ -733,10 +731,10 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         Log.e("FullActivity", "FullPlayActivity" + "onResume");
     }
 
-    CPControl.GetResultListCallback pauseCallback = new CPControl.GetResultListCallback() {
+    BaseParser.ResultCallback pauseCallback = new BaseParser.ResultCallback() {
 
         @Override
-        public void onFinished(Object o) {
+        public void onSuccess(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 2;
             msg.obj = o;
@@ -745,19 +743,20 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         }
 
         @Override
-        public void onErro(Object o) {
+        public void onError(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 3;
             msg.obj = o;
             mHandler.sendMessage(msg);
             isLastOver = true;
         }
+
     };
 
-    CPControl.GetResultListCallback continueCallback = new CPControl.GetResultListCallback() {
+    BaseParser.ResultCallback continueCallback = new BaseParser.ResultCallback() {
 
         @Override
-        public void onFinished(Object o) {
+        public void onSuccess(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 4;
             msg.obj = o;
@@ -766,7 +765,7 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         }
 
         @Override
-        public void onErro(Object o) {
+        public void onError(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 5;
             msg.obj = o;

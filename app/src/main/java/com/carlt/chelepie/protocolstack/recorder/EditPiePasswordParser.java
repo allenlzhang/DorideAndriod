@@ -5,11 +5,12 @@ import android.content.SharedPreferences;
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.WIFIControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
 
@@ -25,7 +26,7 @@ public class EditPiePasswordParser extends RecorderBaseParserNew<BaseResponseInf
 
 	private String psw;
 
-	public EditPiePasswordParser(CPControl.GetResultListCallback listener) {
+	public EditPiePasswordParser(BaseParser.ResultCallback listener) {
 		super(listener, BaseResponseInfo.class);
 		mRequestID = ActionConfig.MID_CONFIG_WIFI;
 	}

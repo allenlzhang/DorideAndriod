@@ -15,10 +15,11 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.carlt.chelepie.control.RecorderControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.control.CPControl;
@@ -82,22 +83,23 @@ public class VideoQualityActivity extends BaseActivity {
 
 	}
 
-	private CPControl.GetResultListCallback mListener = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback mListener = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 0;
 			mHandler.sendMessage(msg);
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = o;
 			mHandler.sendMessage(msg);
 		}
+
 	};
 
 	private Handler mHandler = new Handler() {

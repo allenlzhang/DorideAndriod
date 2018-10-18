@@ -1,6 +1,7 @@
 package com.carlt.chelepie.utils.video;
 
 
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 /**
@@ -29,7 +30,7 @@ public interface ICodecMode {
 	 * 暂停播放
 	 * @param pauseCallback 
 	 */
-	void pauseToPlay(CPControl.GetResultListCallback pauseCallback);
+	void pauseToPlay(BaseParser.ResultCallback pauseCallback);
 	
 	/**
 	 * 继续播放

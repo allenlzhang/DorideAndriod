@@ -4,6 +4,7 @@ package com.carlt.chelepie.utils.video;
 import com.carlt.chelepie.utils.PlayListener;
 import com.carlt.chelepie.view.gl.GLFrameSurface;
 import com.carlt.chelepie.view.gl.IVideoView;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 /**
@@ -38,7 +39,7 @@ public class CodecVideoPresenter {
 		codecMode.startToPlay();
 	}
 	
-	public void pausePlay(CPControl.GetResultListCallback pauseCallback){
+	public void pausePlay(BaseParser.ResultCallback pauseCallback){
 		codecMode.pauseToPlay(pauseCallback);
 	}
 	public void stopPlay(){

@@ -2,8 +2,9 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.systemconfig.ActionConfig;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.MyParse;
 import com.carlt.sesame.control.CPControl;
 
@@ -19,7 +20,7 @@ public class RecorderBindDeviceParser extends RecorderBaseParserNew<BaseResponse
 	 */
 	private String uid = "";
 
-	public RecorderBindDeviceParser(CPControl.GetResultListCallback listener, String uid) {
+	public RecorderBindDeviceParser(BaseParser.ResultCallback listener, String uid) {
 		super(listener, BaseResponseInfo.class);
 		mRequestID = ActionConfig.MID_BIND;
 		MSG_FAIL = "绑定激活设备失败";

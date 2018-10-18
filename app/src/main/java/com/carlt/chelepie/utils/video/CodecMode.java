@@ -22,6 +22,7 @@ import com.carlt.chelepie.view.gl.GLFrameRenderer;
 import com.carlt.chelepie.view.gl.GLFrameSurface;
 import com.carlt.chelepie.view.gl.ISimplePlayer;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.ImageUtils;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
@@ -241,7 +242,7 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 	}
 
 	@Override
-	public void pauseToPlay(CPControl.GetResultListCallback pauseCallback) {
+	public void pauseToPlay(BaseParser.ResultCallback pauseCallback) {
 		this.pauseCallback = pauseCallback;
 		mIsPause = true;
 		audioPlayer.pause();
@@ -533,7 +534,7 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 
 	private Bitmap pausebitmap;
 
-	CPControl.GetResultListCallback pauseCallback;
+	BaseParser.ResultCallback pauseCallback;
 
 	@Override
 	public void getCapture(ICaptureListener listener) {

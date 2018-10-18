@@ -31,7 +31,9 @@ import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.base.BeforeGoToBackground;
 import com.carlt.chelepie.view.UUDialogUpgrading;
 import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.model.LoginInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
@@ -141,7 +143,7 @@ public class RecorderMainFragment extends BaseFragment implements
         switch (arg0.getId()) {
             case R.id.recordermain_img_set:
                 // 左上角
-                Intent mIntent1 = new Intent(mCtx,
+                Intent mIntent1 = new Intent(getActivity(),
                         ManagePieActivity.class);
                 startActivity(mIntent1);
                 break;
@@ -160,7 +162,7 @@ public class RecorderMainFragment extends BaseFragment implements
             case R.id.recordermain_img_full:
                 // 全屏
                 DorideApplication.getInstanse().setToFullFlag(true);
-                Intent mIntent3 = new Intent(mCtx,
+                Intent mIntent3 = new Intent(getActivity(),
                         FullLiveActivity.class);
 
                 startActivity(mIntent3);
@@ -168,7 +170,7 @@ public class RecorderMainFragment extends BaseFragment implements
 
             case R.id.recordermain_txt_album:
                 // 我的记录仪媒体列表
-                Intent mIntent4 = new Intent(mCtx,
+                Intent mIntent4 = new Intent(getActivity(),
                         MyMediaListActivity.class);
                 startActivity(mIntent4);
                 break;
@@ -189,10 +191,10 @@ public class RecorderMainFragment extends BaseFragment implements
 
     }
 
-    private CPControl.GetResultListCallback listener_monitor = new CPControl.GetResultListCallback() {
+    private BaseParser.ResultCallback listener_monitor = new BaseParser.ResultCallback() {
 
         @Override
-        public void onFinished(Object o) {
+        public void onSuccess(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 13;
             msg.obj = o;
@@ -200,7 +202,7 @@ public class RecorderMainFragment extends BaseFragment implements
         }
 
         @Override
-        public void onErro(Object o) {
+        public void onError(BaseResponseInfo o) {
             Message msg = new Message();
             msg.what = 14;
             msg.obj = o;

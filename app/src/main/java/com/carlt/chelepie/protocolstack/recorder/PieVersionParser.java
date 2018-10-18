@@ -4,6 +4,7 @@ package com.carlt.chelepie.protocolstack.recorder;
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.data.recorder.PieVersion;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.HashMap;
  */
 public class PieVersionParser extends RecorderBaseParserNew {
 
-	public PieVersionParser(CPControl.GetResultListCallback listener, Class mClass) {
+	public PieVersionParser(BaseParser.ResultCallback listener, Class mClass) {
 		super(listener, mClass);
 	}
 

@@ -5,10 +5,10 @@ import android.os.SystemClock;
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.RecorderControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.BitConverter;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.utils.Log;
 
 import org.json.JSONObject;

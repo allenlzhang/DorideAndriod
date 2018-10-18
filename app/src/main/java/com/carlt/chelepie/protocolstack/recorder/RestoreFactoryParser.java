@@ -1,10 +1,11 @@
 package com.carlt.chelepie.protocolstack.recorder;
 
 
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 public class RestoreFactoryParser extends RecorderBaseParserNew {
-	public RestoreFactoryParser(CPControl.GetResultListCallback listener, Class mClass) {
+	public RestoreFactoryParser(BaseParser.ResultCallback listener, Class mClass) {
 		super(listener, mClass);
 	}
 

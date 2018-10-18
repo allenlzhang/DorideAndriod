@@ -2,9 +2,10 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.systemconfig.ActionConfig;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 /**
@@ -16,7 +17,7 @@ public class RecorderStorageParser extends RecorderBaseParserNew<BaseResponseInf
 	PieInfo mPieInfo;
 
 	// 获取SDCard信息
-	public RecorderStorageParser(CPControl.GetResultListCallback listener) {
+	public RecorderStorageParser(BaseParser.ResultCallback listener) {
 		super(listener, BaseResponseInfo.class);
 		MSG_FAIL = "获取设置信息失败";
 		MSG_SUCC = "获取设置信息成功";

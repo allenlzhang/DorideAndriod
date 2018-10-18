@@ -2,12 +2,12 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
-import com.carlt.sesame.control.CPControl;
 
 import org.json.JSONObject;
 
@@ -23,7 +23,7 @@ public class RecorderSettingParser extends RecorderBaseParserNew<BaseResponseInf
 	// 获取是否录音
 	// 获取是否亮度，饱和度，对比度
 	// 获取SDCard信息
-	public RecorderSettingParser(CPControl.GetResultListCallback listener) {
+	public RecorderSettingParser(BaseParser.ResultCallback listener) {
 		super(listener, BaseResponseInfo.class);
 		MSG_FAIL = "获取设置信息失败";
 		MSG_SUCC = "获取设置信息成功";

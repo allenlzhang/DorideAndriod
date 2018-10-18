@@ -2,13 +2,14 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadListInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
@@ -28,11 +29,11 @@ public class RecorderGetThumbnailFileInfoListParser extends RecorderBaseParserNe
 	//0:全天定时录像，1: 命令抓拍触发， 2：碰撞事件触发
 	private int type = 0;
 
-	public RecorderGetThumbnailFileInfoListParser(CPControl.GetResultListCallback listener, String startTime, String endTime) {
+	public RecorderGetThumbnailFileInfoListParser(BaseParser.ResultCallback listener, String startTime, String endTime) {
 		this(listener, startTime, endTime, 0);
 	}
 
-	public RecorderGetThumbnailFileInfoListParser(CPControl.GetResultListCallback listener, String startTime, String endTime, int type) {
+	public RecorderGetThumbnailFileInfoListParser(BaseParser.ResultCallback listener, String startTime, String endTime, int type) {
 		super(listener, PieDownloadListInfo.class);
 		MSG_FAIL = "获取文件列表信息失败";
 		MSG_SUCC = "获取文件列表信息成功";

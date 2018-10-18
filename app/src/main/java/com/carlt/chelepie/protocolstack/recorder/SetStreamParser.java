@@ -1,8 +1,9 @@
 package com.carlt.chelepie.protocolstack.recorder;
 
 
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 public class SetStreamParser extends RecorderBaseParserNew {
@@ -13,7 +14,7 @@ public class SetStreamParser extends RecorderBaseParserNew {
 //		mMap.put("mic_gain", setJsonBoolean(audio_enable));
 	}
 
-	public SetStreamParser(CPControl.GetResultListCallback listener, Class mClass) {
+	public SetStreamParser(BaseParser.ResultCallback listener, Class mClass) {
 		super(listener, mClass);
 	}
 

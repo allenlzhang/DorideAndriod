@@ -3,6 +3,7 @@ package com.carlt.chelepie.view.gl;
 
 import com.carlt.chelepie.utils.PlayListener;
 import com.carlt.chelepie.utils.video.CodecMode;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 
 /**
@@ -25,7 +26,7 @@ public interface IVideoView {
 	 * 暂停
 	 * @param pauseCallback 
 	 */
-	void pause(CPControl.GetResultListCallback pauseCallback) ;
+	void pause(BaseParser.ResultCallback pauseCallback) ;
 	
 	/**
 	 * 继续播放

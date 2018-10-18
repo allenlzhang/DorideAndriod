@@ -21,7 +21,6 @@ import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.DeviceConnControl;
 import com.carlt.chelepie.control.DeviceConnListener;
 import com.carlt.chelepie.control.RecorderControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieAttrInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.download.PieDownloadControl;
@@ -33,12 +32,13 @@ import com.carlt.chelepie.view.gl.IVideoView;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.RuningConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUPopupWindow;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
-import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.ui.view.MenuImageShow;
 
 import java.util.ArrayList;
@@ -136,7 +136,6 @@ public class FullLiveActivity extends LoadingActivity implements
 				"正在加载");
 		mConnControl = new DeviceConnControl(this, this);
 		init();
-		initTitle();
 		mGestureDetector = new GestureDetector(this,
 				new BookOnGestureListener());
 		// 设置监听WIFI变化
@@ -149,11 +148,6 @@ public class FullLiveActivity extends LoadingActivity implements
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		return mGestureDetector.onTouchEvent(event);
-	}
-
-	private void initTitle() {
-		back = (TextView) findViewById(R.id.live_back_txt_back);
-		back.setOnClickListener(this);
 	}
 
 	private String[] mNames = { "亮度", "饱和度", "对比度" };
@@ -204,6 +198,7 @@ public class FullLiveActivity extends LoadingActivity implements
 		mImgSilence.setVisibility(View.GONE);
 
 		videoLayout = (RelativeLayout) findViewById(R.id.fulllive_videoview);
+		titleView.setVisibility(View.GONE);
 	}
 
 	public void loading(boolean flag) {
@@ -397,10 +392,10 @@ public class FullLiveActivity extends LoadingActivity implements
 		}
 	};
 
-	private CPControl.GetResultListCallback listener_photo = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_photo = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 2;
 			msg.obj = o;
@@ -408,18 +403,19 @@ public class FullLiveActivity extends LoadingActivity implements
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 3;
 			msg.obj = o;
 			mHandler.sendMessage(msg);
 		}
+
 	};
 
-	private CPControl.GetResultListCallback listener_imgconfig = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_imgconfig = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 4;
 			mHandler.sendMessage(msg);
@@ -427,7 +423,7 @@ public class FullLiveActivity extends LoadingActivity implements
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 5;
 			msg.obj = o;
@@ -436,37 +432,35 @@ public class FullLiveActivity extends LoadingActivity implements
 		}
 	};
 
-	private CPControl.GetResultListCallback listener_quality = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_quality = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 6;
 			mHandler.sendMessage(msg);
-
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 7;
 			msg.obj = o;
 			mHandler.sendMessage(msg);
-
 		}
 	};
 
-	private CPControl.GetResultListCallback listener_linked = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_linked = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 8;
 			mHandler.sendMessage(msg);
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 9;
 			msg.obj = o;
@@ -474,17 +468,17 @@ public class FullLiveActivity extends LoadingActivity implements
 		}
 	};
 
-	private CPControl.GetResultListCallback listener_sound = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_sound = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 10;
 			mHandler.sendMessage(msg);
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 11;
 			msg.obj = o;
@@ -599,10 +593,10 @@ public class FullLiveActivity extends LoadingActivity implements
 
 	};
 
-	private CPControl.GetResultListCallback listener_monitor = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_monitor = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 13;
 			msg.obj = o;
@@ -610,7 +604,7 @@ public class FullLiveActivity extends LoadingActivity implements
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo o) {
 			Message msg = new Message();
 			msg.what = 14;
 			msg.obj = o;
@@ -718,7 +712,7 @@ public class FullLiveActivity extends LoadingActivity implements
 		// 加载显示
 		mFullBG.setVisibility(View.GONE);
 		loading(true);
-		RecorderControl.getRecorderSetting((CPControl.GetResultListCallback) mCallback);
+		RecorderControl.getRecorderSetting(mCallback);
 		if(!DorideApplication.getInstanse().isToFullFlag()){
 			RecorderControl.startMonitor(listener_monitor);
 		}else{

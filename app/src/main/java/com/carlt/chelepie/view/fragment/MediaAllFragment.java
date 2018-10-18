@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.protocolstack.recorder.RecorderDownloadVideoThumbnailParser;
 import com.carlt.chelepie.view.activity.PicViewPagerActivity;
@@ -20,6 +19,8 @@ import com.carlt.chelepie.view.activity.PlayerActivity;
 import com.carlt.chelepie.view.adapter.MedialistAdapter;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.utility.MyTimeUtil;
 
@@ -220,10 +221,10 @@ public class MediaAllFragment extends BaseFragment {
 	 * 下载缩略图
 	 */
 	public void downloadThumbnail(final List<PieDownloadInfo> mlists) {
-		final CPControl.GetResultListCallback thumbnailDownloadCallback = new CPControl.GetResultListCallback() {
+		final BaseParser.ResultCallback thumbnailDownloadCallback = new BaseParser.ResultCallback() {
 
 			@Override
-			public void onFinished(Object o) {
+			public void onSuccess(BaseResponseInfo o) {
 				Message msg = new Message();
 				msg.what = 4;
 				msg.obj = o;
@@ -231,9 +232,10 @@ public class MediaAllFragment extends BaseFragment {
 			}
 
 			@Override
-			public void onErro(Object o) {
+			public void onError(BaseResponseInfo bInfo) {
 
 			}
+
 		};
 		Thread thumbnailThread = new Thread(new Runnable() {
 			@Override

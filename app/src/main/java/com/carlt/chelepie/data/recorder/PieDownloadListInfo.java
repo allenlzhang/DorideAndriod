@@ -1,6 +1,8 @@
 package com.carlt.chelepie.data.recorder;
 
 
+import com.carlt.doride.data.BaseResponseInfo;
+
 import java.util.ArrayList;
 
 /**

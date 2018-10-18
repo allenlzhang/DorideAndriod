@@ -2,10 +2,11 @@ package com.carlt.chelepie.protocolstack.recorder;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.utility.MyTimeUtil;
@@ -23,7 +24,7 @@ public class StartPlayBackParser extends RecorderBaseParserNew<BaseResponseInfo>
 	
 	private long clientId;
 
-	public StartPlayBackParser(CPControl.GetResultListCallback listener, String startTime) {
+	public StartPlayBackParser(BaseParser.ResultCallback listener, String startTime) {
 		super(listener, BaseResponseInfo.class);
 		this.startTime = startTime;
 		MSG_FAIL = "回放失败";

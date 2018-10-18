@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.chelepie.data.ScanResultInfo;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.view.adapter.WifiInfoAdapter;
 import com.carlt.doride.R;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -109,6 +108,7 @@ public class WifiListDialog extends UUDialogBaseLoading {
 				info.setScanResults(temp);
 				listener.onSuccess(info);
 				Log.e("info", "mScanResultList.size==" + mScanResultList.size());
+				Log.e("info","ScanResult.size()="+info.getScanResults().size());
 			}
 		});
 		mThread.start();

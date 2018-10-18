@@ -19,20 +19,20 @@ import com.carlt.chelepie.control.DeviceConnControl;
 import com.carlt.chelepie.control.DeviceConnListener;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.view.UUDialogToast;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.base.LoadingActivity;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
-import com.carlt.sesame.control.CPControl;
-import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 
 
 /**
@@ -40,7 +40,7 @@ import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
  * 
  * @author Administrator
  */
-public class ManagePieActivity extends LoadingActivityWithTitle implements OnClickListener, DeviceConnListener {
+public class ManagePieActivity extends LoadingActivity implements OnClickListener, DeviceConnListener {
 	private ImageView back;// 头部返回键
 
 	private TextView title;// 标题文字
@@ -100,45 +100,45 @@ public class ManagePieActivity extends LoadingActivityWithTitle implements OnCli
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_manage_pie);
-		setTitleView(R.layout.head_back);
-		initTitle();
+		initTitle("设备设置");
 		init();
 		mConnControl = new DeviceConnControl(this, this);
 		LoadData();
 	}
 
-	private void initTitle() {
-		back = (ImageView) findViewById(R.id.head_back_img1);
-		title = (TextView) findViewById(R.id.head_back_txt1);
-		imgRight = (ImageView) findViewById(R.id.head_back_img2);
 
-		back.setImageResource(R.drawable.arrow_back);
-		title.setText("设备设置");
-		imgRight.setVisibility(View.VISIBLE);
-
-		back.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-
-		imgRight.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if(!DeviceConnectManager.isDeviceConnect()){
-					mConnControl.goConnect();
-					doWhat = 0;
-					reConnTimes = 0;
-				}else{
-					UUToast.showUUToast(ManagePieActivity.this, "设备已连接");
-				}
-			}
-		});
-
-	}
+//	private void initTitle() {
+//		back = (ImageView) findViewById(R.id.head_back_img1);
+//		title = (TextView) findViewById(R.id.head_back_txt1);
+//		imgRight = (ImageView) findViewById(R.id.head_back_img2);
+//
+//		back.setImageResource(R.drawable.arrow_back);
+//		title.setText("设备设置");
+//		imgRight.setVisibility(View.VISIBLE);
+//
+//		back.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				finish();
+//			}
+//		});
+//
+//		imgRight.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				if(!DeviceConnectManager.isDeviceConnect()){
+//					mConnControl.goConnect();
+//					doWhat = 0;
+//					reConnTimes = 0;
+//				}else{
+//					UUToast.showUUToast(ManagePieActivity.this, "设备已连接");
+//				}
+//			}
+//		});
+//
+//	}
 
 	private void init() {
 		mViewName = findViewById(R.id.manage_pie_lay_name);
@@ -176,7 +176,7 @@ public class ManagePieActivity extends LoadingActivityWithTitle implements OnCli
 	}
 
 	@Override
-	protected void LoadSuccess(Object data) {
+	public void loadDataSuccess(Object data) {
 		mPieInfo = PieInfo.getInstance();
 		if (mPieInfo != null) {
 
@@ -225,7 +225,7 @@ public class ManagePieActivity extends LoadingActivityWithTitle implements OnCli
 		} else {
 		}
 
-		super.LoadSuccess(data);
+		super.loadDataSuccess(data);
 	}
 	
 	public void checkChange(){
@@ -271,15 +271,14 @@ public class ManagePieActivity extends LoadingActivityWithTitle implements OnCli
 		} 
 	}
 
-	@Override
-	protected void LoadErro(Object erro) {
-		super.LoadErro(erro);
-	}
 
 	@Override
+	public void loadonErrorUI(BaseResponseInfo error) {
+		super.loadonErrorUI(error);
+	}
+
 	protected void LoadData() {
-		super.LoadData();
-		RecorderControl.getSysInfo(listener);
+		RecorderControl.getSysInfo(mCallback);
 	}
 
 	@Override
@@ -468,69 +467,67 @@ public class ManagePieActivity extends LoadingActivityWithTitle implements OnCli
 	}
 
 	// 摄像头命名
-	private CPControl.GetResultListCallback listener_named = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_named = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 6;
 			mHandler.sendMessage(msg);
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 7;
-			msg.obj = o;
+			msg.obj = bInfo;
 			mHandler.sendMessage(msg);
-
 		}
 	};
 
 	// 设置摄像头密码
-	private CPControl.GetResultListCallback listener_psw = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_psw = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 8;
 			mHandler.sendMessage(msg);
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo bInfo) {
 			Message msg = new Message();
 			msg.what = 9;
-			msg.obj = o;
+			msg.obj = bInfo;
 			mHandler.sendMessage(msg);
-
 		}
 	};
 
 	// 录像时录音
-	private CPControl.GetResultListCallback listener_stream_sound = new CPControl.GetResultListCallback() {
+	private BaseParser.ResultCallback listener_stream_sound = new BaseParser.ResultCallback() {
 
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			mHandler.sendEmptyMessage(2);
 		}
 
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo bInfo) {
 			mHandler.sendEmptyMessage(3);
 		}
 	};
 	
 	// 抓拍关联视频
-	private CPControl.GetResultListCallback listener_capture = new CPControl.GetResultListCallback() {
-		
+	private BaseParser.ResultCallback listener_capture = new BaseParser.ResultCallback() {
+
 		@Override
-		public void onFinished(Object o) {
+		public void onSuccess(BaseResponseInfo bInfo) {
 			mHandler.sendEmptyMessage(4);
 		}
-		
+
 		@Override
-		public void onErro(Object o) {
+		public void onError(BaseResponseInfo bInfo) {
 			mHandler.sendEmptyMessage(5);
 		}
 	};
@@ -693,7 +690,7 @@ public class ManagePieActivity extends LoadingActivityWithTitle implements OnCli
 			BaseResponseInfo bInfo = new BaseResponseInfo();
 			bInfo.setFlag(BaseResponseInfo.ERRO);
 			bInfo.setInfo("未能连接到设备,请重新连接");
-			LoadErro(bInfo);
+			loadonErrorUI(bInfo);
 		}else{
 			if(reConnTimes < 2){
 				reConnTimes ++;
@@ -710,7 +707,7 @@ public class ManagePieActivity extends LoadingActivityWithTitle implements OnCli
 				BaseResponseInfo bInfo = new BaseResponseInfo();
 				bInfo.setFlag(BaseResponseInfo.ERRO);
 				bInfo.setInfo("未能连接到设备,请重新连接");
-				LoadErro(bInfo);
+				loadonErrorUI(bInfo);
 			}
 		}
 	}

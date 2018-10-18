@@ -6,14 +6,15 @@ import android.util.Log;
 
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.download.PieDownloadControl;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.BitConverter;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.RuningConfig;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
@@ -32,7 +33,7 @@ import java.util.Date;
  */
 public class TakePhotoParser extends RecorderBaseParserNew<BaseResponseInfo> {
 
-	public TakePhotoParser(CPControl.GetResultListCallback listener) {
+	public TakePhotoParser(BaseParser.ResultCallback listener) {
 		super(listener, BaseResponseInfo.class);
 		mRequestID = ActionConfig.MID_CAPTURE_FILE-1;
 		MSG_FAIL = "抓拍失败";

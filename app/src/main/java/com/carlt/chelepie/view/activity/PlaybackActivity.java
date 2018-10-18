@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.carlt.chelepie.control.DeviceConnControl;
 import com.carlt.chelepie.control.DeviceConnListener;
 import com.carlt.chelepie.control.RecorderControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.download.PieDownloadControl;
 import com.carlt.chelepie.manager.DeviceConnectManager;
@@ -26,6 +25,8 @@ import com.carlt.chelepie.view.CropDialog;
 import com.carlt.chelepie.view.ThumbnailView;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.RuningConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
@@ -102,23 +103,22 @@ public class PlaybackActivity extends BaseActivity implements OnClickListener, D
 	 * 下载缩略图
 	 */
 	private void downloadThumbnail(){
-		final CPControl.GetResultListCallback thumbnailDownloadCallback = new CPControl.GetResultListCallback() {
-			
+		final BaseParser.ResultCallback thumbnailDownloadCallback = new BaseParser.ResultCallback() {
+
 			@Override
-			public void onFinished(Object o) {
+			public void onSuccess(BaseResponseInfo o) {
 				Message msg = new Message();
 				msg.what = 4;
 				msg.obj = o;
 				mHAnHandler.sendMessage(msg);
 			}
-			
+
 			@Override
-			public void onErro(Object o) {
+			public void onError(BaseResponseInfo o) {
 //				Message msg = new Message();
 //				msg.what = 5;
 //				msg.obj = o;
 //				mHAnHandler.sendMessage(msg);
-				
 			}
 		};
 		Thread thumbnailThread = new Thread(new Runnable() {

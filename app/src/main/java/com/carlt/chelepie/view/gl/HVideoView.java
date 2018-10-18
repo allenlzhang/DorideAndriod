@@ -10,6 +10,7 @@ import com.carlt.chelepie.utils.CodecUtil_2;
 import com.carlt.chelepie.utils.PlayListener;
 import com.carlt.chelepie.utils.video.CodecMode;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
 
@@ -103,7 +104,7 @@ public class HVideoView extends SurfaceView implements SurfaceHolder.Callback ,I
 	}
 
 	@Override
-	public void pause(CPControl.GetResultListCallback pauseCallback) {
+	public void pause(BaseParser.ResultCallback pauseCallback) {
 		if (!mIsMonitor && null != mCodecUtil2) {
 			mCodecUtil2.pausePlay();
 		}

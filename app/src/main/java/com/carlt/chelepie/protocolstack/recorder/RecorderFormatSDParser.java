@@ -5,13 +5,14 @@ import android.os.SystemClock;
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.DaoPieDownloadControl;
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.manager.ThumbnailManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.BitConverter;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.LocalConfig;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
@@ -35,7 +36,7 @@ public class RecorderFormatSDParser extends RecorderBaseParserNew<BaseResponseIn
 		void onFinished(int o);
 	}
 	
-	public RecorderFormatSDParser(CPControl.GetResultListCallback listener, Class mClass, JinduResultListCallback jinduListener) {
+	public RecorderFormatSDParser(BaseParser.ResultCallback listener, Class mClass, JinduResultListCallback jinduListener) {
 		super(listener, mClass);
 		mRequestID = 1203;
 		SOTIMEOUT2 = 1000 * 10;

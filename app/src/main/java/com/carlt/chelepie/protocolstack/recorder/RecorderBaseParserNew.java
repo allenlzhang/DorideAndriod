@@ -3,10 +3,11 @@ package com.carlt.chelepie.protocolstack.recorder;
 import android.os.SystemClock;
 
 
-import com.carlt.chelepie.data.recorder.BaseResponseInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.BitConverter;
+import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.doride.utils.MyParse;
 import com.carlt.sesame.control.CPControl;
@@ -35,12 +36,12 @@ public abstract class RecorderBaseParserNew<T extends BaseResponseInfo> extends 
 	protected T mBaseResponseInfo;
 	protected JSONObject mJson;
 	protected int mSqnum = 0;
-	private CPControl.GetResultListCallback listener;
+	private BaseParser.ResultCallback listener;
 	public short mRequestID = 0;
 	public short mResponseID = 0;
 	public String TAG = "LDEBUG||" + this.getClass().getName();
 
-	RecorderBaseParserNew(CPControl.GetResultListCallback listener, Class<T> mClass) {
+	RecorderBaseParserNew(BaseParser.ResultCallback listener, Class<T> mClass) {
 		this.listener = listener;
 		mSqnum = ActionConfig.getSeqNum();
 		try {
@@ -134,7 +135,7 @@ public abstract class RecorderBaseParserNew<T extends BaseResponseInfo> extends 
 		if (listener == null) {
 			return;
 		}
-		listener.onFinished(mBaseResponseInfo);
+		listener.onSuccess(mBaseResponseInfo);
 	}
 
 	protected void Success(String msg) {
@@ -149,7 +150,7 @@ public abstract class RecorderBaseParserNew<T extends BaseResponseInfo> extends 
 		if (listener == null) {
 			return;
 		}
-		listener.onErro(mBaseResponseInfo);
+		listener.onError(mBaseResponseInfo);
 	}
 
 	protected void Erro(String msg) {

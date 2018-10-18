@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.Utils;
+import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.chelepie.view.gl.GLES20Support;
 import com.carlt.chelepie.view.gl.HHVideoView;
 import com.carlt.chelepie.view.gl.HVideoView;
@@ -225,6 +226,8 @@ public class DorideApplication extends Application {
 
         String sha1 = sHA1(this);
         Logger.e("---" + sha1);
+        // 初始化WIFIControl 信息
+        WIFIControl.getInstance().init(this);
     }
 
 

@@ -35,8 +35,8 @@ public class WIFIControl {
 	// 保存列表
 	private List<WifiConfiguration> mWifiConfigurationList;
 	private static WIFIControl mWIFIControl;
-	public static final String chelepiePrefix = "A3-";
-//	public static final String chelepiePrefix = "Domy-DVR-";
+//	public static final String chelepiePrefix = "A3-";
+	public static final String chelepiePrefix = "Dorcen-DVR-";
 	// 当前需要连接的摄像头信息
 	private CameraWifiInfo mCameraWifiInfo;
 	private static final String TAG = "DEBUG||WIFIControl";
@@ -101,7 +101,7 @@ public class WIFIControl {
 	}
 
 	public void init(Context context) {
-		mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		mCameraWifiInfo = (CameraWifiInfo) ObjectIO.readObject(bindCameraInfoPath);
 		startScan();
 	}

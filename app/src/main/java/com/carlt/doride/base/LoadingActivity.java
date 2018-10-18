@@ -36,6 +36,7 @@ public class LoadingActivity extends BaseActivity {
     public    ImageView      mIvErrorIcon; //错误图片
     LayoutInflater mInflater;
 
+    public View titleView;
     protected View     backTV   = null;
     protected TextView titleTV  = null;
     public    View     backTV2  = null;
@@ -64,7 +65,7 @@ public class LoadingActivity extends BaseActivity {
         mPBar = (ProgressBar) findViewById(R.id.loading_bar_loading);
         optRight = (TextView) findViewById(R.id.layout_title_back_text2);
         tvRight = (TextView) findViewById(R.id.layout_title_back_text3);
-
+        titleView = findViewById(R.id.layout_title);
         mTxtRetryError.setOnClickListener(mClickListener);
         setMainView(layoutResID);
     }

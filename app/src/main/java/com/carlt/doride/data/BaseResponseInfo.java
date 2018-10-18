@@ -28,6 +28,11 @@ public class BaseResponseInfo<T> {
     public final static int PHONE_ERROR = 2101;//该手机号不存在或没权限操作
     public final static int PHONE_REPEAT = 1001;//token为空
 
+    /** 车乐拍连接断开错误 */
+    public final static int ERRO_DISCONNECT = 1;
+
+    public final static int RECORD_OK = 100; //返回数据正常
+    public final static int RECORD_RESTART = 603;//设备需要重启
     @SerializedName("code")
     private int flag;
 

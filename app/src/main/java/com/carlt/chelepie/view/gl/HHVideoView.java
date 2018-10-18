@@ -8,6 +8,7 @@ import com.carlt.chelepie.utils.PlayListener;
 import com.carlt.chelepie.utils.video.CodecMode;
 import com.carlt.chelepie.utils.video.CodecVideoPresenter;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
 
@@ -79,7 +80,7 @@ public class HHVideoView extends GLFrameSurface implements ISimplePlayer,IVideoV
 	}
 
 	@Override
-	public void pause(CPControl.GetResultListCallback pauseCallback) {
+	public void pause(BaseParser.ResultCallback pauseCallback) {
 		if (null != videoPresenter) {
 			videoPresenter.pausePlay(pauseCallback);
 		}

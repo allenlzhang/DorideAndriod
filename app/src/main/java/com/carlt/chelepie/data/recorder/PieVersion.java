@@ -1,5 +1,7 @@
 package com.carlt.chelepie.data.recorder;
 
+import com.carlt.doride.data.BaseResponseInfo;
+
 public class PieVersion extends BaseResponseInfo {
 
 	private String pcb_ver;
