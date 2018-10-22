@@ -2,6 +2,7 @@ package com.carlt.doride.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.wifi.WifiConfiguration;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,7 @@ import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.amap.api.services.weather.WeatherSearch;
 import com.amap.api.services.weather.WeatherSearchQuery;
 import com.blankj.utilcode.util.LogUtils;
+import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
@@ -55,7 +57,7 @@ import java.util.List;
  * Created by Marlon on 2018/3/15.
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener, WeatherSearch.OnWeatherSearchListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, WeatherSearch.OnWeatherSearchListener,WIFIControl.WIFIConnectListener {
     private ImageView      mIvReport;    //行车报告
     private RelativeLayout mRlInformationCentre;    //大乘助手
     private TextView       mTxtDate;  //日期
@@ -172,7 +174,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            WIFIControl.rigisterWIFIConnectListener(this);
+            WIFIControl.DisConnectChelePai();
             loadData();
+        }else {
+            WIFIControl.unRigisterWIFIConnectListener(this);
         }
     }
 
@@ -471,5 +477,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         WeatherInfo info = (WeatherInfo) obj;
         mTxtWeather.setText(info.getWeather());
         mTxtTemputre.setText(info.getTemperature());
+    }
+
+    @Override
+    public void onWIFIChange(int action) {
+        mHandler.sendEmptyMessage(action);
     }
 }

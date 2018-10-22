@@ -208,8 +208,8 @@ public abstract class BaseFragment extends Fragment {
     public void loadSuccessUI() {
         mViewLoading.setBackgroundResource(R.drawable.transparent_bg);
         mViewLoading.setVisibility(View.GONE);
-//                mViewError.setVisibility(View.GONE);
-//                mViewNodata.setVisibility(View.GONE);
+                mViewError.setVisibility(View.GONE);
+                mViewNodata.setVisibility(View.GONE);
 //                mMainView.setVisibility(View.VISIBLE);
     }
     /**

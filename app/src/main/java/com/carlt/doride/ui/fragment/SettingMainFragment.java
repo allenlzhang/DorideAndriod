@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
@@ -54,7 +55,7 @@ import java.util.HashMap;
  * Created by marller on 2018\3\14 0014.
  */
 
-public class SettingMainFragment extends BaseFragment implements View.OnClickListener {
+public class SettingMainFragment extends BaseFragment implements View.OnClickListener,WIFIControl.WIFIConnectListener {
 
     private static final String TAG = SettingMainFragment.class.getSimpleName();
 
@@ -105,7 +106,11 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            WIFIControl.rigisterWIFIConnectListener(this);
+            WIFIControl.DisConnectChelePai();
             loadData();
+        }else {
+            WIFIControl.unRigisterWIFIConnectListener(this);
         }
     }
 
@@ -392,4 +397,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         startActivity(dialIntent);
     }
 
+    @Override
+    public void onWIFIChange(int action) {
+
+    }
 }

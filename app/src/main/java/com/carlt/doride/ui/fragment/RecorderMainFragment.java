@@ -48,6 +48,7 @@ import java.io.File;
 public class RecorderMainFragment extends BaseFragment implements
         View.OnClickListener, DeviceConnectManager.NotifyListener, WIFIControl.WIFIConnectListener,
         BeforeGoToBackground {
+    private static final String TAG = "RecorderMainFragment";
     View view;
     private View btnSet;// 标题左边按钮(记录仪设置)
     private View btnConnect;// 标题右边按钮
@@ -397,6 +398,65 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onPause() {
         super.onPause();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            //测试代码开始
+            LoginInfo.isDrivingRecorder = true;
+            //测试代码结束
+            if (!LoginInfo.isDrivingRecorder) {
+                PopBoxCreat.DialogWithTitleClick click = new PopBoxCreat.DialogWithTitleClick() {
+
+                    @Override
+                    public void onRightClick() {
+                        // 重新登录-回到登录页
+                        ActivityControl.onLogout(mCtx);
+                    }
+
+                    @Override
+                    public void onLeftClick() {
+                        // 返回主页面
+                        mGotoMainIndexListener.gotoMianIndex();
+                    }
+                };
+                PopBoxCreat.createDialogWithNodismiss(mCtx,
+                        "温馨提示", "您的爱车可能未绑定智联驾驶A3设备，请联系您的经销商进行设备绑定", "", "返回主页",
+                        "重新登录", click);
+
+            } else {
+                doSomeForResume();
+            }
+        }else {
+            doSomeForPause();
+        }
+    }
+
+    private void doSomeForResume(){
+        DorideApplication.getInstanse().setToFullFlag(false);
+        Log.e("onResume",
+                "RecorderMainFragment..........................................................");
+        videoLayout.removeAllViews();
+        videoView = DorideApplication.getInstanse().getVideoView();
+        videoLayout.addView((View) videoView,
+                new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+        videoView.setmListener(mPlayListener);
+        // 设置监听WIFI变化
+        WIFIControl.rigisterWIFIConnectListener(this);
+        DeviceConnectManager.addNotifyListener(this);
+    }
+
+    private void doSomeForPause(){
         mIsShowing = false;
         if (!DorideApplication.getInstanse().isToFullFlag()) {// 如果是跳转到全屏幕页面，则不停止接收数据
             AppsdkUtils.CMStop(ActionConfig.getSeqNum());
@@ -412,51 +472,9 @@ public class RecorderMainFragment extends BaseFragment implements
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-
-
-    @Override
     public void onResume() {
         super.onResume();
-        //测试代码开始
-        LoginInfo.isDrivingRecorder = true;
-        //测试代码结束
-        if (!LoginInfo.isDrivingRecorder) {
-            PopBoxCreat.DialogWithTitleClick click = new PopBoxCreat.DialogWithTitleClick() {
-
-                @Override
-                public void onRightClick() {
-                    // 重新登录-回到登录页
-                    ActivityControl.onLogout(mCtx);
-                }
-
-                @Override
-                public void onLeftClick() {
-                    // 返回主页面
-                    mGotoMainIndexListener.gotoMianIndex();
-                }
-            };
-            PopBoxCreat.createDialogWithNodismiss(mCtx,
-                    "温馨提示", "您的爱车可能未绑定智联驾驶A3设备，请联系您的经销商进行设备绑定", "", "返回主页",
-                    "重新登录", click);
-
-        } else {
-            DorideApplication.getInstanse().setToFullFlag(false);
-            Log.e("onResume",
-                    "RecorderMainFragment..........................................................");
-            videoLayout.removeAllViews();
-            videoView = DorideApplication.getInstanse().getVideoView();
-            videoLayout.addView((View) videoView,
-                    new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT));
-            videoView.setmListener(mPlayListener);
-            // 设置监听WIFI变化
-            WIFIControl.rigisterWIFIConnectListener(this);
-            DeviceConnectManager.addNotifyListener(this);
-        }
+        doSomeForResume();
     }
 
     @Override
@@ -477,6 +495,7 @@ public class RecorderMainFragment extends BaseFragment implements
             // 页面不显示 .. 不开启直播
             return;
         }
+        Log.i(TAG,"notifyAction--action = "+action);
         mHandler.sendEmptyMessage(action);
     }
 
@@ -486,6 +505,7 @@ public class RecorderMainFragment extends BaseFragment implements
             // 页面不显示 .. 不开启直播
             return;
         }
+        Log.i(TAG,"onWIFIChange--action = "+action);
         mHandler.sendEmptyMessage(action);
     }
 

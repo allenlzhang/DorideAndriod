@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
@@ -64,7 +65,7 @@ import java.util.TimerTask;
  */
 
 public class RemoteMainFragment extends BaseFragment implements
-        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener, SelectPopupWindow.OnPopWindowClickListener {
+        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener, SelectPopupWindow.OnPopWindowClickListener,WIFIControl.WIFIConnectListener {
     public final static String ACTION_REMOTE_SETPSW = "com.carlt.doride.action_remote_setpsw";
 
     public final static String ACTION_REMOTE_RESETPSW = "com.carlt.doride.action_remote_resetpsw";
@@ -878,8 +879,11 @@ public class RemoteMainFragment extends BaseFragment implements
         isFirstClick = true;
         Logger.e("---hidden----" + hidden);
         if (!hidden) {
+            WIFIControl.rigisterWIFIConnectListener(this);
+            WIFIControl.DisConnectChelePai();
             loadData();
         } else {
+            WIFIControl.unRigisterWIFIConnectListener(this);
             if (mViewState.getVisibility() == View.VISIBLE) {
                 mViewState.setVisibility(View.GONE);
             }
@@ -1029,6 +1033,11 @@ public class RemoteMainFragment extends BaseFragment implements
     }
 
     private RemoteReceiver mReceiver;
+
+    @Override
+    public void onWIFIChange(int action) {
+        mHandler.sendEmptyMessage(action);
+    }
 
 
     public class RemoteReceiver extends BroadcastReceiver {

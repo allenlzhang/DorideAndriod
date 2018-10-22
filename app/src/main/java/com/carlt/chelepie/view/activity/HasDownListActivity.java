@@ -20,6 +20,7 @@ import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.view.adapter.HasdownlistAdapter;
 import com.carlt.chelepie.view.adapter.MedialistAdapter;
 import com.carlt.doride.R;
+import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.utils.FileUtil;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
  * @author Daisy
  * 
  */
-public class HasDownListActivity extends LoadingActivityWithTitle implements
+public class HasDownListActivity extends LoadingActivity implements
         OnClickListener {
 	private ImageView back;// 头部返回键
 	private TextView title;// 标题文字
@@ -85,7 +86,7 @@ public class HasDownListActivity extends LoadingActivityWithTitle implements
 						// 下拉刷新
 						mSwipeRefreshLayout.setRefreshing(false);
 						if(!isEditale){
-							CPControl.GetHasDownListResult(listener);
+							CPControl.GetHasDownListResult(mCallback);
 						}
 					}
 				});
@@ -111,14 +112,12 @@ public class HasDownListActivity extends LoadingActivityWithTitle implements
 		txtRight.setOnClickListener(this);
 	}
 
-	@Override
 	protected void LoadData() {
-		super.LoadData();
-		CPControl.GetHasDownListResult(listener);
+		CPControl.GetHasDownListResult(mCallback);
 	}
 
 	@Override
-	protected void LoadSuccess(Object data) {
+	public void loadDataSuccess(Object data) {
 		pieDownloadInfos.clear();
 		if (data != null) {
 			pieDownloadInfos=(ArrayList<PieDownloadInfo>) data;
@@ -130,20 +129,20 @@ public class HasDownListActivity extends LoadingActivityWithTitle implements
 				pieDownloadInfos.add(new PieDownloadInfo());
 				txtRight.setVisibility(View.VISIBLE);
 			} else {
-				LoadNodata();
+				loadNodataUI();
 				txtRight.setVisibility(View.INVISIBLE);
 			}
 		} else {
-			LoadNodata();
+			loadNodataUI();
 			txtRight.setVisibility(View.INVISIBLE);
 		}
 		mRecyclerView.setAdapter(mAdapter);
-		super.LoadSuccess(data);
+		super.loadDataSuccess(data);
 	}
 
 	@Override
-	protected void LoadNodata() {
-		super.LoadNodata();
+	public void loadNodataUI() {
+		super.loadNodataUI();
 	}
 
 	// 列表item点击回调

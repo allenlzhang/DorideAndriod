@@ -613,7 +613,9 @@ public class WIFIControl {
 	}
 
 	public static void notifyWIFIState(int action) {
+		Log.e(TAG,"mConnectListeners.size()="+mConnectListeners.size());
 		for (int i = 0; i < mConnectListeners.size(); i++) {
+			Log.e(TAG,"notifyWIFIState-------action="+action+"Listeners.toString="+mConnectListeners.get(i).toString());
 			mConnectListeners.get(i).onWIFIChange(action);
 		}
 	}
@@ -625,6 +627,7 @@ public class WIFIControl {
 		if (!mConnectListeners.contains(listener)) {
 			mConnectListeners.add(listener);
 		}
+		Log.e(TAG,"rigister--mConnectListeners.size()="+mConnectListeners.size());
 	}
 
 	public static void unRigisterWIFIConnectListener(WIFIConnectListener listener) {

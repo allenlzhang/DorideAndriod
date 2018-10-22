@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.utils.LocalConfig;
 import com.carlt.sesame.utility.MyTimeUtil;
 
@@ -15,7 +16,7 @@ import java.util.Date;
  * 
  * @author @Y.yun
  */
-public class PieDownloadInfo implements Cloneable,Comparable<PieDownloadInfo>,Parcelable {
+public class PieDownloadInfo extends BaseResponseInfo implements Cloneable,Comparable<PieDownloadInfo>,Parcelable {
 
 	
 	

@@ -212,17 +212,36 @@
 
         <activity android:name="com.carlt.chelepie.view.activity.ActivityWithTitle"/>
         <activity android:name="com.carlt.chelepie.view.activity.EditPienameActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.FullLiveActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.FullPlayActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.HasDownListActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManagePieActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManageStorageActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManageTimesActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.MyMediaListActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.PicViewPagerActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.PlaybackActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.PlayerActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.VideoQualityActivity"/>
+        <!-- ############ 需要横屏的Activity ############ -->
+
+        <activity
+            android:name="com.carlt.chelepie.view.activity.PlaybackActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/activity_theme" >
+        </activity>
+        <activity
+            android:name="com.carlt.chelepie.view.activity.FullLiveActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/activity_theme" >
+        </activity>
+        <activity
+            android:name="com.carlt.chelepie.view.activity.PlayerActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/activity_theme" >
+
+        </activity>
+        <activity
+            android:name="com.carlt.chelepie.view.activity.FullPlayActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/activity_theme" >
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

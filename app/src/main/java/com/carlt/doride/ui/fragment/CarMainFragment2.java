@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
@@ -50,7 +52,7 @@ import java.util.HashMap;
  * Created by liu on 2018/3/16.
  */
 
-public class CarMainFragment2 extends BaseFragment implements View.OnClickListener {
+public class CarMainFragment2 extends BaseFragment implements View.OnClickListener,WIFIControl.WIFIConnectListener {
     private static String TAG = "CarMainFragment";
 
     private CarIndexInfo carinfo;
@@ -86,8 +88,12 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            WIFIControl.rigisterWIFIConnectListener(this);
+            WIFIControl.DisConnectChelePai();
             loadData();
             //            remoteConfig();
+        }else {
+            WIFIControl.unRigisterWIFIConnectListener(this);
         }
     }
 
@@ -144,6 +150,11 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         loadData();
+    }
+
+    @Override
+    public void onWIFIChange(int action) {
+        mHandler.sendEmptyMessage(action);
     }
 
     class CarmainBroadCastReceiver extends BroadcastReceiver {

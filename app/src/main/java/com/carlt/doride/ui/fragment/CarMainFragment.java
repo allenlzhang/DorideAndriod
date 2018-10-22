@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
@@ -50,7 +51,7 @@ import java.util.HashMap;
  * Created by liu on 2018/3/16.
  */
 
-public class CarMainFragment extends BaseFragment implements View.OnClickListener {
+public class CarMainFragment extends BaseFragment implements View.OnClickListener ,WIFIControl.WIFIConnectListener{
     private static String TAG = "CarMainFragment";
 
     private CarIndexInfo carinfo;
@@ -86,8 +87,12 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            WIFIControl.rigisterWIFIConnectListener(this);
+            WIFIControl.DisConnectChelePai();
             loadData();
             //            remoteConfig();
+        }else {
+            WIFIControl.unRigisterWIFIConnectListener(this);
         }
     }
 
@@ -144,6 +149,11 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         loadData();
+    }
+
+    @Override
+    public void onWIFIChange(int action) {
+        mHandler.sendEmptyMessage(action);
     }
 
     class CarmainBroadCastReceiver extends BroadcastReceiver {

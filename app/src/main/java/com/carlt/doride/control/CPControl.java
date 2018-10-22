@@ -665,7 +665,7 @@ public class CPControl {
      * 获取车乐拍--已下载列表
      */
 
-    public static void GetHasDownListResult(final com.carlt.sesame.control.CPControl.GetResultListCallback listener) {
+    public static void GetHasDownListResult(final BaseParser.ResultCallback listener) {
 
         if (listener == null)
             return;
@@ -693,7 +693,7 @@ public class CPControl {
                         }
                     }
                 }
-                listener.onFinished(pieDownloadInfos);
+                listener.onSuccess((BaseResponseInfo) pieDownloadInfos);
             }
         }.start();
     }

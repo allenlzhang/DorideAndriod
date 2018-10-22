@@ -2,6 +2,8 @@
 package com.carlt.doride.base;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -212,14 +214,18 @@ public class LoadingActivity extends BaseActivity {
     protected BaseParser.ResultCallback mCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-            loadSuccessUI();
-            loadDataSuccess(bInfo);
+            Message message = new Message();
+            message.what = 0;
+            message.obj = bInfo;
+            handler.sendMessage(message);
         }
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            loadonErrorUI(bInfo);
-            loadDataError(bInfo);
+            Message message = new Message();
+            message.what = 1;
+            message.obj = bInfo;
+            handler.sendMessage(message);
         }
     };
 
@@ -234,5 +240,20 @@ public class LoadingActivity extends BaseActivity {
         //子类选择可以实现，重新加载
     }
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    loadSuccessUI();
+                    loadDataSuccess(msg.obj);
+                    break;
+                case 1:
+                    loadonErrorUI((BaseResponseInfo) msg.obj);
+                    loadDataError(msg.obj);
+                    break;
+            }
+        }
+    };
 
 }
