@@ -64,7 +64,16 @@
         android:layout_marginRight="8dp"
         android:visibility="gone"
         />
-
+    <TextView
+        android:id="@+id/layout_title_back_text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginEnd="12dp"
+        />
     <View
         style="@style/line_h"
         android:layout_alignParentBottom="true"

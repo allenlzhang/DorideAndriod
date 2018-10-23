@@ -10,6 +10,7 @@ import android.util.Log;
 import com.alipay.sdk.app.PayTask;
 import com.carlt.chelepie.control.DaoPieDownloadControl;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
+import com.carlt.chelepie.data.recorder.PieDownloadListInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.utils.MyComparator;
 import com.carlt.doride.DorideApplication;
@@ -678,7 +679,7 @@ public class CPControl {
                 List<File> files = new ArrayList<File>();
                 com.carlt.sesame.utility.FileUtil.setFilesList(files);
                 files = com.carlt.sesame.utility.FileUtil.getHasDownFile(path);
-                List<PieDownloadInfo> pieDownloadInfos = new ArrayList<PieDownloadInfo>();
+                ArrayList<PieDownloadInfo> pieDownloadInfos = new ArrayList<PieDownloadInfo>();
                 if (files != null) {
                     Collections.sort(files, new MyComparator.CreatTimeComparator());
                     int size = files.size();
@@ -693,7 +694,9 @@ public class CPControl {
                         }
                     }
                 }
-                listener.onSuccess((BaseResponseInfo) pieDownloadInfos);
+                PieDownloadListInfo pieDownloadListInfo = new PieDownloadListInfo();
+                pieDownloadListInfo.setArrays(pieDownloadInfos);
+                listener.onSuccess(pieDownloadListInfo);
             }
         }.start();
     }

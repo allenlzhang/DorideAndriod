@@ -224,12 +224,12 @@
         <activity
             android:name="com.carlt.chelepie.view.activity.PlaybackActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/activity_theme" >
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name="com.carlt.chelepie.view.activity.FullLiveActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/activity_theme" >
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name="com.carlt.chelepie.view.activity.PlayerActivity"

@@ -329,7 +329,6 @@ public class ThumbnailView extends LinearLayout implements RecorderControl.GetTr
 		 * 设置镜像图像
 		 * 
 		 * @param mContext
-		 * @param imageId
 		 * @return
 		 */
 		public Bitmap createReflectedImages(Context mContext, Bitmap originalImage) {

@@ -81,7 +81,7 @@
             android:visibility="gone"
             android:src="@drawable/pie_cut_back" />
     
-    <com.linewin.chelepie.ui.view.recorder.ThumbnailView
+    <com.carlt.chelepie.view.ThumbnailView
         android:id="@+id/playback_thumbnailview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

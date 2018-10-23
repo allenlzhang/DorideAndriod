@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.carlt.chelepie.control.DaoPieDownloadControl;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
+import com.carlt.chelepie.data.recorder.PieDownloadListInfo;
 import com.carlt.chelepie.view.adapter.HasdownlistAdapter;
 import com.carlt.chelepie.view.adapter.MedialistAdapter;
 import com.carlt.doride.R;
@@ -37,9 +38,9 @@ import java.util.ArrayList;
  */
 public class HasDownListActivity extends LoadingActivity implements
         OnClickListener {
-	private ImageView back;// 头部返回键
-	private TextView title;// 标题文字
-	private TextView txtRight;// 头部右侧文字
+//	private ImageView back;// 头部返回键
+//	private TextView title;// 标题文字
+//	private TextView txtRight;// 头部右侧文字
 
 	private TextView mTxtAll;// 全选
 	private TextView mTxtDelete;// 删除
@@ -57,7 +58,7 @@ public class HasDownListActivity extends LoadingActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hasdown_list);
-		initTitle();
+		initTitle("已下载");
 		init();
 		LoadData();
 	}
@@ -93,23 +94,8 @@ public class HasDownListActivity extends LoadingActivity implements
 
 		mTxtAll.setOnClickListener(this);
 		mTxtDelete.setOnClickListener(this);
-	}
-
-	private void initTitle() {
-		back = (ImageView) findViewById(R.id.head_back_img1);
-		title = (TextView) findViewById(R.id.head_back_txt1);
-		txtRight = (TextView) findViewById(R.id.head_back_txt2);
-		View titleline = findViewById(R.id.main_page_head_line);
-
-		back.setImageResource(R.drawable.arrow_back);
-		title.setText("已下载");
-		txtRight.setVisibility(View.VISIBLE);
-		txtRight.setTextColor(getResources().getColor(R.color.text_color_blue));
-		txtRight.setText("编辑");
-		titleline.setVisibility(View.GONE);
-
-		back.setOnClickListener(this);
-		txtRight.setOnClickListener(this);
+		tvRight2.setText("选择");
+		tvRight2.setOnClickListener(this);
 	}
 
 	protected void LoadData() {
@@ -120,21 +106,21 @@ public class HasDownListActivity extends LoadingActivity implements
 	public void loadDataSuccess(Object data) {
 		pieDownloadInfos.clear();
 		if (data != null) {
-			pieDownloadInfos=(ArrayList<PieDownloadInfo>) data;
+			pieDownloadInfos=((PieDownloadListInfo)data).getArrays();
 			mAdapter = new HasdownlistAdapter(HasDownListActivity.this,
 					pieDownloadInfos);
 			mAdapter.setOnItemClickListener(mMyItemClickListener);
 			mAdapter.setOnDeleteListener(mOnDeleteListener);
 			if (pieDownloadInfos.size() > 0) {
 				pieDownloadInfos.add(new PieDownloadInfo());
-				txtRight.setVisibility(View.VISIBLE);
+				tvRight2.setVisibility(View.VISIBLE);
 			} else {
 				loadNodataUI();
-				txtRight.setVisibility(View.INVISIBLE);
+				tvRight2.setVisibility(View.INVISIBLE);
 			}
 		} else {
 			loadNodataUI();
-			txtRight.setVisibility(View.INVISIBLE);
+			tvRight2.setVisibility(View.INVISIBLE);
 		}
 		mRecyclerView.setAdapter(mAdapter);
 		super.loadDataSuccess(data);
@@ -212,28 +198,31 @@ public class HasDownListActivity extends LoadingActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.head_back_img1:
-			// 返回键
-			finish();
-			break;
-
-		case R.id.head_back_txt2:
-			// 右侧编辑按钮
-			if (isEditale) {
-				mViewBottom.setVisibility(View.GONE);
-				txtRight.setText("编辑");
-				isEditale = false;
-				resetUI();
-				mAdapter.setEditable(false);
-			} else {
-				mViewBottom.setVisibility(View.VISIBLE);
-				txtRight.setText("取消");
-				isEditale = true;
-				mAdapter.setEditable(true);
-				resetUI();
-			}
-			mAdapter.notifyDataSetChanged();
-			break;
+//		case R.id.head_back_img1:
+//			// 返回键
+//			finish();
+//			break;
+//
+//		case R.id.head_back_txt2:
+//
+//			break;
+			case R.id.layout_title_back_text4:
+				// 右侧编辑按钮
+				if (isEditale) {
+					mViewBottom.setVisibility(View.GONE);
+					tvRight2.setText("选择");
+					isEditale = false;
+					resetUI();
+					mAdapter.setEditable(false);
+				} else {
+					mViewBottom.setVisibility(View.VISIBLE);
+					tvRight2.setText("取消");
+					isEditale = true;
+					mAdapter.setEditable(true);
+					resetUI();
+				}
+				mAdapter.notifyDataSetChanged();
+				break;
 		case R.id.hasdown_list_txt_all:
 			// 全选
 			for (int i = 0; i < pieDownloadInfos.size(); i++) {
@@ -259,7 +248,7 @@ public class HasDownListActivity extends LoadingActivity implements
 								pieDownloadInfos.remove(deleteInfo);
 							}
 							mViewBottom.setVisibility(View.GONE);
-							txtRight.setText("编辑");
+							tvRight2.setText("选择");
 							isEditale = false;
 							resetUI();
 							mAdapter.setEditable(false);

@@ -44,6 +44,7 @@ public class LoadingActivity extends BaseActivity {
     public    View     backTV2  = null;
     protected TextView optRight = null;
     protected TextView tvRight;
+    protected TextView tvRight2;
 
 
     @Override
@@ -67,6 +68,7 @@ public class LoadingActivity extends BaseActivity {
         mPBar = (ProgressBar) findViewById(R.id.loading_bar_loading);
         optRight = (TextView) findViewById(R.id.layout_title_back_text2);
         tvRight = (TextView) findViewById(R.id.layout_title_back_text3);
+        tvRight2 = (TextView) findViewById(R.id.layout_title_back_text4);
         titleView = findViewById(R.id.layout_title);
         mTxtRetryError.setOnClickListener(mClickListener);
         setMainView(layoutResID);

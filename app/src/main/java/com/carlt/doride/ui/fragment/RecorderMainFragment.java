@@ -24,6 +24,8 @@ import com.carlt.chelepie.view.WifiListDialog;
 import com.carlt.chelepie.view.activity.FullLiveActivity;
 import com.carlt.chelepie.view.activity.ManagePieActivity;
 import com.carlt.chelepie.view.activity.MyMediaListActivity;
+import com.carlt.chelepie.view.gl.HHVideoView;
+import com.carlt.chelepie.view.gl.HVideoView;
 import com.carlt.chelepie.view.gl.IVideoView;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
@@ -253,12 +255,11 @@ public class RecorderMainFragment extends BaseFragment implements
                     break;
                 case DeviceConnectManager.DEVICE_CONNECT:
                     UUToast.showUUToast(mCtx, "设备Wi-Fi已连接");
+                    dissmissConnectDialog();
                     if (!mIsShowing) {
                         // 页面不显示 .. 不开启直播
                         break;
                     }
-                    dissmissConnectDialog();
-
                     if (localUrl != null) {
                         // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
                         RecorderControl.GetDeviceUpdate(mUpGradeCallback, localUrl);
@@ -447,6 +448,16 @@ public class RecorderMainFragment extends BaseFragment implements
                 "RecorderMainFragment..........................................................");
         videoLayout.removeAllViews();
         videoView = DorideApplication.getInstanse().getVideoView();
+        boolean supportopenGLES20 = DorideApplication.getInstanse().supportopenGLES20;
+        if (supportopenGLES20){
+            if (((HHVideoView)videoView).getParent()!=null){
+                ((ViewGroup)((HHVideoView)videoView).getParent()).removeView((HHVideoView)videoView);
+            }
+        }else {
+            if (((HVideoView)videoView).getParent()!=null){
+                ((ViewGroup)((HVideoView)videoView).getParent()).removeView((HVideoView)videoView);
+            }
+        }
         videoLayout.addView((View) videoView,
                 new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));

@@ -150,7 +150,7 @@ public class DorideApplication extends Application {
     }
     private IVideoView videoView = null;
 
-    private boolean supportopenGLES20;
+    public boolean supportopenGLES20;
     public IVideoView getVideoView() {
         if (null == videoView) {
             Log.e("HVideoView", "videoView null ");

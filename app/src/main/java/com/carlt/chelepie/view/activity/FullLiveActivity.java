@@ -2,6 +2,7 @@ package com.carlt.chelepie.view.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -28,6 +30,8 @@ import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.PlayListener;
 import com.carlt.chelepie.view.PopShow;
+import com.carlt.chelepie.view.gl.HHVideoView;
+import com.carlt.chelepie.view.gl.HVideoView;
 import com.carlt.chelepie.view.gl.IVideoView;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
@@ -129,6 +133,7 @@ public class FullLiveActivity extends LoadingActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_fulllive);
@@ -163,7 +168,7 @@ public class FullLiveActivity extends LoadingActivity implements
 		mViewLoading = findViewById(R.id.play_lay_loading);
 
 		mTxtWifi = (TextView) findViewById(R.id.live_back_txt_wifi);
-
+		back = (TextView) findViewById(R.id.live_back_txt_back);
 		mImgConfig = (ImageView) findViewById(R.id.live_back_img_config);
 		mImgQuality = (ImageView) findViewById(R.id.live_back_img_quality);
 		mImg10s = (ImageView) findViewById(R.id.live_back_img_10s);
@@ -180,6 +185,7 @@ public class FullLiveActivity extends LoadingActivity implements
 		mFullHead = findViewById(R.id.recorder_play_head);
 		mFullBottom = findViewById(R.id.recorder_play_bottom);
 
+		back.setOnClickListener(this);
 		mFullBG.setOnClickListener(this);
 		mToPlay.setOnClickListener(this);
 		mImgConfig.setOnClickListener(this);
@@ -631,6 +637,17 @@ public class FullLiveActivity extends LoadingActivity implements
 		super.onResume();
 		videoLayout.removeAllViews();
 		mVideoView = DorideApplication.getInstanse().getVideoView();
+		boolean supportopenGLES20 = DorideApplication.getInstanse().supportopenGLES20;
+		if (supportopenGLES20){
+			if (((HHVideoView)mVideoView).getParent()!=null){
+				((ViewGroup)((HHVideoView)mVideoView).getParent()).removeView((HHVideoView)mVideoView);
+			}
+		}else {
+			if (((HVideoView)mVideoView).getParent()!=null){
+				((ViewGroup)((HVideoView)mVideoView).getParent()).removeView((HVideoView)mVideoView);
+			}
+		}
+
 		videoLayout.addView((View) mVideoView, new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		mVideoView.setmListener(mPlayListener);
