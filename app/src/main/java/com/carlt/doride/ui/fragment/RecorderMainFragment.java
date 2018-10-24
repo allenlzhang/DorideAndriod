@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 
@@ -213,6 +215,7 @@ public class RecorderMainFragment extends BaseFragment implements
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -253,6 +256,7 @@ public class RecorderMainFragment extends BaseFragment implements
                     UUToast.showUUToast(mCtx,
                             "网络发生异常中断，请检查您的网络环境并尝试重新连接");
                     break;
+                    // action = 1002  Wifi连接成功后 通知DeviceConnectManager , 再次更新 状态
                 case DeviceConnectManager.DEVICE_CONNECT:
                     UUToast.showUUToast(mCtx, "设备Wi-Fi已连接");
                     dissmissConnectDialog();
@@ -290,6 +294,7 @@ public class RecorderMainFragment extends BaseFragment implements
                             "未能成功连接您的设备Wi-Fi，请检查您的网络环境并尝试重新连接");
                     showVideoLay(false);
                     break;
+                    //10012
                 case WIFIControl.WIFI_CONNECT_OK:
                     UUToast.showUUToast(mCtx, "Wi-Fi连接成功");
                     DeviceConnectManager.StartMessgeLoop();
@@ -411,7 +416,9 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Logger.e(hidden + "========================");
         if (!hidden) {
+
             //测试代码开始
             LoginInfo.isDrivingRecorder = true;
             //测试代码结束
@@ -435,6 +442,7 @@ public class RecorderMainFragment extends BaseFragment implements
                         "重新登录", click);
 
             } else {
+                mIsShowing = true;
                 doSomeForResume();
             }
         }else {
@@ -444,7 +452,7 @@ public class RecorderMainFragment extends BaseFragment implements
 
     private void doSomeForResume(){
         DorideApplication.getInstanse().setToFullFlag(false);
-        Log.e("onResume",
+        Logger.e("onResume",
                 "RecorderMainFragment..........................................................");
         videoLayout.removeAllViews();
         videoView = DorideApplication.getInstanse().getVideoView();
@@ -512,11 +520,11 @@ public class RecorderMainFragment extends BaseFragment implements
 
     @Override
     public void onWIFIChange(int action) {
+
         if (!mIsShowing) {
             // 页面不显示 .. 不开启直播
             return;
         }
-        Log.i(TAG,"onWIFIChange--action = "+action);
         mHandler.sendEmptyMessage(action);
     }
 
