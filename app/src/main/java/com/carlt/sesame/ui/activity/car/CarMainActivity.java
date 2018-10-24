@@ -170,7 +170,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
     private void init() {
 
         mGridFuncs = (MyGridView) findViewById(R.id.car_main_grid_funcs);
-        ivCarMainBg =  findViewById(R.id.ivCarMainBg);
+        ivCarMainBg = findViewById(R.id.ivCarMainBg);
         mGridFuncs.setFocusable(false);
         mTxtSoc = (TextView) findViewById(R.id.car_main_txt_soc);
         mTxtSoh = (TextView) findViewById(R.id.car_main_txt_soh);
@@ -204,6 +204,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
         mGridFuncs.setOnItemClickListener(mItemClickListener);
 
     }
+
     private void getBgImage() {
         BaseParser parser1 = new DefaultStringParser(new BaseParser.ResultCallback() {
             @Override
@@ -235,7 +236,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
                 //                parseJson1(json);
                 Gson gson = new Gson();
                 PictrueInfo pictrueInfo = gson.fromJson(json, PictrueInfo.class);
-//                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, viewMainState, R.drawable.car_state);
+                //                LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, viewMainState, R.drawable.car_state);
                 Glide.with(CarMainActivity.this).load(pictrueInfo.filePath).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -255,6 +256,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
         params1.put("position", "21");
         parser1.executePost(com.carlt.sesame.systemconfig.URLConfig.getM_GET_APPSPICS_URL(), params1);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -489,7 +491,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
     protected void LoadData() {
         super.LoadData();
 
-//        CPControl.GetCarMainResult(listener);
+        CPControl.GetCarMainResult(listener);
         getBgImage();
         getCarImage();
     }

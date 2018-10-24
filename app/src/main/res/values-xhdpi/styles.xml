@@ -586,8 +586,9 @@
     <!-- 座驾 -->
     <!-- 胎压监测 -->
     <style name="car_tire_prssure_lay">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">95dip</item>
+        <item name="android:layout_height">94dip</item>
+        <item name="android:background">#DCDCDC</item>
     </style>
 
     <style name="car_tire_prssure_txt1">
