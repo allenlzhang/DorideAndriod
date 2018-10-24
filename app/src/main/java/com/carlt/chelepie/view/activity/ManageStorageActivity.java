@@ -37,11 +37,6 @@ import java.text.DecimalFormat;
  * @author Administrator
  */
 public class ManageStorageActivity extends LoadingActivity implements OnClickListener, DeviceConnListener {
-	private ImageView back;// 头部返回键
-
-	private TextView title;// 标题文字
-
-	private ImageView imgRight;// 头部右侧文字
 
 	private TextView mTxtHasuseBox;// 车乐拍（摄像头）已用空间
 
@@ -64,41 +59,9 @@ public class ManageStorageActivity extends LoadingActivity implements OnClickLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_manage_storage);
 		mConnControl = new DeviceConnControl(this, this);
-		initTitle();
+		initTitle("存储空间管理");
 		init();
 		LoadData();
-	}
-
-	private void initTitle() {
-		back = (ImageView) findViewById(R.id.head_back_img1);
-		title = (TextView) findViewById(R.id.head_back_txt1);
-		imgRight = (ImageView) findViewById(R.id.head_back_img2);
-
-		back.setImageResource(R.drawable.arrow_back);
-		title.setText("存储空间管理");
-
-		imgRight.setVisibility(View.VISIBLE);
-
-		imgRight.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (!DeviceConnectManager.isDeviceConnect()) {
-					mConnControl.goConnect();
-				} else {
-					UUToast.showUUToast(ManageStorageActivity.this, "设备已连接");
-				}
-			}
-		});
-
-		back.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-
 	}
 
 	private void init() {
@@ -113,6 +76,18 @@ public class ManageStorageActivity extends LoadingActivity implements OnClickLis
 		mTxtFormat.setOnClickListener(this);
 		mTxtEmpty.setOnClickListener(this);
 
+		backTV2.setVisibility(View.VISIBLE);
+		backTV2.setBackgroundResource(R.drawable.icon_set);
+	}
+
+	@Override
+	public void onRightClick() {
+		super.onRightClick();
+		if (!DeviceConnectManager.isDeviceConnect()) {
+			mConnControl.goConnect();
+		} else {
+			UUToast.showUUToast(ManageStorageActivity.this, "设备已连接");
+		}
 	}
 
 	@Override

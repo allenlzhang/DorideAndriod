@@ -438,7 +438,7 @@ public class RecorderMainFragment extends BaseFragment implements
                     }
                 };
                 PopBoxCreat.createDialogWithNodismiss(mCtx,
-                        "温馨提示", "您的爱车可能未绑定智联驾驶A3设备，请联系您的经销商进行设备绑定", "", "返回主页",
+                        "温馨提示", "您的爱车可能未绑定大乘智享设备，请联系您的经销商进行设备绑定", "", "返回主页",
                         "重新登录", click);
 
             } else {
