@@ -97,7 +97,7 @@ public class CutSeekBar extends View {
 		textLenth = 226 * mScollBarWidth / 1920;
 		textArry = new String[] { "-00:02:00", "-00:01:00", "00:00:00", "00:01:00", "00:02:00" };
 
-//		mScollBarHeight = a.getLayoutDimension(R.styleable.CutSeekBar_height, "layout_height");
+		mScollBarHeight = a.getLayoutDimension(R.styleable.CutSeekBar_height, "layout_height");
 
 		//可移动距离  
 		mDistance = mScollBarWidth - mThumbWidth;
