@@ -9,8 +9,10 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
+
 
 /**
  * @author @Y.yun 开启直播流程
@@ -93,6 +95,7 @@ public class StartMonitorParser extends RecorderBaseParserNew<BaseResponseInfo> 
 			}
 			
 			mJson = new JSONObject(new String(buf, 3, buf.length - 3));
+	//		Logger.e(mJson + "=============直播链接握手信息返回=================");
 			parser();
 			mBaseResponseInfo.setFlag(BaseResponseInfo.SUCCESS);
 			mBaseResponseInfo.setInfo(MSG_SUCC);

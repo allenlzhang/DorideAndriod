@@ -37,6 +37,7 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.eventbus.FullScreenMessage;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.RuningConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -44,6 +45,8 @@ import com.carlt.doride.ui.view.UUPopupWindow;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.ui.view.MenuImageShow;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,10 @@ import java.util.ArrayList;
  */
 public class FullLiveActivity extends LoadingActivity implements
         OnClickListener, DeviceConnListener {
+	/**
+	 *  返回记录仪页面的 code ,用于确定,是从全屏页面返回的
+	 */
+	public static int BACK_CODE = 2001;
 	private TextView back;// 头部返回键
 
 	private IVideoView mVideoView;
@@ -267,6 +274,7 @@ public class FullLiveActivity extends LoadingActivity implements
 			mConnControl.goConnect();
 			break;
 		case R.id.live_back_txt_back:
+			EventBus.getDefault().post(new FullScreenMessage(BACK_CODE));
 			finish();
 			break;
 		case R.id.live_back_img_config:

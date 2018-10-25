@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.carlt.doride.base.BeforeGoToBackground;
 import com.carlt.chelepie.view.UUDialogUpgrading;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.eventbus.FullScreenMessage;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -43,6 +45,9 @@ import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 
@@ -80,14 +85,22 @@ public class RecorderMainFragment extends BaseFragment implements
     //点击了右上角
     private boolean isClickTitleRight = false;
 
+    /**
+     *  从不同页面返回的 code... 相当于 startActivityForResult 方法
+     */
+    private int backCode ;
+
     public final static void setmGotoMainIndexListener(
             GotoMainIndexListener gotoMainIndexListener) {
         mGotoMainIndexListener = gotoMainIndexListener;
     }
 
+
+
     @Override
     protected View inflateView(LayoutInflater inflater) {
         view = inflater.inflate(R.layout.activity_recordermain, null, false);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -167,8 +180,7 @@ public class RecorderMainFragment extends BaseFragment implements
             case R.id.recordermain_img_full:
                 // 全屏
                 DorideApplication.getInstanse().setToFullFlag(true);
-                Intent mIntent3 = new Intent(getActivity(),
-                        FullLiveActivity.class);
+                Intent mIntent3 = new Intent(getActivity(), FullLiveActivity.class);
 
                 startActivity(mIntent3);
                 break;
@@ -182,18 +194,22 @@ public class RecorderMainFragment extends BaseFragment implements
 
             case R.id.recordermain_txt_play:
                 // / --点击播放按钮开始播放
-                isLivePlay = true;
-                if (DeviceConnectManager.isDeviceConnect()) {
-                    showVideoLay(true);
-                    proBar.setVisibility(View.VISIBLE);
-                    RecorderControl.startMonitor(listener_monitor);
-                } else {
-                    showConnectDialog();
-                    WIFIControl.StartConnectChelePai();
-                }
+                startPlay();
                 break;
         }
 
+    }
+
+    private void startPlay() {
+        isLivePlay = true;
+        if (DeviceConnectManager.isDeviceConnect()) {
+            showVideoLay(true);
+            proBar.setVisibility(View.VISIBLE);
+            RecorderControl.startMonitor(listener_monitor);
+        } else {
+            showConnectDialog();
+            WIFIControl.StartConnectChelePai();
+        }
     }
 
     private BaseParser.ResultCallback listener_monitor = new BaseParser.ResultCallback() {
@@ -278,6 +294,7 @@ public class RecorderMainFragment extends BaseFragment implements
                         if (isLivePlay) {
                             showVideoLay(true);
                             proBar.setVisibility(View.VISIBLE);
+                            // 开启直播,添加 返回回调
                             RecorderControl.startMonitor(listener_monitor);
                         }
                     }
@@ -404,7 +421,7 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onPause() {
         super.onPause();
-
+        backCode = 0;
     }
 
     @Override
@@ -450,6 +467,9 @@ public class RecorderMainFragment extends BaseFragment implements
         }
     }
 
+    /**
+     *
+     */
     private void doSomeForResume(){
         DorideApplication.getInstanse().setToFullFlag(false);
         Logger.e("onResume",
@@ -473,9 +493,16 @@ public class RecorderMainFragment extends BaseFragment implements
         // 设置监听WIFI变化
         WIFIControl.rigisterWIFIConnectListener(this);
         DeviceConnectManager.addNotifyListener(this);
+
+        // 如果是从直播全屏页面返回,则再次开启直播
+        if(backCode == FullLiveActivity.BACK_CODE){
+            startPlay();
+        }
+
     }
 
     private void doSomeForPause(){
+        backCode = 0;
         mIsShowing = false;
         if (!DorideApplication.getInstanse().isToFullFlag()) {// 如果是跳转到全屏幕页面，则不停止接收数据
             AppsdkUtils.CMStop(ActionConfig.getSeqNum());
@@ -501,6 +528,7 @@ public class RecorderMainFragment extends BaseFragment implements
         super.onDestroy();
         Log.e("LoginErr", "......RecorderMainFragment......finish........了");
         unRegisterBeforeGoToBackGround(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -514,7 +542,8 @@ public class RecorderMainFragment extends BaseFragment implements
             // 页面不显示 .. 不开启直播
             return;
         }
-        Log.i(TAG,"notifyAction--action = "+action);
+      // 成功返回 1002
+       Logger.e("notifyAction===========================" + action);
         mHandler.sendEmptyMessage(action);
     }
 
@@ -618,5 +647,13 @@ public class RecorderMainFragment extends BaseFragment implements
 
     public interface GotoMainIndexListener {
         void gotoMianIndex();
+    }
+
+    //eventBus 方法
+
+    @Subscribe
+    public void onEvent(FullScreenMessage message){
+        backCode = message.message;
+
     }
 }
