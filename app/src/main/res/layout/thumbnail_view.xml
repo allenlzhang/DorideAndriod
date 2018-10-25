@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:cutseekbar="http://schemas.android.com/apk/com.carlt.chelepie"
-    android:orientation="vertical">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/thumbnail_gallery_lay"
         android:layout_width="fill_parent"
-        android:layout_height="150dip" >
+        android:layout_height="150dip">
 
         <com.carlt.chelepie.view.CoverFlow
             android:id="@+id/thumbnail_gallery"
@@ -23,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:src="@drawable/main_btn_live_select_no"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textColor="@color/text_color_gray3"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <com.carlt.chelepie.view.CutSeekBar
         android:id="@+id/thumbnail_cutbar"
@@ -43,22 +43,21 @@
         android:layout_alignParentBottom="true"
         android:background="#ffffff"
         android:visibility="gone"
-        cutseekbar:duration="10"
-        cutseekbar:height="47dp"
-        cutseekbar:maxValue="300"
-        cutseekbar:minValue="0"
-        cutseekbar:width="fill_parent"
-    />
+        app:duration="10"
+        app:height="47dp"
+        app:maxValue="300"
+        app:minValue="0"
+        />
 
     <SeekBar
         android:id="@+id/thumbnail_seekbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/thumbnail_cutbar"
-         android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/thumbnail_seekbar_bg1"
         android:progressDrawable="@drawable/thumbnail_seekbar_bg"
         android:thumb="@drawable/thumbnail_seekbar_thumb"
-        android:visibility="visible" />
+        android:visibility="visible"/>
 
 </RelativeLayout>

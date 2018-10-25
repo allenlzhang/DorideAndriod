@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.Utils;
 import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.chelepie.view.gl.GLES20Support;
 import com.carlt.chelepie.view.gl.HHVideoView;
-import com.carlt.chelepie.view.gl.HVideoView;
 import com.carlt.chelepie.view.gl.IVideoView;
 import com.carlt.doride.dao.DBManager;
 import com.carlt.doride.data.remote.RemoteMainInfo;
@@ -154,11 +153,11 @@ public class DorideApplication extends Application {
     public IVideoView getVideoView() {
         if (null == videoView) {
             Log.e("HVideoView", "videoView null ");
-            if (supportopenGLES20) {
+//            if (supportopenGLES20) {
                 videoView = new HHVideoView(this);
-            } else {
-                videoView = new HVideoView(this);
-            }
+//            } else {
+//                videoView = new HVideoView(this);
+//            }
         }
         else{
             Log.e("HVideoView", "videoView not null ");
