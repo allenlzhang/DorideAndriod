@@ -187,8 +187,7 @@ public class RecorderMainFragment extends BaseFragment implements
 
             case R.id.recordermain_txt_album:
                 // 我的记录仪媒体列表
-                Intent mIntent4 = new Intent(getActivity(),
-                        MyMediaListActivity.class);
+                Intent mIntent4 = new Intent(getActivity(), MyMediaListActivity.class);
                 startActivity(mIntent4);
                 break;
 
@@ -202,6 +201,7 @@ public class RecorderMainFragment extends BaseFragment implements
 
     private void startPlay() {
         isLivePlay = true;
+
         if (DeviceConnectManager.isDeviceConnect()) {
             showVideoLay(true);
             proBar.setVisibility(View.VISIBLE);
@@ -421,12 +421,14 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onPause() {
         super.onPause();
-        backCode = 0;
+        doSomeForPause();
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Logger.e("onStop===================================");
     }
 
 
@@ -464,6 +466,7 @@ public class RecorderMainFragment extends BaseFragment implements
             }
         }else {
             doSomeForPause();
+
         }
     }
 
@@ -496,12 +499,13 @@ public class RecorderMainFragment extends BaseFragment implements
 
         // 如果是从直播全屏页面返回,则再次开启直播
         if(backCode == FullLiveActivity.BACK_CODE){
-            startPlay();
+           // startPlay();
         }
 
     }
 
     private void doSomeForPause(){
+        Logger.e("doSomeForPause===================================");
         backCode = 0;
         mIsShowing = false;
         if (!DorideApplication.getInstanse().isToFullFlag()) {// 如果是跳转到全屏幕页面，则不停止接收数据

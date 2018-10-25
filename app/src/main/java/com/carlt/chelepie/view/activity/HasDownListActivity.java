@@ -73,6 +73,7 @@ public class HasDownListActivity extends LoadingActivity implements
 
 		LinearLayoutManager mManager = new LinearLayoutManager(
 				HasDownListActivity.this);
+
 		mRecyclerView.setLayoutManager(mManager);
 		// 添加分割线
 		mRecyclerView.addItemDecoration(new DividerItemDecoration(

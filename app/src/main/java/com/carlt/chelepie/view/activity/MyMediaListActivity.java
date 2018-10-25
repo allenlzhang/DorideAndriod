@@ -30,14 +30,19 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.eventbus.FullScreenMessage;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.control.CPControl;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.carlt.chelepie.view.activity.FullLiveActivity.BACK_CODE;
 
 /**
  * 记录仪相册
@@ -122,9 +127,11 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 
 			@Override
 			public void onClick(View v) {
+				EventBus.getDefault().post(new FullScreenMessage(BACK_CODE));
 				finish();
 			}
 		});
+//已下载
 		txtRight.setOnClickListener(new OnClickListener() {
 
 			@Override

@@ -6,6 +6,8 @@ package com.carlt.doride.eventbus;
  * @describe  记录仪由全屏返回 时候的回调
  */
 public class FullScreenMessage {
+
+    // 返回 20001(从新连接直播)
    public   int message;
 
     public FullScreenMessage(int message) {

@@ -1,5 +1,6 @@
 package com.carlt.chelepie.view.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -500,6 +501,7 @@ public class FullLiveActivity extends LoadingActivity implements
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -512,6 +514,7 @@ public class FullLiveActivity extends LoadingActivity implements
 				String s = StringUtils.caculateSpeed();
 				mTxtWifi.setText(s);
 				break;
+			//抓拍成功
 			case 2:
 				mProgress.dismiss();
 				BaseResponseInfo bInfo = (BaseResponseInfo) msg.obj;
