@@ -225,9 +225,11 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		 * seekbar改变时的事件监听处理
 		 */
 		@Override
-		public void onProgressChanged(SeekBar seekBar, int progress,
-                                      boolean fromUser) {
-			mVideoView.playProgress(progress);
+		public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+			if(mVideoView != null){
+				mVideoView.playProgress(progress);
+			}
+
 		}
 
 		/*

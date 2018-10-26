@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.carlt.chelepie.view.WIFIConnectDialog;
 import com.carlt.chelepie.view.WifiListDialog;
 import com.carlt.chelepie.view.activity.FullLiveActivity;
 import com.carlt.chelepie.view.activity.ManagePieActivity;
+import com.carlt.chelepie.view.activity.ManageTimesActivity;
 import com.carlt.chelepie.view.activity.MyMediaListActivity;
 import com.carlt.chelepie.view.gl.HHVideoView;
 import com.carlt.chelepie.view.gl.HVideoView;
@@ -46,6 +49,7 @@ import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
 import com.orhanobut.logger.Logger;
 
+import org.apache.tools.ant.helper.ProjectHelper2;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -202,10 +206,32 @@ public class RecorderMainFragment extends BaseFragment implements
     private void startPlay() {
         isLivePlay = true;
 
+
+
         if (DeviceConnectManager.isDeviceConnect()) {
-            showVideoLay(true);
-            proBar.setVisibility(View.VISIBLE);
-            RecorderControl.startMonitor(listener_monitor);
+
+            RecorderControl.setRecorderTime(new BaseParser.ResultCallback() {
+                @Override
+                public void onSuccess(BaseResponseInfo bInfo) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            UUToast.showUUToast(mCtx, "校时成功");
+                            showVideoLay(true);
+                            proBar.setVisibility(View.VISIBLE);
+                            // 开启直播,添加 返回回调
+                            RecorderControl.startMonitor(listener_monitor);
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onError(BaseResponseInfo bInfo) {
+                    //    UUToast.showUUToast(mCtx, "校时失败");
+                }
+            }, System.currentTimeMillis());
+
         } else {
             showConnectDialog();
             WIFIControl.StartConnectChelePai();
@@ -292,10 +318,29 @@ public class RecorderMainFragment extends BaseFragment implements
                             return;
                         }
                         if (isLivePlay) {
-                            showVideoLay(true);
-                            proBar.setVisibility(View.VISIBLE);
-                            // 开启直播,添加 返回回调
-                            RecorderControl.startMonitor(listener_monitor);
+                            RecorderControl.setRecorderTime(new BaseParser.ResultCallback() {
+                                @Override
+                                public void onSuccess(BaseResponseInfo bInfo) {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            UUToast.showUUToast(mCtx, "校时成功");
+                                            showVideoLay(true);
+                                            proBar.setVisibility(View.VISIBLE);
+                                            // 开启直播,添加 返回回调
+                                            RecorderControl.startMonitor(listener_monitor);
+                                        }
+                                    });
+
+                                }
+
+                                @Override
+                                public void onError(BaseResponseInfo bInfo) {
+                                //    UUToast.showUUToast(mCtx, "校时失败");
+                                }
+                            }, System.currentTimeMillis());
+
+
                         }
                     }
                     break;

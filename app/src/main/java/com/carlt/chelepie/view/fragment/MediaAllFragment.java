@@ -1,5 +1,6 @@
 package com.carlt.chelepie.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -76,6 +77,7 @@ public class MediaAllFragment extends BaseFragment {
 		
 		gridLayoutManager = new GridLayoutManager(mCtx, 5);
 		mRecyclerView.setLayoutManager(gridLayoutManager);
+		loadData();
 	}
 
 	@Override
@@ -83,6 +85,9 @@ public class MediaAllFragment extends BaseFragment {
 		if(infoLists != null && !infoLists.isEmpty()){
 			loadSuccess(infoLists);
 		}
+//		if(null != picMediaLisenter){
+//			picMediaLisenter.onRefreshing();
+//		}
 	}
 
 
@@ -271,6 +276,7 @@ public class MediaAllFragment extends BaseFragment {
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHAnHandler = new Handler() {
 
 		@Override

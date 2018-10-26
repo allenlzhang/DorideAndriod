@@ -1,5 +1,6 @@
 package com.carlt.chelepie.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,8 +36,10 @@ import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.control.CPControl;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -305,7 +308,9 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 				}
 			}
 			@Override
-			public void onPicDownLoadFinished() {}
+			public void onPicDownLoadFinished() {
+
+			}
 		});
 		((MediaAllFragment)fragments.get(2)).setOnPicMediaLisenter(new MediaAllFragment.OnPicMediaLisenter() {
 			
@@ -461,6 +466,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 	List<PieDownloadInfo> capInfoList = new ArrayList<PieDownloadInfo>();
 	List<PieDownloadInfo> eventInfoList = new ArrayList<PieDownloadInfo>();
 	
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -469,6 +475,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 				allInfoList.clear();
 				capInfoList.clear();
 				PieDownloadListInfo infoList1 =  (PieDownloadListInfo) msg.obj;
+
 				for (int i = 0; i < infoList1.getArrays().size(); i++) {
 					allInfoList.add(infoList1.getArrays().get(i));
 					capInfoList.add(infoList1.getArrays().get(i));
@@ -478,6 +485,14 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 				Collections.sort(capInfoList);
 				fragments.get(0).loadSuccessUI();
 				fragments.get(1).loadSuccessUI();
+                if(fragments.get(0).isVisible()){
+                    ((MediaAllFragment)fragments.get(0)).loadSuccess(allInfoList);
+
+                }
+                if(fragments.get(1).isVisible()){
+                    ((MediaAllFragment)fragments.get(1)).loadSuccess(capInfoList);
+
+                }
 				RecorderControl.getEventFilelist(listener2, null, false);
 				break;
 			case 2:
@@ -498,8 +513,10 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 				fragments.get(0).loadSuccessUI();
 				((MediaAllFragment)fragments.get(0)).downloadThumbnail(allInfoList);
 				((MediaAllFragment)fragments.get(2)).setData(eventInfoList);
+
 				if(fragments.get(2).isVisible()){
-					fragments.get(2).loadData();
+					((MediaAllFragment)fragments.get(2)).loadSuccess(eventInfoList);
+
 				}
 				break;
 			case 4:

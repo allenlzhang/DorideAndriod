@@ -16,6 +16,7 @@ import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.Log;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.utility.MyTimeUtil;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -196,6 +197,7 @@ public class RecorderGetCaptureFileInfoListParser extends RecorderBaseParserNew<
 						info.setDeviceName(deviceString);
 
 						mBaseResponseInfo.getArrays().add(info);
+						Logger.e(mBaseResponseInfo.getArrays().size() + "=============================" );
 						if (i == len - 1) {
 							beginTime = endTime;
 						}

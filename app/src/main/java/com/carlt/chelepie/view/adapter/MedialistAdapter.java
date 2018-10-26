@@ -21,6 +21,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.http.AsyncImageLoader;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.sesame.utility.MyTimeUtil;
+import com.orhanobut.logger.Logger;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -231,20 +232,25 @@ public class MedialistAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 		public void bindData(PieDownloadInfo info) {
 			String s = MyTimeUtil.parseDate2(info.getStartTime());
+			// 2018-10-20
+			String dates [] = s.split("-");
+			if(dates.length < 3){
+				return;
+			}
 			if (!TextUtils.isEmpty(s)) {
-				StringBuffer date = new StringBuffer();
-				String dateMonth = s.substring(4, 6);
-				String dateDay = s.substring(6);
-				date.append(dateMonth);
-				date.append("/");
-				date.append(dateDay);
-				mTxtDate.setText(date.toString());
+//				StringBuffer date = new StringBuffer();
+//				String dateMonth = s.substring(4, 6);
+//				String dateDay = s.substring(6);
+//				date.append(dateMonth);
+//				date.append("/");
+//				date.append(dateDay);
+				mTxtDate.setText(dates[1]+"/"+ dates[2]);
 			}
 			if(info.getType()==PieDownloadInfo.TYPE_DATE_YEAR){
 				//需要展示年份
 				mTxtYear.setVisibility(View.VISIBLE);
 				String year=s.substring(0,4);
-				mTxtYear.setText(year);
+				mTxtYear.setText(dates[0]);
 			}else if(info.getType()==PieDownloadInfo.TYPE_DATE){
 				//不需要展示年份
 				mTxtYear.setVisibility(View.GONE);
