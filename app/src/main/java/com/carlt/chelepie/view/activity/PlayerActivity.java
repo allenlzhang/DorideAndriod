@@ -1,11 +1,14 @@
 package com.carlt.chelepie.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -25,6 +28,7 @@ import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.utils.CodecPlayerUtil;
+import com.carlt.chelepie.view.VideoSurface;
 import com.carlt.chelepie.view.gl.HVideoPlayerView;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
@@ -90,8 +94,12 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	 */
 	private PieDownloadInfo pieDownInfo;
 
-	private DaoPieDownloadControl mDaoPieDownloadControl = DaoPieDownloadControl
-			.getInstance();
+	private DaoPieDownloadControl mDaoPieDownloadControl = DaoPieDownloadControl.getInstance();
+
+	/**
+	 *  解码播放的 Surface
+	 */
+	private VideoSurface mSurface;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -139,21 +147,33 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		//点击底部框，暂时不做处理
 	}
 	
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.player_play_btn:
 			playBtn.setClickable(false);
 			if (isPause) {
-				mVideoView.continuePlay();
+//				mVideoView.continuePlay();
+
+				if(mSurface!=null){
+					mSurface.connetStart();
+				}
 			} else {
-				mVideoView.pause();
+//				mVideoView.pause();
+				if(mSurface!=null){
+					mSurface.stop();
+				}
 			}
 			break;
 		case R.id.player_cut_btn:
 			cutBtn.setClickable(false);
 			cutBtn.setImageResource(R.drawable.player_cut_down);
-			mVideoView.cutPic();
+//			mVideoView.cutPic();
+
+			if(mSurface!=null){
+				mSurface.cropBitmap();
+			}
 			break;
 		case R.id.player_download_btn:
 			downloadBtn.setClickable(false);
@@ -334,12 +354,20 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void startPlay(String filePath) {
 		videoLayout.removeAllViews();
-		mVideoView = new HVideoPlayerView(this);
-		videoLayout.addView((View) mVideoView, new RelativeLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		mVideoView.play(filePath, mHandler);
+		mSurface  =new VideoSurface(this);
+		mSurface.setFilePath(filePath);
+		mSurface.setmHandler(mHandler);
+
+//		mVideoView = new HVideoPlayerView(this);
+
+		videoLayout.addView((View) mSurface, new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
+//		mVideoView.play(filePath, mHandler);
+
+
 		if(pieInfo.getStoreType() == PieDownloadInfo.STORE_CROP){
-			mVideoView.configCrop();
+//			mVideoView.configCrop();
+
 		}
 	}
 
@@ -377,6 +405,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	/**
 	 * 播放器操作返回的
 	 */
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -564,6 +593,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		if(loadingLay.getVisibility() == View.VISIBLE && null != pieDownInfo){
 			FileUtil.deleteFile(new File(pieDownInfo.getLocalPath()));
 		}
+
 	}
 
 	@Override
@@ -576,13 +606,20 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		super.onResume();
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		if (null != mVideoView) {
 			mVideoView.stopVideo();
 		}
+
+		if(mSurface!=null){
+			mSurface.destroy();
+		}
 		downLoadLisener = null;
 		RecorderControl.stopDownLoadFile(pieInfo);
+
+
 	}
 }
