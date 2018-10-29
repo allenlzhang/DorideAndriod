@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,13 +78,18 @@ public class RemoteStatesAdapter extends BaseAdapter {
         int icon_id = mInfo.getIconId();
         if (icon_id > 0) {
             mHolder.mImgIcon.setImageResource(icon_id);
+            mHolder.mImgIcon.setVisibility(View.VISIBLE);
+        } else {
+            mHolder.mImgIcon.setVisibility(View.GONE);
         }
         String s;
         s = mInfo.getName();
-        if (s != null && s.length() > 0) {
+        if (!TextUtils.isEmpty(s)) {
             mHolder.mTxtName.setText(s);
+            mHolder.mTxtName.setVisibility(View.VISIBLE);
         } else {
             mHolder.mTxtName.setText("");
+            mHolder.mTxtName.setVisibility(View.GONE);
         }
         s = mInfo.getStateDes();
         String value = mInfo.getValue();
@@ -92,10 +98,12 @@ public class RemoteStatesAdapter extends BaseAdapter {
             // 应众泰厂商要求将空调温度 去掉 2016-12-20
             // s = s + "/" + mInfo.getValue();
         }
-        if (s != null && s.length() > 0) {
+        if (!TextUtils.isEmpty(s)) {
             mHolder.mTxtState.setText(s);
+            mHolder.mTxtState.setVisibility(View.VISIBLE);
         } else {
             mHolder.mTxtState.setText("");
+            mHolder.mTxtState.setVisibility(View.GONE);
         }
         return convertView;
     }

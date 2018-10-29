@@ -115,6 +115,20 @@ public class CarStateInfoParser extends BaseParser {
                         }
 
                     }
+
+
+                } else if (i == 6) {
+                    if (state.equals("0")) {
+                        mInfo.setIconId(iconId_closes[i]);
+                        mInfo.setStateDes(stateClose[i]);
+
+                    } else if (StringUtils.isEmpty(state) || state.equals("255")) {
+                        mInfo.setIconId(0);
+                        mInfo.setStateDes("");
+                    } else {
+                        mInfo.setIconId(iconId_opens[i]);
+                        mInfo.setStateDes(stateOpen[i]);
+                    }
                 } else {
                     if (state.equals("0")) {
                         mInfo.setIconId(iconId_closes[i]);

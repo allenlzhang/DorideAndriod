@@ -163,6 +163,7 @@ public class LoginInfo extends BaseResponseInfo {
 
     private static String city_code       = "";
     private static int    activate_status = -1;
+    private static int    is_tachograph   = -1;
     // 车牌号
     private static String carno           = "";
 
@@ -657,11 +658,19 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.activate_status = car_pref.getInt("activate_status", -1);
         return LoginInfo.activate_status;
     }
-
     public static void setActivate_status(int activate_status) {
         LoginInfo.activate_status = activate_status;
-        car_pref.edit().putInt("activate_status", activate_status).commit();
+        car_pref.edit().putInt("activate_status", activate_status).apply();
     }
+    public static int getTachograph() {
+        LoginInfo.activate_status = car_pref.getInt("is_tachograph", -1);
+        return LoginInfo.is_tachograph;
+    }
+    public static void setTachograph(int is_tachograph) {
+        LoginInfo.is_tachograph = is_tachograph;
+        car_pref.edit().putInt("is_tachograph", is_tachograph).apply();
+    }
+
 
     public static String getColor() {
         color = car_pref.getString("color", color);

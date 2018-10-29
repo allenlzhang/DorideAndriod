@@ -3,6 +3,7 @@ package com.carlt.doride;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -44,18 +45,19 @@ import java.util.Date;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private HomeFragment        mHomeFragment;
-    private CarMainFragment     mCarMainFragment;
-    private CarMainFragment2    mCarMainFragment2;
-    private RemoteMainFragment  mRemoteMainFragment;
+    private HomeFragment         mHomeFragment;
+    private CarMainFragment      mCarMainFragment;
+    private CarMainFragment2     mCarMainFragment2;
+    private RemoteMainFragment   mRemoteMainFragment;
     private RecorderMainFragment mRecorderMainFragemnt;
-    private SettingMainFragment mSettingMainFragment;
+    private SettingMainFragment  mSettingMainFragment;
 
     private LinearLayout mTabHome;
     private LinearLayout mTabCar;
     private LinearLayout mTabRemote;
     private LinearLayout mTabPie;
     private LinearLayout mTabSetting;
+    private LinearLayout mTabllPie;
 
     private ImageView mIvTabHome;
     private ImageView mIvTabCar;
@@ -75,6 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         init();
         mFragmentManager = getSupportFragmentManager();
@@ -125,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     TrafficPackageWarnningInfo warnningInfo = gson.fromJson(response.body(), TrafficPackageWarnningInfo.class);
                     LoginInfo.setFlowWarn(warnningInfo.data.limit_warning);
                     String residual_data = warnningInfo.data.residual_data;
-//                    residual_data = "0";
+                    //                    residual_data = "0";
                     if (Double.valueOf(residual_data) <= 0) {
                         //本月流量已用完
                         //                        PopBoxCreat.createDialogNotitle(MainActivity.this, "温馨提示",
@@ -189,6 +192,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mTabRemote = $ViewByID(R.id.tab_ll_remote);
         mTabPie = $ViewByID(R.id.tab_ll_pie);
         mTabSetting = $ViewByID(R.id.tab_ll_setting);
+        mTabllPie = $ViewByID(R.id.tab_ll_pie);
         mIvTabHome = $ViewByID(R.id.tab_iv_home);
         mIvTabCar = $ViewByID(R.id.tab_iv_car);
         mIvTabRemote = $ViewByID(R.id.tab_iv_remote);
@@ -233,7 +237,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //                UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，存储权限不能用");
         //            }
         //        });
+        int tachograph = LoginInfo.getTachograph();
+        //        tachograph = 0;
+        if (tachograph == 1) {
+            //支持记录仪
+            mTabllPie.setVisibility(View.VISIBLE);
+        } else {
+            //不支持
+            mTabllPie.setVisibility(View.GONE);
+        }
     }
+
 
     private void setTabSelection(int index) {
         clearSelection();
@@ -294,10 +308,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case 3:
                 mIvTabPie.setImageResource(R.drawable.tab_pie_selected);
                 mTxtTabPie.setTextColor(getResources().getColor(R.color.blue_txt));
-                if (mRecorderMainFragemnt == null){
+                if (mRecorderMainFragemnt == null) {
                     mRecorderMainFragemnt = new RecorderMainFragment();
-                    transaction.add(R.id.content,mRecorderMainFragemnt);
-                }else{
+                    transaction.add(R.id.content, mRecorderMainFragemnt);
+                } else {
                     transaction.show(mRecorderMainFragemnt);
                 }
                 transaction.commit();
@@ -354,7 +368,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (mRemoteMainFragment != null) {
             transaction.hide(mRemoteMainFragment);
         }
-        if (mRecorderMainFragemnt != null){
+        if (mRecorderMainFragemnt != null) {
             transaction.hide(mRecorderMainFragemnt);
         }
         if (mSettingMainFragment != null) {

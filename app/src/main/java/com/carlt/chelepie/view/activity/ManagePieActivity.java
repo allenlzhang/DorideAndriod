@@ -1,6 +1,7 @@
 
 package com.carlt.chelepie.view.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +21,6 @@ import com.carlt.chelepie.control.DeviceConnListener;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.chelepie.data.recorder.PieInfo;
-import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.view.UUDialogToast;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
@@ -558,6 +558,7 @@ public class ManagePieActivity extends LoadingActivity implements OnClickListene
 		}
 	}
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override

@@ -407,6 +407,7 @@ public class LoginControl {
         LoginInfo.setAvatar_img((member.optString("avatar_img", "")));
         LoginInfo.setLifetime((member.optString("lifetime", "")));
         LoginInfo.setAccess_token(member.optString("access_token", ""));
+
         SesameLoginInfo.setAccess_token((member.optString("access_token", "")));
         LoginInfo.setMain(getFlagResult(member.optString("is_main", "")));
         LoginInfo.setMainDevicename(member
@@ -444,6 +445,7 @@ public class LoginControl {
         }
         LoginInfo.setDeviceidstring((membercar.optString("deviceidstring",
                 "")));
+        LoginInfo.setTachograph(membercar.optInt("is_tachograph", -1));
         int isDeviceActivate = membercar.optInt("isDeviceActivate");
         if (isDeviceActivate == 1) {
             LoginInfo.setDeviceActivate(true);
