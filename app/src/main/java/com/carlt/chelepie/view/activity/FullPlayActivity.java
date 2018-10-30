@@ -1,5 +1,6 @@
 package com.carlt.chelepie.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.DaoPieDownloadControl;
@@ -53,7 +53,6 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
 import com.carlt.doride.utils.StringUtils;
-import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.utility.MyTimeUtil;
 
 import java.io.FileNotFoundException;
@@ -62,7 +61,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * 全屏播放
+ * 回放页面item点击后的全屏播放
  *
  * @author Administrator
  */
@@ -424,6 +423,7 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
     };
 
     int speedCount = 0;
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -606,7 +606,7 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
                 SharedPreferences sharePref = PrefUtils.getPlayBack();
                 boolean silence = sharePref.getBoolean(PrefUtils.PlayBack_Silence, false);
                 silence = !silence;
-                sharePref.edit().putBoolean(PrefUtils.PlayBack_Silence, silence).commit();
+                sharePref.edit().putBoolean(PrefUtils.PlayBack_Silence, silence).apply();
                 mVideoView.setSilence(silence);
                 if (silence) {
                     mImgSilence.setImageResource(R.drawable.pie_silence_close);
@@ -679,7 +679,15 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
                 break;
         }
     }
-
+//       DorideApplication.getInstanse().setToFullFlag(false);
+//        AppsdkUtils.CMStop(ActionConfig.getSeqNum());
+//        mVideoView.stop();
+//        videoLayout.removeAllViews();
+//        mConnControl.onPause();
+//    loading(false);
+//        mFullBG.setVisibility(View.VISIBLE);
+//        mHandler.removeMessages(1);
+//        Log.e("FullActivity", "FullLiveActivity" + "onPause");
     @Override
     protected void onPause() {
         super.onPause();
