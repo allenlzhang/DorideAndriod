@@ -150,7 +150,10 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             try {
-                mInputStream.close();
+                if(mInputStream !=null){
+                    mInputStream.close();
+                }
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -237,8 +240,11 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
             try {
                 //总时间 142 byte 为1秒
                 timeAll = MyTimeUtil.formartTime1(mInputStream.available()/142);
-                totalLenth = mInputStream.available();
-                streamBuffer = getBytes(mInputStream);
+                if(mInputStream != null){
+                    totalLenth = mInputStream.available();
+                    streamBuffer = getBytes(mInputStream);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
                 Logger.e(e.toString()+"=================");
@@ -452,12 +458,21 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void destroy(){
+        Logger.e("destroy");
         mStopFlag = true ;
         if(decodeThread != null){
             decodeThread.unlock();
             decodeThread = null ;
         }
+        mDecodeThread = null ;
+        try {
+            if(mInputStream != null){
+                mInputStream.close();
+            }
 
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         if(mCodec != null){
             mCodec.release();
             mCodec = null ;
@@ -467,6 +482,7 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
             mmr.release();
             mmr  = null ;
         }
+
         inputBuffers = null ;
         streamBuffer = null ;
     }
