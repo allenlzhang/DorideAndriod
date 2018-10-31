@@ -596,10 +596,15 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	protected void onStop() {
 		super.onStop();
+		if(mSurface!=null && !mSurface.isPoast){
+			mSurface.stop();
+		}
 	}
+
 
 	@Override
 	protected void onResume() {

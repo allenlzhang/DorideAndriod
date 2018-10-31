@@ -8,6 +8,7 @@ import android.media.MediaFormat;
 import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -50,7 +51,9 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
     private Thread mDecodeThread;
     private boolean mStopFlag = false;
     private MediaCodec mCodec;
-    private static final String TAG =  "VideoSurface";
+    /**
+     *  每次去帧数
+     */
     private int FrameRate = 28;
     private Boolean UseSPSandPPS = false;
     private static final int VIDEO_WIDTH = 1920;
@@ -62,18 +65,35 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
      */
     MediaMetadataRetriever mmr = new MediaMetadataRetriever();
 
-    //处于抓拍中
-    private boolean isCaptureing = false;
-
-    private boolean isPoast  =false ;
+    /**
+     * 是否终止
+     */
+    public boolean isPoast  =false ;
 
     /**
      * 截屏时候的 ,视频时间
      */
     private long captuerTime ;
 
+    /**
+     * 保存暂停时候的 位置
+     */
+    private int oldPlayIndex ;
+    decodeThread decodeThread ;
+
+    /**
+     * 线程锁
+     */
+    private Object lock = new Object();
+
+    byte[] streamBuffer ;
+    ByteBuffer[] inputBuffers;
     public VideoSurface(Context context) {
         super(context);
+        init();
+    }
+
+    private void init() {
         this.mSurfaceHolder = this.getHolder();
         mSurfaceHolder.addCallback(this);
 
@@ -99,19 +119,6 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void creatMedia(SurfaceHolder holder) {
-
-        try {
-            //获取文件输入流
-            mInputStream = new DataInputStream(new FileInputStream(new File(filePath)));
-            mmr.setDataSource(filePath);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            try {
-                mInputStream.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
         try
         {
             //通过多媒体格式名创建一个可用的解码器
@@ -130,14 +137,24 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
         }
         //设置帧率
         mediaformat.setInteger(MediaFormat.KEY_FRAME_RATE, FrameRate);
-        //https://developer.android.com/reference/android/media/MediaFormat.html#KEY_MAX_INPUT_SIZE
-        //设置配置参数，参数介绍 ：
-        // format	如果为解码器，此处表示输入数据的格式；如果为编码器，此处表示输出数据的格式。
-        //surface	指定一个surface，可用作decode的输出渲染。
-        //crypto	如果需要给媒体数据加密，此处指定一个crypto类.
-        //   flags	如果正在配置的对象是用作编码器，此处加上CONFIGURE_FLAG_ENCODE 标签。
         mCodec.configure(mediaformat, holder.getSurface(), null, 0);
         mCodec.start();
+
+    }
+
+    private void initSteam() {
+        try {
+            //获取文件输入流
+            mInputStream = new DataInputStream(new FileInputStream(new File(filePath)));
+            mmr.setDataSource(filePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            try {
+                mInputStream.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -145,15 +162,40 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        if(mCodec != null){
+            mCodec.stop();
+            mCodec.release();
+        }
 
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void startDecodingThread() {
-        mDecodeThread = new Thread(new decodeThread());
-        mDecodeThread.start();
+
+        if(decodeThread == null){
+            decodeThread  =    new decodeThread();
+            mDecodeThread = new Thread(decodeThread);
+        }
+        initSteam();
+
+        if(isPoast && oldPlayIndex > 0){
+            isPoast =false ;
+            decodeThread.jumpIndex = true;
+            inputBuffers = mCodec.getInputBuffers();
+            decodeThread.unlock();
+        }else {
+            inputBuffers = mCodec.getInputBuffers();
+            decodeThread.jumpIndex = false;
+        }
+
+        if(!mDecodeThread.isAlive()){
+            mDecodeThread =new Thread(decodeThread);
+            mDecodeThread.start();
+        }
     }
 
     /**
@@ -162,37 +204,44 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
      * @time 2016/12/19 16:36
      */
     private class decodeThread implements Runnable {
+        /**
+         * 预加载,进度位置,防止再次进入页面黑屏
+         */
+        public boolean jumpIndex = false ;
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void run() {
             try {
                 mHandler.sendEmptyMessage(TYPE_START_PLAY);
-                decodeLoop();
+                synchronized (lock){
+                    decodeLoop();
+                }
+
             } catch (Exception e) {
+                Logger.e(e.toString());
             }
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-        private void decodeLoop() {
+        private void decodeLoop() throws InterruptedException {
             String timeAll = null;
             int totalLenth = 0;
             //存放目标文件的数据
-            ByteBuffer[] inputBuffers = mCodec.getInputBuffers();
+//            ByteBuffer[] inputBuffers = mCodec.getInputBuffers();
             //解码后的数据，包含每一个buffer的元数据信息，例如偏差，在相关解码器中有效的数据大小
             MediaCodec.BufferInfo info = new MediaCodec.BufferInfo();
             long startMs = System.currentTimeMillis();
             long timeoutUs = 10000;
             byte[] marker0 = new byte[]{0, 0, 0, 1};
             byte[] dummyFrame = new byte[]{0x00, 0x00, 0x01, 0x20};
-            byte[] streamBuffer = null;
             try {
                 //总时间 142 byte 为1秒
                 timeAll = MyTimeUtil.formartTime1(mInputStream.available()/142);
                 totalLenth = mInputStream.available();
                 streamBuffer = getBytes(mInputStream);
-
             } catch (IOException e) {
                 e.printStackTrace();
+                Logger.e(e.toString()+"=================");
             }
             int bytes_cnt = 0;
             while (mStopFlag == false ) {
@@ -200,7 +249,6 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
                 if (bytes_cnt == 0) {
                     streamBuffer = dummyFrame;
                 }
-
                 int startIndex = 0;
                 int remaining = bytes_cnt;
 
@@ -209,6 +257,9 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
                         break;
                     }
 
+                    if(oldPlayIndex > 0){
+                        startIndex = oldPlayIndex ;
+                    }
                     int nextFrameStart = KMPMatch(marker0, streamBuffer, startIndex + 2, remaining);
 
                     if (nextFrameStart == -1) {
@@ -217,12 +268,6 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
                     } else {
                     }
 
-                    String timePlay = MyTimeUtil.formartTime1(nextFrameStart /142);
-                    captuerTime = nextFrameStart/142 * 1000 ;
-                    Message msg = new Message();
-                    msg.what = TYPE_TIME_STRING;
-                    msg.obj = timePlay + "/" + timeAll;
-                    mHandler.sendMessage(msg);
                     int inIndex = mCodec.dequeueInputBuffer(timeoutUs);
                     if (inIndex >= 0) {
                         ByteBuffer byteBuffer = inputBuffers[inIndex];
@@ -231,6 +276,7 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
                         //在给指定Index的inputbuffer[]填充数据后，调用这个函数把数据传给解码器
                         mCodec.queueInputBuffer(inIndex, 0, nextFrameStart - startIndex, 0, 0);
                         startIndex = nextFrameStart;
+                        oldPlayIndex = startIndex;
                     } else {
                         continue;
                     }
@@ -243,33 +289,63 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
+                                Logger.e(e.toString());
                             }
                         }
                         boolean doRender = (info.size != 0);
                         //对outputbuffer的处理完后，调用这个函数把buffer重新返回给codec类。
                         mCodec.releaseOutputBuffer(outIndex, doRender);
-                    } else {
                     }
-                    //计算进度
-                    int i1 = (int) (((float)(nextFrameStart) / (float)(totalLenth)) * 100);
-                    if(i1 > 0){
-                        Message msg2 = new Message();
-                        msg2.what = TYPE_PROCESS;
-                        msg2.obj = i1;
-                        mHandler.sendMessage(msg2);
+
+                    if(!jumpIndex){
+                        //刷新时间
+                        reflshTime(timeAll, nextFrameStart);
+                        //计算进度,刷新进度
+                        reflshProgress(totalLenth, nextFrameStart);
+                    }
+
+                    if(jumpIndex && outIndex > 0 ){
+                        jumpIndex = false;
+                        isPoast =true ;
+                        mHandler.sendEmptyMessage(TYPE_PAUSE);
                     }
                 }
                 if(isPoast){
-                    mStopFlag = false;
+                    lock.wait();
                 }else {
-                    mStopFlag = true;
+                    oldPlayIndex = 0 ;
                     Message  end= new Message();
                     end.what = TYPE_END;
                     mHandler.sendMessage(end);
+                    lock.wait();
                 }
-
             }
         }
+
+        public void unlock(){
+            synchronized (lock){
+                lock.notify();
+            }
+        }
+    }
+
+    private void reflshProgress(int totalLenth, int nextFrameStart) {
+        int i1 = (int) (((float)(nextFrameStart) / (float)(totalLenth)) * 100);
+        if(i1 > 0){
+            Message msg2 = new Message();
+            msg2.what = TYPE_PROCESS;
+            msg2.obj = i1;
+            mHandler.sendMessage(msg2);
+        }
+    }
+
+    private void reflshTime(String timeAll, int nextFrameStart) {
+        String timePlay = MyTimeUtil.formartTime1(nextFrameStart /142);
+        captuerTime = nextFrameStart/142 * 1000 ;
+        Message msg = new Message();
+        msg.what = TYPE_TIME_STRING;
+        msg.obj = timePlay + "/" + timeAll;
+        mHandler.sendMessage(msg);
     }
 
     public static byte[] getBytes(InputStream is) throws IOException {
@@ -283,13 +359,14 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
         } else {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             buf = new byte[size];
-            while ((len = is.read(buf, 0, size)) != -1)
+            while ((len = is.read(buf, 0, size)) != -1) {
                 bos.write(buf, 0, len);
+            }
             buf = bos.toByteArray();
         }
         return buf;
     }
-
+    // 解码还64 流算法
     int KMPMatch(byte[] pattern, byte[] bytes, int start, int remain) {
 
         try {
@@ -308,26 +385,28 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
             if (bytes[i] == pattern[j]) {
                 // Next char matched, increment position
                 j++;
-                if (j == pattern.length)
+                if (j == pattern.length) {
                     return i - (j - 1);
+                }
             }
         }
 
         return -1;  // Not found
     }
-
+    // 解码还64 流算法
     int[] computeLspTable(byte[] pattern) {
         int[] lsp = new int[pattern.length];
         lsp[0] = 0;  // Base case
         for (int i = 1; i < pattern.length; i++) {
             // Start by assuming we're extending the previous LSP
             int j = lsp[i - 1];
-            while (j > 0 && pattern[i] != pattern[j])
+            while (j > 0 && pattern[i] != pattern[j]) {
                 j = lsp[j - 1];
-            if (pattern[i] == pattern[j])
+            }
+            if (pattern[i] == pattern[j]) {
                 j++;
+            }
             lsp[i] = j;
-
         }
         return lsp;
     }
@@ -339,6 +418,7 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
     public void stop(){
         isPoast =true ;
         mHandler.sendEmptyMessage(TYPE_PAUSE);
+
     }
 
 
@@ -349,25 +429,12 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void connetStart(){
 
-        if(mStopFlag){
-            reStart();
-        }else {
-            mHandler.sendEmptyMessage(TYPE_START_PLAY);
-            isPoast =false ;
+        mHandler.sendEmptyMessage(TYPE_START_PLAY);
+        isPoast =false ;
+
+        if(decodeThread != null){
+            decodeThread.unlock();
         }
-
-    }
-
-    /**
-     *  从新开始
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public  void reStart(){
-        mCodec.release();
-        mCodec = null ;
-        creatMedia(mSurfaceHolder);
-        mStopFlag =false ;
-        startDecodingThread();
     }
 
     //截屏
@@ -385,6 +452,12 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void destroy(){
+        mStopFlag = true ;
+        if(decodeThread != null){
+            decodeThread.unlock();
+            decodeThread = null ;
+        }
+
         if(mCodec != null){
             mCodec.release();
             mCodec = null ;
@@ -394,5 +467,7 @@ public class VideoSurface extends SurfaceView implements SurfaceHolder.Callback{
             mmr.release();
             mmr  = null ;
         }
+        inputBuffers = null ;
+        streamBuffer = null ;
     }
 }
