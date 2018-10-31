@@ -650,7 +650,12 @@ public class FullLiveActivity extends LoadingActivity implements
         mHandler.removeMessages(1);
         Log.e("FullActivity", "FullLiveActivity" + "onPause");
     }
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mConnControl.onStop();
+        Log.e("FullActivity", "FullLiveActivity" + "onStop");
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -682,12 +687,7 @@ public class FullLiveActivity extends LoadingActivity implements
         Log.e("FullActivity", "FullLiveActivity" + "onResume");
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mConnControl.onStop();
-        Log.e("FullActivity", "FullLiveActivity" + "onStop");
-    }
+
 
     /**
      * 页面显示的时候检查下 设置项

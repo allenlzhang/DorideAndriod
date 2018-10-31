@@ -239,7 +239,7 @@
         <activity
             android:name="com.carlt.chelepie.view.activity.FullPlayActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/activity_theme">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <provider
