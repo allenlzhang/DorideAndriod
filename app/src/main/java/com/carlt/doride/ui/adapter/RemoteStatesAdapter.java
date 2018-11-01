@@ -100,10 +100,10 @@ public class RemoteStatesAdapter extends BaseAdapter {
         }
         if (!TextUtils.isEmpty(s)) {
             mHolder.mTxtState.setText(s);
-            mHolder.mTxtState.setVisibility(View.VISIBLE);
+            convertView.setVisibility(View.VISIBLE);
         } else {
             mHolder.mTxtState.setText("");
-            mHolder.mTxtState.setVisibility(View.GONE);
+            convertView.setVisibility(View.GONE);
         }
         return convertView;
     }

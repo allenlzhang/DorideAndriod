@@ -118,6 +118,7 @@ public class CarStateInfoParser extends BaseParser {
 
 
                 } else if (i == 6) {
+//                    state = "1";
                     if (state.equals("0")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes(stateClose[i]);
