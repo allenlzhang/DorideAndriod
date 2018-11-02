@@ -96,6 +96,8 @@ public class ManagePieActivity extends LoadingActivity implements OnClickListene
 	public static int doWhat = 0;//0,点击右上角的，1修改WIFI 名称密码后自动重连的
 	int reConnTimes = 0;
 
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -277,7 +279,10 @@ public class ManagePieActivity extends LoadingActivity implements OnClickListene
 		super.loadonErrorUI(error);
 	}
 
+
+
 	protected void LoadData() {
+		loadingDataUI();
 		RecorderControl.getSysInfo(mCallback);
 	}
 

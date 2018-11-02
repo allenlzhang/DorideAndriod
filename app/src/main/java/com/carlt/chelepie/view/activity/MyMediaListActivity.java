@@ -123,6 +123,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 		back.setImageResource(R.drawable.arrow_back);
 		title.setText("相册");
 		txtRight.setVisibility(View.VISIBLE);
+		txtRight.setTextColor(getResources().getColor(R.color.blue_light));
 		txtRight.setText("已下载");
 		titleline.setVisibility(View.GONE);
 

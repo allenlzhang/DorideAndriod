@@ -224,8 +224,7 @@ public class MedialistAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 		public MyHodlerHeader(View itemView) {
 			super(itemView);
-			mTxtDate = (TextView) itemView
-					.findViewById(R.id.medialist_txt_date);
+			mTxtDate = (TextView) itemView.findViewById(R.id.medialist_txt_date);
 			mViewLineTop = itemView.findViewById(R.id.medialist_view_lineTop);
 			mTxtYear=(TextView) itemView.findViewById(R.id.medialist_txt_year);
 		}
@@ -246,6 +245,7 @@ public class MedialistAdapter extends RecyclerView.Adapter<ViewHolder> {
 //				date.append(dateDay);
 				mTxtDate.setText(dates[1]+"/"+ dates[2]);
 			}
+			Logger.e(info.getType() + "=================================");
 			if(info.getType()==PieDownloadInfo.TYPE_DATE_YEAR){
 				//需要展示年份
 				mTxtYear.setVisibility(View.VISIBLE);
