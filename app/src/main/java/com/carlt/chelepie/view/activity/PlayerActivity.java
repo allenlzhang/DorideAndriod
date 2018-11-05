@@ -23,11 +23,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.chelepie.control.DaoPieDownloadControl;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.utils.CodecPlayerUtil;
+import com.carlt.chelepie.view.MyVideoView;
 import com.carlt.chelepie.view.VideoSurface;
 import com.carlt.chelepie.view.gl.HVideoPlayerView;
 import com.carlt.doride.R;
@@ -101,6 +104,8 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	 */
 	private VideoSurface mSurface;
 
+	private MyVideoView myVideoView ;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -155,14 +160,11 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 			playBtn.setClickable(false);
 			if (isPause) {
 //				mVideoView.continuePlay();
-
-				if(mSurface!=null){
-					mSurface.connetStart();
-				}
+				myVideoView.continuePaly();
 			} else {
 //				mVideoView.pause();
-				if(mSurface!=null){
-					mSurface.stop();
+				if(myVideoView!=null){
+					myVideoView.onPause();
 				}
 			}
 			break;
@@ -171,9 +173,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 			cutBtn.setImageResource(R.drawable.player_cut_down);
 //			mVideoView.cutPic();
 
-			if(mSurface!=null){
-				mSurface.cropBitmap();
-			}
+			myVideoView.cropBitmap();
 			break;
 		case R.id.player_download_btn:
 			downloadBtn.setClickable(false);
@@ -250,6 +250,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 				mVideoView.playProgress(progress);
 			}
 
+
 		}
 
 		/*
@@ -257,6 +258,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		 */
 		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
+
 		}
 
 		/*
@@ -264,6 +266,10 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		 */
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
+			if(myVideoView != null){
+				myVideoView.playSeekTo(seekBar.getProgress());
+			}
+
 		}
 	};
 
@@ -355,13 +361,24 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	private void startPlay(String filePath) {
 		videoLayout.removeAllViews();
 		mSurface  =new VideoSurface(this);
+		myVideoView  =new MyVideoView(this,filePath);
 		mSurface.setFilePath(filePath);
 		mSurface.setmHandler(mHandler);
 
+		myVideoView.setmHandler(mHandler);
+
 //		mVideoView = new HVideoPlayerView(this);
 
-		videoLayout.addView((View) mSurface, new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
+		videoLayout.addView((View) myVideoView, new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.MATCH_PARENT);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		myVideoView.setLayoutParams(layoutParams);
 //		mVideoView.play(filePath, mHandler);
 
 
@@ -462,6 +479,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 						mInfo.setTotalLen((int) (FileUtil.getFileLength(path)));
 						ImageUtils.saveImageToGallery(PlayerActivity.this, path,fileName);
 						DaoPieDownloadControl.getInstance().insert(mInfo);
+						ToastUtils.showShort("截图成功");
 					} catch (FileNotFoundException e) {
 						Log.e("DEBUG", "保存图片失败" + e.getMessage());
 					}
@@ -601,8 +619,10 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	protected void onStop() {
 		super.onStop();
 		if(mSurface!=null && !mSurface.isPoast){
-			mSurface.stop();
+		//	mSurface.stop();
+
 		}
+		myVideoView.onStop();
 	}
 
 

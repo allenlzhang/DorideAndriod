@@ -245,7 +245,7 @@ public class MedialistAdapter extends RecyclerView.Adapter<ViewHolder> {
 //				date.append(dateDay);
 				mTxtDate.setText(dates[1]+"/"+ dates[2]);
 			}
-			Logger.e(info.getType() + "=================================");
+
 			if(info.getType()==PieDownloadInfo.TYPE_DATE_YEAR){
 				//需要展示年份
 				mTxtYear.setVisibility(View.VISIBLE);

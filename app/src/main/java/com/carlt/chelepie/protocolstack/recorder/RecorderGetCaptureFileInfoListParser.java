@@ -197,7 +197,6 @@ public class RecorderGetCaptureFileInfoListParser extends RecorderBaseParserNew<
 						info.setDeviceName(deviceString);
 
 						mBaseResponseInfo.getArrays().add(info);
-						Logger.e(mBaseResponseInfo.getArrays().size() + "=============================" );
 						if (i == len - 1) {
 							beginTime = endTime;
 						}
