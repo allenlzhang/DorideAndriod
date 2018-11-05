@@ -74,6 +74,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	private ImageView cutBtn;
 	private ImageView downloadBtn;
 	private TextView errMsg;
+	private TextView videoBack;
 
 	private HVideoPlayerView mVideoView;
 	/**
@@ -135,10 +136,12 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		errMsg = (TextView) findViewById(R.id.tv_err_msg);
 		cutBtn = (ImageView) findViewById(R.id.player_cut_btn);
 		downloadBtn = (ImageView) findViewById(R.id.player_download_btn);
+		videoBack = (TextView) findViewById(R.id.video_back);
 		playBtn.setClickable(false);
 		playBtn.setOnClickListener(this);
 		cutBtn.setOnClickListener(this);
 		downloadBtn.setOnClickListener(this);
+		videoBack.setOnClickListener(this);
 		// seekbar设置监听
 		seekBar.setOnSeekBarChangeListener(onseekBarListener);
 	}
@@ -184,6 +187,10 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 			downloadBtn.setClickable(false);
 			downloadBtn.setImageResource(R.drawable.player_download_down);
 			downloadVideo();
+			break;
+
+		case R.id.video_back:
+			finish();
 			break;
 		default:
 			break;

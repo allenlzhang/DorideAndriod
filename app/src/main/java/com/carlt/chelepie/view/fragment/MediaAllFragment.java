@@ -130,10 +130,8 @@ public class MediaAllFragment extends BaseFragment {
 						switch (type) {
 						case PieDownloadInfo.TYPE_JPG:
 							// 跳转至图像展示
-							Intent mIntent1 = new Intent(mCtx,
-									PicViewPagerActivity.class);
-							mIntent1.putExtra(PicViewPagerActivity.FILEPIC,
-									mInfo);
+							Intent mIntent1 = new Intent(mCtx, PicViewPagerActivity.class);
+							mIntent1.putExtra(PicViewPagerActivity.FILEPIC, mInfo);
 							startActivity(mIntent1);
 							break;
 

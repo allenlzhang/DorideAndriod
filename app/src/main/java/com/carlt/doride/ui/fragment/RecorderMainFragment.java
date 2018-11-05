@@ -182,14 +182,14 @@ public class RecorderMainFragment extends BaseFragment implements
 
                 break;
             case R.id.recordermain_img_full:
-                // 全屏
+// 全屏
                 DorideApplication.getInstanse().setToFullFlag(true);
                 Intent mIntent3 = new Intent(getActivity(), FullLiveActivity.class);
 
                 startActivity(mIntent3);
                 break;
-
-            case R.id.recordermain_txt_album:
+//相册
+           case R.id.recordermain_txt_album:
                 // 我的记录仪媒体列表
                 Intent mIntent4 = new Intent(getActivity(), MyMediaListActivity.class);
                 startActivity(mIntent4);
@@ -473,7 +473,6 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onStop() {
         super.onStop();
-        Logger.e("onStop===================================");
     }
 
 
