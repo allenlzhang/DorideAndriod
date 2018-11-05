@@ -49,10 +49,10 @@ public abstract class BaseFragment extends Fragment {
     protected Button         mTxtRetryError;// 重试（刷新）
     private   ProgressBar    mPBar;
     private   RelativeLayout mLayMain;
-    private   View           mMainView;
-    private   View           mViewLoading;// 加载View
+    public   View           mMainView;
+    public    View           mViewLoading;// 加载View
     public    View           mViewError;// 错误提示View
-    private   View           mViewNodata;// 没有数据View
+    public    View           mViewNodata;// 没有数据View
     private   ImageView      mIvErrorIcon;  //错误图片
     protected String TAG = getClass().getSimpleName();
     /** 进入后台之前 要干的事的集合 */
@@ -330,5 +330,9 @@ public abstract class BaseFragment extends Fragment {
         return v == null ? null : (T) v.findViewById(id);
     }
 
+
+    public void hideView(){
+        mViewLoading.setVisibility(View.GONE);
+    }
 
 }

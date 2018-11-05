@@ -153,6 +153,8 @@
                 android:textColor="@color/txt_color_connectwifi"
                 android:textSize="14sp" />
         </LinearLayout>
+
+
     </RelativeLayout>
 
 </RelativeLayout>

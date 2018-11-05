@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.protocolstack.recorder.RecorderDownloadVideoThumbnailParser;
 import com.carlt.chelepie.view.activity.PicViewPagerActivity;
@@ -24,6 +25,7 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.utility.MyTimeUtil;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,10 @@ public class MediaAllFragment extends BaseFragment {
 	private ArrayList<PieDownloadInfo> pieDownloadInfosNew;
 	
 	private List<PieDownloadInfo> infoLists;
+	/**
+	 * 加载没有数据时候
+	 */
+	private View layoutNodata;
 
 	@Override
 	protected View inflateView(LayoutInflater inflater) {
@@ -47,6 +53,8 @@ public class MediaAllFragment extends BaseFragment {
 				.findViewById(R.id.medialist_recyclerview);
 		mSwipeRefreshLayout = (SwipeRefreshLayout) view
 				.findViewById(R.id.medialist_swiperefreshlayout);
+		layoutNodata = view.findViewById(R.id.nodata_lay_main);
+		hideView();
 		initRecyclerView();
 		return view;
 	}
@@ -77,7 +85,7 @@ public class MediaAllFragment extends BaseFragment {
 		
 		gridLayoutManager = new GridLayoutManager(mCtx, 5);
 		mRecyclerView.setLayoutManager(gridLayoutManager);
-		loadData();
+//		loadData();
 	}
 
 	@Override
@@ -85,6 +93,7 @@ public class MediaAllFragment extends BaseFragment {
 		if(infoLists != null && !infoLists.isEmpty()){
 			loadSuccess(infoLists);
 		}
+		LogUtils.e("=============loadData==============");
 //		if(null != picMediaLisenter){
 //			picMediaLisenter.onRefreshing();
 //		}
@@ -92,14 +101,17 @@ public class MediaAllFragment extends BaseFragment {
 
 
 	public void loadSuccess(Object data) {
+
 		ArrayList<PieDownloadInfo> pieDownloadInfos = new ArrayList<PieDownloadInfo>();
 		pieDownloadInfosNew = new ArrayList<PieDownloadInfo>();
+
 		if (data != null) {
 			pieDownloadInfos = (ArrayList<PieDownloadInfo>) data;
 			//测试开始
 			//pieDownloadInfos=new ArrayList<PieDownloadInfo>();
 			//测试结束
 			if(pieDownloadInfos.size()>0){
+				loadSuccess();
 				methodUI(pieDownloadInfos, pieDownloadInfosNew);
 				
 				if(mAdapter == null){
@@ -333,4 +345,14 @@ public class MediaAllFragment extends BaseFragment {
 		
 		void onRefreshing();
 	}
+
+	public void loadNodata(){
+		layoutNodata.setVisibility(View.VISIBLE);
+		mSwipeRefreshLayout.setVisibility(View.GONE);
+	}
+	public void loadSuccess(){
+		layoutNodata.setVisibility(View.GONE);
+		mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+	}
+
 }

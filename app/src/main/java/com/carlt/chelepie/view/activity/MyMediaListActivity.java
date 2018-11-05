@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.carlt.chelepie.control.DeviceConnControl;
@@ -72,6 +73,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 	private View mUnderLine;// 滚动的下划线
 	private ViewPager mViewPager;//
 
+	private LinearLayout nodataLl;  // 沒有数据页面
 	private int current_index = 0;
 
 	private ArrayList<BaseFragment> fragments;
@@ -216,6 +218,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 						tabs[current_index].setTextColor(Color
 								.parseColor("#999999"));
 						current_index = position;
+					//	Logger.e(current_index + "==========================");
 						((MediaAllFragment)fragments.get(current_index)).notifyAdapter();
 					}
 
@@ -300,7 +303,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 			}
 		});
 		((MediaAllFragment)fragments.get(1)).setOnPicMediaLisenter(new MediaAllFragment.OnPicMediaLisenter() {
-			
+
 			@Override
 			public void onRefreshing() {
 				if(!isDataFrushing){
@@ -314,7 +317,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 			}
 		});
 		((MediaAllFragment)fragments.get(2)).setOnPicMediaLisenter(new MediaAllFragment.OnPicMediaLisenter() {
-			
+
 			@Override
 			public void onRefreshing() {
 				if(!isDataFrushing){
@@ -484,14 +487,13 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 				LoadSuccessUI();
 				Collections.sort(allInfoList);
 				Collections.sort(capInfoList);
-				fragments.get(0).loadSuccessUI();
-				fragments.get(1).loadSuccessUI();
+//				fragments.get(0).loadSuccessUI();
+//				fragments.get(1).loadSuccessUI();
                 if(fragments.get(0).isVisible()){
-                    ((MediaAllFragment)fragments.get(0)).loadSuccess(allInfoList);
-
+					((MediaAllFragment)fragments.get(0)).loadSuccess(allInfoList);
                 }
                 if(fragments.get(1).isVisible()){
-                    ((MediaAllFragment)fragments.get(1)).loadSuccess(capInfoList);
+					((MediaAllFragment)fragments.get(1)).loadSuccess(capInfoList);
 
                 }
 				RecorderControl.getEventFilelist(listener2, null, false);
@@ -511,11 +513,10 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 				LoadSuccessUI();
 				Collections.sort(allInfoList);
 				Collections.sort(eventInfoList);
-				fragments.get(0).loadSuccessUI();
 				((MediaAllFragment)fragments.get(0)).downloadThumbnail(allInfoList);
-				((MediaAllFragment)fragments.get(2)).setData(eventInfoList);
 
 				if(fragments.get(2).isVisible()){
+
 					((MediaAllFragment)fragments.get(2)).loadSuccess(eventInfoList);
 
 				}
@@ -533,10 +534,12 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 	protected void LoadDataUI() {
 		mViewLoading.setVisibility(View.VISIBLE);
 		mViewError.setVisibility(View.GONE);
+
 	}
 	protected void LoadSuccessUI() {
 		mViewLoading.setVisibility(View.GONE);
 		mViewError.setVisibility(View.GONE);
+
 	}
 	protected void LoadErroUI(Object erro) {
 		mViewLoading.setVisibility(View.GONE);

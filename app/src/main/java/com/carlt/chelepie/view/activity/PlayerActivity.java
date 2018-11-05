@@ -160,7 +160,10 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 			playBtn.setClickable(false);
 			if (isPause) {
 //				mVideoView.continuePlay();
-				myVideoView.continuePaly();
+				if(myVideoView != null){
+					myVideoView.continuePaly();
+				}
+
 			} else {
 //				mVideoView.pause();
 				if(myVideoView!=null){
@@ -172,8 +175,10 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 			cutBtn.setClickable(false);
 			cutBtn.setImageResource(R.drawable.player_cut_down);
 //			mVideoView.cutPic();
+			if(myVideoView !=null){
+				myVideoView.cropBitmap();;
+			}
 
-			myVideoView.cropBitmap();
 			break;
 		case R.id.player_download_btn:
 			downloadBtn.setClickable(false);
@@ -618,11 +623,11 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if(mSurface!=null && !mSurface.isPoast){
-		//	mSurface.stop();
 
+		if(myVideoView != null){
+			myVideoView.onStop();
 		}
-		myVideoView.onStop();
+
 	}
 
 
