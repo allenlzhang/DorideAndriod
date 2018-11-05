@@ -49,7 +49,7 @@ public class UUToast extends Toast {
 	}
 
 	public static void showUUToast(Context context, CharSequence tex) {
-		showUUToast(context, tex, Toast.LENGTH_LONG);
+		showUUToast(context, tex, Toast.LENGTH_SHORT);
 	}
 
 }

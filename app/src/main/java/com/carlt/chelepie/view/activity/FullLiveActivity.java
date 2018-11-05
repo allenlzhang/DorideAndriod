@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.DeviceConnControl;
 import com.carlt.chelepie.control.DeviceConnListener;
@@ -39,6 +40,7 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.eventbus.FullActivityProssEvent;
 import com.carlt.doride.eventbus.FullScreenMessage;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.RuningConfig;
@@ -49,6 +51,7 @@ import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.ui.view.MenuImageShow;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -142,6 +145,7 @@ public class FullLiveActivity extends LoadingActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -376,29 +380,26 @@ public class FullLiveActivity extends LoadingActivity implements
             switch (type) {
                 case TYPE_IMGCONFIG:
 
-                    int brightness = mDataList.get(0).getValue();
-                    int contrast = mDataList.get(2).getValue();
-                    int saturation = mDataList.get(1).getValue();
-
-                    int brightness_history = mPieInfo.getBrightness();
-                    int contrast_history = mPieInfo.getConstrast();
-                    int saturation_history = mPieInfo.getSaturation();
-
-                    if (brightness == brightness_history
-                            && contrast == contrast_history
-                            && saturation == saturation_history) {
-                    } else {
-                        RecorderControl.setVideoColor(brightness, contrast,
-                                saturation, listener_imgconfig);
-                    }
+//                    int brightness = mDataList.get(0).getValue();
+//                    int contrast = mDataList.get(2).getValue();
+//                    int saturation = mDataList.get(1).getValue();
+//
+//                    int brightness_history = mPieInfo.getBrightness();
+//                    int contrast_history = mPieInfo.getConstrast();
+//                    int saturation_history = mPieInfo.getSaturation();
+//
+//                    if (brightness == brightness_history && contrast == contrast_history && saturation == saturation_history) {
+//                    } else {
+//                        RecorderControl.setVideoColor(brightness, contrast, saturation, listener_imgconfig);
+//                    }
                     break;
 
                 case TYPE_QUALITY:
-                    int quality_history = mPieInfo.getResolution();
-                    if (quality == quality_history) {
-                    } else {
-                        RecorderControl.setVideoSize(quality, listener_quality);
-                    }
+//                    int quality_history = mPieInfo.getResolution();
+//                    if (quality == quality_history) {
+//                    } else {
+//                        RecorderControl.setVideoSize(quality, listener_quality);
+//                    }
                     break;
                 case TYPE_LINKED:
                     // 抓拍是否带视频
@@ -543,7 +544,7 @@ public class FullLiveActivity extends LoadingActivity implements
                     break;
                 case 4:
                     // 设置图片饱和度等信息成功
-                    UUToast.showUUToast(FullLiveActivity.this, "设置视频显示信息成功！");
+                 //   UUToast.showUUToast(FullLiveActivity.this, "设置视频显示信息成功！");
                     break;
                 case 5:
                     // 设置图片饱和度等信息失败
@@ -551,7 +552,7 @@ public class FullLiveActivity extends LoadingActivity implements
                     break;
                 case 6:
                     // 设置画面质量成功
-                    UUToast.showUUToast(FullLiveActivity.this, "设置画面质量成功！");
+                //    UUToast.showUUToast(FullLiveActivity.this, "设置画面质量成功！");
                     if (mPieInfo.getResolution() == 1) {
                         mImgQuality.setImageResource(R.drawable.pie_hd);
                     } else {
@@ -720,9 +721,10 @@ public class FullLiveActivity extends LoadingActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         mConnControl.onDestory();
         mConnControl = null;
-        Log.e("FullActivity", "FullLiveActivity" + "onDestroy");
+
     }
 
     PlayListener mPlayListener = new PlayListener() {
@@ -807,5 +809,22 @@ public class FullLiveActivity extends LoadingActivity implements
         mFullBottom.startAnimation(alphaAnimation);
 
     }
+
+    //EventBus
+    @Subscribe
+    public void progressEeven(FullActivityProssEvent event){
+        //全屏下,屏幕Color
+        if(event.status== 0){
+            int brightness = mDataList.get(0).getValue();
+            int contrast = mDataList.get(2).getValue();
+            int saturation = mDataList.get(1).getValue();
+            RecorderControl.setVideoColor(brightness, contrast, saturation, listener_imgconfig);
+        }else if (event.status == 1){  // 高清或者普通
+            RecorderControl.setVideoSize(event.value, listener_quality);
+        }
+
+    }
+
+
 
 }

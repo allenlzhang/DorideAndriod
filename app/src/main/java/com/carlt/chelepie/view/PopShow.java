@@ -20,8 +20,11 @@ import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.view.adapter.PieAttrAdapter;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.eventbus.FullActivityProssEvent;
 import com.carlt.doride.ui.view.UUPopupWindow;
 import com.carlt.sesame.control.CPControl;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -142,6 +145,7 @@ public class PopShow {
 					imgQuality = PieInfo.SIZE_720P;
 					break;
 				}
+				EventBus.getDefault().post(new FullActivityProssEvent(1,imgQuality));
 				mCheckedChangedListener.onChecked(imgQuality);
 			}
 		});

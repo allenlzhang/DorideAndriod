@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.carlt.chelepie.data.recorder.PieAttrInfo;
 import com.carlt.doride.R;
+import com.carlt.doride.eventbus.FullActivityProssEvent;
 import com.carlt.doride.utils.MyParse;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -94,6 +97,7 @@ public class PieAttrAdapter extends BaseAdapter {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     mPieAttrInfo.setValue(seekBar.getProgress());
+                    EventBus.getDefault().post(new FullActivityProssEvent(0));
                 }
 
                 @Override
