@@ -212,11 +212,17 @@
 
         <activity android:name="com.carlt.chelepie.view.activity.ActivityWithTitle"/>
         <activity android:name="com.carlt.chelepie.view.activity.EditPienameActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.HasDownListActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.HasDownListActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name="com.carlt.chelepie.view.activity.ManagePieActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManageStorageActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManageTimesActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.MyMediaListActivity"/>
+        <activity android:name="com.carlt.chelepie.view.activity.MyMediaListActivity"
+            android:screenOrientation="portrait"
+            >
+
+        </activity>>
         <activity android:name="com.carlt.chelepie.view.activity.PicViewPagerActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.VideoQualityActivity"/>
         <!-- ############ 需要横屏的Activity ############ -->

@@ -216,7 +216,7 @@ public class RecorderMainFragment extends BaseFragment implements
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            UUToast.showUUToast(mCtx, "校时成功");
+//                            UUToast.showUUToast(mCtx, "校时成功");
                             showVideoLay(true);
                             proBar.setVisibility(View.VISIBLE);
                             // 开启直播,添加 返回回调
@@ -324,7 +324,7 @@ public class RecorderMainFragment extends BaseFragment implements
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            UUToast.showUUToast(mCtx, "校时成功");
+                                          //  UUToast.showUUToast(mCtx, "校时成功");
                                             showVideoLay(true);
                                             proBar.setVisibility(View.VISIBLE);
                                             // 开启直播,添加 返回回调
@@ -519,8 +519,6 @@ public class RecorderMainFragment extends BaseFragment implements
      */
     private void doSomeForResume(){
         DorideApplication.getInstanse().setToFullFlag(false);
-        Logger.e("onResume",
-                "RecorderMainFragment..........................................................");
         videoLayout.removeAllViews();
         videoView = DorideApplication.getInstanse().getVideoView();
         boolean supportopenGLES20 = DorideApplication.getInstanse().supportopenGLES20;
@@ -549,7 +547,7 @@ public class RecorderMainFragment extends BaseFragment implements
     }
 
     private void doSomeForPause(){
-        Logger.e("doSomeForPause===================================");
+
         backCode = 0;
         mIsShowing = false;
         if (!DorideApplication.getInstanse().isToFullFlag()) {// 如果是跳转到全屏幕页面，则不停止接收数据
@@ -574,7 +572,7 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("LoginErr", "......RecorderMainFragment......finish........了");
+
         unRegisterBeforeGoToBackGround(this);
         EventBus.getDefault().unregister(this);
     }

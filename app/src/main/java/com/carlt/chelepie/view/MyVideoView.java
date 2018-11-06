@@ -25,6 +25,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+
 import static com.carlt.chelepie.utils.CodecPlayerUtil.TYPE_CUT_SUCCSE;
 import static com.carlt.chelepie.utils.CodecPlayerUtil.TYPE_END;
 import static com.carlt.chelepie.utils.CodecPlayerUtil.TYPE_PAUSE;
@@ -39,7 +40,7 @@ public class MyVideoView extends VideoView implements MediaPlayer.OnCompletionLi
      * 用于获取,指定视屏文件,指定时间的Bitmap
      */
     MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-
+//    FFmpegMediaMetadataRetriever retriever = new FFmpegMediaMetadataRetriever();
     /**
      * 播放总时间
      */
@@ -91,6 +92,7 @@ public class MyVideoView extends VideoView implements MediaPlayer.OnCompletionLi
     private void init() {
         this.setVideoPath(filePath);
         mmr.setDataSource(filePath);
+//       retriever.setDataSource(filePath);
         setOnCompletionListener(this);
         setOnPreparedListener(this);
 
@@ -154,11 +156,12 @@ public class MyVideoView extends VideoView implements MediaPlayer.OnCompletionLi
     //截屏
     public void cropBitmap() {
 
+
         if(mmr != null){
-            Bitmap   bitmap =  mmr.getFrameAtTime(getCurrentPosition());
+            Bitmap bitmap1 = mmr.getFrameAtTime(getCurrentPosition());
             Message msg = new Message();
             msg.what = TYPE_CUT_SUCCSE;
-            msg.obj = bitmap;
+            msg.obj = bitmap1;
             mHandler.sendMessage(msg);
         }
 
@@ -201,7 +204,7 @@ public class MyVideoView extends VideoView implements MediaPlayer.OnCompletionLi
     }
     public void onDestroy (){
         this.pause();
-        mmr.release();
+      //  retriever.release();
         if(disposable !=null){
             disposable.dispose();
         }

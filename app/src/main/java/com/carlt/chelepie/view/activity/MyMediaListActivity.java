@@ -219,7 +219,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 								.parseColor("#999999"));
 						current_index = position;
 					//	Logger.e(current_index + "==========================");
-						((MediaAllFragment)fragments.get(current_index)).notifyAdapter();
+						//((MediaAllFragment)fragments.get(current_index)).notifyAdapter();
 					}
 
 					@Override
