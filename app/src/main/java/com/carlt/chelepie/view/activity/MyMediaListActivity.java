@@ -178,7 +178,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 		}else{
 			BaseResponseInfo mInfo=new BaseResponseInfo();
 			mInfo.setFlag(0);
-			mInfo.setInfo("未连接摄像头Wi-Fi");
+			mInfo.setInfo("未连接记录仪Wi-Fi");
 			LoadErroUI(mInfo);
 		}
 	}
@@ -551,7 +551,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 			if (mInfo.getFlag() == 0) {
 				// 记录仪wifi未连接
 				mImgError.setImageResource(R.drawable.connect_wifi_tip);
-				mTxtRetry.setText("连接摄像头Wi-Fi");
+				mTxtRetry.setText("连接记录仪Wi-Fi");
 			}
 		}
 	}
