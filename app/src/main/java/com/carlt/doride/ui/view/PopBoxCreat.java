@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -20,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.carlt.chelepie.view.EditDialog2;
@@ -240,10 +242,9 @@ public class PopBoxCreat {
      * @param btnR_msg
      * @param click
      */
-
     public static void createDialogNotitle(final Context context, String content1_msg,
                                            String content2_msg, final String btnL_msg, final String btnR_msg,
-                                           final DialogWithTitleClick click) {
+                                           final DialogWithTitleClick click ,boolean hideView){
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_notitle, null);
@@ -293,6 +294,12 @@ public class PopBoxCreat {
             content1.setGravity(Gravity.CENTER);
         }
 
+        //让第一个 content1 居中
+        if(hideView){
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            content1.setLayoutParams(params);
+        }
         btnL.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
@@ -326,10 +333,18 @@ public class PopBoxCreat {
             }
         });
 
+
         int w = (int) (DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogI.setContentView(view, parm);
         dialogI.show();
+
+    }
+    public static void createDialogNotitle(final Context context, String content1_msg,
+                                           String content2_msg, final String btnL_msg, final String btnR_msg,
+                                           final DialogWithTitleClick click) {
+        createDialogNotitle(context,content1_msg,content2_msg,btnL_msg,btnR_msg,click ,false);
+
     }
 
 

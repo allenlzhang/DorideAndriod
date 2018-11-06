@@ -11,7 +11,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="58dip"
         android:layout_marginRight="58dip"
-        android:src="@drawable/pie_capture_selected" />
+        android:src="@drawable/pie_capture_selected_no" />
 
     <ImageView
         android:id="@+id/recorder_play_img_back"

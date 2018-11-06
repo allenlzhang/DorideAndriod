@@ -252,6 +252,7 @@ public class HasDownListActivity extends LoadingActivity implements
 							tvRight2.setText("选择");
 							isEditale = false;
 							resetUI();
+							CPControl.GetHasDownListResult(mCallback);
 							mAdapter.setEditable(false);
 							mAdapter.notifyDataSetChanged();
 						}
@@ -261,7 +262,7 @@ public class HasDownListActivity extends LoadingActivity implements
 							// 取消
 
 						}
-					});
+					},true);
 			break;
 		}
 	}

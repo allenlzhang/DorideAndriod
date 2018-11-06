@@ -45,7 +45,7 @@
         <TextView
             android:id="@+id/hasdown_list_txt_all"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/hasdown_list_line_v"
             android:gravity="center"
@@ -56,7 +56,7 @@
         <TextView
             android:id="@+id/hasdown_list_txt_delete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/hasdown_list_line_v"
             android:gravity="center"
