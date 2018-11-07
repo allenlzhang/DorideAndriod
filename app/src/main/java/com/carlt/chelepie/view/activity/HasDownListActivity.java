@@ -173,6 +173,7 @@ public class HasDownListActivity extends LoadingActivity implements
 							mDaoControl.delete(pieDownloadInfo);
 							pieDownloadInfos.remove(pieDownloadInfo);
 							resetUI();
+							CPControl.GetHasDownListResult(mCallback);
 							mAdapter.notifyDataSetChanged();
 						}
 
@@ -181,7 +182,7 @@ public class HasDownListActivity extends LoadingActivity implements
 							// 取消
 
 						}
-					});
+					},true);
 		}
 	};
 	

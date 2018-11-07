@@ -137,10 +137,10 @@
         android:id="@+id/video_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="返回"
         android:textSize="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/back_arrow_bg"
 
         />
 </RelativeLayout>

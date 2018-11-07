@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
@@ -94,6 +95,11 @@ public class RecorderMainFragment extends BaseFragment implements
      */
     private int backCode ;
 
+    /**
+     * 校时 时间
+     */
+     private long mRecordTimes;
+
     public final static void setmGotoMainIndexListener(
             GotoMainIndexListener gotoMainIndexListener) {
         mGotoMainIndexListener = gotoMainIndexListener;
@@ -165,8 +171,7 @@ public class RecorderMainFragment extends BaseFragment implements
         switch (arg0.getId()) {
             case R.id.recordermain_img_set:
                 // 左上角
-                Intent mIntent1 = new Intent(getActivity(),
-                        ManagePieActivity.class);
+                Intent mIntent1 = new Intent(getActivity(), ManagePieActivity.class);
                 startActivity(mIntent1);
                 break;
 
@@ -210,31 +215,16 @@ public class RecorderMainFragment extends BaseFragment implements
 
         if (DeviceConnectManager.isDeviceConnect()) {
 
-            RecorderControl.setRecorderTime(new BaseParser.ResultCallback() {
-                @Override
-                public void onSuccess(BaseResponseInfo bInfo) {
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-//                            UUToast.showUUToast(mCtx, "校时成功");
-                            showVideoLay(true);
-                            proBar.setVisibility(View.VISIBLE);
-                            // 开启直播,添加 返回回调
-                            RecorderControl.startMonitor(listener_monitor);
-                        }
-                    });
+            showVideoLay(true);
+            proBar.setVisibility(View.VISIBLE);
+            // 开启直播,添加 返回回调
+            RecorderControl.startMonitor(listener_monitor);
 
-                }
-
-                @Override
-                public void onError(BaseResponseInfo bInfo) {
-                    //    UUToast.showUUToast(mCtx, "校时失败");
-                }
-            }, System.currentTimeMillis());
 
         } else {
             showConnectDialog();
             WIFIControl.StartConnectChelePai();
+
         }
     }
 
