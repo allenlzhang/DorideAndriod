@@ -20,6 +20,7 @@ import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.utility.ObjectIO;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -472,17 +473,6 @@ public class WIFIControl {
 						} else if (state == SupplicantState.DISCONNECTED) {
 							while (System.currentTimeMillis() - currentMills < 10 * 1000) {
 								WifiInfo wInfo2 = mWifiManager.getConnectionInfo();
-								if (wInfo2 == null || !wInfo2.getSSID().replace("\"", "").startsWith(chelepiePrefix)) {
-									SSID_CONNECT = "";
-									SSID_PWD = "";
-									WIFIControl.getInstance().Editpwd("");
-									WIFIControl.getInstance().EditSSid("");
-									disableChelepai();
-									notifyWIFIState(WIFI_CONNECT_TIMEOUT);
-									isWIFIConnectRuning = false;
-									return;
-								}
-
 								if (isPwdError) {
 									disableChelepai();
 									SSID_CONNECT = "";
@@ -493,6 +483,19 @@ public class WIFIControl {
 									isWIFIConnectRuning = false;
 									return;
 								}
+								if (wInfo2 == null || !wInfo2.getSSID().replace("\"", "").startsWith(chelepiePrefix)) {
+									SSID_CONNECT = "";
+									SSID_PWD = "";
+									Logger.e(isPwdError + "===================isPwdError=================");
+									WIFIControl.getInstance().Editpwd("");
+									WIFIControl.getInstance().EditSSid("");
+									disableChelepai();
+									notifyWIFIState(WIFI_CONNECT_TIMEOUT);
+									isWIFIConnectRuning = false;
+									return;
+								}
+
+
 								SystemClock.sleep(500);
 							}
 						}

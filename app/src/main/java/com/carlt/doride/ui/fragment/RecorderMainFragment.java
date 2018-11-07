@@ -381,7 +381,7 @@ public class RecorderMainFragment extends BaseFragment implements
                     UUToast.showUUToast(mCtx,
                             "设备Wi-Fi密码错误，请重新输入密码");
                     dissmissConnectDialog();
-                    showInputPwd();
+//                    showInputPwd();
                     showVideoLay(false);
                     break;
                 case WIFIControl.WIFI_CHELE_DISCONNECT:
