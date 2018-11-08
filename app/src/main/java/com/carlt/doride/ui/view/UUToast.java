@@ -1,14 +1,24 @@
 package com.carlt.doride.ui.view;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+
+
 /**
  * 作者：秋良
  * 
@@ -26,6 +36,14 @@ public class UUToast extends Toast {
 	private static CharSequence oldContent ="";
 	private static  long oldTime ;
 
+	/**
+	 *  500 毫秒后吐司 消失
+	 */
+	private static  int hideTime = 500;
+	private static Handler toastHideHandle = new Handler(Looper.getMainLooper());
+
+
+	@SuppressLint("WrongConstant")
 	private UUToast(Context context) {
 		super(context);
 		inflater = (LayoutInflater) context
@@ -33,13 +51,14 @@ public class UUToast extends Toast {
 		View layout = inflater.inflate(R.layout.toast, null);
 		text = (TextView) layout.findViewById(R.id.toast_message);
 		toast = new Toast(context);
-		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setDuration(Toast.LENGTH_SHORT);
 		toast.setView(layout);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 	}
 
+	@SuppressLint("WrongConstant")
 	public static void showUUToast(Context context, CharSequence tex,
-                                   int duration) {
+								   int duration) {
 		if (uuTo == null) {
 			uuTo = new UUToast(context);
 		} else {
@@ -48,6 +67,13 @@ public class UUToast extends Toast {
 		}
 		text.setText(tex);
 		toast.show();
+		toastHideHandle.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+
+				toast.cancel();
+			}
+		}, hideTime);
 	}
 
 	public static void showUUToast(Context context, CharSequence tex) {
@@ -58,10 +84,11 @@ public class UUToast extends Toast {
 		}
 
 		oldContent = tex ;
-		if(temp - oldTime > 30 * 1000){
+		if(temp - oldTime > 10 * 1000){
 			oldContent = "";
 		}
 		oldTime =temp ;
 	}
+
 
 }

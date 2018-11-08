@@ -334,7 +334,7 @@ public class FullLiveActivity extends LoadingActivity implements
                         FullLiveActivity.this, "正在通知抓拍");
                 mProgress.show();
                 mImgCapture.setClickable(false);
-                mImgCapture.setImageResource(R.drawable.pie_capture_selected);
+                mImgCapture.setImageResource(R.drawable.capture_nomal);
                 bhHandler.removeCallbacks(myRunnable2);
                 bhHandler.postDelayed(myRunnable2, 10000);//10秒之后可点击
                 PieDownloadControl.media_StartDownload();
