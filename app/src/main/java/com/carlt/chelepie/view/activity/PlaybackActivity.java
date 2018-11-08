@@ -431,6 +431,7 @@ public class PlaybackActivity extends BaseActivity implements OnClickListener, D
     @Override
     protected void onStop() {
         super.onStop();
+        mConnControl.onStop();
         PieDownloadControl.crop_StopCrop();
     }
 

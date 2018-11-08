@@ -240,8 +240,9 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 	}
 
 	@Override
-	protected void onPause() {
-		super.onPause();
+	protected void onStop() {
+		super.onStop();
+		mConnControl.onStop();
 	}
 
 	@Override
@@ -555,5 +556,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 			}
 		}
 	}
+
+
 
 }

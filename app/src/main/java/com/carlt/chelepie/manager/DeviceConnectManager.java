@@ -1,8 +1,11 @@
 package com.carlt.chelepie.manager;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
@@ -19,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Vector;
+
 
 /**
  * 
@@ -150,7 +154,7 @@ public class DeviceConnectManager implements Runnable {
 				// 加入缓存
 				Buffers.add(buf);
 				Log.e("DEBUG||Action_result:", action + "<<<<<<<<");
-				Log.e("DEBUG||Net_Receive:", new String(buf, index, buf.length - 3));
+
 
 				synchronized (Buffers) {
 					// 最多保留60个 , 清除多余未处理的
@@ -164,7 +168,7 @@ public class DeviceConnectManager implements Runnable {
 
 			} catch (Exception e) {
 				mIsThreadRunning = false;
-				notifyListeners(DEVICE_CONNECT_TIMEOUT);
+			//	notifyListeners(DEVICE_CONNECT_TIMEOUT);
 				return;
 			}
 		}

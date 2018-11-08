@@ -6,6 +6,7 @@ package com.carlt.chelepie.control;
 import android.content.Context;
 import android.os.Handler;
 import android.text.InputType;
+import android.util.Log;
 
 import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.view.EditDialog2;

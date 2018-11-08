@@ -463,6 +463,9 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onStop() {
         super.onStop();
+        WIFIControl.unRigisterWIFIConnectListener(this);
+        DeviceConnectManager.removeNotifyListener(this);
+
     }
 
 

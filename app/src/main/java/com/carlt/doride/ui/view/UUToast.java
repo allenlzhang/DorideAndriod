@@ -23,6 +23,8 @@ public class UUToast extends Toast {
 	private static UUToast uuTo;
 
 	private static TextView text;
+	private static CharSequence oldContent ="";
+	private static  long oldTime ;
 
 	private UUToast(Context context) {
 		super(context);
@@ -49,7 +51,17 @@ public class UUToast extends Toast {
 	}
 
 	public static void showUUToast(Context context, CharSequence tex) {
-		showUUToast(context, tex, Toast.LENGTH_SHORT);
+		// 优化吐司,机制..相同吐司30秒内不弹
+		long temp = System.currentTimeMillis();
+		if(!tex.toString().equals(oldContent.toString())){
+			showUUToast(context, tex, Toast.LENGTH_SHORT);
+		}
+
+		oldContent = tex ;
+		if(temp - oldTime > 30 * 1000){
+			oldContent = "";
+		}
+		oldTime =temp ;
 	}
 
 }
