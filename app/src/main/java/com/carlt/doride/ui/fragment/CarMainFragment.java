@@ -51,7 +51,7 @@ import java.util.HashMap;
  * Created by liu on 2018/3/16.
  */
 
-public class CarMainFragment extends BaseFragment implements View.OnClickListener ,WIFIControl.WIFIConnectListener{
+public class CarMainFragment extends BaseFragment implements View.OnClickListener, WIFIControl.WIFIConnectListener {
     private static String TAG = "CarMainFragment";
 
     private CarIndexInfo carinfo;
@@ -91,7 +91,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             WIFIControl.DisConnectChelePai();
             loadData();
             //            remoteConfig();
-        }else {
+        } else {
             WIFIControl.unRigisterWIFIConnectListener(this);
         }
     }
@@ -270,11 +270,16 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                         tvOil.setText(carMilesInfo.leftFuel);
 
                     }
-                    if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
-                        tvRenewal.setText("--");
+                    if (TextUtils.isEmpty(carMilesInfo.maxEnduranceMile) || TextUtils.isEmpty(carMilesInfo.minEnduranceMile)) {
+                        if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
+                            tvRenewal.setText("--");
+                        } else {
+                            tvRenewal.setText(carMilesInfo.enduranceMile);
+                        }
                     } else {
-                        tvRenewal.setText(carMilesInfo.enduranceMile);
+                        tvRenewal.setText(carMilesInfo.minEnduranceMile.concat("-").concat(carMilesInfo.maxEnduranceMile));
                     }
+
 
                     if (TextUtils.isEmpty(carMilesInfo.vBat)) {
                         tvBattery.setText("--");
@@ -354,7 +359,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             } else if (TextUtils.equals("0", carinfo.getIsrunning())) {
                 headTxt.setText("爱车休息中");
                 tvCarState.setText("爱车休息中");
-            } else if(carinfo.getIsrunning().equals("2")){
+            } else if (carinfo.getIsrunning().equals("2")) {
                 headTxt.setText("爱车已上电");
                 tvCarState.setText("爱车已上电");
             }

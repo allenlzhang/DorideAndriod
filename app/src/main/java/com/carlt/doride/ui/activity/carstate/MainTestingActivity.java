@@ -16,6 +16,7 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.adapter.WaringLampAdapter;
 import com.carlt.doride.ui.pull.PullToRefreshBase;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
+import com.carlt.doride.utils.MyTimeUtils;
 import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
@@ -62,7 +63,9 @@ public class MainTestingActivity extends LoadingActivity {
     private void initData() {
         showWaitingDialog(null);
         DefaultParser<WaringLampInfo> defaultParser = new DefaultParser<>(mCallback, WaringLampInfo.class);
-        defaultParser.executePost(URLConfig.getM_REMOTE_WARNINGLAMP(), new HashMap());
+        String url = URLConfig.getM_REMOTE_WARNINGLAMP();
+        String replace = url.replace("100", "101");
+        defaultParser.executePost(replace, new HashMap());
     }
 
     @Override
@@ -80,6 +83,18 @@ public class MainTestingActivity extends LoadingActivity {
         if (waringLampInfo != null) {
             //            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
             safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
+            if (waringLampInfo.CheckTime == 0) {
+                tvTitle.setText("自检得分:");
+                safyHeadTV.setVisibility(View.VISIBLE);
+            } else {
+                safyHeadTV.setVisibility(View.GONE);
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                int checkTime = waringLampInfo.CheckTime;
+//                String format = sdf.format(new Date(checkTime));
+                String date = MyTimeUtils.formatDateGetDaySecend(waringLampInfo.CheckTime);
+
+                tvTitle.setText("上次自检时间：".concat(date) + "\n".concat("请启动车辆获取最新自检结果"));
+            }
             if (waringLampInfo.ENGINELAMP == 1 || waringLampInfo.ABS == 1 || waringLampInfo.EPB == 1 || waringLampInfo.MTLAMP == 1) {
                 safyHeadTV.setTextColor(Color.RED);
             } else if (waringLampInfo.ESP == 1 || waringLampInfo.TPMS == 1 || waringLampInfo.WATERTMP == 1 || waringLampInfo.SRS == 1) {
@@ -120,7 +135,8 @@ public class MainTestingActivity extends LoadingActivity {
         safyHeadTV = $ViewByID(R.id.layout_sub_head_txt);
         tvTitle = $ViewByID(R.id.tvTitle);
         tvTitle.setVisibility(View.VISIBLE);
-        tvTitle.setText("自检得分:");
+
+
         mListView = mPullListView.getRefreshableView();
 
         mListView.setDivider(getResources().getDrawable(R.drawable.list_divider_bg));
@@ -152,12 +168,12 @@ public class MainTestingActivity extends LoadingActivity {
                 info.setIconState(R.drawable.ic_problem);
 
                 info.setTxt(iconName[i]);
-//                info.setColor(R.color.text_color_gray3);
+                //                info.setColor(R.color.text_color_gray3);
                 break;
             case WaringLampInfo.NOT_BRIGHT:
                 info.setIconState(R.drawable.ic_no_problem);
                 info.setTxt(iconName[i]);
-//                info.setColor(R.color.text_color_gray3);
+                //                info.setColor(R.color.text_color_gray3);
                 break;
             default:
                 break;

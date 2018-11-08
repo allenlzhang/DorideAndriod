@@ -31,8 +31,8 @@ public class CarStateInfoParser extends BaseParser {
             int length = names.length;
             //			String[] apiAttrNames = { "doorLockStatus", "doorCloseStatus", "windowStatus", "engine", "AC" ,"skyWindowStatus"};
             String[] apiAttrNames = {"engine", "doorCloseStatus", "doorLockStatus", "windowStatus", "skyWindowStatus", "AC", "bonnet"};
-            String[] stateClose = {"已熄火", "已关", "已锁", "已关", "已关", "关闭", "已关"};
-            String[] stateOpen = {"已启动", "未关", "未锁", "未关", "未关", "已开启", "未关"};
+            String[] stateClose = {"已熄火", "已关", "已锁", "已关", "已关", "关闭", "关闭"};
+            String[] stateOpen = {"已启动", "未关", "未锁", "未关", "未关", "已开启", "打开"};
 
             //            String[] apiAttrNamesAfter = {"doorLockStatus", "doorCloseStatus", "engine"};
             //            String[] stateCloseAfter = {"已锁", "已关", "已熄火"};
@@ -62,6 +62,7 @@ public class CarStateInfoParser extends BaseParser {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes(stateOpen[i]);
                     }
+                    mCarStateInfos.add(mInfo);
                 } else if (i == 4) {//,"开翘"
                     if (state.equals("0")) {
                         mInfo.setIconId(iconId_closes[i]);
@@ -77,6 +78,7 @@ public class CarStateInfoParser extends BaseParser {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes(stateOpen[i]);
                     }
+                    mCarStateInfos.add(mInfo);
                 } else if (i == 5) {
                     // 支持空调
                     if (state.equals("2")) {
@@ -115,13 +117,14 @@ public class CarStateInfoParser extends BaseParser {
                         }
 
                     }
-
+                    mCarStateInfos.add(mInfo);
 
                 } else if (i == 6) {
-//                    state = "1";
+//                    state = "0";
                     if (state.equals("0")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes(stateClose[i]);
+                        mCarStateInfos.add(mInfo);
 
                     } else if (StringUtils.isEmpty(state) || state.equals("255")) {
                         mInfo.setIconId(0);
@@ -129,6 +132,7 @@ public class CarStateInfoParser extends BaseParser {
                     } else {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes(stateOpen[i]);
+                        mCarStateInfos.add(mInfo);
                     }
                 } else {
                     if (state.equals("0")) {
@@ -142,8 +146,9 @@ public class CarStateInfoParser extends BaseParser {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes(stateOpen[i]);
                     }
+                    mCarStateInfos.add(mInfo);
                 }
-                mCarStateInfos.add(mInfo);
+
             }
         }
 
