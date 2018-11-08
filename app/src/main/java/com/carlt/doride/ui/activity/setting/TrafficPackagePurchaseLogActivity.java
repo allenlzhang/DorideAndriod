@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.setting;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -236,6 +237,7 @@ public class TrafficPackagePurchaseLogActivity extends LoadingActivityWithTitle 
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override

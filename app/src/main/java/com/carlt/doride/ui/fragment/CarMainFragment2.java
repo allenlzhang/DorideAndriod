@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -271,11 +270,23 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
                         tvOil.setText(carMilesInfo.leftFuel);
 
                     }
-                    if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
-                        tvRenewal.setText("--");
+
+                    if (TextUtils.isEmpty(carMilesInfo.maxEnduranceMile) || TextUtils.isEmpty(carMilesInfo.minEnduranceMile)) {
+                        if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
+                            tvRenewal.setText("--");
+                        } else {
+                            tvRenewal.setText(carMilesInfo.enduranceMile);
+                        }
                     } else {
-                        tvRenewal.setText(carMilesInfo.enduranceMile);
+                        tvRenewal.setText(carMilesInfo.minEnduranceMile.concat("-").concat(carMilesInfo.maxEnduranceMile));
                     }
+
+
+//                    if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
+//                        tvRenewal.setText("--");
+//                    } else {
+//                        tvRenewal.setText(carMilesInfo.enduranceMile);
+//                    }
 
                     if (TextUtils.isEmpty(carMilesInfo.vBat)) {
                         tvBattery.setText("--");

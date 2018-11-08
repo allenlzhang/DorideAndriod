@@ -23,6 +23,8 @@ public class CarMilesInfo extends BaseResponseInfo {
     public String avgFuel;
     public String avgSpeed;
     public String enduranceMile;
+    public String minEnduranceMile;
+    public String maxEnduranceMile;
     public String leftFuel;
     public String obd;
     public String runningTime;
@@ -34,6 +36,8 @@ public class CarMilesInfo extends BaseResponseInfo {
                 "avgFuel='" + avgFuel + '\'' +
                 ", avgSpeed='" + avgSpeed + '\'' +
                 ", enduranceMile='" + enduranceMile + '\'' +
+                ", minEnduranceMile='" + minEnduranceMile + '\'' +
+                ", maxEnduranceMile='" + maxEnduranceMile + '\'' +
                 ", leftFuel='" + leftFuel + '\'' +
                 ", obd='" + obd + '\'' +
                 ", runningTime='" + runningTime + '\'' +

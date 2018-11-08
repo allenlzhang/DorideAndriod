@@ -41,6 +41,7 @@ public class WaringLampInfo extends BaseResponseInfo {
     public int SRS;
     public int TPMS;
     public int WATERTMP;
+    public int CheckTime;
 
 
 }

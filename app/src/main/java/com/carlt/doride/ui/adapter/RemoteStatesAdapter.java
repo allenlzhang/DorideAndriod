@@ -78,18 +78,18 @@ public class RemoteStatesAdapter extends BaseAdapter {
         int icon_id = mInfo.getIconId();
         if (icon_id > 0) {
             mHolder.mImgIcon.setImageResource(icon_id);
-            mHolder.mImgIcon.setVisibility(View.VISIBLE);
+//            mHolder.mImgIcon.setVisibility(View.VISIBLE);
         } else {
-            mHolder.mImgIcon.setVisibility(View.GONE);
+//            mHolder.mImgIcon.setVisibility(View.GONE);
         }
         String s;
         s = mInfo.getName();
         if (!TextUtils.isEmpty(s)) {
             mHolder.mTxtName.setText(s);
-            mHolder.mTxtName.setVisibility(View.VISIBLE);
+//            mHolder.mTxtName.setVisibility(View.VISIBLE);
         } else {
             mHolder.mTxtName.setText("");
-            mHolder.mTxtName.setVisibility(View.GONE);
+//            mHolder.mTxtName.setVisibility(View.GONE);
         }
         s = mInfo.getStateDes();
         String value = mInfo.getValue();
