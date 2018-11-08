@@ -23,7 +23,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.chelepie.control.DaoPieDownloadControl;
 import com.carlt.chelepie.control.RecorderControl;
@@ -75,6 +74,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	private ImageView downloadBtn;
 	private TextView errMsg;
 	private TextView videoBack;
+	private RelativeLayout rlVideoLoadError; //缓冲失败
 
 	private HVideoPlayerView mVideoView;
 	/**
@@ -115,8 +115,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.activity_video_fream);
 		Intent intent = getIntent();
 		if (intent != null) {
-			pieInfo = (PieDownloadInfo) intent
-					.getParcelableExtra("pieDownloadInfo");
+			pieInfo = (PieDownloadInfo) intent.getParcelableExtra("pieDownloadInfo");
 			storeType = pieInfo.getStoreType();
 		}
 		initView();
@@ -137,6 +136,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		cutBtn = (ImageView) findViewById(R.id.player_cut_btn);
 		downloadBtn = (ImageView) findViewById(R.id.player_download_btn);
 		videoBack = (TextView) findViewById(R.id.video_back);
+		rlVideoLoadError = (RelativeLayout) findViewById(R.id.rl_video_load_error);
 		playBtn.setClickable(false);
 		playBtn.setOnClickListener(this);
 		cutBtn.setOnClickListener(this);
@@ -154,7 +154,10 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	public void bottomClick(View v) {
 		//点击底部框，暂时不做处理
 	}
-	
+
+	/**
+	 * @param v
+	 */
 	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	public void onClick(View v) {
@@ -192,6 +195,11 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		case R.id.video_back:
 			finish();
 			break;
+
+		//缓冲失败重新加载
+			case R.id.btn_video_error	:
+				initPlayer();
+				break;
 		default:
 			break;
 		}
@@ -287,7 +295,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 
 	private void initPlayer() {
 		loadingLay.setVisibility(View.VISIBLE);
-
+		rlVideoLoadError.setVisibility(View.GONE);
 		//3.如果是剪裁类型不显示下载按钮
 		if(storeType == PieDownloadInfo.STORE_CROP || (!StringUtils.isEmpty(pieInfo.getLocalPath()) && pieInfo.getLocalPath().contains(LocalConfig.DIR_CROP))){
 			downloadBtn.setVisibility(View.GONE);
@@ -446,6 +454,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 				cutBtn.setVisibility(View.VISIBLE);
 				playBtn.setImageResource(R.drawable.player_pause_selector);
 				loadingLay.setVisibility(View.GONE);
+				rlVideoLoadError.setVisibility(View.GONE);
 				break;
 			case CodecPlayerUtil.TYPE_PAUSE: // 暂停中
 				playBtn.setClickable(true);
@@ -530,6 +539,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 				cutBtn.setVisibility(View.VISIBLE);
 				playBtn.setImageResource(R.drawable.player_replay_selector);
 				loadingLay.setVisibility(View.GONE);
+				rlVideoLoadError.setVisibility(View.GONE);
 				break;
 			case 20: // 取消显示抓拍到的图片
 				mImgLay.setVisibility(View.GONE);
@@ -537,19 +547,22 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 			case 101: // 缓冲完成
 				bottemLay.setVisibility(View.VISIBLE);
 				seekBar.setVisibility(View.VISIBLE);
+				rlVideoLoadError.setVisibility(View.GONE);
 				pieDownInfo = (PieDownloadInfo) msg.obj;
 				startPlay(pieDownInfo.getLocalPath());
 				mGestureDetector = new GestureDetector(PlayerActivity.this,
 						new BookOnGestureListener());
 				bhHandler.postDelayed(myRunnable, 15000);
+				ToastUtils.showShort("缓冲完成");
 				break;
 			case 102: // 缓冲错误
 				bottemLay.setVisibility(View.INVISIBLE);
 				seekBar.setVisibility(View.INVISIBLE);
 				loadingLay.setVisibility(View.GONE);
+				rlVideoLoadError.setVisibility(View.VISIBLE);
 //				 UUToast.showUUToast(PlayerActivity.this,
 //				 "缓冲失败");
-				 errMsg.setText("缓冲失败");
+				// errMsg.setText("缓冲失败");
 				break;
 			}
 		};

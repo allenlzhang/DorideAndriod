@@ -92,7 +92,7 @@ public class MyVideoView extends VideoView implements MediaPlayer.OnCompletionLi
     private void init() {
         this.setVideoPath(filePath);
         mmr.setDataSource(filePath);
-//       retriever.setDataSource(filePath);
+        LogUtils.e(filePath+ "==========================================");
         setOnCompletionListener(this);
         setOnPreparedListener(this);
 
@@ -109,7 +109,7 @@ public class MyVideoView extends VideoView implements MediaPlayer.OnCompletionLi
     public void onPrepared(MediaPlayer mp) {
         timeTotal = MyTimeUtil.formartTime1(getDuration() )+ "";
         totalTime = getDuration();
-        Logger.e("onPrepared=================" + stopPosition);
+        Logger.e(totalTime + "onPrepared=================" + timeTotal);
         if(stopPosition > 0){
             seekTo(stopPosition);
             this.onPause();
@@ -204,6 +204,7 @@ public class MyVideoView extends VideoView implements MediaPlayer.OnCompletionLi
     }
     public void onDestroy (){
         this.pause();
+        mmr.release();
       //  retriever.release();
         if(disposable !=null){
             disposable.dispose();
