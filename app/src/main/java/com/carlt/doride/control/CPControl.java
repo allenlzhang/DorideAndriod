@@ -218,7 +218,9 @@ public class CPControl {
             }
         });
         HashMap mapParam = new HashMap();
-        paser.executePost(URLConfig.getM_REMOTE_STATE(), mapParam);
+        String m_remote_state = URLConfig.getM_REMOTE_STATE();
+        String replace = m_remote_state.replace(oldVersion, newVersion);
+        paser.executePost(replace, mapParam);
     }
 
     //
@@ -481,7 +483,9 @@ public class CPControl {
         HashMap mHashMap = CreateHashMap.getNullData();
         MilesInfoParser parser = new MilesInfoParser(callback);
         parser.setTest(false);
-        parser.executePost(URLConfig.getM_MILESINFO_URL(), mHashMap);
+        String m_milesinfo_url = URLConfig.getM_MILESINFO_URL();
+        String replace = m_milesinfo_url.replace(oldVersion, newVersion);
+        parser.executePost(replace, mHashMap);
     }
 
     /**
@@ -606,8 +610,10 @@ public class CPControl {
     public static void getMilesInfos(BaseParser.ResultCallback listener) {
         DefaultStringParser paser = new DefaultStringParser(listener);
         HashMap mapParam = new HashMap();
+        String m_milesinfo_url = URLConfig.getM_MILESINFO_URL();
+        String replace = m_milesinfo_url.replace(oldVersion, newVersion);
         Logger.e("-----" + URLConfig.getM_REMOTE_CAR_MILES_INFO_URL());
-        paser.executePost(URLConfig.getM_REMOTE_CAR_MILES_INFO_URL(), mapParam);
+        paser.executePost(replace, mapParam);
     }
 
     public static void GetLogin(String account, String password, BaseParser.ResultCallback listener_login) {
@@ -662,6 +668,7 @@ public class CPControl {
 
         }.start();
     }
+
     /**
      * 获取车乐拍--已下载列表
      */

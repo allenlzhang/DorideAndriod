@@ -9,9 +9,7 @@
 
     </style>
 
-    <style name="Theme.AppCompat.Light.NoActionBar" parent="@style/Theme.AppCompat.Light">
-        <item name="windowNoTitle">true</item>
-    </style>
+
 
     <!-- 座驾主页面 -->
     <style name="car_main_txt1">

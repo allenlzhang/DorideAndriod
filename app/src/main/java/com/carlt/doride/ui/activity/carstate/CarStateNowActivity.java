@@ -77,7 +77,9 @@ public class CarStateNowActivity extends LoadingActivity {
 
         showWaitingDialog(null);
         DefaultParser<CarNowStatusInfo> parser = new DefaultParser<>(mCallback, CarNowStatusInfo.class);
-        parser.executePost(URLConfig.getM_REMOTE_STATUS(), new HashMap());
+        String m_remote_status = URLConfig.getM_REMOTE_STATUS();
+        String replace = m_remote_status.replace("100", "101");
+        parser.executePost(replace, new HashMap());
     }
 
     @Override

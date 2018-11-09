@@ -14,10 +14,8 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.doride.utils.StringUtils;
-import com.carlt.sesame.utility.UUToast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -80,7 +78,9 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         DefaultStringParser parser = new DefaultStringParser(mCallback);
         HashMap<String, String> param = new HashMap();
         param.put("move_device_name", LoginInfo.getDeviceidstring());
-        parser.executePost(URLConfig.getM_REMOTE_DRIECTRRESSURE(), param);
+        String m_remote_driectrressure = URLConfig.getM_REMOTE_DRIECTRRESSURE();
+        String replace = m_remote_driectrressure.replace("100", "101");
+        parser.executePost(replace, param);
     }
 
     @Override
@@ -122,9 +122,6 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
 
     private void showData(List<RemoteDirectPressureInfo> remoteDirectPressureInfos) {
         String nowTimes = MyTimeUtils.formatDateMills(System.currentTimeMillis());
-
-
-
 
 
         subHeadTxt.setText("胎压正常。 \n" + nowTimes);
@@ -217,38 +214,37 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
      * 只有 一个文字标题和返回键的标题
      * @param
      */
-//    protected void initTitle(String titleString) {
-//        try {
-//            backTV = $ViewByID(R.id.head_back_img1);
-//            titleTV = $ViewByID(R.id.head_back_txt1);
-//            backTV2 = $ViewByID(R.id.head_back_img2);
-//            backTV2.setVisibility(View.VISIBLE);
-//            backTV2.setBackgroundResource(R.drawable.icon_refresh_bg);
-//        } catch (Exception e) {
-//            //是设置标题出错
-//            return;
-//        }
-//        if (null != backTV) {
-//            backTV.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                   onBackPressed();
-//                }
-//            });
-//        }
-//        if (null != titleTV) {
-//            titleTV.setText(titleString);
-//        }
-//        if (null != backTV2) {
-//            backTV2.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onRightClick();
-//                }
-//            });
-//        }
-//    }
-
+    //    protected void initTitle(String titleString) {
+    //        try {
+    //            backTV = $ViewByID(R.id.head_back_img1);
+    //            titleTV = $ViewByID(R.id.head_back_txt1);
+    //            backTV2 = $ViewByID(R.id.head_back_img2);
+    //            backTV2.setVisibility(View.VISIBLE);
+    //            backTV2.setBackgroundResource(R.drawable.icon_refresh_bg);
+    //        } catch (Exception e) {
+    //            //是设置标题出错
+    //            return;
+    //        }
+    //        if (null != backTV) {
+    //            backTV.setOnClickListener(new View.OnClickListener() {
+    //                @Override
+    //                public void onClick(View view) {
+    //                   onBackPressed();
+    //                }
+    //            });
+    //        }
+    //        if (null != titleTV) {
+    //            titleTV.setText(titleString);
+    //        }
+    //        if (null != backTV2) {
+    //            backTV2.setOnClickListener(new View.OnClickListener() {
+    //                @Override
+    //                public void onClick(View view) {
+    //                    onRightClick();
+    //                }
+    //            });
+    //        }
+    //    }
     @Override
     public void onRightClick() {
         super.onRightClick();
