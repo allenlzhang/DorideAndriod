@@ -14,12 +14,8 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.doride.utils.StringUtils;
-import com.carlt.sesame.utility.UUToast;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.orhanobut.logger.Logger;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,7 +76,9 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         DefaultStringParser parser = new DefaultStringParser(mCallback);
         HashMap<String, String> param = new HashMap();
         param.put("move_device_name", LoginInfo.getDeviceidstring());
-        parser.executePost(URLConfig.getM_REMOTE_DRIECTRRESSURE(), param);
+        String m_remote_driectrressure = URLConfig.getM_REMOTE_DRIECTRRESSURE();
+        String replace = m_remote_driectrressure.replace("100", "101");
+        parser.executePost(replace, param);
     }
 
     @Override
@@ -88,13 +86,14 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         super.loadDataSuccess(bInfo);
         String value = (String) ((BaseResponseInfo) bInfo).getValue();
         Gson gson = new Gson();
-        Type type = new TypeToken<List<RemoteDirectPressureInfo>>() {
-        }.getType();
-        List<RemoteDirectPressureInfo> remoteDirectPressureInfos = gson.fromJson(value, type);
-        if (null == remoteDirectPressureInfos || remoteDirectPressureInfos.size() == 0) {
+        //        Type type = new TypeToken<List<RemoteDirectPressureInfo>>() {
+        //        }.getType();
+        RemoteDirectPressureInfo remoteDirectPressureInfo = gson.fromJson(value, RemoteDirectPressureInfo.class);
+        List<RemoteDirectPressureInfo.ListBean> list = remoteDirectPressureInfo.list;
+        if (null == list || list.size() == 0) {
             loadNodataUI();
         } else {
-            showData(remoteDirectPressureInfos);
+            showData(list, remoteDirectPressureInfo);
         }
     }
 
@@ -120,43 +119,50 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         temp_tv3.setVisibility(View.GONE);
     }
 
-    private void showData(List<RemoteDirectPressureInfo> remoteDirectPressureInfos) {
+    private void showData(List<RemoteDirectPressureInfo.ListBean> remoteDirectPressureInfos, RemoteDirectPressureInfo remoteDirectPressureInfo) {
         String nowTimes = MyTimeUtils.formatDateMills(System.currentTimeMillis());
+        int rectime = remoteDirectPressureInfo.rectime;
+        if (rectime == 0) {
+            subHeadTxt.setText("胎压正常。 \n" + nowTimes);
+        } else {
+            subHeadTxt.setText("胎压正常。 \n" + MyTimeUtils.formatDateGetDaySecend(rectime));
+        }
 
 
-
-
-
-        subHeadTxt.setText("胎压正常。 \n" + nowTimes);
         // 胎压状态，1：正常；0：异常
         for (int i = 0; i < remoteDirectPressureInfos.size(); i++) {
-            int pressure_status = remoteDirectPressureInfos.get(i).getPressure_status();
-            String pa = remoteDirectPressureInfos.get(i).getPressure_value() + remoteDirectPressureInfos.get(i).getPressure_unit();
-            String temp = remoteDirectPressureInfos.get(i).getTemperature_value() + remoteDirectPressureInfos.get(i).getTemperature_unit();
+            int pressure_status = remoteDirectPressureInfos.get(i).pressure_status;
+            String pa = remoteDirectPressureInfos.get(i).pressure_value + remoteDirectPressureInfos.get(i).pressure_unit;
+            //            String temp = remoteDirectPressureInfos.get(i).getTemperature_value() + remoteDirectPressureInfos.get(i).getTemperature_unit();
             //四个轮胎,赋值
             if (i == 0) {   //左前
                 pa_tv0.setVisibility(View.VISIBLE);
                 pa_tv0.setText(pa);
-                temp_tv0.setText(temp);
+                //                temp_tv0.setText(temp);
             } else if (i == 1) {//右前
                 pa_tv1.setVisibility(View.VISIBLE);
                 pa_tv1.setText(pa);
-                temp_tv1.setText(temp);
+                //                temp_tv1.setText(temp);
             } else if (i == 2) {//左后
                 pa_tv2.setVisibility(View.VISIBLE);
                 pa_tv2.setText(pa);
-                temp_tv2.setText(temp);
+                //                temp_tv2.setText(temp);
             } else if (i == 3) { //右后
                 pa_tv3.setVisibility(View.VISIBLE);
                 pa_tv3.setText(pa);
-                temp_tv3.setText(temp);
+                //                temp_tv3.setText(temp);
             } else {
                 //么有五个轮胎
             }
 
             //检测是否正常
             if (pressure_status != 1) {
-                subHeadTxt.setText("胎压异常!请及时查看! \n" + nowTimes);
+                //                subHeadTxt.setText("胎压异常!请及时查看! \n" + nowTimes);
+                if (rectime == 0) {
+                    subHeadTxt.setText("胎压异常!请及时查看! \n" + nowTimes);
+                } else {
+                    subHeadTxt.setText("胎压异常!请及时查看! \n" + MyTimeUtils.formatDateGetDaySecend(rectime));
+                }
                 //四个轮胎
                 if (i == 0) {   //左前
                     tirePressureLay0.setBackgroundResource(R.drawable.tire_err);
@@ -217,38 +223,37 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
      * 只有 一个文字标题和返回键的标题
      * @param
      */
-//    protected void initTitle(String titleString) {
-//        try {
-//            backTV = $ViewByID(R.id.head_back_img1);
-//            titleTV = $ViewByID(R.id.head_back_txt1);
-//            backTV2 = $ViewByID(R.id.head_back_img2);
-//            backTV2.setVisibility(View.VISIBLE);
-//            backTV2.setBackgroundResource(R.drawable.icon_refresh_bg);
-//        } catch (Exception e) {
-//            //是设置标题出错
-//            return;
-//        }
-//        if (null != backTV) {
-//            backTV.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                   onBackPressed();
-//                }
-//            });
-//        }
-//        if (null != titleTV) {
-//            titleTV.setText(titleString);
-//        }
-//        if (null != backTV2) {
-//            backTV2.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onRightClick();
-//                }
-//            });
-//        }
-//    }
-
+    //    protected void initTitle(String titleString) {
+    //        try {
+    //            backTV = $ViewByID(R.id.head_back_img1);
+    //            titleTV = $ViewByID(R.id.head_back_txt1);
+    //            backTV2 = $ViewByID(R.id.head_back_img2);
+    //            backTV2.setVisibility(View.VISIBLE);
+    //            backTV2.setBackgroundResource(R.drawable.icon_refresh_bg);
+    //        } catch (Exception e) {
+    //            //是设置标题出错
+    //            return;
+    //        }
+    //        if (null != backTV) {
+    //            backTV.setOnClickListener(new View.OnClickListener() {
+    //                @Override
+    //                public void onClick(View view) {
+    //                   onBackPressed();
+    //                }
+    //            });
+    //        }
+    //        if (null != titleTV) {
+    //            titleTV.setText(titleString);
+    //        }
+    //        if (null != backTV2) {
+    //            backTV2.setOnClickListener(new View.OnClickListener() {
+    //                @Override
+    //                public void onClick(View view) {
+    //                    onRightClick();
+    //                }
+    //            });
+    //        }
+    //    }
     @Override
     public void onRightClick() {
         super.onRightClick();
