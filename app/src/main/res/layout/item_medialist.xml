@@ -25,7 +25,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:src="@drawable/def_backgroud_pic"/>
+            android:src="@drawable/bg_fullplay"/>
 
         <ImageView
             android:id="@+id/medialist_img_type"

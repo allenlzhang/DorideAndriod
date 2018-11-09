@@ -100,7 +100,9 @@
         <activity android:name=".ui.activity.home.DayActivity"/>
         <activity android:name=".ui.activity.home.InformationCentreActivity"/>
         <activity android:name=".ui.activity.home.GpsTrailActivity"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".ui.activity.carstate.CarSaftyListActivity"/>
         <activity android:name=".ui.activity.carstate.MainTestingActivity"/>
         <activity android:name=".ui.activity.carstate.CarStateNowActivity"/>

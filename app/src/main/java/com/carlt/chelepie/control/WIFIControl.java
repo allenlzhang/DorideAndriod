@@ -216,6 +216,9 @@ public class WIFIControl {
 		for (WifiConfiguration wc : mWcfs) {
 			if (wc.SSID.replace("\"", "").equals(wifiname)) {
 				mWifiManager.removeNetwork(wc.networkId);
+				mWifiManager.removeNetwork(wc.networkId);
+				mWifiManager.removeNetwork(wc.networkId);
+				mWifiManager.removeNetwork(wc.networkId);
 			}
 		}
 
@@ -225,6 +228,7 @@ public class WIFIControl {
 			Log.e("info", "mScanResult.SSID==" + mScanResult.SSID);
 			if (mScanResult != null && mScanResult.SSID.equals(wifiname)) {
 				int wifiId = -1;
+				mWifiManager.setWifiEnabled(true);
 				WifiConfiguration wc = new WifiConfiguration();
 				wc.allowedAuthAlgorithms.clear();
 				wc.allowedGroupCiphers.clear();

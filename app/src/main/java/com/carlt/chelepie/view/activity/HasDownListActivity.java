@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.chelepie.control.DaoPieDownloadControl;
 import com.carlt.chelepie.data.recorder.PieDownloadInfo;
 import com.carlt.chelepie.data.recorder.PieDownloadListInfo;
@@ -234,13 +235,16 @@ public class HasDownListActivity extends LoadingActivity implements
 			break;
 		case R.id.hasdown_list_txt_delete:
 			// 删除
+		final 	ArrayList<PieDownloadInfo> deleteInfos = mAdapter.getSelectedItem();
+
+		if(deleteInfos.size() >0){
 			PopBoxCreat.createDialogNotitle(HasDownListActivity.this, "是否删除文件",
 					"", "取消", "删除", new PopBoxCreat.DialogWithTitleClick() {
 
 						@Override
 						public void onRightClick() {
 							// 删除
-							ArrayList<PieDownloadInfo> deleteInfos = mAdapter.getSelectedItem();
+
 							int size = deleteInfos.size();
 							for (int i = 0; i < size; i++) {
 								PieDownloadInfo deleteInfo = deleteInfos.get(i);
@@ -264,6 +268,10 @@ public class HasDownListActivity extends LoadingActivity implements
 
 						}
 					},true);
+		}else {
+			ToastUtils.showShort("请选择删除项");
+		}
+
 			break;
 		}
 	}

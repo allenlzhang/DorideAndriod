@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.R;
 
 import java.util.Timer;
@@ -39,7 +40,7 @@ public class UUToast extends Toast {
 	/**
 	 *  500 毫秒后吐司 消失
 	 */
-	private static  int hideTime = 500;
+	private static  int hideTime = 800;
 	private static Handler toastHideHandle = new Handler(Looper.getMainLooper());
 
 
@@ -59,19 +60,21 @@ public class UUToast extends Toast {
 	@SuppressLint("WrongConstant")
 	public static void showUUToast(Context context, CharSequence tex,
 								   int duration) {
-		if (uuTo == null) {
-			uuTo = new UUToast(context);
-		} else {
-			uuTo.cancel();
-			uuTo = new UUToast(context);
-		}
-		text.setText(tex);
-		toast.show();
+//		if (uuTo == null) {
+//			uuTo = new UUToast(context);
+//		} else {
+//			uuTo.cancel();
+//			uuTo = new UUToast(context);
+//		}
+//		text.setText(tex);
+	//	toast.show();
+		ToastUtils.setGravity(Gravity.CENTER,0,0);
+		ToastUtils.showShort(tex);
 		toastHideHandle.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-
-				toast.cancel();
+				LogUtils.e("dismiss=============");
+				ToastUtils.cancel();
 			}
 		}, hideTime);
 	}
