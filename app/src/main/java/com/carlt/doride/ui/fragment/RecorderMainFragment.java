@@ -20,7 +20,9 @@ import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
+import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
+import com.carlt.chelepie.protocolstack.recorder.UpdateFileParser;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.PlayListener;
 import com.carlt.chelepie.view.EditDialog2;
@@ -34,6 +36,7 @@ import com.carlt.chelepie.view.gl.HHVideoView;
 import com.carlt.chelepie.view.gl.HVideoView;
 import com.carlt.chelepie.view.gl.IVideoView;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.base.BeforeGoToBackground;
@@ -43,11 +46,12 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.eventbus.FullScreenMessage;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.Log;
-import com.carlt.sesame.control.CPControl;
+import com.carlt.doride.utils.StringUtils;
 import com.orhanobut.logger.Logger;
 
 import org.apache.tools.ant.helper.ProjectHelper2;
@@ -55,6 +59,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Marlon on 2018/10/16.
@@ -80,7 +86,7 @@ public class RecorderMainFragment extends BaseFragment implements
     UUDialogUpgrading mUpgradeDialog;
     WIFIConnectDialog mWIFIDialog;
     WIFIControl mWifiControl = null;
-    String localUrl = null;
+    public  String upGradeFilePath ;
     boolean isLivePlay = false;
     EditDialog2 mDialog;
     private WifiListDialog mWifiListDialog;
@@ -99,6 +105,7 @@ public class RecorderMainFragment extends BaseFragment implements
      * 校时 时间
      */
      private long mRecordTimes;
+
 
     public final static void setmGotoMainIndexListener(
             GotoMainIndexListener gotoMainIndexListener) {
@@ -136,11 +143,7 @@ public class RecorderMainFragment extends BaseFragment implements
         mWifiControl = WIFIControl.getInstance();
         registerBeforeGoToBackGround(this);
 
-        try {
-            //Todo 看下逻辑
-            localUrl = getActivity().getIntent().getExtras().getString("filePath");
-        } catch (Exception e) {
-        }
+
 
         loadSuccessUI();
         showVideoLay(false);
@@ -198,6 +201,8 @@ public class RecorderMainFragment extends BaseFragment implements
                 // 我的记录仪媒体列表
                 Intent mIntent4 = new Intent(getActivity(), MyMediaListActivity.class);
                 startActivity(mIntent4);
+
+
                 break;
 
             case R.id.recordermain_txt_play:
@@ -211,21 +216,30 @@ public class RecorderMainFragment extends BaseFragment implements
     private void startPlay() {
         isLivePlay = true;
 
+            if (DeviceConnectManager.isDeviceConnect()) {
 
+                if (upGradeFilePath != null) {
+//固件升级                       // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
+                    RecorderControl.GetDeviceUpdate(mUpGradeCallback, upGradeFilePath);
+                    mUpgradeDialog = new UUDialogUpgrading(mCtx);
+                    mUpgradeDialog.setProgressing();
+                    mUpgradeDialog.show();
+                }else {
+                    showVideoLay(true);
+                    proBar.setVisibility(View.VISIBLE);
+                    // 开启直播,添加 返回回调
+                    RecorderControl.startMonitor(listener_monitor);
+                    //判断是否更新
+                    String softVersion = PieInfo.getInstance().getSoftVersion();
+                    DorideApplication.softVersion =   PieInfo.getInstance().getSoftVersion();
+                }
 
-        if (DeviceConnectManager.isDeviceConnect()) {
+            } else {
+                showConnectDialog();
+                WIFIControl.StartConnectChelePai();
 
-            showVideoLay(true);
-            proBar.setVisibility(View.VISIBLE);
-            // 开启直播,添加 返回回调
-            RecorderControl.startMonitor(listener_monitor);
+            }
 
-
-        } else {
-            showConnectDialog();
-            WIFIControl.StartConnectChelePai();
-
-        }
     }
 
     private BaseParser.ResultCallback listener_monitor = new BaseParser.ResultCallback() {
@@ -296,9 +310,9 @@ public class RecorderMainFragment extends BaseFragment implements
                         // 页面不显示 .. 不开启直播
                         break;
                     }
-                    if (localUrl != null) {
-                        // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
-                        RecorderControl.GetDeviceUpdate(mUpGradeCallback, localUrl);
+                    if (upGradeFilePath != null) {
+//固件升级                       // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
+                        RecorderControl.GetDeviceUpdate(mUpGradeCallback, upGradeFilePath);
                         mUpgradeDialog = new UUDialogUpgrading(mCtx);
                         mUpgradeDialog.setProgressing();
                         mUpgradeDialog.show();
@@ -605,24 +619,28 @@ public class RecorderMainFragment extends BaseFragment implements
             msg.what = 1013;
             msg.obj = progress;
             mHandler.sendMessage(msg);
+            android.util.Log.e(TAG, "onUpdateProgress: " );
         }
 
         @Override
         public void onTranslateProgress(Object progress) {
             mHandler.sendEmptyMessage(1012);
+            android.util.Log.e(TAG, "onTranslateProgress: " );
         }
 
         @Override
         public void onFinished(Object o1) {
             mHandler.sendEmptyMessage(1010);
-            FileUtil.deleteFile(new File(localUrl));
-            localUrl = null;
+            FileUtil.deleteFile(new File(upGradeFilePath));
+            upGradeFilePath = null;
+            android.util.Log.e(TAG, "onFinished: " );
         }
 
         @Override
         public void onErro(Object o) {
             mHandler.sendEmptyMessage(1011);
-            localUrl = null;
+            upGradeFilePath = null;
+            android.util.Log.e(TAG, "onErro: " );
         }
     };
 
@@ -689,10 +707,10 @@ public class RecorderMainFragment extends BaseFragment implements
     }
 
     //eventBus 方法
-
     @Subscribe
     public void onEvent(FullScreenMessage message){
         backCode = message.message;
 
     }
+
 }

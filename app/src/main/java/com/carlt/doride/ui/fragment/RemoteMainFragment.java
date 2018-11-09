@@ -153,6 +153,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void loadData() {
+        upgradeProgram();
         loadingDataUI();
         carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
             @Override

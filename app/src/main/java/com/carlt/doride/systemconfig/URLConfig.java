@@ -32,7 +32,8 @@ public class URLConfig {
     private final static String U_R2 = "https://pre-remote-doride.geni4s.com/";
     // 大乘下发-测试服务器
     private final static String U_R3 = "http://remote-doride.linewin.cc/";
-
+    // 摄像头固件升级
+    private static String M_REMOTE_UPGRADE = "comm/upgrade";
     // 获取DORIDE API URL
     private static String getDorideURL(String s) {
         String version = DorideApplication.Version_API + "/";
@@ -627,5 +628,9 @@ public class URLConfig {
         }
 
         return url;
+    }
+
+    public static String getM_REMOTE_UPGRADE() {
+        return getDorideURL(M_REMOTE_UPGRADE);
     }
 }
