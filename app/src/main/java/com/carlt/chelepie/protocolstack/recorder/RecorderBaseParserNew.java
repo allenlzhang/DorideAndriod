@@ -21,7 +21,7 @@ import java.util.Map;
 
 public abstract class RecorderBaseParserNew<T extends BaseResponseInfo> extends Thread {
 	protected HashMap<String, String> mMap = new HashMap<String, String>();
-	public final static String MSG_ERRO = "未能连接到设备";
+	public final static String MSG_ERRO = "未连接记录仪Wi-Fi";
 	public final static String MSG_ERRO2 = "请求失败！";
 	public final static String MSG_ERRO3 = "网络问题！";
 	public final static int NOT_FOUND = 0x10;

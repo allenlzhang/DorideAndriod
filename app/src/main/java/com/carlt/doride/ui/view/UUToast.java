@@ -73,7 +73,6 @@ public class UUToast extends Toast {
 		toastHideHandle.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				LogUtils.e("dismiss=============");
 				ToastUtils.cancel();
 			}
 		}, hideTime);
