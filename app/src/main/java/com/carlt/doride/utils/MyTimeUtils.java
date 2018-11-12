@@ -67,7 +67,15 @@ public class MyTimeUtils {
         date2.setTime(times);
         return FORMAT_DAY.format(date2);
     }
-
+    public synchronized static String formatDateGetDaySecend1(long input) {
+        if (input == 0) {
+            return DEFULE_STRING;
+        }
+        long times = input * 1000;
+        Date date2 = new Date();
+        date2.setTime(times);
+        return FORMAT.format(date2);
+    }
     /**
      * 毫秒数数转为 格式化时间
      * @param times
