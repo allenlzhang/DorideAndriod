@@ -125,7 +125,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         if (rectime == 0) {
             subHeadTxt.setText("胎压正常。 \n" + nowTimes);
         } else {
-            subHeadTxt.setText("胎压正常。 \n" + MyTimeUtils.formatDateGetDaySecend(rectime));
+            subHeadTxt.setText("胎压正常。 \n" + MyTimeUtils.formatDateGetDaySecend1(rectime));
         }
 
 
@@ -161,7 +161,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
                 if (rectime == 0) {
                     subHeadTxt.setText("胎压异常!请及时查看! \n" + nowTimes);
                 } else {
-                    subHeadTxt.setText("胎压异常!请及时查看! \n" + MyTimeUtils.formatDateGetDaySecend(rectime));
+                    subHeadTxt.setText("胎压异常!请及时查看! \n" + MyTimeUtils.formatDateGetDaySecend1(rectime));
                 }
                 //四个轮胎
                 if (i == 0) {   //左前
