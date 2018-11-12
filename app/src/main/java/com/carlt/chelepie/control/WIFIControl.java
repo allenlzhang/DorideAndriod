@@ -112,6 +112,7 @@ public class WIFIControl {
 		if (!mWifiManager.isWifiEnabled()) {
 			mWifiManager.setWifiEnabled(true);
 		}
+		mWifiManager.disconnect();
 	}
 
 	// 关闭wifi

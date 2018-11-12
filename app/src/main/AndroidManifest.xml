@@ -221,10 +221,10 @@
         <activity android:name="com.carlt.chelepie.view.activity.ManageStorageActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManageTimesActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.MyMediaListActivity"
-            android:screenOrientation="portrait"
+
             >
 
-        </activity>>
+        </activity>
         <activity android:name="com.carlt.chelepie.view.activity.PicViewPagerActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.VideoQualityActivity"/>
         <!-- ############ 需要横屏的Activity ############ -->

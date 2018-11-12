@@ -2,6 +2,8 @@ package com.carlt.chelepie.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.GridLayoutManager.SpanSizeLookup;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -352,5 +355,35 @@ public class MediaAllFragment extends BaseFragment {
 		layoutNodata.setVisibility(View.GONE);
 		mSwipeRefreshLayout.setVisibility(View.VISIBLE);
 	}
+	// 橫屏不重新加載activity，調用該方法
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		try {
+			Log.e("onConfigurationChanged", "fragment: "+  newConfig.orientation );
 
+			// Checks the orientation of the screen
+			if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			//	content.setVisibility(View.INVISIBLE);
+
+			} else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+			//	content.setVisibility(View.VISIBLE);
+
+			}
+		} catch (Exception ex) {
+
+		}
+
+		super.onConfigurationChanged(newConfig);
+		// 如果是橫屏時候
+
+
+	}
+	@Override
+	public void onResume() {
+		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		super.onResume();
+
+
+
+	}
 }

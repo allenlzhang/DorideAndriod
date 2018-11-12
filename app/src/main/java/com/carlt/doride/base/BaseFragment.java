@@ -68,6 +68,7 @@ public abstract class BaseFragment extends Fragment {
     /** 进入后台之前 要干的事的集合 */
     protected static ArrayList<BeforeGoToBackground> mBackDoList = new ArrayList<BeforeGoToBackground>();
     UpdateFileParser mParser ;
+    public View content ;
     public BaseFragment() {
     }
     protected void registerBeforeGoToBackGround(BeforeGoToBackground listener) {
@@ -189,7 +190,8 @@ public abstract class BaseFragment extends Fragment {
         //        setMainView(inflateView);
         fl_base_content.removeAllViews();
         fl_base_content.addView(inflateView(inflater));
-        return view;
+        content = view ;
+        return content;
     }
 
     /**

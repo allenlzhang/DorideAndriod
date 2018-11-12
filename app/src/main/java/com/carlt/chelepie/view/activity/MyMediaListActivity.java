@@ -2,13 +2,19 @@ package com.carlt.chelepie.view.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -55,6 +61,7 @@ import static com.carlt.chelepie.view.activity.FullLiveActivity.BACK_CODE;
  * 
  */
 public class MyMediaListActivity extends FragmentActivity implements OnClickListener, DeviceConnListener {
+	private static final String TAG = "MyMediaListActivity";
 	private ImageView back;// 头部返回键
 	private TextView title;// 标题文字
 	private TextView txtRight;// 头部右侧文字
@@ -109,6 +116,8 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.e(TAG, "onCreate: ");
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_medialist);
 		mConnControl = new DeviceConnControl(this, this);
 		initTitle();
@@ -180,6 +189,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 			mInfo.setFlag(0);
 			mInfo.setInfo("未连接记录仪Wi-Fi");
 			LoadErroUI(mInfo);
+
 		}
 	}
 
@@ -232,6 +242,8 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 
 	@Override
 	protected void onResume() {
+		Log.e(TAG, "onResume: " );
+//		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		super.onResume();
 		mConnControl.onResume();
 		for (int i = 0; i < fragments.size(); i++) {
@@ -514,7 +526,7 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 				LoadSuccessUI();
 				Collections.sort(allInfoList);
 				Collections.sort(eventInfoList);
-				((MediaAllFragment)fragments.get(0)).downloadThumbnail(allInfoList);
+				((MediaAllFragment)fragments.get(0)).loadSuccess(allInfoList);
 
 				if(fragments.get(2).isVisible()){
 
@@ -558,5 +570,27 @@ public class MyMediaListActivity extends FragmentActivity implements OnClickList
 	}
 
 
+
+	// 橫屏不重新加載activity，調用該方法
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		// 如果是橫屏時候
+		try {
+			Log.e("onConfigurationChanged", "onConfigurationChanged: "+  newConfig.orientation);
+		//	 Checks the orientation of the screen
+			if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//			List<Fragment> list = 	getSupportFragmentManager().getFragments();
+
+			//	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			} else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+				//toolbarLayout.setVisibility(View.VISIBLE);
+			}
+		} catch (Exception ex) {
+
+		}
+
+	}
 
 }

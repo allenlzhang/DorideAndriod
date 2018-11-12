@@ -2,6 +2,7 @@ package com.carlt.chelepie.view.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Build;
@@ -112,6 +113,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setContentView(R.layout.activity_video_fream);
 		Intent intent = getIntent();
 		if (intent != null) {
@@ -165,22 +167,22 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		case R.id.player_play_btn:
 			playBtn.setClickable(false);
 			if (isPause) {
-//				mVideoView.continuePlay();
-				if(myVideoView != null){
-					myVideoView.continuePaly();
-				}
+				mVideoView.continuePlay();
+//				if(myVideoView != null){
+//					myVideoView.continuePaly();
+//				}
 
 			} else {
-//				mVideoView.pause();
-				if(myVideoView!=null){
-					myVideoView.onPause();
-				}
+				mVideoView.pause();
+//				if(myVideoView!=null){
+//					myVideoView.onPause();
+//				}
 			}
 			break;
 		case R.id.player_cut_btn:
 			cutBtn.setClickable(false);
 			cutBtn.setImageResource(R.drawable.player_cut_down);
-//			mVideoView.cutPic();
+			mVideoView.cutPic();
 			if(myVideoView !=null){
 				myVideoView.cropBitmap();;
 			}
@@ -193,6 +195,7 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 			break;
 
 		case R.id.video_back:
+		//	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 			finish();
 			break;
 
@@ -380,30 +383,30 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void startPlay(String filePath) {
 		videoLayout.removeAllViews();
-		mSurface  =new VideoSurface(this);
-		myVideoView  =new MyVideoView(this,filePath);
-		mSurface.setFilePath(filePath);
-		mSurface.setmHandler(mHandler);
+//		mSurface  =new VideoSurface(this);
+//		myVideoView  =new MyVideoView(this,filePath);
+//		mSurface.setFilePath(filePath);
+//		mSurface.setmHandler(mHandler);
 
-		myVideoView.setmHandler(mHandler);
+//		myVideoView.setmHandler(mHandler);
 
-//		mVideoView = new HVideoPlayerView(this);
+		mVideoView = new HVideoPlayerView(this);
 
 
-		videoLayout.addView((View) myVideoView, new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.MATCH_PARENT,
-				RelativeLayout.LayoutParams.MATCH_PARENT);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-		myVideoView.setLayoutParams(layoutParams);
-//		mVideoView.play(filePath, mHandler);
+		videoLayout.addView((View) mVideoView, new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+//				RelativeLayout.LayoutParams.MATCH_PARENT,
+//				RelativeLayout.LayoutParams.MATCH_PARENT);
+//		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+//		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//		myVideoView.setLayoutParams(layoutParams);
+		mVideoView.play(filePath, mHandler);
 
 
 		if(pieInfo.getStoreType() == PieDownloadInfo.STORE_CROP){
-//			mVideoView.configCrop();
+			mVideoView.configCrop();
 
 		}
 	}
@@ -659,14 +662,13 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	protected void onDestroy() {
+
 		super.onDestroy();
 		if (null != mVideoView) {
 			mVideoView.stopVideo();
 		}
 
-		if(mSurface!=null){
-			mSurface.destroy();
-		}
+
 		downLoadLisener = null;
 		RecorderControl.stopDownLoadFile(pieInfo);
 
