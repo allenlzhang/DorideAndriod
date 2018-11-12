@@ -184,6 +184,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void loadData() {
+        upgradeProgram();
         loadingDataUI();
         CPControl.GetInformationCentreInfoListResult(callback);
         CPControl.GetMilesInfoResult(remoteCallback);

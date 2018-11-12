@@ -69,13 +69,13 @@ public class LoginInfo extends BaseResponseInfo {
     public static long Last_Login_Time = -1;
 
     // TOKEN生命周期
-    private static String expiresIn = "";
+    public static String expiresIn = "";
     // 经销商id
-    private static String dealerId  = "";
+    public static String dealerId  = "";
     // 用户ID
-    private static String useId     = "";
+    public static String useId     = "";
     // 手机号
-    private static String mobile    = "";
+    public static String mobile    = "";
     // 是否是游客
     private static boolean isVisitor;
 

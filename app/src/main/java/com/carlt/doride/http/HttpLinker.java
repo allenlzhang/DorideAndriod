@@ -2,11 +2,24 @@ package com.carlt.doride.http;
 
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.AbstractHttpEntity;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +79,7 @@ public class HttpLinker {
                 .url(url)
                 .post(rBody)
                 .build();
-        ILog.e("http", "http请求--" + request.toString());
+        ILog.e("http", "http请求---------参数-----" + request.toString());
 
         Call call = mHttpClient.newCall(request);
         call.enqueue(callback);
@@ -206,5 +219,39 @@ public class HttpLinker {
             sb.deleteCharAt(0);
         }
         return "?" + sb.toString();
+    }
+
+
+    public boolean connect(String url, String post, int timeOutType) {
+        boolean result = false;
+        try {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(url);
+            HttpParams params = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(params, 30000); // 设置连接超时
+            HttpConnectionParams.setSoTimeout(params, 30000); // 设置请求超时
+            httppost.setParams(params);
+            AbstractHttpEntity entity = new StringEntity(post, "UTF-8");
+            entity.setContentType("application/x-www-form-urlencoded");
+
+            try {
+                String[] sreq = EntityUtils.toString(entity, "UTF-8")
+                        .split("&");
+                for (int a = 0; a < sreq.length; a++) {
+                    Log.e("http", "Http请求--参数" + a + ":::" + sreq[a]);
+                }
+            } catch (Exception e) {
+
+            }
+            httppost.setEntity(entity);
+            HttpResponse response = httpclient.execute(httppost);
+
+            HttpEntity mEntity = response.getEntity();
+            // 检验状态码，如果成功接收数据
+
+        } catch (Exception e) {
+            Log.e("info", "HttpPostor--connect--e==" + e);
+        }
+        return result;
     }
 }

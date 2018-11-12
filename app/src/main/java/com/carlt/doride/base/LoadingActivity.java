@@ -25,10 +25,10 @@ import com.carlt.doride.protocolparser.BaseParser;
  * @author Administrator
  */
 public class LoadingActivity extends BaseActivity {
-    protected TextView       mTxtDes;// 描述文字
-    protected TextView       mTxtEorrorSub;//错误信息副标题
-    protected TextView       mTxtNodata;// 没有数据时的描述文字
-    protected Button         mTxtRetryError;// 重试（刷新）
+    public TextView       mTxtDes;// 描述文字
+    public TextView       mTxtEorrorSub;//错误信息副标题
+    public TextView       mTxtNodata;// 没有数据时的描述文字
+    public Button         mTxtRetryError;// 重试（刷新）
     private   ProgressBar    mPBar;
     private   RelativeLayout mLayMain;
     private   View           mMainView;

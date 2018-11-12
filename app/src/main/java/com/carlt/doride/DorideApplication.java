@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import com.blankj.utilcode.util.Utils;
 import com.carlt.chelepie.control.WIFIControl;
+import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.view.gl.GLES20Support;
 import com.carlt.chelepie.view.gl.HHVideoView;
 import com.carlt.chelepie.view.gl.IVideoView;
@@ -74,6 +75,8 @@ public class DorideApplication extends Application {
     public static DorideApplication instance;
     public        Context           context;
     public static Context           ApplicationContext;
+    public static String  softVersion ; // 记录仪 版本
+
     /**
      * 判断相应的页面是否显示可拖动的客服电话按钮
      */

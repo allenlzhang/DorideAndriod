@@ -1,6 +1,7 @@
 package com.carlt.doride.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,20 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.carlt.chelepie.data.recorder.PieInfo;
+import com.carlt.chelepie.data.recorder.UpgradeInfo;
+import com.carlt.chelepie.protocolstack.recorder.UpdateFileParser;
+import com.carlt.chelepie.view.activity.DownloadUpgradeActivity;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.ActivateInfo;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.model.LoginInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.fragment.RecorderMainFragment;
+import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -32,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by liu on 2016/12/23.
@@ -57,6 +67,7 @@ public abstract class BaseFragment extends Fragment {
     protected String TAG = getClass().getSimpleName();
     /** 进入后台之前 要干的事的集合 */
     protected static ArrayList<BeforeGoToBackground> mBackDoList = new ArrayList<BeforeGoToBackground>();
+    UpdateFileParser mParser ;
     public BaseFragment() {
     }
     protected void registerBeforeGoToBackGround(BeforeGoToBackground listener) {
@@ -279,6 +290,8 @@ public abstract class BaseFragment extends Fragment {
         super.onResume();
         mIsShowing = true;
         Log.e("BaseFragment", this.getClass().getSimpleName() + "onResume");
+
+
     }
 
     @Override
@@ -335,4 +348,53 @@ public abstract class BaseFragment extends Fragment {
         mViewLoading.setVisibility(View.GONE);
     }
 
+
+    /**
+     * 车乐拍固件升级
+     */
+    public   void upgradeProgram() {
+        //判断是否更新
+        String softVersion = PieInfo.getInstance().getSoftVersion();
+
+//        softVersion ="SW1.2.024";
+        if (!StringUtils.isEmpty(softVersion)) {
+            // 链接地址
+            String url = URLConfig.getM_REMOTE_UPGRADE();
+            // Post参数
+            HashMap mMap =new HashMap();
+            mMap.put("version", softVersion);
+            mMap.put("client_id", URLConfig.getClientID());
+            if (LoginInfo.dealerId != null && LoginInfo.dealerId.length() > 0) {
+                mMap.put("dealerId", LoginInfo.dealerId);
+            }
+            if (LoginInfo.getAccess_token() != null && !LoginInfo.getAccess_token().equals("")) {
+                mMap.put("token", LoginInfo.getAccess_token());
+            }
+            mMap.put("deviceType", "android");
+            mParser = new UpdateFileParser(new BaseParser.ResultCallback() {
+                @Override
+                public void onSuccess(BaseResponseInfo bInfo) {
+                    UpgradeInfo upgradeInfo =  mParser.getReturn(); ;
+
+                    //判断是否升级
+                    boolean isshowupdata = DorideApplication.getInstanse().isIsshowupdata();
+                    if (!isshowupdata) {
+                        DorideApplication.getInstanse().setIsshowupdata(true);
+                        Intent mIntent4 = new Intent(mCtx, DownloadUpgradeActivity.class);
+                        if (null != upgradeInfo && upgradeInfo.isUpgrade) {
+                            mIntent4.putExtra("info",upgradeInfo);
+                        }
+                        mCtx.startActivity(mIntent4);
+                    }
+
+                }
+
+                @Override
+                public void onError(BaseResponseInfo bInfo) {
+                    android.util.Log.e(TAG, "onError: "  + bInfo );
+                }
+            });
+            mParser.executePost(url, mMap);
+        }
+    }
 }

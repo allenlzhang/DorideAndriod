@@ -170,6 +170,7 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
 
     @Override
     public void loadData() {
+        upgradeProgram();
         loadingDataUI();
         BaseParser parser = new DefaultParser<CarIndexInfo>(new BaseParser.ResultCallback() {
             @Override

@@ -16,6 +16,10 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.control.WIFIControl;
+import com.carlt.chelepie.data.recorder.PieInfo;
+import com.carlt.chelepie.data.recorder.UpgradeInfo;
+import com.carlt.chelepie.protocolstack.recorder.UpdateFileParser;
+import com.carlt.chelepie.view.activity.DownloadUpgradeActivity;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
@@ -39,6 +43,7 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.utils.CacheUtils;
 import com.carlt.doride.utils.DensityUtil;
 import com.carlt.doride.utils.LoadLocalImageUtil;
+import com.carlt.doride.utils.StringUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -294,6 +299,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             case R.id.btn_about_yema:
                 Intent aboutYema = new Intent(this.getActivity(), AboutDorideActivity.class);
                 startActivity(aboutYema);
+
                 break;
             case R.id.btn_sign_out:
 
@@ -313,6 +319,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     public void loadData() {
         //        showUserUI();
         loadingDataUI();
+        upgradeProgram();
         CarDealerParser parser = new CarDealerParser(dealerCallback);
         HashMap<String, String> params = new HashMap<>();
         parser.executePost(URLConfig.getM_GET_DEALER_INFO(), params);
@@ -401,4 +408,6 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     public void onWIFIChange(int action) {
 
     }
+
+
 }

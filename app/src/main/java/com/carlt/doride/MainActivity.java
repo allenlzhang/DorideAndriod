@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,11 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.carlt.chelepie.data.recorder.PieInfo;
+import com.carlt.chelepie.protocolstack.recorder.UpdateFileParser;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.model.LoginInfo;
+import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.CarMainFragment2;
@@ -29,6 +33,7 @@ import com.carlt.doride.ui.fragment.SettingMainFragment;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
+import com.carlt.doride.utils.StringUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -39,6 +44,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * 主页面
@@ -74,6 +80,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FragmentManager mFragmentManager;
     private int             deviceisnew;
 
+    /**
+     * 记录仪升级文件路径
+     */
+    public String localUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +97,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (LoginInfo.getTbox_type().equals("4G")) {
             initFlowInfo();
         }
+
     }
 
     private void initFlowInfo() {
@@ -173,8 +185,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         deviceisnew = LoginInfo.getDeviceisnew();
-        //        deviceisnew=1;
-        LogUtils.e("deviceisnew========" + deviceisnew);
+
+        try {
+            localUrl = getIntent().getExtras().getString("filePath");
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        Log.e("localUrl", "onResume: "+localUrl );
     }
 
     protected String[] needPermissions = {
@@ -314,6 +332,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     transaction.show(mRecorderMainFragemnt);
                 }
+                mRecorderMainFragemnt.upGradeFilePath = localUrl ;
                 transaction.commit();
                 break;
             case 4:
@@ -430,4 +449,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             ActivityControl.saveExitTime();
         }
     }
+
+
 }

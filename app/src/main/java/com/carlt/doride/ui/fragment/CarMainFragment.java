@@ -171,6 +171,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void loadData() {
         loadingDataUI();
+        upgradeProgram();
         BaseParser parser = new DefaultParser<CarIndexInfo>(new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {

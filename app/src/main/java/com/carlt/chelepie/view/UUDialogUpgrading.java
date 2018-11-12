@@ -40,7 +40,7 @@ public class UUDialogUpgrading extends Dialog implements OnClickListener {
 		txtBtn = (TextView) mainView.findViewById(R.id.dialog_upgrade_txt_btn);
 		title = (TextView) mainView.findViewById(R.id.dialog_upgrade_txt_tip);
 		line = mainView.findViewById(R.id.line);
-		mGifView = (GifView) mainView.findViewById(R.id.dialog_upgrade_gif_bg);
+//		mGifView = (GifView) mainView.findViewById(R.id.dialog_upgrade_gif_bg);
 		int w = (int) (DorideApplication.ScreenDensity * w_dip);
 		int h = (int) (DorideApplication.ScreenDensity * 160);
 		setCanceledOnTouchOutside(false);
@@ -59,13 +59,13 @@ public class UUDialogUpgrading extends Dialog implements OnClickListener {
 		title.setText("更新完成");
 		txtBtn.setOnClickListener(this);
 		line.setVisibility(View.VISIBLE);
-		mGifView.setVisibility(View.GONE);
+//		mGifView.setVisibility(View.GONE);
 	}
 
 	public void setFail() {
 		txtBtn.setText("确定");
 		title.setText("更新失败");
-		mGifView.setVisibility(View.GONE);
+//		mGifView.setVisibility(View.GONE);
 		txtBtn.setOnClickListener(this);
 		line.setVisibility(View.VISIBLE);
 	}
@@ -74,8 +74,8 @@ public class UUDialogUpgrading extends Dialog implements OnClickListener {
 		txtBtn.setText("请稍等");
 		txtBtn.setOnClickListener(null);
 		title.setText("正在更新您的设备硬件");
-		mGifView.setVisibility(View.VISIBLE);
-		mGifView.setStart(context);
+//		mGifView.setVisibility(View.VISIBLE);
+//		mGifView.setStart(context);
 		line.setVisibility(View.INVISIBLE);
 	}
 

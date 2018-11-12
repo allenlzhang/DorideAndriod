@@ -665,7 +665,6 @@ public class WIFIControl {
 
 			if (action.equals(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION)) {
 
-				Log.d("WifiReceiver", ">>>>SUPPLICANT_STATE_CHANGED_ACTION<<<<<<");
 				int supl_error = intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, -1);
 				if (supl_error == WifiManager.ERROR_AUTHENTICATING) {
 					if (!isPwdError) {
