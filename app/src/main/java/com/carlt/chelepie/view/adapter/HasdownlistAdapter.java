@@ -248,7 +248,7 @@ public class HasdownlistAdapter extends RecyclerView.Adapter<ViewHolder> {
 				if (null != localThumbnail) {
 					mImgThumb.setImageBitmap(localThumbnail);
 				} else {
-					mImgThumb.setImageResource(R.drawable.def_backgroud_pic);
+					mImgThumb.setImageResource(R.drawable.bg_fullplay);
 				}
 			} else {
 				if (!TextUtils.isEmpty(filePathLocal)) {
@@ -265,10 +265,10 @@ public class HasdownlistAdapter extends RecyclerView.Adapter<ViewHolder> {
 						mImgThumb.setImageBitmap(mBitmap);
 					} else {
 						mImgThumb
-								.setImageResource(R.drawable.def_backgroud_pic);
+								.setImageResource(R.drawable.bg_fullplay);
 					}
 				} else {
-					mImgThumb.setImageResource(R.drawable.def_backgroud_pic);
+					mImgThumb.setImageResource(R.drawable.bg_fullplay);
 				}
 			}
 		}

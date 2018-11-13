@@ -11,12 +11,15 @@ import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.view.TimePickerDialog;
 import com.carlt.doride.R;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.eventbus.SetTimeEvent;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUDialog;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -119,6 +122,7 @@ public class ManageTimesActivity extends ActivityWithTitle implements
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
+					EventBus.getDefault().post(new SetTimeEvent(mTimes));
 					UUToast.showUUToast(ManageTimesActivity.this, "校时成功");
 					dialogWithProgress.dismiss();
 				}

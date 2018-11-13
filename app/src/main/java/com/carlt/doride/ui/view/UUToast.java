@@ -80,16 +80,9 @@ public class UUToast extends Toast {
 
 	public static void showUUToast(Context context, CharSequence tex) {
 		// 优化吐司,机制..相同吐司30秒内不弹
-		long temp = System.currentTimeMillis();
-		if(!tex.toString().equals(oldContent.toString())){
-			showUUToast(context, tex, Toast.LENGTH_SHORT);
-		}
+		showUUToast(context, tex, Toast.LENGTH_SHORT);
 
-		oldContent = tex ;
-		if(temp - oldTime > 10 * 1000){
-			oldContent = "";
-		}
-		oldTime =temp ;
+	;
 	}
 
 

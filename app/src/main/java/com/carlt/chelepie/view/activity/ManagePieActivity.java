@@ -16,11 +16,13 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.control.DeviceConnControl;
 import com.carlt.chelepie.control.DeviceConnListener;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.chelepie.data.recorder.PieInfo;
+import com.carlt.chelepie.manager.DeviceConnectManager;
 import com.carlt.chelepie.view.UUDialogToast;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
@@ -33,6 +35,7 @@ import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -59,7 +62,7 @@ public class ManagePieActivity extends LoadingActivity implements OnClickListene
 
 	private View mViewStorage;
 
-	private View mViewSettingTime;
+	private View mViewSettingTime;   //校时
 
 	private View mViewImgconfig;// 设置图片亮度、对比度饱和度等信息
 
@@ -175,6 +178,16 @@ public class ManagePieActivity extends LoadingActivity implements OnClickListene
 		
 		mCbSound.setOnClickListener(this);
 		mCbLink.setOnClickListener(this);
+
+		mTxtRetryError.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(!DeviceConnectManager.isDeviceConnect()){
+					mConnControl.goConnect();
+
+				}
+			}
+		});
 	}
 
 	@Override
@@ -277,6 +290,7 @@ public class ManagePieActivity extends LoadingActivity implements OnClickListene
 	@Override
 	public void loadonErrorUI(BaseResponseInfo error) {
 		super.loadonErrorUI(error);
+
 	}
 
 

@@ -186,7 +186,7 @@ public class MedialistAdapter extends RecyclerView.Adapter<ViewHolder> {
 				String thumbLocalPath = ThumbnailUtil.getThumbnailPath(info);
 				Bitmap bit = AsyncImageLoader.getInstance().getBitmapByUrlLocalThumbnail(thumbLocalPath);
 				if (bit == null) {
-					mImgThumbnail.setImageResource(R.drawable.def_backgroud_pic);
+					mImgThumbnail.setImageResource(R.drawable.bg_fullplay);
 					// --加入下载队列去下载
 				} else {
 					mImgThumbnail.setImageBitmap(bit);

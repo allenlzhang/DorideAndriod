@@ -44,6 +44,7 @@ import com.carlt.chelepie.view.UUDialogUpgrading;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.eventbus.FullScreenMessage;
+import com.carlt.doride.eventbus.SetTimeEvent;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -225,13 +226,41 @@ public class RecorderMainFragment extends BaseFragment implements
                     mUpgradeDialog.setProgressing();
                     mUpgradeDialog.show();
                 }else {
-                    showVideoLay(true);
-                    proBar.setVisibility(View.VISIBLE);
-                    // 开启直播,添加 返回回调
-                    RecorderControl.startMonitor(listener_monitor);
-                    //判断是否更新
-                    String softVersion = PieInfo.getInstance().getSoftVersion();
-                    DorideApplication.softVersion =   PieInfo.getInstance().getSoftVersion();
+//没有校时过,先校时
+                    if(mRecordTimes > 0){
+                        showVideoLay(true);
+                        proBar.setVisibility(View.VISIBLE);
+                        // 开启直播,添加 返回回调
+                        RecorderControl.startMonitor(listener_monitor);
+                        //判断是否更新
+                        String softVersion = PieInfo.getInstance().getSoftVersion();
+                        DorideApplication.softVersion =   PieInfo.getInstance().getSoftVersion();
+                    }else {
+
+                        RecorderControl.setRecorderTime(new BaseParser.ResultCallback() {
+                            @Override
+                            public void onSuccess(BaseResponseInfo bInfo) {
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showVideoLay(true);
+                                        proBar.setVisibility(View.VISIBLE);
+                                        // 开启直播,添加 返回回调
+                                        RecorderControl.startMonitor(listener_monitor);
+                                        //判断是否更新
+                                        String softVersion = PieInfo.getInstance().getSoftVersion();
+                                        DorideApplication.softVersion =   PieInfo.getInstance().getSoftVersion();
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onError(BaseResponseInfo bInfo) {
+
+                            }
+                        }, System.currentTimeMillis());
+                    }
+
                 }
 
             } else {
@@ -322,28 +351,36 @@ public class RecorderMainFragment extends BaseFragment implements
                             return;
                         }
                         if (isLivePlay) {
-                            RecorderControl.setRecorderTime(new BaseParser.ResultCallback() {
-                                @Override
-                                public void onSuccess(BaseResponseInfo bInfo) {
-                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                          //  UUToast.showUUToast(mCtx, "校时成功");
-                                            showVideoLay(true);
-                                            proBar.setVisibility(View.VISIBLE);
-                                            // 开启直播,添加 返回回调
-                                            RecorderControl.startMonitor(listener_monitor);
-                                        }
-                                    });
 
-                                }
+                            if(mRecordTimes > 0){
+                                showVideoLay(true);
+                                proBar.setVisibility(View.VISIBLE);
+                                // 开启直播,添加 返回回调
+                                RecorderControl.startMonitor(listener_monitor);
+                            }else {
+                                RecorderControl.setRecorderTime(new BaseParser.ResultCallback() {
+                                    @Override
+                                    public void onSuccess(BaseResponseInfo bInfo) {
+                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                //  UUToast.showUUToast(mCtx, "校时成功");
+                                                showVideoLay(true);
+                                                proBar.setVisibility(View.VISIBLE);
+                                                // 开启直播,添加 返回回调
+                                                RecorderControl.startMonitor(listener_monitor);
+                                            }
+                                        });
 
-                                @Override
-                                public void onError(BaseResponseInfo bInfo) {
-                                //    UUToast.showUUToast(mCtx, "校时失败");
-                                }
-                            }, System.currentTimeMillis());
+                                    }
 
+                                    @Override
+                                    public void onError(BaseResponseInfo bInfo) {
+                                        //    UUToast.showUUToast(mCtx, "校时失败");
+                                    }
+                                }, System.currentTimeMillis());
+
+                            }
 
                         }
                     }
@@ -477,6 +514,7 @@ public class RecorderMainFragment extends BaseFragment implements
     @Override
     public void onStop() {
         super.onStop();
+        mRecordTimes = 0;
         WIFIControl.unRigisterWIFIConnectListener(this);
         DeviceConnectManager.removeNotifyListener(this);
 
@@ -712,5 +750,11 @@ public class RecorderMainFragment extends BaseFragment implements
         backCode = message.message;
 
     }
+    //eventBus 校时
 
+    @Subscribe
+    public void timeEvent(SetTimeEvent event){
+        mRecordTimes = event.time ;
+
+    }
 }
