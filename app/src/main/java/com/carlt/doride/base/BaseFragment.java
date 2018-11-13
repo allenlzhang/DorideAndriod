@@ -357,7 +357,9 @@ public abstract class BaseFragment extends Fragment {
     public   void upgradeProgram() {
         //判断是否更新
         String softVersion = PieInfo.getInstance().getSoftVersion();
+        Log.e("BaseFragment", "upgradeProgram: " +softVersion);
 
+//        softVersion = "SW1.2.024";
 //        softVersion ="SW1.2.024";
         if (!StringUtils.isEmpty(softVersion)) {
             // 链接地址
@@ -388,9 +390,7 @@ public abstract class BaseFragment extends Fragment {
                         }
                         mCtx.startActivity(mIntent4);
                     }
-
                 }
-
                 @Override
                 public void onError(BaseResponseInfo bInfo) {
                     android.util.Log.e(TAG, "onError: "  + bInfo );

@@ -146,6 +146,11 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		videoBack.setOnClickListener(this);
 		// seekbar设置监听
 		seekBar.setOnSeekBarChangeListener(onseekBarListener);
+		seekBar.setClickable(false);
+		seekBar.setEnabled(false);
+		seekBar.setSelected(false);
+		seekBar.setFocusable(false);
+
 	}
 
 	/**
