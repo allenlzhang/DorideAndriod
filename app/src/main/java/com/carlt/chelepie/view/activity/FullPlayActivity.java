@@ -182,6 +182,10 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         }
     };
 
+    /**
+     * 用于BitMap,交替使用,回收
+     */
+    private Bitmap oldBitmap  ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -241,7 +245,7 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         mImgBack.setVisibility(View.GONE);
         mImgPause = (ImageView) findViewById(R.id.recorder_play_img_pause);
         mImgPause.setVisibility(View.VISIBLE);
-        mImgCapture = (ImageView) findViewById(R.id.recorder_play_img_capture);
+        mImgCapture = (ImageView) findViewById(R.id.recorder_play_img_capture);       //裁剪
         mImgClip = (ImageView) findViewById(R.id.recorder_play_img_clip);
         mImgDb = (ImageView) findViewById(R.id.recorder_play_img_db);
 
@@ -549,13 +553,25 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
                             bit.compress(CompressFormat.JPEG, 100, new FileOutputStream(path));
                             mInfo.setTotalLen((int) (FileUtil.getFileLength(path)));
                             DaoPieDownloadControl.getInstance().insert(mInfo);
+
+                            if(oldBitmap == null){
+                                oldBitmap = bit;
+                            }else {
+                                if(!oldBitmap .equals(bit)){
+                                    oldBitmap.recycle();
+                                    oldBitmap = null ;
+                                    oldBitmap = bit;
+                                }
+                            }
                         } catch (FileNotFoundException e) {
                             Log.e("DEBUG", "保存图片失败" + e.getMessage());
                         }
-                        mHandler.sendEmptyMessageDelayed(20, 1000 * 2);
+
+
                     } else {
                         UUToast.showUUToast(FullPlayActivity.this, "抓拍失败!");
                     }
+                    mHandler.sendEmptyMessageDelayed(20, 1000);
                     break;
                 case 16:
                     UUToast.showUUToast(FullPlayActivity.this, "抓拍失败!");
@@ -632,6 +648,7 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
                     UUToast.showUUToast(FullPlayActivity.this, "请等待上次操作完成");
                 }
                 break;
+//回放抓拍
             case R.id.recorder_play_img_capture:
                 // 抓拍
                 mVideoView.getCapture(new CodecMode.ICaptureListener() {
@@ -642,6 +659,7 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
                         Message msg = new Message();
                         msg.what = 15;
                         msg.obj = bit;
+                        Log.e("CaptureOK", "CaptureOK: "+ bit );
                         mHandler.sendMessage(msg);
                     }
 
@@ -721,6 +739,10 @@ public class FullPlayActivity extends BaseActivity implements OnClickListener, D
         super.onDestroy();
         Log.e("FullActivity", "FullPlayActivity" + "onDestroy");
         unregisterReceiver(mBroadcastReceiver);
+        if(oldBitmap!=null && !oldBitmap.isRecycled()){
+            oldBitmap.recycle();
+            oldBitmap = null ;
+        }
     }
 
     @Override

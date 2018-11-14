@@ -1,6 +1,7 @@
 package com.carlt.chelepie.appsdk;
 
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.carlt.chelepie.manager.DeviceConnectManager;

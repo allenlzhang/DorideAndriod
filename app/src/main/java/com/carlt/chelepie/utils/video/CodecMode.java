@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
 import com.carlt.chelepie.appsdk.AppsdkUtils;
+import com.carlt.chelepie.appsdk.CapBufferData;
 import com.carlt.chelepie.appsdk.IFreamDataListener;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.systemconfig.ActionConfig;
@@ -26,9 +28,12 @@ import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.utils.ImageUtils;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
+import com.hz17car.chelepie.utility.AVIConverter;
 import com.hz17car.chelepie.utility.Datayuv;
 import com.hz17car.chelepie.utility.FFmpegTool;
 
+import java.nio.ByteBuffer;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -118,6 +123,7 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 	 * 是否需要抓拍
 	 */
 	boolean isCaptrue = false;
+	private AVIConverter mConverter = new AVIConverter();
 
 	/**
 	 * 发送广播的intent
@@ -127,6 +133,9 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 
 	private IVoicePlayer audioPlayer;
 
+	//用于产生截图的缓存
+	private CapBufferData capBufferData =  new CapBufferData();
+	public Bitmap oldBitmap ;
 	public CodecMode(GLFrameSurface frameSurface) {
 		glFrameSurface = frameSurface;
 		mFFmpegTool = new FFmpegTool();
@@ -215,6 +224,9 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 		mFFmpegTool.getDecodeDatas().clear();
 		receivethread = null;
 		receiveReplayThread = null;
+		if(capBufferData != null){
+			capBufferData.getList().clear();
+		}
 		StringUtils.setSpeed(0);
 		StringUtils.setSpeeds("0.0B/S");
 		if (audioPlayer != null) {
@@ -296,6 +308,7 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 						time1 = System.currentTimeMillis();
 						//  解码
 						byte[] readbuf = mVideoFrames.poll();
+						capBufferData.add(readbuf);
 						int res = mFFmpegTool.DecodeFrame(readbuf, 0, readbuf.length);
 						if(res>0 && countDecode < 1){
 							int[] size = new int[2];
@@ -471,18 +484,21 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 	}
 
 	private void processCapBitmap(Datayuv dyv) {
-		byte[] yuvData = new byte[dyv.yData.length + dyv.uData.length + dyv.vData.length];
-		System.arraycopy(dyv.yData,0,yuvData,0,dyv.yData.length);
-		System.arraycopy(dyv.uData,0,yuvData, dyv.yData.length, dyv.uData.length);
-		System.arraycopy(dyv.vData,0,yuvData,dyv.yData.length + dyv.uData.length,dyv.vData.length);
-		Bitmap bitmap = ImageUtils.convertYuv2Bitmap(yuvData, video_width, video_height);
+//		byte[] yuvData = new byte[dyv.yData.length + dyv.uData.length + dyv.vData.length];
+//		System.arraycopy(dyv.yData,0,yuvData,0,dyv.yData.length);
+//		System.arraycopy(dyv.uData,0,yuvData, dyv.yData.length, dyv.uData.length);
+//		System.arraycopy(dyv.vData,0,yuvData,dyv.yData.length + dyv.uData.length,dyv.vData.length);
+//		Bitmap bitmap = ImageUtils.convertYuv2Bitmap(yuvData, video_width, video_height);
+		mConverter.H264Init();
 
-		if(bitmap != null) {
+		testBitmap();
+
+		if(oldBitmap != null) {
 			if(isCaptrue && !mIsPause){//如果不是暂停抓拍
-				mlistener.CaptureOK(bitmap);
+				mlistener.CaptureOK(oldBitmap);
 				isCaptrue = false;
 			}else if(!isCaptrue && mIsPause){//如果只是暂停
-				pausebitmap = bitmap;
+				pausebitmap = oldBitmap;
 				mIsPauseFlag = true;
 				mhandler.sendEmptyMessage(1);//暂停需再主线程
 			}else{
@@ -599,5 +615,35 @@ public class CodecMode implements ICodecMode, ISimplePlayer {
 		};
 	};
 
+	/**
+	 * 抓拍方法,缓存用于抓拍的数据
+	 *
+	 */
+	private void testBitmap() {
 
+		List<byte[]> list = capBufferData.getList();
+		for (int i = 0; i < list.size(); i++) {
+			byte[] bs =list.get(i);
+			byte[] bs22 = new byte[1920 * 1080 * 2 + 1024];
+			int len2 = mConverter.H264Decode(bs, 0, bs.length, bs22);
+			if (len2 > 0) {
+
+				// Log.e(TAG, "抓拍成功数据:" + Arrays.toString(bs));
+				ByteBuffer bbf = ByteBuffer.wrap(bs22, 0, len2);
+				if (width <= 0 || height <= 0) {
+					width = video_width;
+					height = video_height;
+				}
+				if(oldBitmap == null){
+					oldBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+					bbf.position(0);
+					oldBitmap.copyPixelsFromBuffer(bbf);
+				}
+				Log.e("testBitmap", "testBitmap:========== " +oldBitmap  );
+			}else {
+				oldBitmap = null ;
+			}
+		}
+
+	}
 }

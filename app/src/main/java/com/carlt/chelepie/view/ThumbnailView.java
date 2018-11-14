@@ -48,7 +48,7 @@ import com.carlt.doride.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// 专辑页面
 public class ThumbnailView extends LinearLayout implements RecorderControl.GetTranslateProgressCallback {
 
 	private CoverFlow mGallery;
