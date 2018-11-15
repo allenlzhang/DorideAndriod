@@ -19,6 +19,7 @@ import com.carlt.chelepie.utils.voice.IVoicePlayer;
 import com.carlt.sesame.utility.MyTimeUtil;
 import com.hz17car.chelepie.utility.AVIConverter;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -26,6 +27,8 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
+
+import static java.lang.Thread.sleep;
 
 /**
  * @author @Y.yun
@@ -207,7 +210,8 @@ public class CodecPlayerUtil {
 
 
 	//正式开始播放
-	private void playNow(final String path) {
+	private void playNow(final String path ,final int seek) {
+		Log.e("CodecPlayerUtil", "playNow:=================== " + path );
 		isEnding = false;
 		if (videoCodec == null) {
 			configNewCodec();
@@ -217,19 +221,19 @@ public class CodecPlayerUtil {
 		audioPlayer = new AudioAACPlayer();
 		audioPlayer.startPlayAudio();
 		audioPlayer.setSlience(false);
-		
+
 		new AsyncTask<Void, Void, Void>(){
 			@Override
 			protected Void doInBackground(Void... params) {
 				FileInputStream input = null;
 				try {
-					 if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+					if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 						FileInputStream input2 = new FileInputStream(path);
 						parseLastTime = parseLastTime(input2);
 						//播放
 						input = new FileInputStream(path);
-					    parseMain(input);
-					 }
+						parseMain(input);
+					}
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -245,13 +249,16 @@ public class CodecPlayerUtil {
 						}
 					}
 				}
-			
+
 				return null;
 			}
-			
+
 		}.execute();
 	}
-	
+
+	private void playNow(final  String path){
+		playNow(path,20);
+	}
 	
 
 	/**
@@ -319,13 +326,12 @@ public class CodecPlayerUtil {
 					}
 //					SystemClock.sleep(14);
 					long timeMillis1 = System.currentTimeMillis();
-					switch (uFlag = ByteBuffer.wrap(flag)
-							.order(ByteOrder.BIG_ENDIAN).getInt()) {
-					case 0x000001ba:
+					switch (uFlag = ByteBuffer.wrap(flag).order(ByteOrder.BIG_ENDIAN).getInt()) {
+					case 0x000001ba: //442
 						inputStream.skip(9);// 72 bits
 						inputStream.skip(inputStream.read() & 7); // 8bits
 						break;
-					case 0x000001bc:
+					case 0x000001bc: //444
 //						inputStream.skip(inputStream.read() << 8 | inputStream.read());
 						int pravitedatalength = (inputStream.read() << 8 | inputStream.read());
 						byte[] buf = new byte[pravitedatalength];
@@ -359,7 +365,7 @@ public class CodecPlayerUtil {
 						inputStream.skip(2);
 						inputStream.skip(pesHExtLen = inputStream.read()); // 跳过扩展长度
 
-						if ((uFlag & 0xf0) == 0xe0) {// 视频
+						if ((uFlag & 0xf0) == 0xe0) {// 视频 uFlag = 480 ,0xf0 == 224  0xe0 = true
 
 							if (pesHLen - 3 - pesHExtLen > 0) {
 								inputStream.read(h264Head);
@@ -433,7 +439,7 @@ public class CodecPlayerUtil {
 						break;
 					}
 				}
-				
+
 				inputStream.close();
 				
 		} catch (Exception e) {
@@ -729,5 +735,9 @@ public class CodecPlayerUtil {
 	public static final int TYPE_TIME_STRING = 7;
 	public static final int TYPE_PROCESS = 8;
 	public static final int TYPE_END = 9;
-	
+
+	//跳转到进度位置播放
+	public void VideoSeek(){
+
+	}
 }

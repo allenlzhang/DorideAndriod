@@ -146,8 +146,16 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		videoBack.setOnClickListener(this);
 		// seekbar设置监听
 		seekBar.setOnSeekBarChangeListener(onseekBarListener);
+		seekBar.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Log.d("ACETEST", "监听");
+				return true;
+			}
+		});
+
 		seekBar.setClickable(false);
-		seekBar.setEnabled(false);
+//		seekBar.setEnabled(false);
 		seekBar.setSelected(false);
 		seekBar.setFocusable(false);
 

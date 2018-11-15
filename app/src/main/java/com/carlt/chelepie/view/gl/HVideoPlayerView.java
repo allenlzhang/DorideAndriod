@@ -77,7 +77,7 @@ public class HVideoPlayerView extends SurfaceView implements SurfaceHolder.Callb
 	 * 跳到相应的播放进度
 	 */
 	public void playProgress(int progress){
-		
+
 	}
 
 	/**
