@@ -54,8 +54,8 @@ public class DownloadUpgradeActivity extends BaseActivity implements OnClickList
 			return;
 		}
 
-		String path = getLoaclSavePath();
-		long len = FileUtil.getFileLength(path);
+//		String path = getLoaclSavePath();
+//		long len = FileUtil.getFileLength(path);
 
 		init();
 	}
@@ -93,7 +93,7 @@ public class DownloadUpgradeActivity extends BaseActivity implements OnClickList
 				}
 				break;
 			case 2:
-				UUToast.showUUToast(DownloadUpgradeActivity.this, "下载失败" + msg.obj);
+				UUToast.showUUToast(DownloadUpgradeActivity.this, "下载失败" );
 				if(isGon){
 					onBackPressed();
 				}

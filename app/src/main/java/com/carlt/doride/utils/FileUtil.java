@@ -113,15 +113,17 @@ public class FileUtil {
         } else {
             File file = new File(path);
             try {
-                if (file.exists()) {
-                    FileInputStream fis = null;
-                    fis = new FileInputStream(file);
-                    fileLength = fis.available();
-                } else {
-                    Log.e("info", "文件不存在");
+                if (!file.exists()) {
+                    Log.e("error==", "getFileLength: "+ file.getParentFile().getAbsoluteFile() + path );
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+
                 }
+                FileInputStream fis = null;
+                fis = new FileInputStream(file);
+                fileLength = fis.available();
             } catch (Exception e) {
-                // TODO: handle exception
+                Log.e("error==", "getFileLength: " + e.toString() );
             }
         }
         return fileLength;
