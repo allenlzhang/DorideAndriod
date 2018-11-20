@@ -448,6 +448,7 @@ public class RecorderMainFragment extends BaseFragment implements
                 case 1013:
                     // 固件升级进度
                     int i1 = (Integer) msg.obj;
+                    android.util.Log.e(TAG, "handleMessage: "+ i1 );
                     if (null != mUpgradeDialog) {
                         mUpgradeDialog.setProgressNum(i1);
                     }
@@ -671,6 +672,7 @@ public class RecorderMainFragment extends BaseFragment implements
             mHandler.sendEmptyMessage(1010);
             FileUtil.deleteFile(new File(upGradeFilePath));
             upGradeFilePath = null;
+            MainActivity.localUrl = null ;
             android.util.Log.e(TAG, "onFinished: " );
         }
 

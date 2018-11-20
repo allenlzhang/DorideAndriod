@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 记录仪升级文件路径
      */
-    public String localUrl;
+    public static String localUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
