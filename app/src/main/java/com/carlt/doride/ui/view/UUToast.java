@@ -11,12 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.R;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 
@@ -60,22 +55,22 @@ public class UUToast extends Toast {
 	@SuppressLint("WrongConstant")
 	public static void showUUToast(Context context, CharSequence tex,
 								   int duration) {
-//		if (uuTo == null) {
-//			uuTo = new UUToast(context);
-//		} else {
-//			uuTo.cancel();
-//			uuTo = new UUToast(context);
-//		}
-//		text.setText(tex);
-	//	toast.show();
-		ToastUtils.setGravity(Gravity.CENTER,0,0);
-		ToastUtils.showShort(tex);
-		toastHideHandle.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				ToastUtils.cancel();
-			}
-		}, hideTime);
+		if (uuTo == null) {
+			uuTo = new UUToast(context);
+		} else {
+			uuTo.cancel();
+			uuTo = new UUToast(context);
+		}
+		text.setText(tex);
+		toast.show();
+//		ToastUtils.setGravity(Gravity.CENTER,0,0);
+//		ToastUtils.showShort(tex);
+//		toastHideHandle.postDelayed(new Runnable() {
+//			@Override
+//			public void run() {
+//				ToastUtils.cancel();
+//			}
+//		}, hideTime);
 	}
 
 	public static void showUUToast(Context context, CharSequence tex) {

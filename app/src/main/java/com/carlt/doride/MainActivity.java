@@ -3,7 +3,6 @@ package com.carlt.doride;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,14 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.carlt.chelepie.data.recorder.PieInfo;
-import com.carlt.chelepie.protocolstack.recorder.UpdateFileParser;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.model.LoginInfo;
-import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.CarMainFragment2;
@@ -33,7 +29,6 @@ import com.carlt.doride.ui.fragment.SettingMainFragment;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
-import com.carlt.doride.utils.StringUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -44,7 +39,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * 主页面
@@ -192,7 +186,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } catch (Exception e) {
             // TODO: handle exception
         }
-        Log.e("localUrl", "onResume: "+localUrl );
+        Log.e("localUrl", "onResume: " + localUrl);
     }
 
     protected String[] needPermissions = {
@@ -256,7 +250,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //            }
         //        });
         int tachograph = LoginInfo.getTachograph();
-        //        tachograph = 0;
+        tachograph = 0;
         if (tachograph == 1) {
             //支持记录仪
             mTabllPie.setVisibility(View.VISIBLE);
@@ -332,7 +326,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     transaction.show(mRecorderMainFragemnt);
                 }
-                mRecorderMainFragemnt.upGradeFilePath = localUrl ;
+                mRecorderMainFragemnt.upGradeFilePath = localUrl;
                 transaction.commit();
                 break;
             case 4:

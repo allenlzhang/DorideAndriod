@@ -188,7 +188,7 @@ public abstract class BaseParser<T> {
                         }
                     } else {
                         mBaseResponseInfo.setFlag(BaseResponseInfo.ERRO);
-                        mBaseResponseInfo.setInfo(response.code() + MSG_ERRO);
+                        mBaseResponseInfo.setInfo(MSG_ERRO);
                         mHandler.sendEmptyMessage(1);
                     }
                 }
@@ -264,7 +264,7 @@ public abstract class BaseParser<T> {
                         }
                     } else {
                         mBaseResponseInfo.setFlag(BaseResponseInfo.ERRO);
-                        mBaseResponseInfo.setInfo(response.code() + MSG_ERRO);
+                        mBaseResponseInfo.setInfo(MSG_ERRO);
                         mHandler.sendEmptyMessage(1);
                     }
                 }

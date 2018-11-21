@@ -138,18 +138,22 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
             if (i == 0) {   //左前
                 pa_tv0.setVisibility(View.VISIBLE);
                 pa_tv0.setText(pa);
+                pa_tv0.setTextColor(getResources().getColor(R.color.black));
                 //                temp_tv0.setText(temp);
             } else if (i == 1) {//右前
                 pa_tv1.setVisibility(View.VISIBLE);
                 pa_tv1.setText(pa);
+                pa_tv1.setTextColor(getResources().getColor(R.color.black));
                 //                temp_tv1.setText(temp);
             } else if (i == 2) {//左后
                 pa_tv2.setVisibility(View.VISIBLE);
                 pa_tv2.setText(pa);
+                pa_tv2.setTextColor(getResources().getColor(R.color.black));
                 //                temp_tv2.setText(temp);
             } else if (i == 3) { //右后
                 pa_tv3.setVisibility(View.VISIBLE);
                 pa_tv3.setText(pa);
+                pa_tv3.setTextColor(getResources().getColor(R.color.black));
                 //                temp_tv3.setText(temp);
             } else {
                 //么有五个轮胎

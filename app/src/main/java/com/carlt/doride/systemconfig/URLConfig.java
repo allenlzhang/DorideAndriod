@@ -7,7 +7,7 @@ public class URLConfig {
     public final static int VERSION_FORMAL  = 1001;// 正式服
     public final static int VERSION_PREPARE = 1002;// 预发布服
     public final static int VERSION_TEST    = 1003;// 测试服
-    public static       int flag            = VERSION_TEST;
+    public static       int flag            = VERSION_FORMAL;
     public static String host = "172.20.120.1";// 杭州
     // 端口号
     public final static int FtpPort = 10021;

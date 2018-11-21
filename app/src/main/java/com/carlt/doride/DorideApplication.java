@@ -9,7 +9,6 @@ import android.view.WindowManager;
 
 import com.blankj.utilcode.util.Utils;
 import com.carlt.chelepie.control.WIFIControl;
-import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.view.gl.GLES20Support;
 import com.carlt.chelepie.view.gl.HHVideoView;
 import com.carlt.chelepie.view.gl.IVideoView;
@@ -43,7 +42,7 @@ public class DorideApplication extends Application {
 
     public static String VersionName;
 
-    public static boolean Formal_Version = false;
+    public static boolean Formal_Version = true;
     public static String  TOKEN          = "";
 
     public static android.content.pm.PackageManager PackageManager;
