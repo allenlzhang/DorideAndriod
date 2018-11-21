@@ -168,7 +168,7 @@ public class DeviceConnectManager implements Runnable {
 
 			} catch (Exception e) {
 				mIsThreadRunning = false;
-			//	notifyListeners(DEVICE_CONNECT_TIMEOUT);
+				notifyListeners(DEVICE_CONNECT_TIMEOUT);
 				return;
 			}
 		}

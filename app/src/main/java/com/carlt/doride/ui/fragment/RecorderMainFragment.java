@@ -219,7 +219,7 @@ public class RecorderMainFragment extends BaseFragment implements
 
             if (DeviceConnectManager.isDeviceConnect()) {
 
-                if (upGradeFilePath != null) {
+                if (upGradeFilePath != null ) {
 //固件升级                       // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
                     RecorderControl.GetDeviceUpdate(mUpGradeCallback, upGradeFilePath);
                     mUpgradeDialog = new UUDialogUpgrading(mCtx);
@@ -299,8 +299,7 @@ public class RecorderMainFragment extends BaseFragment implements
                 case 2:
                     // 固件升级成功
                     String info1 = (String) msg.obj;
-                    UUToast.showUUToast(mCtx, info1
-                            + ", 设备即将重启...");
+                    UUToast.showUUToast(mCtx, info1 + ", 设备即将重启...");
                     break;
                 case 3:
                     // 固件升级失败
@@ -339,7 +338,7 @@ public class RecorderMainFragment extends BaseFragment implements
                         // 页面不显示 .. 不开启直播
                         break;
                     }
-                    if (upGradeFilePath != null) {
+                    if (upGradeFilePath != null ) {
 //固件升级                       // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
                         RecorderControl.GetDeviceUpdate(mUpGradeCallback, upGradeFilePath);
                         mUpgradeDialog = new UUDialogUpgrading(mCtx);
@@ -400,6 +399,7 @@ public class RecorderMainFragment extends BaseFragment implements
                     //10012
                 case WIFIControl.WIFI_CONNECT_OK:
                     UUToast.showUUToast(mCtx, "Wi-Fi连接成功");
+                    showVideoLay(true);
                     DeviceConnectManager.StartMessgeLoop();
                     break;
                 case WIFIControl.WIFI_NOT_OPEN:
@@ -673,6 +673,8 @@ public class RecorderMainFragment extends BaseFragment implements
             FileUtil.deleteFile(new File(upGradeFilePath));
             upGradeFilePath = null;
             MainActivity.localUrl = null ;
+            //注销记录仪版本,避免从父升级
+            PieInfo.getInstance().setSoftVersion(null);
             android.util.Log.e(TAG, "onFinished: " );
         }
 

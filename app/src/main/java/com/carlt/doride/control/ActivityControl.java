@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
@@ -218,6 +219,8 @@ public class ActivityControl {
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mIntent);
 
+        //注销记录仪版本
+        PieInfo.getInstance().setSoftVersion(null);
     }
 
     /******** 退出操作 ****************/
