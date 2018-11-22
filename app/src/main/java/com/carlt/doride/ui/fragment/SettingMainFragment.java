@@ -302,7 +302,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
                 break;
             case R.id.btn_sign_out:
-
+                //注销记录仪版本
+                PieInfo.getInstance().setSoftVersion(null);
+                RecorderMainFragment.upGradeFilePath = null;
                 ActivityControl.logout(this.getActivity());
                 break;
             case R.id.llFlowRecharge:

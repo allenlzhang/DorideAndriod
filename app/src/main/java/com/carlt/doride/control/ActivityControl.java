@@ -219,8 +219,7 @@ public class ActivityControl {
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mIntent);
 
-        //注销记录仪版本
-        PieInfo.getInstance().setSoftVersion(null);
+
     }
 
     /******** 退出操作 ****************/

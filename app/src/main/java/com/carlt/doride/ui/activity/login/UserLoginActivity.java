@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
@@ -31,6 +32,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.fragment.RecorderMainFragment;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
@@ -167,6 +169,8 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
 
         super.onResume();
+        MainActivity.localUrl = null ;
+        RecorderMainFragment.upGradeFilePath= null ;
     }
 
     @Override

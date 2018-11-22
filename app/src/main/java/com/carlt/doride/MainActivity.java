@@ -250,7 +250,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //            }
         //        });
         int tachograph = LoginInfo.getTachograph();
-        tachograph = 0;
+//        tachograph = 0;
         if (tachograph == 1) {
             //支持记录仪
             mTabllPie.setVisibility(View.VISIBLE);
