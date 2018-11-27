@@ -62,7 +62,8 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             mFunInfo.setIcon_id(0);
             mFunInfo.setState(mJSON_data.get("remoteStart").getAsInt() + "");
             mRemoteMainInfo.setmFunInfoStop(mFunInfo);
-
+            int hasTachograph = mJSON_data.get("hasTachograph").getAsInt();
+            mRemoteMainInfo.hasTachograph = hasTachograph;
             mFunInfo = new RemoteFunInfo();
             mFunInfo.setId("1");
             mFunInfo.setApi_field("remoteLocked");
@@ -171,7 +172,7 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             mFunInfo.setName("座椅加热");
             mFunInfo.setIcon_id(R.drawable.remote_seat_heating);
             state = mJSON_data.get("remoteSeatHeating").getAsInt() + "";
-//            Logger.e("remoteSeatHeating----" + mJSON_data.get("remoteSeatHeating").getAsInt() + "");
+            //            Logger.e("remoteSeatHeating----" + mJSON_data.get("remoteSeatHeating").getAsInt() + "");
             mFunInfo.setState(state);
             if (state.equals(RemoteFunInfo.STATE_SUPPORT)) {
                 mRemoteMainInfo.addmRemoteFunInfos(mFunInfo);
@@ -184,8 +185,8 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             mFunInfo12.setIcon_id(R.drawable.trunck);
             String state12 = mJSON_data.get("remoteTrunkOn").getAsInt() + "";
             String remoteTrunkOff = mJSON_data.get("remoteTrunkOff").getAsInt() + "";
-//            Logger.e("remoteTrunkOn----" + mJSON_data.get("remoteTrunkOn").getAsInt() + "");
-//            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
+            //            Logger.e("remoteTrunkOn----" + mJSON_data.get("remoteTrunkOn").getAsInt() + "");
+            //            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
             mFunInfo12.setState(state12);
 
             //             仅支持关闭后备箱
@@ -195,7 +196,7 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             mFunInfo14.setName("关闭后备箱");
             mFunInfo14.setIcon_id(R.drawable.trunck);
             String state14 = mJSON_data.get("remoteTrunkOff").getAsInt() + "";
-//            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
+            //            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
             mFunInfo14.setState(state14);
             //            仅支持打开后备箱
             RemoteFunInfo mFunInfo15 = new RemoteFunInfo();
@@ -204,8 +205,8 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             mFunInfo15.setName("打开后备箱");
             mFunInfo15.setIcon_id(R.drawable.trunck);
             String state15 = mJSON_data.get("remoteTrunkOn").getAsInt() + "";
-//            Logger.e("remoteTrunkOn----" + mJSON_data.get("remoteTrunkOn").getAsInt() + "");
-//            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
+            //            Logger.e("remoteTrunkOn----" + mJSON_data.get("remoteTrunkOn").getAsInt() + "");
+            //            Logger.e("remoteTrunkOff----" + mJSON_data.get("remoteTrunkOff").getAsInt() + "");
             mFunInfo15.setState(state15);
 
             if (state12.equals(RemoteFunInfo.STATE_SUPPORT) && remoteTrunkOff.equals(RemoteFunInfo.STATE_SUPPORT)) {
@@ -335,7 +336,7 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
                 if (index != -1) {
                     mFunInfo = new RemoteFunInfo();
                     mFunInfo.setId(RemoteFunInfo.MODE_ANION);
-//                    mFunInfo.setApi_field("close");
+                    //                    mFunInfo.setApi_field("close");
                     mFunInfo.setName("负离子");
                     mFunInfo.setIcon_id(R.drawable.remote_anion_selecter);
                     mFunInfo.setIcon_id_seleced(R.drawable.ic_anion_selected);
@@ -353,7 +354,7 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
                 if (index != -1) {
                     mFunInfo = new RemoteFunInfo();
                     mFunInfo.setId(RemoteFunInfo.MODE_CLEAN);
-//                    mFunInfo.setApi_field("close");
+                    //                    mFunInfo.setApi_field("close");
                     mFunInfo.setName("座舱清洁");
                     mFunInfo.setIcon_id(R.drawable.remote_anion_selecter);
                     mFunInfo.setIcon_id_seleced(R.drawable.ic_anion_selected);

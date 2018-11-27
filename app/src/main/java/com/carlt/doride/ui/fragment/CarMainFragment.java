@@ -189,6 +189,9 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             }
         }, CarIndexInfo.class);
         HashMap params = new HashMap();
+        //        String m_car_main_url = URLConfig.getM_CAR_MAIN_URL();
+        //        String replace = m_car_main_url.replace("126", "130");
+        //        Logger.e(replace);
         parser.executePost(URLConfig.getM_CAR_MAIN_URL(), params);
 
         getBgImage();
@@ -340,7 +343,10 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             }
         });
         HashMap params2 = new HashMap();
-        carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
+        String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
+        String replace = m_car_curcarconfig_url.replace("126", "130");
+//        Logger.e("========" + replace);
+        carOperationConfigParser.executePost(replace, params2);
         //        } else {
         //            loadSuss();
         //        }

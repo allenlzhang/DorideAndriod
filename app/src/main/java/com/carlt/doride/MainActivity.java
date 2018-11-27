@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,7 +19,10 @@ import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
+import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.model.LoginInfo;
+import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.CarMainFragment2;
@@ -28,17 +32,20 @@ import com.carlt.doride.ui.fragment.RemoteMainFragment;
 import com.carlt.doride.ui.fragment.SettingMainFragment;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
+import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.LocalConfig;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * 主页面
@@ -82,7 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         init();
         mFragmentManager = getSupportFragmentManager();
@@ -91,6 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (LoginInfo.getTbox_type().equals("4G")) {
             initFlowInfo();
         }
+
 
     }
 
@@ -249,17 +257,59 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //                UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，存储权限不能用");
         //            }
         //        });
-        int tachograph = LoginInfo.getTachograph();
-        tachograph = 0;
-        if (tachograph == 1) {
-            //支持记录仪
-            mTabllPie.setVisibility(View.VISIBLE);
-        } else {
-            //不支持
-            mTabllPie.setVisibility(View.GONE);
-        }
+        //        int tachograph = LoginInfo.getTachograph();
+        remoteConfig();
+
+
     }
 
+    CarOperationConfigParser carOperationConfigParser;
+
+    private void remoteConfig() {
+        String activateCode = getIntent().getStringExtra("activateCode");
+        Logger.e("========" + activateCode);
+        if (TextUtils.isEmpty(activateCode)) {
+
+
+            //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
+            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
+                @Override
+                public void onSuccess(BaseResponseInfo bInfo) {
+                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+
+
+
+                    ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
+                    //                loadSuss();
+                    if (carOperationConfigParser != null) {
+                        RemoteMainInfo aReturn = carOperationConfigParser.getReturn();
+                        Logger.e("hasTachograph=============" + aReturn.hasTachograph);
+                        if (aReturn.hasTachograph == 1) {
+                            //支持记录仪
+                            mTabllPie.setVisibility(View.VISIBLE);
+                        } else {
+                            //不支持
+                            mTabllPie.setVisibility(View.GONE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(BaseResponseInfo bInfo) {
+                    ILog.e(TAG, "onError" + bInfo.toString());
+                    //                loadonErrorUI((BaseResponseInfo) bInfo);
+                    //                UUToast.showUUToast(getActivity(), bInfo.getInfo());
+                }
+            });
+            HashMap params2 = new HashMap();
+            String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
+            String replace = m_car_curcarconfig_url.replace("126", "130");
+            carOperationConfigParser.executePost(replace, params2);
+        } else {
+            mTabllPie.setVisibility(View.GONE);
+        }
+
+    }
 
     private void setTabSelection(int index) {
         clearSelection();

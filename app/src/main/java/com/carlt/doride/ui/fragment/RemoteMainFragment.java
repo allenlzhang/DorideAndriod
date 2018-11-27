@@ -174,7 +174,9 @@ public class RemoteMainFragment extends BaseFragment implements
             }
         });
         HashMap params2 = new HashMap();
-        carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
+        String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
+        String replace = m_car_curcarconfig_url.replace("126", "130");
+        carOperationConfigParser.executePost(replace, params2);
         //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
         //            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
         //                @Override

@@ -166,6 +166,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                     ActivityControl.initXG();
                     //                    LoginControl.logic(ActivateBindActivity.this);
                     Intent intent = new Intent(ActivateBindActivity.this, MainActivity.class);
+                    intent.putExtra("activateCode", 202);
                     startActivity(intent);
                     finish();
                     break;

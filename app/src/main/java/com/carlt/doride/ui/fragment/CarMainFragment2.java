@@ -51,7 +51,7 @@ import java.util.HashMap;
  * Created by liu on 2018/3/16.
  */
 
-public class CarMainFragment2 extends BaseFragment implements View.OnClickListener,WIFIControl.WIFIConnectListener {
+public class CarMainFragment2 extends BaseFragment implements View.OnClickListener, WIFIControl.WIFIConnectListener {
     private static String TAG = "CarMainFragment";
 
     private CarIndexInfo carinfo;
@@ -91,7 +91,7 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
             WIFIControl.DisConnectChelePai();
             loadData();
             //            remoteConfig();
-        }else {
+        } else {
             WIFIControl.unRigisterWIFIConnectListener(this);
         }
     }
@@ -189,6 +189,8 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
             }
         }, CarIndexInfo.class);
         HashMap params = new HashMap();
+//        String m_car_main_url = URLConfig.getM_CAR_MAIN_URL();
+//        String replace = m_car_main_url.replace("126", "130");
         parser.executePost(URLConfig.getM_CAR_MAIN_URL(), params);
 
         getBgImage();
@@ -283,11 +285,11 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
                     }
 
 
-//                    if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
-//                        tvRenewal.setText("--");
-//                    } else {
-//                        tvRenewal.setText(carMilesInfo.enduranceMile);
-//                    }
+                    //                    if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
+                    //                        tvRenewal.setText("--");
+                    //                    } else {
+                    //                        tvRenewal.setText(carMilesInfo.enduranceMile);
+                    //                    }
 
                     if (TextUtils.isEmpty(carMilesInfo.vBat)) {
                         tvBattery.setText("--");
@@ -347,7 +349,9 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
             }
         });
         HashMap params2 = new HashMap();
-        carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
+        String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
+        String replace = m_car_curcarconfig_url.replace("126", "130");
+        carOperationConfigParser.executePost(replace, params2);
         //        } else {
         //            loadSuss();
         //        }
@@ -367,7 +371,7 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
             } else if (TextUtils.equals("0", carinfo.getIsrunning())) {
                 headTxt.setText("爱车休息中");
                 tvCarState.setText("爱车休息中");
-            }else if(carinfo.getIsrunning().equals("2")){
+            } else if (carinfo.getIsrunning().equals("2")) {
                 headTxt.setText("爱车已上电");
                 tvCarState.setText("爱车已上电");
             }

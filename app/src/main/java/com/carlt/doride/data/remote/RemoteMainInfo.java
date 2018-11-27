@@ -24,6 +24,7 @@ public class RemoteMainInfo extends BaseResponseInfo {
 	private static String deviceCategory;
 
 	private String functionCount;// 远程支持项总数
+	public int hasTachograph;// 远程支持项总数
 
 	private RemoteFunInfo mFunInfoStart;// 启动功能
 	private RemoteFunInfo mFunInfoStop;// 熄火功能
