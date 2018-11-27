@@ -87,7 +87,7 @@ public class RecorderMainFragment extends BaseFragment implements
     UUDialogUpgrading mUpgradeDialog;
     WIFIConnectDialog mWIFIDialog;
     WIFIControl mWifiControl = null;
-    public  String upGradeFilePath ;
+    public static String upGradeFilePath ;
     boolean isLivePlay = false;
     EditDialog2 mDialog;
     private WifiListDialog mWifiListDialog;
@@ -218,7 +218,7 @@ public class RecorderMainFragment extends BaseFragment implements
         isLivePlay = true;
 
             if (DeviceConnectManager.isDeviceConnect()) {
-
+                android.util.Log.e(TAG, "upGradeFilePath: " + upGradeFilePath );
                 if (upGradeFilePath != null ) {
 //固件升级                       // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
                     RecorderControl.GetDeviceUpdate(mUpGradeCallback, upGradeFilePath);
@@ -338,6 +338,7 @@ public class RecorderMainFragment extends BaseFragment implements
                         // 页面不显示 .. 不开启直播
                         break;
                     }
+                    android.util.Log.e(TAG, "upGradeFilePath: " + upGradeFilePath );
                     if (upGradeFilePath != null ) {
 //固件升级                       // if (localUrl != null && DeviceIdUtils.getNeedUpdate()) {
                         RecorderControl.GetDeviceUpdate(mUpGradeCallback, upGradeFilePath);

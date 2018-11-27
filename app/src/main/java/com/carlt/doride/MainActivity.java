@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,10 +18,7 @@ import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
-import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.model.LoginInfo;
-import com.carlt.doride.protocolparser.BaseParser;
-import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.CarMainFragment2;
@@ -32,20 +28,17 @@ import com.carlt.doride.ui.fragment.RemoteMainFragment;
 import com.carlt.doride.ui.fragment.SettingMainFragment;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
-import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.LocalConfig;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * 主页面
@@ -89,7 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         init();
         mFragmentManager = getSupportFragmentManager();
@@ -308,8 +301,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             mTabllPie.setVisibility(View.GONE);
         }
-
     }
+
 
     private void setTabSelection(int index) {
         clearSelection();
