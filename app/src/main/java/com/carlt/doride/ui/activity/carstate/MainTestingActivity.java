@@ -64,7 +64,7 @@ public class MainTestingActivity extends LoadingActivity {
         showWaitingDialog(null);
         DefaultParser<WaringLampInfo> defaultParser = new DefaultParser<>(mCallback, WaringLampInfo.class);
         String url = URLConfig.getM_REMOTE_WARNINGLAMP();
-        String replace = url.replace("100", "101");
+        String replace = url.replace("100", "102");
         defaultParser.executePost(replace, new HashMap());
     }
 
@@ -80,6 +80,7 @@ public class MainTestingActivity extends LoadingActivity {
         dissmissWaitingDialog();
         Logger.e("-----" + bInfo.toString());
         waringLampInfo = (WaringLampInfo) ((BaseResponseInfo) bInfo).getValue();
+        Logger.e("-----" + waringLampInfo);
         if (waringLampInfo != null) {
             //            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
             safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));

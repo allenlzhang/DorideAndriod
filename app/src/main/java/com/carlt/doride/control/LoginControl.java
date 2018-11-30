@@ -71,7 +71,9 @@ public class LoginControl {
                     if (LoginInfo.getApp_type() == 1) {
                         // 大乘绑定和激活合并，如果激活直接进入主页
                         mainIntent = new Intent(mContext, MainActivity.class);
-                    } else {
+                        mContext.startActivity(mainIntent);
+                        mContext.finish();
+                    } else if (LoginInfo.getApp_type() == 2) {
                         if (SesameLoginInfo.isFreezing()) {
                             // 处在冻结状态
                             mainIntent = new Intent(mContext, FreezeActivity.class);
@@ -79,10 +81,13 @@ public class LoginControl {
                         } else {
                             mainIntent = new Intent(mContext, SesameMainActivity.class);
                         }
-
+                        mContext.startActivity(mainIntent);
+                        mContext.finish();
+                    }else {
+//                        ToastUtils.showShort();
                     }
-                    mContext.startActivity(mainIntent);
-                    mContext.finish();
+
+
 
                     break;
                 default:
@@ -164,7 +169,7 @@ public class LoginControl {
             if (app_type == 2) {
                 // 大乘
                 parseSesameLoginInfo(data);
-            } else {
+            } else if (app_type == 1) {
                 // 芝麻
                 parseDorideLoginInfo(data);
             }

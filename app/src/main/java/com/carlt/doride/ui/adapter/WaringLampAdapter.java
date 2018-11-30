@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,13 @@ public class WaringLampAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
+
         WaringLampItemInfo info = mList.get(i);
+        if (TextUtils.isEmpty(info.getTxt())) {
+            view.setVisibility(View.GONE);
+        }else {
+            view.setVisibility(View.VISIBLE);
+        }
         viewHolder.ivState.setImageResource(info.getIconState());
         viewHolder.ivIcon.setImageResource(info.icon);
         viewHolder.tvName.setText(info.getTxt());

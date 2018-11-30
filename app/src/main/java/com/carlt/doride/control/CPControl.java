@@ -650,12 +650,13 @@ public class CPControl {
 
                 // 链接地址
                 String url = URLConfig.getM_CAR_CURCARCONFIG_URL();
+                String replace = url.replace("126", "130");
                 // Post参数
                 String post = CreatPostString.getOperationConfig();
 
                 CarConfigParser mParser = new CarConfigParser();
                 com.carlt.sesame.data.BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
+                        .getBaseResponseInfo(replace, post);
                 if (listener != null) {
                     if (mBaseResponseInfo.getFlag() == com.carlt.sesame.data.BaseResponseInfo.SUCCESS) {
                         listener.onFinished(SesameLoginInfo.getRemoteMainInfo());

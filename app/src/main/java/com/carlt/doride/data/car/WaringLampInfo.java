@@ -32,16 +32,30 @@ public class WaringLampInfo extends BaseResponseInfo {
      * WATERTMP : 1
      */
 
-    public int ABS;
-    public int ENGINELAMP;
-    public int EPB;
-    public int ESP;
-    public int Grade;
-    public int MTLAMP;
-    public int SRS;
-    public int TPMS;
-    public int WATERTMP;
-    public int CheckTime;
+    public int ABS        = -1;
+    public int ENGINELAMP = -1;
+    public int EPB        = -1;
+    public int ESP        = -1;
+    public int Grade      = -1;
+    public int MTLAMP     = -1;
+    public int SRS        = -1;
+    public int TPMS       = -1;
+    public int WATERTMP   = -1;
+    public int CheckTime  = -1;
 
-
+    @Override
+    public String toString() {
+        return "WaringLampInfo{" +
+                "ABS=" + ABS +
+                ", ENGINELAMP=" + ENGINELAMP +
+                ", EPB=" + EPB +
+                ", ESP=" + ESP +
+                ", Grade=" + Grade +
+                ", MTLAMP=" + MTLAMP +
+                ", SRS=" + SRS +
+                ", TPMS=" + TPMS +
+                ", WATERTMP=" + WATERTMP +
+                ", CheckTime=" + CheckTime +
+                '}';
+    }
 }
