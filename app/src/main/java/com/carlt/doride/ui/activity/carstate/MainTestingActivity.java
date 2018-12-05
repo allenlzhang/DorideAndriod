@@ -84,7 +84,7 @@ public class MainTestingActivity extends LoadingActivity {
         if (waringLampInfo != null) {
             //            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
             safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
-            if (waringLampInfo.CheckTime == 0) {
+            if (waringLampInfo.CheckTime == -1) {
                 tvTitle.setText("自检得分:");
                 safyHeadTV.setVisibility(View.VISIBLE);
             } else {
