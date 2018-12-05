@@ -172,6 +172,8 @@ public class DorideApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //加入崩溃日志写入
+        CrashHandler.getInstance().init(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
         Utils.init(this);
         URLConfig.addUrl();

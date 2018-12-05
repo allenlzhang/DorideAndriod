@@ -12,6 +12,7 @@ import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -209,6 +210,9 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 
 		case R.id.video_back:
 		//	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			if(mVideoView!=null){
+				mVideoView.stopVideo();
+			}
 			finish();
 			break;
 
@@ -686,5 +690,17 @@ public class PlayerActivity extends BaseActivity implements OnClickListener {
 		RecorderControl.stopDownLoadFile(pieInfo);
 
 
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Log.e(TAG, "onKeyDown: ===========KEYCODE_BACK=========" );
+			if(mVideoView!=null){
+				mVideoView.stopVideo();
+			}
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

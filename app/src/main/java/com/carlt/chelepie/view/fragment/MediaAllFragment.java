@@ -348,12 +348,22 @@ public class MediaAllFragment extends BaseFragment {
 	}
 
 	public void loadNodata(){
-		layoutNodata.setVisibility(View.VISIBLE);
-		mSwipeRefreshLayout.setVisibility(View.GONE);
+		if(layoutNodata!=null){
+			layoutNodata.setVisibility(View.VISIBLE);
+		}
+		if(mSwipeRefreshLayout != null){
+			mSwipeRefreshLayout.setVisibility(View.GONE);
+		}
 	}
 	public void loadSuccess(){
-		layoutNodata.setVisibility(View.GONE);
-		mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+		if(layoutNodata!=null){
+			layoutNodata.setVisibility(View.GONE);
+		}
+
+		if(mSwipeRefreshLayout != null){
+			mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+		}
+
 	}
 	// 橫屏不重新加載activity，調用該方法
 	@Override
