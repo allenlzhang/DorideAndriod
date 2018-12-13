@@ -21,6 +21,7 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.SegmentControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
+import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -47,6 +47,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -112,6 +113,9 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     private void initData() {
         //        getFlowProductList();
         loadingDataUI();
+
+
+        Logger.e(URLConfig.getClientID() + "\n" +LoginInfo.getDealerId() + "\n"+ LoginInfo.getAccess_token());
         OkGo.<String>post(URLConfig.getmTrafficWarnningUrl())
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
@@ -158,14 +162,14 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
         }
-
 
     }
 
     private void getFlowProductList() {
+        Logger.e(URLConfig.getmTrafficPurchaseUrl() );
+
+
         OkGo.<String>post(URLConfig.getmTrafficPurchaseUrl())
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
@@ -427,10 +431,12 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     private void changePackageFlow(String item) {
         tvPriceEmptyHint.setVisibility(View.GONE);
         mPorgressDialog.show();
+
         CPControl.getCalculatePrice(item, "4", new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
-                //                LogUtils.e(bInfo.getValue());
+
+                Logger.e(bInfo.toString()+ "==========changePackageFlow=============");
                 mPorgressDialog.dismiss();
                 parsePackagePrice(bInfo);
             }
@@ -438,6 +444,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
             @Override
             public void onError(BaseResponseInfo bInfo) {
                 mPorgressDialog.dismiss();
+                Logger.e(bInfo.toString()+ "==========onError=============");
             }
         });
 
@@ -560,8 +567,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         Gson gson = new Gson();
         FlowPackageOrderInfo orderInfo = gson.fromJson(value.toString(), FlowPackageOrderInfo.class);
         //调起支付
-        CPControl.GetToPay(mPayHandler,
-                FlowPackageRechargeActivity.this, orderInfo.request_param, false);
+        CPControl.GetToPay(mPayHandler, FlowPackageRechargeActivity.this, orderInfo.request_param, false);
         //                CPControl.GetToPay(mPayHandler,
         //                        FlowPackageRechargeActivity.this, p2, false);
     }

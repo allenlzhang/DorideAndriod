@@ -59,4 +59,14 @@ public class TrafficPackagePurchaseLogListInfo{
     public void setHas_next(boolean has_next) {
         this.has_next = has_next;
     }
+
+    @Override
+    public String toString() {
+        return "TrafficPackagePurchaseLogListInfo{" +
+                "limit=" + limit +
+                ", offset=" + offset +
+                ", has_next=" + has_next +
+                ", mLogInfoList=" + mLogInfoList +
+                '}';
+    }
 }
