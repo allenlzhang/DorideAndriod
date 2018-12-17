@@ -550,7 +550,19 @@ public class CPControl {
         mapParam.put("package_type", packType);
         paser.executePost(URLConfig.getmCalculatePriceUrl(), mapParam);
     }
+    /**
+     * Description : 获取套餐价格
+     */
+    public static void getCarCalculatePrice(String packName, String packType, BaseParser.ResultCallback callback) {
 
+        DefaultStringParser paser = new DefaultStringParser(callback);
+        HashMap mapParam = new HashMap();
+        mapParam.put("package_name", packName);
+        mapParam.put("package_type", packType);
+        String car_flow_caculte_price_url = URLConfig.getCAR_FLOW_CACULTE_PRICE_URL();
+        String replace = car_flow_caculte_price_url.replace(DorideApplication.Version_API + "", "140");
+        paser.executePost(replace, mapParam);
+    }
     public static void getFlowPackageCheckPayResult(String resultStatus, String result, BaseParser.ResultCallback callback) {
 
         DefaultStringParser paser = new DefaultStringParser(callback);
@@ -589,6 +601,14 @@ public class CPControl {
         mapParam.put("softtype", "android");
         mapParam.put("version", DorideApplication.Version_API + "");
         paser.executePost(URLConfig.getmTrafficAlipayUrl(), mapParam);
+    } public static void getCarFlowPackageOrderResult(String id, BaseParser.ResultCallback callback) {
+
+        DefaultStringParser paser = new DefaultStringParser(callback);
+        HashMap mapParam = new HashMap();
+        mapParam.put("product_id", id);
+        mapParam.put("softtype", "android");
+        mapParam.put("version", DorideApplication.Version_API + "");
+        paser.executePost(URLConfig.getCAR_FLOW_ALI_PAY_URL(), mapParam);
     }
 
     public static void GetPushXgTokenResult(String xgtoken, String move_deviceid, BaseParser.ResultCallback listener) {

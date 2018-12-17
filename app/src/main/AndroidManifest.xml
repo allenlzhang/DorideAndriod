@@ -50,7 +50,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BATTERY_STATS"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -95,163 +94,245 @@
             android:name=".ui.activity.login.UserLoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.home.RemindActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.home.ReportActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.home.MonthActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.home.DayActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.home.InformationCentreActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.home.GpsTrailActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".ui.activity.home.RemindActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.CarSaftyListActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.MainTestingActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.CarStateNowActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.CarLocationActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.CarSynchronizeLocationActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.SearchAddrActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.remote.RemoteLogActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.home.ReportActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.home.MonthActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.home.DayActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.home.InformationCentreActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.home.GpsTrailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.CarSaftyListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.MainTestingActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.CarStateNowActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.CarLocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.CarSynchronizeLocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.SearchAddrActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.remote.RemoteLogActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.login.DeviceBindActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <activity android:name=".ui.activity.login.ResetPasswdActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.login.ActivateBindActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.login.UserRegisterActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.PersonInfoActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.CarManagerActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.TravelAlbumActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.PhotoDisplayActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.MaintenanceMileageEditActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.NicknameEditActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.login.ResetPasswdActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.login.ActivateBindActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.login.UserRegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.PersonInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.CarManagerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.TravelAlbumActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.PhotoDisplayActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.MaintenanceMileageEditActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.NicknameEditActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.setting.AboutDorideActivity"/>
-        <activity android:name=".ui.activity.setting.PhoneAuthenticationActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.ResetCetifiedPhoneActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.AccountSecurityActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.CarTiresStateActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.RemotePasswdManageActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.ResetRemotePasswdActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.VcodeResetRemotePasswdActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.MsgManageActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.DeviceManageActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.LoginPasswdManageActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.ResetLoginPasswdActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.VcodeResetPasswdActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.TermsDeclareActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.CarModeListActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.CarTypeListActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.setting.PersonAvatarActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.FindCarActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.carstate.LocationSynchronizeActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.remote.RemotePswResetActivity3"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarConditionActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarFillIllegalActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarListActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarForHelpActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarMainActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalDetailActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarSafetyActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarTestActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.CarTirePressureActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.FindCarActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.NavigationTocarActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.car.SearchAddrActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.AddressMapActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.CareerMainActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.MaintainLogActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.MaintainLogDetialActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.RewardDetailActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryActivityNew"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryAppointmentActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryRemoteActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.career.SecretaryTipsActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteLogActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.AuthorActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.FreezeActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.LoginLogActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.ManagePswActiviy"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.MobileListActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.RealNameActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswEditActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity1"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.PhoneAuthenticationActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.ResetCetifiedPhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.AccountSecurityActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.CarTiresStateActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.RemotePasswdManageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.ResetRemotePasswdActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.VcodeResetRemotePasswdActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.MsgManageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.DeviceManageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.LoginPasswdManageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.ResetLoginPasswdActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.VcodeResetPasswdActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.TermsDeclareActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.CarModeListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.CarTypeListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.setting.PersonAvatarActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.FindCarActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.carstate.LocationSynchronizeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.remote.RemotePswResetActivity3"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarConditionActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarFillIllegalActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarForHelpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarQueryIllegalDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarSafetyActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarTestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.CarTirePressureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.FindCarActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.NavigationTocarActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.car.SearchAddrActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.AddressMapActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.CareerMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.MaintainLogActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.MaintainLogDetialActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.RewardDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.SecretaryActivityNew"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.SecretaryAppointmentActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.SecretaryRemoteActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.career.SecretaryTipsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.remote.RemoteLogActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.remote.RemoteMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.remote.RemoteMainNewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.AuthorActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.FreezeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.LoginLogActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.ManagePswActiviy"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.MobileListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.RealNameActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.RemotePswActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.RemotePswEditActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity1"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.scan.ScanActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.scan.CarFlowPackageRechargeActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity2"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity3"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.SafetyMainActivity"/>
@@ -287,19 +368,15 @@
         <activity android:name="com.carlt.sesame.ui.activity.usercenter.ResetPasswordActivity"/>
         <activity android:name=".ui.activity.setting.TrafficPackagePurchaseLogActivity"/>
         <activity android:name=".ui.activity.login.ActivateHelpActivity"/>
-
         <activity android:name="com.carlt.chelepie.view.activity.ActivityWithTitle"/>
         <activity android:name="com.carlt.chelepie.view.activity.EditPienameActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.HasDownListActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name="com.carlt.chelepie.view.activity.HasDownListActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManagePieActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManageStorageActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.ManageTimesActivity"/>
-        <activity android:name="com.carlt.chelepie.view.activity.MyMediaListActivity"
-
-            >
-
+        <activity android:name="com.carlt.chelepie.view.activity.MyMediaListActivity">
         </activity>
         <activity android:name="com.carlt.chelepie.view.activity.PicViewPagerActivity"/>
         <activity android:name="com.carlt.chelepie.view.activity.VideoQualityActivity"/>
@@ -318,7 +395,6 @@
             android:name="com.carlt.chelepie.view.activity.PlayerActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
         </activity>
         <activity
             android:name="com.carlt.chelepie.view.activity.FullPlayActivity"
@@ -433,7 +509,11 @@
             android:launchMode="singleInstance"/>
         <activity android:name=".ui.activity.setting.FlowPackageRechargeActivity">
         </activity>
-        <activity android:name="com.carlt.chelepie.view.activity.DownloadUpgradeActivity"></activity>
+        <activity android:name="com.carlt.chelepie.view.activity.DownloadUpgradeActivity"/>
+        <activity android:name=".ui.activity.scan.InitCarSimActivity">
+        </activity>
+        <activity android:name=".ui.activity.scan.CheckPhoneActivity">
+        </activity>
     </application>
 
 </manifest>

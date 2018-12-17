@@ -14,6 +14,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@mipmap/iv_top_logo"/>
+
+        <ImageView
+            android:id="@+id/ivScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/ic_scaner"/>
     </FrameLayout>
 
     <ScrollView
@@ -271,6 +279,58 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_toRightOf="@+id/tvFlow"
+                        android:src="@drawable/icon_dot"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/arrow_right"/>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/lineCarFlow"
+                    style="@style/setting_page_item_divider"
+                    android:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/llCarFlowRecharge"
+                    style="@style/setting_page_item_style"
+                    android:layout_width="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/ic2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/ic_flow"/>
+
+                    <TextView
+                        android:id="@+id/tvCarFlow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="14dp"
+                        android:layout_toRightOf="@+id/ic2"
+                        android:gravity="center_vertical"
+                        android:text="车机流量充值"
+                        android:textColor="@color/main_page_linear_border"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/icCarFlowDot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/tvCarFlow"
                         android:src="@drawable/icon_dot"
                         android:visibility="gone"/>
 

@@ -4,15 +4,15 @@ package com.carlt.doride.systemconfig;
 import com.carlt.doride.DorideApplication;
 
 public class URLConfig {
-    public final static int VERSION_FORMAL  = 1001;// 正式服
-    public final static int VERSION_PREPARE = 1002;// 预发布服
-    public final static int VERSION_TEST    = 1003;// 测试服
-    public static       int flag            = VERSION_TEST;
-    public static String host = "172.20.120.1";// 杭州
+    public final static  int    VERSION_FORMAL  = 1001;// 正式服
+    public final static  int    VERSION_PREPARE = 1002;// 预发布服
+    public final static  int    VERSION_TEST    = 1003;// 测试服
+    public static        int    flag            = VERSION_TEST;
+    public static        String host            = "172.20.120.1";// 杭州
     // 端口号
-    public final static int FtpPort = 10021;
+    public final static  int    FtpPort         = 10021;
     // 车乐测试服务器
-    private final static String C1 = "0896756ebec5bc62a51b15b9a7541901";
+    private final static String C1              = "0896756ebec5bc62a51b15b9a7541901";
 
     // 车乐正式服务器
     public final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
@@ -27,13 +27,15 @@ public class URLConfig {
     public final static String U1_DORIDE = "http://dorideapi.geni4s.com/";
 
     // 远程下发-正式服务器
-    private final static String U_R1 = "https://remote-doride.geni4s.com/";
+    private final static String U_R1                  = "https://remote-doride.geni4s.com/";
     // 远程下发-预发布服务器
-    private final static String U_R2 = "https://pre-remote-doride.geni4s.com/";
+    private final static String U_R2                  = "https://pre-remote-doride.geni4s.com/";
     // 大乘下发-测试服务器
-    private final static String U_R3 = "http://remote-doride.linewin.cc/";
+    private final static String U_R3                  = "http://remote-doride.linewin.cc/";
+    private final static String BASE_CAR_SIM_URL_TEST = "http://simcard.linewin.cc/";
     // 摄像头固件升级
-    private static String M_REMOTE_UPGRADE = "comm/upgrade";
+    private static       String M_REMOTE_UPGRADE      = "comm/upgrade";
+
     // 获取DORIDE API URL
     private static String getDorideURL(String s) {
         String version = DorideApplication.Version_API + "/";
@@ -107,6 +109,56 @@ public class URLConfig {
         }
         return clientId;
     }
+
+    private static String getCarSimUrl(String s) {
+        if (DorideApplication.Formal_Version) {
+            return BASE_CAR_SIM_URL_TEST + s;
+        } else {
+            switch (flag) {
+                case VERSION_FORMAL:
+                    // 正式服
+                    return BASE_CAR_SIM_URL_TEST + s;
+
+                case VERSION_TEST:
+                    // 测试服
+                    return BASE_CAR_SIM_URL_TEST + s;
+                default:
+                    return BASE_CAR_SIM_URL_TEST + s;
+            }
+        }
+    }
+
+    //检查ccid是否已经绑定
+    private static String CAR_CHECK_CCID_URL         = "V1/carmachine/checkccidisbind";
+    private static String CAR_BIND_SIM_URL           = "V1/carmachine/bind";
+    private static String CAR_INIT_SIM_URL           = "V1/carmachine/initgprs";
+    private static String CAR_CHECK_BIND_URL         = "V1/carmachine/checkcaridisbind";
+    private static String CAR_FLOW_PACKAGE_INFO_URL  = "carPackage/getInfo";
+    private static String CAR_FLOW_PRODUCT_LIST_URL  = "carPackage/getProductList";
+    private static String CAR_FLOW_CACULTE_PRICE_URL = "carPackage/calculatePrice";
+    private static String CAR_FLOW_PAY_LOG_URL       = "carPackage/payLog";
+    private static String CAR_FLOW_ALI_PAY_URL       = "carPackage/aliPay";
+
+    public static String getCAR_FLOW_PACKAGE_INFO_URL() {
+        return getDorideURL(CAR_FLOW_PACKAGE_INFO_URL);
+    }
+
+    public static String getCAR_FLOW_PRODUCT_LIST_URL() {
+        return getDorideURL(CAR_FLOW_PRODUCT_LIST_URL);
+    }
+
+    public static String getCAR_FLOW_CACULTE_PRICE_URL() {
+        return getDorideURL(CAR_FLOW_CACULTE_PRICE_URL);
+    }
+
+    public static String getCAR_FLOW_PAY_LOG_URL() {
+        return getDorideURL(CAR_FLOW_PAY_LOG_URL);
+    }
+
+    public static String getCAR_FLOW_ALI_PAY_URL() {
+        return getDorideURL(CAR_FLOW_ALI_PAY_URL);
+    }
+
     // 流量包-充值记录列表
     private static String M_TRAFFIC_PAYLOG_URL = "package/payLog";
 
@@ -119,17 +171,17 @@ public class URLConfig {
     // 流量包-提醒
     private static String M_TRAFFIC_WARNNING_URL = "package/getInfo";
     //获取指定流量套餐价格
-    private static String M_CALCULATE_PRICE_URL = "package/calculatePrice";
+    private static String M_CALCULATE_PRICE_URL  = "package/calculatePrice";
     // 续费-支付回调验证
-    private static String M_TRAFFIC_SYNCAPI_URL = "package/syncApi";
+    private static String M_TRAFFIC_SYNCAPI_URL  = "package/syncApi";
     // 新版登录
-    private static String M_LOGIN_NEW_URL = "user/login";
+    private static String M_LOGIN_NEW_URL        = "user/login";
 
     // 新版注册
-    private static String M_REGISTER_NEW_URL = "user/register";
-    private static String M_CheckIsActivate_URL       = "car/checkIsActivate";
+    private static String M_REGISTER_NEW_URL    = "user/register";
+    private static String M_CheckIsActivate_URL = "car/checkIsActivate";
     // 获取设备升级状态
-    private static String M_DEVICEUPDATE_URL = "user/checkIsUpgrade";
+    private static String M_DEVICEUPDATE_URL    = "user/checkIsUpgrade";
 
     // 新版发送验证码
     private static String M_VALIDATE_NEW_URL = "user/setValidate";
@@ -259,6 +311,7 @@ public class URLConfig {
     private static String M_GET_PUSH_SET                = "user/getPushSet";
     //更新推送设置
     private static String M_UPDATE_PUSH_SET             = "user/updatePushSet";
+    private static String M_CHECK_VALIDATE              = "user/checkValidate";
 
     //获取经销商信息
     private static String M_GET_DEALER_INFO = "dealer/getDealerInfo";
@@ -285,6 +338,22 @@ public class URLConfig {
 
     //注销信鸽token
     private static String M_REMOVERXGPUSH_URL = "user/clearXingeToken";
+
+    public static String getCAR_CHECK_CCID_URL() {
+        return getCarSimUrl(CAR_CHECK_CCID_URL);
+    }
+
+    public static String getCAR_BIND_SIM_URL() {
+        return getCarSimUrl(CAR_BIND_SIM_URL);
+    }
+
+    public static String getCAR_INIT_SIM_URL() {
+        return getCarSimUrl(CAR_INIT_SIM_URL);
+    }
+
+    public static String getCAR_CHECK_BIND_URL() {
+        return getCarSimUrl(CAR_CHECK_BIND_URL);
+    }
 
     public static String getM_REMOVERXGPUSH_URL() {
         return getDorideURL(M_REMOVERXGPUSH_URL);
@@ -317,9 +386,11 @@ public class URLConfig {
     public static String getM_SECURITY_MESSAGE_URL() {
         return getDorideURL(M_SECURITY_MESSAGE_URL);
     }
+
     public static String getCheckIsActivate_URL() {
         return getDorideURL(M_CheckIsActivate_URL);
     }
+
     public static String getM_REPORTDAY_URL() {
         return getDorideURL(M_REPORTDAY_URL);
     }
@@ -407,6 +478,7 @@ public class URLConfig {
     public static String getM_CAR_CURCARCONFIG_URL() {
         return getDorideURL(M_CAR_CURCARCONFIG_URL);
     }
+
     public static String getmTrafficPaylogUrl() {
         return getDorideURL(M_TRAFFIC_PAYLOG_URL);
     }
@@ -422,12 +494,15 @@ public class URLConfig {
     public static String getmTrafficWarnningUrl() {
         return getDorideURL(M_TRAFFIC_WARNNING_URL);
     }
+
     public static String getmCalculatePriceUrl() {
         return getDorideURL(M_CALCULATE_PRICE_URL);
     }
+
     public static String getmTrafficSyncapiUrl() {
         return getDorideURL(M_TRAFFIC_SYNCAPI_URL);
     }
+
     public static String getM_SWITCHCAR_URL() {
         return getUrlRemote(M_SWITCHCAR_URL);
     }
@@ -578,6 +653,10 @@ public class URLConfig {
 
     public static String getM_UPDATE_PUSH_SET() {
         return getDorideURL(M_UPDATE_PUSH_SET);
+    }
+
+    public static String getM_CHECK_VALIDATE() {
+        return getDorideURL(M_CHECK_VALIDATE);
     }
 
     public static String getM_OSS_UPLOAD_URL() {

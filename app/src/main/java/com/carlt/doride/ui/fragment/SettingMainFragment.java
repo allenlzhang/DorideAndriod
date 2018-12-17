@@ -7,30 +7,34 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.chelepie.data.recorder.PieInfo;
-import com.carlt.chelepie.data.recorder.UpgradeInfo;
-import com.carlt.chelepie.protocolstack.recorder.UpdateFileParser;
-import com.carlt.chelepie.view.activity.DownloadUpgradeActivity;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.DealerInfo;
+import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.car.CarDealerParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.activity.scan.CarFlowPackageRechargeActivity;
+import com.carlt.doride.ui.activity.scan.CheckPhoneActivity;
 import com.carlt.doride.ui.activity.setting.AboutDorideActivity;
 import com.carlt.doride.ui.activity.setting.AccountSecurityActivity;
 import com.carlt.doride.ui.activity.setting.CarManagerActivity;
@@ -40,11 +44,13 @@ import com.carlt.doride.ui.activity.setting.MsgManageActivity;
 import com.carlt.doride.ui.activity.setting.PersonInfoActivity;
 import com.carlt.doride.ui.activity.setting.TravelAlbumActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
+import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.CacheUtils;
 import com.carlt.doride.utils.DensityUtil;
 import com.carlt.doride.utils.LoadLocalImageUtil;
-import com.carlt.doride.utils.StringUtils;
 import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -53,14 +59,16 @@ import com.orhanobut.logger.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.zip.CRC32;
 
 
 /**
  * Created by marller on 2018\3\14 0014.
  */
 
-public class SettingMainFragment extends BaseFragment implements View.OnClickListener,WIFIControl.WIFIConnectListener {
+public class SettingMainFragment extends BaseFragment implements View.OnClickListener, WIFIControl.WIFIConnectListener {
 
     private static final String TAG = SettingMainFragment.class.getSimpleName();
 
@@ -70,8 +78,10 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     private View btn_person_info;//用户信息item
     private View llFlowRecharge;//流量充值
+    private View llCarFlowRecharge;//流量充值
     private View icFlowDot;//流量提醒
     private View lineFlow;
+    private View lineCarFlow;
     private View btn_travel_album;//旅行相册item
     private View btn_account_security;//账号与安全item
     private View btn_car_manager;//车辆管理item
@@ -85,8 +95,11 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private TextView cache_size;//退出登录按钮
     private TextView contact_us_phone;//联系我们的电话号码
     private TextView tx_person_name;//联系我们的电话号码
+    private TextView tvFlow;
+    private TextView tvCarFlow;
 
     private ImageView avatar;
+    private ImageView ivScan;
 
     private DealerInfo mDealerInfo;
 
@@ -114,7 +127,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             WIFIControl.rigisterWIFIConnectListener(this);
             WIFIControl.DisConnectChelePai();
             loadData();
-        }else {
+        } else {
             WIFIControl.unRigisterWIFIConnectListener(this);
         }
     }
@@ -124,9 +137,12 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         getActivateStatus("正在激活中");
         btn_person_info = parent.findViewById(R.id.btn_person_info);
         lineFlow = parent.findViewById(R.id.lineFlow);
+        lineCarFlow = parent.findViewById(R.id.lineCarFlow);
         llFlowRecharge = parent.findViewById(R.id.llFlowRecharge);
+        llCarFlowRecharge = parent.findViewById(R.id.llCarFlowRecharge);
         icFlowDot = parent.findViewById(R.id.icFlowDot);
         llFlowRecharge.setOnClickListener(this);
+        llCarFlowRecharge.setOnClickListener(this);
         btn_person_info.setOnClickListener(this);
         btn_travel_album = parent.findViewById(R.id.btn_travel_album);
         btn_travel_album.setOnClickListener(this);
@@ -149,8 +165,11 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         cache_size = parent.findViewById(R.id.cache_size);
         contact_us_phone = parent.findViewById(R.id.contact_us_phone);
         tx_person_name = parent.findViewById(R.id.tx_person_name);
+        tvFlow = parent.findViewById(R.id.tvFlow);
+        tvCarFlow = parent.findViewById(R.id.tvCarFlow);
         avatar = parent.findViewById(R.id.avatar);
-
+        ivScan = parent.findViewById(R.id.ivScan);
+        ivScan.setOnClickListener(this);
     }
 
     @Override
@@ -161,6 +180,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void showUserUI() {
+        carid = LoginInfo.getcId();
         try {
             cache_size.setText(CacheUtils.getTotalCacheSize(this.getActivity()));
         } catch (Exception e) {
@@ -174,6 +194,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             tx_person_name.setText(LoginInfo.getRealname());
         }
         if (LoginInfo.getTbox_type().equals("4G")) {
+
+
             //            initFlowInfo();
             if (LoginInfo.getFlowWarn().equals("2")) {
                 icFlowDot.setVisibility(View.VISIBLE);
@@ -183,9 +205,43 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             llFlowRecharge.setVisibility(View.VISIBLE);
             lineFlow.setVisibility(View.VISIBLE);
         } else {
+
             llFlowRecharge.setVisibility(View.GONE);
             lineFlow.setVisibility(View.GONE);
         }
+        OkGo.<String>post(URLConfig.getCAR_CHECK_BIND_URL())
+                .params("carid", Integer.valueOf(carid))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtils.e(response.body());
+                        //                        parseCheckJson(response);
+                        //                        loadingDialog.dismiss();
+                        Gson gson = new Gson();
+                        CheckBindInfo checkBindInfo = gson.fromJson(response.body(), CheckBindInfo.class);
+                        if (checkBindInfo.code == 0) {
+                            if (checkBindInfo.data == 1) {
+                                tvCarFlow.setText("车机流量充值");
+                                tvFlow.setText("T-box流量充值");
+                                llCarFlowRecharge.setVisibility(View.VISIBLE);
+                                lineCarFlow.setVisibility(View.VISIBLE);
+                            } else {
+                                tvCarFlow.setText("流量充值");
+                                tvFlow.setText("流量充值");
+                                llCarFlowRecharge.setVisibility(View.GONE);
+                                lineCarFlow.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        LogUtils.e(response);
+                        //                        loadingDialog.dismiss();
+                    }
+                });
+
     }
 
     private void initFlowInfo() {
@@ -311,7 +367,182 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 //流量包充值
                 startActivity(new Intent(getActivity(), FlowPackageRechargeActivity.class));
                 break;
+            case R.id.llCarFlowRecharge:
+                startActivity(new Intent(getActivity(), CarFlowPackageRechargeActivity.class));
+                break;
+
+            case R.id.ivScan:
+                //                IntentIntegrator.forSupportFragment(SettingMainFragment.this)
+                //                        .setCaptureActivity(ScanActivity.class)
+                //                        .setPrompt("")
+                //                        .initiateScan();
+                checkCcid();
+                break;
         }
+    }
+
+    //    private String carid = "2216301";
+    private int carid;
+
+    private void checkCcid() {
+
+        OkGo.<String>post(URLConfig.getCAR_CHECK_CCID_URL())
+                .params("carid", carid)
+                .params("ccid", ccid)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtils.e(response.body());
+                        parseCheckJson(response);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        LogUtils.e(response);
+                    }
+                });
+    }
+
+    private void parseCheckJson(Response<String> response) {
+        String body = response.body();
+        Gson gson = new Gson();
+        CheckBindInfo checkBindInfo = gson.fromJson(body, CheckBindInfo.class);
+        if (checkBindInfo.code == 0) {
+            //成功
+            switch (checkBindInfo.data) {
+                case 0:
+                    //操作失败
+                    break;
+                case 1:
+                    //未绑定
+                    showUnBindDialog();
+                    break;
+                case 2:
+                    //已绑定（自己的车）
+                    break;
+                case 3:
+                    //已绑定（非自己的车）
+                    ToastUtils.showShort("该车机已被绑定，不能重复绑定");
+                    break;
+            }
+
+        } else {
+            //失败
+            ToastUtils.showShort(checkBindInfo.error);
+        }
+    }
+
+    private void showUnBindDialog() {
+        PopBoxCreat.createDialogNotitle(mCtx, "温馨提示", "您的账户尚未与车机建立绑定关系，请您先进行车机绑定，并进行车机流量激活！", "取消", "确定", new PopBoxCreat.DialogWithTitleClick() {
+            @Override
+            public void onLeftClick() {
+
+            }
+
+            @Override
+            public void onRightClick() {
+                Intent intent = new Intent(mCtx, CheckPhoneActivity.class);
+                intent.putExtra("carid", carid);
+                intent.putExtra("ccid", ccid);
+                startActivity(intent);
+                //                bindSim();
+            }
+        });
+    }
+
+
+    public static final String ccid = "89860429111890177338";
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null && result.getContents() != null) {
+            UUToast.showUUToast(mCtx, result.getContents());
+            String contents = result.getContents();
+            decodeQRcode(contents);
+        }
+    }
+
+    private void decodeQRcode(String strHex) {
+        Log.e("result===", strHex);
+        byte[] bytes = Base64.decode(strHex, Base64.DEFAULT);
+        //        byte[] bytes = hexString2Bytes(strHex);
+        String s = bytes2HexString(bytes);
+        Log.e("===", s);
+        LogUtils.e(Arrays.toString(bytes));
+        if (bytes[0] != (byte) 0xcc || bytes[1] != (byte) 0xd7) {
+            LogUtils.e("头错误");
+            Toast.makeText(getContext(), "协议头不是我们的协议头，所以此数据不做解析", Toast.LENGTH_LONG).show();
+            return;
+        }
+        int version = ((int) bytes[2]) >> 3;
+        LogUtils.e("版本" + version);
+
+        int secType = bytes[2] & 0x07;
+        LogUtils.e("加密类型" + secType);
+        byte[] mask = new byte[]{0, 0};
+        //        if (secType == 1) {
+        mask[0] = bytes[3];
+        mask[1] = bytes[4];
+        //        }
+
+
+        int bodyLen = bytes[7] << 8 | bytes[8];
+        LogUtils.e("数据长度" + bodyLen);
+        int crc = bytes[8 + bodyLen] << 24 | bytes[8 + bodyLen + 1] << 16 | bytes[8 + bodyLen + 2] << 8 | bytes[8 + bodyLen + 3];
+        LogUtils.e("crc:" + crc);
+
+        byte[] raw = new byte[bodyLen];
+        //        if (secType == 1) {
+        for (int i = 0; i < bodyLen; i++) {
+            raw[i] = (byte) (bytes[9 + i] ^ mask[i % 2]);
+        }
+        //        }
+        //        String s2 = bytes2HexString(raw);
+        //        Log.e(Tag, "s2-----------" + s2);
+        //校验
+        byte[] mbs = Arrays.copyOfRange(bytes, 7, 9);
+        String s1 = bytes2HexString(mbs);
+        Integer len = Integer.valueOf(s1, 16);
+        //        byte[] content = Arrays.copyOfRange(bytes, 9, 9 + len);
+        byte[] regex = Arrays.copyOfRange(bytes, 9 + len, bytes.length);
+        //        String crc32 = Utils.getCRC32(raw);
+        //        byte[] crc32Bys = intToBytes(crc32);
+        CRC32 crc321 = new CRC32();
+        crc321.update(raw);
+        long value = crc321.getValue();
+        String localCrc32 = Long.toHexString(value).toUpperCase();
+        LogUtils.e("CRC32One----：" + Long.toHexString(value).toUpperCase());
+        String re = bytes2HexString(regex);
+        //        Log.e(Tag, "CRC32Re----：" + Long.toHexString(value1).toUpperCase());
+        //        String crc1 = bytes2HexString(crc32Bys);
+        LogUtils.e("校验码是：" + re);
+        LogUtils.e("crc32是：" + localCrc32);
+        if (!re.equalsIgnoreCase(localCrc32)) {
+            Toast.makeText(getActivity(), "crc校验不通过，所以此数据不做解析", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
+        String kv = new String(raw);
+        LogUtils.e("数据是: " + kv);
+        //        tvContent.setText("扫码的数据是: ".concat(kv));
+    }
+
+    public static String bytes2HexString(byte[] b) {
+        String r = "";
+
+        for (int i = 0; i < b.length; i++) {
+            String hex = Integer.toHexString(b[i] & 0xFF);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            r += hex.toUpperCase();
+        }
+
+        return r;
     }
 
     /**
