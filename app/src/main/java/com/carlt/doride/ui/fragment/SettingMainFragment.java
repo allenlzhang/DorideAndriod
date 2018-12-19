@@ -28,6 +28,7 @@ import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.DealerInfo;
 import com.carlt.doride.data.carflow.CheckBindInfo;
+import com.carlt.doride.data.carflow.CheckInitInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -35,6 +36,8 @@ import com.carlt.doride.protocolparser.car.CarDealerParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.scan.CarFlowPackageRechargeActivity;
 import com.carlt.doride.ui.activity.scan.CheckPhoneActivity;
+import com.carlt.doride.ui.activity.scan.InitCarSimActivity;
+import com.carlt.doride.ui.activity.scan.ScanActivity;
 import com.carlt.doride.ui.activity.setting.AboutDorideActivity;
 import com.carlt.doride.ui.activity.setting.AccountSecurityActivity;
 import com.carlt.doride.ui.activity.setting.CarManagerActivity;
@@ -103,6 +106,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     private DealerInfo mDealerInfo;
 
+    private String ccid;
+    private String scanTime;
 
     @Override
     public void onAttach(Context context) {
@@ -180,6 +185,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void showUserUI() {
+        isCountData = false;
         carid = LoginInfo.getcId();
         try {
             cache_size.setText(CacheUtils.getTotalCacheSize(this.getActivity()));
@@ -193,22 +199,31 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
             tx_person_name.setText(LoginInfo.getRealname());
         }
-        if (LoginInfo.getTbox_type().equals("4G")) {
+//        if (LoginInfo.getTbox_type().equals("4G")) {
 
 
-            //            initFlowInfo();
-            if (LoginInfo.getFlowWarn().equals("2")) {
-                icFlowDot.setVisibility(View.VISIBLE);
-            } else {
-                icFlowDot.setVisibility(View.GONE);
-            }
-            llFlowRecharge.setVisibility(View.VISIBLE);
-            lineFlow.setVisibility(View.VISIBLE);
+        if (LoginInfo.getFlowWarn().equals("2")) {
+            icFlowDot.setVisibility(View.VISIBLE);
         } else {
-
-            llFlowRecharge.setVisibility(View.GONE);
-            lineFlow.setVisibility(View.GONE);
+            icFlowDot.setVisibility(View.GONE);
         }
+//            llFlowRecharge.setVisibility(View.VISIBLE);
+//            lineFlow.setVisibility(View.VISIBLE);
+//        } else {
+//
+//            llFlowRecharge.setVisibility(View.GONE);
+//            lineFlow.setVisibility(View.GONE);
+//        }
+        initFlowInfo();
+        isSupportTData();
+        checkCarIdIsBind();
+
+    }
+
+    /**
+     * 检查carid是否已经绑定
+     */
+    private void checkCarIdIsBind() {
         OkGo.<String>post(URLConfig.getCAR_CHECK_BIND_URL())
                 .params("carid", Integer.valueOf(carid))
                 .execute(new StringCallback() {
@@ -221,15 +236,16 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         CheckBindInfo checkBindInfo = gson.fromJson(response.body(), CheckBindInfo.class);
                         if (checkBindInfo.code == 0) {
                             if (checkBindInfo.data == 1) {
-                                tvCarFlow.setText("车机流量充值");
-                                tvFlow.setText("T-box流量充值");
-                                llCarFlowRecharge.setVisibility(View.VISIBLE);
-                                lineCarFlow.setVisibility(View.VISIBLE);
-                            } else {
-                                tvCarFlow.setText("流量充值");
-                                tvFlow.setText("流量充值");
-                                llCarFlowRecharge.setVisibility(View.GONE);
-                                lineCarFlow.setVisibility(View.GONE);
+                                countDataPackage(1);
+//                                tvCarFlow.setText("车机流量充值");
+//                                tvFlow.setText("T-box流量充值");
+//                                llCarFlowRecharge.setVisibility(View.VISIBLE);
+//                                lineCarFlow.setVisibility(View.VISIBLE);
+//                            } else {
+//                                tvCarFlow.setText("流量充值");
+//                                tvFlow.setText("流量充值");
+//                                llCarFlowRecharge.setVisibility(View.GONE);
+//                                lineCarFlow.setVisibility(View.GONE);
                             }
                         }
                     }
@@ -241,9 +257,11 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         //                        loadingDialog.dismiss();
                     }
                 });
-
     }
 
+    /**
+     * 流量包-提醒
+     */
     private void initFlowInfo() {
         //        getFlowProductList();
         //        loadingDataUI();
@@ -283,10 +301,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     TrafficPackageWarnningInfo warnningInfo = gson.fromJson(response.body(), TrafficPackageWarnningInfo.class);
                     if (Integer.valueOf(warnningInfo.data.limit_warning) == 2) {
                         icFlowDot.setVisibility(View.VISIBLE);
-                        lineFlow.setVisibility(View.VISIBLE);
                     } else {
                         icFlowDot.setVisibility(View.GONE);
-                        lineFlow.setVisibility(View.GONE);
                     }
                 } else {
                     //                    BaseResponseInfo baseResponseInfo = new BaseResponseInfo();
@@ -368,24 +384,70 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 startActivity(new Intent(getActivity(), FlowPackageRechargeActivity.class));
                 break;
             case R.id.llCarFlowRecharge:
-                startActivity(new Intent(getActivity(), CarFlowPackageRechargeActivity.class));
+//                startActivity(new Intent(getActivity(), CarFlowPackageRechargeActivity.class));
+                checkInitIsOk();
                 break;
 
             case R.id.ivScan:
-                //                IntentIntegrator.forSupportFragment(SettingMainFragment.this)
-                //                        .setCaptureActivity(ScanActivity.class)
-                //                        .setPrompt("")
-                //                        .initiateScan();
-                checkCcid();
+                IntentIntegrator.forSupportFragment(SettingMainFragment.this)
+                        .setCaptureActivity(ScanActivity.class)
+                        .setPrompt("")
+                        .initiateScan();
+//                checkCcid();
                 break;
+        }
+    }
+
+    /**
+     * 检查车机GPRS初始化是否成功
+     */
+    private void checkInitIsOk() {
+        OkGo.<String>post(URLConfig.getCAR_CHECK_INIT_IS_OK())
+                .params("carid", carid)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        parseCheckInitIsOk(response);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        LogUtils.e(response);
+                        loadSuccessUI();
+                    }
+                });
+    }
+
+    private void parseCheckInitIsOk(Response<String> response) {
+        String body = response.body();
+        Gson gson = new Gson();
+        CheckInitInfo info = gson.fromJson(body, CheckInitInfo.class);
+        if (info != null) {
+            if (info.code == 0) {
+                if (info.data.status == 3) {
+                    countDataPackage(2);
+                } else {
+                    Intent intent = new Intent(mCtx, InitCarSimActivity.class);
+                    intent.putExtra("carid",carid);
+                    intent.putExtra("ccid",info.data.ccid);
+                    startActivity(intent);
+                }
+            } else {
+                ToastUtils.showShort(info.error);
+            }
+
         }
     }
 
     //    private String carid = "2216301";
     private int carid;
 
-    private void checkCcid() {
-
+    /**
+     * 检查ccid是否已经绑定
+     */
+    private void checkCcid(String ccid) {
+        loadingDataUI();
         OkGo.<String>post(URLConfig.getCAR_CHECK_CCID_URL())
                 .params("carid", carid)
                 .params("ccid", ccid)
@@ -399,6 +461,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
+                        loadSuccessUI();
                         LogUtils.e(response);
                     }
                 });
@@ -412,22 +475,27 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             //成功
             switch (checkBindInfo.data) {
                 case 0:
+                    loadSuccessUI();
                     //操作失败
                     break;
                 case 1:
+                    loadSuccessUI();
                     //未绑定
                     showUnBindDialog();
                     break;
                 case 2:
                     //已绑定（自己的车）
+                    checkInitIsOk();
                     break;
                 case 3:
+                    loadSuccessUI();
                     //已绑定（非自己的车）
                     ToastUtils.showShort("该车机已被绑定，不能重复绑定");
                     break;
             }
 
         } else {
+            loadSuccessUI();
             //失败
             ToastUtils.showShort(checkBindInfo.error);
         }
@@ -452,14 +520,14 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     }
 
 
-    public static final String ccid = "89860429111890177338";
+//    public static final String ccid = "89860429111890177338";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null && result.getContents() != null) {
-            UUToast.showUUToast(mCtx, result.getContents());
+//            UUToast.showUUToast(mCtx, result.getContents());
             String contents = result.getContents();
             decodeQRcode(contents);
         }
@@ -507,7 +575,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         String s1 = bytes2HexString(mbs);
         Integer len = Integer.valueOf(s1, 16);
         //        byte[] content = Arrays.copyOfRange(bytes, 9, 9 + len);
-        byte[] regex = Arrays.copyOfRange(bytes, 9 + len, bytes.length);
+        byte[] regex = Arrays.copyOfRange(bytes, 9 + len, len + 13);
         //        String crc32 = Utils.getCRC32(raw);
         //        byte[] crc32Bys = intToBytes(crc32);
         CRC32 crc321 = new CRC32();
@@ -528,7 +596,31 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
         String kv = new String(raw);
         LogUtils.e("数据是: " + kv);
-        //        tvContent.setText("扫码的数据是: ".concat(kv));
+        String[] str = kv.split("&");
+        for (String aStr : str) {
+            if (aStr.startsWith("ccid")) {
+                ccid = aStr;
+            }
+            if (aStr.startsWith("time")) {
+                scanTime = aStr;
+            }
+        }
+        if (!TextUtils.isEmpty(ccid)) {
+            ccid = ccid.trim().substring(ccid.indexOf("=") + 1);
+        } else {
+            ccid = "";
+        }
+        if (!TextUtils.isEmpty(scanTime)) {
+            scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
+            LogUtils.e("scanTime == " + scanTime);
+            long time = Long.parseLong(scanTime);
+            if ((System.currentTimeMillis() / 1000 - time) <= 3000) {
+                checkCcid(ccid);
+            } else {
+                ToastUtils.showShort("二维码已过期");
+            }
+        }
+
     }
 
     public static String bytes2HexString(byte[] b) {
@@ -642,5 +734,134 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     }
 
+    /**
+     * 是否支持T-box流量充值（V140）
+     */
+    private void isSupportTData() {
+        String isSupportTDataUrl = URLConfig.getM_ISSUPPORTTDATA().replace(DorideApplication.Version_API + "", "140");
+        OkGo.<String>post(isSupportTDataUrl)
+                .params("client_id", URLConfig.getClientID())
+                .params("token", LoginInfo.getAccess_token())
+                .params("deviceIdString", LoginInfo.getDeviceidstring())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        parseIsSupport(response);
+                    }
 
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        LogUtils.e(response);
+                    }
+                });
+    }
+
+    private void parseIsSupport(Response<String> response) {
+        String body = response.body();
+        try {
+            JSONObject jsonObject = new JSONObject(body);
+            JSONObject object = jsonObject.getJSONObject("data");
+            if (object != null) {
+                boolean isSupport = object.optBoolean("isSupport", false);
+                if (isSupport) {
+                    countDataPackage(0);
+                }
+            }
+
+        } catch (Exception e) {
+            LogUtils.e(e);
+        }
+
+    }
+
+    /**
+     * 判断T-box、车机是否配置流量产品（V140）
+     */
+    private void countDataPackage(final int type) {
+        String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE().replace(DorideApplication.Version_API + "", "140");
+        OkGo.<String>post(countDataPackageUrl)
+                .params("client_id", URLConfig.getClientID())
+                .params("token", LoginInfo.getAccess_token())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        loadSuccessUI();
+                        parseCountDataPackage(response, type);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        loadSuccessUI();
+                    }
+                });
+    }
+
+    boolean isCountData = false;
+
+    private void parseCountDataPackage(Response<String> response, int type) {
+        LogUtils.e("判断T-box、车机是否配置流量产品----type---" + type);
+        String body = response.body();
+        try {
+            JSONObject jsonObject = new JSONObject(body);
+            JSONObject data = jsonObject.getJSONObject("data");
+            if (data != null) {
+                int tboxDataNum = data.optInt("tboxDataNum", 0);
+                String machineDataNum = data.optString("machineDataNum", "");
+                int tboxRenewNum = data.optInt("tboxRenewNum", 0);
+                switch (type){
+                    case 0:
+                        if (tboxDataNum != 0){
+                            if (isCountData) {
+                                llFlowRecharge.setVisibility(View.VISIBLE);
+                                lineFlow.setVisibility(View.VISIBLE);
+                                llCarFlowRecharge.setVisibility(View.VISIBLE);
+                                lineCarFlow.setVisibility(View.VISIBLE);
+                                tvFlow.setText("T-box流量充值");
+                                tvCarFlow.setText("车机流量充值");
+                            } else {
+                                isCountData = true;
+                                llFlowRecharge.setVisibility(View.VISIBLE);
+                                lineFlow.setVisibility(View.VISIBLE);
+                                llCarFlowRecharge.setVisibility(View.GONE);
+                                lineCarFlow.setVisibility(View.GONE);
+                                tvFlow.setText("流量充值");
+                            }
+                        }
+                        break;
+                    case 1:
+                        if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0){
+                            if (isCountData) {
+                                llFlowRecharge.setVisibility(View.VISIBLE);
+                                lineFlow.setVisibility(View.VISIBLE);
+                                llCarFlowRecharge.setVisibility(View.VISIBLE);
+                                lineCarFlow.setVisibility(View.VISIBLE);
+                                tvFlow.setText("T-box流量充值");
+                                tvCarFlow.setText("车机流量充值");
+                            } else {
+                                isCountData = true;
+                                llFlowRecharge.setVisibility(View.GONE);
+                                lineFlow.setVisibility(View.GONE);
+                                llCarFlowRecharge.setVisibility(View.VISIBLE);
+                                lineCarFlow.setVisibility(View.VISIBLE);
+                                tvCarFlow.setText("流量充值");
+                            }
+                        }
+                        break;
+                    case 2:
+                        if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0) {
+                            Intent intent = new Intent(mCtx, CarFlowPackageRechargeActivity.class);
+                            startActivity(intent);
+                        }else {
+                            ToastUtils.showShort("暂未获取到商品列表");
+                        }
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            LogUtils.e(e);
+        }
+
+    }
 }

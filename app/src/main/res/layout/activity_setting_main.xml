@@ -244,12 +244,16 @@
 
                 <View
                     android:id="@+id/lineFlow"
-                    style="@style/setting_page_item_divider"/>
+                    style="@style/setting_page_item_divider"
+                    android:visibility="gone"
+                    />
 
                 <RelativeLayout
                     android:id="@+id/llFlowRecharge"
                     style="@style/setting_page_item_style"
-                    android:layout_width="match_parent">
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    >
 
                     <ImageView
                         android:id="@+id/ic1"

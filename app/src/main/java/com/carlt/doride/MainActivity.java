@@ -96,9 +96,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mFragmentManager = getSupportFragmentManager();
         setTabSelection(0);
         LogUtils.e("LoginInfo.getTbox_type()====" + LoginInfo.getTbox_type());
-        if (LoginInfo.getTbox_type().equals("4G")) {
+//        if (LoginInfo.getTbox_type().equals("4G")) {
             initFlowInfo();
-        }
+//        }
 //        initCarFlow();
 
     }

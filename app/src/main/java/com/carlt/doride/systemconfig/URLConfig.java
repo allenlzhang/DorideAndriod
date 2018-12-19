@@ -129,6 +129,7 @@ public class URLConfig {
     }
 
     //检查ccid是否已经绑定
+    private static String CAR_CHECK_INIT_IS_OK = "V1/carmachine/checkinitisok";
     private static String CAR_CHECK_CCID_URL         = "V1/carmachine/checkccidisbind";
     private static String CAR_BIND_SIM_URL           = "V1/carmachine/bind";
     private static String CAR_INIT_SIM_URL           = "V1/carmachine/initgprs";
@@ -338,6 +339,24 @@ public class URLConfig {
 
     //注销信鸽token
     private static String M_REMOVERXGPUSH_URL = "user/clearXingeToken";
+
+    //是否支持T-box流量充值（V140）
+    private static String M_ISSUPPORTTDATA = "comm/isSupportTData";
+
+    //判断T-box、车机是否配置流量产品（V140）
+    private static String M_COUNTDATAPACKGE = "comm/countDataPackage";
+
+    public static String getM_ISSUPPORTTDATA(){
+        return getDorideURL(M_ISSUPPORTTDATA);
+    }
+
+    public static String getM_COUNTDATAPACKGE(){
+        return getDorideURL(M_COUNTDATAPACKGE);
+    }
+
+    public static String getCAR_CHECK_INIT_IS_OK(){
+        return getCarSimUrl(CAR_CHECK_INIT_IS_OK);
+    }
 
     public static String getCAR_CHECK_CCID_URL() {
         return getCarSimUrl(CAR_CHECK_CCID_URL);
