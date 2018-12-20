@@ -3953,7 +3953,7 @@ public class CPControl {
      * @param offset
      *         偏移量
      */
-    public static void GetTrafficPackageLogResult(final int limit, final int offset, final int package_type,
+    public static void GetTrafficPackageLogResult(final String url,final int limit, final int offset, final int package_type,
                                                   final GetResultListCallback listener) {
 
         if (listener == null)
@@ -3961,8 +3961,6 @@ public class CPControl {
         new Thread() {
             @Override
             public void run() {
-                // 链接地址
-                String url = com.carlt.doride.systemconfig.URLConfig.getmTrafficPaylogUrl();
                 // Post参数
                 String post = CreatPostString.getFeeLog(limit, offset, package_type);
 

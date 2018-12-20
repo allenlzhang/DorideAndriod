@@ -3,6 +3,7 @@ package com.carlt.doride.ui.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -83,6 +84,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private View llFlowRecharge;//流量充值
     private View llCarFlowRecharge;//流量充值
     private View icFlowDot;//流量提醒
+    private View icCarFlowDot;//车机流量提醒
     private View lineFlow;
     private View lineCarFlow;
     private View btn_travel_album;//旅行相册item
@@ -146,6 +148,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         llFlowRecharge = parent.findViewById(R.id.llFlowRecharge);
         llCarFlowRecharge = parent.findViewById(R.id.llCarFlowRecharge);
         icFlowDot = parent.findViewById(R.id.icFlowDot);
+        icCarFlowDot = parent.findViewById(R.id.icCarFlowDot);
         llFlowRecharge.setOnClickListener(this);
         llCarFlowRecharge.setOnClickListener(this);
         btn_person_info.setOnClickListener(this);
@@ -179,7 +182,6 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onResume() {
-        showUserUI();
         loadData();
         super.onResume();
     }
@@ -214,7 +216,6 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 //            llFlowRecharge.setVisibility(View.GONE);
 //            lineFlow.setVisibility(View.GONE);
 //        }
-        initFlowInfo();
         isSupportTData();
         checkCarIdIsBind();
 
@@ -261,11 +262,19 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     /**
      * 流量包-提醒
+     * type 0 Tbox 1车机
      */
-    private void initFlowInfo() {
+    private void initFlowInfo(final int type) {
         //        getFlowProductList();
         //        loadingDataUI();
-        OkGo.<String>post(URLConfig.getmTrafficWarnningUrl())
+        //URLConfig.getmTrafficWarnningUrl()
+        String url = "";
+        if (type == 0){
+            url = URLConfig.getmTrafficWarnningUrl();
+        }else{
+            url = URLConfig.getCAR_FLOW_PACKAGE_INFO_URL();
+        }
+        OkGo.<String>post(url)
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
                 .params("token", LoginInfo.getAccess_token())
@@ -275,7 +284,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     public void onSuccess(Response<String> response) {
                         LogUtils.e("======" + response.body());
                         if (response.isSuccessful()) {
-                            parseFlowInfoJson(response);
+                            parseFlowInfoJson(response,type);
                         }
 
                     }
@@ -288,7 +297,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 });
     }
 
-    private void parseFlowInfoJson(Response<String> response) {
+    private void parseFlowInfoJson(Response<String> response,int type) {
         if (response != null) {
             JSONObject jo = null;
             try {
@@ -300,9 +309,17 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     //                    loadSuccessUI();
                     TrafficPackageWarnningInfo warnningInfo = gson.fromJson(response.body(), TrafficPackageWarnningInfo.class);
                     if (Integer.valueOf(warnningInfo.data.limit_warning) == 2) {
-                        icFlowDot.setVisibility(View.VISIBLE);
+                        if (type == 0) {
+                            icFlowDot.setVisibility(View.VISIBLE);
+                        }else {
+                            icCarFlowDot.setVisibility(View.VISIBLE);
+                        }
                     } else {
-                        icFlowDot.setVisibility(View.GONE);
+                        if (type == 0) {
+                            icFlowDot.setVisibility(View.GONE);
+                        }else {
+                            icCarFlowDot.setVisibility(View.GONE);
+                        }
                     }
                 } else {
                     //                    BaseResponseInfo baseResponseInfo = new BaseResponseInfo();
@@ -642,7 +659,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      */
     @Override
     public void loadData() {
-        //        showUserUI();
+        showUserUI();
         loadingDataUI();
         upgradeProgram();
         CarDealerParser parser = new CarDealerParser(dealerCallback);
@@ -738,7 +755,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 是否支持T-box流量充值（V140）
      */
     private void isSupportTData() {
-        String isSupportTDataUrl = URLConfig.getM_ISSUPPORTTDATA().replace(DorideApplication.Version_API + "", "140");
+        String isSupportTDataUrl = URLConfig.getM_ISSUPPORTTDATA();
         OkGo.<String>post(isSupportTDataUrl)
                 .params("client_id", URLConfig.getClientID())
                 .params("token", LoginInfo.getAccess_token())
@@ -779,7 +796,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 判断T-box、车机是否配置流量产品（V140）
      */
     private void countDataPackage(final int type) {
-        String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE().replace(DorideApplication.Version_API + "", "140");
+        String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE();
         OkGo.<String>post(countDataPackageUrl)
                 .params("client_id", URLConfig.getClientID())
                 .params("token", LoginInfo.getAccess_token())
@@ -805,6 +822,16 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         String body = response.body();
         try {
             JSONObject jsonObject = new JSONObject(body);
+            int code = jsonObject.optInt("code",-1);
+            String msg = jsonObject.optString("msg","");
+            if (code == BaseResponseInfo.NO_TOKEN){
+                ActivityControl.onTokenDisable();
+                ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                ToastUtils.setBackgroundColor(R.drawable.toast_bg);
+                ToastUtils.setMessageColor(Color.WHITE);
+                ToastUtils.showLong(msg);
+                return;
+            }
             JSONObject data = jsonObject.getJSONObject("data");
             if (data != null) {
                 int tboxDataNum = data.optInt("tboxDataNum", 0);
@@ -828,6 +855,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                                 lineCarFlow.setVisibility(View.GONE);
                                 tvFlow.setText("流量充值");
                             }
+                            initFlowInfo(type);
                         }
                         break;
                     case 1:
@@ -847,6 +875,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                                 lineCarFlow.setVisibility(View.VISIBLE);
                                 tvCarFlow.setText("流量充值");
                             }
+                            initFlowInfo(type);
                         }
                         break;
                     case 2:

@@ -141,23 +141,23 @@ public class URLConfig {
     private static String CAR_FLOW_ALI_PAY_URL       = "carPackage/aliPay";
 
     public static String getCAR_FLOW_PACKAGE_INFO_URL() {
-        return getDorideURL(CAR_FLOW_PACKAGE_INFO_URL);
+        return getDorideURL(CAR_FLOW_PACKAGE_INFO_URL).replace(DorideApplication.Version_API + "", "140");
     }
 
     public static String getCAR_FLOW_PRODUCT_LIST_URL() {
-        return getDorideURL(CAR_FLOW_PRODUCT_LIST_URL);
+        return getDorideURL(CAR_FLOW_PRODUCT_LIST_URL).replace(DorideApplication.Version_API + "", "140");
     }
 
     public static String getCAR_FLOW_CACULTE_PRICE_URL() {
-        return getDorideURL(CAR_FLOW_CACULTE_PRICE_URL);
+        return getDorideURL(CAR_FLOW_CACULTE_PRICE_URL).replace(DorideApplication.Version_API + "", "140");
     }
 
     public static String getCAR_FLOW_PAY_LOG_URL() {
-        return getDorideURL(CAR_FLOW_PAY_LOG_URL);
+        return getDorideURL(CAR_FLOW_PAY_LOG_URL).replace(DorideApplication.Version_API + "", "140");
     }
 
     public static String getCAR_FLOW_ALI_PAY_URL() {
-        return getDorideURL(CAR_FLOW_ALI_PAY_URL);
+        return getDorideURL(CAR_FLOW_ALI_PAY_URL).replace(DorideApplication.Version_API + "", "140");
     }
 
     // 流量包-充值记录列表
@@ -347,11 +347,11 @@ public class URLConfig {
     private static String M_COUNTDATAPACKGE = "comm/countDataPackage";
 
     public static String getM_ISSUPPORTTDATA(){
-        return getDorideURL(M_ISSUPPORTTDATA);
+        return getDorideURL(M_ISSUPPORTTDATA).replace(DorideApplication.Version_API + "", "140");
     }
 
     public static String getM_COUNTDATAPACKGE(){
-        return getDorideURL(M_COUNTDATAPACKGE);
+        return getDorideURL(M_COUNTDATAPACKGE).replace(DorideApplication.Version_API + "", "140");
     }
 
     public static String getCAR_CHECK_INIT_IS_OK(){

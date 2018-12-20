@@ -333,6 +333,9 @@
         <activity
             android:name=".ui.activity.scan.CarFlowPackageRechargeActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.scan.CarTrafficPackagePurchaseLogActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity2"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.RemotePswResetActivity3"/>
         <activity android:name="com.carlt.sesame.ui.activity.safety.SafetyMainActivity"/>

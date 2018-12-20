@@ -59,7 +59,7 @@ public class CheckPhoneActivity extends LoadingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_phone);
         ButterKnife.bind(this);
-        initTitle("安全验证");
+        initTitle("绑定车机");
         phone = LoginInfo.getMobile();
         etPhone.setText(phone);
         Intent intent = getIntent();
@@ -124,11 +124,11 @@ public class CheckPhoneActivity extends LoadingActivity {
 
     private void checkCode() {
         String code = etCode.getText().toString().trim();
-        loadingDialog.show();
         if (TextUtils.isEmpty(code)) {
             UUToast.showUUToast(this, "验证码不能为空");
             return;
         }
+        loadingDialog.show();
         OkGo.<String>post(URLConfig.getM_CHECK_VALIDATE())
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
@@ -170,7 +170,7 @@ public class CheckPhoneActivity extends LoadingActivity {
                     public void onSuccess(Response<String> response) {
                         LogUtils.e(response.body());
                         parseBindJson(response);
-                        loadingDialog.dismiss();
+
                         //                        parseCheckJson(response);
                     }
 
@@ -184,6 +184,7 @@ public class CheckPhoneActivity extends LoadingActivity {
     }
 
     private void parseBindJson(Response<String> response) {
+        loadingDialog.dismiss();
         String body = response.body();
         Gson gson = new Gson();
         CheckBindInfo info = gson.fromJson(body, CheckBindInfo.class);

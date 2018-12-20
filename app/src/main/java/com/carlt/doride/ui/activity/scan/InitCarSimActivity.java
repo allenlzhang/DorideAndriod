@@ -1,8 +1,10 @@
 package com.carlt.doride.ui.activity.scan;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +14,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
+import com.carlt.doride.control.ActivityControl;
+import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.carflow.CheckInitInfo;
 import com.carlt.doride.model.LoginInfo;
@@ -100,7 +104,7 @@ public class InitCarSimActivity extends LoadingActivity {
      * 判断T-box、车机是否配置流量产品（V140）
      */
     private void countDataPackage(){
-        String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE().replace(DorideApplication.Version_API + "", "140");
+        String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE();
         OkGo.<String>post(countDataPackageUrl)
                 .params("client_id", URLConfig.getClientID())
                 .params("token", LoginInfo.getAccess_token())
@@ -123,12 +127,22 @@ public class InitCarSimActivity extends LoadingActivity {
         String body = response.body();
         try {
             JSONObject jsonObject = new JSONObject(body);
+            int code = jsonObject.optInt("code",-1);
+            String msg = jsonObject.optString("msg","");
+            if (code == BaseResponseInfo.NO_TOKEN){
+                ActivityControl.onTokenDisable();
+                ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                ToastUtils.setBackgroundColor(R.drawable.toast_bg);
+                ToastUtils.setMessageColor(Color.WHITE);
+                ToastUtils.showLong(msg);
+                return;
+            }
             JSONObject data = jsonObject.getJSONObject("data");
             if (data!=null){
                 int tboxDataNum = data.optInt("tboxDataNum",0);
-                String machineDataNum = data.optString("machineDataNum","");
+                int machineDataNum = data.optInt("machineDataNum",0);
                 int tboxRenewNum = data.optInt("tboxRenewNum",0);
-                if (tboxRenewNum!=0){
+                if (machineDataNum!=0){
                     Intent intent = new Intent(this,CarFlowPackageRechargeActivity.class);
                     startActivity(intent);
                 }else {

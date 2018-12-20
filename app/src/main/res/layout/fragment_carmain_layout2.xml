@@ -367,6 +367,7 @@
             android:layout_height="102dp"
             android:layout_below="@+id/tvbg"
             android:layout_marginTop="15dp"
+            android:weightSum="3"
             android:orientation="horizontal">
 
             <TextView
@@ -376,8 +377,10 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:drawablePadding="6dp"
-                android:drawableTop="@mipmap/tire_car_main_unpress"
-                android:text="胎压监测"/>
+                android:drawableTop="@drawable/tire_car_main_selecter"
+                android:text="胎压监测"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/car_main_txt_findcar"
@@ -387,7 +390,7 @@
                 android:clickable="true"
                 android:drawablePadding="6dp"
                 android:drawableTop="@drawable/find_car_main_selecter"
-                android:text="定位寻车"/>
+                />
 
             <TextView
                 android:id="@+id/car_main_txt_carlocation"
@@ -396,8 +399,19 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:drawablePadding="6dp"
-                android:drawableTop="@mipmap/navigate_carmain_unpress"
-                android:text="导航同步"/>
+                android:drawableTop="@drawable/daohang_car_main_selecter"
+                android:text="导航同步"
+                android:visibility="gone"
+                />
+            <TextView
+                android:id="@+id/car_main_txt_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="--"
+                android:textSize="@dimen/text_size_small_s1"
+                android:textColor="@color/title_bg"
+                android:paddingTop="20dp"
+                />
         </LinearLayout>
         <include
             layout="@layout/layout_loading"

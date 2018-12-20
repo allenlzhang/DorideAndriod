@@ -20,7 +20,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
@@ -70,21 +69,21 @@ import butterknife.ButterKnife;
 public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     @BindView(R.id.trffic_used_precent)
-    CircleProgress        trfficUsedPrecent;
+    CircleProgress trfficUsedPrecent;
     @BindView(R.id.traffic_used_txt)
-    TextView              trafficUsedTxt;
+    TextView trafficUsedTxt;
     @BindView(R.id.traffic_remain_txt)
-    TextView              trafficRemainTxt;
+    TextView trafficRemainTxt;
     @BindView(R.id.traffic_tips_layout)
-    LinearLayout          trafficTipsLayout;
+    LinearLayout trafficTipsLayout;
     @BindView(R.id.tvCurrentPackage)
-    TextView              tvCurrentPackage;
+    TextView tvCurrentPackage;
     @BindView(R.id.segment_control)
-    SegmentControl        segmentControl;
+    SegmentControl segmentControl;
     @BindView(R.id.tvEmptyHint)
-    TextView              tvEmptyHint;
+    TextView tvEmptyHint;
     @BindView(R.id.tvPriceEmptyHint)
-    TextView              tvPriceEmptyHint;
+    TextView tvPriceEmptyHint;
     @BindView(R.id.gv_package_wrap)
     GridViewForScrollView GvPackageWrap;
     @BindView(R.id.lvPriceList)
@@ -92,6 +91,8 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     @BindView(R.id.sv)
     ScrollView sv;
+    @BindView(R.id.car_traffic_txt_simid)
+    TextView carTrafficTxtSimid;
     private int position = 0;
     private Dialog mPorgressDialog;
 
@@ -115,8 +116,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
         //        getFlowProductList();
         loadingDataUI();
         String car_flow_package_info_url = URLConfig.getCAR_FLOW_PACKAGE_INFO_URL();
-        String replace = car_flow_package_info_url.replace(DorideApplication.Version_API + "", "140");
-        OkGo.<String>post(replace)
+        OkGo.<String>post(car_flow_package_info_url)
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
                 .params("token", LoginInfo.getAccess_token())
@@ -171,8 +171,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     private void getFlowProductList() {
         String car_flow_product_list_url = URLConfig.getCAR_FLOW_PRODUCT_LIST_URL();
-        String replace = car_flow_product_list_url.replace(DorideApplication.Version_API + "", "140");
-        OkGo.<String>post(replace)
+        OkGo.<String>post(car_flow_product_list_url)
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
                 .params("token", LoginInfo.getAccess_token())
@@ -195,6 +194,11 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
     }
 
     private void updateView(TrafficPackageWarnningInfo warnningInfo) {
+        if (!TextUtils.isEmpty(warnningInfo.data.simid)) {
+            carTrafficTxtSimid.setText("SIMID："+warnningInfo.data.simid);
+        }else {
+            carTrafficTxtSimid.setText("SIMID：--");
+        }
         float totalPackage = Float.valueOf(warnningInfo.data.share_data_total);
         float usedPackage = Float.valueOf(warnningInfo.data.consume_data);
         float remainPackage = Float.valueOf(warnningInfo.data.residual_data);
@@ -274,7 +278,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
         tvRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CarFlowPackageRechargeActivity.this, TrafficPackagePurchaseLogActivity.class));
+                startActivity(new Intent(CarFlowPackageRechargeActivity.this, CarTrafficPackagePurchaseLogActivity.class));
             }
         });
         if (mPopupWindow == null) {
@@ -357,7 +361,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     }
 
-    private PackageTypeAdapter         adapter;
+    private PackageTypeAdapter adapter;
     private TrafficPackageWarnningInfo warnningInfo;
 
     private void showFlowPackageInfos(ArrayList<String> changeItems,
@@ -454,7 +458,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
     private UUPopupWindow mPopupWindow;// 支付时底部弹出的popupWindow
 
     private Animation ani1;
-    private TextView  tvCommodityDetail;
+    private TextView tvCommodityDetail;
     private float packageSize = 0.0f;
 
     private void initPopwindow() {
@@ -572,7 +576,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
         //                        FlowPackageRechargeActivity.this, p2, false);
     }
 
-    private Date   mSuccTime;
+    private Date mSuccTime;
     private Dialog mDialog;
     @SuppressLint("HandlerLeak")
     public Handler mPayHandler = new Handler() {
@@ -753,12 +757,12 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     }
 
-    private ArrayList<String>        changeItems      = new ArrayList<>();
-    private ArrayList<String>        refuleItems      = new ArrayList<>();
-    private ArrayList<String>        renewItems       = new ArrayList<>();
+    private ArrayList<String> changeItems = new ArrayList<>();
+    private ArrayList<String> refuleItems = new ArrayList<>();
+    private ArrayList<String> renewItems = new ArrayList<>();
     private ArrayList<FlowPriceInfo> changePriceInfos = new ArrayList<>();
     private ArrayList<FlowPriceInfo> refulePriceInfos = new ArrayList<>();
-    private ArrayList<FlowPriceInfo> renewPriceInfos  = new ArrayList<>();
+    private ArrayList<FlowPriceInfo> renewPriceInfos = new ArrayList<>();
 
     //解析流量包json
     private void parseFlowProductJson(Response<String> response) {

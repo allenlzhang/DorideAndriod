@@ -12,13 +12,21 @@
         android:layout_height="350dp"
         android:gravity="center"
         android:orientation="vertical" >
-
+        <TextView
+            android:id="@+id/car_traffic_txt_simid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIMID:"
+            android:textColor="@color/text_color_gray3"
+            android:textSize="@dimen/text_size_small_s1"
+            android:layout_marginTop="8dp"
+            />
         <com.carlt.doride.ui.view.CircleProgress
             android:id="@+id/trffic_used_precent"
             android:layout_width="158dp"
             android:layout_height="158dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="8dp"
             app:antiAlias="true"
             app:arcWidth="16dp"
             app:bgArcColor="#dbdbdb"
