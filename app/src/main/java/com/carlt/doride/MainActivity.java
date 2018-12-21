@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.data.carflow.CheckBindCarIdInfo;
 import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
@@ -116,9 +117,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         //                        parseCheckJson(response);
                         //                        loadingDialog.dismiss();
                         Gson gson = new Gson();
-                        CheckBindInfo checkBindInfo = gson.fromJson(response.body(), CheckBindInfo.class);
+                        CheckBindCarIdInfo checkBindInfo = gson.fromJson(response.body(), CheckBindCarIdInfo.class);
                         if (checkBindInfo.code == 0) {
-                            LoginInfo.setCarFlowType(checkBindInfo.data);
+                            if (checkBindInfo.data!=null) {
+                                LoginInfo.setCarFlowType(checkBindInfo.data.result);
+                            }
                             //                                llCarFlowRecharge.setVisibility(View.VISIBLE);
                             //                                lineCarFlow.setVisibility(View.VISIBLE);
                         }

@@ -28,6 +28,7 @@ import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.DealerInfo;
+import com.carlt.doride.data.carflow.CheckBindCarIdInfo;
 import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.carflow.CheckInitInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
@@ -107,9 +108,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private ImageView ivScan;
 
     private DealerInfo mDealerInfo;
-
-    private String ccid;
-    private String scanTime;
+    private String ccid;        //检查carid是否已经绑定 返回的ccid
+    private String scanCcid;    //扫一扫 扫出的ccid
+    private String scanTime;    //扫一扫 扫出的时间
 
     @Override
     public void onAttach(Context context) {
@@ -234,19 +235,13 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         //                        parseCheckJson(response);
                         //                        loadingDialog.dismiss();
                         Gson gson = new Gson();
-                        CheckBindInfo checkBindInfo = gson.fromJson(response.body(), CheckBindInfo.class);
-                        if (checkBindInfo.code == 0) {
-                            if (checkBindInfo.data == 1) {
-                                countDataPackage(1);
-//                                tvCarFlow.setText("车机流量充值");
-//                                tvFlow.setText("T-box流量充值");
-//                                llCarFlowRecharge.setVisibility(View.VISIBLE);
-//                                lineCarFlow.setVisibility(View.VISIBLE);
-//                            } else {
-//                                tvCarFlow.setText("流量充值");
-//                                tvFlow.setText("流量充值");
-//                                llCarFlowRecharge.setVisibility(View.GONE);
-//                                lineCarFlow.setVisibility(View.GONE);
+                        CheckBindCarIdInfo info = gson.fromJson(response.body(), CheckBindCarIdInfo.class);
+                        if (info!=null&&info.code == 0) {
+                            if (info.data!=null) {
+                                if (info.data.result == 1) {
+                                    countDataPackage(1);
+                                }
+                                ccid = info.data.ccid;
                             }
                         }
                     }
@@ -398,7 +393,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.llFlowRecharge:
                 //流量包充值
-                startActivity(new Intent(getActivity(), FlowPackageRechargeActivity.class));
+                Intent intent = new Intent(mCtx,FlowPackageRechargeActivity.class);
+                intent.putExtra("title",tvFlow.getText().toString());
+                startActivity(intent);
                 break;
             case R.id.llCarFlowRecharge:
 //                startActivity(new Intent(getActivity(), CarFlowPackageRechargeActivity.class));
@@ -498,7 +495,11 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 case 1:
                     loadSuccessUI();
                     //未绑定
-                    showUnBindDialog();
+                    if (TextUtils.isEmpty(ccid)){
+                        showUnBindDialog();
+                    }else {
+                        ToastUtils.showShort("您的爱车已绑定车机，不能重复绑定");
+                    }
                     break;
                 case 2:
                     //已绑定（自己的车）
@@ -529,7 +530,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             public void onRightClick() {
                 Intent intent = new Intent(mCtx, CheckPhoneActivity.class);
                 intent.putExtra("carid", carid);
-                intent.putExtra("ccid", ccid);
+                intent.putExtra("ccid", scanCcid);
                 startActivity(intent);
                 //                bindSim();
             }
@@ -616,23 +617,23 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         String[] str = kv.split("&");
         for (String aStr : str) {
             if (aStr.startsWith("ccid")) {
-                ccid = aStr;
+                scanCcid = aStr;
             }
             if (aStr.startsWith("time")) {
                 scanTime = aStr;
             }
         }
-        if (!TextUtils.isEmpty(ccid)) {
-            ccid = ccid.trim().substring(ccid.indexOf("=") + 1);
+        if (!TextUtils.isEmpty(scanCcid)) {
+            scanCcid = scanCcid.trim().substring(scanCcid.indexOf("=") + 1);
         } else {
-            ccid = "";
+            scanCcid = "";
         }
         if (!TextUtils.isEmpty(scanTime)) {
             scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
             LogUtils.e("scanTime == " + scanTime);
             long time = Long.parseLong(scanTime);
             if ((System.currentTimeMillis() / 1000 - time) <= 3000) {
-                checkCcid(ccid);
+                checkCcid(scanCcid);
             } else {
                 ToastUtils.showShort("二维码已过期");
             }
@@ -881,6 +882,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     case 2:
                         if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0) {
                             Intent intent = new Intent(mCtx, CarFlowPackageRechargeActivity.class);
+                            intent.putExtra("title",tvCarFlow.getText().toString());
                             startActivity(intent);
                         }else {
                             ToastUtils.showShort("暂未获取到商品列表");

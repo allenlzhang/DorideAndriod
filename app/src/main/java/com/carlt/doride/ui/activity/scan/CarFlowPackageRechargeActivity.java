@@ -95,7 +95,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
     TextView carTrafficTxtSimid;
     private int position = 0;
     private Dialog mPorgressDialog;
-
+    private String title = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +103,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
         ButterKnife.bind(this);
         //        CPControl.GetToPay(mPayHandler,
         //                FlowPackageRechargeActivity.this, p2, false);
+        title = getIntent().getStringExtra("title");
         initData();
         initView();
     }
@@ -272,7 +273,11 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
     }
 
     private void initView() {
-        initTitle("流量充值");
+        if (TextUtils.isEmpty(title)) {
+            initTitle("流量充值");
+        }else{
+            initTitle(title);
+        }
         tvRight.setText("充值记录");
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setOnClickListener(new View.OnClickListener() {
