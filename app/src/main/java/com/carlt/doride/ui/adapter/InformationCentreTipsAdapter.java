@@ -114,6 +114,12 @@ public class InformationCentreTipsAdapter extends BaseAdapter {
                         minTitle = "失连";
                         mHolder.mTextView4.setVisibility(View.GONE);
                         break;
+                    case InformationMessageInfo.C1_T1_T11:
+                        mHolder.mTextView4.setVisibility(View.GONE);
+                        break;
+                    case InformationMessageInfo.C1_T1_T13:
+                        mHolder.mTextView4.setVisibility(View.GONE);
+                        break;
                 }
 
                 break;

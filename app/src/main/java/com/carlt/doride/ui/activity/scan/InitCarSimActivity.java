@@ -145,6 +145,7 @@ public class InitCarSimActivity extends LoadingActivity {
                 if (machineDataNum!=0){
                     Intent intent = new Intent(this,CarFlowPackageRechargeActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     ToastUtils.showShort("暂未获取到商品列表");
                     finish();

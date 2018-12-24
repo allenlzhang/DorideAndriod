@@ -43,6 +43,7 @@ public class InformationMessageInfo {
     public final static int C1_T1_T10 = 1110;// 1110 激活盒子失败
     public final static int C1_T1_T11 = 1111;// 1111 激活盒子启动
     public final static int C1_T1_T5  = 1105;// 1104 盒子失去连接
+    public final static int C1_T1_T13 = 1113;// 1113 流量提醒
 
     public final static int C1_T2_T1  = 2101;// 2101 振动提醒
     public final static int C1_T2_T2  = 2102;// 2102 故障提醒
