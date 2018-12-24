@@ -364,14 +364,14 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                                       ArrayList<FlowPriceInfo> changePriceInfos) {
 
 
-        if (tvEmptyHint.VISIBLE == View.VISIBLE) {
+        if (tvEmptyHint.getVisibility() == View.VISIBLE) {
             if (Integer.valueOf(warnningInfo.data.next_package_type) == 0) {
                 tvEmptyHint.setText("当前套餐已过期或剩余时间不足，请先续套餐");
             } else {
                 tvEmptyHint.setText("当前套餐已过期或剩余时间不足，无法更改");
             }
         }
-        if (changeItems.size() > 0 && changeItems.size() > 0) {
+        if (changeItems.size() > 0 && changePriceInfos.size() > 0) {
             adapter = new PackageTypeAdapter(
                     FlowPackageRechargeActivity.this, changeItems,
                     changePriceInfos);
@@ -381,6 +381,10 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                 GvPackageWrap.setNumColumns(3);
             }
             GvPackageWrap.setAdapter(adapter);
+        }else {
+            GvPackageWrap.setVisibility(View.GONE);
+            tvEmptyHint.setVisibility(View.VISIBLE);
+            tvEmptyHint.setText("暂未获取到商品列表");
         }
         GvPackageWrap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

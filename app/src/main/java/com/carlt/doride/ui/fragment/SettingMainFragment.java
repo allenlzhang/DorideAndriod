@@ -49,7 +49,6 @@ import com.carlt.doride.ui.activity.setting.MsgManageActivity;
 import com.carlt.doride.ui.activity.setting.PersonInfoActivity;
 import com.carlt.doride.ui.activity.setting.TravelAlbumActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
-import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.CacheUtils;
 import com.carlt.doride.utils.DensityUtil;
 import com.carlt.doride.utils.LoadLocalImageUtil;

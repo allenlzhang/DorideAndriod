@@ -31,7 +31,6 @@ import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
-import com.carlt.doride.ui.activity.setting.TrafficPackagePurchaseLogActivity;
 import com.carlt.doride.ui.adapter.FlowPriceListAdapter;
 import com.carlt.doride.ui.adapter.PackageTypeAdapter;
 import com.carlt.doride.ui.view.CircleProgress;
@@ -69,21 +68,21 @@ import butterknife.ButterKnife;
 public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     @BindView(R.id.trffic_used_precent)
-    CircleProgress trfficUsedPrecent;
+    CircleProgress        trfficUsedPrecent;
     @BindView(R.id.traffic_used_txt)
-    TextView trafficUsedTxt;
+    TextView              trafficUsedTxt;
     @BindView(R.id.traffic_remain_txt)
-    TextView trafficRemainTxt;
+    TextView              trafficRemainTxt;
     @BindView(R.id.traffic_tips_layout)
-    LinearLayout trafficTipsLayout;
+    LinearLayout          trafficTipsLayout;
     @BindView(R.id.tvCurrentPackage)
-    TextView tvCurrentPackage;
+    TextView              tvCurrentPackage;
     @BindView(R.id.segment_control)
-    SegmentControl segmentControl;
+    SegmentControl        segmentControl;
     @BindView(R.id.tvEmptyHint)
-    TextView tvEmptyHint;
+    TextView              tvEmptyHint;
     @BindView(R.id.tvPriceEmptyHint)
-    TextView tvPriceEmptyHint;
+    TextView              tvPriceEmptyHint;
     @BindView(R.id.gv_package_wrap)
     GridViewForScrollView GvPackageWrap;
     @BindView(R.id.lvPriceList)
@@ -92,10 +91,11 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
     @BindView(R.id.sv)
     ScrollView sv;
     @BindView(R.id.car_traffic_txt_simid)
-    TextView carTrafficTxtSimid;
+    TextView   carTrafficTxtSimid;
     private int position = 0;
     private Dialog mPorgressDialog;
     private String title = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,8 +196,8 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     private void updateView(TrafficPackageWarnningInfo warnningInfo) {
         if (!TextUtils.isEmpty(warnningInfo.data.simid)) {
-            carTrafficTxtSimid.setText("SIMID："+warnningInfo.data.simid);
-        }else {
+            carTrafficTxtSimid.setText("SIMID：" + warnningInfo.data.simid);
+        } else {
             carTrafficTxtSimid.setText("SIMID：--");
         }
         float totalPackage = Float.valueOf(warnningInfo.data.share_data_total);
@@ -275,7 +275,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
     private void initView() {
         if (TextUtils.isEmpty(title)) {
             initTitle("流量充值");
-        }else{
+        } else {
             initTitle(title);
         }
         tvRight.setText("充值记录");
@@ -366,21 +366,21 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     }
 
-    private PackageTypeAdapter adapter;
+    private PackageTypeAdapter         adapter;
     private TrafficPackageWarnningInfo warnningInfo;
 
     private void showFlowPackageInfos(ArrayList<String> changeItems,
                                       ArrayList<FlowPriceInfo> changePriceInfos) {
+        LogUtils.e(changeItems.size());
 
-
-        if (tvEmptyHint.VISIBLE == View.VISIBLE) {
+        if (tvEmptyHint.getVisibility() == View.VISIBLE) {
             if (Integer.valueOf(warnningInfo.data.next_package_type) == 0) {
                 tvEmptyHint.setText("当前套餐已过期或剩余时间不足，请先续套餐");
             } else {
                 tvEmptyHint.setText("当前套餐已过期或剩余时间不足，无法更改");
             }
         }
-        if (changeItems.size() > 0 && changeItems.size() > 0) {
+        if (changeItems.size() > 0 && changePriceInfos.size() > 0) {
             adapter = new PackageTypeAdapter(
                     CarFlowPackageRechargeActivity.this, changeItems,
                     changePriceInfos);
@@ -390,11 +390,15 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
                 GvPackageWrap.setNumColumns(3);
             }
             GvPackageWrap.setAdapter(adapter);
+        } else {
+            GvPackageWrap.setVisibility(View.GONE);
+            tvEmptyHint.setVisibility(View.VISIBLE);
+            tvEmptyHint.setText("暂未获取到商品列表");
         }
         GvPackageWrap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                ArrayList<FlowPriceInfo> flowPriceDataList = new ArrayList<FlowPriceInfo>();
+                ArrayList<FlowPriceInfo> flowPriceDataList = new ArrayList<>();
                 adapter.setSeclection(pos);
                 adapter.notifyDataSetChanged();
                 String item = adapter.getItem(pos);
@@ -463,7 +467,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
     private UUPopupWindow mPopupWindow;// 支付时底部弹出的popupWindow
 
     private Animation ani1;
-    private TextView tvCommodityDetail;
+    private TextView  tvCommodityDetail;
     private float packageSize = 0.0f;
 
     private void initPopwindow() {
@@ -581,7 +585,7 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
         //                        FlowPackageRechargeActivity.this, p2, false);
     }
 
-    private Date mSuccTime;
+    private Date   mSuccTime;
     private Dialog mDialog;
     @SuppressLint("HandlerLeak")
     public Handler mPayHandler = new Handler() {
@@ -762,12 +766,12 @@ public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     }
 
-    private ArrayList<String> changeItems = new ArrayList<>();
-    private ArrayList<String> refuleItems = new ArrayList<>();
-    private ArrayList<String> renewItems = new ArrayList<>();
+    private ArrayList<String>        changeItems      = new ArrayList<>();
+    private ArrayList<String>        refuleItems      = new ArrayList<>();
+    private ArrayList<String>        renewItems       = new ArrayList<>();
     private ArrayList<FlowPriceInfo> changePriceInfos = new ArrayList<>();
     private ArrayList<FlowPriceInfo> refulePriceInfos = new ArrayList<>();
-    private ArrayList<FlowPriceInfo> renewPriceInfos = new ArrayList<>();
+    private ArrayList<FlowPriceInfo> renewPriceInfos  = new ArrayList<>();
 
     //解析流量包json
     private void parseFlowProductJson(Response<String> response) {
