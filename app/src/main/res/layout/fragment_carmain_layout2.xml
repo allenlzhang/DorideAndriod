@@ -367,8 +367,10 @@
             android:layout_height="102dp"
             android:layout_below="@+id/tvbg"
             android:layout_marginTop="15dp"
-            android:weightSum="3"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            >
 
             <TextView
                 android:id="@+id/car_main_txt_tire"
@@ -405,12 +407,13 @@
                 />
             <TextView
                 android:id="@+id/car_main_txt_icon2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="--"
                 android:textSize="@dimen/text_size_small_s1"
                 android:textColor="@color/title_bg"
                 android:paddingTop="20dp"
+                android:layout_marginLeft="20dp"
                 />
         </LinearLayout>
         <include
