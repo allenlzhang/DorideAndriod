@@ -94,6 +94,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     private Dialog mPorgressDialog;
 
     private String title = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,7 +267,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     private void initView() {
         if (TextUtils.isEmpty(title)) {
             initTitle("流量充值");
-        }else {
+        } else {
             initTitle(title);
         }
         tvRight.setText("充值记录");
@@ -381,10 +382,10 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                 GvPackageWrap.setNumColumns(3);
             }
             GvPackageWrap.setAdapter(adapter);
-        }else {
+        } else {
             GvPackageWrap.setVisibility(View.GONE);
             tvEmptyHint.setVisibility(View.VISIBLE);
-            tvEmptyHint.setText("暂未获取到商品列表");
+            tvEmptyHint.setText("暂无符合的套餐产品，请选择其他商品或购买加油包");
         }
         GvPackageWrap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -830,14 +831,14 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
                     if (!TextUtils.isEmpty(endDate)) {
                         String dateNextDay = dateNextDay(finalDate);
-                        flowPriceInfo.flowTerm = dateNextDay + "生效，" + "至"
+                        flowPriceInfo.flowTerm = dateNextDay + "生效，至"
                                 + endDate;
                     }
                     if (packageType == 0 || packageType == 2) {
                         String currrentDate = getCurrrentdate();
                         String end = doDate(currrentDate,
                                 flowPriceInfo.package_month);
-                        flowPriceInfo.flowTerm = currrentDate + "生效，" + "至"
+                        flowPriceInfo.flowTerm = currrentDate + "生效，至"
                                 + end;
                     }
                     renewPriceInfos.add(flowPriceInfo);
