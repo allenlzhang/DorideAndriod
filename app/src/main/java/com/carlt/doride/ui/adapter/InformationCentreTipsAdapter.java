@@ -129,6 +129,9 @@ public class InformationCentreTipsAdapter extends BaseAdapter {
                     case InformationMessageInfo.C1_T1_T12:
                         mHolder.mTextView4.setVisibility(View.GONE);
                         break;
+                    case InformationMessageInfo.C1_T1_T14:
+                        mHolder.mTextView4.setVisibility(View.GONE);
+                        break;
                 }
 
                 break;
