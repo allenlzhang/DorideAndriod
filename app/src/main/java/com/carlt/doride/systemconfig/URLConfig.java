@@ -33,6 +33,7 @@ public class URLConfig {
     // 大乘下发-测试服务器
     private final static String U_R3                  = "http://remote-doride.linewin.cc/";
     private final static String BASE_CAR_SIM_URL_TEST = "http://simcard.linewin.cc/";
+    private final static String BASE_CAR_SIM_URL_FORMAL = "http://toolsapi.geni4s.com/";
     // 摄像头固件升级
     private static       String M_REMOTE_UPGRADE      = "comm/upgrade";
 
@@ -117,8 +118,10 @@ public class URLConfig {
             switch (flag) {
                 case VERSION_FORMAL:
                     // 正式服
-                    return BASE_CAR_SIM_URL_TEST + s;
-
+                    return BASE_CAR_SIM_URL_FORMAL + s;
+                case VERSION_PREPARE:
+                    // 预发布
+                    return BASE_CAR_SIM_URL_FORMAL + s;
                 case VERSION_TEST:
                     // 测试服
                     return BASE_CAR_SIM_URL_TEST + s;
