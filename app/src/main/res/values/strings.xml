@@ -107,8 +107,8 @@
     <string name="device_binded_txt">已绑定设备: %1$s</string>
     <!--清除缓存-->
     <string name="cache_clean_tips">确定清除缓存？</string>
-    <string name="update_1">"野马增添新功能了，是否需要更新为新版本？"</string>
-    <string name="update_2">"野马增添新功能了，便于您继续使用，请更新为新版本。"</string>
+    <string name="update_1">"大乘智享增添新功能了，是否需要更新为新版本？"</string>
+    <string name="update_2">"大乘智享增添新功能了，便于您继续使用，请更新为新版本。"</string>
     <string name="update_erro">"网络连接失败，请检查联网"</string>
 
     <string name="listItem_day_driveInfo">今日驾驶%1$s次</string>
