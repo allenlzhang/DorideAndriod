@@ -111,6 +111,12 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private String scanCcid;    //扫一扫 扫出的ccid
     private String scanTime;    //扫一扫 扫出的时间
 
+    private boolean isTbox = true;
+
+    private boolean isMatchine = true;
+
+    private boolean isLoadOther = true;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -225,6 +231,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 检查carid是否已经绑定
      */
     private void checkCarIdIsBind() {
+        loadingDataUI();
         OkGo.<String>post(URLConfig.getCAR_CHECK_BIND_URL())
                 .params("carid", Integer.valueOf(carid))
                 .execute(new StringCallback() {
@@ -239,9 +246,18 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             if (info.data!=null) {
                                 if (info.data.result == 1) {
                                     countDataPackage(1);
+                                }else {
+                                    isMatchine = false;
+                                    isLoadingUI();
                                 }
                                 ccid = info.data.ccid;
+                            }else {
+                                isMatchine = false;
+                                isLoadingUI();
                             }
+                        }else {
+                            isMatchine = false;
+                            isLoadingUI();
                         }
                     }
 
@@ -250,6 +266,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         super.onError(response);
                         LogUtils.e(response);
                         //                        loadingDialog.dismiss();
+                        isMatchine = false;
+                        isLoadingUI();
                     }
                 });
     }
@@ -415,11 +433,13 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 检查车机GPRS初始化是否成功
      */
     private void checkInitIsOk() {
+        loadingDataUI();
         OkGo.<String>post(URLConfig.getCAR_CHECK_INIT_IS_OK())
                 .params("carid", carid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        loadSuccessUI();
                         parseCheckInitIsOk(response);
                     }
 
@@ -670,7 +690,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private BaseParser.ResultCallback dealerCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-            loadSuccessUI();
+//            loadSuccessUI();
+            isLoadOther = false;
+            isLoadingUI();
             Logger.e(TAG + bInfo.toString());
             mDealerInfo = (DealerInfo) bInfo.getValue();
             contact_us_phone.setText(mDealerInfo.getServiceTel());
@@ -678,6 +700,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
+            isLoadOther = false;
+            isLoadingUI();
             loadonErrorUI(bInfo);
             Logger.e(TAG, bInfo.toString());
         }
@@ -755,6 +779,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 是否支持T-box流量充值（V140）
      */
     private void isSupportTData() {
+        loadingDataUI();
         String isSupportTDataUrl = URLConfig.getM_ISSUPPORTTDATA();
         OkGo.<String>post(isSupportTDataUrl)
                 .params("client_id", URLConfig.getClientID())
@@ -763,6 +788,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+//                        loadSuccessUI();
                         parseIsSupport(response);
                     }
 
@@ -770,6 +796,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     public void onError(Response<String> response) {
                         super.onError(response);
                         LogUtils.e(response);
+//                        loadSuccessUI();
+                        isTbox = false;
+                        isLoadingUI();
                     }
                 });
     }
@@ -783,11 +812,19 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 boolean isSupport = object.optBoolean("isSupport", false);
                 if (isSupport) {
                     countDataPackage(0);
+                }else {
+                    isTbox = false;
+                    isLoadingUI();
                 }
+            }else {
+                isTbox = false;
+                isLoadingUI();
             }
 
         } catch (Exception e) {
             LogUtils.e(e);
+            isTbox = false;
+            isLoadingUI();
         }
 
     }
@@ -796,6 +833,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 判断T-box、车机是否配置流量产品（V140）
      */
     private void countDataPackage(final int type) {
+        loadingDataUI();
         String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE();
         OkGo.<String>post(countDataPackageUrl)
                 .params("client_id", URLConfig.getClientID())
@@ -803,14 +841,25 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        loadSuccessUI();
                         parseCountDataPackage(response, type);
+//                        loadSuccessUI();
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        loadSuccessUI();
+//                        loadSuccessUI();
+                        switch (type){
+                            case 0:
+                                isTbox = false;
+                                isLoadingUI();
+                                break;
+                            case 1:
+                                isMatchine = false;
+                                isLoadingUI();
+                                break;
+                        }
+
                     }
                 });
     }
@@ -857,6 +906,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
+                        isTbox = false;
+                        isLoadingUI();
                         break;
                     case 1:
                         if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0){
@@ -877,6 +928,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
+                        isMatchine = false;
+                        isLoadingUI();
                         break;
                     case 2:
                         if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0) {
@@ -888,10 +941,40 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         }
                         break;
                 }
+            }else {
+                switch (type){
+                    case 0:
+                        isTbox = false;
+                        isLoadingUI();
+                        break;
+                    case 1:
+                        isMatchine = false;
+                        isLoadingUI();
+                        break;
+                }
             }
         } catch (Exception e) {
             LogUtils.e(e);
+            switch (type){
+                case 0:
+                    isTbox = false;
+                    isLoadingUI();
+                    break;
+                case 1:
+                    isMatchine = false;
+                    isLoadingUI();
+                    break;
+            }
         }
 
     }
+
+    private void isLoadingUI(){
+        if (!isLoadOther&&!isTbox&&!isMatchine){
+            loadSuccessUI();
+        }else {
+            loadingDataUI();
+        }
+    }
+
 }

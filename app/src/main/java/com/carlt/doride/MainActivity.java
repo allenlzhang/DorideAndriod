@@ -317,13 +317,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     if (carOperationConfigParser != null) {
                         RemoteMainInfo aReturn = carOperationConfigParser.getReturn();
                         Logger.e("hasTachograph=============" + aReturn.hasTachograph);
-                        if (aReturn.hasTachograph == 1) {
-                            //支持记录仪
-                            mTabllPie.setVisibility(View.VISIBLE);
-                        } else {
+//                        if (aReturn.hasTachograph == 1) {
+//                            //支持记录仪
+//                            mTabllPie.setVisibility(View.VISIBLE);
+//                        } else {
                             //不支持
                             mTabllPie.setVisibility(View.GONE);
-                        }
+//                        }
                     }
                 }
 

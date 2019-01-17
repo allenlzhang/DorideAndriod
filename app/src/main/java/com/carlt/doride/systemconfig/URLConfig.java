@@ -113,7 +113,7 @@ public class URLConfig {
 
     private static String getCarSimUrl(String s) {
         if (DorideApplication.Formal_Version) {
-            return BASE_CAR_SIM_URL_TEST + s;
+            return BASE_CAR_SIM_URL_FORMAL + s;
         } else {
             switch (flag) {
                 case VERSION_FORMAL:
