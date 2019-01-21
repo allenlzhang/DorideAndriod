@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:src="@drawable/recorder_bottom_bg"
+                    android:src="@drawable/recorder_bottom_bg_new"
                     />
                 <TextView
                     android:id="@+id/recordermain_txt_album"
