@@ -185,6 +185,7 @@ public class LoginInfo extends BaseResponseInfo {
     private static      String deviceCategory    = "0";
 
     private static String tbox_type;
+    private static int    flowType;
     private static String limit_warning;
 
     // 短位车架号
@@ -352,6 +353,7 @@ public class LoginInfo extends BaseResponseInfo {
 
     private static String mainten_next_day = "";// 距离下次保养天数
     public static int deviceisnew;//是否新设备：1=是，0=否
+    public static int membercarId;
 
     private static boolean isMainten         = false;// “我已保养过”按钮
     // 是否可点击 1能点击，剩余不可点击
@@ -634,14 +636,14 @@ public class LoginInfo extends BaseResponseInfo {
         user_pref.edit().putString("expires_in", expires_in).apply();
     }
 
-    public static String getcId() {
-        cId = car_pref.getString("cId", cId);
-        return cId;
+    public static int getcId() {
+        membercarId = car_pref.getInt("membercarId", membercarId);
+        return membercarId;
     }
 
-    public static void setcId(String cId) {
-        LoginInfo.cId = cId;
-        car_pref.edit().putString("cId", cId).apply();
+    public static void setcId(int cId) {
+        LoginInfo.membercarId = cId;
+        car_pref.edit().putInt("membercarId", membercarId).apply();
     }
 
     public static String getBrandid() {
@@ -658,14 +660,17 @@ public class LoginInfo extends BaseResponseInfo {
         LoginInfo.activate_status = car_pref.getInt("activate_status", -1);
         return LoginInfo.activate_status;
     }
+
     public static void setActivate_status(int activate_status) {
         LoginInfo.activate_status = activate_status;
         car_pref.edit().putInt("activate_status", activate_status).apply();
     }
+
     public static int getTachograph() {
         LoginInfo.activate_status = car_pref.getInt("is_tachograph", -1);
         return LoginInfo.is_tachograph;
     }
+
     public static void setTachograph(int is_tachograph) {
         LoginInfo.is_tachograph = is_tachograph;
         car_pref.edit().putInt("is_tachograph", is_tachograph).apply();
@@ -1539,6 +1544,16 @@ public class LoginInfo extends BaseResponseInfo {
     public static String getTbox_type() {
         tbox_type = user_pref.getString("tbox_type", tbox_type);
         return tbox_type;
+    }
+
+    public static int getCarFlowType() {
+        flowType = user_pref.getInt("flowType", flowType);
+        return flowType;
+    }
+
+    public static void setCarFlowType(int flowType) {
+        LoginInfo.flowType = flowType;
+        user_pref.edit().putInt("flowType", flowType).commit();
     }
 
     public static void setTbox_type(String tbox_type) {

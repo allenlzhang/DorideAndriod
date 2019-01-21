@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.ui.view.UUDialog;
 
 
 /**
@@ -45,11 +46,12 @@ public class LoadingActivity extends BaseActivity {
     protected TextView optRight = null;
     protected TextView tvRight;
     protected TextView tvRight2;
-
+    protected UUDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadingDialog = new UUDialog(this);
         mInflater = LayoutInflater.from(mContext);
     }
 

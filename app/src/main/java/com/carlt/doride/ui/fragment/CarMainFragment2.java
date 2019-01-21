@@ -65,6 +65,7 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
     private ImageView    viewMainState;
     private TextView     headTxt;
     private TextView     titleTV;
+    private TextView     mTxtView;
     public final static String CARMAIN_SAFETY = "com.carlt.doride.carmain.safety";// 安防action
 
     //    private CarmainBroadCastReceiver mReceiver;
@@ -129,6 +130,8 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
         //        汽车状态
         tvCarState = $ViewByID(R.id.tvCarState);
         tvScore = $ViewByID(R.id.car_main_txt_maintain);
+        //底部按钮只显示一个时 描述文字显示在icon后面
+        mTxtView = $ViewByID(R.id.car_main_txt_icon2);
         titleTV.setText("大乘汽车品牌");
         view1.setOnClickListener(this);
         view2.setOnClickListener(this);
@@ -142,7 +145,7 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
         //        IntentFilter filter = new IntentFilter();
         //        filter.addAction(CARMAIN_SAFETY);
         //        getActivity().registerReceiver(mReceiver, filter);
-
+        mTxtView.setText("定位寻车");
     }
 
     @Override
@@ -391,24 +394,35 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
         //是否支持胎压监测
         if (TextUtils.equals(DorideApplication.getInstanse().getRemoteMainInfo().getDirectPSTsupervise(), RemoteFunInfo.STATE_SUPPORT)) {
             isTire = true;
-            Drawable top = getResources().getDrawable(R.drawable.tire_car_main_selecter);
-            view1.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+//            Drawable top = getResources().getDrawable(R.drawable.tire_car_main_selecter);
+//            view1.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+            view1.setVisibility(View.VISIBLE);
         } else {
             isTire = false;
-            Drawable top = getResources().getDrawable(R.mipmap.tire_car_main_unpress);
-            view1.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+//            Drawable top = getResources().getDrawable(R.mipmap.tire_car_main_unpress);
+//            view1.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+            view1.setVisibility(View.GONE);
         }
         //是否支持导航同步
         if (TextUtils.equals(DorideApplication.getInstanse().getRemoteMainInfo().getNavigationSync(), RemoteFunInfo.STATE_SUPPORT)) {
             isCarlocation = true;
-            Drawable top = getResources().getDrawable(R.drawable.daohang_car_main_selecter);
-            view3.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+//            Drawable top = getResources().getDrawable(R.drawable.daohang_car_main_selecter);
+//            view3.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+            view3.setVisibility(View.VISIBLE);
         } else {
             isCarlocation = false;
-            Drawable top = getResources().getDrawable(R.mipmap.navigate_carmain_unpress);
-            view3.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+//            Drawable top = getResources().getDrawable(R.mipmap.navigate_carmain_unpress);
+//            view3.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+            view3.setVisibility(View.GONE);
         }
 
+        if (!isTire&&!isCarlocation){
+            view2.setText("");
+            mTxtView.setVisibility(View.VISIBLE);
+        }else {
+            view2.setText("定位寻车");
+            mTxtView.setVisibility(View.GONE);
+        }
 
     }
 
@@ -428,12 +442,12 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
 
         switch (view.getId()) {
             case R.id.car_main_txt_tire://胎压监测
-                if (isTire) {
+//                if (isTire) {
                     Intent mIntent = new Intent(getActivity(), CarTiresStateActivity.class);
                     startActivity(mIntent);
-                } else {
-                    UUToast.showUUToast(getActivity(), "暂不支持该功能");
-                }
+//                } else {
+//                    UUToast.showUUToast(getActivity(), "暂不支持该功能");
+//                }
                 break;
             case R.id.car_main_txt_findcar://定位寻车
                 ((BaseActivity) getActivity()).requestPermissions(getActivity(), needPermissions, new BaseActivity.RequestPermissionCallBack() {
@@ -451,7 +465,7 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
 
                 break;
             case R.id.car_main_txt_carlocation://导航同步
-                if (isCarlocation) {
+//                if (isCarlocation) {
                     ((BaseActivity) getActivity()).requestPermissions(getActivity(), needPermissions, new BaseActivity.RequestPermissionCallBack() {
                         @Override
                         public void granted() {
@@ -464,9 +478,9 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
                             UUToast.showUUToast(getActivity(), "未获取到权限，导航同步功能不可用");
                         }
                     });
-                } else {
-                    UUToast.showUUToast(getActivity(), "暂不支持该功能");
-                }
+//                } else {
+//                    UUToast.showUUToast(getActivity(), "暂不支持该功能");
+//                }
 
                 break;
             case R.id.car_main_lay_safety://安防提醒

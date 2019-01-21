@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.data.flow.TrafficPackagePurchaseLogInfo;
 import com.carlt.doride.data.flow.TrafficPackagePurchaseLogListInfo;
+import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.adapter.TrafficPurchaseLogAdapter;
 import com.carlt.doride.ui.pull.PullToRefreshBase;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
@@ -150,7 +151,7 @@ public class TrafficPackagePurchaseLogActivity extends LoadingActivityWithTitle 
 	 */
 	private void PullDown() {
 		// 调用接口
-		CPControl.GetTrafficPackageLogResult(LIMIT, 0,package_type, listener);
+		CPControl.GetTrafficPackageLogResult(URLConfig.getmTrafficPaylogUrl(),LIMIT, 0,package_type, listener);
 	}
 
 	/**
@@ -163,7 +164,7 @@ public class TrafficPackagePurchaseLogActivity extends LoadingActivityWithTitle 
 				: mAdapter.getCount() / 21 + 1;
 		int offset = mInfoLists.getOffset();
 		flagPackagePurchaseLogInfo = mAdapter.getItem((ratio - 1) * 21);
-		CPControl.GetTrafficPackageLogResult(LIMIT, ratio * 20,package_type,
+		CPControl.GetTrafficPackageLogResult(URLConfig.getmTrafficPaylogUrl(),LIMIT, ratio * 20,package_type,
 				listener_loadmore);
 	}
 
@@ -213,7 +214,7 @@ public class TrafficPackagePurchaseLogActivity extends LoadingActivityWithTitle 
 	@Override
 	protected void LoadData() {
 		super.LoadData();
-		CPControl.GetTrafficPackageLogResult(LIMIT, 0,package_type, listener);
+		CPControl.GetTrafficPackageLogResult(URLConfig.getmTrafficPaylogUrl(),LIMIT, 0,package_type, listener);
 	}
 
 	// 拉取更多数据

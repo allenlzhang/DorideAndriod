@@ -83,10 +83,9 @@ public class LoginControl {
                         }
                         mContext.startActivity(mainIntent);
                         mContext.finish();
-                    }else {
-//                        ToastUtils.showShort();
+                    } else {
+                        //                        ToastUtils.showShort();
                     }
-
 
 
                     break;
@@ -443,6 +442,7 @@ public class LoginControl {
         LogUtils.e("parseLoginInfodeviceisnew------" + deviceisnew);
         LoginInfo.setDeviceisnew(deviceisnew);
         int membercarId = membercar.optInt("id");
+        LoginInfo.setcId(membercarId);
         if (membercarId > 0) {
             LoginInfo.setBindCar(true);
         } else {

@@ -18,6 +18,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.data.carflow.CheckBindCarIdInfo;
+import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.model.LoginInfo;
@@ -89,17 +91,49 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         init();
         mFragmentManager = getSupportFragmentManager();
         setTabSelection(0);
         LogUtils.e("LoginInfo.getTbox_type()====" + LoginInfo.getTbox_type());
-        if (LoginInfo.getTbox_type().equals("4G")) {
+//        if (LoginInfo.getTbox_type().equals("4G")) {
             initFlowInfo();
-        }
+//        }
+//        initCarFlow();
 
+    }
 
+    private String carid = "2216301";
+
+    private void initCarFlow() {
+        //        carid = LoginInfo.getCarid();
+        OkGo.<String>post(URLConfig.getCAR_CHECK_BIND_URL())
+                .params("carid", Integer.valueOf(carid))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtils.e(response.body());
+                        //                        parseCheckJson(response);
+                        //                        loadingDialog.dismiss();
+                        Gson gson = new Gson();
+                        CheckBindCarIdInfo checkBindInfo = gson.fromJson(response.body(), CheckBindCarIdInfo.class);
+                        if (checkBindInfo.code == 0) {
+                            if (checkBindInfo.data!=null) {
+                                LoginInfo.setCarFlowType(checkBindInfo.data.result);
+                            }
+                            //                                llCarFlowRecharge.setVisibility(View.VISIBLE);
+                            //                                lineCarFlow.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        LogUtils.e(response);
+                        //                        loadingDialog.dismiss();
+                    }
+                });
     }
 
     private void initFlowInfo() {
@@ -278,19 +312,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
 
 
-
                     ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
                     //                loadSuss();
                     if (carOperationConfigParser != null) {
                         RemoteMainInfo aReturn = carOperationConfigParser.getReturn();
                         Logger.e("hasTachograph=============" + aReturn.hasTachograph);
-                        if (aReturn.hasTachograph == 1) {
-                            //支持记录仪
-                            mTabllPie.setVisibility(View.VISIBLE);
-                        } else {
+//                        if (aReturn.hasTachograph == 1) {
+//                            //支持记录仪
+//                            mTabllPie.setVisibility(View.VISIBLE);
+//                        } else {
                             //不支持
                             mTabllPie.setVisibility(View.GONE);
-                        }
+//                        }
                     }
                 }
 

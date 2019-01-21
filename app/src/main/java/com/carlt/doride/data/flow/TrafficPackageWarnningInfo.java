@@ -42,6 +42,7 @@ public class TrafficPackageWarnningInfo {
          * updatetime : 2018-09-01
          */
         public String carid;//车辆id
+        public String simid;//SIMID
         public String consume_data;//本月已耗共享流量
         public String final_service_data_end;//最终流量套餐结束时间
         public String is_deadline;//是否为套餐到期日 0-否 1-是

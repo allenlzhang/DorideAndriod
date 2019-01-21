@@ -1,4 +1,4 @@
-package com.carlt.doride.ui.activity.setting;
+package com.carlt.doride.ui.activity.scan;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -47,7 +47,6 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +65,7 @@ import butterknife.ButterKnife;
 /**
  * Description :  流量包充值
  */
-public class FlowPackageRechargeActivity extends LoadingActivity {
+public class CarFlowPackageRechargeActivity extends LoadingActivity {
 
     @BindView(R.id.trffic_used_precent)
     CircleProgress        trfficUsedPrecent;
@@ -91,15 +90,16 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
     @BindView(R.id.sv)
     ScrollView sv;
+    @BindView(R.id.car_traffic_txt_simid)
+    TextView   carTrafficTxtSimid;
     private int position = 0;
     private Dialog mPorgressDialog;
-
     private String title = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_traffic_package_purchase);
+        setContentView(R.layout.activity_car_traffic_package_purchase);
         ButterKnife.bind(this);
         //        CPControl.GetToPay(mPayHandler,
         //                FlowPackageRechargeActivity.this, p2, false);
@@ -116,10 +116,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     private void initData() {
         //        getFlowProductList();
         loadingDataUI();
-
-
-        Logger.e(URLConfig.getClientID() + "\n" +LoginInfo.getDealerId() + "\n"+ LoginInfo.getAccess_token());
-        OkGo.<String>post(URLConfig.getmTrafficWarnningUrl())
+        String car_flow_package_info_url = URLConfig.getCAR_FLOW_PACKAGE_INFO_URL();
+        OkGo.<String>post(car_flow_package_info_url)
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
                 .params("token", LoginInfo.getAccess_token())
@@ -165,15 +163,16 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+
         }
+
 
     }
 
     private void getFlowProductList() {
-        Logger.e(URLConfig.getmTrafficPurchaseUrl() );
-
-
-        OkGo.<String>post(URLConfig.getmTrafficPurchaseUrl())
+        String car_flow_product_list_url = URLConfig.getCAR_FLOW_PRODUCT_LIST_URL();
+        OkGo.<String>post(car_flow_product_list_url)
                 .params("client_id", URLConfig.getClientID())
                 .params("dealerId", LoginInfo.getDealerId())
                 .params("token", LoginInfo.getAccess_token())
@@ -196,6 +195,11 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     }
 
     private void updateView(TrafficPackageWarnningInfo warnningInfo) {
+        if (!TextUtils.isEmpty(warnningInfo.data.simid)) {
+            carTrafficTxtSimid.setText("SIMID：" + warnningInfo.data.simid);
+        } else {
+            carTrafficTxtSimid.setText("SIMID：--");
+        }
         float totalPackage = Float.valueOf(warnningInfo.data.share_data_total);
         float usedPackage = Float.valueOf(warnningInfo.data.consume_data);
         float remainPackage = Float.valueOf(warnningInfo.data.residual_data);
@@ -279,7 +283,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         tvRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FlowPackageRechargeActivity.this, TrafficPackagePurchaseLogActivity.class));
+                startActivity(new Intent(CarFlowPackageRechargeActivity.this, CarTrafficPackagePurchaseLogActivity.class));
             }
         });
         if (mPopupWindow == null) {
@@ -367,7 +371,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
     private void showFlowPackageInfos(ArrayList<String> changeItems,
                                       ArrayList<FlowPriceInfo> changePriceInfos) {
-
+        LogUtils.e(changeItems.size());
 
         if (tvEmptyHint.getVisibility() == View.VISIBLE) {
             if (Integer.valueOf(warnningInfo.data.next_package_type) == 0) {
@@ -378,7 +382,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         }
         if (changeItems.size() > 0 && changePriceInfos.size() > 0) {
             adapter = new PackageTypeAdapter(
-                    FlowPackageRechargeActivity.this, changeItems,
+                    CarFlowPackageRechargeActivity.this, changeItems,
                     changePriceInfos);
             if (changeItems.size() % 2 == 0) {
                 GvPackageWrap.setNumColumns(2);
@@ -389,12 +393,12 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         } else {
             GvPackageWrap.setVisibility(View.GONE);
             tvEmptyHint.setVisibility(View.VISIBLE);
-            tvEmptyHint.setText("暂无符合的套餐产品，请选择其他商品或购买加油包");
+            tvEmptyHint.setText("暂未获取到商品列表");
         }
         GvPackageWrap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                ArrayList<FlowPriceInfo> flowPriceDataList = new ArrayList<FlowPriceInfo>();
+                ArrayList<FlowPriceInfo> flowPriceDataList = new ArrayList<>();
                 adapter.setSeclection(pos);
                 adapter.notifyDataSetChanged();
                 String item = adapter.getItem(pos);
@@ -442,12 +446,10 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
     private void changePackageFlow(String item) {
         tvPriceEmptyHint.setVisibility(View.GONE);
         mPorgressDialog.show();
-
-        CPControl.getCalculatePrice(item, "4", new BaseParser.ResultCallback() {
+        CPControl.getCarCalculatePrice(item, "4", new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {
-
-                Logger.e(bInfo.toString()+ "==========changePackageFlow=============");
+                //                LogUtils.e(bInfo.getValue());
                 mPorgressDialog.dismiss();
                 parsePackagePrice(bInfo);
             }
@@ -455,7 +457,6 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
             @Override
             public void onError(BaseResponseInfo bInfo) {
                 mPorgressDialog.dismiss();
-                Logger.e(bInfo.toString()+ "==========onError=============");
             }
         });
 
@@ -526,7 +527,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                             mPopupWindow.dismiss();
                         }
 
-                        CPControl.getFlowPackageOrderResult(String.valueOf(mFlowPriceInfo.id), new BaseParser.ResultCallback() {
+                        CPControl.getCarFlowPackageOrderResult(String.valueOf(mFlowPriceInfo.id), new BaseParser.ResultCallback() {
                             @Override
                             public void onSuccess(BaseResponseInfo bInfo) {
                                 if (mFlowPriceInfo != null) {
@@ -541,7 +542,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                                 if (bInfo != null) {
                                     meesg = bInfo.getInfo();
                                 }
-                                UUToast.showUUToast(FlowPackageRechargeActivity.this, meesg);
+                                UUToast.showUUToast(CarFlowPackageRechargeActivity.this, meesg);
                             }
                         });
                         break;
@@ -578,7 +579,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         Gson gson = new Gson();
         FlowPackageOrderInfo orderInfo = gson.fromJson(value.toString(), FlowPackageOrderInfo.class);
         //调起支付
-        CPControl.GetToPay(mPayHandler, FlowPackageRechargeActivity.this, orderInfo.request_param, false);
+        CPControl.GetToPay(mPayHandler,
+                CarFlowPackageRechargeActivity.this, orderInfo.request_param, false);
         //                CPControl.GetToPay(mPayHandler,
         //                        FlowPackageRechargeActivity.this, p2, false);
     }
@@ -616,7 +618,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                         json.deleteCharAt(json.length() - 1);
                         json.append("}");
                         mDialog = PopBoxCreat.createDialogWithProgress(
-                                FlowPackageRechargeActivity.this,
+                                CarFlowPackageRechargeActivity.this,
                                 "正在验证支付结果请稍等。。。");
                         mDialog.show();
                         LogUtils.d("C_DEBUG", json.toString());
@@ -624,13 +626,13 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                         //                        checkPayResult(resultStatus, json.toString());
                         checkPayResult(resultStatus, resultInfo);
                     } else {
-                        UUToast.showUUToast(FlowPackageRechargeActivity.this,
+                        UUToast.showUUToast(CarFlowPackageRechargeActivity.this,
                                 "支付失败!");
                     }
                     break;
                 }
                 default:
-                    UUToast.showUUToast(FlowPackageRechargeActivity.this,
+                    UUToast.showUUToast(CarFlowPackageRechargeActivity.this,
                             "支付失败!");
                     break;
             }
@@ -656,7 +658,7 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                 time1 = MyTimeUtil.getDateYMD(mSuccTime);
                 time2 = MyTimeUtil.getHM(mSuccTime);
                 uuImgInfoDialog = PopBoxCreat.createUUImgInfoDialog(
-                        FlowPackageRechargeActivity.this, "充值成功", "您好，您于"
+                        CarFlowPackageRechargeActivity.this, "充值成功", "您好，您于"
                                 + time1 + "\n" + time2 + "，成功充值流量"
                                 + packageDateParse(packageSize), "确认",
                         new View.OnClickListener() {
@@ -677,10 +679,10 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
                 mDialog.dismiss();
                 LogUtils.e("onError----" + bInfo.getValue());
                 if (bInfo != null && bInfo.getInfo() != null) {
-                    UUToast.showUUToast(FlowPackageRechargeActivity.this,
+                    UUToast.showUUToast(CarFlowPackageRechargeActivity.this,
                             bInfo.getInfo());
                 } else {
-                    UUToast.showUUToast(FlowPackageRechargeActivity.this,
+                    UUToast.showUUToast(CarFlowPackageRechargeActivity.this,
                             "支付失败");
                 }
             }
@@ -837,14 +839,14 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
                     if (!TextUtils.isEmpty(endDate)) {
                         String dateNextDay = dateNextDay(finalDate);
-                        flowPriceInfo.flowTerm = dateNextDay + "生效，至"
+                        flowPriceInfo.flowTerm = dateNextDay + "生效，" + "至"
                                 + endDate;
                     }
                     if (packageType == 0 || packageType == 2) {
                         String currrentDate = getCurrrentdate();
                         String end = doDate(currrentDate,
                                 flowPriceInfo.package_month);
-                        flowPriceInfo.flowTerm = currrentDate + "生效，至"
+                        flowPriceInfo.flowTerm = currrentDate + "生效，" + "至"
                                 + end;
                     }
                     renewPriceInfos.add(flowPriceInfo);

@@ -54,6 +54,7 @@ public class CarStateInfoParser extends BaseParser {
                     if (state.equals("0")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes(stateClose[i]);
+                        mCarStateInfos.add(mInfo);
                     } else if (StringUtils.isEmpty(state) || state.equals("255")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes("--");
@@ -61,30 +62,33 @@ public class CarStateInfoParser extends BaseParser {
                     } else {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes(stateOpen[i]);
+                        mCarStateInfos.add(mInfo);
                     }
-                    mCarStateInfos.add(mInfo);
+
                 } else if (i == 4) {//,"开翘"
                     if (state.equals("0")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes(stateClose[i]);
-
+                        mCarStateInfos.add(mInfo);
                     } else if (StringUtils.isEmpty(state) || state.equals("255")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes("--");
                     } else if (state.equals("2")) {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes("未关|开翘");
+                        mCarStateInfos.add(mInfo);
                     } else {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes(stateOpen[i]);
+                        mCarStateInfos.add(mInfo);
                     }
-                    mCarStateInfos.add(mInfo);
+
                 } else if (i == 5) {
                     // 支持空调
                     if (state.equals("2")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes(stateClose[i]);
-
+                        mCarStateInfos.add(mInfo);
                     } else if (StringUtils.isEmpty(state) || state.equals("255")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes("--");
@@ -115,9 +119,8 @@ public class CarStateInfoParser extends BaseParser {
                         } else {
                             mInfo.setValue("--℃");
                         }
-
+                        mCarStateInfos.add(mInfo);
                     }
-                    mCarStateInfos.add(mInfo);
 
                 } else if (i == 6) {
 //                    state = "0";
@@ -138,15 +141,15 @@ public class CarStateInfoParser extends BaseParser {
                     if (state.equals("0")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes(stateClose[i]);
-
+                        mCarStateInfos.add(mInfo);
                     } else if (StringUtils.isEmpty(state) || state.equals("255")) {
                         mInfo.setIconId(iconId_closes[i]);
                         mInfo.setStateDes("--");
                     } else {
                         mInfo.setIconId(iconId_opens[i]);
                         mInfo.setStateDes(stateOpen[i]);
+                        mCarStateInfos.add(mInfo);
                     }
-                    mCarStateInfos.add(mInfo);
                 }
 
             }

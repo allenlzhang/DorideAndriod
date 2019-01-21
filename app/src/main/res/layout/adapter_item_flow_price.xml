@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:text="充值"
             android:gravity="center"
-            android:background="#31bd80"
+            android:background="@drawable/recharge_tv_bg"
             android:textColor="@color/white"
             android:textSize="16dp" />
         <LinearLayout
@@ -52,7 +52,7 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:padding="1dp"
-                android:background="#478cea"
+                android:background="@drawable/des_tv_bg"
                 android:singleLine="true"/>
         </LinearLayout>
 

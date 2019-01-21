@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_color"
+              android:orientation="vertical"
+              tools:context="com.carlt.doride.ui.activity.setting.PhoneAuthenticationActivity">
+
+    <EditText
+        android:id="@+id/etPhone"
+        style="@style/usercenter_edit1"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/login_input_bg"
+        android:enabled="false"
+        android:gravity="center_vertical"
+        android:inputType="number"
+        android:maxLength="11"/>
+
+    <LinearLayout
+        style="@style/login_input_bg"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/etCode"
+            style="@style/usercenter_edit1"
+            android:layout_width="0dip"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dip"
+            android:layout_marginRight="0dip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/usercenter_hint_validate"
+            android:inputType="number"
+            android:maxLength="6"/>
+
+        <TextView
+            android:id="@+id/tvSendCode"
+            style="@style/vcode_style"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvConfirm"
+        style="@style/public_bottom_btn"
+        android:layout_height="44dp"
+        android:layout_marginLeft="12dip"
+        android:layout_marginRight="12dip"
+        android:layout_marginTop="10dip"
+        android:text="@string/ok"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+</LinearLayout>

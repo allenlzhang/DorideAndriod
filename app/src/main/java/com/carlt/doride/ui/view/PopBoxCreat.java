@@ -97,6 +97,7 @@ public class PopBoxCreat {
                 DorideApplication.isFirstLogin = false;
                 ActivityControl.saveExitTime();
                 Intent intent = new Intent(context, FlowPackageRechargeActivity.class);
+                intent.putExtra("title","T-box流量充值");
                 context.startActivity(intent);
             }
         });
