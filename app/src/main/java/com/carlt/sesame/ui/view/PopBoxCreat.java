@@ -344,6 +344,14 @@ public class PopBoxCreat {
 
     }
 
+    /**
+     * 內容2居左
+     * @param context
+     * @param content1_msg
+     * @param content2_msg
+     * @param btn_msg
+     * @param click
+     */
     public static void createDialogNotitleOneBtn(final Context context, String content1_msg,
                                                  String content2_msg, String btn_msg, final DialogWithTitleClick click) {
 
@@ -390,6 +398,60 @@ public class PopBoxCreat {
 
     }
 
+    /**
+     * 內容2居中
+     * @param context
+     * @param content1_msg
+     * @param content2_msg
+     * @param btn_msg
+     * @param click
+     */
+    public static void createDialogNotitleOneBtn2(final Context context, String content1_msg,
+                                                 String content2_msg, String btn_msg, final DialogWithTitleClick click) {
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.sesame_dialog_notitle_one_btn, null);
+        final Dialog dialogI = new Dialog(context, R.style.dialog);
+        TextView content1 = (TextView) view.findViewById(R.id.dialog_notitle_text_content1);
+        TextView content2 = (TextView) view.findViewById(R.id.dialog_notitle_text_content2);
+        TextView btn = (TextView) view.findViewById(R.id.dialog_notitle_text_btnright);
+        content2.setGravity(Gravity.CENTER);
+        if (btn_msg != null && !btn_msg.equals("")) {
+            btn.setText(btn_msg);
+        }
+
+        if (content1_msg != null) {
+            content1.setText(content1_msg);
+        } else {
+            content1.setText("");
+        }
+        if (content2_msg != null && !content2_msg.equals("")) {
+            content2.setText(content2_msg);
+            content2.setVisibility(View.VISIBLE);
+            content1.setGravity(Gravity.NO_GRAVITY);
+        } else {
+            content2.setText("");
+            content2.setVisibility(View.GONE);
+            content1.setGravity(Gravity.CENTER);
+        }
+
+        btn.setOnClickListener(new OnClickListener() {
+
+            public void onClick(View v) {
+
+                click.onLeftClick();
+                dialogI.dismiss();
+
+            }
+        });
+
+        int w = (int) (DorideApplication.ScreenDensity * 300);
+        LayoutParams parm = new LayoutParams(w, LayoutParams.WRAP_CONTENT);
+        dialogI.setContentView(view, parm);
+
+        dialogI.show();
+
+    }
     /**
      * 点击对话框以外的部分不会消失
      * @param context

@@ -147,7 +147,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void init(View parent) {
-        getActivateStatus("正在激活中");
+        getActivateStatus("正在激活中",true);
         btn_person_info = parent.findViewById(R.id.btn_person_info);
         lineFlow = parent.findViewById(R.id.lineFlow);
         lineCarFlow = parent.findViewById(R.id.lineCarFlow);

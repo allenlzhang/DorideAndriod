@@ -105,7 +105,7 @@ public abstract class BaseFragment extends Fragment {
         return mView;
     }
 
-    protected void getActivateStatus(final String info) {
+    protected void getActivateStatus(final String info,final boolean isCenter) {
         OkGo.<String>post(URLConfig.getCheckIsActivate_URL())
                 .params("client_id", URLConfig.getClientID())
                 .params("token", LoginInfo.getAccess_token())
@@ -123,7 +123,7 @@ public abstract class BaseFragment extends Fragment {
                             if (code == 200) {
                                 ActivateInfo activateInfo = gson.fromJson(body, ActivateInfo.class);
                                 if (activateInfo.data.activate_status == 1) {
-                                    showTipDialog(info);
+                                    showTipDialog(info,isCenter);
                                 }
                             }
 
@@ -142,18 +142,23 @@ public abstract class BaseFragment extends Fragment {
                 });
     }
 
-    private void showTipDialog(String info) {
-        PopBoxCreat.createDialogNotitleOneBtn(mCtx, "温馨提示", info, "确定", new PopBoxCreat.DialogWithTitleClick() {
-            @Override
-            public void onLeftClick() {
-            }
+    private void showTipDialog(String info,boolean isCenter) {
+        if (isCenter){
+            PopBoxCreat.createDialogNotitleOneBtn2(mCtx, "温馨提示", info, "确定", dialogClick);
+        }else{
+            PopBoxCreat.createDialogNotitleOneBtn(mCtx, "温馨提示", info, "确定", dialogClick);
+        }
 
-            @Override
-            public void onRightClick() {
-            }
-        });
     }
+    PopBoxCreat.DialogWithTitleClick dialogClick = new PopBoxCreat.DialogWithTitleClick() {
+        @Override
+        public void onLeftClick() {
+        }
 
+        @Override
+        public void onRightClick() {
+        }
+    };
     /**
      * 添加主View
      */

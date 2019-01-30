@@ -264,7 +264,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void init(View view) {
-        getActivateStatus("正在激活中");
+        getActivateStatus("正在激活中",true);
         mTxtState = $ViewByID(R.id.state_car_iv);
         mTxtRecorder = $ViewByID(R.id.remote_history_iv);
         mTxtUnspport = (TextView) $ViewByID(R.id.remote_main_txt_unspport);

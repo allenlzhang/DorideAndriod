@@ -67,7 +67,7 @@ public class DorideApplication extends Application {
 
     public static String IMEI;//手机唯一标识吗 (旧的)
 
-    public final static String  packDate          = "_2019010701";// 打包日期，打包的时候记得改
+    public final static String  packDate          = "_2019013001";// 打包日期，打包的时候记得改
     public static       boolean isTrafficTipsShow = true;//流量包充值提醒是否以后不在显示
 
     public static boolean           isFirstLogin;
