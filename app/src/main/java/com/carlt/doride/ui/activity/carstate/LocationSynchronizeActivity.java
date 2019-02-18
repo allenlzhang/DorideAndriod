@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.carstate;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -343,6 +344,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
             mHandler.sendMessage(msg);
         }
     };
+    @SuppressLint("HandlerLeak")
     private Handler                   mHandler            = new Handler() {
 
         @Override

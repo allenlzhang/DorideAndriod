@@ -34,7 +34,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 /**
- * 绑定设备
+ * 绑定车辆
  */
 public class DeviceBindActivity extends BaseActivity implements View.OnClickListener {
 
@@ -167,7 +167,6 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
 
     private void bindSesameDevice() {
-
         OkGo.<String>post(com.carlt.sesame.systemconfig.URLConfig.getM_CAR_BINDDEVICE_URL())
                 .params("client_id", com.carlt.sesame.systemconfig.URLConfig.getClientID())
                 .params("dealerId", SesameLoginInfo.getDealerId())

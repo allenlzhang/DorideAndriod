@@ -51,34 +51,34 @@ repositories {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile(name: 'javaapkcomdatapicker', ext: 'aar')
+    implementation(name: 'javaapkcomdatapicker', ext: 'aar')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile files('libs/jg_filter_sdk_1.1.jar')
-    compile files('libs/wup-1.0.0.E-SNAPSHOT.jar')
-    compile files('libs/httpmime-4.1.3.jar')
-    compile files('libs/commons-codec-1.4.jar')
-    compile files('libs/commons-net-2.2.jar')
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'org.greenrobot:eventbus:3.1.0-RC'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation files('libs/jg_filter_sdk_1.1.jar')
+    implementation files('libs/wup-1.0.0.E-SNAPSHOT.jar')
+    implementation files('libs/httpmime-4.1.3.jar')
+    implementation files('libs/commons-codec-1.4.jar')
+    implementation files('libs/commons-net-2.2.jar')
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'org.greenrobot:eventbus:3.1.0-RC'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    compile 'com.squareup:otto:1.3.8'
-    compile 'com.lzy.net:okgo:3.0.4'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    implementation 'com.squareup:otto:1.3.8'
+    implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
     implementation 'com.android.support:design:26.1.0'
-    compile 'com.contrarywind:Android-PickerView:3.2.7'
-    compile files('libs/AMap3DMap_5.5.0_AMapNavi_5.4.0_AMapSearch_5.5.0_AMapLocation_3.6.1_20171107.jar')
-    compile 'com.android.support:support-v4:26.x'
-    compile 'com.android.support:multidex:1.0.0'
+    implementation 'com.contrarywind:Android-PickerView:3.2.7'
+    implementation files('libs/AMap3DMap_5.5.0_AMapNavi_5.4.0_AMapSearch_5.5.0_AMapLocation_3.6.1_20171107.jar')
+    implementation 'com.android.support:support-v4:26.x'
+    implementation 'com.android.support:multidex:1.0.0'
     implementation 'pub.devrel:easypermissions:1.0.1'
     implementation 'com.orhanobut:logger:2.2.0'
-    compile 'com.blankj:utilcode:1.7.1'
+    implementation 'com.blankj:utilcode:1.7.1'
     implementation files('libs/alipaySdk-20160223.jar')
 //    implementation files('libs/ZXingCode.jar')
     implementation files('libs/Xg_sdk_v3.2.5_20180720_1612.jar')
@@ -87,4 +87,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation files('libs/photoview.jar')
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+    implementation 'com.shuhart.stepview:stepview:1.4.0'
 }
