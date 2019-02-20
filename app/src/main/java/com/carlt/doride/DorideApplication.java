@@ -42,7 +42,7 @@ public class DorideApplication extends Application {
 
     public static String VersionName;
 
-    public static boolean Formal_Version = false;
+    public static boolean Formal_Version = true;
     public static String  TOKEN          = "";
 
     public static android.content.pm.PackageManager PackageManager;
@@ -74,7 +74,7 @@ public class DorideApplication extends Application {
     public static DorideApplication instance;
     public        Context           context;
     public static Context           ApplicationContext;
-    public static String  softVersion ; // 记录仪 版本
+    public static String            softVersion; // 记录仪 版本
 
     /**
      * 判断相应的页面是否显示可拖动的客服电话按钮
@@ -115,6 +115,7 @@ public class DorideApplication extends Application {
     public void setRemoteMainInfo(RemoteMainInfo remoteMainInfo) {
         this.remoteMainInfo = remoteMainInfo;
     }
+
     /**
      * 是否直播
      */
@@ -123,17 +124,20 @@ public class DorideApplication extends Application {
     public boolean isMonitor() {
         return isMonitor;
     }
+
     public void setMonitor(boolean isMonitor) {
         this.isMonitor = isMonitor;
     }
+
     /**
      * 记录播放最后时间
      */
-    private String playStringtime ;
+    private String playStringtime;
 
     public String getPlayStringtime() {
         return playStringtime;
     }
+
     public void setPlayStringtime(String playStringtime) {
         this.playStringtime = playStringtime;
     }
@@ -146,29 +150,33 @@ public class DorideApplication extends Application {
     public boolean isToFullFlag() {
         return toFullFlag;
     }
+
     public void setToFullFlag(boolean toFullFlag) {
         this.toFullFlag = toFullFlag;
     }
+
     private IVideoView videoView = null;
 
     public boolean supportopenGLES20;
+
     public IVideoView getVideoView() {
         if (null == videoView) {
             Log.e("HVideoView", "videoView null ");
-//            if (supportopenGLES20) {
-                videoView = new HHVideoView(this);
-//            } else {
-//                videoView = new HVideoView(this);
-//            }
-        }
-        else{
+            //            if (supportopenGLES20) {
+            videoView = new HHVideoView(this);
+            //            } else {
+            //                videoView = new HVideoView(this);
+            //            }
+        } else {
             Log.e("HVideoView", "videoView not null ");
         }
         return videoView;
     }
+
     public void setVideoView(IVideoView mvideoView) {
         videoView = mvideoView;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -19,7 +19,6 @@ import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.carflow.CheckBindCarIdInfo;
-import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.model.LoginInfo;
@@ -101,8 +100,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             initFlowInfo();
 //        }
 //        initCarFlow();
-
     }
+
 
     private String carid = "2216301";
 

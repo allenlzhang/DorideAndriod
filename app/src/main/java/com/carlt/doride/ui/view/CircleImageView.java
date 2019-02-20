@@ -11,6 +11,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
+import com.blankj.utilcode.util.LogUtils;
+
 /**
  * Created by Marlon on 2018/3/28.
  */
@@ -48,7 +50,12 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     protected void onDraw(Canvas canvas) {
 
         mPaint = new Paint();
-        Bitmap bitmap = drawableToBitmap(getDrawable());
+        Drawable drawable = getDrawable();
+        LogUtils.e("----" + drawable);
+        if (drawable == null) {
+            return;
+        }
+        Bitmap bitmap = drawableToBitmap(drawable);
 
         //初始化BitmapShader，传入bitmap对象
         BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
