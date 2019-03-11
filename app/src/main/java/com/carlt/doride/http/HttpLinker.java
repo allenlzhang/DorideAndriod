@@ -73,7 +73,6 @@ public class HttpLinker {
             formBuilder.add(key, value);
             ILog.e("http", "param--" + key + ":" + value);
         }
-
         RequestBody rBody = formBuilder.build();
         Request request = new Request.Builder()
                 .url(url)

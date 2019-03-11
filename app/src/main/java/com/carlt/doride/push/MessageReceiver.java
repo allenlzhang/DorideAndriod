@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.control.CPControl;
@@ -36,7 +37,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
     @Override
     public void onNotifactionShowedResult(Context context, XGPushShowedResult notifiShowedRlt) {
 
-        Logger.e("push"+ "推送1");
+        Logger.e("push" + "推送1");
 
         if (context == null || notifiShowedRlt == null) {
             return;
@@ -46,13 +47,13 @@ public class MessageReceiver extends XGPushBaseReceiver {
 
     @Override
     public void onUnregisterResult(Context context, int errorCode) {
-        Logger.e("push"+ "推送2");
+        Logger.e("push" + "推送2");
 
     }
 
     @Override
     public void onSetTagResult(Context context, int errorCode, String tagName) {
-        Logger.e("push"+ "推送3");
+        Logger.e("push" + "推送3");
         if (context == null) {
             return;
         }
@@ -67,7 +68,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
 
     @Override
     public void onDeleteTagResult(Context context, int errorCode, String tagName) {
-        Logger.e("push"+ "推送4");
+        Logger.e("push" + "推送4");
         if (context == null) {
             return;
         }
@@ -83,7 +84,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
     // 通知点击回调 actionType=1为该消息被清除，actionType=0为该消息被点击
     @Override
     public void onNotifactionClickedResult(Context context, XGPushClickedResult message) {
-        Logger.e("push"+ "推送5");
+        Logger.e("push" + "推送5");
         if (context == null || message == null) {
             return;
         }
@@ -99,11 +100,11 @@ public class MessageReceiver extends XGPushBaseReceiver {
         }
         // 获取自定义key-value
         String customContent = message.getCustomContent();
-        Logger.e("push" +  "customContent_click==" + customContent);
+        Logger.e("push" + "customContent_click==" + customContent);
         String content = message.getContent().replaceAll("&quot;", "");
-        Logger.e("push"+ "content_click==" + content);
+        Logger.e("push" + "content_click==" + content);
         String title = message.getTitle();
-        Logger.e("push"+ "titl_clicke==" + title);
+        Logger.e("push" + "titl_clicke==" + title);
         int class1 = 0;
         String class2 = "";
         String reportDate = "";
@@ -115,12 +116,12 @@ public class MessageReceiver extends XGPushBaseReceiver {
                     class1 = MyParse.parseInt(obj.optString("class1"));
                     class2 = obj.optString("class2");
                     reportDate = obj.optString("reportdate");
-                    Logger.e("push"+ "class1==" + class1);
-                    Logger.e("push"+ "class2==" + class2);
-                    Logger.e("push"+ "reportDate==" + reportDate);
+                    Logger.e("push" + "class1==" + class1);
+                    Logger.e("push" + "class2==" + class2);
+                    Logger.e("push" + "reportDate==" + reportDate);
                 }
             } catch (JSONException e) {
-                Logger.e("info"+ "onNotifactionClickedResult--e==" + e);
+                Logger.e("info" + "onNotifactionClickedResult--e==" + e);
             }
         }
     }
@@ -133,30 +134,31 @@ public class MessageReceiver extends XGPushBaseReceiver {
         Logger.e("push" + "推送注册-errorCode==" + errorCode);
         String xgtoken = message.getToken();
         Logger.e("push" + "推送注册-token-111111==" + xgtoken);
+        LogUtils.e("token===>" + LoginInfo.getAccess_token());
         CPControl.GetPushXgTokenResult(xgtoken, DorideApplication.NIMEI, listener);
     }
 
     private BaseParser.ResultCallback listener = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-            Logger.e("push"+ "信鸽推送token保存至后台成功!");
+            Logger.e("push" + "信鸽推送token保存至后台成功!");
         }
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
-            Logger.e("push"+ "信鸽推送token保存至后台失败...");
+            Logger.e("push" + "信鸽推送token保存至后台失败...");
         }
     };
 
     // 消息透传
     @Override
     public void onTextMessage(Context context, XGPushTextMessage message) {
-        Logger.e("push" +  "推送7");
+        Logger.e("push" + "推送7");
 
         String content = message.getContent().replaceAll("&quot;", "");
         String title = message.getTitle();
         Logger.e("push" + "title==" + title);
-        Logger.e("push" +  "content==" + content);
+        Logger.e("push" + "content==" + content);
         int class1 = 0;
         String class2 = "";
         String reportDate = "";
@@ -167,9 +169,9 @@ public class MessageReceiver extends XGPushBaseReceiver {
                 class1 = MyParse.parseInt(obj.optString("class1"));
                 class2 = obj.optString("class2");
                 reportDate = obj.optString("reportdate");
-                Logger.e("push" +  "class1==" + class1);
-                Logger.e("push" +  "class2==" + class2);
-                Logger.e("push" +  "reportDate==" + reportDate);
+                Logger.e("push" + "class1==" + class1);
+                Logger.e("push" + "class2==" + class2);
+                Logger.e("push" + "reportDate==" + reportDate);
             } catch (JSONException e) {
                 Logger.e("push" + "onTextMessage--e==" + e);
             }
@@ -207,7 +209,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void showNotification(Context context, String title, int type) {
         String id = "1";
-        String name="1";
+        String name = "1";
         Intent intent = new Intent(context, PushService.class);
         intent.putExtra(PushService.CLASS1, type);
         // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -241,7 +243,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
             nm.notify((int) System.currentTimeMillis(), n2);
 
 
-        }else {
+        } else {
             Notification n = new Notification.Builder(context)
                     .setDefaults(Notification.DEFAULT_SOUND)
                     .setContentTitle(context.getResources().getString(R.string.app_name))

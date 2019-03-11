@@ -166,15 +166,24 @@ public class LoginControl {
             int app_type = data.optInt("app_type", 1);
             LoginInfo.setApp_type(app_type);
             if (app_type == 2) {
-                // 大乘
+                //  芝麻
                 parseSesameLoginInfo(data);
             } else if (app_type == 1) {
-                // 芝麻
+                // 大乘
                 parseDorideLoginInfo(data);
+            } else if (app_type == 0) {
+                //                parseDorideLoginInfo(data);
+                parseToken(data);
             }
 
 
         }
+    }
+
+    private static void parseToken(JSONObject data) {
+        JSONObject member = data.optJSONObject("member");
+        SesameLoginInfo.setAccess_token((member.optString("access_token", "")));
+        LoginInfo.setAccess_token(member.optString("access_token", ""));
     }
 
     private static void parseSesameLoginInfo(JSONObject mJSON_data) {

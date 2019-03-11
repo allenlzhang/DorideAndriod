@@ -15,7 +15,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;

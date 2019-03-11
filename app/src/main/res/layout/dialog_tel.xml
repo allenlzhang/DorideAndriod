@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/dialog_air_condition_bg"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="软件问题客服电话"
+            android:textColor="#478cea"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tvTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="1231556654"
+            android:textColor="#478cea"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#d6d6d6"/>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆问题客服电话"
+            android:textColor="#478cea"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tvTel1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="1231556654"
+            android:textColor="#478cea"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dialog_notitle_lay_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#d6d6d6"/>
+
+
+    <TextView
+        android:id="@+id/dialog_notitle_text_btnleft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="取消"
+        android:textColor="#478CEA"
+        android:textSize="16sp"/>
+</LinearLayout>

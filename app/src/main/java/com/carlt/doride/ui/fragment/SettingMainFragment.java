@@ -107,9 +107,10 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private ImageView ivScan;
 
     private DealerInfo mDealerInfo;
-    private String ccid;        //检查carid是否已经绑定 返回的ccid
-    private String scanCcid;    //扫一扫 扫出的ccid
-    private String scanTime;    //扫一扫 扫出的时间
+    private String     ccid;        //检查carid是否已经绑定 返回的ccid
+    private String     scanCcid;    //扫一扫 扫出的ccid
+    private String     scanTime;    //扫一扫 扫出的时间
+    private String     scanDmid;    //扫一扫 扫出的时间
 
     private boolean isTbox = true;
 
@@ -147,7 +148,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void init(View parent) {
-        getActivateStatus("正在激活中",true);
+        getActivateStatus("正在激活中", true);
         btn_person_info = parent.findViewById(R.id.btn_person_info);
         lineFlow = parent.findViewById(R.id.lineFlow);
         lineCarFlow = parent.findViewById(R.id.lineCarFlow);
@@ -207,7 +208,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
             tx_person_name.setText(LoginInfo.getRealname());
         }
-//        if (LoginInfo.getTbox_type().equals("4G")) {
+        //        if (LoginInfo.getTbox_type().equals("4G")) {
 
 
         if (LoginInfo.getFlowWarn().equals("2")) {
@@ -215,13 +216,13 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         } else {
             icFlowDot.setVisibility(View.GONE);
         }
-//            llFlowRecharge.setVisibility(View.VISIBLE);
-//            lineFlow.setVisibility(View.VISIBLE);
-//        } else {
-//
-//            llFlowRecharge.setVisibility(View.GONE);
-//            lineFlow.setVisibility(View.GONE);
-//        }
+        //            llFlowRecharge.setVisibility(View.VISIBLE);
+        //            lineFlow.setVisibility(View.VISIBLE);
+        //        } else {
+        //
+        //            llFlowRecharge.setVisibility(View.GONE);
+        //            lineFlow.setVisibility(View.GONE);
+        //        }
         isSupportTData();
         checkCarIdIsBind();
 
@@ -242,20 +243,20 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         //                        loadingDialog.dismiss();
                         Gson gson = new Gson();
                         CheckBindCarIdInfo info = gson.fromJson(response.body(), CheckBindCarIdInfo.class);
-                        if (info!=null&&info.code == 0) {
-                            if (info.data!=null) {
+                        if (info != null && info.code == 0) {
+                            if (info.data != null) {
                                 if (info.data.result == 1) {
                                     countDataPackage(1);
-                                }else {
+                                } else {
                                     isMatchine = false;
                                     isLoadingUI();
                                 }
                                 ccid = info.data.ccid;
-                            }else {
+                            } else {
                                 isMatchine = false;
                                 isLoadingUI();
                             }
-                        }else {
+                        } else {
                             isMatchine = false;
                             isLoadingUI();
                         }
@@ -281,9 +282,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         //        loadingDataUI();
         //URLConfig.getmTrafficWarnningUrl()
         String url = "";
-        if (type == 0){
+        if (type == 0) {
             url = URLConfig.getmTrafficWarnningUrl();
-        }else{
+        } else {
             url = URLConfig.getCAR_FLOW_PACKAGE_INFO_URL();
         }
         OkGo.<String>post(url)
@@ -296,7 +297,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     public void onSuccess(Response<String> response) {
                         LogUtils.e("======" + response.body());
                         if (response.isSuccessful()) {
-                            parseFlowInfoJson(response,type);
+                            parseFlowInfoJson(response, type);
                         }
 
                     }
@@ -309,7 +310,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 });
     }
 
-    private void parseFlowInfoJson(Response<String> response,int type) {
+    private void parseFlowInfoJson(Response<String> response, int type) {
         if (response != null) {
             JSONObject jo = null;
             try {
@@ -323,13 +324,13 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     if (Integer.valueOf(warnningInfo.data.limit_warning) == 2) {
                         if (type == 0) {
                             icFlowDot.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             icCarFlowDot.setVisibility(View.VISIBLE);
                         }
                     } else {
                         if (type == 0) {
                             icFlowDot.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             icCarFlowDot.setVisibility(View.GONE);
                         }
                     }
@@ -384,15 +385,19 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 //                showDialog();
                 Logger.e("-=--=" + mDealerInfo);
                 if (null != mDealerInfo && !TextUtils.isEmpty(mDealerInfo.getServiceTel())) {
-                    PopBoxCreat.createDialogNotitle(getActivity(), "拨打电话", mDealerInfo.getServiceTel(), "取消", "拨打", new PopBoxCreat.DialogWithTitleClick() {
+                    //软件客服电话
+                    final String serviceTel = mDealerInfo.getServiceTel();
+                    //车辆客服电话
+                    final String dealerTel = mDealerInfo.getDealerTel();
+                    PopBoxCreat.createDialogNotitleWithTel(getActivity(), serviceTel, dealerTel, new PopBoxCreat.DialogWithTitleClick() {
                         @Override
                         public void onLeftClick() {
-
+                            goToDial(serviceTel);
                         }
 
                         @Override
                         public void onRightClick() {
-                            goToDial(mDealerInfo.getServiceTel());
+                            goToDial(dealerTel);
                         }
                     });
                 }
@@ -410,12 +415,12 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.llFlowRecharge:
                 //流量包充值
-                Intent intent = new Intent(mCtx,FlowPackageRechargeActivity.class);
-                intent.putExtra("title",tvFlow.getText().toString());
+                Intent intent = new Intent(mCtx, FlowPackageRechargeActivity.class);
+                intent.putExtra("title", tvFlow.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.llCarFlowRecharge:
-//                startActivity(new Intent(getActivity(), CarFlowPackageRechargeActivity.class));
+                //                startActivity(new Intent(getActivity(), CarFlowPackageRechargeActivity.class));
                 checkInitIsOk();
                 break;
 
@@ -424,7 +429,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         .setCaptureActivity(ScanActivity.class)
                         .setPrompt("")
                         .initiateScan();
-//                checkCcid();
+                //                checkCcid();
                 break;
         }
     }
@@ -462,8 +467,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     countDataPackage(2);
                 } else {
                     Intent intent = new Intent(mCtx, InitCarSimActivity.class);
-                    intent.putExtra("carid",carid);
-                    intent.putExtra("ccid",info.data.ccid);
+                    intent.putExtra("carid", carid);
+                    intent.putExtra("ccid", info.data.ccid);
+
                     startActivity(intent);
                 }
             } else {
@@ -514,9 +520,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 case 1:
                     loadSuccessUI();
                     //未绑定
-                    if (TextUtils.isEmpty(ccid)){
+                    if (TextUtils.isEmpty(ccid)) {
                         showUnBindDialog();
-                    }else {
+                    } else {
                         ToastUtils.showShort("您的爱车已绑定车机，不能重复绑定");
                     }
                     break;
@@ -550,6 +556,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 Intent intent = new Intent(mCtx, CheckPhoneActivity.class);
                 intent.putExtra("carid", carid);
                 intent.putExtra("ccid", scanCcid);
+//                intent.putExtra("dmid", scanDmid);
                 startActivity(intent);
                 //                bindSim();
             }
@@ -557,14 +564,14 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     }
 
 
-//    public static final String ccid = "89860429111890177338";
+    //    public static final String ccid = "89860429111890177338";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null && result.getContents() != null) {
-//            UUToast.showUUToast(mCtx, result.getContents());
+            //            UUToast.showUUToast(mCtx, result.getContents());
             String contents = result.getContents();
             decodeQRcode(contents);
         }
@@ -579,7 +586,12 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         LogUtils.e(Arrays.toString(bytes));
         if (bytes[0] != (byte) 0xcc || bytes[1] != (byte) 0xd7) {
             LogUtils.e("头错误");
-            Toast.makeText(getContext(), "协议头不是我们的协议头，所以此数据不做解析", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "协议头不是我们的协议头，所以此数据不做解析", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (bytes[5] != 1 || bytes[6] != 1) {
+            ToastUtils.showShort("二维码信息有误，请刷新二维码后重试");
             return;
         }
         int version = ((int) bytes[2]) >> 3;
@@ -626,7 +638,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         LogUtils.e("校验码是：" + re);
         LogUtils.e("crc32是：" + localCrc32);
         if (!re.equalsIgnoreCase(localCrc32)) {
-            Toast.makeText(getActivity(), "crc校验不通过，所以此数据不做解析", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "数据校验不通过，所以此数据不做解析", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -641,20 +653,29 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             if (aStr.startsWith("time")) {
                 scanTime = aStr;
             }
+            if (aStr.startsWith("dm_id")) {
+                scanDmid = aStr;
+            }
         }
+//        if (TextUtils.isEmpty(scanDmid)) {
+//            ToastUtils.showShort("二维码信息有误，请刷新二维码后重试");
+//            return;
+//        }
+//        scanDmid = scanDmid.trim().substring(scanDmid.indexOf("=") + 1);
         if (!TextUtils.isEmpty(scanCcid)) {
             scanCcid = scanCcid.trim().substring(scanCcid.indexOf("=") + 1);
         } else {
             scanCcid = "";
         }
+//        LogUtils.e("scanDmid == " + scanDmid);
         if (!TextUtils.isEmpty(scanTime)) {
             scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
             LogUtils.e("scanTime == " + scanTime);
             long time = Long.parseLong(scanTime);
-            if ((System.currentTimeMillis() / 1000 - time) <= 3000) {
+            if ((System.currentTimeMillis() / 1000 - time) <= 300) {
                 checkCcid(scanCcid);
             } else {
-                ToastUtils.showShort("二维码已过期");
+                ToastUtils.showShort("二维码已失效，请刷新二维码或检查系统时间是否准确");
             }
         }
 
@@ -690,12 +711,12 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private BaseParser.ResultCallback dealerCallback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-//            loadSuccessUI();
+            //            loadSuccessUI();
             isLoadOther = false;
             isLoadingUI();
             Logger.e(TAG + bInfo.toString());
             mDealerInfo = (DealerInfo) bInfo.getValue();
-            contact_us_phone.setText(mDealerInfo.getServiceTel());
+            //            contact_us_phone.setText(mDealerInfo.getServiceTel());
         }
 
         @Override
@@ -788,7 +809,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-//                        loadSuccessUI();
+                        //                        loadSuccessUI();
                         parseIsSupport(response);
                     }
 
@@ -796,7 +817,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     public void onError(Response<String> response) {
                         super.onError(response);
                         LogUtils.e(response);
-//                        loadSuccessUI();
+                        //                        loadSuccessUI();
                         isTbox = false;
                         isLoadingUI();
                     }
@@ -812,11 +833,11 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 boolean isSupport = object.optBoolean("isSupport", false);
                 if (isSupport) {
                     countDataPackage(0);
-                }else {
+                } else {
                     isTbox = false;
                     isLoadingUI();
                 }
-            }else {
+            } else {
                 isTbox = false;
                 isLoadingUI();
             }
@@ -842,14 +863,14 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     @Override
                     public void onSuccess(Response<String> response) {
                         parseCountDataPackage(response, type);
-//                        loadSuccessUI();
+                        //                        loadSuccessUI();
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-//                        loadSuccessUI();
-                        switch (type){
+                        //                        loadSuccessUI();
+                        switch (type) {
                             case 0:
                                 isTbox = false;
                                 isLoadingUI();
@@ -871,9 +892,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         String body = response.body();
         try {
             JSONObject jsonObject = new JSONObject(body);
-            int code = jsonObject.optInt("code",-1);
-            String msg = jsonObject.optString("msg","");
-            if (code == BaseResponseInfo.NO_TOKEN){
+            int code = jsonObject.optInt("code", -1);
+            String msg = jsonObject.optString("msg", "");
+            if (code == BaseResponseInfo.NO_TOKEN) {
                 ActivityControl.onTokenDisable();
                 ToastUtils.setGravity(Gravity.CENTER, 0, 0);
                 ToastUtils.setBackgroundColor(R.drawable.toast_bg);
@@ -886,9 +907,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 int tboxDataNum = data.optInt("tboxDataNum", 0);
                 String machineDataNum = data.optString("machineDataNum", "");
                 int tboxRenewNum = data.optInt("tboxRenewNum", 0);
-                switch (type){
+                switch (type) {
                     case 0:
-                        if (tboxDataNum != 0){
+                        if (tboxDataNum != 0) {
                             if (isCountData) {
                                 llFlowRecharge.setVisibility(View.VISIBLE);
                                 lineFlow.setVisibility(View.VISIBLE);
@@ -910,7 +931,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                         isLoadingUI();
                         break;
                     case 1:
-                        if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0){
+                        if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0) {
                             if (isCountData) {
                                 llFlowRecharge.setVisibility(View.VISIBLE);
                                 lineFlow.setVisibility(View.VISIBLE);
@@ -934,15 +955,15 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     case 2:
                         if (!TextUtils.isEmpty(machineDataNum) && Integer.parseInt(machineDataNum) != 0) {
                             Intent intent = new Intent(mCtx, CarFlowPackageRechargeActivity.class);
-                            intent.putExtra("title",tvCarFlow.getText().toString());
+                            intent.putExtra("title", tvCarFlow.getText().toString());
                             startActivity(intent);
-                        }else {
+                        } else {
                             ToastUtils.showShort("暂未获取到商品列表");
                         }
                         break;
                 }
-            }else {
-                switch (type){
+            } else {
+                switch (type) {
                     case 0:
                         isTbox = false;
                         isLoadingUI();
@@ -955,7 +976,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             }
         } catch (Exception e) {
             LogUtils.e(e);
-            switch (type){
+            switch (type) {
                 case 0:
                     isTbox = false;
                     isLoadingUI();
@@ -969,10 +990,10 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     }
 
-    private void isLoadingUI(){
-        if (!isLoadOther&&!isTbox&&!isMatchine){
+    private void isLoadingUI() {
+        if (!isLoadOther && !isTbox && !isMatchine) {
             loadSuccessUI();
-        }else {
+        } else {
             loadingDataUI();
         }
     }

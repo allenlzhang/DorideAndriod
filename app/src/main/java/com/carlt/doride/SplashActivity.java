@@ -51,7 +51,7 @@ public class SplashActivity extends BaseActivity {
     private final static long interval = 30 * 1000;// 友盟统计-时间间隔
 
     long mMills = 0;
-    private MessageReceiver mReceiver;
+//    private MessageReceiver mReceiver;
 
 
     @Override
