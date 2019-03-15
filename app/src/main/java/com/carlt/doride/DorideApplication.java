@@ -42,7 +42,7 @@ public class DorideApplication extends Application {
 
     public static String VersionName;
 
-    public static boolean Formal_Version = true;
+    public static boolean Formal_Version = false;
     public static String  TOKEN          = "";
 
     public static android.content.pm.PackageManager PackageManager;
@@ -238,9 +238,12 @@ public class DorideApplication extends Application {
         String sha1 = sHA1(this);
         Logger.e("---" + sha1);
         // 初始化WIFIControl 信息
+
         WIFIControl.getInstance().init(this);
+
     }
 
+ 
 
     public static Context getAppContext() {
         return ApplicationContext;

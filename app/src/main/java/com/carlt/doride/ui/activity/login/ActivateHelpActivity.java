@@ -3,11 +3,14 @@ package com.carlt.doride.ui.activity.login;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.DownloadListener;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -32,6 +35,7 @@ public class ActivateHelpActivity extends BaseActivity implements DownloadListen
     public final static String URL_INFO = "url_info";
 
     private final static String URL = "https://mp.weixin.qq.com/s/XraLB0NzR5a-VppUMTzQOw";// 激活帮助URL
+    //    private final static String URL = "https://www.baidu.com";// 激活帮助URL
 
 
     private String url;
@@ -55,7 +59,7 @@ public class ActivateHelpActivity extends BaseActivity implements DownloadListen
         back = (ImageView) findViewById(R.id.back);
         title = (TextView) findViewById(R.id.title);
 
-         title.setText("使用帮助");
+        title.setText("使用帮助");
 
         back.setOnClickListener(new OnClickListener() {
 
@@ -75,12 +79,27 @@ public class ActivateHelpActivity extends BaseActivity implements DownloadListen
         webHelp = (WebView) findViewById(R.id.webHelp);
         WebSettings mSettings = webHelp.getSettings();
         mSettings.setJavaScriptEnabled(true);
-        mSettings.setPluginState(WebSettings.PluginState.ON);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
+
+        mSettings.setUseWideViewPort(true);
+        mSettings.setLoadWithOverviewMode(true);
+        mSettings.setDomStorageEnabled(true);
+        //        mSettings.setPluginState(WebSettings.PluginState.ON);
 
         webHelp.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                // 接受所有网站的证书
+                handler.proceed();
+                super.onReceivedSslError(view, handler, error);
             }
 
             @Override
@@ -101,6 +120,13 @@ public class ActivateHelpActivity extends BaseActivity implements DownloadListen
         webHelp.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webHelp.loadUrl(url);
         webHelp.setDownloadListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        webHelp.destroy();
+        webHelp = null;
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

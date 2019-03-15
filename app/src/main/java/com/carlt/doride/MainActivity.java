@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -299,9 +298,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     CarOperationConfigParser carOperationConfigParser;
 
     private void remoteConfig() {
-        String activateCode = getIntent().getStringExtra("activateCode");
-        Logger.e("========" + activateCode);
-        if (TextUtils.isEmpty(activateCode)) {
+//        String activateCode = getIntent().getStringExtra("activateCode");
+//        Logger.e("========" + activateCode);
+//        if (TextUtils.isEmpty(activateCode)) {
 
 
             //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
@@ -337,9 +336,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
             String replace = m_car_curcarconfig_url.replace("126", "130");
             carOperationConfigParser.executePost(replace, params2);
-        } else {
-            mTabllPie.setVisibility(View.GONE);
-        }
+//        } else {
+//            mTabllPie.setVisibility(View.GONE);
+//        }
     }
 
 

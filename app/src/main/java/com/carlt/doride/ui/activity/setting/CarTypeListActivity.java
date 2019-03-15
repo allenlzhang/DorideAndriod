@@ -36,14 +36,14 @@ import java.util.HashMap;
 
 public class CarTypeListActivity extends LoadingActivity {
 
-    private ListView       car_type_list;//车款列表
-    private CarTypeAdapter adapter;
-    private Intent         intent;
-    private String         optionid;//车型ID
-    private static String brandid = "2579";//车系ID
-    private String carId;//车款ID
-    private String carTitle;
-    private String vinCode;
+    private        ListView       car_type_list;//车款列表
+    private        CarTypeAdapter adapter;
+    private        Intent         intent;
+    private        String         optionid;//车型ID
+    private static String         brandid = "2579";//车系ID
+    private        String         carId;//车款ID
+    private        String         carTitle;
+    private        String         vinCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +141,8 @@ public class CarTypeListActivity extends LoadingActivity {
 
     private void addSesameCar() {
         // TODO: 2018/8/2  
-//        String dorideToken = LoginInfo.getAccess_token();
-//        String dorideToken = SesameLoginInfo.getAccess_token();
+        //        String dorideToken = LoginInfo.getAccess_token();
+        //        String dorideToken = SesameLoginInfo.getAccess_token();
         OkGo.<String>post(com.carlt.sesame.systemconfig.URLConfig.getM_SET_CAR_INFO_URL())
                 .params("client_id", com.carlt.sesame.systemconfig.URLConfig.getClientID())
                 .params("dealerId", SesameLoginInfo.getDealerId())
@@ -199,9 +199,19 @@ public class CarTypeListActivity extends LoadingActivity {
     BaseParser.ResultCallback addResult = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            String value = (String) bInfo.getValue();
             LoginInfo.setCarname(carTitle);
+
+            String carid = null;
+            try {
+                JSONObject object = new JSONObject(value);
+                carid = object.getString("carid");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
             intent.putExtra("cat_title", carTitle);
+            intent.putExtra("carid", carid);
             intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
             if (!TextUtils.isEmpty(vinCode)) {
                 intent.putExtra("vin", vinCode);

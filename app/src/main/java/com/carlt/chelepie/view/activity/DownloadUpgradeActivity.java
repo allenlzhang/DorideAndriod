@@ -1,6 +1,7 @@
 
 package com.carlt.chelepie.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +15,6 @@ import com.carlt.chelepie.data.recorder.UpgradeInfo;
 import com.carlt.chelepie.download.DownloadBaseInfo;
 import com.carlt.chelepie.download.DownloadBaseThread;
 import com.carlt.chelepie.download.HttpDownloadThread;
-import com.carlt.chelepie.view.gif.GifView;
 import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
@@ -76,6 +76,7 @@ public class DownloadUpgradeActivity extends BaseActivity implements OnClickList
 		mDonwNow.setOnClickListener(this);
 	}
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override

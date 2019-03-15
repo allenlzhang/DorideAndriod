@@ -20,10 +20,10 @@ import com.carlt.doride.control.CPControl;
 import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.BaseErr;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
-import com.carlt.doride.protocolparser.DefaultStringParser;
-import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.doride.ui.view.UUTimerDialog;
@@ -38,7 +38,7 @@ import java.util.HashMap;
 /**
  * 激活设备
  */
-public class ActivateBindActivity extends BaseActivity implements View.OnClickListener {
+public class AutoGoActivateActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView back;//返回按钮
     private ImageView ivHelp;//返回按钮
@@ -55,6 +55,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     private String vinCode = "";
 
     private String carType = "";
+    private String carID   = "";
 
     private int      ActivateCount;
     private EditText etPinCode;
@@ -64,7 +65,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activate_bind);
+        setContentView(R.layout.activity_activate_auto);
         initComponent();
         initSubTitle();
     }
@@ -79,6 +80,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         if (intent != null) {
             vinCode = intent.getStringExtra("vin");
             carType = intent.getStringExtra("carType");
+            carID = intent.getStringExtra("carID");
         }
         activate_commit = findViewById(R.id.activate_commit);
         activate_commit.setOnClickListener(this);
@@ -86,7 +88,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         ivHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivateBindActivity.this, ActivateHelpActivity.class));
+                startActivity(new Intent(AutoGoActivateActivity.this, ActivateHelpActivity.class));
             }
         });
     }
@@ -116,7 +118,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                     public void onLeftClick() {
                         // 调用激活设备接口
                         mDialog = PopBoxCreat.createUUTimerDialog(
-                                ActivateBindActivity.this, "激活中...");
+                                AutoGoActivateActivity.this, "激活中...");
                         mDialog.show();
                         listener_time = System.currentTimeMillis();
                         ActivateCount++;
@@ -126,22 +128,49 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
 
                     @Override
                     public void onRightClick() {
+                        // TODO Auto-generated method stub
 
                     }
                 };
-                PopBoxCreat.createDialogWithTitle(ActivateBindActivity.this, "激活",
+                PopBoxCreat.createDialogWithTitle(AutoGoActivateActivity.this, "激活",
                         "您确定激活大乘智享吗？", "", "确定", "取消", click);
                 break;
         }
     }
 
+
     private void activateDevice() {
-        DefaultStringParser parser = new DefaultStringParser(activateCallback);
-        HashMap<String, String> params = new HashMap<>();
+        //        DefaultStringParser parser = new DefaultStringParser(activateCallback);
+        //        HashMap<String, String> params = new HashMap<>();
+        //        params.put("pin", pinCode);
+        //        String m_device_activate = URLConfig.getM_DEVICE_ACTIVATE();
+        //        String activateUrl = m_device_activate.replace("100", "101");
+        //        parser.executePost(activateUrl, params);
+        HashMap<String, Object> params = new HashMap<>();
         params.put("pin", pinCode);
-        String m_device_activate = URLConfig.getM_DEVICE_ACTIVATE();
-        String activateUrl = m_device_activate.replace("100", "101");
-        parser.executePost(activateUrl, params);
+        params.put("carID", Integer.valueOf(carID));
+        addDisposable(mApiService.active(params), new BaseMvcObserver<BaseErr>() {
+            @Override
+            public void onSuccess(BaseErr result) {
+                mDialog.dismiss();
+                if (result.code != 0) {
+                    showToast(result.msg);
+                } else {
+                    showToast("开始激活");
+                    Intent intent = new Intent(AutoGoActivateActivity.this, ActivateStepActivity.class);
+                    intent.putExtra("carId", Integer.valueOf(carID));
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                mDialog.dismiss();
+                showToast(msg);
+            }
+        });
+
     }
 
     private final static long ONEMIN = 1000 * 60;
@@ -164,17 +193,17 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
                     //                    }
                     ActivityControl.initXG();
                     //                    LoginControl.logic(ActivateBindActivity.this);
-                    Intent intent = new Intent(ActivateBindActivity.this, MainActivity.class);
+                    Intent intent = new Intent(AutoGoActivateActivity.this, MainActivity.class);
                     intent.putExtra("activateCode", 202);
                     startActivity(intent);
                     finish();
                     break;
                 case 4:
                     BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo) msg.obj;
-                    Intent mIntent4 = new Intent(ActivateBindActivity.this,
+                    Intent mIntent4 = new Intent(AutoGoActivateActivity.this,
                             UserLoginActivity.class);
                     finish();
-                    ActivateBindActivity.this.overridePendingTransition(R.anim.enter_alpha, R.anim.exit_alpha);
+                    AutoGoActivateActivity.this.overridePendingTransition(R.anim.enter_alpha, R.anim.exit_alpha);
                     startActivity(mIntent4);
                     break;
 
@@ -228,11 +257,11 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             UseInfo mUseInfo = UseInfoLocal.getUseInfo();
             CPControl.GetLogin(mUseInfo.getAccount(), mUseInfo.getPassword(), listener_login);
         } else if (code == 1020) {
-            Intent intent = new Intent(ActivateBindActivity.this, UpDateActivity.class);
+            Intent intent = new Intent(AutoGoActivateActivity.this, UpDateActivity.class);
             startActivity(intent);
 
         } else if (code == BaseResponseInfo.ERRO) {
-            UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
+            UUToast.showUUToast(AutoGoActivateActivity.this, "激活失败");
             mTextViewMsg.setText("激活失败，网络不稳定，请稍后重新再试");
 
         } else {
@@ -242,7 +271,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
             //                UUToast.showUUToast(ActivateBindActivity.this, "激活失败");
             //            }
 
-            UUToast.showUUToast(ActivateBindActivity.this, mBaseResponseInfo.getInfo());
+            UUToast.showUUToast(AutoGoActivateActivity.this, mBaseResponseInfo.getInfo());
             mTextViewMsg.setText(mBaseResponseInfo.getInfo());
 
 
@@ -283,13 +312,13 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void back() {
-        Intent backIntent = new Intent(this, DeviceBindActivity.class);
+//        Intent backIntent = new Intent(this, DeviceBindActivity.class);
         //        backIntent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
-        backIntent.putExtra("vin", vinCode);
-        backIntent.putExtra("carType", carType);
-        startActivity(backIntent);
+//        backIntent.putExtra("vin", vinCode);
+//        backIntent.putExtra("carType", carType);
+//        startActivity(backIntent);
         finish();
-        ActivityControl.clearAllActivity();
+//        ActivityControl.clearAllActivity();
 
     }
 

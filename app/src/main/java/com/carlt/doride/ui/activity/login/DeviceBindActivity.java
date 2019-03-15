@@ -62,6 +62,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     private Intent intent;
 
     private String from;
+    private String mCarid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         initComponent();
         intent = getIntent();
         from = intent.getStringExtra("from");
+        mCarid = intent.getStringExtra("carid");
+        LogUtils.e("====" + mCarid);
     }
 
     @Override
@@ -222,6 +225,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             String value = (String) bInfo.getValue();
             try {
                 JSONObject object = new JSONObject(value);
+
                 String deviceidstring = object.getString("deviceidstring");
                 LoginInfo.setDeviceidstring(deviceidstring);
             } catch (JSONException e) {
@@ -237,19 +241,12 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             }
 
             //  大乘
-            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
+                        Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
+//            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
             activateIntent.putExtra("vin", vinCode);
             activateIntent.putExtra("carType", carTitle);
+            activateIntent.putExtra("carID", mCarid);
             startActivity(activateIntent);
-            //            int app_type = LoginInfo.getApp_type();
-            //            switch (app_type) {
-            //                case 1:
-            //
-            //                    break;
-            //                case 2:
-            //
-            //                    break;
-            //            }
 
 
         }

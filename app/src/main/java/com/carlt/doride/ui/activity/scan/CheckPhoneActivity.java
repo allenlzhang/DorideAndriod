@@ -52,7 +52,7 @@ public class CheckPhoneActivity extends LoadingActivity {
     private TimerTask task;
     private int    carid;
     private String    ccid;
-//    private String    dmid;
+    private String    dmid;
     private String    phone;
 
     @Override
@@ -66,7 +66,7 @@ public class CheckPhoneActivity extends LoadingActivity {
         Intent intent = getIntent();
         carid = intent.getIntExtra("carid",0);
         ccid = intent.getStringExtra("ccid");
-//        dmid = intent.getStringExtra("dmid");
+        dmid = intent.getStringExtra("dmid");
     }
 
     @SuppressLint("HandlerLeak")
@@ -167,7 +167,7 @@ public class CheckPhoneActivity extends LoadingActivity {
         OkGo.<String>post(URLConfig.getCAR_BIND_SIM_URL())
                 .params("carid", carid)
                 .params("ccid", ccid)
-//                .params("dmid", dmid)
+                .params("dmid", dmid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

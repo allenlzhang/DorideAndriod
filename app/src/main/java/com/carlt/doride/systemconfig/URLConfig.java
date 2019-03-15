@@ -4,15 +4,25 @@ package com.carlt.doride.systemconfig;
 import com.carlt.doride.DorideApplication;
 
 public class URLConfig {
-    public final static  int    VERSION_FORMAL  = 1001;// 正式服
-    public final static  int    VERSION_PREPARE = 1002;// 预发布服
-    public final static  int    VERSION_TEST    = 1003;// 测试服
-    public static        int    flag            = VERSION_FORMAL;
-    public static        String host            = "172.20.120.1";// 杭州
+    public final static int    VERSION_FORMAL  = 1001;// 正式服
+    public final static int    VERSION_PREPARE = 1002;// 预发布服
+    public final static int    VERSION_TEST    = 1003;// 测试服
+    public static       int    flag            = VERSION_TEST;
+    public static       String host            = "172.20.120.1";// 杭州
+
+    //autogo接口
+    public static final String AUTO_TEST_BASE_URL   = "http://test.linewin.cc:8888/app/";
+    //    public static final String TEST_BASE_URL         = "http://192.168.10.184:8080/app/";
+    public final static String AUTO_PRE_BASE_URL    = "http://pre-autogoapi.geni4s.com/app/";
+    public final static String AUTO_FORMAL_BASE_URL = "http://autogoapi.geni4s.com/app/";
+    public static final String AUTOGO_TEST_ACCESSID = "12938315356991092938";   //autoGo 测试
+    //正式服和预发布id
+    public static final String AUTOGO_PRE_ACCESSID  = "10590215396563070590";
+
     // 端口号
-    public final static  int    FtpPort         = 10021;
+    public final static  int    FtpPort = 10021;
     // 车乐测试服务器
-    private final static String C1              = "0896756ebec5bc62a51b15b9a7541901";
+    private final static String C1      = "0896756ebec5bc62a51b15b9a7541901";
 
     // 车乐正式服务器
     public final static String C2 = "890ce20d220196ed6dbb0f51793e44ef";
@@ -27,15 +37,15 @@ public class URLConfig {
     public final static String U1_DORIDE = "http://dorideapi.geni4s.com/";
 
     // 远程下发-正式服务器
-    private final static String U_R1                  = "https://remote-doride.geni4s.com/";
+    private final static String U_R1                    = "https://remote-doride.geni4s.com/";
     // 远程下发-预发布服务器
-    private final static String U_R2                  = "https://pre-remote-doride.geni4s.com/";
+    private final static String U_R2                    = "https://pre-remote-doride.geni4s.com/";
     // 大乘下发-测试服务器
-    private final static String U_R3                  = "http://remote-doride.linewin.cc/";
-    private final static String BASE_CAR_SIM_URL_TEST = "http://simcard.linewin.cc/";
+    private final static String U_R3                    = "http://remote-doride.linewin.cc/";
+    private final static String BASE_CAR_SIM_URL_TEST   = "http://simcard.linewin.cc/";
     private final static String BASE_CAR_SIM_URL_FORMAL = "http://toolsapi.geni4s.com/";
     // 摄像头固件升级
-    private static       String M_REMOTE_UPGRADE      = "comm/upgrade";
+    private static       String M_REMOTE_UPGRADE        = "comm/upgrade";
 
     // 获取DORIDE API URL
     private static String getDorideURL(String s) {
@@ -64,7 +74,45 @@ public class URLConfig {
         return url;
     }
 
-    ;
+    public static String getAutoGoUrl() {
+        String url = "";
+        switch (flag) {
+            case VERSION_FORMAL:
+                // 正式服
+                url = AUTO_FORMAL_BASE_URL;
+                break;
+
+            case VERSION_PREPARE:
+                // 预发布服
+                url = AUTO_PRE_BASE_URL;
+                break;
+            case VERSION_TEST:
+                // 测试服
+                url = AUTO_TEST_BASE_URL;
+                break;
+        }
+        return url;
+    }
+
+    public static String getAutoGoAccessId() {
+        String accessid = "";
+        switch (flag) {
+            case VERSION_FORMAL:
+                // 正式服
+                accessid = AUTOGO_PRE_ACCESSID;
+                break;
+
+            case VERSION_PREPARE:
+                // 预发布服
+                accessid = AUTOGO_PRE_ACCESSID;
+                break;
+            case VERSION_TEST:
+                // 测试服
+                accessid = AUTOGO_TEST_ACCESSID;
+                break;
+        }
+        return accessid;
+    }
 
     // 生成和远程下发相关的Url
     private static String getUrlRemote(String s) {
@@ -132,7 +180,7 @@ public class URLConfig {
     }
 
     //检查ccid是否已经绑定
-    private static String CAR_CHECK_INIT_IS_OK = "V1/carmachine/checkinitisok";
+    private static String CAR_CHECK_INIT_IS_OK       = "V1/carmachine/checkinitisok";
     private static String CAR_CHECK_CCID_URL         = "V1/carmachine/checkccidisbind";
     private static String CAR_BIND_SIM_URL           = "V1/carmachine/bind";
     private static String CAR_INIT_SIM_URL           = "V1/carmachine/initgprs";
@@ -349,15 +397,15 @@ public class URLConfig {
     //判断T-box、车机是否配置流量产品（V140）
     private static String M_COUNTDATAPACKGE = "comm/countDataPackage";
 
-    public static String getM_ISSUPPORTTDATA(){
+    public static String getM_ISSUPPORTTDATA() {
         return getDorideURL(M_ISSUPPORTTDATA).replace(DorideApplication.Version_API + "", "140");
     }
 
-    public static String getM_COUNTDATAPACKGE(){
+    public static String getM_COUNTDATAPACKGE() {
         return getDorideURL(M_COUNTDATAPACKGE).replace(DorideApplication.Version_API + "", "140");
     }
 
-    public static String getCAR_CHECK_INIT_IS_OK(){
+    public static String getCAR_CHECK_INIT_IS_OK() {
         return getCarSimUrl(CAR_CHECK_INIT_IS_OK);
     }
 

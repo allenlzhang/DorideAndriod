@@ -28,7 +28,7 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
-import com.carlt.doride.ui.fragment.RecorderMainFragment;
+import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.google.gson.Gson;
@@ -48,31 +48,35 @@ import java.util.HashMap;
  */
 
 public abstract class BaseFragment extends Fragment {
-    protected boolean mIsShowing = false;
-    protected View mView;
-    private boolean isDestory = false;
+    protected boolean  mIsShowing = false;
+    protected View     mView;
+    private   boolean  isDestory  = false;
     protected Activity mCtx;
 
-    protected TextView       mTxtDes;// 描述文字
-    protected TextView       mTxtEorrorSub;//错误信息副标题
-    protected TextView       mTxtNodata;// 没有数据时的描述文字
-    protected Button         mTxtRetryError;// 重试（刷新）
-    private   ProgressBar    mPBar;
-    private   RelativeLayout mLayMain;
-    public   View           mMainView;
-    public    View           mViewLoading;// 加载View
-    public    View           mViewError;// 错误提示View
-    public    View           mViewNodata;// 没有数据View
-    private   ImageView      mIvErrorIcon;  //错误图片
-    protected String TAG = getClass().getSimpleName();
-    /** 进入后台之前 要干的事的集合 */
+    protected        TextView                        mTxtDes;// 描述文字
+    protected        TextView                        mTxtEorrorSub;//错误信息副标题
+    protected        TextView                        mTxtNodata;// 没有数据时的描述文字
+    protected        Button                          mTxtRetryError;// 重试（刷新）
+    private          ProgressBar                     mPBar;
+    private          RelativeLayout                  mLayMain;
+    public           View                            mMainView;
+    public           View                            mViewLoading;// 加载View
+    public           View                            mViewError;// 错误提示View
+    public           View                            mViewNodata;// 没有数据View
+    private          ImageView                       mIvErrorIcon;  //错误图片
+    protected        String                          TAG         = getClass().getSimpleName();
+    /**
+     * 进入后台之前 要干的事的集合
+     */
     protected static ArrayList<BeforeGoToBackground> mBackDoList = new ArrayList<BeforeGoToBackground>();
-    UpdateFileParser mParser ;
-    public View content ;
+    UpdateFileParser mParser;
+    public View content;
+
     public BaseFragment() {
     }
+
     protected void registerBeforeGoToBackGround(BeforeGoToBackground listener) {
-        if(!mBackDoList.contains(listener)){
+        if (!mBackDoList.contains(listener)) {
             mBackDoList.add(listener);
         }
     }
@@ -91,6 +95,7 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,7 +110,7 @@ public abstract class BaseFragment extends Fragment {
         return mView;
     }
 
-    protected void getActivateStatus(final String info,final boolean isCenter) {
+    protected void getActivateStatus(final String info, final boolean isCenter) {
         OkGo.<String>post(URLConfig.getCheckIsActivate_URL())
                 .params("client_id", URLConfig.getClientID())
                 .params("token", LoginInfo.getAccess_token())
@@ -119,11 +124,11 @@ public abstract class BaseFragment extends Fragment {
                         try {
                             jo = new JSONObject(response.body());
                             int code = jo.getInt("code");
-//                            String msg = jo.getString("msg");
+                            //                            String msg = jo.getString("msg");
                             if (code == 200) {
                                 ActivateInfo activateInfo = gson.fromJson(body, ActivateInfo.class);
                                 if (activateInfo.data.activate_status == 1) {
-                                    showTipDialog(info,isCenter);
+                                    showTipDialog(info, isCenter);
                                 }
                             }
 
@@ -142,14 +147,15 @@ public abstract class BaseFragment extends Fragment {
                 });
     }
 
-    private void showTipDialog(String info,boolean isCenter) {
-        if (isCenter){
+    private void showTipDialog(String info, boolean isCenter) {
+        if (isCenter) {
             PopBoxCreat.createDialogNotitleOneBtn2(mCtx, "温馨提示", info, "确定", dialogClick);
-        }else{
+        } else {
             PopBoxCreat.createDialogNotitleOneBtn(mCtx, "温馨提示", info, "确定", dialogClick);
         }
 
     }
+
     PopBoxCreat.DialogWithTitleClick dialogClick = new PopBoxCreat.DialogWithTitleClick() {
         @Override
         public void onLeftClick() {
@@ -159,6 +165,7 @@ public abstract class BaseFragment extends Fragment {
         public void onRightClick() {
         }
     };
+
     /**
      * 添加主View
      */
@@ -195,7 +202,7 @@ public abstract class BaseFragment extends Fragment {
         //        setMainView(inflateView);
         fl_base_content.removeAllViews();
         fl_base_content.addView(inflateView(inflater));
-        content = view ;
+        content = view;
         return content;
     }
 
@@ -226,10 +233,11 @@ public abstract class BaseFragment extends Fragment {
     public void loadSuccessUI() {
         mViewLoading.setBackgroundResource(R.drawable.transparent_bg);
         mViewLoading.setVisibility(View.GONE);
-                mViewError.setVisibility(View.GONE);
-                mViewNodata.setVisibility(View.GONE);
-//                mMainView.setVisibility(View.VISIBLE);
+        mViewError.setVisibility(View.GONE);
+        mViewNodata.setVisibility(View.GONE);
+        //                mMainView.setVisibility(View.VISIBLE);
     }
+
     /**
      * 没有数据时调用
      */
@@ -237,8 +245,9 @@ public abstract class BaseFragment extends Fragment {
         mViewLoading.setVisibility(View.GONE);
         mView.setVisibility(View.GONE);
         mViewNodata.setVisibility(View.VISIBLE);
-//        mMainView.setVisibility(View.GONE);
+        //        mMainView.setVisibility(View.GONE);
     }
+
     /**
      * 加载数据
      */
@@ -246,9 +255,9 @@ public abstract class BaseFragment extends Fragment {
         mTxtRetryError.setVisibility(View.GONE);
         mViewLoading.setBackgroundResource(R.drawable.transparent_bg);
         mViewLoading.setVisibility(View.VISIBLE);
-//                mViewError.setVisibility(View.GONE);
-//                mViewNodata.setVisibility(View.GONE);
-//                mMainView.setVisibility(View.GONE);
+        //                mViewError.setVisibility(View.GONE);
+        //                mViewNodata.setVisibility(View.GONE);
+        //                mMainView.setVisibility(View.GONE);
         mPBar.setVisibility(View.VISIBLE);
     }
 
@@ -256,6 +265,9 @@ public abstract class BaseFragment extends Fragment {
         //子类选择可以实现，重新加载
     }
 
+    public void showToast(String msg) {
+        UUToast.showUUToast(mCtx, msg);
+    }
 
     /**
      * 加载失败
@@ -264,9 +276,9 @@ public abstract class BaseFragment extends Fragment {
     public void loadonErrorUI(BaseResponseInfo error) {
         //并不需要
         mViewLoading.setVisibility(View.GONE);
-//                mViewError.setVisibility(View.VISIBLE);
-//                mViewNodata.setVisibility(View.GONE);
-//                mMainView.setVisibility(View.GONE);
+        //                mViewError.setVisibility(View.VISIBLE);
+        //                mViewNodata.setVisibility(View.GONE);
+        //                mMainView.setVisibility(View.GONE);
         mPBar.setVisibility(View.GONE);
 
         BaseResponseInfo mInfo = (BaseResponseInfo) error;
@@ -283,7 +295,7 @@ public abstract class BaseFragment extends Fragment {
         }
         mTxtRetryError.setVisibility(View.VISIBLE);
         mTxtEorrorSub.setText(info);
-                mViewError.setVisibility(View.VISIBLE);
+        mViewError.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -351,7 +363,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    public void hideView(){
+    public void hideView() {
         mViewLoading.setVisibility(View.GONE);
     }
 
@@ -359,18 +371,18 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 车乐拍固件升级
      */
-    public   void upgradeProgram() {
+    public void upgradeProgram() {
         //判断是否更新
         String softVersion = PieInfo.getInstance().getSoftVersion();
-        Log.e("BaseFragment", "upgradeProgram: " +softVersion);
+        Log.e("BaseFragment", "upgradeProgram: " + softVersion);
 
-//        softVersion = "SW1.2.024";
-//        softVersion ="SW1.2.024";
+        //        softVersion = "SW1.2.024";
+        //        softVersion ="SW1.2.024";
         if (!StringUtils.isEmpty(softVersion)) {
             // 链接地址
             String url = URLConfig.getM_REMOTE_UPGRADE();
             // Post参数
-            HashMap mMap =new HashMap();
+            HashMap mMap = new HashMap();
             mMap.put("version", softVersion);
             mMap.put("client_id", URLConfig.getClientID());
             if (LoginInfo.dealerId != null && LoginInfo.dealerId.length() > 0) {
@@ -383,7 +395,8 @@ public abstract class BaseFragment extends Fragment {
             mParser = new UpdateFileParser(new BaseParser.ResultCallback() {
                 @Override
                 public void onSuccess(BaseResponseInfo bInfo) {
-                    UpgradeInfo upgradeInfo =  mParser.getReturn(); ;
+                    UpgradeInfo upgradeInfo = mParser.getReturn();
+                    ;
 
                     //判断是否升级
                     boolean isshowupdata = DorideApplication.getInstanse().isIsshowupdata();
@@ -391,14 +404,15 @@ public abstract class BaseFragment extends Fragment {
                         DorideApplication.getInstanse().setIsshowupdata(true);
                         Intent mIntent4 = new Intent(mCtx, DownloadUpgradeActivity.class);
                         if (null != upgradeInfo && upgradeInfo.isUpgrade) {
-                            mIntent4.putExtra("info",upgradeInfo);
+                            mIntent4.putExtra("info", upgradeInfo);
                         }
                         mCtx.startActivity(mIntent4);
                     }
                 }
+
                 @Override
                 public void onError(BaseResponseInfo bInfo) {
-                    android.util.Log.e(TAG, "onError: "  + bInfo );
+                    android.util.Log.e(TAG, "onError: " + bInfo);
                 }
             });
             mParser.executePost(url, mMap);

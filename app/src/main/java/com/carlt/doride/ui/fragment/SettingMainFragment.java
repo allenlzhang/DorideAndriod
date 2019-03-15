@@ -40,6 +40,7 @@ import com.carlt.doride.ui.activity.scan.CarFlowPackageRechargeActivity;
 import com.carlt.doride.ui.activity.scan.CheckPhoneActivity;
 import com.carlt.doride.ui.activity.scan.InitCarSimActivity;
 import com.carlt.doride.ui.activity.scan.ScanActivity;
+import com.carlt.doride.ui.activity.scan.ScannerResultActivity;
 import com.carlt.doride.ui.activity.setting.AboutDorideActivity;
 import com.carlt.doride.ui.activity.setting.AccountSecurityActivity;
 import com.carlt.doride.ui.activity.setting.CarManagerActivity;
@@ -63,6 +64,7 @@ import com.orhanobut.logger.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.zip.CRC32;
@@ -75,6 +77,22 @@ import java.util.zip.CRC32;
 public class SettingMainFragment extends BaseFragment implements View.OnClickListener, WIFIControl.WIFIConnectListener {
 
     private static final String TAG = SettingMainFragment.class.getSimpleName();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        loadData();
+        super.onResume();
+    }
 
     public static SettingMainFragment newInstance() {
         return new SettingMainFragment();
@@ -119,19 +137,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     private boolean isLoadOther = true;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     protected View inflateView(LayoutInflater inflater) {
         View parent = inflater.inflate(R.layout.activity_setting_main, null, false);
         return parent;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -185,12 +193,6 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         avatar = parent.findViewById(R.id.avatar);
         ivScan = parent.findViewById(R.id.ivScan);
         ivScan.setOnClickListener(this);
-    }
-
-    @Override
-    public void onResume() {
-        loadData();
-        super.onResume();
     }
 
     private void showUserUI() {
@@ -426,6 +428,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
             case R.id.ivScan:
                 IntentIntegrator.forSupportFragment(SettingMainFragment.this)
+                        //                        .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)
                         .setCaptureActivity(ScanActivity.class)
                         .setPrompt("")
                         .initiateScan();
@@ -473,7 +476,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     startActivity(intent);
                 }
             } else {
-                ToastUtils.showShort(info.error);
+                showToast(info.error);
             }
 
         }
@@ -523,7 +526,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                     if (TextUtils.isEmpty(ccid)) {
                         showUnBindDialog();
                     } else {
-                        ToastUtils.showShort("您的爱车已绑定车机，不能重复绑定");
+                        showToast("您的爱车已绑定车机，不能重复绑定");
                     }
                     break;
                 case 2:
@@ -533,14 +536,14 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 case 3:
                     loadSuccessUI();
                     //已绑定（非自己的车）
-                    ToastUtils.showShort("该车机已被绑定，不能重复绑定");
+                    showToast("该车机已被绑定，不能重复绑定");
                     break;
             }
 
         } else {
             loadSuccessUI();
             //失败
-            ToastUtils.showShort(checkBindInfo.error);
+            showToast(checkBindInfo.error);
         }
     }
 
@@ -556,7 +559,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 Intent intent = new Intent(mCtx, CheckPhoneActivity.class);
                 intent.putExtra("carid", carid);
                 intent.putExtra("ccid", scanCcid);
-//                intent.putExtra("dmid", scanDmid);
+                intent.putExtra("dmid", scanDmid);
                 startActivity(intent);
                 //                bindSim();
             }
@@ -578,20 +581,55 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void decodeQRcode(String strHex) {
+        scanDmid = "";
+        scanCcid = "";
+        scanTime = "";
         Log.e("result===", strHex);
-        byte[] bytes = Base64.decode(strHex, Base64.DEFAULT);
+        Log.e("result===", strHex.length() + "");
+        //        if (strHex.length() < 170) {
+        //            Intent intent = new Intent(mCtx, ScannerResultActivity.class);
+        //            intent.putExtra("codeResult", strHex);
+        //            startActivity(intent);
+        //            return;
+        //        }
+        //        if (true) {
+        //            return;
+        //        }
+        byte[] bytes = null;
+        try {
+            bytes = Base64.decode(strHex, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Intent intent = new Intent(mCtx, ScannerResultActivity.class);
+            intent.putExtra("codeResult", strHex);
+            startActivity(intent);
+            return;
+        }
+        if (bytes == null)
+            return;
+
         //        byte[] bytes = hexString2Bytes(strHex);
         String s = bytes2HexString(bytes);
         Log.e("===", s);
-        LogUtils.e(Arrays.toString(bytes));
+        if (!s.startsWith("CCD7")) {
+            Intent intent = new Intent(mCtx, ScannerResultActivity.class);
+            intent.putExtra("codeResult", strHex);
+            startActivity(intent);
+            return;
+        }
+
+        //        LogUtils.e(Arrays.toString(bytes));
         if (bytes[0] != (byte) 0xcc || bytes[1] != (byte) 0xd7) {
             LogUtils.e("头错误");
-            Toast.makeText(getContext(), "协议头不是我们的协议头，所以此数据不做解析", Toast.LENGTH_SHORT).show();
+            //            Toast.makeText(getContext(), "协议头不是我们的协议头，所以此数据不做解析", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mCtx, ScannerResultActivity.class);
+            intent.putExtra("codeResult", strHex);
+            startActivity(intent);
             return;
         }
 
         if (bytes[5] != 1 || bytes[6] != 1) {
-            ToastUtils.showShort("二维码信息有误，请刷新二维码后重试");
+            showToast("二维码信息有误，请刷新二维码后重试");
             return;
         }
         int version = ((int) bytes[2]) >> 3;
@@ -621,26 +659,33 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         //        Log.e(Tag, "s2-----------" + s2);
         //校验
         byte[] mbs = Arrays.copyOfRange(bytes, 7, 9);
+
+
         String s1 = bytes2HexString(mbs);
         Integer len = Integer.valueOf(s1, 16);
         //        byte[] content = Arrays.copyOfRange(bytes, 9, 9 + len);
         byte[] regex = Arrays.copyOfRange(bytes, 9 + len, len + 13);
-        //        String crc32 = Utils.getCRC32(raw);
-        //        byte[] crc32Bys = intToBytes(crc32);
         CRC32 crc321 = new CRC32();
         crc321.update(raw);
         long value = crc321.getValue();
         String localCrc32 = Long.toHexString(value).toUpperCase();
-        LogUtils.e("CRC32One----：" + Long.toHexString(value).toUpperCase());
+
         String re = bytes2HexString(regex);
-        //        Log.e(Tag, "CRC32Re----：" + Long.toHexString(value1).toUpperCase());
-        //        String crc1 = bytes2HexString(crc32Bys);
         LogUtils.e("校验码是：" + re);
         LogUtils.e("crc32是：" + localCrc32);
-        if (!re.equalsIgnoreCase(localCrc32)) {
-            Toast.makeText(getActivity(), "数据校验不通过，所以此数据不做解析", Toast.LENGTH_LONG).show();
+
+        BigInteger regexInt = new BigInteger(re, 16);
+        BigInteger crc32Int = new BigInteger(localCrc32, 16);
+        LogUtils.e("Integer校验码是：" + regexInt.intValue());
+        LogUtils.e("Integer校验码crc32是：" + crc32Int.intValue());
+        if (regexInt.intValue() != crc32Int.intValue()) {
+            Toast.makeText(getActivity(), "CRC32校验失败", Toast.LENGTH_LONG).show();
             return;
         }
+        //        if (!re.equalsIgnoreCase(localCrc32)) {
+        //            Toast.makeText(getActivity(), "CRC32校验失败", Toast.LENGTH_LONG).show();
+        //            return;
+        //        }
 
 
         String kv = new String(raw);
@@ -657,27 +702,29 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                 scanDmid = aStr;
             }
         }
-//        if (TextUtils.isEmpty(scanDmid)) {
-//            ToastUtils.showShort("二维码信息有误，请刷新二维码后重试");
-//            return;
-//        }
-//        scanDmid = scanDmid.trim().substring(scanDmid.indexOf("=") + 1);
+        LogUtils.e("scanDmid == " + scanDmid);
+        if (TextUtils.isEmpty(scanDmid)) {
+            showToast("二维码信息有误，请刷新二维码后重试");
+            return;
+        }
+        scanDmid = scanDmid.trim().substring(scanDmid.indexOf("=") + 1);
         if (!TextUtils.isEmpty(scanCcid)) {
             scanCcid = scanCcid.trim().substring(scanCcid.indexOf("=") + 1);
         } else {
             scanCcid = "";
         }
-//        LogUtils.e("scanDmid == " + scanDmid);
-        if (!TextUtils.isEmpty(scanTime)) {
-            scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
-            LogUtils.e("scanTime == " + scanTime);
-            long time = Long.parseLong(scanTime);
-            if ((System.currentTimeMillis() / 1000 - time) <= 300) {
-                checkCcid(scanCcid);
-            } else {
-                ToastUtils.showShort("二维码已失效，请刷新二维码或检查系统时间是否准确");
-            }
-        }
+
+        checkCcid(scanCcid);
+        //        if (!TextUtils.isEmpty(scanTime)) {
+        //            scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
+        //            LogUtils.e("scanTime == " + scanTime);
+        //            long time = Long.parseLong(scanTime);
+        //            if ((System.currentTimeMillis() / 1000 - time) <= 3000) {
+        //                checkCcid(scanCcid);
+        //            } else {
+        //                showToast("二维码已失效，请刷新二维码或检查系统时间是否准确");
+        //            }
+        //        }
 
     }
 
@@ -958,7 +1005,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             intent.putExtra("title", tvCarFlow.getText().toString());
                             startActivity(intent);
                         } else {
-                            ToastUtils.showShort("暂未获取到商品列表");
+                            showToast("暂未获取到商品列表");
                         }
                         break;
                 }

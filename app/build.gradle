@@ -17,8 +17,8 @@ android {
         applicationId "com.carlt.doride"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 152
-        versionName "1.5.2"
+        versionCode 153
+        versionName "1.5.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -88,4 +88,15 @@ dependencies {
     implementation files('libs/photoview.jar')
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     implementation 'com.shuhart.stepview:stepview:1.4.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    //ConverterFactory的String依赖包
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    //ConverterFactory的Gson依赖包
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //CallAdapterFactory的Rx依赖包
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+
 }

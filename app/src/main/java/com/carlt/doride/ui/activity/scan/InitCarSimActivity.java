@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 public class InitCarSimActivity extends LoadingActivity {
 
     private TextView mTxtWarning;
-    private Button mBtnReTry;
+    private Button   mBtnReTry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,20 +64,20 @@ public class InitCarSimActivity extends LoadingActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-//                        loadingDialog.dismiss();
+                        //                        loadingDialog.dismiss();
                         LogUtils.e(response.body());
                         //                        parseCheckJson(response);
                         String body = response.body();
                         Gson gson = new Gson();
                         CheckBindInfo info = gson.fromJson(body, CheckBindInfo.class);
                         if (info.code == 0) {
-//                            UUToast.showUUToast(InitCarSimActivity.this, "初始化成功");
-//                            finish();
+                            //                            UUToast.showUUToast(InitCarSimActivity.this, "初始化成功");
+                            //                            finish();
                             countDataPackage();
                         } else {
                             loadingDialog.dismiss();
                             UUToast.showUUToast(InitCarSimActivity.this, info.error);
-//                            finish();
+                            //                            finish();
                             mTxtWarning.setVisibility(View.VISIBLE);
                             mBtnReTry.setVisibility(View.VISIBLE);
                         }
@@ -92,7 +92,7 @@ public class InitCarSimActivity extends LoadingActivity {
                         UUToast.showUUToast(InitCarSimActivity.this, "流量数据初始化失败");
                         mTxtWarning.setVisibility(View.VISIBLE);
                         mBtnReTry.setVisibility(View.VISIBLE);
-//                        finish();
+                        //                        finish();
                     }
                 });
     }
@@ -100,7 +100,7 @@ public class InitCarSimActivity extends LoadingActivity {
     /**
      * 判断T-box、车机是否配置流量产品（V140）
      */
-    private void countDataPackage(){
+    private void countDataPackage() {
         String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE();
         OkGo.<String>post(countDataPackageUrl)
                 .params("client_id", URLConfig.getClientID())
@@ -120,13 +120,14 @@ public class InitCarSimActivity extends LoadingActivity {
                     }
                 });
     }
-    private void parseCountDataPackage(Response<String> response){
+
+    private void parseCountDataPackage(Response<String> response) {
         String body = response.body();
         try {
             JSONObject jsonObject = new JSONObject(body);
-            int code = jsonObject.optInt("code",-1);
-            String msg = jsonObject.optString("msg","");
-            if (code == BaseResponseInfo.NO_TOKEN){
+            int code = jsonObject.optInt("code", -1);
+            String msg = jsonObject.optString("msg", "");
+            if (code == BaseResponseInfo.NO_TOKEN) {
                 ActivityControl.onTokenDisable();
                 ToastUtils.setGravity(Gravity.CENTER, 0, 0);
                 ToastUtils.setBackgroundColor(R.drawable.toast_bg);
@@ -135,20 +136,20 @@ public class InitCarSimActivity extends LoadingActivity {
                 return;
             }
             JSONObject data = jsonObject.getJSONObject("data");
-            if (data!=null){
-                int tboxDataNum = data.optInt("tboxDataNum",0);
-                int machineDataNum = data.optInt("machineDataNum",0);
-                int tboxRenewNum = data.optInt("tboxRenewNum",0);
-                if (machineDataNum!=0){
-                    Intent intent = new Intent(this,CarFlowPackageRechargeActivity.class);
+            if (data != null) {
+                int tboxDataNum = data.optInt("tboxDataNum", 0);
+                int machineDataNum = data.optInt("machineDataNum", 0);
+                int tboxRenewNum = data.optInt("tboxRenewNum", 0);
+                if (machineDataNum != 0) {
+                    Intent intent = new Intent(this, CarFlowPackageRechargeActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    ToastUtils.showShort("暂未获取到商品列表");
+                } else {
+                    showToast("暂未获取到商品列表");
                     finish();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtils.e(e);
         }
     }

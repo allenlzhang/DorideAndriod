@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,12 +25,20 @@ public class ActivateAccActivity extends BaseActivity {
     ImageView ivHelp;
     @BindView(R.id.btnACCNext)
     TextView  btnACCNext;
+    private String vinCode = "";
+
+    private String carID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activate_acc);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            vinCode = intent.getStringExtra("vin");
+            carID = intent.getStringExtra("carID");
+        }
         title.setText("设备激活");
     }
 
@@ -40,6 +49,11 @@ public class ActivateAccActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btnACCNext:
+                Intent intent = new Intent(this, AutoGoActivateActivity.class);
+                intent.putExtra("vin", vinCode);
+                intent.putExtra("carID", carID);
+                startActivity(intent);
+                finish();
                 break;
         }
     }
