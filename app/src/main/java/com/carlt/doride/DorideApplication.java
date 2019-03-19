@@ -243,7 +243,6 @@ public class DorideApplication extends Application {
 
     }
 
- 
 
     public static Context getAppContext() {
         return ApplicationContext;

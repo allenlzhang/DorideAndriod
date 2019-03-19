@@ -714,17 +714,17 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             scanCcid = "";
         }
 
-        checkCcid(scanCcid);
-        //        if (!TextUtils.isEmpty(scanTime)) {
-        //            scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
-        //            LogUtils.e("scanTime == " + scanTime);
-        //            long time = Long.parseLong(scanTime);
-        //            if ((System.currentTimeMillis() / 1000 - time) <= 3000) {
-        //                checkCcid(scanCcid);
-        //            } else {
-        //                showToast("二维码已失效，请刷新二维码或检查系统时间是否准确");
-        //            }
-        //        }
+        //        checkCcid(scanCcid);
+        if (!TextUtils.isEmpty(scanTime)) {
+            scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
+            LogUtils.e("scanTime == " + scanTime);
+            long time = Long.parseLong(scanTime);
+            if ((System.currentTimeMillis() / 1000 - time) <= 3000) {
+                checkCcid(scanCcid);
+            } else {
+                showToast("二维码已失效，请刷新二维码或检查系统时间是否准确");
+            }
+        }
 
     }
 
