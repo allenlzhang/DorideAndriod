@@ -241,8 +241,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             }
 
             //  大乘
-            //                        Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
-            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
+            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
+            //            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
             activateIntent.putExtra("vin", vinCode);
             activateIntent.putExtra("carType", carTitle);
             activateIntent.putExtra("carID", mCarid);

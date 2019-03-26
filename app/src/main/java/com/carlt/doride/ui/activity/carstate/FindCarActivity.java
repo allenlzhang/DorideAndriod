@@ -306,8 +306,8 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
             AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
             //            mLocationOption.setInterval(2000);
             //            设置只定位一次
-            mLocationOption.setOnceLocation(true);
-            mLocationOption.setOnceLocationLatest(true);
+            mLocationOption.setOnceLocation(false);
+            mLocationOption.setOnceLocationLatest(false);
             // 设置定位监听
             mLocationClient.setLocationListener(this);
             // 设置为高精度定位模式
@@ -575,7 +575,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     public void onLocationChanged(AMapLocation aMapLocation) {
         //        loadSuccessUI();
         Logger.e(aMapLocation.getErrorCode() + aMapLocation.getAddress());
-        if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
+        if (aMapLocation.getErrorCode() == 0) {
             Logger.e("mFirstLoc----" + mFirstLoc);
 
             if (mFirstLoc == null) {

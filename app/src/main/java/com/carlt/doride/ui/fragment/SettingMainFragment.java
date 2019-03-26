@@ -76,7 +76,8 @@ import java.util.zip.CRC32;
 
 public class SettingMainFragment extends BaseFragment implements View.OnClickListener, WIFIControl.WIFIConnectListener {
 
-    private static final String TAG = SettingMainFragment.class.getSimpleName();
+    private static final String TAG         = SettingMainFragment.class.getSimpleName();
+    public static final  int    QRCODE_TIME = 1800;
 
     @Override
     public void onAttach(Context context) {
@@ -584,8 +585,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         scanDmid = "";
         scanCcid = "";
         scanTime = "";
-        Log.e("result===", strHex);
-        Log.e("result===", strHex.length() + "");
+        //        Log.e("result===", strHex);
+        //        Log.e("result===", strHex.length() + "");
         //        if (strHex.length() < 170) {
         //            Intent intent = new Intent(mCtx, ScannerResultActivity.class);
         //            intent.putExtra("codeResult", strHex);
@@ -618,7 +619,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             return;
         }
 
-        //        LogUtils.e(Arrays.toString(bytes));
+        LogUtils.e(Arrays.toString(bytes));
         if (bytes[0] != (byte) 0xcc || bytes[1] != (byte) 0xd7) {
             LogUtils.e("头错误");
             //            Toast.makeText(getContext(), "协议头不是我们的协议头，所以此数据不做解析", Toast.LENGTH_SHORT).show();
@@ -663,6 +664,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
         String s1 = bytes2HexString(mbs);
         Integer len = Integer.valueOf(s1, 16);
+//        LogUtils.e(len);
         //        byte[] content = Arrays.copyOfRange(bytes, 9, 9 + len);
         byte[] regex = Arrays.copyOfRange(bytes, 9 + len, len + 13);
         CRC32 crc321 = new CRC32();
@@ -719,7 +721,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             scanTime = scanTime.trim().substring(scanTime.indexOf("=") + 1);
             LogUtils.e("scanTime == " + scanTime);
             long time = Long.parseLong(scanTime);
-            if ((System.currentTimeMillis() / 1000 - time) <= 3000) {
+            if ((System.currentTimeMillis() / 1000 - time) <= QRCODE_TIME) {
                 checkCcid(scanCcid);
             } else {
                 showToast("二维码已失效，请刷新二维码或检查系统时间是否准确");
