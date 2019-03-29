@@ -74,19 +74,19 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
             mCode = result.getClass().getDeclaredField("code");
             mCode.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         if (mCode == null)
             try {
                 mErr = result.getClass().getDeclaredField("error");
                 mErr.setAccessible(true);
             } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
 
 
-        LogUtils.e("mErr----" + mErr);
-        LogUtils.e("mCode----" + mCode);
+//        LogUtils.e("mErr----" + mErr);
+//        LogUtils.e("mCode----" + mCode);
         try {
 
 

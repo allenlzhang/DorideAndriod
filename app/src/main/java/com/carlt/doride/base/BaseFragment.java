@@ -26,7 +26,6 @@ import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.ActivateInfo;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUToast;
@@ -350,7 +349,7 @@ public abstract class BaseFragment extends Fragment {
      * @param <T>
      * @return
      */
-    public <T> T $ViewByID(int id) {
+    public <T extends View> T $ViewByID(int id) {
         return mView == null ? null : (T) mView.findViewById(id);
     }
 

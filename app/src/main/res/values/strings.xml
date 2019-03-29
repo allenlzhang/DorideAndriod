@@ -26,7 +26,7 @@
     <string name="device_bind_tx">绑定</string>
     <string name="device_activate_tx">激活</string>
     <string name="device_activate_tip">激活后就能使用大乘智享全部功能</string>
-    <string name="device_activate_tip2">激活过程可能需要2-5分钟，请耐心等待</string>
+    <string name="device_activate_tip2">激活将在24小时内完成（如遇月初、月末或运营商维护，激活时间可能有所不同，具体以APP内提示为准）</string>
     <string name="change_commit_txt">确认修改</string>
     <string name="register_passwd_txt">请输入登录密码</string>
     <string name="register_passwd_again_txt">请再次输入密码</string>

@@ -44,7 +44,10 @@ android {
         abortOnError false
     }
     buildToolsVersion '27.0.3'
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 repositories {
     flatDir {

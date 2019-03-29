@@ -5,12 +5,14 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
@@ -30,7 +32,6 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class ActivateStepActivity extends BaseActivity {
@@ -67,6 +68,7 @@ public class ActivateStepActivity extends BaseActivity {
         setContentView(R.layout.activity_activate_step);
         ButterKnife.bind(this);
         title.setText("设备激活");
+        back.setVisibility(View.GONE);
         initActivateLogs();
         initAnimator();
     }
@@ -76,49 +78,21 @@ public class ActivateStepActivity extends BaseActivity {
 
     @SuppressLint("CheckResult")
     private void initActivateLogs() {
-        //        dialog.show();
 
-        //        getPresenter().getStepInfos(params, true);
         requestLogInfo(true);
         disposable = Observable.interval(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        //                        getPresenter().getStepInfos(params, false);
-                        requestLogInfo(false);
-                    }
+                .doOnNext(aLong -> {
+                    requestLogInfo(false);
                 })
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        time--;
-                        if (time <= 0) {
-                            disposable.dispose();
-                        }
+                .subscribe(aLong -> {
+                    time--;
+                    if (time <= 0) {
+                        disposable.dispose();
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        LogUtils.e(throwable.getMessage());
-                    }
-                });
+                }, throwable -> LogUtils.e(throwable.getMessage()));
 
-        //        ClientFactory.def(CarService.class).getLogs(params)
-        //                .subscribe(new Consumer<ActivateStepInfo>() {
-        //                    @Override
-        //                    public void accept(ActivateStepInfo info) throws Exception {
-        //                        LogUtils.e(info);
-        //                        initStepView(info);
-        //                        dialog.dismiss();
-        //                    }
-        //                }, new Consumer<Throwable>() {
-        //                    @Override
-        //                    public void accept(Throwable throwable) throws Exception {
-        //                        dialog.dismiss();
-        //                    }
-        //                });
 
     }
 
@@ -151,7 +125,9 @@ public class ActivateStepActivity extends BaseActivity {
             ArrayList<ActivateStepInfo.StepsBean> logs = new ArrayList<>();
             for (ActivateStepInfo.StepsBean step : steps) {
                 if (step.isSuccess == 1) {
-                    tvRetry.setVisibility(View.GONE);
+                    //                    tvRetry.setVisibility(View.GONE);
+                    tvRetry.setText("进入主页面");
+                    ERR_TYPE = 3;
                     tvTip.setVisibility(View.GONE);
                     logs.add(step);
                 } else if (step.isSuccess == 2) {
@@ -254,15 +230,11 @@ public class ActivateStepActivity extends BaseActivity {
                         startActivity(intent1);
                         break;
                     case 2:
-                        for (Activity activity : ActivityControl.mActivityList) {
-                            if (activity instanceof AutoGoActivateActivity) {
-                                activity.finish();
-                            }
-                            if (activity instanceof DeviceBindActivity)
-                                activity.finish();
+                        closeActivity();
+                        break;
+                    case 3:
 
-
-                        }
+                        closeActivity();
                         break;
                     default:
                         break;
@@ -271,8 +243,24 @@ public class ActivateStepActivity extends BaseActivity {
 
                 finish();
 
-                break;
         }
+    }
+
+    private void closeActivity() {
+        for (Activity activity : ActivityControl.mActivityList) {
+            if (activity instanceof AutoGoActivateActivity) {
+                activity.finish();
+            }
+            if (activity instanceof DeviceBindActivity)
+                activity.finish();
+            if (activity instanceof UserLoginActivity) {
+                activity.finish();
+            }
+
+        }
+
+        Intent intent2 = new Intent(this, MainActivity.class);
+        startActivity(intent2);
     }
 
     @Override
@@ -295,5 +283,14 @@ public class ActivateStepActivity extends BaseActivity {
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.start();
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            showToast("请点击“进入主页面”");
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

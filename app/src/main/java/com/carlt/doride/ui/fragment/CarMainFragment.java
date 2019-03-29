@@ -103,7 +103,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
         getActivateStatus("正在激活中",true);
         mLoadingView = view.findViewById(R.id.laoding_lay_main);
         ivBg = view.findViewById(R.id.ivBg);
-
+          
         //  胎压监测
         view1 = $ViewByID(R.id.car_main_txt_tire);
         // 定位寻车

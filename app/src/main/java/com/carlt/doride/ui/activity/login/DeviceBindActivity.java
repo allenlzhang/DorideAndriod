@@ -16,14 +16,12 @@ import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.data.SesameBindDeviceInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity;
 import com.google.gson.Gson;
@@ -64,9 +62,10 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
     private Intent intent;
 
-    private String from;
-    private String mCarid;
+    private String   from;
+    private String   mCarid;
     private UserInfo userInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,8 +244,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             }
 
             //  大乘
-            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
-            //            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
+            //            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
+            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
             activateIntent.putExtra("vin", vinCode);
             activateIntent.putExtra("carType", carTitle);
             activateIntent.putExtra("carID", mCarid);

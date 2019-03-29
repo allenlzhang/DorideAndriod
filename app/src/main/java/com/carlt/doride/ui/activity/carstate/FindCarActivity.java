@@ -78,31 +78,31 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
     private TextView  mTxtPLoc;
     private TextView  txtRight;//title 右侧按钮
 
-    private MapView            mMapView;
-    private AMap               mMap;
-    private AMapLocationClient mLocationClient;
-    private AMapLocation       mFirstLoc;
-    private LatLng             mFirstCarLoc;
-    private RouteTask          mRouteTask;
-    private Dialog             mPDialog;
-    private PolylineOptions    mlineOption;
-    private WalkPath           mPath;
-    private WalkRouteResult    mResult;
-    private String             locName;// 终点位置
-    private String             fromLocName;// 从另一页跳转
-    private Marker             mLocMarker;
-    private Circle             mLocCircle;
-    private boolean isMyLocenable = false;
-    private boolean isNeedRefresh = false;//是否需要刷新
-    private AMapLocation      mCurrentLoc;
-    private SensorEventHelper mSensorHelper;
-    private final static int ZOOM = 17;// 缩放级别
-    private Text     txtStart;
-    private Text     txtEnd;
-    private Marker   endMarker;
-    private Polyline mRouteLine;
-    private Marker   startMarker;
-    private LatLng   location;
+    private              MapView            mMapView;
+    private              AMap               mMap;
+    private              AMapLocationClient mLocationClient;
+    private              AMapLocation       mFirstLoc;
+    private              LatLng             mFirstCarLoc;
+    private              RouteTask          mRouteTask;
+    private              Dialog             mPDialog;
+    private              PolylineOptions    mlineOption;
+    private              WalkPath           mPath;
+    private              WalkRouteResult    mResult;
+    private              String             locName;// 终点位置
+    private              String             fromLocName;// 从另一页跳转
+    private              Marker             mLocMarker;
+    private              Circle             mLocCircle;
+    private              boolean            isMyLocenable = false;
+    private              boolean            isNeedRefresh = false;//是否需要刷新
+    private              AMapLocation       mCurrentLoc;
+    private              SensorEventHelper  mSensorHelper;
+    private final static int                ZOOM          = 17;// 缩放级别
+    private              Text               txtStart;
+    private              Text               txtEnd;
+    private              Marker             endMarker;
+    private              Polyline           mRouteLine;
+    private              Marker             startMarker;
+    private              LatLng             location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +159,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
             mLocationClient.onDestroy();
         }
         mLocationClient = null;
+
     }
 
     private void initData() {
@@ -284,6 +285,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
 
 
         //        mMap.setMapType(AMap.MAP_TYPE_NIGHT);
+        mMap.getUiSettings().setScaleControlsEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
         setMylocEnable(false);
@@ -635,9 +637,9 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
         }
     }
 
-    private static final int STROKE_COLOR = Color.argb(180, 3, 145, 255);
-    private static final int FILL_COLOR   = Color.argb(10, 0, 0, 180);
-    private OnLocationChangedListener mListener;
+    private static final int                       STROKE_COLOR = Color.argb(180, 3, 145, 255);
+    private static final int                       FILL_COLOR   = Color.argb(10, 0, 0, 180);
+    private              OnLocationChangedListener mListener;
 
 
     private void addCircle(LatLng latlng, double radius) {

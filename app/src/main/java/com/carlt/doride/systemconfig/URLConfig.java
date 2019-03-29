@@ -16,6 +16,9 @@ public class URLConfig {
     public final static String AUTO_PRE_BASE_URL    = "http://pre-autogoapi.geni4s.com/app/";
     public final static String AUTO_FORMAL_BASE_URL = "http://autogoapi.geni4s.com/app/";
     public static final String AUTOGO_TEST_ACCESSID = "12938315356991092938";   //autoGo 测试
+
+
+
     //正式服和预发布id
     public static final String AUTOGO_PRE_ACCESSID  = "10590215396563070590";
 

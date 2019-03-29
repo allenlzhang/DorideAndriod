@@ -112,20 +112,9 @@ public class SesameActivateActivity extends BaseActivity {
         back.setImageResource(R.drawable.arrow_back);
         title.setText("激活大乘智享");
         txtRight.setVisibility(View.GONE);
-        back.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                back();
-            }
-        });
+        back.setOnClickListener(v -> back());
         ivHelp.setVisibility(View.VISIBLE);
-        ivHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SesameActivateActivity.this, ActivateHelpActivity.class));
-            }
-        });
+        ivHelp.setOnClickListener(v -> startActivity(new Intent(SesameActivateActivity.this, ActivateHelpActivity.class)));
     }
 
 
