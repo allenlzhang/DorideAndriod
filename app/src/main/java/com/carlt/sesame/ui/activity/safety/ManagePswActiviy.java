@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.setting.SesameLoginPasswdManageActivity;
@@ -85,9 +86,9 @@ public class ManagePswActiviy extends BaseActivity implements OnClickListener{
             case R.id.psw_lay_remote:
              // 远程密码管理
                 Intent mIntent2 = null;
-                if (SesameLoginInfo.isAuthen()) {
+                if (UserInfo.getInstance().isAuthen.equals("1")) {
                     // 已经实名制认证
-                    boolean isSetRemotepsw= SesameLoginInfo.isSetRemotePwd();
+                    boolean isSetRemotepsw= UserInfo.getInstance().isSetRemotePwd == 1;
                     if (isSetRemotepsw) {
                         // 已设置过远程密码
                         mIntent2 = new Intent(ManagePswActiviy.this, RemotePswActivity.class);

@@ -39,6 +39,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.carlt.doride.R;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.sesame.control.ActivityControl;
@@ -201,7 +202,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
                                 && arg0.getCity().length() > 0) {
                             mLocation = arg0;
                             cityName = arg0.getCity();
-                            SesameLoginInfo.setCityName(cityName);
+                            OtherInfo.getInstance().setCityName(cityName);
                             mTextCity.setText(cityName);
                             loadWeather();
                         }
@@ -319,8 +320,6 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
                 Intent mIntent9 = new Intent(CareerMainActivity.this,
                         ReportActivity.class);
                 mIntent9.putExtra("c", 2);
-                String date2 = SesameLoginInfo.getLately_day();
-                mIntent9.putExtra(ReportActivity.DAY_INITIAL, date2);
                 startActivity(mIntent9);
                 break;
         }
@@ -532,7 +531,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
     protected void LoadData() {
         super.LoadData();
         CPControl.GetCareerResult(listener);
-        cityName = SesameLoginInfo.getCityName();
+        cityName = OtherInfo.getInstance().getCityName();
         if (cityName == null) {
             cityName = "北京市";
         }

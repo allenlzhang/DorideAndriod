@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.control.LoginControl;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -91,7 +92,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
     }
 
     private void setContent() {
-        isFreeze = SesameLoginInfo.isFreezing();
+        isFreeze = UserInfo.getInstance().userFreeze == 2;
         if (isFreeze) {
             // 已冻结
             back.setVisibility(View.GONE);
@@ -119,7 +120,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
             mImgIcon.setImageResource(R.drawable.safe_freezed_no);
             mTxtDes1.setText("瞬间保护账号安全");
 
-            String mobile = SesameLoginInfo.getMobile();
+            String mobile = UserInfo.getInstance().mobile;
             if (mobile != null && mobile.length() == 11) {
                 String s1 = mobile.substring(0, 3);
                 String s2 = mobile.substring(7);

@@ -3,6 +3,7 @@ package com.carlt.sesame.protocolstack.career;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.DaoControl;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.CareerInfo;
@@ -30,11 +31,7 @@ public class CareerlParser extends BaseParser {
             mCareerInfo.setLicencePercent(membercar.optInt("levelPercen"));
             mCareerInfo.setUnreadmessage(membercar.optString("unreadmessage"));
             mCareerInfo.setLatestmessage(membercar.optString("latestmessage"));
-            String secretaryname = membercar.optString("secretaryname");
-            secretaryname= DorideApplication.ApplicationContext.getResources().getString(R.string.register_secretary_girl);
-            if (secretaryname != null && !secretaryname.equals("")) {
-                SesameLoginInfo.setSecretaryName(secretaryname);
-            }
+            GetCarInfo.getInstance().secretaryID = 1;
 
             JSONObject report = mJSON_data.getJSONObject("report");
             mCareerInfo.setSumfuel(report.optString("sumfuel"));

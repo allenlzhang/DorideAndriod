@@ -16,6 +16,7 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -73,11 +74,20 @@ public class AddressMapActivity extends LoadingActivityWithTitle implements OnMa
 	@Override
 	protected void LoadData() {
 		super.LoadData();
-		if (SesameLoginInfo.getDealerLat() > 0 && SesameLoginInfo.getDealerLon() > 0) {
+		double dealerLat ;
+		double dealerLon ;
+		try{
+			dealerLat = Double.parseDouble(ContactsInfo.getInstance().map.split(",")[0]);
+			dealerLon = Double.parseDouble(ContactsInfo.getInstance().map.split(",")[1]);
+		}catch (Exception e){
+			dealerLat = 0.0;
+			dealerLon = 0.0;
+		}
+		if (dealerLat > 0 && dealerLon > 0) {
 			mMap.clear();
 			LoadSuccess(null);
 			// // 定义Maker坐标点
-			LatLng point = new LatLng(SesameLoginInfo.getDealerLat(), SesameLoginInfo.getDealerLon());
+			LatLng point = new LatLng(dealerLat, dealerLon);
 			MarkerOptions options = new MarkerOptions();
 			BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.arrow_top_selected);
 			options.icon(bitmap);
@@ -100,8 +110,8 @@ public class AddressMapActivity extends LoadingActivityWithTitle implements OnMa
 		txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
 		back.setImageResource(R.drawable.arrow_back);
-		if (SesameLoginInfo.getDealerUsername() != null) {
-			title.setText(SesameLoginInfo.getDealerUsername());
+		if (ContactsInfo.getInstance().name != null) {
+			title.setText(ContactsInfo.getInstance().name);
 		}
 
 		txtRight.setVisibility(View.GONE);
@@ -119,12 +129,12 @@ public class AddressMapActivity extends LoadingActivityWithTitle implements OnMa
 		mTextView1 = (TextView) findViewById(R.id.activity_career_map_4s_txt1);
 		mTextView2 = (TextView) findViewById(R.id.activity_career_map_4s_txt2);
 
-		if (SesameLoginInfo.getDealerUsername() != null) {
-			mTextView1.setText(SesameLoginInfo.getDealerUsername());
+		if (ContactsInfo.getInstance().name != null) {
+			mTextView1.setText(ContactsInfo.getInstance().name);
 		}
 
-		if (SesameLoginInfo.getDealerAddres() != null) {
-			mTextView2.setText(SesameLoginInfo.getDealerAddres());
+		if (ContactsInfo.getInstance().address != null) {
+			mTextView2.setText(ContactsInfo.getInstance().address);
 		}
 	}
 

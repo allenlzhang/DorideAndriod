@@ -6,6 +6,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.orhanobut.logger.Logger;
 
@@ -39,7 +40,7 @@ public class PlayRadio {
      * @param sourceId 音频文件Id
      */
     public void playClickVoice(int sourceId) {
-        if (SesameLoginInfo.isRemoteSoundOpen()) {
+        if (OtherInfo.getInstance().isRemoteSoundOpen()) {
             try {
                 if (mp == null) {
                     mp = new MediaPlayer();

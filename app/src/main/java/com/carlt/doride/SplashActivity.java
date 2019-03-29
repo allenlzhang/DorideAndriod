@@ -2,19 +2,25 @@ package com.carlt.doride;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
-import com.carlt.doride.control.CPControl;
 import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.data.VersionInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser.ResultCallback;
@@ -29,6 +35,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
+import com.carlt.sesame.control.CPControl;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
@@ -57,6 +64,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fullScreen(this);
         setContentView(R.layout.activity_splash);
         mHandler.sendEmptyMessageDelayed(0, 1500);
 
@@ -91,6 +99,7 @@ public class SplashActivity extends BaseActivity {
         FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             getVersion();
+//            jumpLogic();
         } else {
             requestPermissions(this, needPermissions, new BaseActivity.RequestPermissionCallBack() {
                 @Override
@@ -102,6 +111,7 @@ public class SplashActivity extends BaseActivity {
                     FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
                     FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
                     getVersion();
+//                    jumpLogic();
                 }
 
                 @Override
@@ -207,7 +217,9 @@ public class SplashActivity extends BaseActivity {
                 && password.length() > 0) {
             // 不是第一次使用
             // 直接调用登录接口
-            CPControl.GetLogin(account, password, listener_login);
+//            CPControl.GetLogin(account, password, listener_login);
+            LoginControl.Login(account,password);
+            LoginControl.setCallback(callback);
         } else {
 
             long duration = 3000 - (System.currentTimeMillis() - mMills);
@@ -227,7 +239,30 @@ public class SplashActivity extends BaseActivity {
         }
         // }
     }
+com.carlt.sesame.control.CPControl.GetResultListCallback callback = new CPControl.GetResultListCallback() {
+    @Override
+    public void onFinished(Object o) {
+        final Message msg = new Message();
+        msg.what = 3;
+        msg.obj = o;
+        long duration = 3000 - (System.currentTimeMillis() - mMills);
+        mHandler.postDelayed(new Runnable() {
 
+            @Override
+            public void run() {
+                mHandler.sendMessage(msg);
+            }
+        }, duration > 0 ? duration : 0);
+    }
+
+    @Override
+    public void onErro(Object o) {
+        Message msg = new Message();
+        msg.what = 4;
+        msg.obj = o;
+        mHandler.sendMessage(msg);
+    }
+};
     private void showDownloadView(String apkUrl) {
         DownloadView mDownloadView = new DownloadView(SplashActivity.this);
         mDownloadView.showView(apkUrl);
@@ -325,14 +360,13 @@ public class SplashActivity extends BaseActivity {
                     ActivityControl.initXG();
                     LoginControl.mDialogUpdateListener = mDUpdateListener;
                     LoginControl.logic(SplashActivity.this);
-                    if (!LoginInfo.isUpgradeing()) {
+                    if (GetCarInfo.getInstance().isUpgrade!=1) {
                         finish();
                     }
                     break;
                 case 4:
-                    BaseResponseInfo mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     UUToast.showUUToast(SplashActivity.this, "登录错误："
-                            + mBaseResponseInfo.getInfo());
+                            + ((String) msg.obj));
                     Intent mIntent4 = new Intent(SplashActivity.this,
                             UserLoginActivity.class);
                     finish();
@@ -348,35 +382,6 @@ public class SplashActivity extends BaseActivity {
 
             super.handleMessage(msg);
         }
-    };
-
-    private ResultCallback listener_version = new ResultCallback() {
-
-        @Override
-        public void onSuccess(BaseResponseInfo o) {
-
-            final Message msg = new Message();
-            msg.what = 1;
-            msg.obj = o;
-            long duration = 2500 - (System.currentTimeMillis() - mMills);
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // 不是第一次使用
-                    // 跳转至登录页面
-                    mHandler.sendMessage(msg);
-                }
-            }, duration > 0 ? duration : 0);
-        }
-
-        @Override
-        public void onError(BaseResponseInfo o) {
-            Message msg = new Message();
-            msg.what = 2;
-            msg.obj = o;
-            mHandler.sendMessage(msg);
-        }
-
     };
 
     private ResultCallback listener_login = new ResultCallback() {
@@ -438,5 +443,29 @@ public class SplashActivity extends BaseActivity {
         }
     };
 
-
+    private void fullScreen(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色
+                Window window = activity.getWindow();
+                View decorView = window.getDecorView();
+                //两个 flag 要结合使用，表示让应用的主体内容占用系统状态栏的空间
+                int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                decorView.setSystemUiVisibility(option);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(Color.TRANSPARENT);
+                //导航栏颜色也可以正常设置
+//                window.setNavigationBarColor(Color.TRANSPARENT);
+            } else {
+                Window window = activity.getWindow();
+                WindowManager.LayoutParams attributes = window.getAttributes();
+                int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                int flagTranslucentNavigation = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+                attributes.flags |= flagTranslucentStatus;
+//                attributes.flags |= flagTranslucentNavigation;
+                window.setAttributes(attributes);
+            }
+        }
+    }
 }

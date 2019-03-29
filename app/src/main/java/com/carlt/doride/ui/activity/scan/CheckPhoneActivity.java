@@ -17,11 +17,13 @@ import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.carflow.CheckCodeInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.sesame.preference.TokenInfo;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -61,7 +63,7 @@ public class CheckPhoneActivity extends LoadingActivity {
         setContentView(R.layout.activity_check_phone);
         ButterKnife.bind(this);
         initTitle("绑定车机");
-        phone = LoginInfo.getMobile();
+        phone = UserInfo.getInstance().mobile;
         etPhone.setText(phone);
         Intent intent = getIntent();
         carid = intent.getIntExtra("carid",0);
@@ -133,8 +135,8 @@ public class CheckPhoneActivity extends LoadingActivity {
         loadingDialog.show();
         OkGo.<String>post(URLConfig.getM_CHECK_VALIDATE())
                 .params("client_id", URLConfig.getClientID())
-                .params("dealerId", LoginInfo.getDealerId())
-                .params("token", LoginInfo.getAccess_token())
+                .params("dealerId", UserInfo.getInstance().dealerId)
+                .params("token", TokenInfo.getToken())
                 .params("mobile", phone)
                 .params("type", "15")
                 .params("code", code)

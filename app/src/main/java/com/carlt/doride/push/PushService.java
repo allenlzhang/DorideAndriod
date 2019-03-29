@@ -19,9 +19,12 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.activity.home.RemindActivity;
+import com.carlt.sesame.preference.TokenInfo;
 
 public class PushService extends Service {
+    public static final int Error_Message = 0;// 设备出现异常的推送
 
+    public static final int Feetip_Message = 2;// 续费提醒推送
     public final static String CLASS1 = "class1";
 
     @Override
@@ -43,7 +46,7 @@ public class PushService extends Service {
             return;
         }
         final int class1 = intent.getIntExtra(CLASS1, 0);
-        if (LoginInfo.getAccess_token() != null && LoginInfo.getAccess_token().length() > 0) {
+        if (TokenInfo.getToken() != null && TokenInfo.getToken().length() > 0) {
             swithAction(class1);
         } else {
 
@@ -95,7 +98,7 @@ public class PushService extends Service {
 
         Log.e("info", "swithAction-class1==" + class1);
         switch (class1) {
-            case LoginInfo.Error_Message:
+            case PushService.Error_Message:
                 Activity activity = ActivityControl.getTopActivity();
                 if (activity != null) {
                     Intent mIntentError = new Intent(Intent.ACTION_MAIN);
@@ -108,19 +111,7 @@ public class PushService extends Service {
                     startActivity(mIntentError);
                 }
                 return;
-            case LoginInfo.Author_Message:
-                if (LoginInfo.isMain()) {
-
-                } else {
-                    // 子机-跳转至主页面
-                    Intent mIntent = new Intent(PushService.this,
-                            MainActivity.class);
-                    mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(mIntent);
-                }
-                return;
-            case LoginInfo.Feetip_Message:
+            case PushService.Feetip_Message:
                 // 服务提醒
                 Log.e("info", "跳转至服务购买页面");
                 return;

@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.MaintainLogInfo;
@@ -74,11 +76,10 @@ public class MaintainLogActivity extends LoadingActivityWithTitle {
     @Override
     protected void onResume() {
         super.onResume();
-        String next_miles = SesameLoginInfo.getMainten_next_miles();
-        String next_day = SesameLoginInfo.getMainten_next_day();
+        int next_miles = GetCarInfo.getInstance().maintenNextMiles;
+        long next_day = GetCarInfo.getInstance().maintenNextDate;
         if (mTextViewSecretary != null) {
-            if ((next_miles == null || next_miles.length() <= 0 || next_miles.equals("0"))
-                    &&( next_day == null || next_day.length() <= 0 || next_day.equals("0"))) {
+            if (next_miles>0 && next_day > 0) {
                 mTextViewSecretary.setText("点击填写爱车的上次保养里程&购车时间!");
 
                 mTextViewSecretary.setOnClickListener(new OnClickListener() {
@@ -95,9 +96,9 @@ public class MaintainLogActivity extends LoadingActivityWithTitle {
                 mTextViewSecretary.setOnClickListener(null);
                 StringBuffer sb1 = new StringBuffer();
                 sb1.append("您的爱车距下次保养还有 ");
-                sb1.append(SesameLoginInfo.getMainten_next_miles());
+                sb1.append(GetCarInfo.getInstance().maintenNextMiles);
                 sb1.append("公里/");
-                sb1.append(SesameLoginInfo.getMainten_next_day());
+                sb1.append(GetCarInfo.getInstance().maintenNextDate/3600/24);
                 sb1.append("天建议您及时带TA进行保养，让TA重新焕发活力");
                 mTextViewSecretary.setText(sb1.toString());
             }

@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.ui.activity.setting.AboutDorideActivity;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.data.SesameLoginInfo;
@@ -120,12 +123,12 @@ public class SettingMainActivity extends BaseActivity {
     }
 
     private void loadData() {
-        String name = SesameLoginInfo.getRealname();
+        String name = UserInfo.getInstance().realName;
         if (name != null && name.length() > 0) {
             mTxtName.setText(name);
         }
 
-        String imgUrl = SesameLoginInfo.getAvatar_img();
+        String imgUrl = UserInfo.getInstance().avatarFile;
         if (imgUrl != null && imgUrl.length() > 0) {
             Bitmap mDrawable = mAsyncImageLoader.getBitmapByUrl(imgUrl);
             if (mDrawable != null) {
@@ -136,7 +139,7 @@ public class SettingMainActivity extends BaseActivity {
         } else {
             mImgHead.setImageResource(R.drawable.icon_default_head);
         }
-        if (SesameLoginInfo.isMain()) {
+        if (OtherInfo.getInstance().isMain()) {
             // mViewFee.setVisibility(View.VISIBLE);
             // mViewLine5Bg.setVisibility(View.VISIBLE);
             // mViewLine5.setVisibility(View.VISIBLE);
@@ -235,8 +238,8 @@ public class SettingMainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         SesameMainActivity.setDotVisiable();
-        phoneNum = SesameLoginInfo.getDealerTel();
-        phoneNumService = SesameLoginInfo.getServiceTel();
+        phoneNum = ContactsInfo.getInstance().salesHotLine;
+        phoneNumService = ContactsInfo.getInstance().serviceHotLine;
         if (TextUtils.isEmpty(phoneNum) && TextUtils.isEmpty(phoneNumService)) {
             mView7.setVisibility(View.GONE);
             vLineAboutBg.setVisibility(View.GONE);
@@ -252,7 +255,7 @@ public class SettingMainActivity extends BaseActivity {
     @Override
     public void OnImgLoadFinished(String url, Bitmap mBitmap) {
         super.OnImgLoadFinished(url, mBitmap);
-        if (url.equals(SesameLoginInfo.getAvatar_img()) && mBitmap != null) {
+        if (url.equals(UserInfo.getInstance().avatarFile) && mBitmap != null) {
             mImgHead.setImageBitmap(mBitmap);
         }
     }

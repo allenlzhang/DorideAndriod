@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -104,7 +105,7 @@ public class VerifyIdentityActivity extends BaseActivity implements OnClickListe
 
         mViewRemotepsw = findViewById(R.id.verify_identity_lay_remotepsw);
 
-        if (SesameLoginInfo.isMain()) {
+        if (OtherInfo.getInstance().isMain()) {
             mViewRemotepsw.setVisibility(View.GONE);
             mBtnOption.setText("更换主机");
         } else {
@@ -130,7 +131,7 @@ public class VerifyIdentityActivity extends BaseActivity implements OnClickListe
             UUToast.showUUToast(VerifyIdentityActivity.this, "您还没有填写您的身份证号码哦...");
             return;
         } else {
-            if (SesameLoginInfo.isMain()) {
+            if (OtherInfo.getInstance().isMain()) {
                 if (mDialog == null) {
                     mDialog = PopBoxCreat.createDialogWithProgress(VerifyIdentityActivity.this,
                             "处理中...");

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -74,7 +75,7 @@ public class PhoneAuthenticationActivity extends LoadingActivity implements View
             case R.id.certified_verification_send:
                 phoneNum = certified_phone_input.getText().toString();
                 if (phoneNum != null && StringUtils.checkCellphone(phoneNum)) {
-                    String phoneOld = LoginInfo.getMobile();
+                    String phoneOld = UserInfo.getInstance().mobile;
                     if (!phoneNum.equals(phoneOld)) {
                         UUToast.showUUToast(PhoneAuthenticationActivity.this, "您输入的手机号不是您当前的手机号码，请重新输入...");
                         return;

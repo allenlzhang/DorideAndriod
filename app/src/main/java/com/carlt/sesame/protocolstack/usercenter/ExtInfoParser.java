@@ -22,11 +22,6 @@ public class ExtInfoParser extends BaseParser {
     protected void parser() {
         JSONObject mJSON_data = mJson.optJSONObject("data");
         service_time_expire = mJSON_data.optString("service_time_expire");
-        if (service_time_expire.equals("1")) {
-            SesameLoginInfo.setServiceExpire(true);
-        } else if (service_time_expire.equals("0")) {
-            SesameLoginInfo.setServiceExpire(false);
-        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.carlt.sesame.protocolstack.career;
 
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.DaoControl;
 import com.carlt.sesame.data.SesameLoginInfo;
@@ -31,8 +32,8 @@ public class MyLicenceParser extends BaseParser {
 		JSONObject data = mJson.optJSONObject("data");
 
 		JSONObject mJSON_member = data.optJSONObject("member");
-		SesameLoginInfo.setRealname(mJSON_member.optString("realname"));
-		SesameLoginInfo.setGender(mJSON_member.optString("gender"));
+		UserInfo.getInstance().realName  = mJSON_member.optString("realname");
+		UserInfo.getInstance().gender = mJSON_member.optInt("gender");
 
 		JSONObject membercar = data.optJSONObject("membercar");
 		mLicenseInfo.setCredit(membercar.optString("credit"));
@@ -45,7 +46,6 @@ public class MyLicenceParser extends BaseParser {
 		mLicenseInfo.setLicenceLevel(mLicenceLevelInfo.getLevel() + "");
 		mLicenseInfo.setLicenceName(mLicenceLevelInfo.getName());
 		mLicenseInfo.setLicencePercent(membercar.optInt("levelPercent"));
-		SesameLoginInfo.setSummileage(membercar.optString("summiles"));
 		mLicenseInfo.setSumfuel(membercar.optString("sumfuel"));
 		mLicenseInfo.setLicenceTag(membercar.optString("tag"));
 

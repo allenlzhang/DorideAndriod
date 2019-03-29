@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.SesameLoginInfo;
@@ -155,7 +156,7 @@ public class SelectCarTypeView extends SelectView {
     private void loadDataThird() {
         if (mCarModeInfo != null) {
             String is_before;
-            boolean isInstallorder= SesameLoginInfo.isInstallorder();
+            boolean isInstallorder= GetCarInfo.getInstance().installOrder==1;
             
             if (isInstallorder) {
                 is_before = "1";

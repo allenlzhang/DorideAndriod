@@ -25,11 +25,13 @@ import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.ActivateInfo;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
+import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -113,7 +115,7 @@ public abstract class BaseFragment extends Fragment {
     protected void getActivateStatus(final String info, final boolean isCenter) {
         OkGo.<String>post(URLConfig.getCheckIsActivate_URL())
                 .params("client_id", URLConfig.getClientID())
-                .params("token", LoginInfo.getAccess_token())
+                .params("token", TokenInfo.getToken())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -385,11 +387,11 @@ public abstract class BaseFragment extends Fragment {
             HashMap mMap = new HashMap();
             mMap.put("version", softVersion);
             mMap.put("client_id", URLConfig.getClientID());
-            if (LoginInfo.dealerId != null && LoginInfo.dealerId.length() > 0) {
-                mMap.put("dealerId", LoginInfo.dealerId);
+            if (UserInfo.getInstance().mobile != null && UserInfo.getInstance().mobile.length() > 0) {
+                mMap.put("dealerId", UserInfo.getInstance().mobile);
             }
-            if (LoginInfo.getAccess_token() != null && !LoginInfo.getAccess_token().equals("")) {
-                mMap.put("token", LoginInfo.getAccess_token());
+            if (TokenInfo.getToken() != null && !TokenInfo.getToken().equals("")) {
+                mMap.put("token", TokenInfo.getToken());
             }
             mMap.put("deviceType", "android");
             mParser = new UpdateFileParser(new BaseParser.ResultCallback() {

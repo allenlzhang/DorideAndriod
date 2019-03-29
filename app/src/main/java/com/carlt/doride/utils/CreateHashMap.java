@@ -2,6 +2,7 @@ package com.carlt.doride.utils;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.model.LoginInfo;
+import com.carlt.sesame.preference.TokenInfo;
 
 import java.util.HashMap;
 
@@ -13,7 +14,7 @@ public class CreateHashMap {
 
     private static HashMap create(String keys[], String values[]) {
         HashMap<String, String> params = new HashMap<>();
-        String token= LoginInfo.getAccess_token();
+        String token= TokenInfo.getToken();
         ILog.e("info","token=="+token);
 //        if(!TextUtils.isEmpty(token)){
 //        }

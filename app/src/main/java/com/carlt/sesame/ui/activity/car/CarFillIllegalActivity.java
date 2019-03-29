@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.car;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -211,14 +214,14 @@ public class CarFillIllegalActivity extends LoadingActivityWithTitle implements 
 				carno = "";
 			}
 		} else {
-			cityName = SesameLoginInfo.getCarcity();
-			cityCode = SesameLoginInfo.getCity_code();
-			carno = SesameLoginInfo.getCarno();
-			engineno = SesameLoginInfo.getEngineno();
-			standcarno = SesameLoginInfo.getShortstandcarno();
-			registno = SesameLoginInfo.getRegistno();
+			cityName = GetCarInfo.getInstance().city;
+			cityCode = GetCarInfo.getInstance().cityCode;
+			carno = GetCarInfo.getInstance().carNO;
+			engineno = GetCarInfo.getInstance().engineno;
+			standcarno = GetCarInfo.getInstance().shortStandCarNO;
+			registno = GetCarInfo.getInstance().registno;
 			if (carno == null || carno.equals("")) {
-				mCarInfo = CarInfoLocal.getCarInfo(SesameLoginInfo.getMobile());
+				mCarInfo = CarInfoLocal.getCarInfo(UserInfo.getInstance().mobile);
 				if (mCarInfo != null) {
 					cityName = mCarInfo.getCityName();
 					cityCode = mCarInfo.getCityCode();
@@ -420,6 +423,7 @@ public class CarFillIllegalActivity extends LoadingActivityWithTitle implements 
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler2 = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -431,16 +435,16 @@ public class CarFillIllegalActivity extends LoadingActivityWithTitle implements 
 				}
 
 				if (mCarInfo != null && mCarInfo.getCarNo() != null
-						&& mCarInfo.getCarNo().equals(SesameLoginInfo.getCarno())) {
-					SesameLoginInfo.setCarcity(mCarInfo.getCityName());
-					SesameLoginInfo.setCity_code(mCarInfo.getCityCode());
-					SesameLoginInfo.setCarno(mCarInfo.getCarNo());
-					SesameLoginInfo.setEngineno(mCarInfo.getEngineNo());
-					SesameLoginInfo.setShortstandcarno(mCarInfo.getStandcarNo());
-					SesameLoginInfo.setRegistno(mCarInfo.getRegistNo());
+						&& mCarInfo.getCarNo().equals(GetCarInfo.getInstance().carNO)) {
+					GetCarInfo.getInstance().city = mCarInfo.getCityName();
+					GetCarInfo.getInstance().cityCode = mCarInfo.getCityCode();
+					GetCarInfo.getInstance().carNO = mCarInfo.getCarNo();
+					GetCarInfo.getInstance().engineno = mCarInfo.getEngineNo();
+					GetCarInfo.getInstance().shortStandCarNO = mCarInfo.getStandcarNo();
+					GetCarInfo.getInstance().registno = mCarInfo.getRegistNo();
 				}
 
-				CarInfoLocal.setCarInfo(mCarInfo, SesameLoginInfo.getMobile());
+				CarInfoLocal.setCarInfo(mCarInfo, UserInfo.getInstance().mobile);
 				Intent mIntent = new Intent(CarFillIllegalActivity.this, CarQueryIllegalActivity.class);
 				Bundle mBundle = new Bundle();
 				mBundle.putSerializable(CarQueryIllegalActivity.POST_VIOLATION_INFO, mInfo);

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -67,7 +69,7 @@ public class VerifyPhoneActivity extends BaseActivity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
 
-        isMain = SesameLoginInfo.isMain();
+        isMain = OtherInfo.getInstance().isMain();
         try {
             mobile_name = getIntent().getStringExtra(MOBILE_NAME);
             mobile_id = getIntent().getStringExtra(MOBILE_ID);
@@ -117,7 +119,7 @@ public class VerifyPhoneActivity extends BaseActivity implements OnClickListener
 
         mViewPhoneNew = findViewById(R.id.verify_phone_lay_phonenew);
 
-        if (SesameLoginInfo.isMain()) {
+        if (OtherInfo.getInstance().isMain()) {
             mViewPhoneNew.setVisibility(View.GONE);
         } else {
             mViewPhoneNew.setVisibility(View.VISIBLE);
@@ -145,7 +147,7 @@ public class VerifyPhoneActivity extends BaseActivity implements OnClickListener
         switch (v.getId()) {
             case R.id.verify_phone_txt_code:
                 // 获取验证码
-                if (SesameLoginInfo.isMain()) {
+                if (OtherInfo.getInstance().isMain()) {
                 	mEdtPhoneOld.validateEdit();
                     phoneNum = mEdtPhoneOld.getText().toString();
                 } else {
@@ -154,7 +156,7 @@ public class VerifyPhoneActivity extends BaseActivity implements OnClickListener
                 }
                 if (phoneNum != null && phoneNum.length() == 11) {
                     //                    判斷輸入手機號是否為当前账号手机号
-                    String currentPhone = SesameLoginInfo.getUsername();
+                    String currentPhone = UserInfo.getInstance().userName;
                     Log.e("currentPhone----", currentPhone);
                     if ( !currentPhone.equals(phoneNum)) {
                         UUToast.showUUToast(this, "你输入的手机号非当前账号的手机号");
@@ -198,7 +200,7 @@ public class VerifyPhoneActivity extends BaseActivity implements OnClickListener
                     UUToast.showUUToast(VerifyPhoneActivity.this, "您还没有填写验证码哦...");
                     return;
                 } else {
-                    if (SesameLoginInfo.isMain()) {
+                    if (OtherInfo.getInstance().isMain()) {
                         if (mDialog == null) {
                             mDialog = PopBoxCreat.createDialogWithProgress(
                                     VerifyPhoneActivity.this, "处理中...");

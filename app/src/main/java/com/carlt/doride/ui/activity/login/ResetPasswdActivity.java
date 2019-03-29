@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -96,7 +98,7 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.bt_verification_send:
                 String cellPhone = forget_passwd_phone_et.getText().toString();
-                String mobile = LoginInfo.getMobile();
+                String mobile = UserInfo.getInstance().mobile;
                 if (TextUtils.isEmpty(cellPhone) || !StringUtils.checkCellphone(cellPhone)) {
                     UUToast.showUUToast(this, getResources().getString(R.string.cell_phone_error));
                 } else {
@@ -146,6 +148,7 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
 
     private TimerTask task;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -184,10 +187,9 @@ public class ResetPasswdActivity extends BaseActivity implements View.OnClickLis
                     UseInfoLocal.setUseInfo(mUseInfo);
 
                     UUToast.showUUToast(ResetPasswdActivity.this, "密码找回成功！");
-                    LoginInfo.setPin(forget_passwd_phone_et.getText().toString(), "");
 //                    LoginControl.logic(ResetPasswdActivity.this);
                     Intent intent = new Intent(ResetPasswdActivity.this,UserLoginActivity.class);
-                    LoginInfo.setMobile(forget_passwd_phone_et.getText().toString());
+                    UserInfo.getInstance().mobile = forget_passwd_phone_et.getText().toString();
                     startActivity(intent);
                     finish();
                     break;

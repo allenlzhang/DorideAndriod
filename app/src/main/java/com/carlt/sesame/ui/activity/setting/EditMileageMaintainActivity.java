@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -48,7 +49,7 @@ public class EditMileageMaintainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_mileage);
 
-        mileage= SesameLoginInfo.getMainten_miles();
+        mileage= GetCarInfo.getInstance().maintenMiles+"";
 
         initTitle();
         init();

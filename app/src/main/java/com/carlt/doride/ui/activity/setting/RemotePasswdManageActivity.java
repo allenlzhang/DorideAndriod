@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.ui.activity.remote.RemotePswResetActivity3;
 import com.carlt.doride.ui.view.UUToast;
@@ -38,7 +39,7 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
     @Override
     protected void onResume() {
         super.onResume();
-        if (LoginInfo.isSetRemotePwd()) {
+        if (UserInfo.getInstance().isSetRemotePwd==1) {
             remote_set_passwd.setVisibility(View.GONE);
         } else {
             remote_set_passwd.setVisibility(View.VISIBLE);
@@ -49,7 +50,7 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.remote_passwd_remember:
-                if (LoginInfo.isSetRemotePwd()) {
+                if (UserInfo.getInstance().isSetRemotePwd==1) {
 
                     Intent resetLoginPasswd = new Intent(this, ResetRemotePasswdActivity.class);
                     startActivity(resetLoginPasswd);
@@ -61,7 +62,7 @@ public class RemotePasswdManageActivity extends LoadingActivity implements View.
 
                 break;
             case R.id.remote_passwd_forget:
-                if (LoginInfo.isSetRemotePwd()) {
+                if (UserInfo.getInstance().isSetRemotePwd==1) {
                     Intent resetLoginPasswdByPhone = new Intent(this, VcodeResetRemotePasswdActivity.class);
                     startActivity(resetLoginPasswdByPhone);
                 } else {

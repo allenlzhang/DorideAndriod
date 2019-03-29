@@ -13,6 +13,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.DeviceUpdateInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.UUToast;
@@ -138,7 +139,7 @@ public class UpDateActivity extends AppCompatActivity  {
     }
 
     private void doNetWork() {
-        String s = LoginInfo.getDeviceidstring();
+        String s = GetCarInfo.getInstance().deviceidstring;
         CPControl.GetDeviceUpdateResult(s, new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {

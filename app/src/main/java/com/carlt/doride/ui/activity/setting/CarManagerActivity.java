@@ -12,6 +12,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarSettingInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser.ResultCallback;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -61,8 +62,8 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         edit_maintenance_time.setOnClickListener(this);
 
         car_type_txt = findViewById(R.id.car_type_txt);
-        if (!TextUtils.isEmpty(LoginInfo.getCarname())) {
-            car_type_txt.setText(LoginInfo.getCarname());
+        if (!TextUtils.isEmpty(GetCarInfo.getInstance().carName)) {
+            car_type_txt.setText(GetCarInfo.getInstance().carName);
         } else {
             car_type_txt.setText("--");
         }
@@ -112,7 +113,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
             purchase_time_txt.setText(carDate);
-            LoginInfo.setBuydate(carDate);
         }
 
         @Override
@@ -129,7 +129,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
             maintenance_time_txt.setText(carDate);
-            LoginInfo.setMainten_time(carDate);
         }
 
         @Override
@@ -247,7 +246,6 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(CarManagerActivity.this, "车辆信息修改成功");
             maintenance_mileage_txt.setText(String.format(getResources().getString(R.string.last_maintenance_mileage), Integer.parseInt(mileage)));
-            LoginInfo.setMainten_miles(mileage);
         }
 
         @Override
@@ -272,31 +270,25 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
             CarSettingInfo carSettingInfo = (CarSettingInfo) bInfo.getValue();
             if (!TextUtils.isEmpty(carSettingInfo.getCarname()) && !carSettingInfo.getCarname().equals("0")) {
                 car_type_txt.setText((carSettingInfo.getCarname()));
-                LoginInfo.setCarname(carSettingInfo.getCarname());
+                GetCarInfo.getInstance().carName = carSettingInfo.getCarname();
             } else {
                 car_type_txt.setText("--");
-                LoginInfo.setCarname("--");
+                GetCarInfo.getInstance().carName = "--";
             }
             if (!TextUtils.isEmpty(carSettingInfo.getBuydate()) && !carSettingInfo.getBuydate().equals("0")) {
                 purchase_time_txt.setText((carSettingInfo.getBuydate()));
-                LoginInfo.setBuydate(carSettingInfo.getBuydate());
             } else {
                 purchase_time_txt.setText("--");
-                LoginInfo.setBuydate("--");
             }
             if (!TextUtils.isEmpty(carSettingInfo.getMainten_miles())) {
                 maintenance_mileage_txt.setText(String.format(getResources().getString(R.string.last_maintenance_mileage), Integer.parseInt(carSettingInfo.getMainten_miles())));
-                LoginInfo.setMainten_miles(carSettingInfo.getMainten_miles());
             } else {
                 maintenance_mileage_txt.setText("--");
-                LoginInfo.setMainten_miles("--");
             }
             if (!TextUtils.isEmpty(carSettingInfo.getMainten_date()) && !carSettingInfo.getMainten_date().equals("0")) {
                 maintenance_time_txt.setText(carSettingInfo.getMainten_date());
-                LoginInfo.setMainten_time(carSettingInfo.getMainten_date());
             } else {
                 maintenance_time_txt.setText("--");
-                LoginInfo.setMainten_time("--");
             }
         }
 

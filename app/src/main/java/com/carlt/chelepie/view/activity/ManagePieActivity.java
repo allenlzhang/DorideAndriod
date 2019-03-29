@@ -250,7 +250,7 @@ public class ManagePieActivity extends LoadingActivity implements OnClickListene
 
 			String s;
 			// s = mPieInfo.getDeviceName();
-			s = LoginInfo.ssid;
+			s = DorideApplication.ssid;
 			if (s != null && s.length() > 0) {
 				mTxtName.setText(s);
 			}

@@ -4,19 +4,16 @@ import android.app.Activity;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.carlt.chelepie.control.DaoPieDownloadControl;
-import com.carlt.chelepie.data.recorder.PieDownloadInfo;
-import com.carlt.chelepie.data.recorder.PieInfo;
-import com.carlt.chelepie.utils.MyComparator;
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.TrafficPackagePurchaseListParser;
-import com.carlt.doride.utils.LocalConfig;
+import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.RegisteInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UploadImgInfo;
-import com.carlt.sesame.data.UseInfo;
-import com.carlt.sesame.data.car.BindDeviceInfo;
 import com.carlt.sesame.data.car.CarInfo;
 import com.carlt.sesame.data.car.CarStatuInfo;
 import com.carlt.sesame.data.car.CheckFaultInfo;
@@ -62,15 +59,12 @@ import com.carlt.sesame.data.set.TransferNewCheckInfo;
 import com.carlt.sesame.data.set.TransferOldCheckInfo;
 import com.carlt.sesame.data.usercenter.VersionLog;
 import com.carlt.sesame.preference.RemotePswInfo;
-import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.protocolstack.AdvertiseInfoParser;
 import com.carlt.sesame.protocolstack.BaseParser;
 import com.carlt.sesame.protocolstack.DefaultParser;
 import com.carlt.sesame.protocolstack.DeviceIsOnlineParser;
 import com.carlt.sesame.protocolstack.DeviceUpdateInfoParser;
 import com.carlt.sesame.protocolstack.LoginInfoParser;
-import com.carlt.sesame.protocolstack.RegisterInfoParser;
-import com.carlt.sesame.protocolstack.TokenParser;
 import com.carlt.sesame.protocolstack.UserOtherInfoParser;
 import com.carlt.sesame.protocolstack.VersionInfoParser;
 import com.carlt.sesame.protocolstack.car.AllCityInfoListParser;
@@ -92,7 +86,6 @@ import com.carlt.sesame.protocolstack.car.TireProgressParser;
 import com.carlt.sesame.protocolstack.car.TiredirectParser;
 import com.carlt.sesame.protocolstack.car.TirepressureParser;
 import com.carlt.sesame.protocolstack.car.ViolationInfoListParser;
-import com.carlt.sesame.protocolstack.car.ViolationInfoListParser2;
 import com.carlt.sesame.protocolstack.career.CarLogListParser;
 import com.carlt.sesame.protocolstack.career.CareerlParser;
 import com.carlt.sesame.protocolstack.career.ChallengeListParser;
@@ -117,7 +110,6 @@ import com.carlt.sesame.protocolstack.career.ReportWeekParser;
 import com.carlt.sesame.protocolstack.career.SafetyMessageListParser;
 import com.carlt.sesame.protocolstack.career.SecretaryCategoryListParser;
 import com.carlt.sesame.protocolstack.career.SecretaryMessageListParser;
-import com.carlt.sesame.protocolstack.career.WeatherInfoParser;
 import com.carlt.sesame.protocolstack.community.FeedDetialInfoParser;
 import com.carlt.sesame.protocolstack.community.FindingIndexParser;
 import com.carlt.sesame.protocolstack.community.FriendsPKParser;
@@ -147,14 +139,11 @@ import com.carlt.sesame.protocolstack.set.FeeMainInfoParser;
 import com.carlt.sesame.protocolstack.set.FeeOrderInfoParser;
 import com.carlt.sesame.protocolstack.set.ModifyCarInfoParser;
 import com.carlt.sesame.protocolstack.set.PushSetParser;
-import com.carlt.sesame.protocolstack.set.SetCarInfoParser;
 import com.carlt.sesame.protocolstack.set.UploadImgParser;
-import com.carlt.sesame.protocolstack.usercenter.CheckvpinParser;
 import com.carlt.sesame.protocolstack.usercenter.ExtInfoParser;
 import com.carlt.sesame.protocolstack.usercenter.TransferQrCodeParser;
 import com.carlt.sesame.systemconfig.OnDateChageConfig;
 import com.carlt.sesame.systemconfig.URLConfig;
-import com.carlt.sesame.ui.activity.car.CarConfigParser;
 import com.carlt.sesame.ui.activity.setting.ManageMessageActivity;
 import com.carlt.sesame.utility.CipherUtils;
 import com.carlt.sesame.utility.CreatPostString;
@@ -489,7 +478,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setDeviceidstring(deviceId);
+                    GetCarInfo.getInstance().deviceidstring = deviceId;
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -521,7 +510,6 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setDeviceActivate(true);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -584,39 +572,6 @@ public class CPControl {
                     listener.onFinished(mParser.getReturn());
                 } else {
                     listener.onFinished(false);
-                }
-            }
-
-        }.start();
-    }
-
-    /**
-     * 检测PIN码 onFinished返回String
-     * @param vpin
-     *         需要检测的PIN码
-     */
-    public static void GetCheckVpinResult(final GetResultListCallback listener,
-                                          final String vpin) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_CHECKPIN_URL();
-                // Post参数
-                String post = CreatPostString.getCheckVPin(vpin);
-
-                CheckvpinParser mParser = new CheckvpinParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    listener.onFinished(mParser.getReturn());
-                    String mobile = SesameLoginInfo.getMobile();
-                    SesameLoginInfo.setVpin(mobile, vpin);
-                } else {
-                    listener.onErro(mBaseResponseInfo);
                 }
             }
 
@@ -877,7 +832,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setMobile(newPhoneNum);
+                    UserInfo.getInstance().mobile = newPhoneNum;
                     listener.onFinished(newPhoneNum);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -1657,35 +1612,6 @@ public class CPControl {
         }.start();
     }
 
-    /**
-     * 获取用户绑定车款配置信息
-     */
-    public static void GetCarConfigResult(final GetResultListCallback listener) {
-
-        new Thread() {
-            @Override
-            public void run() {
-
-                // 链接地址
-                String url = URLConfig.getM_OPERATIONCONFIG_URL();
-                // Post参数
-                String post = CreatPostString.getOperationConfig();
-
-                CarConfigParser mParser = new CarConfigParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                if (listener != null) {
-                    if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                        listener.onFinished(SesameLoginInfo.getRemoteMainInfo());
-                    } else {
-                        listener.onErro(mBaseResponseInfo);
-                    }
-                }
-
-            }
-
-        }.start();
-    }
 
     /**
      * 违章查询列表 调用成功会返回ArrayList<ViolationInfo> mPostViolationInfo不为空则视为第一次查询
@@ -1712,7 +1638,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getOtherBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setCanQueryVio("1");
+                    GetCarInfo.getInstance().canQueryVio = 1;
                     ArrayList<ViolationInfo> mList = mParser.getReturn();
                     listener.onFinished(mList);
                 } else {
@@ -1725,82 +1651,6 @@ public class CPControl {
         }.start();
     }
 
-    /**
-     * 车行易违章查询
-     */
-    public static void GetViolationList2Result(
-            final PostViolationInfo mPostViolationInfo,
-            final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                // Post参数
-                String post = "";
-                String url = URLConfig.VALIDATION_INFO_URL;// 车易行车辆违章查询地址
-                if (mPostViolationInfo != null) {
-                    post = CreatPostString
-                            .getViolation2Params(mPostViolationInfo);
-                }
-
-                ViolationInfoListParser2 mParser = new ViolationInfoListParser2();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getOtherBaseResponseInfo(url, post);
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setCanQueryVio("1");
-                    ArrayList<ViolationInfo> mList = mParser.getReturn();
-                    listener.onFinished(mList);
-                } else {
-
-                    listener.onErro(mBaseResponseInfo);
-                }
-
-            }
-
-        }.start();
-    }
-
-    /**
-     * 违章查询列表 调用成功会返回ArrayList<ViolationInfo> mPostViolationInfo不为空则视为第一次查询
-     */
-
-    public static void GetViolationListResult(
-            final PostViolationInfo mPostViolationInfo,
-            final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_TRAFFICVIOLATION_URL();
-                // Post参数
-                String post = CreatPostString.getTrafficViolation();
-                if (mPostViolationInfo != null) {
-                    url = URLConfig.getM_INITVIOLATION_URL();
-                    post = CreatPostString.getinitViolation(mPostViolationInfo);
-                }
-
-                ViolationInfoListParser mParser = new ViolationInfoListParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setCanQueryVio("1");
-                    ArrayList<ViolationInfo> mList = mParser.getReturn();
-                    listener.onFinished(mList);
-                } else {
-
-                    listener.onErro(mBaseResponseInfo);
-                }
-
-            }
-
-        }.start();
-    }
 
     /**
      * 保存违章车辆信息 调用成功会返回<null>
@@ -1829,7 +1679,7 @@ public class CPControl {
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mBaseResponseInfo);
                     String carNo = carInfo.getCarNo();
-                    String carNoMain = SesameLoginInfo.getCarno();
+                    String carNoMain = GetCarInfo.getInstance().carNO;
                     if (carNo.equals(carNoMain)) {
                         String carCityName = carInfo.getCityName();
                         String carCityCode = carInfo.getCityCode();
@@ -1837,19 +1687,19 @@ public class CPControl {
                         String standcarno = carInfo.getStandcarNo();
                         String registno = carInfo.getRegistNo();
                         if (!TextUtils.isEmpty(carCityName)) {
-                            SesameLoginInfo.setCarcity(carCityName);
+                            GetCarInfo.getInstance().city = carCityName;
                         }
                         if (!TextUtils.isEmpty(carCityCode)) {
-                            SesameLoginInfo.setCity_code(carCityCode);
+                            GetCarInfo.getInstance().cityCode = carCityCode;
                         }
                         if (!TextUtils.isEmpty(carEnginNo)) {
-                            SesameLoginInfo.setEngineno(carEnginNo);
+                            GetCarInfo.getInstance().engineno = carEnginNo;
                         }
                         if (!TextUtils.isEmpty(standcarno)) {
-                            SesameLoginInfo.setStandcarno(standcarno);
+                            GetCarInfo.getInstance().standCarNo = standcarno;
                         }
                         if (!TextUtils.isEmpty(registno)) {
-                            SesameLoginInfo.setRegistno(registno);
+                            GetCarInfo.getInstance().registno = registno;
                         }
                     }
                 } else {
@@ -2486,12 +2336,12 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setCity_code(mInfo.getCityCodeId());
-                    SesameLoginInfo.setRegistno(mInfo.getRegistno());
-                    SesameLoginInfo.setCarno(mInfo.getCarno());
-                    SesameLoginInfo.setEngineno(mInfo.getEngineno());
-                    SesameLoginInfo.setShortstandcarno(mInfo.getStandcarno());
-                    SesameLoginInfo.setCanQueryVio("1");
+                    GetCarInfo.getInstance().cityCode = mInfo.getCityCodeId();
+                    GetCarInfo.getInstance().registno = mInfo.getRegistno();
+                    GetCarInfo.getInstance().carNO = mInfo.getCarno();
+                    GetCarInfo.getInstance().engineno = mInfo.getEngineno();
+                    GetCarInfo.getInstance().shortStandCarNO = mInfo.getStandcarno();
+                    GetCarInfo.getInstance().canQueryVio = 1;
                     if (listener != null) {
                         listener.onFinished(mBaseResponseInfo);
                     }
@@ -3275,7 +3125,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    String tag = SesameLoginInfo.getDealerId() + "_31";
+                    String tag = UserInfo.getInstance().dealerId + "_31";
                     if (pushSetItemName
                             .equals(ManageMessageActivity.KEY_NAMES[6])) {
                         if (pushSetItemValue.equals("0")) {
@@ -3329,13 +3179,16 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    SesameLoginInfo.setBrandid(brandid);
-                    SesameLoginInfo.setOptionid(optionid);
-                    SesameLoginInfo.setCarid(carid);
-                    SesameLoginInfo.setCarname(modifyCarInfo.getCarname());
-                    SesameLoginInfo.setCarlogo(modifyCarInfo.getCarlogo());
-                    SesameLoginInfo.setSummileage(summiles);
-                    SesameLoginInfo.setBuydate(buydate);
+                    GetCarInfo.getInstance().brandid = Integer.parseInt(brandid);
+                    GetCarInfo.getInstance().optionid = Integer.parseInt(optionid);
+                    GetCarInfo.getInstance().styleId = Integer.parseInt(carid);
+                    GetCarInfo.getInstance().carName = modifyCarInfo.getCarname();
+                    GetCarInfo.getInstance().carLogo = modifyCarInfo.getCarlogo();
+                    try {
+                        GetCarInfo.getInstance().buyDate = MyTimeUtils.FORMAT.parse(buydate).getTime()/1000;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     // String isSupSpecFunc = mParser.getValue("isSupSpecFunc");
                     //
                     // if (isSupSpecFunc.equals("1")) {
@@ -3383,11 +3236,11 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    SesameLoginInfo.setBrandid(brandid);
-                    SesameLoginInfo.setOptionid(optionid);
-                    SesameLoginInfo.setCarid(carid);
-                    SesameLoginInfo.setCarname(modifyCarInfo.getCarname());
-                    SesameLoginInfo.setCarlogo(modifyCarInfo.getCarlogo());
+                    GetCarInfo.getInstance().brandid = Integer.parseInt(brandid);
+                    GetCarInfo.getInstance().optionid = Integer.parseInt(optionid);
+                    GetCarInfo.getInstance().styleId = Integer.parseInt(carid);
+                    GetCarInfo.getInstance().carName = modifyCarInfo.getCarname();
+                    GetCarInfo.getInstance().carLogo = modifyCarInfo.getCarlogo();
                     // String isSupSpecFunc = mParser.getValue("isSupSpecFunc");
                     //
                     // if (isSupSpecFunc.equals("1")) {
@@ -3413,9 +3266,7 @@ public class CPControl {
                     // }
 
                     String year = modifyCarInfo.getYear();
-                    String deviceType = SesameLoginInfo.getDeviceType();
                     Log.e("info", "carYear==" + year);
-                    Log.e("info", "deviceType==" + deviceType);
                     SesameLoginInfo.setCar_year(MyParse.parseInt(year));
                     // if (year != null && !year.equals("")) {
                     // if (year.equals("2017")) {
@@ -3495,8 +3346,11 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    SesameLoginInfo.setBuydate(buydate);
-
+                    try {
+                        GetCarInfo.getInstance().buyDate = MyTimeUtils.FORMAT.parse(buydate).getTime()/1000;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -3529,7 +3383,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    SesameLoginInfo.setMainten_miles(miles);
+                    GetCarInfo.getInstance().maintenMiles = Integer.parseInt(miles);
 
                     listener.onFinished(null);
                 } else {
@@ -3563,7 +3417,11 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     OnDateChageConfig.ModifyCarChanged = true;
-                    SesameLoginInfo.setMainten_time(date);
+                    try {
+                        GetCarInfo.getInstance().maintenDate = MyTimeUtils.FORMAT.parse(date).getTime()/1000;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -3590,7 +3448,7 @@ public class CPControl {
                         newValue, listener);
                 if (flag == null) {
                     OnDateChageConfig.RealNameChanged = true;
-                    SesameLoginInfo.setRealname(newValue);
+                    UserInfo.getInstance().realName  = newValue;
                     listener.onFinished(newValue);
                 } else {
                     listener.onErro(flag);
@@ -3621,7 +3479,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
 
-                    SesameLoginInfo.setMainten(false);
+                    GetCarInfo.getInstance().isNextMain = 0;
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -3648,7 +3506,7 @@ public class CPControl {
                 BaseResponseInfo flag = GetUpdateUserInfoResult(
                         ACTIVION_GENDER, newValue, listener);
                 if (flag == null) {
-                    SesameLoginInfo.setGender(newValue);
+                    UserInfo.getInstance().gender = Integer.parseInt(newValue);
                     listener.onFinished(newValue);
                 } else {
                     listener.onErro(flag);
@@ -3678,8 +3536,7 @@ public class CPControl {
                                 ACTIVION_AVATAR, id, listener);
                         if (flag == null) {
                             OnDateChageConfig.AvatarChanged = true;
-                            SesameLoginInfo.setAvatar_img(mUploadImgInfo
-                                    .getFilePath());
+                            UserInfo.getInstance().avatarFile = mUploadImgInfo.getFilePath();
                             listener.onFinished(filePath);
                         } else {
                             listener.onErro(flag);
@@ -3977,49 +3834,6 @@ public class CPControl {
     }
 
     /**
-     * 远程-自动升窗 成功返回onFinished(null)
-     */
-    public static void GetAutoCloseWin(final GetResultListCallback listener) {
-        if (listener == null) {
-            return;
-        }
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_AUTOCLOSEWIN_URL();
-                // Post参数
-                String post = "";
-
-                if (SesameLoginInfo.getAutoCloseWinSw() == SesameLoginInfo.WIN_ON) {
-                    post = CreatPostString.getAutoCloseWin("0",
-                            DorideApplication.MODEL_NAME);
-                } else {
-                    post = CreatPostString.getAutoCloseWin("1",
-                            DorideApplication.MODEL_NAME);
-                }
-
-                DefaultParser mParser = new DefaultParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-
-                    if (SesameLoginInfo.getAutoCloseWinSw() == SesameLoginInfo.WIN_ON) {
-                        SesameLoginInfo.setAutoCloseWinSw(SesameLoginInfo.WIN_OFF);
-                    } else {
-                        SesameLoginInfo.setAutoCloseWinSw(SesameLoginInfo.WIN_ON);
-                    }
-                    listener.onFinished(null);
-                } else {
-                    listener.onErro(mBaseResponseInfo);
-                }
-            }
-
-        }.start();
-
-    }
-
-    /**
      * 远程启动 --启动 成功返回onFinished(null)
      */
     public static void GetRemoteStart(final GetResultListCallback listener) {
@@ -4039,7 +3853,6 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
 
-                    SesameLoginInfo.setRemoteStart(SesameLoginInfo.START_ON);
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -4069,7 +3882,6 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setRemoteStart(SesameLoginInfo.START_OFF);
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -4438,11 +4250,9 @@ public class CPControl {
 
     /**
      * 远程-车辆状态 成功返回<CarStateInfo>
-     * @param deviceType
      *         设备类型
      */
-    public static void GetRemoteCarState(final GetResultListCallback listener,
-                                         final String deviceType) {
+    public static void GetRemoteCarState(final GetResultListCallback listener) {
         if (listener == null) {
             return;
         }
@@ -4453,7 +4263,7 @@ public class CPControl {
                 String url = URLConfig.getM_STATUS_URL();
                 // Post参数
                 String post = CreatPostString.getRemoteCarStates();
-                CarStateInfoParser mParser = new CarStateInfoParser(deviceType);
+                CarStateInfoParser mParser = new CarStateInfoParser();
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
@@ -4588,13 +4398,15 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     String summiles = mParser.getValue("summiles");
-                    SesameLoginInfo.setSummileage(summiles);
-                    SesameLoginInfo.setMainten_miles(mParser
-                            .getValue("mainten_miles"));
-                    SesameLoginInfo.setMainten_time(mParser.getValue("mainten_date"));
-                    SesameLoginInfo.setBrandid(mParser.getValue("brandid"));
-                    SesameLoginInfo.setOptionid(mParser.getValue("optionid"));
-                    SesameLoginInfo.setCarid(mParser.getValue("carid"));
+                    GetCarInfo.getInstance().maintenMiles = Integer.parseInt(mParser.getValue("mainten_miles"));
+                    try {
+                        GetCarInfo.getInstance().maintenDate = MyTimeUtils.FORMAT.parse(mParser.getValue("mainten_date")).getTime()/1000;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    GetCarInfo.getInstance().brandid = Integer.parseInt(mParser.getValue("brandid"));
+                    GetCarInfo.getInstance().optionid = Integer.parseInt(mParser.getValue("optionid"));
+                    GetCarInfo.getInstance().styleId = Integer.parseInt(mParser.getValue("carid"));
 
                     listener.onFinished(summiles);
                 } else {
@@ -4954,38 +4766,6 @@ public class CPControl {
     }
 
     /**
-     * 注册接口 onFinished表示成功
-     */
-    public static void GetRegisteResult(final RegisteInfo mRegisteInfo,
-                                        final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                // String url = URLConfig.getM_REGISTER_URL();
-                String url = URLConfig.getM_REGISTER_NEW_URL();
-                // Post参数
-                String post = CreatPostString.getRegiste(mRegisteInfo);
-                RegisterInfoParser mUserInfoParser = new RegisterInfoParser();
-                BaseResponseInfo mBaseResponseInfo = mUserInfoParser
-                        .getBaseResponseInfo(url, post);
-
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    listener.onFinished(mBaseResponseInfo);
-                } else {
-                    listener.onErro(mBaseResponseInfo);
-                }
-
-            }
-
-        }.start();
-    }
-
-
-    /**
      * 获取用户基本信息
      * @param listener
      */
@@ -5016,87 +4796,6 @@ public class CPControl {
         }.start();
     }
 
-    /**
-     * 初始化设置车型绑定设备 调用成功执行onFinished 无返回值
-     * @param brandid
-     *         品牌id
-     * @param optionid
-     *         车系ID
-     * @param carid
-     *         车款ID
-     */
-    public static void GetSetCarInfoResult(final String brandid,
-                                           final String optionid, final String carid, final String carName,
-                                           final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_SET_CAR_INFO_URL();
-                // Post参数
-                String post = CreatPostString.getSetCarInfo(brandid, optionid,
-                        carid);
-
-                SetCarInfoParser mParser = new SetCarInfoParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                // LoginInfo.setVpin(vpin);
-                SesameLoginInfo.setCarname(carName);
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    listener.onFinished(null);
-                } else {
-                    listener.onErro(mBaseResponseInfo);
-                }
-
-            }
-
-        }.start();
-    }
-
-    /**
-     * 绑定设备
-     * @param vin
-     *         设备号 16位字符串
-     * @param listener
-     */
-    public static void GetCarBindInfoResult(final String vin,
-                                            final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_CAR_BINDDEVICE_URL();
-                // Post参数
-                String post = CreatPostString.getCarBindInfo(vin);
-
-                DefaultParser mParser = new DefaultParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    try {
-                        BindDeviceInfo bindDeviceInfo = new BindDeviceInfo();
-                        bindDeviceInfo.setIsbind(mParser.getValue("isbind"));
-                        bindDeviceInfo.setNeed_pin(mParser.getValue("need_pin"));
-                        listener.onFinished(bindDeviceInfo);
-                    } catch (Exception e) {
-                        mBaseResponseInfo.setFlag(BaseResponseInfo.ERRO);
-                        mBaseResponseInfo.setInfo("网络错误");
-                        listener.onErro(mBaseResponseInfo);
-                    }
-                } else {
-                    listener.onErro(mBaseResponseInfo);
-                }
-
-            }
-
-        }.start();
-    }
 
     /**
      * 获取养护建议 调用成功执行onFinished 返回<ArrayList<MaintainLogInfo>>
@@ -5123,37 +4822,6 @@ public class CPControl {
                     listener.onErro(mBaseResponseInfo);
                 }
 
-            }
-
-        }.start();
-    }
-
-    /**
-     * 聚合获取天气<CarModeInfo>
-     */
-    public static void GetWeatherListResult(final String cityName,
-                                            final String key, final GetResultListCallback listener) {
-
-        if (listener == null)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_WHEATER_URL();
-                // Post参数
-                String post = CreatPostString.getWeatherInfo(cityName, key);
-
-                WeatherInfoParser mParser = new WeatherInfoParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getOtherBaseResponseInfo_get(url, post);
-
-                if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-
-                    listener.onFinished(mParser.getReturn());
-                } else {
-                    listener.onErro(mBaseResponseInfo);
-                }
             }
 
         }.start();
@@ -5332,10 +5000,10 @@ public class CPControl {
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mBaseResponseInfo);
                     Log.e("info", "is_freezing==" + is_freezing);
-                    if (is_freezing.equals("0")) {
-                        SesameLoginInfo.setFreezing(false);
+                    if (is_freezing.equals("2")) {
+                        UserInfo.getInstance().userFreeze = 2;
                     } else {
-                        SesameLoginInfo.setFreezing(true);
+                        UserInfo.getInstance().userFreeze = 1;
                     }
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -5510,7 +5178,6 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mBaseResponseInfo);
-                    SesameLoginInfo.setAuthorize_status(authorize_switch);
                 } else {
                     listener.onErro(mBaseResponseInfo);
                 }
@@ -5547,8 +5214,8 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     listener.onFinished(mBaseResponseInfo);
-                    SesameLoginInfo.setAuthen(true);
-                    SesameLoginInfo.setAuthen_name(authen_name);
+                    UserInfo.getInstance().isAuthen = "1";
+                    UserInfo.getInstance().authenName = authen_name;
 
                     String cardPre = authen_card.substring(0, 6);
                     String cardSuf = authen_card.substring(
@@ -5556,7 +5223,7 @@ public class CPControl {
                     StringBuffer authen_card_handled = new StringBuffer(cardPre);
                     authen_card_handled.append("**********");
                     authen_card_handled.append(cardSuf);
-                    SesameLoginInfo.setAuthen_card(authen_card_handled.toString());
+                    UserInfo.getInstance().authenCard = authen_card_handled.toString();
                 } else {
                     listener.onErro(mBaseResponseInfo);
                 }
@@ -5623,10 +5290,10 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     RemotePswInfo.setRemotePsw(remote_pwd);
-                    SesameLoginInfo.setSetRemotePwd(true);
+                    UserInfo.getInstance().isSetRemotePwd = 1;
                     listener.onFinished(mBaseResponseInfo);
                 } else {
-                    SesameLoginInfo.setSetRemotePwd(false);
+                    UserInfo.getInstance().isSetRemotePwd = 0;
                     listener.onErro(mBaseResponseInfo);
                 }
             }
@@ -5708,7 +5375,7 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     RemotePswInfo.setRemotePsw(remote_pwd);
-                    SesameLoginInfo.setSetRemotePwd(true);
+                    UserInfo.getInstance().isSetRemotePwd = 1;
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -5741,9 +5408,9 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     if (lesspwd_switch.equals("1")) {
-                        SesameLoginInfo.setNoneedpsw(true);
+                        UserInfo.getInstance().remotePwdSwitch = 1;
                     } else {
-                        SesameLoginInfo.setNoneedpsw(false);
+                        UserInfo.getInstance().remotePwdSwitch = 0;
                     }
 
                     listener.onFinished(mBaseResponseInfo);
@@ -5783,9 +5450,9 @@ public class CPControl {
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     if (new_mobile != null && !new_mobile.equals("")) {
-                        SesameLoginInfo.setMobile(new_mobile);
+                        UserInfo.getInstance().mobile = new_mobile;
                     }
-                    SesameLoginInfo.setMain(true);
+                    OtherInfo.getInstance().setIsMain(true);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -6111,40 +5778,6 @@ public class CPControl {
         }.start();
     }
 
-    public static void GetToken(final GetResultListCallback listener,
-                                boolean isSync) {
-        Runnable goRun = new Runnable() {
-            @Override
-            public void run() {
-                // 链接地址
-                String url = URLConfig.getM_USER_ACCESSTOKEN();
-                UseInfo mUseInfo = UseInfoLocal.getUseInfo();
-                String account = mUseInfo.getAccount() + "";
-                String password = mUseInfo.getPassword();
-                // Post参数
-                String md5 = CipherUtils.md5(password + "");
-                Log.i("DEBUG", md5);
-                String post = CreatPostString.getToken(account, md5);
-                TokenParser mParser = new TokenParser();
-                BaseResponseInfo mBaseResponseInfo = mParser
-                        .getBaseResponseInfo(url, post);
-                if (listener != null) {
-                    if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                        listener.onFinished(mBaseResponseInfo);
-                    } else {
-                        listener.onErro(mBaseResponseInfo);
-                    }
-                }
-            }
-        };
-
-        if (isSync) {
-            goRun.run();
-        } else {
-            new Thread(goRun).start();
-        }
-    }
-
 
     /**
      * 旧车主获取二维码
@@ -6312,9 +5945,9 @@ public class CPControl {
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
                     // 1:开启; 0:关闭
                     if ("0".equals(sound_switch)) {
-                        SesameLoginInfo.setRemoteSoundOpen(false);
+                        OtherInfo.getInstance().setRemoteSoundOpen(false);
                     } else {
-                        SesameLoginInfo.setRemoteSoundOpen(true);
+                        OtherInfo.getInstance().setRemoteSoundOpen(true);
                     }
                     listener.onFinished(mBaseResponseInfo);
                 } else {
@@ -6365,9 +5998,9 @@ public class CPControl {
                     // 1:开启; 0:关闭
                     String value = mParser.getValue("sound_switch");
                     if ("0".equals(value)) {
-                        SesameLoginInfo.setRemoteSoundOpen(false);
+                        OtherInfo.getInstance().setRemoteSoundOpen(false);
                     } else {
-                        SesameLoginInfo.setRemoteSoundOpen(true);
+                        OtherInfo.getInstance().setRemoteSoundOpen(true);
                     }
                     listener.onFinished(mBaseResponseInfo);
                 } else {
@@ -6397,7 +6030,6 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setDeviceActivate(false);
                     listener.onFinished(mBaseResponseInfo);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -6482,20 +6114,11 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    SesameLoginInfo.setDealerTel(mParser.getValue("tel"));
-                    SesameLoginInfo.setServiceTel(mParser.getValue("tel1"));
-                    SesameLoginInfo.setDealerName(mParser.getValue("name"));
-                    SesameLoginInfo.setDealerUsername(mParser.getValue("username"));
-                    SesameLoginInfo.setDealerAddres(mParser.getValue("addres"));
-                    String m = mParser.getValue("map");
-                    String[] map = m.split(",");
-                    if (map != null && map.length > 1) {
-                        SesameLoginInfo.setDealerLat(Double.parseDouble(map[0]));
-                        SesameLoginInfo.setDealerLon(Double.parseDouble(map[1]));
-                    }
-                    if (map.length > 2) {
-                        SesameLoginInfo.setDealerZoom(Integer.parseInt(map[2]));
-                    }
+                    ContactsInfo.getInstance().salesHotLine = mParser.getValue("tel");
+                    ContactsInfo.getInstance().serviceHotLine = mParser.getValue("tel1");
+                    ContactsInfo.getInstance().name = mParser.getValue("username");
+                    ContactsInfo.getInstance().address = mParser.getValue("addres");
+                    ContactsInfo.getInstance().map = mParser.getValue("map");
                     // 测试用
                     // LoginInfo.setDealerTel("");
                     // LoginInfo.setServiceTel("");

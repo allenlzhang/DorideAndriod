@@ -30,6 +30,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.utils.LocalConfig;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -157,16 +158,16 @@ public class EditUserinfoActivity extends BaseActivity {
         mView5.setOnClickListener(mClickListener);
         mView6.setOnClickListener(mClickListener);
 
-//        if (!SesameLoginInfo.isMain()) {
+//        if (!OtherInfo.getInstance().isMain()) {
 //            mView6.setVisibility(View.GONE);
 //        }
 
     }
 
     private void loadData() {
-        String imgUrl = SesameLoginInfo.getAvatar_img();
+        String imgUrl = UserInfo.getInstance().avatarFile;
         if (imgUrl != null && imgUrl.length() > 0) {
-            Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(SesameLoginInfo.getAvatar_img());
+            Bitmap mBitmap = mAsyncImageLoader.getBitmapByUrl(UserInfo.getInstance().avatarFile);
             if (mBitmap != null) {
                 mImageView.setImageBitmap(mBitmap);
             } else {
@@ -176,7 +177,7 @@ public class EditUserinfoActivity extends BaseActivity {
             mImageView.setImageResource(R.drawable.icon_default_head);
         }
 
-        String mobile = SesameLoginInfo.getMobile();
+        String mobile = UserInfo.getInstance().mobile;
         if (mobile != null && mobile.length() == 11) {
             String s1 = mobile.substring(0, 3);
             String s2 = mobile.substring(7);
@@ -186,13 +187,13 @@ public class EditUserinfoActivity extends BaseActivity {
             mTextView1.setText(mBuffer);
         }
 
-        mTextView3.setText(SesameLoginInfo.getRealname());
+        mTextView3.setText(UserInfo.getInstance().realName);
 
-        if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_NAN)) {
+        if (UserInfo.getInstance().gender == 1) {
             mTextView4.setText("男");
-        } else if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_NV)) {
+        } else if (UserInfo.getInstance().gender == 2) {
             mTextView4.setText("女");
-        } else if (SesameLoginInfo.getGender().equals(SesameLoginInfo.GENDER_MI)) {
+        } else if (UserInfo.getInstance().gender == 3) {
             mTextView4.setText("保密");
         }
 
@@ -238,7 +239,7 @@ public class EditUserinfoActivity extends BaseActivity {
                 case R.id.activity_setting_userinfo_layout6:
                     //弹出安全验证页面
 
-                    if (!SesameLoginInfo.isAuthen()) {
+                    if (!UserInfo.getInstance().isAuthen.equals("1")) {
                         UUToast.showUUToast(context, "您还没有实名认证，请先实名认证");
                         return;
                     }
@@ -255,7 +256,7 @@ public class EditUserinfoActivity extends BaseActivity {
     public void OnImgLoadFinished(String url, Bitmap mBitmap) {
         super.OnImgLoadFinished(url, mBitmap);
 
-        if (SesameLoginInfo.getAvatar_img().equals(url) && mBitmap != null) {
+        if (UserInfo.getInstance().avatarFile.equals(url) && mBitmap != null) {
             mImageView.setImageBitmap(mBitmap);
         }
     }

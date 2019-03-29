@@ -19,6 +19,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.utils.MyParse;
+import com.carlt.sesame.preference.TokenInfo;
 import com.orhanobut.logger.Logger;
 import com.tencent.android.tpush.XGPushBaseReceiver;
 import com.tencent.android.tpush.XGPushClickedResult;
@@ -134,7 +135,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
         Logger.e("push" + "推送注册-errorCode==" + errorCode);
         String xgtoken = message.getToken();
         Logger.e("push" + "推送注册-token-111111==" + xgtoken);
-        LogUtils.e("token===>" + LoginInfo.getAccess_token());
+        LogUtils.e("token===>" + TokenInfo.getToken());
         CPControl.GetPushXgTokenResult(xgtoken, DorideApplication.NIMEI, listener);
     }
 
@@ -180,22 +181,14 @@ public class MessageReceiver extends XGPushBaseReceiver {
         switch (class1) {
             case SecretaryMessageInfo.C1_T2:
                 // // 21 安防故障
-                if (LoginInfo.getAccess_token() != null && LoginInfo.getAccess_token().length() > 0) {
+                if (TokenInfo.getToken() != null && TokenInfo.getToken().length() > 0) {
                     Intent intent2 = new Intent();
                     intent2.setAction(CarMainFragment.CARMAIN_SAFETY);
                     context.sendBroadcast(intent2);
                 }
                 showNotification(context, title, class1);
                 break;
-            case LoginInfo.Author_Message:
-                // 授权推送（只有主机才能展示）
-                if (LoginInfo.isMain()) {
-                    showNotification(context, title, class1);
-                } else {
-
-                }
-                break;
-            case LoginInfo.Feetip_Message:
+            case PushService.Feetip_Message:
                 // 续费推送（只有主机才能展示）
                 showNotification(context, title, class1);
                 break;

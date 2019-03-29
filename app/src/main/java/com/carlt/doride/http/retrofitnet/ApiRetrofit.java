@@ -4,6 +4,7 @@ import com.carlt.doride.BuildConfig;
 import com.carlt.doride.http.retrofitnet.cookies.CookiesManager;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.sesame.preference.TokenInfo;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +40,7 @@ public class ApiRetrofit implements IApiService {
             Request.Builder newRequest = request.newBuilder()
                     .header("Carlt-Access-Id", URLConfig.getAutoGoAccessId())
                     .header("Content-Type", "application/json")
-                    .header("Carlt-Token", LoginInfo.getAccess_token())
+                    .header("Carlt-Token", TokenInfo.getToken())
                     .method(request.method(), request.body());
 
 

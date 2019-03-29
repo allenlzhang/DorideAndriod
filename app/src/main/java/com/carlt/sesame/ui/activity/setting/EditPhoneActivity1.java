@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -115,7 +116,7 @@ public class EditPhoneActivity1 extends BaseActivity {
                 	mEdtPhone.validateEdit();
                     phoneNum = mEdtPhone.getText().toString();
                     if (phoneNum != null && phoneNum.length() == 11) {
-                        String phoneOld = SesameLoginInfo.getMobile();
+                        String phoneOld = UserInfo.getInstance().mobile;
                         if (!phoneNum.equals(phoneOld)) {
                             UUToast.showUUToast(EditPhoneActivity1.this,
                                     "您输入的手机号不是您当前的手机号码，请重新输入...");

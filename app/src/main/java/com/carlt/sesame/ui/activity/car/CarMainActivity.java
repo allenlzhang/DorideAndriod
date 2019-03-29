@@ -33,6 +33,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.utils.LoadLocalImageUtil;
@@ -156,9 +158,9 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
         mTextViewHead = (TextView) findViewById(R.id.car_main_txt_head2);
         mCarState = (TextView) findViewById(R.id.car_main_txt_state);
         mCarState.setOnClickListener(this);
-        if (SesameLoginInfo.getCarname() != null
-                && !SesameLoginInfo.getCarname().equals("")) {
-            mTextViewHead.setText(SesameLoginInfo.getCarname());
+        if (GetCarInfo.getInstance().carName != null
+                && !GetCarInfo.getInstance().carName.equals("")) {
+            mTextViewHead.setText(GetCarInfo.getInstance().carName);
         }
     }
 
@@ -275,10 +277,10 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 
         if (OnDateChageConfig.ModifyCarChanged) {
             OnDateChageConfig.ModifyCarChanged = false;
-            Log.e("info", "carname_bbbbbbbbb==" + SesameLoginInfo.getCarname());
-            if (SesameLoginInfo.getCarname() != null
-                    && !SesameLoginInfo.getCarname().equals("")) {
-                mTextViewHead.setText(SesameLoginInfo.getCarname());
+            Log.e("info", "carname_bbbbbbbbb==" + GetCarInfo.getInstance().carName);
+            if (GetCarInfo.getInstance().carName != null
+                    && !GetCarInfo.getInstance().carName.equals("")) {
+                mTextViewHead.setText(GetCarInfo.getInstance().carName);
             }
         }
 
@@ -315,7 +317,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
                 mCarMainFuncInfosInit.get(i).hasPermissions = true;
             }
             //胎压监测、导航同步走车款配置接口
-            CarMainFunInfo mCarMainFunInfo = SesameLoginInfo.getCarMainFunInfo();
+            CarMainFunInfo mCarMainFunInfo = OtherInfo.getInstance().getCarMainFunInfo();
 
             if (mCarMainFunInfo != null) {
                 ArrayList<RemoteFunInfo> mRemoteFunInfos = mCarMainFunInfo.getmCarmainFunInfos();
@@ -600,8 +602,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
                 break;
             case R.id.car_main_txt_state:
                 showWaitingDialog("正在获取车辆状态。。。");
-                CPControl.GetRemoteCarState(mListener_states,
-                        SesameLoginInfo.getDeviceType());
+                CPControl.GetRemoteCarState(mListener_states);
                 break;
         }
     }

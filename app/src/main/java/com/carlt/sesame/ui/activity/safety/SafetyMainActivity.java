@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -148,7 +149,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 		SafetyMainInfo mSafetyMainInfo = (SafetyMainInfo) data;
 		String mobileCurrent = DorideApplication.MODEL_NAME;
 		mTxtMobileCurrent.setText("当前在线设备:" + mobileCurrent);
-		boolean flag = SesameLoginInfo.isAuthen();
+		boolean flag = UserInfo.getInstance().isAuthen.equals("1");
 		if (flag) {
 			// 已经实名认证
 			mTxtAuthenStatus.setText("已认证");
@@ -157,7 +158,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			mTxtAuthenStatus.setText("未认证");
 		}
 
-		String mobile = SesameLoginInfo.getMobile();
+		String mobile = UserInfo.getInstance().mobile;
 		if (mobile != null && mobile.length() == 11) {
 			String s1 = mobile.substring(0, 3);
 			String s2 = mobile.substring(7);
@@ -170,7 +171,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			mTxtPhone.setText("--");
 		}
 
-//		if (SesameLoginInfo.isMain()) {
+//		if (OtherInfo.getInstance().isMain()) {
 //			mViewAuther.setVisibility(View.VISIBLE);
 //			mViewLineMobileList.setVisibility(View.VISIBLE);
 //			mViewFreeze.setVisibility(View.VISIBLE);
@@ -189,7 +190,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 //			mViewFreeze.setVisibility(View.GONE);
 //		}
 
-		if (SesameLoginInfo.isNoneedpsw()) {
+		if (UserInfo.getInstance().remotePwdSwitch == 1) {
 			mCbNoneedpsw.setChecked(true);
 		} else {
 			mCbNoneedpsw.setChecked(false);
@@ -379,7 +380,7 @@ public class SafetyMainActivity extends LoadingActivityWithTitle implements
 			// 实名制认证
 			Intent mIntent1 = new Intent(SafetyMainActivity.this,
 					RealNameActivity.class);
-			boolean flag = SesameLoginInfo.isAuthen();
+			boolean flag = UserInfo.getInstance().isAuthen.equals("1");
 			// 测试用
 			// flag=false;
 			// 测试结束

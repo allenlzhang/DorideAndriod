@@ -14,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.SecretaryCategoryInfo;
@@ -80,7 +82,7 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
         mImageViewSecretary = (ImageView) findViewById(R.id.activity_career_secretary_img);
         mTextViewSecretary = (TextView) findViewById(R.id.activity_career_secretary_txt1);
 
-        mTextViewSecretary.setText(SesameLoginInfo.getSecretaryName() + ":");
+        mTextViewSecretary.setText((GetCarInfo.getInstance().secretaryID == 1? DorideApplication.ApplicationContext.getResources().getString(R.string.register_secretary_girl):DorideApplication.ApplicationContext.getResources().getString(R.string.register_secretary_boy)) + ":");
         mImageViewSecretary.setImageResource(R.drawable.icon_secretary);
     }
 

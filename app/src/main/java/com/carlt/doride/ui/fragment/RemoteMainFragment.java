@@ -33,6 +33,7 @@ import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.CarStateInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
@@ -120,8 +121,6 @@ public class RemoteMainFragment extends BaseFragment implements
     private boolean isFirstClick = true;// 是否是第一次点击
 
     private final static long INVALID_DURATION = 5 * 60 * 1000;// 密码实效时长
-
-    private String deviceType;// 设备类型
 
     private RemoteGridControl mRControl;
 
@@ -216,7 +215,6 @@ public class RemoteMainFragment extends BaseFragment implements
         //        Logger.e("RemoteMainInfo----" + mRemoteMainInfo);
         if (mRemoteMainInfo != null) {
             mAirMainInfo1 = mRemoteMainInfo.getmAirMainInfo();
-            LoginInfo.setChangedCar(false);
             mRemoteFunInfos = mRemoteMainInfo.getmRemoteFunInfos();
             RemoteFunInfo startFunInfo = mRemoteMainInfo.getmFunInfoStart();
             RemoteFunInfo stopFunInfo = mRemoteMainInfo.getmFunInfoStop();
@@ -240,7 +238,6 @@ public class RemoteMainFragment extends BaseFragment implements
                     mTxtRecorder.setVisibility(View.VISIBLE);
                     mViewUnsupport.setVisibility(View.GONE);
                     mViewNormal.setVisibility(View.VISIBLE);
-                    deviceType = LoginInfo.getDeviceCategory();
                     mRContainer.removeAllViews();
                     mRControl.init5x7Views(mRContainer, mRemoteFunInfos);
                 }
@@ -801,7 +798,7 @@ public class RemoteMainFragment extends BaseFragment implements
      * 点击逻辑
      */
     private void clickLogic() {
-        boolean hasRemotePswMd5 = LoginInfo.isSetRemotePwd();
+        boolean hasRemotePswMd5 = UserInfo.getInstance().isSetRemotePwd == 1;
         //TODO test data
         //        hasRemotePswMd5 = false;
 
@@ -814,7 +811,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     //                    showEditDialog();
                     showEditPop();
                 } else {
-                    if (LoginInfo.isNoneedpsw()) {
+                    if (UserInfo.getInstance().remotePwdSwitch == 1) {
                         if (getTimeOutStatus()) {
                             //                            showEditDialog();
                             showEditPop();

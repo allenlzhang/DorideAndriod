@@ -20,6 +20,9 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.carflow.CheckBindCarIdInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
@@ -34,6 +37,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
 import com.carlt.doride.utils.LocalConfig;
+import com.carlt.sesame.preference.TokenInfo;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -94,7 +98,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         init();
         mFragmentManager = getSupportFragmentManager();
         setTabSelection(0);
-        LogUtils.e("LoginInfo.getTbox_type()====" + LoginInfo.getTbox_type());
 //        if (LoginInfo.getTbox_type().equals("4G")) {
             initFlowInfo();
 //        }
@@ -118,7 +121,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         CheckBindCarIdInfo checkBindInfo = gson.fromJson(response.body(), CheckBindCarIdInfo.class);
                         if (checkBindInfo.code == 0) {
                             if (checkBindInfo.data!=null) {
-                                LoginInfo.setCarFlowType(checkBindInfo.data.result);
                             }
                             //                                llCarFlowRecharge.setVisibility(View.VISIBLE);
                             //                                lineCarFlow.setVisibility(View.VISIBLE);
@@ -139,8 +141,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //        loadingDataUI();
         OkGo.<String>post(URLConfig.getmTrafficWarnningUrl())
                 .params("client_id", URLConfig.getClientID())
-                .params("dealerId", LoginInfo.getDealerId())
-                .params("token", LoginInfo.getAccess_token())
+                .params("dealerId", UserInfo.getInstance().dealerId)
+                .params("token", TokenInfo.getToken())
                 .params("deviceType", "android")
                 .execute(new StringCallback() {
                     @Override
@@ -172,7 +174,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Gson gson = new Gson();
                 if (code == 200) {
                     TrafficPackageWarnningInfo warnningInfo = gson.fromJson(response.body(), TrafficPackageWarnningInfo.class);
-                    LoginInfo.setFlowWarn(warnningInfo.data.limit_warning);
+                    OtherInfo.getInstance().setLimit_warning(warnningInfo.data.limit_warning);
                     String residual_data = warnningInfo.data.residual_data;
                     //                    residual_data = "0";
                     if (Double.valueOf(residual_data) <= 0) {
@@ -218,7 +220,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        deviceisnew = LoginInfo.getDeviceisnew();
+        deviceisnew = GetCarInfo.getInstance().dorcenCarDisplay;
 
         try {
             localUrl = getIntent().getExtras().getString("filePath");
@@ -511,7 +513,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         SharedPreferences preferences = getSharedPreferences("LastLoginTime",
                 MODE_PRIVATE);
         String lastTime = preferences.getString(
-                "LoginTime" + LoginInfo.getMobile(), "2018-04-02");
+                "LoginTime" + UserInfo.getInstance().mobile, "2018-04-02");
         // Toast.makeText(MainActivity.this, "value="+date,
         // Toast.LENGTH_SHORT).show();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式

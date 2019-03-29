@@ -42,9 +42,6 @@ public class CarMainParser extends BaseParser {
 					.setLastchecktime(mJSON_data.optString("lastchecktime"));
 			mCarMainInfo.setLastcheckscore(mJSON_data
 					.optString("lastcheckscore"));
-			SesameLoginInfo.setSLCarLocating(mJSON_data.optInt("SLCarLocating"));
-			SesameLoginInfo.setAutoCloseWinSw(mJSON_data.optInt("autoCloseWinSw"));
-			SesameLoginInfo.setRemoteStart(mJSON_data.optInt("remoteStart"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

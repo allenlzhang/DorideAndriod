@@ -13,6 +13,11 @@ import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.CarConfigRes;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
@@ -63,75 +68,6 @@ public class ActivityControl {
         return null;
     }
 
-    /**
-     * 信鸽注册（改方法在登录成功后调用）
-     */
-    //    public static void initXG() {
-    //
-    //        Context mContext = DorideApplication.getAppContext();
-    //        // 新建自定义样式
-    //        XGBasicPushNotificationBuilder build = new XGBasicPushNotificationBuilder();
-    //        // 设置自定义样式属性，该属性对对应的编号生效，指定后不能修改。
-    //        build.setIcon(R.drawable.ic_launcher);
-    //        // 设置声音
-    //        build.setSound(RingtoneManager.getActualDefaultRingtoneUri(mContext,
-    //                RingtoneManager.TYPE_ALARM));
-    //        // 振动
-    //        build.setDefaults(Notification.DEFAULT_VIBRATE);
-    //        // 是否可清除
-    //        build.setFlags(Notification.FLAG_AUTO_CANCEL);
-    //
-    //        XGPushConfig.enableDebug(mContext, true);
-    //        Log.e("info", "userId====" + SesameLoginInfo.getUseId());
-    //        if (DorideApplication.Formal_Version) {
-    //            XGPushManager.registerPush(mContext, SesameLoginInfo.getUseId());
-    //            // 设置通知样式，样式编号为2，即build_id为2，可通过后台脚本指定
-    //            XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-    //            XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId());
-    //            if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
-    //                XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId() + "_31");
-    //            }
-    //        } else {
-    //            switch (URLConfig.flag) {
-    //                case URLConfig.VERSION_FORMAL:
-    //                    //正式服
-    //                    XGPushManager.registerPush(mContext, SesameLoginInfo.getUseId());
-    //                    XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-    //                    XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId());
-    //                    if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
-    //                        XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId() + "_31");
-    //                    }
-    //                    break;
-    //
-    //                case URLConfig.VERSION_PREPARE:
-    //                    //预发布服
-    //                    XGPushManager.registerPush(mContext, SesameLoginInfo.getUseId());
-    //                    XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-    //                    XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId());
-    //                    if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
-    //                        XGPushManager.setTag(mContext, SesameLoginInfo.getDealerId() + "_31");
-    //                    }
-    //                    break;
-    //                case URLConfig.VERSION_TEST:
-    //                    //测试服
-    //
-    //                    XGPushManager.registerPush(mContext, "t_" + SesameLoginInfo.getUseId());
-    //                    // XGPushManager.registerPush(this, "t_" +
-    //                    // LoginInfo.getToken());
-    //                    Log.e("info", "LoginInfo.getToken()==" + SesameLoginInfo.getToken());
-    //
-    //                    XGPushManager.setPushNotificationBuilder(mContext, 2, build);
-    //                    XGPushManager.setTag(mContext, "t_" + SesameLoginInfo.getDealerId());
-    //                    if (SesameLoginInfo.getPush_prizeinfo_flag() == 1) {
-    //                        XGPushManager.setTag(mContext, "t_" + SesameLoginInfo.getDealerId() + "_31");
-    //                    }
-    //
-    //                    break;
-    //            }
-    //        }
-    //        Intent service = new Intent(mContext, XGPushServiceV3.class);
-    //        mContext.startService(service);
-    //    }
     public static void exit(Context context) {
 
         DialogWithTitleClick click = new DialogWithTitleClick() {
@@ -188,20 +124,19 @@ public class ActivityControl {
 
     /******** 退出操作 ****************/
     public static void onExit() {
-        Logger.e("---" + LoginInfo.getAccess_token());
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
+        Logger.e("---" + TokenInfo.getToken());
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
             CPControl.GetUnRigisterXgTokenResult(DorideApplication.NIMEI,
                     new BaseParser.ResultCallback() {
                         @Override
                         public void onSuccess(BaseResponseInfo bInfo) {
-                            LoginInfo.Destroy();
+
                             //							DorideApplication.TOKEN = "";
                             Log.e("info", "注销信鸽成功");
                         }
 
                         @Override
                         public void onError(BaseResponseInfo bInfo) {
-                            LoginInfo.Destroy();
                             //							DorideApplication.TOKEN = "";
                             Log.e("info", "注销信鸽失败");
                         }
@@ -217,8 +152,14 @@ public class ActivityControl {
         mActivityList.clear();
         DorideApplication.getInstance().setShowDragFlag(false);
         SesameLoginInfo.Destroy();
-        LoginInfo.Destroy();
-        LoginChecker.stopCheck();
+
+        UserInfo.getInstance().initUserInfo();
+        GetCarInfo.getInstance().initCarInfo();
+        OtherInfo.getInstance().initInfo();
+        ContactsInfo.getInstance().initContactsInfo();
+        CarConfigRes.getInstance().initCarConfigRes();
+
+//        LoginChecker.stopCheck();
     }
 
     public static void onTokenDisable() {

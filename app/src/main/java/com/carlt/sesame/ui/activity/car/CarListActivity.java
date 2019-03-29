@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.car;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -250,6 +252,7 @@ public class CarListActivity extends LoadingActivityWithTitle {
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -317,12 +320,12 @@ public class CarListActivity extends LoadingActivityWithTitle {
 					CarInfo mCarInfo = mCarInfos.get(i);
 					if (i == optionPos) {
 						mCarInfo.setType(CarInfo.TYPE_MY);
-						SesameLoginInfo.setCarcity(mCarInfo.getCityName());
-						SesameLoginInfo.setCity_code(mCarInfo.getCityCode());
-						SesameLoginInfo.setCarno(mCarInfo.getCarNo());
-						SesameLoginInfo.setEngineno(mCarInfo.getEngineNo());
-						SesameLoginInfo.setShortstandcarno(mCarInfo.getStandcarNo());
-						SesameLoginInfo.setRegistno(mCarInfo.getRegistNo());
+						GetCarInfo.getInstance().city = mCarInfo.getCityName();
+						GetCarInfo.getInstance().cityCode = mCarInfo.getCityCode();
+						GetCarInfo.getInstance().carNO = mCarInfo.getCarNo();
+						GetCarInfo.getInstance().engineno = mCarInfo.getEngineNo();
+						GetCarInfo.getInstance().shortStandCarNO = mCarInfo.getStandcarNo();
+						GetCarInfo.getInstance().registno = mCarInfo.getRegistNo();
 					} else {
 						mCarInfo.setType(CarInfo.TYPE_OTHER);
 					}

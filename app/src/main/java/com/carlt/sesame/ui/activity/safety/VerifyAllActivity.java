@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -78,7 +79,7 @@ public class VerifyAllActivity extends BaseActivity implements OnClickListener {
 
 		setContentView(R.layout.activity_verify_all);
 
-		isMain = SesameLoginInfo.isMain();
+		isMain = OtherInfo.getInstance().isMain();
 		try {
 			mobile_name = getIntent().getStringExtra(MOBILE_NAME);
 			mobile_id = getIntent().getStringExtra(MOBILE_ID);

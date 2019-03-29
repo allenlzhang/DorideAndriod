@@ -19,6 +19,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
@@ -126,8 +127,8 @@ public class DragViewCtr {
         if (activity instanceof CareerMainActivity) {
             DorideApplication.getInstance().setShowDragFlag(true);
         }
-        if (TextUtils.isEmpty(SesameLoginInfo.getDealerTel())
-                && TextUtils.isEmpty(SesameLoginInfo.getServiceTel())) {
+        if (TextUtils.isEmpty(ContactsInfo.getInstance().salesHotLine)
+                && TextUtils.isEmpty(ContactsInfo.getInstance().serviceHotLine)) {
             return;
         }
         if (!showFlag) {
@@ -247,7 +248,7 @@ public class DragViewCtr {
 
                     @Override
                     public void clickSoft() {
-                        String serviceTel = SesameLoginInfo.getServiceTel();
+                        String serviceTel = ContactsInfo.getInstance().serviceHotLine;
                         if (serviceTel != null && !serviceTel.equals("")) {
                             call(serviceTel);
                         }
@@ -255,7 +256,7 @@ public class DragViewCtr {
 
                     @Override
                     public void clickCar() {
-                        String dealerTel = SesameLoginInfo.getDealerTel();
+                        String dealerTel = ContactsInfo.getInstance().salesHotLine;
                         if (dealerTel != null && !dealerTel.equals("")) {
                             call(dealerTel);
                         }

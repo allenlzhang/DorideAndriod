@@ -16,6 +16,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.RemotePswInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -184,7 +185,7 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
                     CPControl.GetSetRemotePwdResult(pswNew1, listener_set);
                     break;
                 case TYPE_FORGET:
-                    String mobile = LoginInfo.getMobile();
+                    String mobile = UserInfo.getInstance().mobile;
                     CPControl.GetForgetRemotePwdResult(name, idcard, mobile, pswNew1, validate, listener_forget);
                     break;
                 case TYPE_REMOTE:
@@ -255,7 +256,7 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
                     }
 
                     RemotePswInfo.setRemotePsw(remote_pwd);
-                    LoginInfo.setSetRemotePwd(true);
+                    UserInfo.getInstance().isSetRemotePwd = 1;
                     BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
                     if (mInfo != null) {
                         String info = mInfo.getInfo();
@@ -279,7 +280,7 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    LoginInfo.setSetRemotePwd(false);
+                    UserInfo.getInstance().isSetRemotePwd = 0;
                     BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
                     if (mInfo1 != null) {
                         String info = mInfo1.getInfo();
@@ -299,7 +300,7 @@ public class RemotePswResetActivity3 extends LoadingActivity implements OnClickL
                         mDialog.dismiss();
                     }
                     RemotePswInfo.setRemotePsw(remote_pwd);
-                    LoginInfo.setSetRemotePwd(true);
+                    UserInfo.getInstance().isSetRemotePwd = 1;
                     BaseResponseInfo mInfo2 = (BaseResponseInfo) msg.obj;
                     if (mInfo2 != null) {
                         String info = mInfo2.getInfo();

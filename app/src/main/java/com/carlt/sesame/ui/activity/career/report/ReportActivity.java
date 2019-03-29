@@ -41,10 +41,6 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
 
     public final static String DAY_INITIAL = "day_initial";
 
-    private String monthInitialValue = "";
-
-    private String weekInitialValue = "";
-
     private String dayInitialValue = "";
 
     private int checkedPos = 0;
@@ -107,8 +103,6 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
     
     private void LoadSuccess(Object data) {
         dayInitialValue = SesameLoginInfo.getLately_day();
-        weekInitialValue = SesameLoginInfo.getLately_week();
-        monthInitialValue = SesameLoginInfo.getLately_month();
         tab[checkedPos].setChecked(true);
         mLoadingLayout.setVisibility(View.GONE);
         mLayError.setVisibility(View.GONE);

@@ -530,9 +530,9 @@ public class RecorderMainFragment extends BaseFragment implements
         if (!hidden) {
 
             //测试代码开始
-            LoginInfo.isDrivingRecorder = true;
+            boolean isDrivingRecorder = true;
             //测试代码结束
-            if (!LoginInfo.isDrivingRecorder) {
+            if (!isDrivingRecorder) {
                 PopBoxCreat.DialogWithTitleClick click = new PopBoxCreat.DialogWithTitleClick() {
 
                     @Override

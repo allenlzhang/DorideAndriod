@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.chelepie.control.RecorderControl;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -55,8 +56,8 @@ public class EditPienameActivity extends BaseActivity implements OnClickListener
 
         try {
             name = getIntent().getStringExtra(NAME);
-            if(!name.equals(LoginInfo.ssid)){
-                name= LoginInfo.ssid;
+            if(!name.equals(DorideApplication.ssid)){
+                name= DorideApplication.ssid;
             }
         } catch (Exception e) {
             // TODO: handle exception

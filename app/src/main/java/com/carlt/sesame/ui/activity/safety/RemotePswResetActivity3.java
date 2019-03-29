@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.ui.view.PwdEditText;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -191,7 +192,7 @@ public class RemotePswResetActivity3 extends BaseActivity implements OnClickList
                     CPControl.GetSetRemotePwdResult(pswNew1, listener_set);
                     break;
                 case TYPE_FORGET:
-                    String mobile = SesameLoginInfo.getMobile();
+                    String mobile = UserInfo.getInstance().mobile;
                     CPControl.GetForgetRemotePwdResult(name, idcard, mobile, pswNew1, validate,
                             listener_forget);
                     break;

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.activity.career.order.RiLiActivity;
@@ -69,7 +70,7 @@ public class SecretaryAppointmentActivity extends LoadingActivityWithTitle
 		mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
 		mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
 
-		mImageViewSecretary.setImageResource(SesameLoginInfo.getSecretaryImg());
+		mImageViewSecretary.setImageResource(GetCarInfo.getInstance().secretaryID == 1?R.drawable.secretary_female:R.drawable.secretary_male);
 		mTextViewSecretary.setText("欢迎提前预约，可节省大量时间哦	");
 	}
 

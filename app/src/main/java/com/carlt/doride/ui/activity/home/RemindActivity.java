@@ -20,6 +20,7 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarSettingInfo;
 import com.carlt.doride.data.home.InformationMessageInfo;
 import com.carlt.doride.data.home.InformationMessageInfoList;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -35,6 +36,7 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUDialog;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.StringUtils;
+import com.carlt.sesame.preference.TokenInfo;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -175,7 +177,7 @@ public class RemindActivity extends LoadingActivity {
                 switch (arg0.getId()) {
                     case R.id.activity_career_secretary_tips_havemainten:
                         // 已经保养过
-                        if (LoginInfo.isMainten()) {
+                        if (GetCarInfo.getInstance().isNextMain == 1) {
                             mUUDialog.show();
                             DefaultStringParser parser = new DefaultStringParser(listener_MaintainLog);
                             parser.executePost(URLConfig.getM_MAINTAIN_LOG(), new HashMap());
@@ -487,7 +489,7 @@ public class RemindActivity extends LoadingActivity {
     private void getActivateStatus() {
         OkGo.<String>post(URLConfig.getCheckIsActivate_URL())
                 .params("client_id", URLConfig.getClientID())
-                .params("token", LoginInfo.getAccess_token())
+                .params("token", TokenInfo.getToken())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -566,13 +568,8 @@ public class RemindActivity extends LoadingActivity {
 
                 case 7:
                     // 点击保养过了成功
-                    LoginInfo.setMainten(false);
-                    if (LoginInfo.isMainten()) {
-
-                        havemainten.setEnabled(true);
-                    } else {
-                        havemainten.setEnabled(false);
-                    }
+                    GetCarInfo.getInstance().isNextMain = 0;
+                    havemainten.setEnabled(false);
                     if (mUUDialog != null && mUUDialog.isShowing()) {
                         mUUDialog.dismiss();
                     }
@@ -628,7 +625,7 @@ public class RemindActivity extends LoadingActivity {
                             sb1.append("天建议您及时带TA进行保养，让TA重新焕发活力");
                             mTextViewSecretary.setText(sb1.toString());
                             if (havemainten != null) {
-                                if (LoginInfo.isMainten()) {
+                                if (GetCarInfo.getInstance().isNextMain == 1) {
                                     havemainten.setEnabled(true);
                                 } else {
                                     havemainten.setEnabled(false);
@@ -650,7 +647,7 @@ public class RemindActivity extends LoadingActivity {
                             sb1.append("天建议您及时带TA进行保养，让TA重新焕发活力");
                             mTextViewSecretary.setText(sb1.toString());
                             if (havemainten != null) {
-                                if (LoginInfo.isMainten()) {
+                                if (GetCarInfo.getInstance().isNextMain == 1) {
                                     havemainten.setEnabled(true);
                                 } else {
                                     havemainten.setEnabled(false);

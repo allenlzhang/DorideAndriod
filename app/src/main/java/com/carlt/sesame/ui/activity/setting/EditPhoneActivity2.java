@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
@@ -128,7 +129,7 @@ public class EditPhoneActivity2 extends BaseActivity {
                 case R.id.editphone_txt_getcode:
                     // 获取验证码
                     if (phoneNum != null && phoneNum.length() == 11) {
-                        String phoneOld = SesameLoginInfo.getMobile();
+                        String phoneOld = UserInfo.getInstance().mobile;
                         if (phoneNum.equals(phoneOld)) {
                             UUToast.showUUToast(EditPhoneActivity2.this, "您输入的是旧手机号哦！");
                             return;
@@ -275,7 +276,7 @@ public class EditPhoneActivity2 extends BaseActivity {
                         mDialog.dismiss();
                     }
                     UUToast.showUUToast(EditPhoneActivity2.this, "手机号修改成功");
-                    LoginInfo.setMobile(mEdtPhone.getText().toString());
+                    UserInfo.getInstance().mobile = mEdtPhone.getText().toString();
                     UseInfo mUseInfo = UseInfoLocal.getUseInfo();
                     mUseInfo.setAccount(mEdtPhone.getText().toString());
                     UseInfoLocal.setUseInfo(mUseInfo);

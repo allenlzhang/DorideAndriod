@@ -1,6 +1,7 @@
 package com.carlt.doride.protocolparser.user;
 
 import com.carlt.doride.data.set.AvatarInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.google.gson.JsonObject;
@@ -39,9 +40,8 @@ public class AvatarParser extends BaseParser {
         mAvatarInfo.setFileOwner(data.get("fileOwner").getAsString());
         mAvatarInfo.setFileUid(data.get("fileUid").getAsString());
         mAvatarInfo.setId(data.get("id").getAsString());
-        LoginInfo.setAvatar_id(data.get("id").getAsString());
         mAvatarInfo.setFileTime(data.get("fileTime").getAsLong());
-        LoginInfo.setAvatar_img(data.get("filePath").getAsString());
+        UserInfo.getInstance().avatarFile = data.get("filePath").getAsString();
       return mAvatarInfo;
     }
 }

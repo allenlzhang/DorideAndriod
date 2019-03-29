@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -113,7 +114,7 @@ public class NicknameEditActivity extends LoadingActivity implements View.OnClic
             Intent intent = new Intent(NicknameEditActivity.this, PersonInfoActivity.class);
             intent.putExtra("nickName", nickname_input.getText().toString());
             NicknameEditActivity.this.setResult(RESULT_OK, intent);
-            LoginInfo.setRealname(nickname_input.getText().toString());
+            UserInfo.getInstance().realName = nickname_input.getText().toString();
             finish();
         }
 

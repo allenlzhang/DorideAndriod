@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -130,7 +131,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
     }
 
     private void initEntryInfo(int state) {
-        String userId = SesameLoginInfo.getUseId();
+        String userId = UserInfo.getInstance().id+"";
         int times = 0;
         if (userId != null && userId.length() > 0) {
             times = EntryInfoLocal.getEntryTimes(userId);

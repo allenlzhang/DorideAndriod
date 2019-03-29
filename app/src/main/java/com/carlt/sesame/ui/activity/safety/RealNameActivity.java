@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -127,10 +128,10 @@ public class RealNameActivity extends BaseActivity implements OnClickListener {
 			mViewAutherTodo.setVisibility(View.GONE);
 			mViewAuthered.setVisibility(View.VISIBLE);
 			StringBuffer mBuffer = new StringBuffer();
-			mBuffer.append(SesameLoginInfo.getAuthen_name());
+			mBuffer.append(UserInfo.getInstance().authenName);
 			mBuffer.append(" ");
 
-			String idCard = SesameLoginInfo.getAuthen_card();
+			String idCard = UserInfo.getInstance().authenCard;
 			if (idCard != null && idCard.length() > 0) {
 				// mBuffer.append(idCard.substring(0, 6));
 				// mBuffer.append("************");

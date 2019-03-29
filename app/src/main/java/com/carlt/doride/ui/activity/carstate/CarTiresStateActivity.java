@@ -9,6 +9,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.remote.RemoteDirectPressureInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -75,7 +76,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
     private void initdata() {
         DefaultStringParser parser = new DefaultStringParser(mCallback);
         HashMap<String, String> param = new HashMap();
-        param.put("move_device_name", LoginInfo.getDeviceidstring());
+        param.put("move_device_name", GetCarInfo.getInstance().deviceidstring);
         String m_remote_driectrressure = URLConfig.getM_REMOTE_DRIECTRRESSURE();
         String replace = m_remote_driectrressure.replace("100", "101");
         parser.executePost(replace, param);

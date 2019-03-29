@@ -13,6 +13,8 @@ import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarModeInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -23,6 +25,7 @@ import com.carlt.doride.ui.adapter.CarTypeAdapter;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.data.SesameLoginInfo;
+import com.carlt.sesame.preference.TokenInfo;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -126,10 +129,10 @@ public class CarTypeListActivity extends LoadingActivity {
             public void onRightClick() {
                 if (carTitle.startsWith("E20")) {
 
-                    LoginInfo.setApp_type(2);
+                    GetCarInfo.getInstance().carType = 2;
                     addSesameCar();
                 } else if (carTitle.startsWith("大乘")) {
-                    LoginInfo.setApp_type(1);
+                    GetCarInfo.getInstance().carType = 1;
                     addDorideCar();
                 }
 
@@ -141,12 +144,12 @@ public class CarTypeListActivity extends LoadingActivity {
 
     private void addSesameCar() {
         // TODO: 2018/8/2  
-        //        String dorideToken = LoginInfo.getAccess_token();
-        //        String dorideToken = SesameLoginInfo.getAccess_token();
+        //        String dorideToken = TokenInfo.getToken();
+        //        String dorideToken = TokenInfo.getToken();
         OkGo.<String>post(com.carlt.sesame.systemconfig.URLConfig.getM_SET_CAR_INFO_URL())
                 .params("client_id", com.carlt.sesame.systemconfig.URLConfig.getClientID())
-                .params("dealerId", SesameLoginInfo.getDealerId())
-                .params("token", SesameLoginInfo.getAccess_token())
+                .params("dealerId", UserInfo.getInstance().dealerId)
+                .params("token", TokenInfo.getToken())
                 .params("deviceType", "android")
                 .params("brandid", brandid)
                 .params("optionid", optionid)
@@ -160,14 +163,13 @@ public class CarTypeListActivity extends LoadingActivity {
                             JSONObject jo = new JSONObject(body);
                             int code = jo.getInt("code");
                             if (code == 200) {
-                                LoginInfo.setCarname(carTitle);
+                                GetCarInfo.getInstance().carName = carTitle;
                                 Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
                                 intent.putExtra("cat_title", carTitle);
                                 intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
                                 if (!TextUtils.isEmpty(vinCode)) {
                                     intent.putExtra("vin", vinCode);
                                 }
-                                SesameLoginInfo.setDeviceActivate(true);
                                 CarTypeListActivity.this.startActivity(intent);
                                 ActivityControl.finishAllCarSelectActivity();
                             } else {
@@ -200,7 +202,7 @@ public class CarTypeListActivity extends LoadingActivity {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             String value = (String) bInfo.getValue();
-            LoginInfo.setCarname(carTitle);
+            GetCarInfo.getInstance().carName = carTitle;
 
             String carid = null;
             try {
@@ -217,9 +219,9 @@ public class CarTypeListActivity extends LoadingActivity {
                 intent.putExtra("vin", vinCode);
             }
             if (optionid.equals("2582")) {
-                LoginInfo.setDeviceisnew(1);
+                GetCarInfo.getInstance().dorcenCarDisplay = 1;
             } else {
-                LoginInfo.setDeviceisnew(0);
+                GetCarInfo.getInstance().dorcenCarDisplay = 0;
             }
             //            if (carTitle.startsWith("E20")) {
             //                LoginInfo.setApp_type(2);
@@ -264,12 +266,12 @@ public class CarTypeListActivity extends LoadingActivity {
     BaseParser.ResultCallback switchResult = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-            LoginInfo.setCarname(carTitle);
+            GetCarInfo.getInstance().carName = carTitle;
             UUToast.showUUToast(CarTypeListActivity.this, " 车型修改成功");
             if (optionid.equals("2582")) {
-                LoginInfo.setDeviceisnew(1);
+                GetCarInfo.getInstance().dorcenCarDisplay = 1;
             } else {
-                LoginInfo.setDeviceisnew(0);
+                GetCarInfo.getInstance().dorcenCarDisplay = 0;
             }
             ActivityControl.finishAllCarSelectActivity();
         }

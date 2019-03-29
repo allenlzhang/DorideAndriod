@@ -19,6 +19,7 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUDialog;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.sesame.preference.TokenInfo;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -104,7 +105,7 @@ public class InitCarSimActivity extends LoadingActivity {
         String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE();
         OkGo.<String>post(countDataPackageUrl)
                 .params("client_id", URLConfig.getClientID())
-                .params("token", LoginInfo.getAccess_token())
+                .params("token", TokenInfo.getToken())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

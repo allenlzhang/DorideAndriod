@@ -230,7 +230,6 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             }
 
 
-            LoginInfo.setRemoteMainInfo(mRemoteMainInfo);
 
             String remote_airconditioner_item = mJSON_data.get("remoteAirconditioner_item").getAsString();
             Logger.e("remote_airconditioner_item-----" + remote_airconditioner_item);

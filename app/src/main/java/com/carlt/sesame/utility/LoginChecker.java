@@ -34,47 +34,47 @@ public class LoginChecker extends Thread {
     @Override
     public void run() {
         Log.e("info", "LoginChecker--------");
-        while (isCheck) {
-
-            int ca = 0;
-            if (SesameLoginInfo.Last_Login_Time < 0) {
-                SesameLoginInfo.Last_Login_Time = System.currentTimeMillis();
-            } else {
-                int dayL = (int)(SesameLoginInfo.Last_Login_Time / 1000 / 60 / 60 / 24);// 天数取整
-                int dayN = (int)(System.currentTimeMillis() / 1000 / 60 / 60 / 24);// 天数取整
-                ca = dayN - dayL;
-            }
-
-            if (ca > 0) {
-
-                UseInfo mUseInfo = UseInfoLocal.getUseInfo();
-                String account = mUseInfo.getAccount();
-                String password = mUseInfo.getPassword();
-                if (account != null && account.length() > 0 && password != null
-                        && password.length() > 0) {
-                    Log.e("info", "LoginChecker--------login-------");
-                    // 跨天拉取数据
-                    CPControl.GetLogin(account, password, new GetResultListCallback() {
-
-                        @Override
-                        public void onFinished(Object o) {
-                            mHandler.sendEmptyMessage(0);
-                        }
-
-                        @Override
-                        public void onErro(Object o) {
-                            mHandler.sendEmptyMessage(1);
-                        }
-                    });
-                }
-
-            }
-
-            try {
-                Thread.sleep(1000 * 60 * 60);
-            } catch (InterruptedException e) {
-            }
-        }
+//        while (isCheck) {
+//
+//            int ca = 0;
+//            if (DorideApplication.Last_Login_Time < 0) {
+//                DorideApplication.Last_Login_Time = System.currentTimeMillis();
+//            } else {
+//                int dayL = (int)(DorideApplication.Last_Login_Time / 1000 / 60 / 60 / 24);// 天数取整
+//                int dayN = (int)(System.currentTimeMillis() / 1000 / 60 / 60 / 24);// 天数取整
+//                ca = dayN - dayL;
+//            }
+//
+//            if (ca > 0) {
+//
+//                UseInfo mUseInfo = UseInfoLocal.getUseInfo();
+//                String account = mUseInfo.getAccount();
+//                String password = mUseInfo.getPassword();
+//                if (account != null && account.length() > 0 && password != null
+//                        && password.length() > 0) {
+//                    Log.e("info", "LoginChecker--------login-------");
+//                    // 跨天拉取数据
+//                    CPControl.GetLogin(account, password, new GetResultListCallback() {
+//
+//                        @Override
+//                        public void onFinished(Object o) {
+//                            mHandler.sendEmptyMessage(0);
+//                        }
+//
+//                        @Override
+//                        public void onErro(Object o) {
+//                            mHandler.sendEmptyMessage(1);
+//                        }
+//                    });
+//                }
+//
+//            }
+//
+//            try {
+//                Thread.sleep(1000 * 60 * 60);
+//            } catch (InterruptedException e) {
+//            }
+//        }
     }
     
     private GetResultListCallback listener_extInfo=new GetResultListCallback() {

@@ -21,6 +21,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.AdvertiseInfo;
@@ -79,7 +80,7 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
         CPControl.GetSecretaryCategoryResult(listener11);
         CPControl.GetUserOtherInfoResult(null);
         com.carlt.doride.control.CPControl.GetCarConfigResult(null);
-        LoginChecker.startCheck();
+//        LoginChecker.startCheck();
         setContentView(R.layout.activity_main_layout);
         container = (LinearLayout) findViewById(R.id.main_containerBody);
         dot4 = (ImageView) findViewById(R.id.main_tab4_dot);
@@ -97,7 +98,7 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
 
         isTransferDialog = getIntent().getBooleanExtra("showTransferDialog", false);
             // 非游客登录版
-            if (SesameLoginInfo.isMain()) {
+            if (OtherInfo.getInstance().isMain()) {
                 // CPControl.GetExtInfoResult(listener_fee);
             } else {
                 if (isTransferDialog) {

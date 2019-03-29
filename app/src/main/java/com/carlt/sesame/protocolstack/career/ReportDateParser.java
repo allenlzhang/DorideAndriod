@@ -21,8 +21,6 @@ public class ReportDateParser extends BaseParser {
         try {
             JSONObject mJSON_data = mJson.getJSONObject("data");
             SesameLoginInfo.setLately_day(mJSON_data.optString("day"));
-            SesameLoginInfo.setLately_week(mJSON_data.optString("week"));
-            SesameLoginInfo.setLately_month(mJSON_data.optString("month"));
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block

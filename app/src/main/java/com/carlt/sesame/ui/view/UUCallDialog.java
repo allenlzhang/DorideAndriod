@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 
 /**
@@ -55,12 +56,12 @@ public class UUCallDialog extends Dialog implements
 				return true;
 			}
 		});
-		String softTel = SesameLoginInfo.getServiceTel();
+		String softTel = ContactsInfo.getInstance().serviceHotLine;
 		if (TextUtils.isEmpty(softTel)) {
 			txtCallSoft.setVisibility(View.GONE);
 			txtLine.setVisibility(View.GONE);
 		}
-		String carTel = SesameLoginInfo.getDealerTel();
+		String carTel = ContactsInfo.getInstance().salesHotLine;
 		if (TextUtils.isEmpty(carTel)) {
 			txtCallCar.setVisibility(View.GONE);
 			txtLine.setVisibility(View.GONE);

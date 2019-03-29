@@ -33,31 +33,4 @@ public class PlayRadio {
 
     private static MediaPlayer mp; // 音频播放
 
-    /**
-     * 点击播放音效
-     * @param sourceId 音频文件Id
-     */
-    public void playClickVoice(int sourceId) {
-        if (LoginInfo.isRemoteSoundOpen()) {
-            try {
-                if (mp == null) {
-                    mp = new MediaPlayer();
-                }
-                mp.reset();
-                AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(sourceId);
-                if (afd == null)
-                    return;
-                mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                afd.close();
-
-                mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mp.prepare();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            mp.start();
-        }
-    }
 }

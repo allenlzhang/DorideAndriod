@@ -1,6 +1,7 @@
 package com.carlt.doride.ui.activity.setting;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,6 +24,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.set.AvatarInfo;
 import com.carlt.doride.http.HttpLinker;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.user.AvatarParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -77,8 +79,8 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
         optRight.setOnClickListener(this);
         initComponent();
 //        loadSuccessUI();
-        if (!TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            Glide.with(this).load(LoginInfo.getAvatar_img()).into(image_display);
+        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
+            Glide.with(this).load(UserInfo.getInstance().avatarFile).into(image_display);
         } else {
             image_display.setImageResource(R.mipmap.default_avater);
         }
@@ -97,8 +99,8 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
 
     @Override
     protected void onResume() {
-        if ( !TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            LoadLocalImageUtil.getInstance().displayFromWeb(LoginInfo.getAvatar_img(), image_display, R.mipmap.default_avater);
+        if ( !TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
+            LoadLocalImageUtil.getInstance().displayFromWeb(UserInfo.getInstance().avatarFile, image_display, R.mipmap.default_avater);
         } else {
             image_display.setImageResource(R.mipmap.default_avater);
         }
@@ -151,6 +153,7 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
         }
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -163,7 +166,7 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
                 case 0:
                     UUToast.showUUToast(PersonAvatarActivity.this, "头像上传成功");
                     backIntent.putExtra("imageId", info.getId());
-                    LoginInfo.setAvatar_img(info.getFilePath());
+                    UserInfo.getInstance().avatarFile = info.getFilePath();
                     break;
                 case 1:
                     backIntent.putExtra("imageId", "-1");

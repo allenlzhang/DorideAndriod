@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -66,15 +67,15 @@ public class AccountSecurityActivity extends LoadingActivity implements View.OnC
 
     @Override
     protected void onResume() {
-        if (!TextUtils.isEmpty(LoginInfo.getMobile())) {
-            phoneNum=LoginInfo.getMobile();
-            StringBuilder builder=new StringBuilder(LoginInfo.getMobile());
+        if (!TextUtils.isEmpty(UserInfo.getInstance().mobile)) {
+            phoneNum=UserInfo.getInstance().mobile;
+            StringBuilder builder=new StringBuilder(UserInfo.getInstance().mobile);
             if (null!=phoneNum&&!TextUtils.isEmpty(phoneNum)){
                 verified_phone.setText(builder.replace(3,7,"****"));
             }
 
         }
-        btn_remote_no_passwd_ctr.setChecked(LoginInfo.isNoneedpsw());
+        btn_remote_no_passwd_ctr.setChecked(UserInfo.getInstance().remotePwdSwitch == 1);
         super.onResume();
     }
 
@@ -103,9 +104,9 @@ public class AccountSecurityActivity extends LoadingActivity implements View.OnC
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
         if (checked) {
-            LoginInfo.setNoneedpsw(true);
+            UserInfo.getInstance().remotePwdSwitch = 1;
         } else {
-            LoginInfo.setNoneedpsw(false);
+            UserInfo.getInstance().remotePwdSwitch = 0;
         }
     }
 

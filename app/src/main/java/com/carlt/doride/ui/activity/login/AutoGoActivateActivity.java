@@ -186,7 +186,7 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
                     activateDevice();
                     break;
                 case 3:
-                    //                    if (LoginInfo.getApp_type() == 1) {
+                    //                    if (GetCarInfo.getInstance().carType == 1) {
                     //                        ActivityControl.initXG();
                     //                    }else {
                     //                        com.carlt.sesame.control.ActivityControl.initXG();

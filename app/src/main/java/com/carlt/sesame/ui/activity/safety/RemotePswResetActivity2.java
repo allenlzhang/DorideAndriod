@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -331,7 +332,7 @@ public class RemotePswResetActivity2 extends BaseActivity implements OnClickList
 		case R.id.remotepsw_reset_txt_code:
 			mEdtPhone.validateEdit();
 			phoneNum = mEdtPhone.getText().toString();
-			String phoneLocal = SesameLoginInfo.getMobile();
+			String phoneLocal = UserInfo.getInstance().mobile;
 			if (phoneNum != null && phoneNum.length() == 11 && phoneNum.equals(phoneLocal)) {
 				CPControl.GetMessageValidateResult(CPControl.VALIDATE_TYPE_FINDPASSWORDREMOTE, phoneNum, listener_code);
 				count = 60;
@@ -376,7 +377,7 @@ public class RemotePswResetActivity2 extends BaseActivity implements OnClickList
 			// 跳转至验证第三步
 			// String phone = mEdtPhone.getText().toString();
 			// String code = mEdtCode.getText().toString();
-			// String phoneLocal2 = LoginInfo.getMobile();
+			// String phoneLocal2 = UserInfo.getInstance().mobile;
 			// if (phoneLocal2 == null || phoneLocal2.length() < 1 ||
 			// !phone.equals(phoneLocal2)) {
 			// UUToast.showUUToast(RemotePswResetActivity2.this,
@@ -404,7 +405,7 @@ public class RemotePswResetActivity2 extends BaseActivity implements OnClickList
 			// 调用重置远程密码接口
 			String phone = mEdtPhone.getText().toString();
 			String code = mEdtCode.getText().toString();
-			String mobile = SesameLoginInfo.getMobile();
+			String mobile = UserInfo.getInstance().mobile;
 			String pswNew1 = mPwdEdt1.getText().toString();
 			String pswNew2 = mPwdEdt2.getText().toString();
 			if (mobile == null || mobile.length() < 1 || !phone.equals(mobile)) {

@@ -16,6 +16,7 @@ import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -89,7 +90,7 @@ public class VcodeResetPasswdActivity extends LoadingActivity implements View.On
             case R.id.verification_passwd_code_send:
                 mobile = phoneNumber.getText().toString();
                 if (mobile != null && StringUtils.checkCellphone(mobile)) {
-                    String phoneOld = LoginInfo.getMobile();
+                    String phoneOld = UserInfo.getInstance().mobile;
                     if (!mobile.equals(phoneOld)) {
                         UUToast.showUUToast(VcodeResetPasswdActivity.this, "您输入的手机号不是您当前的手机号码，请重新输入...");
                         return;

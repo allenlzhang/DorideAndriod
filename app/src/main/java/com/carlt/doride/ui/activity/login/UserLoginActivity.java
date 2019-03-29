@@ -24,10 +24,12 @@ import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
-import com.carlt.doride.control.CPControl;
 import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.User;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -35,11 +37,16 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.RecorderMainFragment;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
+import com.carlt.sesame.control.CPControl;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by marller on 2018\3\15 0015.
@@ -223,8 +230,10 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                     mDialog = PopBoxCreat.createDialogWithProgress(UserLoginActivity.this, "正在验证信息...");
                     mDialog.show();
                     mLoginInfo = new LoginInfo();
-                    //                    login(userPhone, passwd);
-                    CPControl.GetLogin(userPhone, passwd, this);
+//                                        login(userPhone, passwd);
+//                    CPControl.GetLogin(userPhone, passwd, this);
+                    LoginControl.Login(userPhone, passwd);
+                    LoginControl.setCallback(callback);
                 }
                 break;
             case R.id.user_regist:
@@ -237,6 +246,26 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                 break;
         }
     }
+    CPControl.GetResultListCallback callback = new CPControl.GetResultListCallback() {
+        @Override
+        public void onFinished(Object o) {
+            loadSuccess(null);
+        }
+
+        @Override
+        public void onErro(Object o) {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+            String msg = (String) o;
+            if (TextUtils.isEmpty(msg)){
+                showToast("登录失败...");
+            }else {
+                UUToast.showUUToast(UserLoginActivity.this, (String) o);
+            }
+        }
+    };
+
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -297,7 +326,6 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
-
         mUseInfo.setAccount(userPhone);
         mUseInfo.setPassword(passwd);
         UseInfoLocal.setUseInfo(mUseInfo);

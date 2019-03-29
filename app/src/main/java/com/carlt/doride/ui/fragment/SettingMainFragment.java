@@ -32,6 +32,9 @@ import com.carlt.doride.data.carflow.CheckBindCarIdInfo;
 import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.carflow.CheckInitInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.car.CarDealerParser;
@@ -53,6 +56,7 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.utils.CacheUtils;
 import com.carlt.doride.utils.DensityUtil;
 import com.carlt.doride.utils.LoadLocalImageUtil;
+import com.carlt.sesame.preference.TokenInfo;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -198,23 +202,23 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     private void showUserUI() {
         isCountData = false;
-        carid = LoginInfo.getcId();
+        carid = GetCarInfo.getInstance().id;
         try {
             cache_size.setText(CacheUtils.getTotalCacheSize(this.getActivity()));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (!TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            LoadLocalImageUtil.getInstance().displayCircleFromWeb(LoginInfo.getAvatar_img(), avatar, R.mipmap.default_avater);
+        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
+            LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, avatar, R.mipmap.default_avater);
         }
-        if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
-            tx_person_name.setText(LoginInfo.getRealname());
+        if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
+            tx_person_name.setText(UserInfo.getInstance().realName);
         }
         //        if (LoginInfo.getTbox_type().equals("4G")) {
 
 
-        if (LoginInfo.getFlowWarn().equals("2")) {
+        if (OtherInfo.getInstance().getLimit_warning().equals("2")) {
             icFlowDot.setVisibility(View.VISIBLE);
         } else {
             icFlowDot.setVisibility(View.GONE);
@@ -292,8 +296,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         }
         OkGo.<String>post(url)
                 .params("client_id", URLConfig.getClientID())
-                .params("dealerId", LoginInfo.getDealerId())
-                .params("token", LoginInfo.getAccess_token())
+                .params("dealerId", UserInfo.getInstance().dealerId)
+                .params("token", TokenInfo.getToken())
                 .params("deviceType", "android")
                 .execute(new StringCallback() {
                     @Override
@@ -853,8 +857,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         String isSupportTDataUrl = URLConfig.getM_ISSUPPORTTDATA();
         OkGo.<String>post(isSupportTDataUrl)
                 .params("client_id", URLConfig.getClientID())
-                .params("token", LoginInfo.getAccess_token())
-                .params("deviceIdString", LoginInfo.getDeviceidstring())
+                .params("token", TokenInfo.getToken())
+                .params("deviceIdString", GetCarInfo.getInstance().deviceidstring)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -907,7 +911,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE();
         OkGo.<String>post(countDataPackageUrl)
                 .params("client_id", URLConfig.getClientID())
-                .params("token", LoginInfo.getAccess_token())
+                .params("token", TokenInfo.getToken())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.SesameLoginInfo;
@@ -71,7 +72,7 @@ public class ManageCommonActivity extends LoadingActivityWithTitle implements On
 	@Override
 	protected void LoadSuccess(Object data) {
 		super.LoadSuccess(data);
-		mCheckBox1.setChecked(SesameLoginInfo.isRemoteSoundOpen());
+		mCheckBox1.setChecked(OtherInfo.getInstance().isRemoteSoundOpen());
 	}
 
 	@Override
@@ -115,12 +116,12 @@ public class ManageCommonActivity extends LoadingActivityWithTitle implements On
 					mDialog.dismiss();
 				}
 
-				if (!(mCheckBox1.isChecked() && SesameLoginInfo.isRemoteSoundOpen())) {
-					mCheckBox1.setChecked(SesameLoginInfo.isRemoteSoundOpen());
+				if (!(mCheckBox1.isChecked() && OtherInfo.getInstance().isRemoteSoundOpen())) {
+					mCheckBox1.setChecked(OtherInfo.getInstance().isRemoteSoundOpen());
 				}
 				break;
 			case 1:
-				mCheckBox1.setChecked(SesameLoginInfo.isRemoteSoundOpen());
+				mCheckBox1.setChecked(OtherInfo.getInstance().isRemoteSoundOpen());
 				UUToast.showUUToast(context, "设置失败");
 				if (mDialog != null && mDialog.isShowing()) {
 					mDialog.dismiss();

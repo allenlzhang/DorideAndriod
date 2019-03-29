@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -146,7 +147,7 @@ public class CarTestActivity extends BaseActivity {
         mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
         mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
 
-        mImageViewSecretary.setImageResource(SesameLoginInfo.getSecretaryImg());
+        mImageViewSecretary.setImageResource(GetCarInfo.getInstance().secretaryID == 1?R.drawable.secretary_female:R.drawable.secretary_male);
         mTextViewSecretary.setText("正在连接您的爱车，请稍候...");
     }
 

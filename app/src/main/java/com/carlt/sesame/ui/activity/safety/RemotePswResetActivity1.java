@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -183,9 +184,9 @@ public class RemotePswResetActivity1 extends BaseActivity implements OnClickList
             int lengthEdit = idCard.length();
             String idCardPrefix = idCard.substring(0, 6);
             String idCardSuffix = idCard.substring(lengthEdit - 2, lengthEdit);
-            if (SesameLoginInfo.isAuthen()) {
-                String authorName = SesameLoginInfo.getAuthen_name();
-                String authorCard = SesameLoginInfo.getAuthen_card();
+            if (UserInfo.getInstance().isAuthen.equals("1")) {
+                String authorName = UserInfo.getInstance().authenName;
+                String authorCard = UserInfo.getInstance().authenCard;
                 int lengthAuthor = authorCard.length();
                 String authorCardPrefix = authorCard.substring(0, 6);
                 String authorCardSuffix = authorCard.substring(lengthAuthor - 2, lengthAuthor);

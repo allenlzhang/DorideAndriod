@@ -8,6 +8,8 @@ import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
+import com.carlt.sesame.preference.TokenInfo;
+import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -107,8 +109,8 @@ public class HttpLinker {
 
     public static void post(String url, HashMap<String, String> param, Callback callback) {
         param.put("client_id", URLConfig.getClientID());
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
-            param.put("token", LoginInfo.getAccess_token());
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
+            param.put("token", TokenInfo.getToken());
         }
 
         FormBody.Builder formBuilder = new FormBody.Builder();
@@ -120,7 +122,11 @@ public class HttpLinker {
             ILog.e("http", "param--" + key + ":" + value);
         }
         RequestBody rBody = formBuilder.build();
+//        MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
+//        RequestBody rBody = RequestBody.create(mediaType, new Gson().toJson(param));
         Request request = new Request.Builder()
+//                .header("Content-Type", "application/json")
+//                .header("Carlt-Access-Id", "18644515396614518644")
                 .url(url)
                 .post(rBody)
                 .build();
@@ -132,8 +138,8 @@ public class HttpLinker {
 
 
     public static Response postSync(String url, HashMap<String, String> param) throws IOException {
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
-            url = url + "?token=" + LoginInfo.getAccess_token();
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
+            url = url + "?token=" + TokenInfo.getToken();
         }
         FormBody.Builder formBuilder = new FormBody.Builder();
         Iterator<String> iterators = param.keySet().iterator();
@@ -156,8 +162,8 @@ public class HttpLinker {
     }
 
     public static void get(String url, HashMap<String, String> param, Callback callback) {
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
-            param.put("token", LoginInfo.getAccess_token());
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
+            param.put("token", TokenInfo.getToken());
         }
         String urlP = url + CreatString(param);
         Request request = new Request.Builder()
@@ -170,8 +176,8 @@ public class HttpLinker {
     }
 
     public static Response getSync(String url, HashMap<String, String> param) throws IOException {
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
-            param.put("token", LoginInfo.getAccess_token());
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
+            param.put("token", TokenInfo.getToken());
         }
         String urlP = url + CreatString(param);
         Request request = new Request.Builder()
@@ -185,8 +191,8 @@ public class HttpLinker {
 
 
     public static void uploadFile(String url, HashMap<String, Object> map, File file, Callback callback) {
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
-            url = url + "?token=" + LoginInfo.getAccess_token();
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
+            url = url + "?token=" + TokenInfo.getToken();
         }
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if (file != null) {
@@ -215,8 +221,8 @@ public class HttpLinker {
 
     //上传图片
     public static Response uploadImage(String url, HashMap<String, Object> map, File file) throws IOException {
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
-            url = url + "?token=" + LoginInfo.getAccess_token();
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
+            url = url + "?token=" + TokenInfo.getToken();
         }
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if (file != null) {

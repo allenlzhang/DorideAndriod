@@ -11,15 +11,9 @@ public class CarStateInfoParser extends BaseParser {
 
 	private ArrayList<CarStateInfo> mCarStateInfos = new ArrayList<CarStateInfo>();
 
-	private String mDeviceType;// 设备类型
-
 	public ArrayList<CarStateInfo> getReturn() {
 
 		return mCarStateInfos;
-	}
-
-	public CarStateInfoParser(String deviceType) {
-		mDeviceType = deviceType;
 	}
 
 	@Override

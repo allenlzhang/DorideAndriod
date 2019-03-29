@@ -20,6 +20,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.DeviceUpdateInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 
@@ -101,7 +102,7 @@ public class UUUpdateDialog extends Dialog {
 
 	// 轮询
 	private void polling() {
-		String s = LoginInfo.getDeviceidstring();
+		String s = GetCarInfo.getInstance().deviceidstring;
 		CPControl.GetDeviceUpdateResult(s, listener_polling);
 	}
 
@@ -153,7 +154,7 @@ public class UUUpdateDialog extends Dialog {
 						}
 						return;
 					} else {
-						String s = LoginInfo.getDeviceidstring();
+						String s = GetCarInfo.getInstance().deviceidstring;
 						txtProgress.setText("升级中(100%)升级成功");
 					}
 				}

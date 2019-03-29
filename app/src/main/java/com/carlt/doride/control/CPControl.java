@@ -15,10 +15,10 @@ import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.utils.MyComparator;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.BaseResponseInfo;
-import com.carlt.doride.data.login.UserRegisterParams;
 import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.data.set.ModifyCarInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -30,13 +30,11 @@ import com.carlt.doride.protocolparser.home.MilesInfoParser;
 import com.carlt.doride.protocolparser.home.RemindDefaultParser;
 import com.carlt.doride.protocolparser.home.ReportCalendarDayParser;
 import com.carlt.doride.protocolparser.home.ReportCalendarMonthParser;
-import com.carlt.doride.protocolparser.home.ReportDateParser;
 import com.carlt.doride.protocolparser.home.ReportDayLogParser;
 import com.carlt.doride.protocolparser.home.ReportDayParser;
 import com.carlt.doride.protocolparser.home.ReportGpsParser;
 import com.carlt.doride.protocolparser.home.ReportMonthParser;
 import com.carlt.doride.protocolparser.home.ReportMonthStatisticParser;
-import com.carlt.doride.protocolparser.login.UserRegisterParser;
 import com.carlt.doride.protocolparser.remote.CarStateInfoParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.CipherUtils;
@@ -263,32 +261,6 @@ public class CPControl {
         parser.executePost(URLConfig.getM_FORGET_REMOTE_PWD(), params);
     }
 
-    /**
-     * 注册接口 onFinished表示成功
-     */
-    public static void GetRegisteResult(final UserRegisterParams mRegisteParams,
-                                        final BaseParser.ResultCallback listener) {
-
-        if (listener == null)
-            return;
-
-        // 链接地址
-        // String url = URLConfig.getM_REGISTER_URL();
-        String url = URLConfig.getM_REGISTER_NEW_URL();
-        // Post参数
-        UserRegisterParser mUserInfoParser = new UserRegisterParser(listener);
-        HashMap<String, String> mMap = new HashMap<String, String>();
-
-        mMap.put("mobile", mRegisteParams.getMobile());
-        mMap.put("password", CipherUtils.md5(mRegisteParams.getPassword()));
-        mMap.put("validate", mRegisteParams.getValidate());
-        mMap.put("move_deviceid", DorideApplication.NIMEI);
-        mMap.put("move_device_name", DorideApplication.MODEL_NAME);
-        mMap.put("originate", mRegisteParams.getOriginate());
-        mUserInfoParser
-                .executePost(url, mMap);
-    }
-
     public static void GetMessageValidateResult(final String type,
                                                 final String phoneNum, final BaseParser.ResultCallback listener) {
         GetValidateResult(type, phoneNum, "0", listener);
@@ -370,16 +342,6 @@ public class CPControl {
     }
 
 
-    /**
-     * 行车报告日期
-     * @param callback
-     */
-    public static void GetReportdateResult(BaseParser.ResultCallback callback) {
-        HashMap mHashMap = CreateHashMap.getNullData();
-        ReportDateParser parser = new ReportDateParser(callback);
-        parser.setTest(false);
-        parser.executePost(URLConfig.getM_REPORTDATE_URL(), mHashMap);
-    }
 
     /**
      * 指定用户行车日报
@@ -636,7 +598,7 @@ public class CPControl {
 
     public static void GetLogin(String account, String password, BaseParser.ResultCallback listener_login) {
 
-        HashMap<String, String> mMap = new HashMap<String, String>();
+        HashMap<String, Object> mMap = new HashMap<String, Object>();
         mMap.put("version", DorideApplication.Version + "");
         mMap.put("mobile", account);
         mMap.put("password", CipherUtils.md5(password));
@@ -650,7 +612,22 @@ public class CPControl {
         sysinfo.append(",");
         sysinfo.append(DorideApplication.MODEL_NAME);
         mMap.put("sysinfo", sysinfo.toString());
+
         String url = URLConfig.getM_LOGIN_URL();
+
+//        mMap.put("version", 100);
+//        mMap.put("moveDeviceName", DorideApplication.MODEL_NAME);
+//        mMap.put("loginModel", DorideApplication.MODEL);
+//        mMap.put("loginSoftType", "Android");
+//        mMap.put("moveDeviceid", DorideApplication.NIMEI);
+//        mMap.put("mobile", account);
+//        mMap.put("password", CipherUtils.md5(password));
+//        mMap.put("loginType", 1);
+//        mMap.put("pwdReally", password);
+//
+//
+//
+//        String url = "http://test.linewin.cc:8888/app/User/Login";
         //        Logger.e("url---" + url);
         DefaultStringParser parser = new DefaultStringParser(listener_login);
         parser.executePost(url, mMap);
@@ -677,7 +654,7 @@ public class CPControl {
                         .getBaseResponseInfo(replace, post);
                 if (listener != null) {
                     if (mBaseResponseInfo.getFlag() == com.carlt.sesame.data.BaseResponseInfo.SUCCESS) {
-                        listener.onFinished(SesameLoginInfo.getRemoteMainInfo());
+                        listener.onFinished(OtherInfo.getInstance().getRemoteMainInfo());
                     } else {
                         listener.onErro(mBaseResponseInfo);
                     }

@@ -14,6 +14,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -22,6 +24,7 @@ import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.data.SesameBindDeviceInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
+import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -63,11 +66,12 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
     private String from;
     private String mCarid;
-
+    private UserInfo userInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_bind);
+        userInfo = UserInfo.getInstance();
         initComponent();
         intent = getIntent();
         from = intent.getStringExtra("from");
@@ -82,7 +86,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     }
 
     private void setBindData() {
-        //        carTitle = LoginInfo.getCarname();
+        //        carTitle = GetCarInfo.getInstance().carName;
         if (!TextUtils.isEmpty(from) && from.equals(ACTIVATE)) {
             String cat_title = intent.getStringExtra("cat_title");
             if (!TextUtils.isEmpty(cat_title)) {
@@ -152,10 +156,10 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             case R.id.bind_commit:
                 deviceId = car_vin_code.getText().toString();
                 if (isVinValid()) {
-                    if (LoginInfo.getApp_type() == 1) {
+                    if (GetCarInfo.getInstance().carType == 1) {
                         //  大乘
                         bindDevice();
-                    } else if (LoginInfo.getApp_type() == 2) {
+                    } else if (GetCarInfo.getInstance().carType == 2) {
                         // 芝麻
                         bindSesameDevice();
 
@@ -172,8 +176,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     private void bindSesameDevice() {
         OkGo.<String>post(com.carlt.sesame.systemconfig.URLConfig.getM_CAR_BINDDEVICE_URL())
                 .params("client_id", com.carlt.sesame.systemconfig.URLConfig.getClientID())
-                .params("dealerId", SesameLoginInfo.getDealerId())
-                .params("token", SesameLoginInfo.getAccess_token())
+                .params("dealerId", userInfo.dealerId)
+                .params("token", TokenInfo.getToken())
                 .params("deviceType", "android")
                 .params("vin", deviceId)
                 .execute(new StringCallback() {
@@ -227,17 +231,17 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 JSONObject object = new JSONObject(value);
 
                 String deviceidstring = object.getString("deviceidstring");
-                LoginInfo.setDeviceidstring(deviceidstring);
+                GetCarInfo.getInstance().deviceidstring = deviceidstring;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
             if (!TextUtils.isEmpty(car_vin_code.getText().toString())) {
-                LoginInfo.setVin(LoginInfo.getMobile(), car_vin_code.getText().toString());
+                GetCarInfo.getInstance().vin = car_vin_code.getText().toString();
             }
-            if (!TextUtils.isEmpty(LoginInfo.getCarname()) && !TextUtils.isEmpty(from) && from.equals(ACTIVATE)) {
-                btn_select_car.setText(LoginInfo.getCarname());
+            if (!TextUtils.isEmpty(GetCarInfo.getInstance().carName) && !TextUtils.isEmpty(from) && from.equals(ACTIVATE)) {
+                btn_select_car.setText(GetCarInfo.getInstance().carName);
             }
 
             //  大乘

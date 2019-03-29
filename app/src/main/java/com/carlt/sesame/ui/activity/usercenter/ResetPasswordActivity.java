@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -272,7 +273,7 @@ public class ResetPasswordActivity extends BaseActivity implements OnClickListen
                 // 发送验证码
                 mEditText1.validateEdit();
                 phoneNum = mEditText1.getText().toString();
-                String mobile = SesameLoginInfo.getMobile();
+                String mobile = UserInfo.getInstance().mobile;
                 LogUtils.e("====" + mobile);
                 if (phoneNum.equals(mobile)) {
                     CPControl.GetMessageValidateResult(CPControl.VALIDATE_TYPE_FINDPASSWORD,

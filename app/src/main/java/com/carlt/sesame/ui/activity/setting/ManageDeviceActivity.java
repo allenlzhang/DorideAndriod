@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 
@@ -67,7 +68,7 @@ public class ManageDeviceActivity extends LoadingActivityWithTitle implements On
 
 	private void init() {
 		txtDeviceNum = (TextView) findViewById(R.id.manageDevice_txt_devicnum);
-		txtDeviceNum.setText(SesameLoginInfo.getDeviceidstring());
+		txtDeviceNum.setText(GetCarInfo.getInstance().deviceidstring);
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -80,7 +81,7 @@ public class ResetCetifiedPhoneActivity extends LoadingActivity implements View.
                 // 获取验证码
                 phoneNum = reset_phone_input.getText().toString();
                 if (phoneNum != null && phoneNum.length() == 11) {
-                    String phoneOld = LoginInfo.getMobile();
+                    String phoneOld = UserInfo.getInstance().mobile;
                     if (phoneNum.equals(phoneOld)) {
                         UUToast.showUUToast(ResetCetifiedPhoneActivity.this, "您输入的是旧手机号哦！");
                         return;
@@ -173,7 +174,7 @@ public class ResetCetifiedPhoneActivity extends LoadingActivity implements View.
                 mDialog.dismiss();
             }
             UUToast.showUUToast(ResetCetifiedPhoneActivity.this, "手机号修改成功");
-            LoginInfo.setMobile(reset_phone_input.getText().toString());
+            UserInfo.getInstance().mobile = reset_phone_input.getText().toString();
             UseInfo mUseInfo = UseInfoLocal.getUseInfo();
             mUseInfo.setAccount(reset_phone_input.getText().toString());
             UseInfoLocal.setUseInfo(mUseInfo);

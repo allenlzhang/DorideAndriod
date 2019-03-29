@@ -13,6 +13,7 @@ import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser.ResultCallback;
@@ -101,7 +102,7 @@ public class ResetLoginPasswdActivity extends LoadingActivity implements View.On
     private void editPasswdRequest() {
         DefaultStringParser parser = new DefaultStringParser(editCallback);
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("dealerId", LoginInfo.getDealerId());
+        params.put("dealerId", UserInfo.getInstance().dealerId+"");
         params.put("oldpassword", CipherUtils.md5(passwd));
         params.put("newspassword", CipherUtils.md5(confirmPasswd));
         parser.executePost(URLConfig.getM_USERCENTER_EDIT_PWD(), params);

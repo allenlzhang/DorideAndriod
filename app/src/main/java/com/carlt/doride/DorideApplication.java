@@ -75,7 +75,8 @@ public class DorideApplication extends Application {
     public        Context           context;
     public static Context           ApplicationContext;
     public static String            softVersion; // 记录仪 版本
-
+    // 车乐拍
+    public static String ssid = "";
     /**
      * 判断相应的页面是否显示可拖动的客服电话按钮
      */
@@ -176,7 +177,8 @@ public class DorideApplication extends Application {
     public void setVideoView(IVideoView mvideoView) {
         videoView = mvideoView;
     }
-
+    // 最后一次登录时间
+    public static long Last_Login_Time = -1;
     @Override
     public void onCreate() {
         super.onCreate();

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -83,8 +84,8 @@ public class RiLiActivity extends BaseActivity implements OnClickListener {
         txtRight = (TextView)findViewById(R.id.head_back_txt2);
 
         back.setImageResource(R.drawable.arrow_back);
-        if(SesameLoginInfo.getDealerUsername()!=null&& SesameLoginInfo.getDealerUsername().length()>0){
-            title.setText(SesameLoginInfo.getDealerUsername());
+        if(ContactsInfo.getInstance().name!=null&& ContactsInfo.getInstance().name.length()>0){
+            title.setText(ContactsInfo.getInstance().name);
         }else{
             title.setText("预约");
         }

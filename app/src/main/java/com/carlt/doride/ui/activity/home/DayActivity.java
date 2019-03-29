@@ -119,9 +119,9 @@ public class DayActivity extends LoadingActivity implements OnClickListener {
         } else {
             mImgHead.setImageResource(R.mipmap.ic_launcher);
         }
-        if (String.valueOf(mReportDayInfo.getGender()).equals(LoginInfo.GENDER_NAN)) {
+        if (String.valueOf(mReportDayInfo.getGender()).equals("1")) {
             mImgGender.setImageResource(R.drawable.icon_sex_male);
-        } else if (String.valueOf(mReportDayInfo.getGender()).equals(LoginInfo.GENDER_NV)) {
+        } else if (String.valueOf(mReportDayInfo.getGender()).equals("2")) {
             mImgGender.setImageResource(R.drawable.icon_sex_female);
         } else {
             mImgGender.setImageResource(R.drawable.icon_sex_secret);

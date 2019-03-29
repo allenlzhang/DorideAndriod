@@ -81,37 +81,7 @@ public abstract class BaseParser {
 				Log.e("info", "延长处理时间--"+i);
 			}
 		} else if (mBaseResponseInfo.getFlag() == BaseResponseInfo.TOKEN_DISABLE) {
-			Log.e("info", "TOKEN DISABLE mBaseResponseInfo.getFlag()==" + mBaseResponseInfo.getFlag());
-			Log.e("info", "TOKEN DISABLE mBaseResponseInfo.getFlag()========NOTOKEN");
-			mBaseResponseInfo.setInfo(null);
-			UseInfo mUseInfo = UseInfoLocal.getUseInfo();
-			String account = mUseInfo.getAccount();
-			String password = mUseInfo.getPassword();
-			if (account != null && account.length() > 0 && password != null && password.length() > 0) {
-				CPControl.GetToken(new GetResultListCallback() {
-
-					@Override
-					public void onFinished(Object o) {
-						Log.e("info", "TOKEN DISABLE mBaseResponseInfo.getFlag()========NOTOKEN  GET   FINISHED");
-					}
-
-					@Override
-					public void onErro(Object o) {
-						// 跳蹬陆
-						Log.e("info", "TOKEN DISABLE mBaseResponseInfo.getFlag()========NOTOKEN  GET   ERROR");
-						ActivityControl.onTokenDisable();
-						for (int i = 0; i < 100; i++) {
-							Log.e("info", "延长处理时间--"+i);
-						}
-					}
-				}, true);
-			} else {
-				Log.e("info", "TOKEN DISABLE mBaseResponseInfo.getFlag()========NOTOKEN  NO ACCOUNT");
-				ActivityControl.onTokenDisable();
-				for (int i = 0; i < 100; i++) {
-					Log.e("info", "延长处理时间--"+i);
-				}
-			}
+			ActivityControl.onTokenDisable();
 		}
 		return mBaseResponseInfo;
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.safety.MobileInfo;
 
@@ -87,7 +88,7 @@ public class MobileListAdapter extends BaseAdapter {
             mHolder.mViewWaitingauthor = convertView
                     .findViewById(R.id.item_mobile_lay_waitingauthor);
 
-            if (SesameLoginInfo.isMain()) {
+            if (OtherInfo.getInstance().isMain()) {
                 mHolder.mTxtDel.setVisibility(View.VISIBLE);
 
             } else {
@@ -146,7 +147,7 @@ public class MobileListAdapter extends BaseAdapter {
             }
         };
 
-        if (SesameLoginInfo.isMain()) {
+        if (OtherInfo.getInstance().isMain()) {
             s = mInfo.getAuthorize_type();
             if (s != null) {
                 if (s.equals(MobileInfo.AUTHORIZE_TYPE_UNDO)) {

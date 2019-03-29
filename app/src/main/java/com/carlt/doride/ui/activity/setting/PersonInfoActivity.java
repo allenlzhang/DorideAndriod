@@ -14,6 +14,7 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
@@ -47,7 +48,7 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
     private static String[] sexItems = {"男", "女", "保密"};
     private List<String> sexList;
     private String       gender;
-    String sexFlag = "";
+    int sexFlag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,8 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
         usr_avatar = findViewById(R.id.usr_avatar);
         person_sex_txt = findViewById(R.id.person_sex_txt);
         person_nickname_txt = findViewById(R.id.person_nickname_txt);
-        if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
-            person_nickname_txt.setText(LoginInfo.getRealname());
+        if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
+            person_nickname_txt.setText(UserInfo.getInstance().realName);
         }
 
     }
@@ -83,21 +84,21 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
 
     @Override
     protected void onResume() {
-        if (!TextUtils.isEmpty(LoginInfo.getGender())) {
-            if (LoginInfo.getGender().equals("1")) {
+        if (UserInfo.getInstance().gender != 0) {
+            if (UserInfo.getInstance().gender == 1) {
                 person_sex_txt.setText("男");
-            } else if (LoginInfo.getGender().equals("2")) {
+            } else if (UserInfo.getInstance().gender == 2) {
                 person_sex_txt.setText("女");
             } else {
                 person_sex_txt.setText("保密");
             }
 
         }
-        if (!TextUtils.isEmpty(LoginInfo.getAvatar_img())) {
-            LoadLocalImageUtil.getInstance().displayCircleFromWeb(LoginInfo.getAvatar_img(), usr_avatar, R.mipmap.default_avater);
+        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
+            LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, usr_avatar, R.mipmap.default_avater);
         }
-        if (!TextUtils.isEmpty(LoginInfo.getRealname())) {
-            person_nickname_txt.setText(LoginInfo.getRealname());
+        if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
+            person_nickname_txt.setText(UserInfo.getInstance().realName);
         }
         super.onResume();
     }
@@ -160,13 +161,13 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
                 String tx = sexList.get(options1);
 
                 if (tx.equals("男"))
-                    sexFlag = "1";
+                    sexFlag = 1;
                 else if (tx.equals("女"))
-                    sexFlag = "2";
+                    sexFlag = 2;
                 else
-                    sexFlag = "3";
+                    sexFlag = 3;
                 HashMap<String, String> params = new HashMap<>();
-                params.put("gender", sexFlag);
+                params.put("gender", sexFlag+"");
                 chanageInfoRequest(params);
                 gender = tx;
             }
@@ -217,7 +218,7 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
             UUToast.showUUToast(PersonInfoActivity.this, "资料修改成功");
-            LoginInfo.setGender(sexFlag);
+            UserInfo.getInstance().gender = sexFlag;
             if (!TextUtils.isEmpty(gender)) {
                 person_sex_txt.setText(gender);
             }
@@ -239,10 +240,10 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
             JSONObject json = new JSONObject(data);
             if (json != null) {
                 //                String avatar_url = json.optString("avatar_img");
-                String avatar_url = LoginInfo.getAvatar_img();
+                String avatar_url = UserInfo.getInstance().avatarFile;
                 if (!TextUtils.isEmpty(avatar_url)) {
-                    LoginInfo.setAvatar_img(avatar_url);
-                    LoadLocalImageUtil.getInstance().displayCircleFromWeb(LoginInfo.getAvatar_img(), usr_avatar, R.mipmap.default_avater);
+                    UserInfo.getInstance().avatarFile = avatar_url;
+                    LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, usr_avatar, R.mipmap.default_avater);
 
                 }
             }

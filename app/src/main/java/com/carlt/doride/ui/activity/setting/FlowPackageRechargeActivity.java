@@ -28,6 +28,7 @@ import com.carlt.doride.data.flow.FlowPackageOrderInfo;
 import com.carlt.doride.data.flow.FlowPriceInfo;
 import com.carlt.doride.data.flow.PackageDataInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -41,6 +42,7 @@ import com.carlt.doride.ui.view.SegmentControl;
 import com.carlt.doride.ui.view.UUPopupWindow;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.data.set.PayResult;
+import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.ui.view.UUImgInfoDialog;
 import com.carlt.sesame.utility.MyTimeUtil;
 import com.google.gson.Gson;
@@ -118,11 +120,11 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
         loadingDataUI();
 
 
-        Logger.e(URLConfig.getClientID() + "\n" +LoginInfo.getDealerId() + "\n"+ LoginInfo.getAccess_token());
+        Logger.e(URLConfig.getClientID() + "\n" + UserInfo.getInstance().dealerId + "\n"+ TokenInfo.getToken());
         OkGo.<String>post(URLConfig.getmTrafficWarnningUrl())
                 .params("client_id", URLConfig.getClientID())
-                .params("dealerId", LoginInfo.getDealerId())
-                .params("token", LoginInfo.getAccess_token())
+                .params("dealerId", UserInfo.getInstance().dealerId)
+                .params("token", TokenInfo.getToken())
                 .params("deviceType", "android")
                 .execute(new StringCallback() {
                     @Override
@@ -175,8 +177,8 @@ public class FlowPackageRechargeActivity extends LoadingActivity {
 
         OkGo.<String>post(URLConfig.getmTrafficPurchaseUrl())
                 .params("client_id", URLConfig.getClientID())
-                .params("dealerId", LoginInfo.getDealerId())
-                .params("token", LoginInfo.getAccess_token())
+                .params("dealerId", UserInfo.getInstance().dealerId)
+                .params("token", TokenInfo.getToken())
                 .params("deviceType", "android")
                 .execute(new StringCallback() {
                     @Override

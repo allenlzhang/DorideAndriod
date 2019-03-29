@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -87,7 +88,7 @@ public class TestFirstView extends MenuCalendar {
         mImageViewSecretary = (ImageView)v.findViewById(R.id.layout_sub_head_img);
         mTextViewSecretary = (TextView)v.findViewById(R.id.layout_sub_head_txt);
 
-        mImageViewSecretary.setImageResource(SesameLoginInfo.getSecretaryImg());
+        mImageViewSecretary.setImageResource(GetCarInfo.getInstance().secretaryID == 1?R.drawable.secretary_female:R.drawable.secretary_male);
         String s = "第一次体检需填写行驶里程，系统会根据公里数匹配相应的体检模式！";
         mTextViewSecretary.setText(s);
     }
@@ -160,11 +161,11 @@ public class TestFirstView extends MenuCalendar {
                     // 确定按钮
                     ModifyCarInfo mModifyCarInfo = new ModifyCarInfo();
 
-                    String brandid = SesameLoginInfo.getBrandid();
-                    String optionid = SesameLoginInfo.getOptionid();
-                    String carid = SesameLoginInfo.getCarid();
-                    String carLogo = SesameLoginInfo.getCarlogo();
-                    String carName = SesameLoginInfo.getCarname();
+                    String brandid = GetCarInfo.getInstance().brandid+"";
+                    String optionid = GetCarInfo.getInstance().optionid+"";
+                    String carid = GetCarInfo.getInstance().styleId+"";
+                    String carLogo = GetCarInfo.getInstance().carLogo;
+                    String carName = GetCarInfo.getInstance().carName;
 
                     mModifyCarInfo.setBrandid(brandid);
                     mModifyCarInfo.setOptionid(optionid);

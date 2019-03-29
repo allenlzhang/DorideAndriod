@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
@@ -132,7 +133,7 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
     }
 
     private void setContent() {
-        isFreeze = SesameLoginInfo.isFreezing();
+        isFreeze = UserInfo.getInstance().userFreeze == 2;
         if (isFreeze) {
             mViewPsw.setVisibility(View.VISIBLE);
             mTxtAccount.setVisibility(View.VISIBLE);
@@ -141,7 +142,7 @@ public class ThawActivity extends BaseActivity implements OnClickListener {
             mTxtDes1.setText("解除账号冻结");
             mTxtDes2.setText("请确认账号安全后再解除冻结");
 
-            String mobile = SesameLoginInfo.getMobile();
+            String mobile = UserInfo.getInstance().mobile;
             if (mobile != null && mobile.length() == 11) {
                 String s1 = mobile.substring(0, 3);
                 String s2 = mobile.substring(7);

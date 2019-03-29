@@ -20,6 +20,11 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
+import com.carlt.doride.http.retrofitnet.model.CarConfigRes;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -30,6 +35,7 @@ import com.carlt.doride.ui.activity.setting.CarTypeListActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.data.SesameLoginInfo;
+import com.carlt.sesame.preference.TokenInfo;
 import com.orhanobut.logger.Logger;
 import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
 import com.tencent.android.tpush.XGPushConfig;
@@ -49,7 +55,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class ActivityControl {
 
     private static List<Activity> mActivityList = new ArrayList<Activity>();
-
+    private static UserInfo userInfo = UserInfo.getInstance();
     public static void addActivity(Activity activity) {
         if (null != activity) {
             mActivityList.add(activity);
@@ -105,12 +111,12 @@ public class ActivityControl {
         build.setFlags(Notification.FLAG_AUTO_CANCEL);
         String useId;
         String dealerId;
-        if (LoginInfo.getApp_type() == 1) {
-            useId = LoginInfo.getUseId();
-            dealerId = LoginInfo.getDealerId();
+        if (GetCarInfo.getInstance().carType == 1) {
+            useId = userInfo.id+"";
+            dealerId = userInfo.dealerId+"";
         } else {
-            useId = SesameLoginInfo.getUseId();
-            dealerId = SesameLoginInfo.getDealerId();
+            useId = userInfo.id+"";
+            dealerId = userInfo.dealerId+"";
         }
         XGPushConfig.enableDebug(mContext, true);
         Log.e("info", "userId====" + useId);
@@ -119,9 +125,7 @@ public class ActivityControl {
             // 设置通知样式，样式编号为2，即build_id为2，可通过后台脚本指定
             XGPushManager.setPushNotificationBuilder(mContext, 2, build);
             XGPushManager.setTag(mContext, dealerId);
-            if (LoginInfo.getPush_prizeinfo_flag() == 1) {
                 XGPushManager.setTag(mContext, dealerId + "_31");
-            }
         } else {
             switch (URLConfig.flag) {
                 case URLConfig.VERSION_FORMAL:
@@ -129,30 +133,24 @@ public class ActivityControl {
                     XGPushManager.registerPush(mContext, useId);
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
                     XGPushManager.setTag(mContext, dealerId);
-                    if (LoginInfo.getPush_prizeinfo_flag() == 1) {
                         XGPushManager.setTag(mContext, dealerId
                                 + "_31");
-                    }
                     break;
                 case URLConfig.VERSION_PREPARE:
                     // 预发布服
                     XGPushManager.registerPush(mContext, useId);
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
                     XGPushManager.setTag(mContext, dealerId);
-                    if (LoginInfo.getPush_prizeinfo_flag() == 1) {
                         XGPushManager.setTag(mContext, dealerId
                                 + "_31");
-                    }
                     break;
                 case URLConfig.VERSION_TEST:
                     // 测试服
                     XGPushManager.registerPush(mContext, "t_" + useId);
                     XGPushManager.setPushNotificationBuilder(mContext, 2, build);
                     XGPushManager.setTag(mContext, "t_" + dealerId);
-                    if (LoginInfo.getPush_prizeinfo_flag() == 1) {
                         XGPushManager.setTag(mContext,
                                 "t_" + dealerId + "_31");
-                    }
                     break;
             }
         }
@@ -194,7 +192,7 @@ public class ActivityControl {
             @Override
             public void onLeftClick() {
                 // 注销
-                LoginInfo.setNoneedpsw(false);
+                UserInfo.getInstance().remotePwdSwitch = 0;
                 onLogout(context);
             }
         };
@@ -211,8 +209,14 @@ public class ActivityControl {
         mUseInfo.setPassword("");
         UseInfoLocal.setUseInfo(mUseInfo);
         //		DorideApplication.TOKEN = "";
-        LoginInfo.setAccess_token("");
-        //        LoginInfo.Destroy();
+        TokenInfo.setToken("");
+
+        UserInfo.getInstance().initUserInfo();
+        GetCarInfo.getInstance().initCarInfo();
+        OtherInfo.getInstance().initInfo();
+        ContactsInfo.getInstance().initContactsInfo();
+        CarConfigRes.getInstance().initCarConfigRes();
+
         SesameLoginInfo.Destroy();
         Intent mIntent = new Intent(context, UserLoginActivity.class);
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -223,19 +227,17 @@ public class ActivityControl {
 
     /******** 退出操作 ****************/
     public static void onExit() {
-        if (!TextUtils.isEmpty(LoginInfo.getAccess_token())) {
+        if (!TextUtils.isEmpty(TokenInfo.getToken())) {
             CPControl.GetUnRigisterXgTokenResult(DorideApplication.NIMEI,
                     new BaseParser.ResultCallback() {
                         @Override
                         public void onSuccess(BaseResponseInfo bInfo) {
-                            LoginInfo.Destroy();
                             //							DorideApplication.TOKEN = "";
                             Log.e("info", "注销信鸽成功");
                         }
 
                         @Override
                         public void onError(BaseResponseInfo bInfo) {
-                            LoginInfo.Destroy();
                             //							DorideApplication.TOKEN = "";
                             Log.e("info", "注销信鸽失败");
                         }
@@ -333,7 +335,7 @@ public class ActivityControl {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String extiLoginTime = sdf.format(date);
         SharedPreferences.Editor editor = DorideApplication.getAppContext().getSharedPreferences("LastLoginTime", MODE_PRIVATE).edit();
-        editor.putString("LoginTime" + LoginInfo.getMobile(), extiLoginTime);
+        editor.putString("LoginTime" + UserInfo.getInstance().mobile, extiLoginTime);
         editor.apply();
     }
 

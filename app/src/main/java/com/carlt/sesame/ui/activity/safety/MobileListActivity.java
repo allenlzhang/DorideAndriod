@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -130,7 +131,8 @@ public class MobileListActivity extends LoadingActivityWithTitle implements OnCl
             }
         });
 
-        mTxtHostName.setText(SesameLoginInfo.getMainDevicename());
+//        mTxtHostName.setText(SesameLoginInfo.getMainDevicename());
+        mTxtHostName.setText("");
         mTxtOption.setOnClickListener(this);
         mTxtOption.setTag(mTxtOption.getText().toString());
     }
@@ -291,7 +293,7 @@ public class MobileListActivity extends LoadingActivityWithTitle implements OnCl
         mInfoLists = (MobileListInfo)data;
         if (mInfoLists != null) {
             mList = mInfoLists.getmMobileInfoList();
-            if (SesameLoginInfo.isMain()) {
+            if (OtherInfo.getInstance().isMain()) {
                 if(mList!=null&&mList.size()>0){
                     mTxtOption.setVisibility(View.VISIBLE);
                 }else{
@@ -510,7 +512,7 @@ public class MobileListActivity extends LoadingActivityWithTitle implements OnCl
                                 mAdapter.notifyDataSetChanged();
                             }
                             mList = mInfoLists.getmMobileInfoList();
-                            if (SesameLoginInfo.isMain()) {
+                            if (OtherInfo.getInstance().isMain()) {
                                 if(mList!=null&&mList.size()>0){
                                     mTxtOption.setVisibility(View.VISIBLE);
                                 }else{
@@ -582,7 +584,8 @@ public class MobileListActivity extends LoadingActivityWithTitle implements OnCl
     @Override
     protected void onResume() {
         super.onResume();
-        mTxtHostName.setText(SesameLoginInfo.getMainDevicename());
+//        mTxtHostName.setText(SesameLoginInfo.getMainDevicename());
+        mTxtHostName.setText("");
         LoadData();
         
     }

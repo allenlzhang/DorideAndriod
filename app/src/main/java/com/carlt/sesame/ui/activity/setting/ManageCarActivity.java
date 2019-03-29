@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.setting;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +27,9 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
+import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -154,24 +159,24 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
     @Override
     protected void LoadSuccess(Object data) {
 
-        if (SesameLoginInfo.getCarname() != null) {
-            mTxtCarname.setText(SesameLoginInfo.getCarname());
+        if (GetCarInfo.getInstance().carName != null) {
+            mTxtCarname.setText(GetCarInfo.getInstance().carName);
         }
 
-        if (SesameLoginInfo.getBuydate() != null) {
-            mTxtBuydate.setText(SesameLoginInfo.getBuydate());
+        if (GetCarInfo.getInstance().buyDate != 0) {
+            mTxtBuydate.setText(MyTimeUtils.formatDateGetDaySecend(GetCarInfo.getInstance().buyDate));
         } else {
             mTxtBuydate.setText("");
         }
 
-        if (SesameLoginInfo.getMainten_miles() != null) {
-            mTxtMaintainMile.setText(SesameLoginInfo.getMainten_miles());
+        if (GetCarInfo.getInstance().maintenMiles != 0) {
+            mTxtMaintainMile.setText(GetCarInfo.getInstance().maintenMiles+"");
         }
 
-        if (SesameLoginInfo.getMainten_time() != null) {
-            mTxtMaintainDate.setText(SesameLoginInfo.getMainten_time());
+        if (GetCarInfo.getInstance().maintenDate != 0) {
+            mTxtMaintainDate.setText(MyTimeUtils.formatDateGetDaySecend(GetCarInfo.getInstance().maintenDate));
         }
-        carLogo = SesameLoginInfo.getCarlogo();
+        carLogo = GetCarInfo.getInstance().carLogo;
         super.LoadSuccess(data);
     }
 
@@ -452,6 +457,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -461,7 +467,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     if (mDialog != null) {
                         mDialog.dismiss();
                     }
-                    carName = SesameLoginInfo.getCarname();
+                    carName = GetCarInfo.getInstance().carName;
                     mTxtCarname.setText(carName);
                     Intent mIntent = new Intent();
                     mIntent.setAction(CarMainActivity.CARMAIN_CARYEAR);
@@ -502,7 +508,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     if (mDialog != null) {
                         mDialog.dismiss();
                     }
-                    String buyDate = SesameLoginInfo.getBuydate();
+                    String buyDate = MyTimeUtils.formatDateGetDaySecend(GetCarInfo.getInstance().buyDate);
                     mTxtBuydate.setText(buyDate);
                     UUToast.showUUToast(ManageCarActivity.this, "修改购车日期成功！");
                     break;
@@ -529,7 +535,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     if (mDialog != null) {
                         mDialog.dismiss();
                     }
-                    String maintainDate = SesameLoginInfo.getMainten_time();
+                    String maintainDate = MyTimeUtils.formatDateGetDaySecend(GetCarInfo.getInstance().maintenDate);
                     Log.e("info", "maintainDate==" + maintainDate);
                     mTxtMaintainDate.setText(maintainDate);
                     UUToast.showUUToast(ManageCarActivity.this, "修改上次保养日期成功！");
@@ -663,7 +669,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
             } else {
                 mStringBuffer.append(day);
             }
-            String buyDate = SesameLoginInfo.getBuydate();
+            String buyDate = MyTimeUtils.formatDateGetDaySecend(GetCarInfo.getInstance().buyDate);
             if (buyDate.equals(mStringBuffer.toString())) {
                 // 是否改变了日期
                 UUToast.showUUToast(ManageCarActivity.this, "您还没有更改购车时间哦");
@@ -726,7 +732,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
             } else {
                 mStringBuffer.append(day);
             }
-            String maintainDate = SesameLoginInfo.getMainten_time();
+            String maintainDate = MyTimeUtils.formatDateGetDaySecend(GetCarInfo.getInstance().maintenDate);
             if (maintainDate.equals(mStringBuffer.toString())) {
                 // 是否改变了日期
                 UUToast.showUUToast(ManageCarActivity.this, "您还没有更改日期哦");

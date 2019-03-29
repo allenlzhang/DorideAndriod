@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -135,7 +136,7 @@ public class SecretaryRemoteActivity extends LoadingActivityWithTitle implements
         mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
         mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
 
-        mImageViewSecretary.setImageResource(SesameLoginInfo.getSecretaryImg());
+        mImageViewSecretary.setImageResource(GetCarInfo.getInstance().secretaryID == 1?R.drawable.secretary_female:R.drawable.secretary_male);
         mTextViewSecretary.setText("根据你的情况，为你推荐了一位汽车顾问");
     }
 
@@ -345,7 +346,7 @@ public class SecretaryRemoteActivity extends LoadingActivityWithTitle implements
     @Override
     public void OnImgLoadFinished(String url, Bitmap mBitmap) {
         super.OnImgLoadFinished(url, mBitmap);
-        if (url.equals(SesameLoginInfo.getSecretaryImg())) {
+        if (url.equals(GetCarInfo.getInstance().secretaryID == 1?R.drawable.secretary_female:R.drawable.secretary_male)) {
             mImageViewSecretary.setImageBitmap(mBitmap);
         } else if (url.equals(mRecommendSalesInfo.getImgUrl())) {
             mImageView2.setImageBitmap(mBitmap);

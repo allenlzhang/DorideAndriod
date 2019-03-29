@@ -25,6 +25,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
@@ -316,8 +317,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
         switch (v.getId()) {
             case R.id.state_car_iv:
                 showWaitingDialog("正在获取车辆状态...");
-                CPControl.GetRemoteCarState(mListener_states,
-                        SesameLoginInfo.getDeviceType());
+                CPControl.GetRemoteCarState(mListener_states);
                 break;
             case R.id.remote_history_iv:
                 // 远程记录
@@ -536,14 +536,14 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
      * 点击逻辑
      */
     private void clickLogic() {
-        boolean hasRemotePswMd5 = SesameLoginInfo.isSetRemotePwd();
+        boolean hasRemotePswMd5 = UserInfo.getInstance().isSetRemotePwd == 1;
         // 车辆状态view打开
         if (hasRemotePswMd5) {
             Log.e("info", "remotemain_isFirstClick==" + isFirstClick);
             if (isFirstClick) {
                 showEditDialog();
             } else {
-                if (SesameLoginInfo.isNoneedpsw()) {
+                if (UserInfo.getInstance().remotePwdSwitch == 1) {
                     if (getTimeOutStatus()) {
                         showEditDialog();
                     } else {
@@ -557,8 +557,8 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
             DialogWithTitleClick click = new DialogWithTitleClick() {
                 @Override
                 public void onRightClick() {
-                    Log.e("info", "LoginInfo.isAuthen==" + SesameLoginInfo.isAuthen());
-                    if (SesameLoginInfo.isAuthen()) {
+                    Log.e("info", "LoginInfo.isAuthen==" + UserInfo.getInstance().isAuthen.equals("1"));
+                    if (UserInfo.getInstance().isAuthen.equals("1")) {
                         Intent mIntent = new Intent(RemoteMainNewActivity.this, RemotePswResetActivity3.class);
                         mIntent.putExtra(RemotePswResetActivity3.TYPE,
                                 RemotePswResetActivity3.TYPE_REMOTE);
