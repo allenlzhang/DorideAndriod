@@ -84,15 +84,8 @@ public class ActivateStepActivity extends BaseActivity {
         disposable = Observable.interval(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(aLong -> {
-                    requestLogInfo(false);
-                })
-                .subscribe(aLong -> {
-                    time--;
-                    if (time <= 0) {
-                        disposable.dispose();
-                    }
-                }, throwable -> LogUtils.e(throwable.getMessage()));
+                .doOnNext(aLong -> requestLogInfo(false))
+                .subscribe(this::accept, throwable -> LogUtils.e(throwable.getMessage()));
 
 
     }
@@ -116,6 +109,9 @@ public class ActivateStepActivity extends BaseActivity {
             public void onError(String msg) {
                 showToast(msg);
                 dissmissWaitingDialog();
+                if (disposable != null) {
+                    disposable.dispose();
+                }
             }
         });
     }
@@ -201,6 +197,10 @@ public class ActivateStepActivity extends BaseActivity {
             }
         } else {
             showToast(info.err.msg);
+            tvState.setText(info.err.msg);
+            if (disposable != null) {
+                disposable.dispose();
+            }
         }
 
 
@@ -290,9 +290,16 @@ public class ActivateStepActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            showToast("请点击“进入主页面”");
+            //            showToast("请点击“进入主页面”");
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void accept(Long aLong) {
+        time--;
+        if (time <= 0) {
+            disposable.dispose();
+        }
     }
 }

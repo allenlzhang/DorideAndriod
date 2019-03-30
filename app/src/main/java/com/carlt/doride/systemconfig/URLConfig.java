@@ -2,6 +2,7 @@ package com.carlt.doride.systemconfig;
 
 
 import com.carlt.doride.DorideApplication;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
 
 public class URLConfig {
     public final static int    VERSION_FORMAL  = 1001;// 正式服
@@ -18,9 +19,8 @@ public class URLConfig {
     public static final String AUTOGO_TEST_ACCESSID = "12938315356991092938";   //autoGo 测试
 
 
-
     //正式服和预发布id
-    public static final String AUTOGO_PRE_ACCESSID  = "10590215396563070590";
+    public static final String AUTOGO_PRE_ACCESSID = "10590215396563070590";
 
     // 端口号
     public final static  int    FtpPort = 10021;
@@ -83,6 +83,7 @@ public class URLConfig {
             case VERSION_FORMAL:
                 // 正式服
                 url = AUTO_FORMAL_BASE_URL;
+
                 break;
 
             case VERSION_PREPARE:
@@ -94,6 +95,7 @@ public class URLConfig {
                 url = AUTO_TEST_BASE_URL;
                 break;
         }
+        ApiRetrofit.getInstance().changeBaseUrl(url);
         return url;
     }
 

@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
@@ -335,6 +336,9 @@ public class RemoteMainFragment extends BaseFragment implements
 
         @Override
         public void onClick(View v) {
+            if (hasActivate()) {
+                return;
+            }
             RemoteFunInfo mInfo = (RemoteFunInfo) v.getTag();
             selectedPos = MyParse.parseInt(mInfo.getId());
             Logger.e("---" + mInfo.toString());
@@ -805,7 +809,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
     private boolean hasActivate() {
         int remoteStatus = GetCarInfo.getInstance().remoteStatus;
-
+        LogUtils.e(remoteStatus);
         switch (remoteStatus) {
             case 0:
                 PopBoxCreat.createDialogNotitle(mCtx, "温馨提示",
@@ -828,6 +832,7 @@ public class RemoteMainFragment extends BaseFragment implements
                         });
                 break;
             case 1:
+            case 3:
                 PopBoxCreat.createDialogNotitle(mCtx, "温馨提示",
                         "设备正在激活中...",
                         "确定", "查看详情", new PopBoxCreat.DialogWithTitleClick() {

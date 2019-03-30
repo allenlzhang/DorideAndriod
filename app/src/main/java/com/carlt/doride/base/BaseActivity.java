@@ -51,7 +51,7 @@ public class BaseActivity extends AppCompatActivity implements
     /**
      * 进入后台之前 要干的事的集合
      */
-    protected static ArrayList<BeforeGoToBackground> mBackDoList = new ArrayList<BeforeGoToBackground>();
+    protected static ArrayList<BeforeGoToBackground> mBackDoList = new ArrayList<>();
 
     protected Context mContext;
 

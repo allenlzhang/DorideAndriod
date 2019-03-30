@@ -1,18 +1,16 @@
 package com.carlt.doride.http.retrofitnet;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.BuildConfig;
 import com.carlt.doride.http.retrofitnet.cookies.CookiesManager;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.sesame.preference.TokenInfo;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -33,29 +31,26 @@ public class ApiRetrofit implements IApiService {
     private                Retrofit     mRetrofit;
     private                OkHttpClient mHttpClient;
     private                ApiService   mApiService;
-    private static         Interceptor  mInterceptor  = new Interceptor() {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
-            Request.Builder newRequest = request.newBuilder()
-                    .header("Carlt-Access-Id", URLConfig.getAutoGoAccessId())
-                    .header("Content-Type", "application/json")
-                    .header("Carlt-Token", TokenInfo.getToken())
-                    .method(request.method(), request.body());
+    private static         Interceptor  mInterceptor  = chain -> {
+        Request request = chain.request();
+        Request.Builder newRequest = request.newBuilder()
+                .header("Carlt-Access-Id", URLConfig.getAutoGoAccessId())
+                .header("Content-Type", "application/json")
+                .header("Carlt-Token", TokenInfo.getToken())
+                .method(request.method(), request.body());
 
 
-//            long startTime = System.currentTimeMillis();
+        //            long startTime = System.currentTimeMillis();
 
-//            Response response = chain.proceed(newRequest.build());
-//            long endTime = System.currentTimeMillis();
-//            long duration = endTime - startTime;
-//            String content = response.body().string();
-//            Log.e(TAG, "----------Request Start----------------");
-//            Log.e(TAG, "| " + request.toString() + request.headers());
-//            Log.e(TAG, "| Response:" + content);
-//            Log.e(TAG, "----------Request End:" + duration + "毫秒----------");
-            return chain.proceed(newRequest.build());
-        }
+        //            Response response = chain.proceed(newRequest.build());
+        //            long endTime = System.currentTimeMillis();
+        //            long duration = endTime - startTime;
+        //            String content = response.body().string();
+        //            Log.e(TAG, "----------Request Start----------------");
+        //            Log.e(TAG, "| " + request.toString() + request.headers());
+        //            Log.e(TAG, "| Response:" + content);
+        //            Log.e(TAG, "----------Request End:" + duration + "毫秒----------");
+        return chain.proceed(newRequest.build());
     };
 
     public static ApiRetrofit getInstance() {
@@ -90,11 +85,23 @@ public class ApiRetrofit implements IApiService {
                 .cookieJar(new CookiesManager())
                 .build();
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(URLConfig.getAutoGoUrl())
+                .baseUrl(URLConfig.AUTO_TEST_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 //                .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(mHttpClient)
+                .build();
+        mApiService = mRetrofit.create(ApiService.class);
+    }
+
+    public void changeBaseUrl(String baseUrl) {
+        LogUtils.e("baseUrl===>" + baseUrl);
+        mRetrofit = null;
+        mRetrofit = new Retrofit.Builder()
+                .client(mHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(baseUrl)
                 .build();
         mApiService = mRetrofit.create(ApiService.class);
     }

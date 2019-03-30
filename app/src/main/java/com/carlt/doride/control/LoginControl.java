@@ -21,7 +21,6 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.doride.utils.CipherUtils;
 import com.carlt.sesame.control.CPControl;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.safety.FreezeActivity;
@@ -64,9 +63,9 @@ public class LoginControl {
             switch (activate_status) {
                 case 3:
                     //激活失败
-                    Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-                    mContext.startActivity(loginIntent);
-                    break;
+//                    Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
+//                    mContext.startActivity(loginIntent);
+//                    break;
                 case 0:
                     //未激活
                 case 1:

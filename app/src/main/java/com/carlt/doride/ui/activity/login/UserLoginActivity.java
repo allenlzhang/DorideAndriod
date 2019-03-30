@@ -43,10 +43,10 @@ import com.carlt.sesame.control.CPControl;
 public class UserLoginActivity extends BaseActivity implements View.OnClickListener {
 
 
-    private TextView login_version;//版本信息
-    private TextView forgot_passwd;//忘记密码
+    private TextView  login_version;//版本信息
+    private TextView  forgot_passwd;//忘记密码
     private ImageView user_regist;//用户注册
-    private TextView login_commit;//登录按钮
+    private TextView  login_commit;//登录按钮
 
     private ImageView login_logo;//大乘Logo图片
     private ImageView passwd_toggle;//显示密码
@@ -54,8 +54,8 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
     private EditText user_phone;//用户账号（手机）
     private EditText user_passwd;//用户密码
 
-    private String userPhone;
-    private String passwd;
+    private String  userPhone;
+    private String  passwd;
     private UseInfo mUseInfo;// 本地记录用户使用app情况
 
     private Dialog mDialog;// 加载
@@ -71,13 +71,14 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
     private static final String TAG = "UserLoginActivity";
 
-    private Intent resultIntent;
+    private   Intent   resultIntent;
     protected String[] needPermissions = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
-            
+
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,8 +164,8 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
 
         super.onResume();
-        MainActivity.localUrl = null ;
-        RecorderMainFragment.upGradeFilePath= null ;
+        MainActivity.localUrl = null;
+        RecorderMainFragment.upGradeFilePath = null;
     }
 
     @Override
@@ -185,6 +186,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                     // 正式服
                     URLConfig.flag = URLConfig.VERSION_TEST;
                     change.setText("测试:" + DorideApplication.VersionName);
+
                     break;
 
                 case URLConfig.VERSION_PREPARE:
@@ -197,7 +199,9 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                     URLConfig.flag = URLConfig.VERSION_PREPARE;
                     change.setText("预发布:" + DorideApplication.VersionName);
                     break;
+
             }
+            URLConfig.getAutoGoUrl();
         }
     }
 
@@ -230,6 +234,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                 break;
         }
     }
+
     CPControl.GetResultListCallback callback = new CPControl.GetResultListCallback() {
         @Override
         public void onFinished(Object o) {
@@ -242,9 +247,9 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                 mDialog.dismiss();
             }
             String msg = (String) o;
-            if (TextUtils.isEmpty(msg)){
+            if (TextUtils.isEmpty(msg)) {
                 showToast("登录失败...");
-            }else {
+            } else {
                 UUToast.showUUToast(UserLoginActivity.this, (String) o);
             }
         }

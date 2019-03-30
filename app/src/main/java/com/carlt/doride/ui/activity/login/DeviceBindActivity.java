@@ -279,6 +279,17 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         }
     };
     private void justActivate() {
+        addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
+            @Override
+            public void onSuccess(GetCarInfo result) {
+                GetCarInfo.getInstance().setCarInfo(result);
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
         PopBoxCreat.createDialogNotitle(this,
                 "温馨提示",
                 "您的爱车已添加，您现在可以去激活设备啦，激活成功后，就能使用全部功能啦！",
@@ -301,17 +312,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                         startActivity(activateIntent);
                     }
                 });
-        addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
-            @Override
-            public void onSuccess(GetCarInfo result) {
-                GetCarInfo.getInstance().setCarInfo(result);
-            }
 
-            @Override
-            public void onError(String msg) {
-
-            }
-        });
     }
     private boolean isVinValid() {
         if (TextUtils.isEmpty(deviceId)) {
