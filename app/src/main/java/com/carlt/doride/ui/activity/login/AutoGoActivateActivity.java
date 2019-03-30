@@ -85,12 +85,7 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
         activate_commit = findViewById(R.id.activate_commit);
         activate_commit.setOnClickListener(this);
         ivHelp.setVisibility(View.VISIBLE);
-        ivHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AutoGoActivateActivity.this, ActivateHelpActivity.class));
-            }
-        });
+        ivHelp.setOnClickListener(v -> startActivity(new Intent(AutoGoActivateActivity.this, ActivateHelpActivity.class)));
     }
 
     private void initSubTitle() {

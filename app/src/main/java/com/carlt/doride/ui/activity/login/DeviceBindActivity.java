@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.data.BaseResponseInfo;
@@ -20,10 +21,10 @@ import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.setting.CarModeListActivity;
+import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.sesame.data.SesameBindDeviceInfo;
 import com.carlt.sesame.preference.TokenInfo;
-import com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -154,6 +155,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.bind_commit:
                 deviceId = car_vin_code.getText().toString();
+                //立即激活
                 if (isVinValid()) {
                     if (GetCarInfo.getInstance().carType == 1) {
                         //  大乘
@@ -165,6 +167,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                     }
 
                 }
+
+
+
                 break;
         }
     }
@@ -194,9 +199,18 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                                 SesameBindDeviceInfo info = gson.fromJson(body, SesameBindDeviceInfo.class);
                                 UUToast.showUUToast(DeviceBindActivity.this, "绑定成功!");
                                 // 跳转芝麻的激活页面
-                                Intent sesameActivateIntent = new Intent(DeviceBindActivity.this, SesameActivateActivity.class);
-                                sesameActivateIntent.putExtra("need_pin", info.data.need_pin);
-                                startActivity(sesameActivateIntent);
+//                                Intent sesameActivateIntent = new Intent(DeviceBindActivity.this, SesameActivateActivity.class);
+//                                sesameActivateIntent.putExtra("need_pin", info.data.need_pin);
+//                                startActivity(sesameActivateIntent);
+
+
+//                                Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
+//                                activateIntent.putExtra("vin", vinCode);
+//                                activateIntent.putExtra("carType", carTitle);
+//                                activateIntent.putExtra("carID", mCarid);
+
+//                                startActivity(activateIntent);
+                                justActivate();
                             } else {
                                 UUToast.showUUToast(DeviceBindActivity.this, msg);
                             }
@@ -243,16 +257,16 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 btn_select_car.setText(GetCarInfo.getInstance().carName);
             }
 
+            justActivate();
+
             //  大乘
             //            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
-            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
-            activateIntent.putExtra("vin", vinCode);
-            activateIntent.putExtra("carType", carTitle);
-            activateIntent.putExtra("carID", mCarid);
-            startActivity(activateIntent);
+
 
 
         }
+
+
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
@@ -263,7 +277,30 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             }
         }
     };
+    private void justActivate() {
+        PopBoxCreat.createDialogNotitle(this,
+                "温馨提示",
+                "您的爱车已添加，您现在可以去激活设备啦，激活成功后，就能使用全部功能啦！",
+                "稍后激活", "立即激活", new PopBoxCreat.DialogWithTitleClick() {
+                    @Override
+                    public void onLeftClick() {
+                        //稍后激活
+                        Intent intent2 = new Intent(DeviceBindActivity.this, MainActivity.class);
+                        startActivity(intent2);
+                        finish();
+                    }
 
+                    @Override
+                    public void onRightClick() {
+                        //立即激活
+                        Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
+                        activateIntent.putExtra("vin", vinCode);
+                        activateIntent.putExtra("carType", carTitle);
+                        activateIntent.putExtra("carID", mCarid);
+                        startActivity(activateIntent);
+                    }
+                });
+    }
     private boolean isVinValid() {
         if (TextUtils.isEmpty(deviceId)) {
             UUToast.showUUToast(this, " VIN码不能为空");

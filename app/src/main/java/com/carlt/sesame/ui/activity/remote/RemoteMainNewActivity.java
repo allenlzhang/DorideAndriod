@@ -25,15 +25,17 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
+import com.carlt.doride.ui.activity.login.ActivateAccActivity;
+import com.carlt.doride.ui.activity.login.ActivateStepActivity;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.doride.utils.LoadLocalImageUtil;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.remote.AirMainInfo;
 import com.carlt.sesame.data.remote.CarStateInfo;
 import com.carlt.sesame.data.remote.ChargeStatusInfo;
@@ -95,10 +97,10 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     private View mViewFour;// 展示4个按钮
     private View mViewFive;// 展示5个按钮
 
-    private final static long INVALID_DURATION = 5 * 60 * 1000;// 密码实效时长
-    private RemoteReceiver mReceiver;
-    private PlayRadio      mPlayRadio;
-    private int lastOpt = -1;
+    private final static long           INVALID_DURATION = 5 * 60 * 1000;// 密码实效时长
+    private              RemoteReceiver mReceiver;
+    private              PlayRadio      mPlayRadio;
+    private              int            lastOpt          = -1;
     boolean isFirstClick;
     String  password;
     long    startTime;
@@ -255,27 +257,27 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                 LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter2, R.drawable.remote_new_bg);
                 LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter3, R.drawable.remote_new_bg);
                 LoadLocalImageUtil.getInstance().displayFromWeb(pictrueInfo.filePath, imgCenter4, R.drawable.remote_new_bg);
-//                if (mViewOne.getVisibility() == View.VISIBLE) {
-//                    Glide.with(RemoteMainNewActivity.this)
-//                            .load(pictrueInfo.filePath)
-//                            .into(imgCenter);
-//                } else if (mViewTwo.getVisibility() == View.VISIBLE) {
-//                    Glide.with(RemoteMainNewActivity.this)
-//                            .load(pictrueInfo.filePath)
-//                            .into(imgCenter1);
-//                } else if (mViewThree.getVisibility() == View.VISIBLE) {
-//                    Glide.with(RemoteMainNewActivity.this)
-//                            .load(pictrueInfo.filePath)
-//                            .into(imgCenter2);
-//                } else if (mViewFour.getVisibility() == View.VISIBLE) {
-//                    Glide.with(RemoteMainNewActivity.this)
-//                            .load(pictrueInfo.filePath)
-//                            .into(imgCenter3);
-//                } else if (mViewFive.getVisibility() == View.VISIBLE) {
-//                    Glide.with(RemoteMainNewActivity.this)
-//                            .load(pictrueInfo.filePath)
-//                            .into(imgCenter4);
-//                }
+                //                if (mViewOne.getVisibility() == View.VISIBLE) {
+                //                    Glide.with(RemoteMainNewActivity.this)
+                //                            .load(pictrueInfo.filePath)
+                //                            .into(imgCenter);
+                //                } else if (mViewTwo.getVisibility() == View.VISIBLE) {
+                //                    Glide.with(RemoteMainNewActivity.this)
+                //                            .load(pictrueInfo.filePath)
+                //                            .into(imgCenter1);
+                //                } else if (mViewThree.getVisibility() == View.VISIBLE) {
+                //                    Glide.with(RemoteMainNewActivity.this)
+                //                            .load(pictrueInfo.filePath)
+                //                            .into(imgCenter2);
+                //                } else if (mViewFour.getVisibility() == View.VISIBLE) {
+                //                    Glide.with(RemoteMainNewActivity.this)
+                //                            .load(pictrueInfo.filePath)
+                //                            .into(imgCenter3);
+                //                } else if (mViewFive.getVisibility() == View.VISIBLE) {
+                //                    Glide.with(RemoteMainNewActivity.this)
+                //                            .load(pictrueInfo.filePath)
+                //                            .into(imgCenter4);
+                //                }
 
             }
 
@@ -292,6 +294,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
     @Override
     public void onClick(View v) {
+        if (hasActivate())
+            return;
+
         RemoteFunInfo mRemoteFunInfo = (RemoteFunInfo) v.getTag();
         if (mRemoteFunInfo != null) {
             String RemoteFunInfoID = mRemoteFunInfo.getId();
@@ -344,6 +349,57 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                 isFirstClick = true;
             }
         }
+    }
+
+    private boolean hasActivate() {
+        int remoteStatus = GetCarInfo.getInstance().remoteStatus;
+
+        switch (remoteStatus) {
+            case 0:
+                com.carlt.doride.ui.view.PopBoxCreat.createDialogNotitle(this, "温馨提示",
+                        "设备还未激活",
+                        "确定", "去激活", new com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick() {
+                            @Override
+                            public void onLeftClick() {
+
+                            }
+
+                            @Override
+                            public void onRightClick() {
+                                Intent activateIntent = new Intent(RemoteMainNewActivity.this, ActivateAccActivity.class);
+                                int id = GetCarInfo.getInstance().id;
+                                String vin = GetCarInfo.getInstance().vin;
+                                activateIntent.putExtra("carID", String.valueOf(id));
+                                activateIntent.putExtra("vin", vin);
+                                startActivity(activateIntent);
+                            }
+                        });
+                break;
+            case 1:
+                com.carlt.doride.ui.view.PopBoxCreat.createDialogNotitle(this, "温馨提示",
+                        "设备正在激活中...",
+                        "确定", "查看详情", new com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick() {
+                            @Override
+                            public void onLeftClick() {
+
+                            }
+
+                            @Override
+                            public void onRightClick() {
+                                Intent activateIntent = new Intent(RemoteMainNewActivity.this, ActivateStepActivity.class);
+                                int id = GetCarInfo.getInstance().id;
+                                String vin = GetCarInfo.getInstance().vin;
+                                activateIntent.putExtra("carID", String.valueOf(id));
+                                activateIntent.putExtra("vin", vin);
+                                startActivity(activateIntent);
+                            }
+                        });
+                break;
+        }
+        if (remoteStatus != 2) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -536,6 +592,9 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
      * 点击逻辑
      */
     private void clickLogic() {
+        if (hasActivate())
+            return;
+
         boolean hasRemotePswMd5 = UserInfo.getInstance().isSetRemotePwd == 1;
         // 车辆状态view打开
         if (hasRemotePswMd5) {

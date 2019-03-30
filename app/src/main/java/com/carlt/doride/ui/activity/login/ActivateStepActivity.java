@@ -126,7 +126,7 @@ public class ActivateStepActivity extends BaseActivity {
             for (ActivateStepInfo.StepsBean step : steps) {
                 if (step.isSuccess == 1) {
                     //                    tvRetry.setVisibility(View.GONE);
-                    tvRetry.setText("进入主页面");
+                    tvRetry.setText("进入首页");
                     ERR_TYPE = 3;
                     tvTip.setVisibility(View.GONE);
                     logs.add(step);

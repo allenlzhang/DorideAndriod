@@ -33,11 +33,13 @@ import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.CarStateInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.activity.login.ActivateAccActivity;
+import com.carlt.doride.ui.activity.login.ActivateStepActivity;
 import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.doride.ui.activity.remote.RemoteLogActivity;
 import com.carlt.doride.ui.activity.remote.RemotePswResetActivity3;
@@ -66,7 +68,7 @@ import java.util.TimerTask;
  */
 
 public class RemoteMainFragment extends BaseFragment implements
-        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener, SelectPopupWindow.OnPopWindowClickListener,WIFIControl.WIFIConnectListener {
+        AdapterView.OnItemClickListener, View.OnClickListener, View.OnTouchListener, SelectPopupWindow.OnPopWindowClickListener, WIFIControl.WIFIConnectListener {
     public final static String ACTION_REMOTE_SETPSW = "com.carlt.doride.action_remote_setpsw";
 
     public final static String ACTION_REMOTE_RESETPSW = "com.carlt.doride.action_remote_resetpsw";
@@ -75,7 +77,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
 
     private static String TAG = "RemoteMainFragment";
-    private View view;
+    private        View   view;
     //效果声音播放组件
     //    private PlayRadio mPlayRadio;
 
@@ -169,6 +171,16 @@ public class RemoteMainFragment extends BaseFragment implements
                 Logger.e(TAG, "onError" + bInfo.toString());
                 //                    actLoadError((BaseResponseInfo) bInfo);
                 loadonErrorUI(bInfo);
+                if (bInfo.getFlag() == 1014) {
+                    mTxtRetryError.setText("点击激活设备");
+                    mTxtRetryError.setOnClickListener(v -> {
+                        Intent activateIntent = new Intent(mCtx, ActivateAccActivity.class);
+                        //                        activateIntent.putExtra("vin", vinCode);
+                        //                        activateIntent.putExtra("carType", carTitle);
+                        //                        activateIntent.putExtra("carID", mCarid);
+                        startActivity(activateIntent);
+                    });
+                }
                 errorUi();
             }
         });
@@ -261,7 +273,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void init(View view) {
-        getActivateStatus("正在激活中",true);
+        getActivateStatus("正在激活中", true);
         mTxtState = $ViewByID(R.id.state_car_iv);
         mTxtRecorder = $ViewByID(R.id.remote_history_iv);
         mTxtUnspport = (TextView) $ViewByID(R.id.remote_main_txt_unspport);
@@ -607,9 +619,9 @@ public class RemoteMainFragment extends BaseFragment implements
                     }
                     if (mInfo1 != null) {
                         if (mInfo1.getFlag() == 1020) {
-                            Intent intent  = new Intent(mCtx,UpDateActivity.class);
+                            Intent intent = new Intent(mCtx, UpDateActivity.class);
                             startActivity(intent);
-//                            UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
+                            //                            UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
                         } else {
                             UUToastOptError.showUUToast(getActivity(), mInfo1.getInfo());
                         }
@@ -751,6 +763,9 @@ public class RemoteMainFragment extends BaseFragment implements
 
     @Override
     public void onClick(View v) {
+        if (hasActivate())
+            return;
+
         switch (v.getId()) {
             case R.id.state_car_iv:
                 // 车辆状态
@@ -788,6 +803,57 @@ public class RemoteMainFragment extends BaseFragment implements
         }
     }
 
+    private boolean hasActivate() {
+        int remoteStatus = GetCarInfo.getInstance().remoteStatus;
+
+        switch (remoteStatus) {
+            case 0:
+                PopBoxCreat.createDialogNotitle(mCtx, "温馨提示",
+                        "设备还未激活",
+                        "确定", "去激活", new PopBoxCreat.DialogWithTitleClick() {
+                            @Override
+                            public void onLeftClick() {
+
+                            }
+
+                            @Override
+                            public void onRightClick() {
+                                Intent activateIntent = new Intent(mCtx, ActivateAccActivity.class);
+                                int id = GetCarInfo.getInstance().id;
+                                String vin = GetCarInfo.getInstance().vin;
+                                activateIntent.putExtra("carID", String.valueOf(id));
+                                activateIntent.putExtra("vin", vin);
+                                startActivity(activateIntent);
+                            }
+                        });
+                break;
+            case 1:
+                PopBoxCreat.createDialogNotitle(mCtx, "温馨提示",
+                        "设备正在激活中...",
+                        "确定", "查看详情", new PopBoxCreat.DialogWithTitleClick() {
+                            @Override
+                            public void onLeftClick() {
+
+                            }
+
+                            @Override
+                            public void onRightClick() {
+                                Intent activateIntent = new Intent(mCtx, ActivateStepActivity.class);
+                                int id = GetCarInfo.getInstance().id;
+                                String vin = GetCarInfo.getInstance().vin;
+                                activateIntent.putExtra("carID", String.valueOf(id));
+                                activateIntent.putExtra("vin", vin);
+                                startActivity(activateIntent);
+                            }
+                        });
+                break;
+        }
+        if (remoteStatus != 2) {
+            return true;
+        }
+        return false;
+    }
+
     private void dismissCarstateView() {
         if (mViewState.getVisibility() == View.VISIBLE) {
             mViewState.setVisibility(View.GONE);
@@ -798,6 +864,8 @@ public class RemoteMainFragment extends BaseFragment implements
      * 点击逻辑
      */
     private void clickLogic() {
+        if (hasActivate())
+            return;
         boolean hasRemotePswMd5 = UserInfo.getInstance().isSetRemotePwd == 1;
         //TODO test data
         //        hasRemotePswMd5 = false;
@@ -808,18 +876,15 @@ public class RemoteMainFragment extends BaseFragment implements
         } else {
             if (hasRemotePswMd5) {
                 if (isFirstClick) {
-                    //                    showEditDialog();
                     showEditPop();
                 } else {
                     if (UserInfo.getInstance().remotePwdSwitch == 1) {
                         if (getTimeOutStatus()) {
-                            //                            showEditDialog();
                             showEditPop();
                         } else {
                             GetResult();
                         }
                     } else {
-                        //                        showEditDialog();
                         showEditPop();
                     }
 
@@ -852,12 +917,9 @@ public class RemoteMainFragment extends BaseFragment implements
         getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
         int winHeight = getActivity().getWindow().getDecorView().getHeight();
         pwdPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, winHeight - rect.bottom);
-        pwdPop.tvForgetPwd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent resetLoginPasswdByPhone = new Intent(getActivity(), VcodeResetRemotePasswdActivity.class);
-                startActivity(resetLoginPasswdByPhone);
-            }
+        pwdPop.tvForgetPwd.setOnClickListener(view -> {
+            Intent resetLoginPasswdByPhone = new Intent(getActivity(), VcodeResetRemotePasswdActivity.class);
+            startActivity(resetLoginPasswdByPhone);
         });
     }
 

@@ -114,6 +114,102 @@ public class GetCarInfo {
     public int      authEndTime;        // 授权结束时间
     public int      authId;             // 授权id
     public int      dorcenCarDisplay;   // 座驾显示界面: 0-旧界面 1-新界面
+
+    @Override
+    public String toString() {
+        return "GetCarInfo{" +
+                "id=" + id +
+                ", cuscarId=" + cuscarId +
+                ", orgId='" + orgId + '\'' +
+                ", productId='" + productId + '\'' +
+                ", uid=" + uid +
+                ", dealerid=" + dealerid +
+                ", deviceid=" + deviceid +
+                ", deviceidstring='" + deviceidstring + '\'' +
+                ", serialCar='" + serialCar + '\'' +
+                ", deviceType=" + deviceType +
+                ", brandTitle='" + brandTitle + '\'' +
+                ", modelTitle='" + modelTitle + '\'' +
+                ", optionTitle='" + optionTitle + '\'' +
+                ", brandid=" + brandid +
+                ", modelid=" + modelid +
+                ", optionid=" + optionid +
+                ", styleId=" + styleId +
+                ", carType=" + carType +
+                ", carName='" + carName + '\'' +
+                ", carLogo='" + carLogo + '\'' +
+                ", color='" + color + '\'' +
+                ", carProvince='" + carProvince + '\'' +
+                ", carNO='" + carNO + '\'' +
+                ", standCarNo='" + standCarNo + '\'' +
+                ", shortStandCarNO='" + shortStandCarNO + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", engineno='" + engineno + '\'' +
+                ", registno='" + registno + '\'' +
+                ", canQueryVio=" + canQueryVio +
+                ", enablePushVio=" + enablePushVio +
+                ", cityCodeId=" + cityCodeId +
+                ", cityCode='" + cityCode + '\'' +
+                ", secretaryID=" + secretaryID +
+                ", licenceLevelID=" + licenceLevelID +
+                ", credit=" + credit +
+                ", friends=" + friends +
+                ", licenceNumber='" + licenceNumber + '\'' +
+                ", licenceDate='" + licenceDate + '\'' +
+                ", unReadMessage=" + unReadMessage +
+                ", latestMessage='" + latestMessage + '\'' +
+                ", safetyCount=" + safetyCount +
+                ", safetyMsg='" + safetyMsg + '\'' +
+                ", updateDate=" + updateDate +
+                ", createDate=" + createDate +
+                ", buyDate=" + buyDate +
+                ", maintenInfo=" + maintenInfo +
+                ", maintenMiles=" + maintenMiles +
+                ", maintenDate=" + maintenDate +
+                ", maintenNextMiles=" + maintenNextMiles +
+                ", maintenNextDate=" + maintenNextDate +
+                ", isNextMain=" + isNextMain +
+                ", fixedMiles=" + fixedMiles +
+                ", autorestart=" + autorestart +
+                ", plateDate=" + plateDate +
+                ", insuranceId=" + insuranceId +
+                ", insuranceName='" + insuranceName + '\'' +
+                ", NDTC=" + NDTC +
+                ", applicantDate=" + applicantDate +
+                ", applicantLong=" + applicantLong +
+                ", carPin='" + carPin + '\'' +
+                ", carPinStatus=" + carPinStatus +
+                ", bindvin='" + bindvin + '\'' +
+                ", installOrder=" + installOrder +
+                ", certificateId=" + certificateId +
+                ", firstActiveTime=" + firstActiveTime +
+                ", err=" + err +
+                ", vin='" + vin + '\'' +
+                ", deviceNum='" + deviceNum + '\'' +
+                ", withTbox=" + withTbox +
+                ", remoteStatus=" + remoteStatus +
+                ", recodeStatus=" + recodeStatus +
+                ", machineStatus=" + machineStatus +
+                ", isUpgrade=" + isUpgrade +
+                ", withNetwork=" + withNetwork +
+                ", driverLicenseImg=" + driverLicenseImg +
+                ", pledge='" + pledge + '\'' +
+                ", insurance='" + insurance + '\'' +
+                ", chargetime=" + chargetime +
+                ", inspectTime=" + inspectTime +
+                ", registerTime=" + registerTime +
+                ", nextInspectTime=" + nextInspectTime +
+                ", type=" + type +
+                ", authStatus=" + authStatus +
+                ", authType=" + authType +
+                ", authStartTime=" + authStartTime +
+                ", authEndTime=" + authEndTime +
+                ", authId=" + authId +
+                ", dorcenCarDisplay=" + dorcenCarDisplay +
+                '}';
+    }
+
     public void setCarInfo(GetCarInfo carInfo){
         id = carInfo.id;
         cuscarId = carInfo.cuscarId;

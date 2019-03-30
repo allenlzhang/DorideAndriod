@@ -214,18 +214,14 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract View inflateView(LayoutInflater inflater);
 
-    private View.OnClickListener mClickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.error_txt_retry:
-                    loadingDataUI();
-                    reTryLoadData();
-                    break;
-            }
-
+    private View.OnClickListener mClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.error_txt_retry:
+                loadingDataUI();
+                reTryLoadData();
+                break;
         }
+
     };
 
     /**
@@ -294,6 +290,7 @@ public abstract class BaseFragment extends Fragment {
         } else {
             mIvErrorIcon.setImageResource(R.mipmap.icon_error_bg);
         }
+
         mTxtRetryError.setVisibility(View.VISIBLE);
         mTxtEorrorSub.setText(info);
         mViewError.setVisibility(View.VISIBLE);
