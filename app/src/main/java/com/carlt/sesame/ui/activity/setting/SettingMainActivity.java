@@ -96,11 +96,11 @@ public class SettingMainActivity extends BaseActivity {
 
         mImgHead = (ImageView) findViewById(R.id.activity_setting_img_head);
         mImgDot = (ImageView) findViewById(R.id.activity_setting_img_dot);
-
-        if ("1".equals(SesameLoginInfo.getRemoteControl())) {
-            findViewById(R.id.line_h4).setVisibility(View.VISIBLE);
-            findViewById(R.id.activity_setting_layout5).setVisibility(View.VISIBLE);
-        }
+        //芝麻E30 RemoteControl会返1，大乘电动车不会
+//        if ("1".equals(SesameLoginInfo.getRemoteControl())) {
+//            findViewById(R.id.line_h4).setVisibility(View.VISIBLE);
+//            findViewById(R.id.activity_setting_layout5).setVisibility(View.VISIBLE);
+//        }
 
         mView1.setOnClickListener(mClickListener);
         mView2.setOnClickListener(mClickListener);

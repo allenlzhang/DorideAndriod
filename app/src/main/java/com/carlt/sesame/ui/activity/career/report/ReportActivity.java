@@ -41,8 +41,6 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
 
     public final static String DAY_INITIAL = "day_initial";
 
-    private String dayInitialValue = "";
-
     private int checkedPos = 0;
 
     private View mLoadingLayout;
@@ -102,7 +100,6 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
     }
     
     private void LoadSuccess(Object data) {
-        dayInitialValue = SesameLoginInfo.getLately_day();
         tab[checkedPos].setChecked(true);
         mLoadingLayout.setVisibility(View.GONE);
         mLayError.setVisibility(View.GONE);
@@ -191,7 +188,7 @@ public class ReportActivity extends BaseActivityGroup implements OnCheckedChange
                 break;
             case 2:
                 intent = new Intent(ReportActivity.this, DayActivity.class);
-                intent.putExtra(DAY_INITIAL, dayInitialValue);
+//                intent.putExtra(DAY_INITIAL, dayInitialValue);
                 break;
         }
         container.removeAllViews();

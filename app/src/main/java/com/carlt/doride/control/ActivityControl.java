@@ -217,7 +217,6 @@ public class ActivityControl {
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
 
-        SesameLoginInfo.Destroy();
         Intent mIntent = new Intent(context, UserLoginActivity.class);
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mIntent);

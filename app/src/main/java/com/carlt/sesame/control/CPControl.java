@@ -478,7 +478,7 @@ public class CPControl {
                 BaseResponseInfo mBaseResponseInfo = mParser
                         .getBaseResponseInfo(url, post);
                 if (mBaseResponseInfo.getFlag() == BaseResponseInfo.SUCCESS) {
-                    GetCarInfo.getInstance().deviceidstring = deviceId;
+                    GetCarInfo.getInstance().deviceNum = deviceId;
                     listener.onFinished(null);
                 } else {
                     listener.onErro(mBaseResponseInfo);
@@ -1696,7 +1696,7 @@ public class CPControl {
                             GetCarInfo.getInstance().engineno = carEnginNo;
                         }
                         if (!TextUtils.isEmpty(standcarno)) {
-                            GetCarInfo.getInstance().standCarNo = standcarno;
+                            GetCarInfo.getInstance().vin = standcarno;
                         }
                         if (!TextUtils.isEmpty(registno)) {
                             GetCarInfo.getInstance().registno = registno;
@@ -3267,7 +3267,7 @@ public class CPControl {
 
                     String year = modifyCarInfo.getYear();
                     Log.e("info", "carYear==" + year);
-                    SesameLoginInfo.setCar_year(MyParse.parseInt(year));
+//                    SesameLoginInfo.setCar_year(MyParse.parseInt(year));
                     // if (year != null && !year.equals("")) {
                     // if (year.equals("2017")) {
                     // if (deviceType.equals(LoginInfo.DEVICETYPE_AFTER)) {

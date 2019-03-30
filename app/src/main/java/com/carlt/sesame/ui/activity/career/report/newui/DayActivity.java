@@ -94,16 +94,8 @@ public class DayActivity extends LoadingActivityWithTitle implements
 		initTitle();
 		init();
 
-		try {
-			dayInitialValue = getIntent().getStringExtra(
-					ReportActivity.DAY_INITIAL);
-		} catch (Exception e) {
-		}
-		if (dayInitialValue == null || dayInitialValue.equals("")) {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",
-					Locale.getDefault());
-			dayInitialValue = format.format(Calendar.getInstance().getTime());
-		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		dayInitialValue = format.format(Calendar.getInstance().getTime());
 		LoadData();
 	}
 

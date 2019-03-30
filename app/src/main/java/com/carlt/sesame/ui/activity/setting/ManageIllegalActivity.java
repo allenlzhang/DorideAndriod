@@ -500,14 +500,14 @@ public class ManageIllegalActivity extends LoadingActivityWithTitle implements O
 						mEditText3.setHint(String.format("请输入后%s位车架号", num));
 					}
 
-					if (!TextUtils.isEmpty(GetCarInfo.getInstance().standCarNo)) {
+					if (!TextUtils.isEmpty(GetCarInfo.getInstance().vin)) {
 						if (GetCarInfo.getInstance().canQueryVio!=1) {
 							int len = Integer.parseInt(num);
 							String res = "";
-							if (GetCarInfo.getInstance().standCarNo.length() > len && len > 0) {
-								res = GetCarInfo.getInstance().standCarNo.substring(GetCarInfo.getInstance().standCarNo.length() - len);
+							if (GetCarInfo.getInstance().vin.length() > len && len > 0) {
+								res = GetCarInfo.getInstance().vin.substring(GetCarInfo.getInstance().vin.length() - len);
 							} else{
-								res = GetCarInfo.getInstance().standCarNo;
+								res = GetCarInfo.getInstance().vin;
 							}
 							mEditText3.setText(res);
 						}

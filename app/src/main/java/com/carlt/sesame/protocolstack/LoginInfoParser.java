@@ -124,17 +124,6 @@ public class LoginInfoParser extends BaseParser {
 //            }
 
 
-            // 最近一个日报、周报、月报日期
-            JSONObject reportdate = mJSON_data.optJSONObject("reportdate");
-            String nullDate = "0000-00-00";
-            if (reportdate != null) {
-                String s = reportdate.optString("day");
-                if (s.equals(nullDate)) {
-                    SesameLoginInfo.setLately_day("");
-                } else {
-                    SesameLoginInfo.setLately_day(s);
-                }
-            }
         }
     }
 

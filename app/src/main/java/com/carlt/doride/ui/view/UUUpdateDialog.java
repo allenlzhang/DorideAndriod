@@ -102,7 +102,7 @@ public class UUUpdateDialog extends Dialog {
 
 	// 轮询
 	private void polling() {
-		String s = GetCarInfo.getInstance().deviceidstring;
+		String s = GetCarInfo.getInstance().deviceNum;
 		CPControl.GetDeviceUpdateResult(s, listener_polling);
 	}
 
@@ -154,7 +154,7 @@ public class UUUpdateDialog extends Dialog {
 						}
 						return;
 					} else {
-						String s = GetCarInfo.getInstance().deviceidstring;
+						String s = GetCarInfo.getInstance().deviceNum;
 						txtProgress.setText("升级中(100%)升级成功");
 					}
 				}

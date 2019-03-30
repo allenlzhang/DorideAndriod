@@ -20,7 +20,7 @@ public class ReportDateParser extends BaseParser {
     protected void parser() {
         try {
             JSONObject mJSON_data = mJson.getJSONObject("data");
-            SesameLoginInfo.setLately_day(mJSON_data.optString("day"));
+//            SesameLoginInfo.setLately_day(mJSON_data.optString("day"));
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block

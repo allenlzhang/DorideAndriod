@@ -76,7 +76,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
     private void initdata() {
         DefaultStringParser parser = new DefaultStringParser(mCallback);
         HashMap<String, String> param = new HashMap();
-        param.put("move_device_name", GetCarInfo.getInstance().deviceidstring);
+        param.put("move_device_name", GetCarInfo.getInstance().deviceNum);
         String m_remote_driectrressure = URLConfig.getM_REMOTE_DRIECTRRESSURE();
         String replace = m_remote_driectrressure.replace("100", "101");
         parser.executePost(replace, param);

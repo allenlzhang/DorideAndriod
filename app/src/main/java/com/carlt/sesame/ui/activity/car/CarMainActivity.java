@@ -33,6 +33,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.http.retrofitnet.model.CarConfigRes;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -301,15 +302,15 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 
         mCarMainFuncInfos = new ArrayList<CarMainFuncInfo>();
 
-        if (SesameLoginInfo.getCar_year() == SesameLoginInfo.CAR_YEAR_2016) {
-            clickSize = "012";
-            for (int i = 0; i < funcNames2016.length; i++) {
-
-                mCarMainFuncInfosInit.get(i).setIcon(icons[i]);
-                mCarMainFuncInfosInit.get(i).hasPermissions = true;
-
-            }
-        } else {
+//        if (year == 2016) {
+//            clickSize = "012";
+//            for (int i = 0; i < funcNames2016.length; i++) {
+//
+//                mCarMainFuncInfosInit.get(i).setIcon(icons[i]);
+//                mCarMainFuncInfosInit.get(i).hasPermissions = true;
+//
+//            }
+//        } else {
             clickSize = "0123";
             for (int i = 0; i < 4; i++) {
 
@@ -345,7 +346,7 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
 
                 }
             }
-        }
+//        }
         mCarMainInfo = (CarMainInfo) data;
         if (mCarMainInfo != null) {
             //            if (mCarMainInfo.isRunning().equals("1")) {
@@ -462,15 +463,15 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
             }
             //			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(DorideApplication.dpToPx(186), DorideApplication.dpToPx(186));
             //			lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            if (SesameLoginInfo.getCar_year() == SesameLoginInfo.CAR_YEAR_2016) {
+//            if (year = 2016) {
                 //				lp.setMargins(0, DorideApplication.dpToPx(40), 0, DorideApplication.dpToPx(30));
                 //				mState.setLayoutParams(lp);
-                mGridFuncs.setPadding(0, DorideApplication.dpToPx(10), 0, 0);
-            } else if (SesameLoginInfo.getCar_year() == SesameLoginInfo.CAR_YEAR_2018) {
+//                mGridFuncs.setPadding(0, DorideApplication.dpToPx(10), 0, 0);
+//            } else if (year = 2018) {
                 //				lp.setMargins(0, DorideApplication.dpToPx(22), 0, 0);
                 //				mState.setLayoutParams(lp);
                 mGridFuncs.setPadding(0, 0, 0, 0);
-            }
+//            }
             if (mAdapter == null) {
                 //		mAdapter = new CarMainAdapter(CarMainActivity.this, mCarMainFuncInfos);
                 mGridFuncs.setAdapter(mAdapter);

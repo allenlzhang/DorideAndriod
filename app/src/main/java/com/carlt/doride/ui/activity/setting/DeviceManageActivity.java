@@ -33,10 +33,10 @@ public class DeviceManageActivity extends BaseActivity implements View.OnClickLi
         title.setText(getResources().getString(R.string.device_manager_txt));
 
         device_binded_index = $ViewByID(R.id.device_binded_index);
-        if (TextUtils.isEmpty(GetCarInfo.getInstance().deviceidstring)) {
+        if (TextUtils.isEmpty(GetCarInfo.getInstance().deviceNum)) {
             device_binded_index.setText("--");
         } else {
-            device_binded_index.setText(String.format(getResources().getString(R.string.device_binded_txt), GetCarInfo.getInstance().deviceidstring));
+            device_binded_index.setText(String.format(getResources().getString(R.string.device_binded_txt), GetCarInfo.getInstance().deviceNum));
         }
     }
 

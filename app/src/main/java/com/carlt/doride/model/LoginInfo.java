@@ -36,7 +36,7 @@ public class LoginInfo extends BaseResponseInfo {
         UserInfo.getInstance().id = destroy.optInt("uid", 0);
         GetCarInfo.getInstance().optionid = destroy.optInt("optionid", 0);
         GetCarInfo.getInstance().styleId = destroy.optInt("brandCarid", 0);
-        GetCarInfo.getInstance().deviceidstring = destroy.optString("deviceidstring", "");
+        GetCarInfo.getInstance().deviceNum = destroy.optString("deviceidstring", "");
         GetCarInfo.getInstance().carNO = destroy.optString("carno", "");
         GetCarInfo.getInstance().isNextMain = destroy.optInt("isMainten");
 

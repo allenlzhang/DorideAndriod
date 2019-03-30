@@ -68,7 +68,7 @@ public class ManageDeviceActivity extends LoadingActivityWithTitle implements On
 
 	private void init() {
 		txtDeviceNum = (TextView) findViewById(R.id.manageDevice_txt_devicnum);
-		txtDeviceNum.setText(GetCarInfo.getInstance().deviceidstring);
+		txtDeviceNum.setText(GetCarInfo.getInstance().deviceNum);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.ActivateStepInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.ActivityControl;
 import com.shuhart.stepview.StepView;
 
@@ -157,6 +158,7 @@ public class ActivateStepActivity extends BaseActivity {
             ActivateStepInfo.StepsBean stepsBean;
             LogUtils.e(logs.size() + steps.size());
             if (logs.size() == steps.size()) {
+                GetCarInfo.getInstance().remoteStatus = 2;
                 tvRetry.setText("开启智能驾驶之旅");
                 tvRetry.setVisibility(View.VISIBLE);
                 ERR_TYPE = 2;

@@ -39,6 +39,7 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * 登录控制
+ *
  * @author daisy
  */
 public class LoginControl {
@@ -132,60 +133,18 @@ public class LoginControl {
         JSONObject member = mJSON_data.optJSONObject("member");
         TokenInfo.setToken((member.optString("access_token", "")));
 
-        JSONObject membercar = mJSON_data.optJSONObject("membercar");
-        SesameLoginInfo.setRemoteControl(membercar.optString("remoteControl", ""));
-        SesameLoginInfo.setCar_year((membercar.optInt("year", 0)));
-
-
-        // 最近一个日报、周报、月报日期
-        JSONObject reportdate = mJSON_data.optJSONObject("reportdate");
-        String nullDate = "0000-00-00";
-        if (reportdate != null) {
-            String s = reportdate.optString("day");
-            if (s.equals(nullDate)) {
-                SesameLoginInfo.setLately_day("");
-            } else {
-                SesameLoginInfo.setLately_day(s);
-            }
-        }
-
     }
 
     private static void parseDorideLoginInfo(JSONObject data) {
         JSONObject member = data.optJSONObject("member");
 
-        String mobile = (member.optString("mobile", ""));
         TokenInfo.setToken(member.optString("access_token", ""));
 
         TokenInfo.setToken((member.optString("access_token", "")));
 
-        JSONObject membercar = data.optJSONObject("membercar");
 
     }
 
-    private static boolean getFlagResult(String judge) {
-        boolean flag = false;
-        if (judge != null) {
-            if (judge.equals("0")) {
-                flag = false;
-            } else if (judge.equals("1")) {
-                flag = true;
-            }
-        }
-        return flag;
-    }
-
-    private static boolean getFlagResultOther(String judge) {
-        boolean flag = false;
-        if (judge != null) {
-            if (judge.equals("2")) {
-                flag = false;
-            } else if (judge.equals("1")) {
-                flag = true;
-            }
-        }
-        return flag;
-    }
 
     protected static ApiService                      mApiService = ApiRetrofit.getInstance().getService(ApiService.class);
     private static   CompositeDisposable             compositeDisposable;
@@ -206,6 +165,11 @@ public class LoginControl {
 
     }
 
+    /**
+     * 登录
+     * @param account
+     * @param password
+     */
     public static void Login(String account, String password) {
         HashMap<String, Object> mMap = new HashMap<>();
         mMap.put("version", 100);
@@ -241,6 +205,10 @@ public class LoginControl {
         }
     }
 
+    /**
+     * 获取用户信息
+     * @param prams
+     */
     public static void getUserInfo(HashMap<String, Object> prams) {
         addDisposable(mApiService.getUserInfo(prams), new BaseMvcObserver<UserInfo>() {
             @Override
@@ -267,7 +235,11 @@ public class LoginControl {
         }
     }
 
-    public static void getCarInfo(HashMap<String, Integer> param) {
+    /**
+     * 获取车辆信息
+     * @param param
+     */
+    public static void getCarInfo(Map<String, Integer> param) {
         addDisposable(mApiService.getCarInfo(param), new BaseMvcObserver<GetCarInfo>() {
             @Override
             public void onSuccess(GetCarInfo result) {
@@ -277,7 +249,6 @@ public class LoginControl {
             @Override
             public void onError(String msg) {
                 callback.onErro(msg);
-                UUToast.showUUToast(mCtx, msg);
             }
         });
     }
@@ -288,11 +259,11 @@ public class LoginControl {
         } else {
             contacts(new HashMap<String, Object>());
 
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("brandCarId", carInfo.styleId);
-            params.put("productId", carInfo.productId);
-            params.put("deviceIdString", carInfo.deviceNum);
-            GetCarConfig(params);
+//            HashMap<String,Object> params = new HashMap<>();
+//            params.put("brandCarId",carInfo.styleId);
+//            params.put("productId",carInfo.productId);
+//            params.put("deviceIdString",carInfo.deviceNum);
+//            GetCarConfig(params);
 
             GetCarInfo.getInstance().setCarInfo(carInfo);
             Log.e("carInfo", carInfo.toString());
@@ -300,7 +271,11 @@ public class LoginControl {
         }
     }
 
-    private static void contacts(Map<String, Object> param) {
+    /**
+     * 联系我们
+     * @param param
+     */
+    private static void contacts(Map<String,Object> param){
         addDisposable(mApiService.contacts(param), new BaseMvcObserver<ContactsInfo>() {
             @Override
             public void onSuccess(ContactsInfo result) {

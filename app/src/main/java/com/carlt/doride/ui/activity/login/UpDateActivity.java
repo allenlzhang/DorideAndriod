@@ -139,7 +139,7 @@ public class UpDateActivity extends AppCompatActivity  {
     }
 
     private void doNetWork() {
-        String s = GetCarInfo.getInstance().deviceidstring;
+        String s = GetCarInfo.getInstance().deviceNum;
         CPControl.GetDeviceUpdateResult(s, new BaseParser.ResultCallback() {
             @Override
             public void onSuccess(BaseResponseInfo bInfo) {

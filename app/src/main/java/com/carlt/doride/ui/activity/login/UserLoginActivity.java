@@ -27,32 +27,20 @@ import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
-import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
-import com.carlt.doride.http.retrofitnet.model.User;
-import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
-import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.RecorderMainFragment;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
-import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
-import com.orhanobut.logger.Logger;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by marller on 2018\3\15 0015.
  */
 
-public class UserLoginActivity extends BaseActivity implements View.OnClickListener, BaseParser.ResultCallback {
+public class UserLoginActivity extends BaseActivity implements View.OnClickListener {
 
 
     private TextView login_version;//版本信息
@@ -68,7 +56,6 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
 
     private String userPhone;
     private String passwd;
-    private LoginInfo mLoginInfo;
     private UseInfo mUseInfo;// 本地记录用户使用app情况
 
     private Dialog mDialog;// 加载
@@ -229,9 +216,6 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                 if (isInputDataInvalid(userPhone, passwd)) {
                     mDialog = PopBoxCreat.createDialogWithProgress(UserLoginActivity.this, "正在验证信息...");
                     mDialog.show();
-                    mLoginInfo = new LoginInfo();
-//                                        login(userPhone, passwd);
-//                    CPControl.GetLogin(userPhone, passwd, this);
                     LoginControl.Login(userPhone, passwd);
                     LoginControl.setCallback(callback);
                 }
@@ -353,37 +337,6 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
             }
 
         }
-    }
-
-    @Override
-    public void onSuccess(BaseResponseInfo bInfo) {
-
-        try {
-            String dataValue = (String) bInfo.getValue();
-            JSONObject mJSON_data = new JSONObject(dataValue);
-            LoginControl.parseLoginInfo(mJSON_data);
-            Message msg = new Message();
-            msg.what = 0;
-            msg.obj = bInfo;
-            mHandler.sendMessage(msg);
-            Logger.e("login----" + bInfo.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Message msg = new Message();
-            bInfo.setInfo("解析失败");
-            msg.what = 1;
-            msg.obj = bInfo;
-            mHandler.sendMessage(msg);
-        }
-
-    }
-
-    @Override
-    public void onError(BaseResponseInfo bInfo) {
-        Message msg = new Message();
-        msg.what = 1;
-        msg.obj = bInfo;
-        mHandler.sendMessage(msg);
     }
 
     @Override

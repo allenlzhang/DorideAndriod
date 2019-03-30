@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
+import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
@@ -244,7 +245,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 JSONObject object = new JSONObject(value);
 
                 String deviceidstring = object.getString("deviceidstring");
-                GetCarInfo.getInstance().deviceidstring = deviceidstring;
+                GetCarInfo.getInstance().deviceNum = deviceidstring;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -300,6 +301,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                         startActivity(activateIntent);
                     }
                 });
+        LoginControl.getCarInfo(new HashMap<>());
     }
     private boolean isVinValid() {
         if (TextUtils.isEmpty(deviceId)) {

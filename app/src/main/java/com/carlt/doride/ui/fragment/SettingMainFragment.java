@@ -858,7 +858,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         OkGo.<String>post(isSupportTDataUrl)
                 .params("client_id", URLConfig.getClientID())
                 .params("token", TokenInfo.getToken())
-                .params("deviceIdString", GetCarInfo.getInstance().deviceidstring)
+                .params("deviceIdString", GetCarInfo.getInstance().deviceNum)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

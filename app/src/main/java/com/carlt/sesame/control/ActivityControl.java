@@ -151,7 +151,6 @@ public class ActivityControl {
         }
         mActivityList.clear();
         DorideApplication.getInstance().setShowDragFlag(false);
-        SesameLoginInfo.Destroy();
 
         UserInfo.getInstance().initUserInfo();
         GetCarInfo.getInstance().initCarInfo();
