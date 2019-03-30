@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
@@ -24,6 +26,7 @@ import com.carlt.doride.data.login.UserRegisterParams;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.BaseErr;
 import com.carlt.doride.http.retrofitnet.model.SmsToken;
+import com.carlt.doride.http.retrofitnet.model.User;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
@@ -34,6 +37,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.CipherUtils;
 import com.carlt.doride.utils.StringUtils;
 import com.carlt.sesame.control.CPControl;
+import com.carlt.sesame.preference.TokenInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -287,8 +291,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     UseInfoLocal.setUseInfo(mUseInfo);
 
                     UUToast.showUUToast(UserRegisterActivity.this, "注册成功！");
-                    LoginControl.Login(register_phone_input.getText().toString(),register_passwd_again_et.getText().toString());
-                    LoginControl.setCallback(callback);
+                    Login(register_phone_input.getText().toString(),register_passwd_again_et.getText().toString());
 
                     break;
                 case 3:
@@ -319,20 +322,69 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
             super.handleMessage(msg);
         }
     };
+    private void Login(String account, String password) {
+        HashMap<String, Object> mMap = new HashMap<>();
+        mMap.put("version", 100);
+        mMap.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        mMap.put("loginModel", DorideApplication.MODEL);
+        mMap.put("loginSoftType", "Android");
+        mMap.put("moveDeviceid", DorideApplication.NIMEI);
+        mMap.put("mobile", account);
+        mMap.put("password", CipherUtils.md5(password));
+        mMap.put("loginType", 1);
+        mMap.put("pwdReally", password);
+        addDisposable(mApiService.commonLogin(mMap), new BaseMvcObserver<User>() {
+            @Override
+            public void onSuccess(User result) {
+                if (result.err != null) {
+                    showToast("登录失败");
+                    Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    TokenInfo.setToken(result.token);
+                    HashMap<String, Object> prams = new HashMap<>();
+                    prams.put("token", result.token);
+                    getUserInfo(prams);
+                }
+            }
 
-    CPControl.GetResultListCallback callback = new CPControl.GetResultListCallback() {
-        @Override
-        public void onFinished(Object o) {
-            LoginControl.logic(UserRegisterActivity.this);
-            finish();
-        }
+            @Override
+            public void onError(String msg) {
+                showToast("登录失败");
+                Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+    public void getUserInfo(HashMap<String, Object> prams) {
+        addDisposable(mApiService.getUserInfo(prams), new BaseMvcObserver<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo result) {
+                if (result.err != null) {
+                    showToast("登录失败");
+                    Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.e("userInfo", result.toString());
+                    UserInfo.getInstance().setUserInfo(result);
+                    LoginControl.logic(UserRegisterActivity.this);
+                    finish();
+                }
 
-        @Override
-        public void onErro(Object o) {
-            LoginControl.logic(UserRegisterActivity.this);
-            finish();
-        }
-    };
+            }
+
+            @Override
+            public void onError(String msg) {
+                showToast("登录失败");
+                Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
     private BaseParser.ResultCallback validateCodeListener = new BaseParser.ResultCallback() {
         @Override
