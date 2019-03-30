@@ -14,8 +14,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
-import com.carlt.doride.control.LoginControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -301,7 +301,17 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                         startActivity(activateIntent);
                     }
                 });
-        LoginControl.getCarInfo(new HashMap<>());
+        addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
+            @Override
+            public void onSuccess(GetCarInfo result) {
+                GetCarInfo.getInstance().setCarInfo(result);
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
     }
     private boolean isVinValid() {
         if (TextUtils.isEmpty(deviceId)) {

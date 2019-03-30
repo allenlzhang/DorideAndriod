@@ -329,8 +329,8 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void onErro(Object o) {
-            Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
-            startActivity(intent);
+            LoginControl.logic(UserRegisterActivity.this);
+            finish();
         }
     };
 
