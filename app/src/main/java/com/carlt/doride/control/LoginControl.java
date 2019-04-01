@@ -254,7 +254,11 @@ public class LoginControl {
 
     private static void carInfoSuccess(GetCarInfo carInfo) {
         if (carInfo.err != null) {
-            callback.onErro(carInfo.err.msg);
+            if (carInfo.err.code == 1220){
+                callback.onFinished(null);
+            }else {
+                callback.onErro(carInfo.err.msg);
+            }
         } else {
             contacts(new HashMap<String, Object>());
 
