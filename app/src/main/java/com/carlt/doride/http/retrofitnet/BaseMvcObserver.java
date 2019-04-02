@@ -1,8 +1,13 @@
 package com.carlt.doride.http.retrofitnet;
 
+import android.graphics.Color;
 import android.net.ParseException;
+import android.view.Gravity;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.carlt.doride.R;
+import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.http.retrofitnet.model.BaseErr;
 import com.google.gson.JsonParseException;
 
@@ -74,19 +79,19 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
             mCode = result.getClass().getDeclaredField("code");
             mCode.setAccessible(true);
         } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
+            //            e.printStackTrace();
         }
         if (mCode == null)
             try {
                 mErr = result.getClass().getDeclaredField("error");
                 mErr.setAccessible(true);
             } catch (NoSuchFieldException e) {
-//                e.printStackTrace();
+                //                e.printStackTrace();
             }
 
 
-//        LogUtils.e("mErr----" + mErr);
-//        LogUtils.e("mCode----" + mCode);
+        //        LogUtils.e("mErr----" + mErr);
+        //        LogUtils.e("mCode----" + mCode);
         try {
 
 
@@ -97,6 +102,16 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                     int code = mCode.getInt(result);
                     if (code == 0) {
                         onSuccess(result);
+                    } else if (code == 1002) {
+                        ActivityControl.onTokenDisable();
+                        Field msgField = result.getClass().getDeclaredField("msg");
+                        String msg = (String) msgField.get(result);
+                        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                        ToastUtils.setBackgroundColor(R.drawable.toast_bg);
+                        ToastUtils.setMessageColor(Color.WHITE);
+
+                        ToastUtils.showShort(msg);
+                        onError(msg);
                     } else {
                         Field msgField = result.getClass().getDeclaredField("msg");
                         String msg = (String) msgField.get(result);
@@ -179,7 +194,9 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                 break;
 
             case BAD_NETWORK:
-                onError("网络问题");
+                //                onError("网络问题");
+                //被挤下线
+
                 break;
 
             case PARSE_ERROR:

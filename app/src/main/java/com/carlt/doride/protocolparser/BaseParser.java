@@ -96,8 +96,7 @@ public abstract class BaseParser<T> {
                         ToastUtils.setGravity(Gravity.CENTER, 0, 0);
                         ToastUtils.setBackgroundColor(R.drawable.toast_bg);
                         ToastUtils.setMessageColor(Color.WHITE);
-                        //                        ToastUtils.setView(R.layout.toast);
-                        //                        ToastUtils.showCustomShort();
+
                         ToastUtils.showLong(mBaseResponseInfo.getInfo());
                         break;
                     default:
