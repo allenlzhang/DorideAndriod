@@ -65,7 +65,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     private Intent intent;
 
     private String   from;
-    private String   mCarid;
+//    private int   mCarid;
     private UserInfo userInfo;
 
     @Override
@@ -76,8 +76,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         initComponent();
         intent = getIntent();
         from = intent.getStringExtra("from");
-        mCarid = intent.getStringExtra("carid");
-        LogUtils.e("====" + mCarid);
+//        mCarid = intent.getIntExtra("carid",-1);
+//        LogUtils.e("====" + mCarid);
+
     }
 
     @Override
@@ -129,12 +130,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
 
         ivHelp.setVisibility(View.VISIBLE);
-        ivHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DeviceBindActivity.this, ActivateHelpActivity.class));
-            }
-        });
+        ivHelp.setOnClickListener(v -> startActivity(new Intent(DeviceBindActivity.this, ActivateHelpActivity.class)));
     }
 
 
@@ -308,7 +304,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                         Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
                         activateIntent.putExtra("vin", vinCode);
                         activateIntent.putExtra("carType", carTitle);
-                        activateIntent.putExtra("carID", mCarid);
+//                        activateIntent.putExtra("carID", Integer.valueOf(mCarid));
                         startActivity(activateIntent);
                     }
                 });

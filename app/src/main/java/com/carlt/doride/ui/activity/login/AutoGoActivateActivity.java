@@ -22,6 +22,7 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.BaseErr;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -55,7 +56,7 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
     private String vinCode = "";
 
     private String carType = "";
-    private String carID   = "";
+    private int    carID;
 
     private int      ActivateCount;
     private EditText etPinCode;
@@ -80,7 +81,7 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
         if (intent != null) {
             vinCode = intent.getStringExtra("vin");
             carType = intent.getStringExtra("carType");
-            carID = intent.getStringExtra("carID");
+//            carID = intent.getIntExtra("carID", -1);
         }
         activate_commit = findViewById(R.id.activate_commit);
         activate_commit.setOnClickListener(this);
@@ -141,9 +142,10 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
         //        String m_device_activate = URLConfig.getM_DEVICE_ACTIVATE();
         //        String activateUrl = m_device_activate.replace("100", "101");
         //        parser.executePost(activateUrl, params);
+        int id = GetCarInfo.getInstance().id;
         HashMap<String, Object> params = new HashMap<>();
         params.put("pin", pinCode);
-        params.put("carID", Integer.valueOf(carID));
+        params.put("carID", id);
         addDisposable(mApiService.active(params), new BaseMvcObserver<BaseErr>() {
             @Override
             public void onSuccess(BaseErr result) {
@@ -151,9 +153,10 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
                 if (result.code != 0) {
                     showToast(result.msg);
                 } else {
-                    showToast("开始激活");
+                    GetCarInfo.getInstance().remoteStatus = 1;
+//                    showToast("开始激活");
                     Intent intent = new Intent(AutoGoActivateActivity.this, ActivateStepActivity.class);
-                    intent.putExtra("carId", Integer.valueOf(carID));
+//                    intent.putExtra("carId", Integer.valueOf(carID));
                     startActivity(intent);
                     finish();
                 }
@@ -307,13 +310,13 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
     }
 
     private void back() {
-//        Intent backIntent = new Intent(this, DeviceBindActivity.class);
+        //        Intent backIntent = new Intent(this, DeviceBindActivity.class);
         //        backIntent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
-//        backIntent.putExtra("vin", vinCode);
-//        backIntent.putExtra("carType", carType);
-//        startActivity(backIntent);
+        //        backIntent.putExtra("vin", vinCode);
+        //        backIntent.putExtra("carType", carType);
+        //        startActivity(backIntent);
         finish();
-//        ActivityControl.clearAllActivity();
+        //        ActivityControl.clearAllActivity();
 
     }
 

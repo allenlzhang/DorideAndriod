@@ -34,6 +34,7 @@ import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.CarStateInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -131,9 +132,23 @@ public class RemoteMainFragment extends BaseFragment implements
     private UUDialogRemote          uuDialogRemote;
     private ArrayList<CarStateInfo> mCarStateDataList;
     private CarStateInfo            carStateInfo;
+    private int                     remoteStatus;
 
     @Override
     public void onResume() {
+        addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
+            @Override
+            public void onSuccess(GetCarInfo result) {
+                GetCarInfo.getInstance().setCarInfo(result);
+                remoteStatus = result.remoteStatus;
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
+//        remoteStatus = GetCarInfo.getInstance().remoteStatus;
         super.onResume();
         //        CPControl.GetRemoteCarState(mListener_states);
 
@@ -808,7 +823,7 @@ public class RemoteMainFragment extends BaseFragment implements
     }
 
     private boolean hasActivate() {
-        int remoteStatus = GetCarInfo.getInstance().remoteStatus;
+
         LogUtils.e(remoteStatus);
         switch (remoteStatus) {
             case 0:
@@ -832,31 +847,37 @@ public class RemoteMainFragment extends BaseFragment implements
                         });
                 break;
             case 1:
+                showActivateState("设备正在激活中...");
+                break;
             case 3:
-                PopBoxCreat.createDialogNotitle(mCtx, "温馨提示",
-                        "设备正在激活中...",
-                        "确定", "查看详情", new PopBoxCreat.DialogWithTitleClick() {
-                            @Override
-                            public void onLeftClick() {
-
-                            }
-
-                            @Override
-                            public void onRightClick() {
-                                Intent activateIntent = new Intent(mCtx, ActivateStepActivity.class);
-                                int id = GetCarInfo.getInstance().id;
-                                String vin = GetCarInfo.getInstance().vin;
-                                activateIntent.putExtra("carID", String.valueOf(id));
-                                activateIntent.putExtra("vin", vin);
-                                startActivity(activateIntent);
-                            }
-                        });
+                showActivateState("激活失败");
                 break;
         }
         if (remoteStatus != 2) {
             return true;
         }
         return false;
+    }
+
+    private void showActivateState(String msg) {
+        PopBoxCreat.createDialogNotitle(mCtx, "温馨提示",
+                msg,
+                "确定", "查看详情", new PopBoxCreat.DialogWithTitleClick() {
+                    @Override
+                    public void onLeftClick() {
+
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        Intent activateIntent = new Intent(mCtx, ActivateStepActivity.class);
+                        int id = GetCarInfo.getInstance().id;
+                        String vin = GetCarInfo.getInstance().vin;
+                        activateIntent.putExtra("carID", id);
+                        activateIntent.putExtra("vin", vin);
+                        startActivity(activateIntent);
+                    }
+                });
     }
 
     private void dismissCarstateView() {

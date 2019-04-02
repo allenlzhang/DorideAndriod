@@ -25,6 +25,9 @@ import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.ActivateInfo;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
+import com.carlt.doride.http.retrofitnet.ApiService;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -43,6 +46,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by liu on 2016/12/23.
@@ -66,6 +74,29 @@ public abstract class BaseFragment extends Fragment {
     public           View                            mViewNodata;// 没有数据View
     private          ImageView                       mIvErrorIcon;  //错误图片
     protected        String                          TAG         = getClass().getSimpleName();
+
+
+    protected        ApiService                      mApiService = ApiRetrofit.getInstance().getService(ApiService.class);
+    private          CompositeDisposable             compositeDisposable;
+
+    public void addDisposable(Observable<?> observable, BaseMvcObserver observer) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(observer));
+
+
+    }
+
+    public void removeDisposable() {
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+            compositeDisposable.clear();
+        }
+    }
+
     /**
      * 进入后台之前 要干的事的集合
      */
@@ -329,6 +360,7 @@ public abstract class BaseFragment extends Fragment {
         if (vg != null) {
             vg.removeView(mView);
         }
+        removeDisposable();
     }
 
     public void init(View view) {

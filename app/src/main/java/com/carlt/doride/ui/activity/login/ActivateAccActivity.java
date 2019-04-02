@@ -27,7 +27,7 @@ public class ActivateAccActivity extends BaseActivity {
     TextView  btnACCNext;
     private String vinCode = "";
 
-    private String carID = "";
+    private int carID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class ActivateAccActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             vinCode = intent.getStringExtra("vin");
-            carID = intent.getStringExtra("carID");
+//            carID = intent.getIntExtra("carID",-1);
         }
         title.setText("设备激活");
     }
@@ -51,7 +51,7 @@ public class ActivateAccActivity extends BaseActivity {
             case R.id.btnACCNext:
                 Intent intent = new Intent(this, AutoGoActivateActivity.class);
                 intent.putExtra("vin", vinCode);
-                intent.putExtra("carID", carID);
+//                intent.putExtra("carID", carID);
                 startActivity(intent);
                 finish();
                 break;

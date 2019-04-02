@@ -91,7 +91,8 @@ public class ActivateStepActivity extends BaseActivity {
     }
 
     private void requestLogInfo(boolean isLoading) {
-        carId = getIntent().getIntExtra("carId", 0);
+        //        carId = getIntent().getIntExtra("carId", 0);
+        carId = GetCarInfo.getInstance().id;
         LogUtils.e(carId);
         final Map<String, Object> params = new HashMap<>();
         params.put("carID", carId);
@@ -123,6 +124,7 @@ public class ActivateStepActivity extends BaseActivity {
             for (ActivateStepInfo.StepsBean step : steps) {
                 if (step.isSuccess == 1) {
                     //                    tvRetry.setVisibility(View.GONE);
+                    //                    激活中
                     tvRetry.setText("进入首页");
                     ERR_TYPE = 3;
                     tvTip.setVisibility(View.GONE);
@@ -133,8 +135,10 @@ public class ActivateStepActivity extends BaseActivity {
                     disposable.dispose();
                     if (step.failCode == 2226) {
                         ERR_TYPE = 1;
+                        tvRetry.setText("去修改");
                     } else if (step.failCode == 2201) {
                         ERR_TYPE = 0;
+                        tvRetry.setText("去修改");
                     } else {
                         ERR_TYPE = 0;
                         tvRetry.setText("重试");
@@ -154,8 +158,8 @@ public class ActivateStepActivity extends BaseActivity {
             ActivateStepInfo.StepsBean stepsBean;
             LogUtils.e(logs.size() + steps.size());
             if (logs.size() == steps.size()) {
-                GetCarInfo.getInstance().remoteStatus = 2;
-                tvRetry.setText("开启智能驾驶之旅");
+                //激活成功
+                tvRetry.setText("进入首页");
                 tvRetry.setVisibility(View.VISIBLE);
                 ERR_TYPE = 2;
                 disposable.dispose();
@@ -218,6 +222,7 @@ public class ActivateStepActivity extends BaseActivity {
 
                 switch (ERR_TYPE) {
                     case 0:
+                        GetCarInfo.getInstance().remoteStatus = 3;
                         Intent intent = new Intent();
                         //                        intent.putExtra("withTbox", withTbox);
                         intent.putExtra("carId", carId);
@@ -225,6 +230,7 @@ public class ActivateStepActivity extends BaseActivity {
                         startActivity(intent);
                         break;
                     case 1:
+                        GetCarInfo.getInstance().remoteStatus = 3;
                         Intent intent1 = new Intent();
                         //                        intent1.putExtra("withTbox", withTbox);
                         intent1.putExtra("carId", carId);
@@ -232,10 +238,11 @@ public class ActivateStepActivity extends BaseActivity {
                         startActivity(intent1);
                         break;
                     case 2:
+                        GetCarInfo.getInstance().remoteStatus = 2;
                         closeActivity();
                         break;
                     case 3:
-
+                        GetCarInfo.getInstance().remoteStatus = 1;
                         closeActivity();
                         break;
                     default:
@@ -290,7 +297,7 @@ public class ActivateStepActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //            showToast("请点击“进入主页面”");
+            //            showToast("请点击“进入首页”");
             return true;
         }
         return super.onKeyDown(keyCode, event);
