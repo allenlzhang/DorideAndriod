@@ -3,9 +3,11 @@ package com.carlt.doride.http.retrofitnet;
 import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.BuildConfig;
 import com.carlt.doride.http.retrofitnet.cookies.CookiesManager;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.sesame.preference.TokenInfo;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -33,12 +35,19 @@ public class ApiRetrofit implements IApiService {
     private                ApiService   mApiService;
     private static         Interceptor  mInterceptor  = chain -> {
         Request request = chain.request();
+
+        //                HttpUrl.Builder authorizedUrlBuilder = request.url().newBuilder()
+        //                .addQueryParameter("deviceID", String.valueOf(GetCarInfo.getInstance().deviceid))
+        //                .addQueryParameter("carId", GetCarInfo.getInstance().id);
+
+
         Request.Builder newRequest = request.newBuilder()
+                //                .url(authorizedUrlBuilder.build())
                 .header("Carlt-Access-Id", URLConfig.getAutoGoAccessId())
                 .header("Content-Type", "application/json")
                 .header("Carlt-Token", TokenInfo.getToken())
+                .header("Carlt-Remote-Token", TokenInfo.getToken())
                 .method(request.method(), request.body());
-
 
         //            long startTime = System.currentTimeMillis();
 
@@ -52,6 +61,15 @@ public class ApiRetrofit implements IApiService {
         //            Log.e(TAG, "----------Request End:" + duration + "毫秒----------");
         return chain.proceed(newRequest.build());
     };
+
+    public static HashMap getRemoteCommonParams() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("carId", GetCarInfo.getInstance().id);
+        map.put("deviceID", GetCarInfo.getInstance().deviceNum);
+
+
+        return map;
+    }
 
     public static ApiRetrofit getInstance() {
         if (sApiRetrofit == null) {

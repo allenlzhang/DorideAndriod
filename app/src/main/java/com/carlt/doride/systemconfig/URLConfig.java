@@ -12,7 +12,7 @@ public class URLConfig {
     public static       String host            = "172.20.120.1";// 杭州
 
     //autogo接口
-    public static final String AUTO_TEST_BASE_URL   = "http://test.linewin.cc:8888/app/";
+    public static final String AUTO_TEST_BASE_URL   = "http://test.linewin.cc:8888/";
     //    public static final String TEST_BASE_URL         = "http://192.168.10.184:8080/app/";
     public final static String AUTO_PRE_BASE_URL    = "http://pre-autogoapi.geni4s.com/app/";
     public final static String AUTO_FORMAL_BASE_URL = "http://autogoapi.geni4s.com/app/";

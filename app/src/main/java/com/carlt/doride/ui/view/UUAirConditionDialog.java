@@ -276,10 +276,6 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         } else if (arg0.equals(defrost)) {
             state = RemoteFunInfo.MODE_FROG;
             initSelect();
-            // up.setClickable(false);
-            // up.setImageResource(R.drawable.air_arrow_up_dan);
-            // down.setClickable(false);
-            // down.setImageResource(R.drawable.air_arrow_down_dan);
             tempure.setText(32 + "");
             mSeekBar.setEnabled(false);
             mSeekBar.setProgress(caculateProgress(32));
@@ -290,10 +286,6 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         } else if (arg0.equals(anion)) {
             state = RemoteFunInfo.MODE_ANION;
             initSelect();
-            // up.setClickable(false);
-            // up.setImageResource(R.drawable.air_arrow_up_dan);
-            // down.setClickable(false);
-            // down.setImageResource(R.drawable.air_arrow_down_dan);
             mSeekBar.setEnabled(false);
             if (!isSelect) {
                 isSelect = true;
@@ -302,10 +294,6 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         } else if (arg0.equals(clean)) {
             state = RemoteFunInfo.MODE_CLEAN;
             initSelect();
-            // up.setClickable(false);
-            // up.setImageResource(R.drawable.air_arrow_up_dan);
-            // down.setClickable(false);
-            // down.setImageResource(R.drawable.air_arrow_down_dan);
             mSeekBar.setEnabled(false);
             if (!isSelect) {
                 isSelect = true;
@@ -314,8 +302,6 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         } else if (arg0.equals(closeAir)) {
             state = RemoteFunInfo.MODE_CLOSE;
             initSelect();
-            // tempure.setText("--");
-            // onClick(confirm);
             mSeekBar.setEnabled(false);
             if (!isSelect) {
                 isSelect = true;
@@ -512,9 +498,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
                     mInfo.setSelect(false);
                 }
             }
-            //            if (tempCurrent != MyParse.parseInt(mAirMainInfo.getCurrentTemp())) {
-            //                tempuredes.setText("");
-            //            }
+
 
         }
     }

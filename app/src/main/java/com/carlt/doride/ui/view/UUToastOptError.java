@@ -31,7 +31,7 @@ public class UUToastOptError extends Toast {
 		View layout = inflater.inflate(R.layout.toast_opt_error, null);
 		text = (TextView) layout.findViewById(R.id.toast_message);
 		toast = new Toast(context);
-		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setDuration(Toast.LENGTH_SHORT);
 		toast.setView(layout);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 	}
@@ -42,14 +42,15 @@ public class UUToastOptError extends Toast {
 			uuTo = new UUToastOptError(context);
 		} else {
 			uuTo.cancel();
-			uuTo=new UUToastOptError(context);
+//			uuTo=new UUToastOptError(context);
+			text.setText(tex);
 		}
-		text.setText(tex);
+
 		toast.show();
 	}
 
 	public static void showUUToast(Context context, CharSequence tex) {
-		showUUToast(context, tex, Toast.LENGTH_LONG);
+		showUUToast(context, tex, Toast.LENGTH_SHORT);
 	}
 
 }

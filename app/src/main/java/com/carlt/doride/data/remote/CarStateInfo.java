@@ -29,6 +29,7 @@ public class CarStateInfo extends BaseResponseInfo {
     String value;// 此状态下的相关数值
 
     String state;//后台给的原始状态
+    public long status = -1;//后台给的原始状态
 
     public int getIconId() {
         return iconId;

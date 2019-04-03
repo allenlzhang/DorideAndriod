@@ -49,10 +49,12 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
     public static final int   CONNECT_TIMEOUT = 1004;
     private             Field mErr;
     private             Field mCode;
-
-
-    //    public BaseMvcObserver(BaseView view) {
-    //        this.view = view;
+    //    private             Context mContext;
+    //
+    //    public BaseMvcObserver(Context context) {
+    //        if (context != null) {
+    //            mContext = context;
+    //        }
     //    }
 
     @Override
@@ -111,7 +113,7 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                         ToastUtils.setMessageColor(Color.WHITE);
 
                         ToastUtils.showShort(msg);
-                        onError(msg);
+                        //                        onError(msg);
                     } else {
                         Field msgField = result.getClass().getDeclaredField("msg");
                         String msg = (String) msgField.get(result);
@@ -155,9 +157,14 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
+        LogUtils.e(e.getMessage());
         //        if (view != null) {
         //            view.hideLoading();
         //        }
+
+        if (e.getMessage().equals("HTTP 500 Internal Server Error")) {
+            onError("服务器错误");
+        }
         if (e instanceof HttpException) {
             //   HTTP错误
             onException(BAD_NETWORK);
@@ -173,12 +180,14 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                 || e instanceof ParseException) {
             //  解析错误
             onException(PARSE_ERROR);
-        } else {
-            if (e != null) {
-                onError(e.toString());
-            } else {
-                onError("未知错误");
-            }
+        }  else {
+            LogUtils.e(e.getMessage());
+            onError(e.getMessage());
+            //            if (e != null) {
+            //
+            //            } else {
+            //                onError("未知错误");
+            //            }
         }
 
     }
