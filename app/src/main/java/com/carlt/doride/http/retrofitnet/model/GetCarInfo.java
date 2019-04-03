@@ -22,47 +22,47 @@ public class GetCarInfo {
 
     public int      id;                 // id
     public int      cuscarId;           // 车辆档案id
-    public String   orgId;              // 组织id
-    public String   productId;          // 产品id
+    public String   orgId = "";              // 组织id
+    public String   productId = "";          // 产品id
     public int      uid ;               // 用户id
     public int      dealerid;           // 所属经销商ID
     public int      deviceid;           // 设备id
-    public String   deviceidstring;     // 设备String
-    public String   serialCar;          // 车辆编号
+    public String   deviceidstring = "";     // 设备String
+    public String   serialCar = "";          // 车辆编号
     public int      deviceType;         // 设备类型，0=正常，1=更换设备
-    public String   brandTitle;         // 品牌名称
-    public String   modelTitle;         // 车系名称
-    public String   optionTitle;        // 车型名称
+    public String   brandTitle = "";         // 品牌名称
+    public String   modelTitle = "";         // 车系名称
+    public String   optionTitle = "";        // 车型名称
     public int      brandid;            // 品牌ID
     public int      modelid;            // 车系ID
     public int      optionid;           // 车型ID
     public int      styleId;         // 具体车款ID
     public int      carType;            // 车辆类型 1=耗油车辆，2=耗电车辆，3-油电混合
-    public String   carName;            // 车辆名称
-    public String   carLogo;            // 车辆logo
-    public String   color;              // 颜色
-    public String   carProvince;        // 车牌省
-    public String   carNO;              // 车牌号
-    public String   standCarNo;         // 车架号
-    public String   shortStandCarNO;    //查询违章车架号
-    public String   province;           //省份码
-    public String   city;               //城市码
-    public String   engineno;           // 发动机号
-    public String   registno;           // 登记证书
+    public String   carName = "";            // 车辆名称
+    public String   carLogo = "";            // 车辆logo
+    public String   color = "";              // 颜色
+    public String   carProvince = "";        // 车牌省
+    public String   carNO = "";              // 车牌号
+    public String   standCarNo = "";         // 车架号
+    public String   shortStandCarNO = "";    //查询违章车架号
+    public String   province = "";           //省份码
+    public String   city = "";               //城市码
+    public String   engineno = "";           // 发动机号
+    public String   registno = "";           // 登记证书
     public int      canQueryVio;        // 是否可以查询违章
     public int      enablePushVio;      // 是否允许推送违章消息
     public int      cityCodeId;         // 违章查询-城市代码ID
-    public String   cityCode;           // 城市代码
+    public String   cityCode = "";           // 城市代码
     public int      secretaryID;        // 车秘书ID
     public int      licenceLevelID;     // 驾驶证等级ID
     public int      credit;             // 总积分
     public int      friends;            // 好友数量
-    public String   licenceNumber;      // 驾驶证编号
-    public String   licenceDate;        // 驾驶证编号
+    public String   licenceNumber = "";      // 驾驶证编号
+    public String   licenceDate = "";        // 驾驶证编号
     public int      unReadMessage;      // 未读的车秘书消息数
-    public String   latestMessage;      // 最新的一条车秘书消息
+    public String   latestMessage = "";      // 最新的一条车秘书消息
     public int      safetyCount;        // 安防提醒条数
-    public String   safetyMsg;          // 最后一条安防提醒内容
+    public String   safetyMsg = "";          // 最后一条安防提醒内容
     public int      updateDate;         // 更新时间
     public int      createDate;         // 绑定时间
     public long      buyDate;            // 购车时间
@@ -76,22 +76,22 @@ public class GetCarInfo {
     public int      autorestart;        // 是否支持发动机启动技术,1支持,0不支持
     public int      plateDate;          // 上牌日期
     public int      insuranceId;        // 保险公司id
-    public String   insuranceName;      // 保险公司名称
+    public String   insuranceName = "";      // 保险公司名称
     public int      NDTC;               // 最新故障数量
     public int      applicantDate;      // 投保日期
     public int      applicantLong;      // 投保时间
     // 省略经销商流失
-    public String   carPin;             // 车辆pin码
+    public String   carPin = "";             // 车辆pin码
     public int      carPinStatus;       // 车辆pin码
-    public String   bindvin;            // 绑定vin码
+    public String   bindvin = "";            // 绑定vin码
     public int      installOrder;       // '绑定方式：1=前装绑定，2=后装绑定'
     // 省略部分保险数据
     public int      certificateId;      // 车辆凭证附件ID（行驶证或购车发票）
     public int      firstActiveTime;    // 首次激活时间
     public BaseErr    err ;               // 错误描述
      // 附加参数
-    public String   vin;                // 车架号(standcarno bindvin)
-    public String   deviceNum;          // 设备号(同deviceidString)
+    public String   vin = "";                // 车架号(standcarno bindvin)
+    public String   deviceNum = "";          // 设备号(同deviceidString)
     public int      withTbox;           // 出厂是否内置T-box（前后装） 1-是(前装) 2-否(后装)
     public int      remoteStatus;       // 远程激活状态,设备激活状态 0-未激活  1-正在激活  2-激活成功  3-激活失败
     public int      recodeStatus;       // 行车记录仪激活状态
@@ -100,8 +100,8 @@ public class GetCarInfo {
     public int      withNetwork;        // T-BOX供网: 1-支持 2-不支持
     // car_member_car_ext 车辆信息扩展表
     public int      driverLicenseImg;   // 驾驶证照片
-    public String   pledge;             // 押金信息
-    public String   insurance;          // 投保公司信息
+    public String   pledge = "";             // 押金信息
+    public String   insurance = "";          // 投保公司信息
     public int      chargetime;         // 定时充电时间
     public int      inspectTime;        // 上次年检时间
     public int      registerTime;       // 注册到车管所时间

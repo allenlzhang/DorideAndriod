@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.Log;
 import com.carlt.sesame.data.SesameBindDeviceInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.google.gson.Gson;
@@ -57,6 +59,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
     private static String vinCode;
 
+    public static final int CARREQUSTCODE = 1111;
+
     public static final String TAG = "DeviceBindActivity";
 
     private static String ACTIVATE        = "com.carlt.doride.ActivateBindActivity";
@@ -67,6 +71,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     private String   from;
 //    private int   mCarid;
     private UserInfo userInfo;
+
+    private Dialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,12 +154,14 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                     vinCode = car_vin_code.getText().toString();
                 }
                 intent.putExtra("from_bind", TAG);
-                startActivity(intent);
+                startActivityForResult(intent,CARREQUSTCODE);
                 break;
             case R.id.bind_commit:
                 deviceId = car_vin_code.getText().toString();
                 //立即激活
                 if (isVinValid()) {
+                    mDialog = PopBoxCreat.createDialogWithProgress(DeviceBindActivity.this,"");
+                    mDialog.show();
                     if (GetCarInfo.getInstance().carType == 1) {
                         //  大乘
                         bindDevice();
@@ -171,6 +179,16 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CARREQUSTCODE&&resultCode == 200){
+            String carName = data.getStringExtra("carName");
+            Log.e("carname","device ----- "+carName);
+            btn_select_car.setText(carName);
+        }
+    }
+
     public final static String FROM_NAME = "from_name";
 
 
@@ -184,6 +202,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        if (mDialog != null && mDialog.isShowing()) {
+                            mDialog.dismiss();
+                        }
                         LogUtils.e("===" + response.body());
                         String body = response.body();
                         Gson gson = new Gson();
@@ -221,6 +242,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
+                        if (mDialog != null && mDialog.isShowing()) {
+                            mDialog.dismiss();
+                        }
                         UUToast.showUUToast(DeviceBindActivity.this, "绑定失败，请检查网络!");
                     }
                 });
@@ -236,6 +260,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     BaseParser.ResultCallback callback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
             String value = (String) bInfo.getValue();
             try {
                 JSONObject object = new JSONObject(value);
@@ -267,6 +294,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
             if (!TextUtils.isEmpty(bInfo.getInfo())) {
                 UUToast.showUUToast(DeviceBindActivity.this, bInfo.getInfo());
             } else {
@@ -325,8 +355,14 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     }
 
     private void back() {
-        Intent loginIntent = new Intent(this, UserLoginActivity.class);
-        startActivity(loginIntent);
+        String localClassName = "";
+        if (intent!=null){
+            localClassName = intent.getStringExtra("localClassName");
+        }
+        if (TextUtils.equals(localClassName,"SplashActivity")) {
+            Intent loginIntent = new Intent(this, UserLoginActivity.class);
+            startActivity(loginIntent);
+        }
         finish();
     }
 

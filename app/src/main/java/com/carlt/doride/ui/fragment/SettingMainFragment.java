@@ -209,9 +209,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             e.printStackTrace();
         }
 
-        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
+//        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
             LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, avatar, R.mipmap.default_avater);
-        }
+//        }
         if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
             tx_person_name.setText(UserInfo.getInstance().realName);
         }

@@ -100,6 +100,7 @@ public class LoginControl {
 
         } else {
             Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
+            loginIntent.putExtra("localClassName",mContext.getLocalClassName());
             mContext.startActivity(loginIntent);
         }
     }

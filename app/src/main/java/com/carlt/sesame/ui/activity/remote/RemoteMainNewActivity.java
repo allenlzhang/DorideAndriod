@@ -376,30 +376,37 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                         });
                 break;
             case 1:
-                com.carlt.doride.ui.view.PopBoxCreat.createDialogNotitle(this, "温馨提示",
-                        "设备正在激活中...",
-                        "确定", "查看详情", new com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick() {
-                            @Override
-                            public void onLeftClick() {
-
-                            }
-
-                            @Override
-                            public void onRightClick() {
-                                Intent activateIntent = new Intent(RemoteMainNewActivity.this, ActivateStepActivity.class);
-                                int id = GetCarInfo.getInstance().id;
-                                String vin = GetCarInfo.getInstance().vin;
-                                activateIntent.putExtra("carID", String.valueOf(id));
-                                activateIntent.putExtra("vin", vin);
-                                startActivity(activateIntent);
-                            }
-                        });
+                showActivateState("设备正在激活中...");
+                break;
+            case 3:
+                showActivateState("激活失败");
                 break;
         }
         if (remoteStatus != 2) {
             return true;
         }
         return false;
+    }
+
+    private void showActivateState(String txt){
+        com.carlt.doride.ui.view.PopBoxCreat.createDialogNotitle(this, "温馨提示",
+                txt,
+                "确定", "查看详情", new com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick() {
+                    @Override
+                    public void onLeftClick() {
+
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        Intent activateIntent = new Intent(RemoteMainNewActivity.this, ActivateStepActivity.class);
+                        int id = GetCarInfo.getInstance().id;
+                        String vin = GetCarInfo.getInstance().vin;
+                        activateIntent.putExtra("carID", String.valueOf(id));
+                        activateIntent.putExtra("vin", vin);
+                        startActivity(activateIntent);
+                    }
+                });
     }
 
     @Override

@@ -165,13 +165,14 @@ public class CarTypeListActivity extends LoadingActivity {
                             if (code == 200) {
                                 GetCarInfo.getInstance().carName = carTitle;
                                 Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
-                                intent.putExtra("cat_title", carTitle);
-                                intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
+//                                intent.putExtra("cat_title", carTitle);
+//                                intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
                                 if (!TextUtils.isEmpty(vinCode)) {
                                     intent.putExtra("vin", vinCode);
                                 }
-                                CarTypeListActivity.this.startActivity(intent);
-                                ActivityControl.finishAllCarSelectActivity();
+                                intent.putExtra("carName",carTitle);
+                                CarTypeListActivity.this.setResult(200,intent);
+//                                ActivityControl.finishAllCarSelectActivity();
                             } else {
                                 UUToast.showUUToast(CarTypeListActivity.this, " 车型绑定失败");
                             }
@@ -212,7 +213,7 @@ public class CarTypeListActivity extends LoadingActivity {
                 e.printStackTrace();
             }
             Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
-            intent.putExtra("cat_title", carTitle);
+//            intent.putExtra("cat_title", carTitle);
             intent.putExtra("carid", carid);
             intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
             if (!TextUtils.isEmpty(vinCode)) {
@@ -228,8 +229,10 @@ public class CarTypeListActivity extends LoadingActivity {
             //            } else if (carTitle.startsWith("大乘")) {
             //                LoginInfo.setApp_type(1);
             //            }
-            CarTypeListActivity.this.startActivity(intent);
-            ActivityControl.finishAllCarSelectActivity();
+            intent.putExtra("carName",carTitle);
+            CarTypeListActivity.this.setResult(200,intent);
+            finish();
+//            ActivityControl.finishAllCarSelectActivity();
         }
 
         @Override
@@ -273,7 +276,8 @@ public class CarTypeListActivity extends LoadingActivity {
             } else {
                 GetCarInfo.getInstance().dorcenCarDisplay = 0;
             }
-            ActivityControl.finishAllCarSelectActivity();
+//            ActivityControl.finishAllCarSelectActivity();
+            setResult(200,new Intent().putExtra("carName",carTitle));
         }
 
         @Override

@@ -14,7 +14,9 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarModeInfo;
 import com.carlt.doride.protocolparser.car.CarModeInfoListParser;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.activity.login.DeviceBindActivity;
 import com.carlt.doride.ui.adapter.CarModeAdapter;
+import com.carlt.doride.utils.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,9 +59,19 @@ public class CarModeListActivity extends LoadingActivity {
                         intentType.putExtra("vin", vinCode);
                     }
                 }
-                CarModeListActivity.this.startActivity(intentType);
+                CarModeListActivity.this.startActivityForResult(intentType, DeviceBindActivity.CARREQUSTCODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == DeviceBindActivity.CARREQUSTCODE&&resultCode == 200){
+            Log.e("carname","carModel --- "+data.getStringExtra("carName"));
+            setResult(200,data);
+            finish();
+        }
     }
 
     /*
