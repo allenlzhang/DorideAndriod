@@ -25,7 +25,6 @@ import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -34,7 +33,6 @@ import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.activity.setting.CarTypeListActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.orhanobut.logger.Logger;
 import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
@@ -54,7 +52,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class ActivityControl {
 
-    private static List<Activity> mActivityList = new ArrayList<Activity>();
+    public static List<Activity> mActivityList = new ArrayList<>();
     private static UserInfo userInfo = UserInfo.getInstance();
     public static void addActivity(Activity activity) {
         if (null != activity) {

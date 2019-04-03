@@ -148,7 +148,7 @@ public class RemoteMainFragment extends BaseFragment implements
 
             }
         });
-//        remoteStatus = GetCarInfo.getInstance().remoteStatus;
+        //        remoteStatus = GetCarInfo.getInstance().remoteStatus;
         super.onResume();
         //        CPControl.GetRemoteCarState(mListener_states);
 
@@ -875,6 +875,7 @@ public class RemoteMainFragment extends BaseFragment implements
                         String vin = GetCarInfo.getInstance().vin;
                         activateIntent.putExtra("carID", id);
                         activateIntent.putExtra("vin", vin);
+                        activateIntent.putExtra("From", ActivateStepActivity.from_Droide);
                         startActivity(activateIntent);
                     }
                 });

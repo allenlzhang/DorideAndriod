@@ -22,6 +22,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
+import com.carlt.doride.http.retrofitnet.ApiService;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.DragViewCtr;
 import com.carlt.sesame.http.AsyncImageLoader;
@@ -29,6 +32,11 @@ import com.carlt.sesame.http.AsyncImageLoader.AsyncImageLoaderListener;
 import com.carlt.sesame.utility.Log;
 
 import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class BaseActivity extends Activity implements AsyncImageLoaderListener, BeforeGoToBackground {
 
@@ -41,18 +49,35 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
      */
     protected static ArrayList<BeforeGoToBackground> mBackDoList = new ArrayList<BeforeGoToBackground>();
 
-    protected Context                   context;
-    private   RequestPermissionCallBack mRequestPermissionCallBack;
-    private static final int PERMISSION_REQUEST_CODE = 1024;
+    protected            Context                   context;
+    private              RequestPermissionCallBack mRequestPermissionCallBack;
+    private static final int                       PERMISSION_REQUEST_CODE = 1024;
     /**
      * 可拖动的打电话按钮控制器
      */
-    protected DragViewCtr dragViewCtr;
-
+    protected            DragViewCtr               dragViewCtr;
+    protected            ApiService                mApiService             = ApiRetrofit.getInstance().getService(ApiService.class);
+    private              CompositeDisposable       compositeDisposable;
     public boolean IsShowing() {
         return mIsShowing;
     }
+    public void addDisposable(Observable<?> observable, BaseMvcObserver observer) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(observer));
 
+
+    }
+
+    public void removeDisposable() {
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+            compositeDisposable.clear();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,12 +10,10 @@ import android.widget.ListView;
 import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
-import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarModeInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.protocolparser.car.CarTypeInfoListParser;
@@ -24,7 +22,6 @@ import com.carlt.doride.ui.activity.login.DeviceBindActivity;
 import com.carlt.doride.ui.adapter.CarTypeAdapter;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -165,14 +162,15 @@ public class CarTypeListActivity extends LoadingActivity {
                             if (code == 200) {
                                 GetCarInfo.getInstance().carName = carTitle;
                                 Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
-//                                intent.putExtra("cat_title", carTitle);
-//                                intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
+                                //                                intent.putExtra("cat_title", carTitle);
+                                //                                intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
                                 if (!TextUtils.isEmpty(vinCode)) {
                                     intent.putExtra("vin", vinCode);
                                 }
-                                intent.putExtra("carName",carTitle);
-                                CarTypeListActivity.this.setResult(200,intent);
-//                                ActivityControl.finishAllCarSelectActivity();
+                                intent.putExtra("carName", carTitle);
+                                CarTypeListActivity.this.setResult(200, intent);
+                                //                                ActivityControl.finishAllCarSelectActivity();
+                                finish();
                             } else {
                                 UUToast.showUUToast(CarTypeListActivity.this, " 车型绑定失败");
                             }
@@ -213,7 +211,7 @@ public class CarTypeListActivity extends LoadingActivity {
                 e.printStackTrace();
             }
             Intent intent = new Intent(CarTypeListActivity.this, DeviceBindActivity.class);
-//            intent.putExtra("cat_title", carTitle);
+            //            intent.putExtra("cat_title", carTitle);
             intent.putExtra("carid", carid);
             intent.putExtra("from", "com.carlt.doride.ActivateBindActivity");
             if (!TextUtils.isEmpty(vinCode)) {
@@ -229,10 +227,10 @@ public class CarTypeListActivity extends LoadingActivity {
             //            } else if (carTitle.startsWith("大乘")) {
             //                LoginInfo.setApp_type(1);
             //            }
-            intent.putExtra("carName",carTitle);
-            CarTypeListActivity.this.setResult(200,intent);
+            intent.putExtra("carName", carTitle);
+            CarTypeListActivity.this.setResult(200, intent);
             finish();
-//            ActivityControl.finishAllCarSelectActivity();
+            //            ActivityControl.finishAllCarSelectActivity();
         }
 
         @Override
@@ -276,8 +274,9 @@ public class CarTypeListActivity extends LoadingActivity {
             } else {
                 GetCarInfo.getInstance().dorcenCarDisplay = 0;
             }
-//            ActivityControl.finishAllCarSelectActivity();
-            setResult(200,new Intent().putExtra("carName",carTitle));
+            //            ActivityControl.finishAllCarSelectActivity();
+            setResult(200, new Intent().putExtra("carName", carTitle));
+            finish();
         }
 
         @Override

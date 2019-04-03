@@ -18,7 +18,7 @@ import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.ActivateStepInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
-import com.carlt.sesame.control.ActivityControl;
+import com.carlt.sesame.ui.SesameMainActivity;
 import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
@@ -61,7 +61,11 @@ public class ActivateStepActivity extends BaseActivity {
     TextView  tvRetry;
     @BindView(R.id.tvTip)
     TextView  tvTip;
-    private int carId;
+    private             int carId;
+    private             int mFrom;
+    public static final int from_Droide   = 1;
+    public static final int from_Sesame   = 2;
+    public static final int from_Activate = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,7 @@ public class ActivateStepActivity extends BaseActivity {
         back.setVisibility(View.GONE);
         initActivateLogs();
         initAnimator();
+        mFrom = getIntent().getIntExtra("From", -1);
     }
 
     Disposable disposable;
@@ -167,6 +172,7 @@ public class ActivateStepActivity extends BaseActivity {
                 stepView.done(true);
                 stepsBean = steps.get(logs.size() - 1);
             } else {
+
                 stepView.go(logs.size(), true);
                 stepsBean = steps.get(logs.size());
             }
@@ -219,7 +225,7 @@ public class ActivateStepActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tvRetry:
-
+                LogUtils.e(ERR_TYPE);
                 switch (ERR_TYPE) {
                     case 0:
                         GetCarInfo.getInstance().remoteStatus = 3;
@@ -227,9 +233,11 @@ public class ActivateStepActivity extends BaseActivity {
                         //                        intent.putExtra("withTbox", withTbox);
                         intent.putExtra("carId", carId);
                         intent.setClass(this, ActivateAccActivity.class);
+                        GetCarInfo.getInstance().isFail = true;
                         startActivity(intent);
                         break;
                     case 1:
+                        GetCarInfo.getInstance().isFail = true;
                         GetCarInfo.getInstance().remoteStatus = 3;
                         Intent intent1 = new Intent();
                         //                        intent1.putExtra("withTbox", withTbox);
@@ -256,7 +264,8 @@ public class ActivateStepActivity extends BaseActivity {
     }
 
     private void closeActivity() {
-        for (Activity activity : ActivityControl.mActivityList) {
+        for (Activity activity : com.carlt.doride.control.ActivityControl.mActivityList) {
+
             if (activity instanceof AutoGoActivateActivity) {
                 activity.finish();
             }
@@ -267,9 +276,28 @@ public class ActivateStepActivity extends BaseActivity {
             }
 
         }
+        switch (mFrom) {
+            case 1:
+                finish();
 
-        Intent intent2 = new Intent(this, MainActivity.class);
-        startActivity(intent2);
+                break;
+            case 2:
+                finish();
+                break;
+            case 3:
+                int carType = GetCarInfo.getInstance().carType;
+                if (carType == 1) {
+                    Intent intent2 = new Intent(this, MainActivity.class);
+                    startActivity(intent2);
+                    finish();
+                } else if (carType == 2) {
+                    Intent intent3 = new Intent(this, SesameMainActivity.class);
+                    startActivity(intent3);
+                    finish();
+                }
+                break;
+        }
+
     }
 
     @Override

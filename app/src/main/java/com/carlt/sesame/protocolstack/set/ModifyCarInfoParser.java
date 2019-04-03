@@ -2,8 +2,6 @@
 package com.carlt.sesame.protocolstack.set;
 
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
-import com.carlt.doride.utils.MyTimeUtils;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarMainInfo;
 import com.carlt.sesame.protocolstack.BaseParser;
 
@@ -30,7 +28,11 @@ public class ModifyCarInfoParser extends BaseParser {
             }
 
             try {
-                GetCarInfo.getInstance().maintenNextDate = mJSON_data.getInt("mainten_next_date");
+                GetCarInfo.getInstance().maintenDate = mJSON_data.getInt("mainten_date");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }  try {
+                GetCarInfo.getInstance().buyDate = mJSON_data.getInt("buydate");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
