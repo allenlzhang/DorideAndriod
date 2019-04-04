@@ -35,7 +35,6 @@ import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.car.CarDealerParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -198,6 +197,14 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         avatar = parent.findViewById(R.id.avatar);
         ivScan = parent.findViewById(R.id.ivScan);
         ivScan.setOnClickListener(this);
+
+        int remoteStatus = GetCarInfo.getInstance().remoteStatus;
+        if (remoteStatus == 2) {
+            btn_device_manager.setVisibility(View.VISIBLE);
+
+        } else {
+            btn_device_manager.setVisibility(View.GONE);
+        }
     }
 
     private void showUserUI() {
@@ -209,9 +216,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             e.printStackTrace();
         }
 
-        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
-            LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, avatar, R.mipmap.default_avater);
-        }
+        //        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
+        LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, avatar, R.mipmap.default_avater);
+        //        }
         if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
             tx_person_name.setText(UserInfo.getInstance().realName);
         }
@@ -668,7 +675,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
         String s1 = bytes2HexString(mbs);
         Integer len = Integer.valueOf(s1, 16);
-//        LogUtils.e(len);
+        //        LogUtils.e(len);
         //        byte[] content = Arrays.copyOfRange(bytes, 9, 9 + len);
         byte[] regex = Arrays.copyOfRange(bytes, 9 + len, len + 13);
         CRC32 crc321 = new CRC32();
@@ -907,6 +914,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 判断T-box、车机是否配置流量产品（V140）
      */
     private void countDataPackage(final int type) {
+
         loadingDataUI();
         String countDataPackageUrl = URLConfig.getM_COUNTDATAPACKGE();
         OkGo.<String>post(countDataPackageUrl)
@@ -970,6 +978,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                                 lineCarFlow.setVisibility(View.VISIBLE);
                                 tvFlow.setText("T-box流量充值");
                                 tvCarFlow.setText("车机流量充值");
+
                             } else {
                                 isCountData = true;
                                 llFlowRecharge.setVisibility(View.VISIBLE);
@@ -980,6 +989,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
+                        hasActivate();
                         isTbox = false;
                         isLoadingUI();
                         break;
@@ -1002,6 +1012,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
+                        hasActivate();
                         isMatchine = false;
                         isLoadingUI();
                         break;
@@ -1041,6 +1052,26 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             }
         }
 
+    }
+
+    private void hasActivate() {
+        int remoteStatus = GetCarInfo.getInstance().remoteStatus;
+        if (remoteStatus == 2) {
+            if (llCarFlowRecharge.getVisibility() == View.VISIBLE) {
+                llCarFlowRecharge.setVisibility(View.VISIBLE);
+            } else {
+                llCarFlowRecharge.setVisibility(View.GONE);
+            }
+            if (llFlowRecharge.getVisibility() == View.VISIBLE) {
+                llFlowRecharge.setVisibility(View.VISIBLE);
+            } else {
+                llFlowRecharge.setVisibility(View.GONE);
+            }
+
+        } else {
+            llCarFlowRecharge.setVisibility(View.GONE);
+            llFlowRecharge.setVisibility(View.GONE);
+        }
     }
 
     private void isLoadingUI() {

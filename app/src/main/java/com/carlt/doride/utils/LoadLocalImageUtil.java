@@ -98,6 +98,7 @@ public class LoadLocalImageUtil {
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .skipMemoryCache(true)
                 .transform(new GlideCircleTransform(UiUtils.getContext()))
+                .placeholder(defaulePic)
                 .error(defaulePic)
                 .into(imageView);
     }

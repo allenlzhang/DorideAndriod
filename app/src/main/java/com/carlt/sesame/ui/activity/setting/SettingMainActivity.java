@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.ui.activity.setting.AboutDorideActivity;
 import com.carlt.sesame.control.ActivityControl;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.http.AsyncImageLoader;
 import com.carlt.sesame.ui.SesameMainActivity;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
@@ -97,10 +97,10 @@ public class SettingMainActivity extends BaseActivity {
         mImgHead = (ImageView) findViewById(R.id.activity_setting_img_head);
         mImgDot = (ImageView) findViewById(R.id.activity_setting_img_dot);
         //芝麻E30 RemoteControl会返1，大乘电动车不会
-//        if ("1".equals(SesameLoginInfo.getRemoteControl())) {
-//            findViewById(R.id.line_h4).setVisibility(View.VISIBLE);
-//            findViewById(R.id.activity_setting_layout5).setVisibility(View.VISIBLE);
-//        }
+        //        if ("1".equals(SesameLoginInfo.getRemoteControl())) {
+        //            findViewById(R.id.line_h4).setVisibility(View.VISIBLE);
+        //            findViewById(R.id.activity_setting_layout5).setVisibility(View.VISIBLE);
+        //        }
 
         mView1.setOnClickListener(mClickListener);
         mView2.setOnClickListener(mClickListener);
@@ -119,7 +119,11 @@ public class SettingMainActivity extends BaseActivity {
 
         mTextView1.setText("");
         mTextView2.setOnClickListener(mClickListener);
-
+        if (GetCarInfo.getInstance().remoteStatus != 2) {
+            mView4.setVisibility(View.GONE);
+        } else {
+            mView4.setVisibility(View.VISIBLE);
+        }
     }
 
     private void loadData() {
@@ -144,7 +148,7 @@ public class SettingMainActivity extends BaseActivity {
             // mViewLine5Bg.setVisibility(View.VISIBLE);
             // mViewLine5.setVisibility(View.VISIBLE);
 
-                mImgDot.setVisibility(View.GONE);
+            mImgDot.setVisibility(View.GONE);
         } else {
             // mViewFee.setVisibility(View.GONE);
             mViewLine5Bg.setVisibility(View.GONE);
@@ -176,7 +180,7 @@ public class SettingMainActivity extends BaseActivity {
                 case R.id.activity_setting_layout4:
                     // 跳转至设备管理-TODO
                     Intent mIntent = new Intent(context, ManageDeviceActivity.class);
-                     startActivity(mIntent);
+                    startActivity(mIntent);
                     break;
                 case R.id.activity_setting_layout5:
                     // 跳转至通用管理-TODO
@@ -199,9 +203,9 @@ public class SettingMainActivity extends BaseActivity {
                     break;
                 case R.id.activity_setting_layout9:
                     //                    版本介绍
-//                    Intent intentUpdataDetail = new Intent(SettingMainActivity.this,
-//                            UpdataDetailActivity.class);
-//                    startActivity(intentUpdataDetail);
+                    //                    Intent intentUpdataDetail = new Intent(SettingMainActivity.this,
+                    //                            UpdataDetailActivity.class);
+                    //                    startActivity(intentUpdataDetail);
                     // 拨打客服电话
                     break;
                 case R.id.activity_setting_txt2:
@@ -216,8 +220,8 @@ public class SettingMainActivity extends BaseActivity {
                     break;
                 case R.id.activity_setting_layout_fee:
                     // 跳转至续费管理
-//                    Intent intent9 = new Intent(SettingMainActivity.this, ManageFeeActivity.class);
-//                    startActivity(intent9);
+                    //                    Intent intent9 = new Intent(SettingMainActivity.this, ManageFeeActivity.class);
+                    //                    startActivity(intent9);
                     break;
             }
         }

@@ -19,6 +19,7 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.protocolparser.car.CarSettingInfoParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -174,6 +175,7 @@ public class CarManagerActivity extends LoadingActivity implements View.OnClickL
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 HashMap<String, String> params = null;
                 carDate = getTime(date);
+                Log.e("cartime",carDate);
                 switch (v.getId()) {
                     case R.id.purchase_time_txt:
                         params = new HashMap<>();

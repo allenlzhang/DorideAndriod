@@ -209,7 +209,9 @@
                         android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
 
-                <View style="@style/setting_page_item_divider"/>
+                <View
+                    android:id="@+id/viewLineMsg"
+                    style="@style/setting_page_item_divider"/>
 
                 <LinearLayout
                     android:id="@+id/btn_device_manager"
@@ -485,8 +487,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/login_out_btn_bg"
                 android:gravity="center"
                 android:text="@string/logout_txt"

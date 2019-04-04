@@ -216,35 +216,8 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.manage_car_layout1:
-                    // 选择车型
-                    // if (mCarTypeView == null) {
-                    // mCarTypeView = new
-                    // SelectCarTypeView(ManageCarActivity.this,
-                    // mOnCarTypeItemClick);
-                    // }
-                    // mCarTypeView.pullDataFirst(SelectCarTypeView.TYPE_MODEL);
-                    // mCarTypeView.showMenu();
-
-                    // 选择车款
-                    //                    if (mCarTypeView == null) {
-                    //                        mCarTypeView = new SelectCarTypeView(ManageCarActivity.this,
-                    //                                mOnCarTypeItemClick);
-                    //                    }
-                    //                    CarModeInfo carModeInfo1 = new CarModeInfo();
-                    //                    carModeInfo1.setTitle(SelectCarTypeView.TITLE);
-                    //                    carModeInfo1.setId(SelectCarTypeView.OPTIONID);
-                    //                    mCarTypeView.pullDataThird(carModeInfo1, SelectCarTypeView.TYPE_CAR);
-                    //                    mCarTypeView.showMenu();
                     break;
                 case R.id.manage_car_txt_carname:
-                    // 选择车型
-                    // if (mCarTypeView == null) {
-                    // mCarTypeView = new
-                    // SelectCarTypeView(ManageCarActivity.this,
-                    // mOnCarTypeItemClick);
-                    // }
-                    // mCarTypeView.pullDataFirst(SelectCarTypeView.TYPE_MODEL);
-                    // mCarTypeView.showMenu();
 
                     // 选择车款
                     if (mCarTypeView == null) {
@@ -258,25 +231,6 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     mCarTypeView.showMenu();
                     break;
                 case R.id.manage_car_txt_buydate:
-                    // 选择日期
-//                    Calendar mCalendar = Calendar.getInstance();
-//                    String buyDate = SesameLoginInfo.getBuydate();
-//                    int year;
-//                    int month;
-//                    int day;
-//                    if (buyDate != null && buyDate.length() > 0) {
-//                        String date[] = buyDate.split("-");
-//                        year = MyParse.parseInt(date[0]);
-//                        month = (MyParse.parseInt(date[1]) - 1);
-//                        day = MyParse.parseInt(date[2]);
-//                    } else {
-//                        year = mCalendar.get(Calendar.YEAR);
-//                        month = mCalendar.get(Calendar.MONTH);
-//                        day = mCalendar.get(Calendar.DAY_OF_MONTH);
-//                    }
-//                    DatePickDialog datePickDialog = new DatePickDialog(ManageCarActivity.this,
-//                            mIgetDate, "", year, month, day, "确定", "取消");
-//                    datePickDialog.show();
                     initCustomTimePicker(mTxtBuydate.getText().toString());
                         pvCustomTime.show(mTxtBuydate);
                     break;
@@ -289,24 +243,6 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
                     break;
                 case R.id.manage_car_txt_maintaindate:
                     // 修改上次保养日期
-//                    Calendar mCalendar2 = Calendar.getInstance();
-//                    String maintainDate = SesameLoginInfo.getMainten_time();
-//                    int year2;
-//                    int month2;
-//                    int day2;
-//                    if (maintainDate != null && maintainDate.length() > 0) {
-//                        String date[] = maintainDate.split("-");
-//                        year2 = MyParse.parseInt(date[0]);
-//                        month2 = (MyParse.parseInt(date[1]) - 1);
-//                        day2 = MyParse.parseInt(date[2]);
-//                    } else {
-//                        year2 = mCalendar2.get(Calendar.YEAR);
-//                        month2 = mCalendar2.get(Calendar.MONTH);
-//                        day2 = mCalendar2.get(Calendar.DAY_OF_MONTH);
-//                    }
-//                    DatePickDialog datePickDialog2 = new DatePickDialog(ManageCarActivity.this,
-//                            mIgetDate2, "", year2, month2, day2, "确定", "取消");
-//                    datePickDialog2.show();
                     initCustomTimePicker(mTxtMaintainDate.getText().toString());
                     pvCustomTime.show(mTxtMaintainDate);
                     break;
@@ -344,6 +280,7 @@ public class ManageCarActivity extends LoadingActivityWithTitle {
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 HashMap<String, String> params = null;
                 carDate = getTime(date);
+                Log.e("cartime",carDate);
                 switch (v.getId()) {
                     case R.id.manage_car_txt_buydate:
                         params = new HashMap<>();

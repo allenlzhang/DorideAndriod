@@ -17,11 +17,11 @@ public class ContactsInfo {
         return contactsInfo;
     }
 
-    public String name ; //企业全称
-    public String address; //详细地址
-    public String map; //百度坐标
-    public String salesHotLine; //销售热线
-    public String serviceHotLine; //服务电话
+    public String name  = ""; //企业全称
+    public String address = ""; //详细地址
+    public String map = ""; //百度坐标
+    public String salesHotLine = ""; //销售热线
+    public String serviceHotLine = ""; //服务电话
 
     public void setContactsInfo(ContactsInfo contactsInfo){
         name = contactsInfo.name;

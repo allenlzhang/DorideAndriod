@@ -23,12 +23,12 @@ public class UserInfo implements Serializable {
     }
 
     public int id;
-    public String orgId;    // 机构ID
-    public String account;  // 登录账号
-    public String accountId;// 账号id
-    public String mobile;   // 手机号
-    public String productId;// 产品ID
-    public String appId;    // 应用ID
+    public String orgId = "";    // 机构ID
+    public String account = "";  // 登录账号
+    public String accountId = "";// 账号id
+    public String mobile = "";   // 手机号
+    public String productId = "";// 产品ID
+    public String appId = "";    // 应用ID
     public int accountState;// 账户状态，车联网平台　１正常，２冻结
     public int authenState; // 是否实名认证
     public int ownerState;  // 成为车主
@@ -37,30 +37,30 @@ public class UserInfo implements Serializable {
     public int createDate;  // 用户创建时间
     public int logoutState; // 用户注销状态
     public BaseErr err;     // 错误描述
-    public String password; // 登录密码
+    public String password = ""; // 登录密码
     public int gender;      // 性别
-    public String loginoauth; // 登陆oauth随机码
+    public String loginoauth = ""; // 登陆oauth随机码
     public int ip;          // 用户IP来源
     public int thisLogin;   // 本次登录时间
-    public String authenName; // 认证名字
-    public String authenCard; // 身份证号码
-    public String realName;   // 真是姓名
+    public String authenName = ""; // 认证名字
+    public String authenCard = ""; // 身份证号码
+    public String realName = "";   // 真是姓名
     public int dealerId;      // 经销商ID
     public int loginVersion;  // 登录系统版本
-    public String lastLoginAppType; // 最后登录平台类型
+    public String lastLoginAppType = ""; // 最后登录平台类型
     public int loginTimes;      // 登录次数
     public int remotePwdSwitch; // 5分钟免密开关  1-開
-    public String remotePwd;    // 远程密码
+    public String remotePwd = "";    // 远程密码
     public int userFreeze;// 用户冻结
-    public String avatarFile; // 用户头像文件路径
+    public String avatarFile = ""; // 用户头像文件路径
     public int alipayAuth;  // 支付宝实名认证状态  1-未认证  2-已认证
     public int faceId;      // 人脸图片id
-    public String faceFile; // 人脸图片文件路径
+    public String faceFile = ""; // 人脸图片文件路径
     public int identityAuth; // 身份证实名认证状态  1-未认证  2-已认证
     public int alipayLogin; // 是否绑定支付宝登录  1-未绑定  2-已绑定
     public int wechatLogin; // 是否绑定微信登录  1-未绑定  2-已绑定
-    public String userName; //用户名
-    public String isAuthen; //是否实名认证（旧版）
+    public String userName = ""; //用户名
+    public String isAuthen = ""; //是否实名认证（旧版）
     public int lessPwdSwitch; //免密开关
     public int isSetRemotePwd; //是否设置远程密码 1-已设置 0-未设置
     public void setUserInfo(UserInfo userInfo){

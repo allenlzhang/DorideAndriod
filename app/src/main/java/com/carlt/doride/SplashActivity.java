@@ -35,6 +35,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
+import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
 import com.orhanobut.logger.Logger;
 

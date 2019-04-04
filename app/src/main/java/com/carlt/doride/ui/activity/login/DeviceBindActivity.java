@@ -1,5 +1,6 @@
 package com.carlt.doride.ui.activity.login;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,8 +25,10 @@ import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.Log;
 import com.carlt.sesame.data.SesameBindDeviceInfo;
 import com.carlt.sesame.preference.TokenInfo;
+import com.carlt.sesame.ui.SesameMainActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -57,6 +60,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
     private static String vinCode;
 
+    public static final int CARREQUSTCODE = 1111;
+
     public static final String TAG = "DeviceBindActivity";
 
     private static String ACTIVATE        = "com.carlt.doride.ActivateBindActivity";
@@ -65,8 +70,10 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     private Intent intent;
 
     private String   from;
-//    private int   mCarid;
+    //    private int   mCarid;
     private UserInfo userInfo;
+
+    private Dialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +83,8 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
         initComponent();
         intent = getIntent();
         from = intent.getStringExtra("from");
-//        mCarid = intent.getIntExtra("carid",-1);
-//        LogUtils.e("====" + mCarid);
+        //        mCarid = intent.getIntExtra("carid",-1);
+        //        LogUtils.e("====" + mCarid);
 
     }
 
@@ -148,12 +155,14 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                     vinCode = car_vin_code.getText().toString();
                 }
                 intent.putExtra("from_bind", TAG);
-                startActivity(intent);
+                startActivityForResult(intent, CARREQUSTCODE);
                 break;
             case R.id.bind_commit:
                 deviceId = car_vin_code.getText().toString();
                 //立即激活
                 if (isVinValid()) {
+                    mDialog = PopBoxCreat.createDialogWithProgress(DeviceBindActivity.this, "");
+                    mDialog.show();
                     if (GetCarInfo.getInstance().carType == 1) {
                         //  大乘
                         bindDevice();
@@ -166,8 +175,17 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 }
 
 
-
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CARREQUSTCODE && resultCode == 200) {
+            String carName = data.getStringExtra("carName");
+            Log.e("carname", "device ----- " + carName);
+            btn_select_car.setText(carName);
         }
     }
 
@@ -184,6 +202,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        if (mDialog != null && mDialog.isShowing()) {
+                            mDialog.dismiss();
+                        }
                         LogUtils.e("===" + response.body());
                         String body = response.body();
                         Gson gson = new Gson();
@@ -196,17 +217,17 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                                 SesameBindDeviceInfo info = gson.fromJson(body, SesameBindDeviceInfo.class);
                                 UUToast.showUUToast(DeviceBindActivity.this, "绑定成功!");
                                 // 跳转芝麻的激活页面
-//                                Intent sesameActivateIntent = new Intent(DeviceBindActivity.this, SesameActivateActivity.class);
-//                                sesameActivateIntent.putExtra("need_pin", info.data.need_pin);
-//                                startActivity(sesameActivateIntent);
+                                //                                Intent sesameActivateIntent = new Intent(DeviceBindActivity.this, SesameActivateActivity.class);
+                                //                                sesameActivateIntent.putExtra("need_pin", info.data.need_pin);
+                                //                                startActivity(sesameActivateIntent);
 
 
-//                                Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
-//                                activateIntent.putExtra("vin", vinCode);
-//                                activateIntent.putExtra("carType", carTitle);
-//                                activateIntent.putExtra("carID", mCarid);
+                                //                                Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
+                                //                                activateIntent.putExtra("vin", vinCode);
+                                //                                activateIntent.putExtra("carType", carTitle);
+                                //                                activateIntent.putExtra("carID", mCarid);
 
-//                                startActivity(activateIntent);
+                                //                                startActivity(activateIntent);
                                 justActivate();
                             } else {
                                 UUToast.showUUToast(DeviceBindActivity.this, msg);
@@ -221,6 +242,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
+                        if (mDialog != null && mDialog.isShowing()) {
+                            mDialog.dismiss();
+                        }
                         UUToast.showUUToast(DeviceBindActivity.this, "绑定失败，请检查网络!");
                     }
                 });
@@ -236,6 +260,9 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     BaseParser.ResultCallback callback = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
             String value = (String) bInfo.getValue();
             try {
                 JSONObject object = new JSONObject(value);
@@ -260,13 +287,14 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             //            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
 
 
-
         }
-
 
 
         @Override
         public void onError(BaseResponseInfo bInfo) {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
             if (!TextUtils.isEmpty(bInfo.getInfo())) {
                 UUToast.showUUToast(DeviceBindActivity.this, bInfo.getInfo());
             } else {
@@ -274,6 +302,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             }
         }
     };
+
     private void justActivate() {
         addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
             @Override
@@ -293,9 +322,25 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onLeftClick() {
                         //稍后激活
-                        Intent intent2 = new Intent(DeviceBindActivity.this, MainActivity.class);
-                        startActivity(intent2);
-                        finish();
+                        int carType = GetCarInfo.getInstance().carType;
+                        boolean isFail = GetCarInfo.getInstance().isFail;
+                        if (isFail) {
+                            GetCarInfo.getInstance().remoteStatus = 0;
+                        }
+                        if (carType == 1) {
+                            //燃油车
+                            Intent intent2 = new Intent(DeviceBindActivity.this, MainActivity.class);
+                            startActivity(intent2);
+                            finish();
+                        } else if (carType == 2) {
+                            //电动车
+                            Intent intent2 = new Intent(DeviceBindActivity.this, SesameMainActivity.class);
+                            startActivity(intent2);
+                            finish();
+                        } else if (carType == 3) {
+                            //混动车
+                        }
+
                     }
 
                     @Override
@@ -304,12 +349,13 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                         Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
                         activateIntent.putExtra("vin", vinCode);
                         activateIntent.putExtra("carType", carTitle);
-//                        activateIntent.putExtra("carID", Integer.valueOf(mCarid));
+                        //                        activateIntent.putExtra("carID", Integer.valueOf(mCarid));
                         startActivity(activateIntent);
                     }
                 });
 
     }
+
     private boolean isVinValid() {
         if (TextUtils.isEmpty(deviceId)) {
             UUToast.showUUToast(this, " VIN码不能为空");
@@ -325,8 +371,14 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
     }
 
     private void back() {
-        Intent loginIntent = new Intent(this, UserLoginActivity.class);
-        startActivity(loginIntent);
+        String localClassName = "";
+        if (intent != null) {
+            localClassName = intent.getStringExtra("localClassName");
+        }
+        if (TextUtils.equals(localClassName, "SplashActivity")) {
+            Intent loginIntent = new Intent(this, UserLoginActivity.class);
+            startActivity(loginIntent);
+        }
         finish();
     }
 

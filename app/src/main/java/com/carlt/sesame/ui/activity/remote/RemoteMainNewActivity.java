@@ -25,6 +25,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.BaseParser;
@@ -352,7 +353,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     }
 
     private boolean hasActivate() {
-        int remoteStatus = GetCarInfo.getInstance().remoteStatus;
+
 
         switch (remoteStatus) {
             case 0:
@@ -371,29 +372,16 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                                 String vin = GetCarInfo.getInstance().vin;
                                 activateIntent.putExtra("carID", String.valueOf(id));
                                 activateIntent.putExtra("vin", vin);
+
                                 startActivity(activateIntent);
                             }
                         });
                 break;
             case 1:
-                com.carlt.doride.ui.view.PopBoxCreat.createDialogNotitle(this, "温馨提示",
-                        "设备正在激活中...",
-                        "确定", "查看详情", new com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick() {
-                            @Override
-                            public void onLeftClick() {
-
-                            }
-
-                            @Override
-                            public void onRightClick() {
-                                Intent activateIntent = new Intent(RemoteMainNewActivity.this, ActivateStepActivity.class);
-                                int id = GetCarInfo.getInstance().id;
-                                String vin = GetCarInfo.getInstance().vin;
-                                activateIntent.putExtra("carID", String.valueOf(id));
-                                activateIntent.putExtra("vin", vin);
-                                startActivity(activateIntent);
-                            }
-                        });
+                showActivateState("设备正在激活中...");
+                break;
+            case 3:
+                showActivateState("激活失败");
                 break;
         }
         if (remoteStatus != 2) {
@@ -402,10 +390,46 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
         return false;
     }
 
+    private void showActivateState(String txt) {
+        com.carlt.doride.ui.view.PopBoxCreat.createDialogNotitle(this, "温馨提示",
+                txt,
+                "确定", "查看详情", new com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick() {
+                    @Override
+                    public void onLeftClick() {
+
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        Intent activateIntent = new Intent(RemoteMainNewActivity.this, ActivateStepActivity.class);
+                        int id = GetCarInfo.getInstance().id;
+                        String vin = GetCarInfo.getInstance().vin;
+                        activateIntent.putExtra("carID", String.valueOf(id));
+                        activateIntent.putExtra("vin", vin);
+                        activateIntent.putExtra("From", ActivateStepActivity.from_Sesame);
+                        startActivity(activateIntent);
+                    }
+                });
+    }
+
+    int remoteStatus;
+
     @Override
     protected void onResume() {
         super.onResume();
         LoadData();
+        addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
+            @Override
+            public void onSuccess(GetCarInfo result) {
+                GetCarInfo.getInstance().setCarInfo(result);
+                remoteStatus = result.remoteStatus;
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
     }
 
     private ArrayList<RemoteFunInfo> mRemoteFunInfos;

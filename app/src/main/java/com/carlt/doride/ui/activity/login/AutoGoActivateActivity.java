@@ -157,6 +157,7 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
 //                    showToast("开始激活");
                     Intent intent = new Intent(AutoGoActivateActivity.this, ActivateStepActivity.class);
 //                    intent.putExtra("carId", Integer.valueOf(carID));
+                    intent.putExtra("From", ActivateStepActivity.from_Activate);
                     startActivity(intent);
                     finish();
                 }
