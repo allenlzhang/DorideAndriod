@@ -5,6 +5,7 @@ import com.carlt.doride.http.retrofitnet.model.ActivateStepInfo;
 import com.carlt.doride.http.retrofitnet.model.AuthCarInfo;
 import com.carlt.doride.http.retrofitnet.model.BaseErr;
 import com.carlt.doride.http.retrofitnet.model.CarConfigRes;
+import com.carlt.doride.http.retrofitnet.model.CarInfoRsp;
 import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.RemoteCarStateInfo;
@@ -68,7 +69,11 @@ public interface ApiService {
 
     // 获取指定车款远程配置项
     @POST("app/Config/GetCarConfig")
-    Observable<CarConfigRes> GetCarConfig(@Body Map<String, Object> param);
+    Observable<CarConfigRes>GetCarConfig(@Body Map<String, Object> param);
+
+    // 0x8F 读取车辆信息(首页里程等信息)
+    @POST("abiz/GetCarInfo/Issued")
+    Observable<CarInfoRsp>Issued(@Body Map<String,Object>param);
 
     @POST("abiz/RemoteStart/Issued")
     Observable<RemoteStartInfo> RemoteStart(@Body Map<String, Object> param);

@@ -27,6 +27,9 @@ import com.carlt.doride.data.PictrueInfo;
 import com.carlt.doride.data.car.CarIndexInfo;
 import com.carlt.doride.data.car.CarMilesInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.CarInfoRsp;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.protocolparser.DefaultParser;
@@ -46,6 +49,7 @@ import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by liu on 2018/3/16.
@@ -199,10 +203,33 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
         getBgImage();
         getCarImage();
 
-        CPControl.getMilesInfos(mListener);
-
+//        CPControl.getMilesInfos(mListener);
+        getCarInfoRsp();
     }
+    private void getCarInfoRsp(){
+        Map<String,Object> param = new HashMap<>();
+        Map<String,Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+        param.put("base",commParam);
+        addDisposable(mApiService.Issued(param), new BaseMvcObserver<CarInfoRsp>() {
+            @Override
+            public void onSuccess(CarInfoRsp result) {
+                Message message = Message.obtain();
+                message.obj = result;
+                message.what = 0;
+                mHandler.sendMessage(message);
+            }
 
+            @Override
+            public void onError(String msg) {
+                Message message = new Message();
+                message.what = 1;
+                message.obj = msg;
+                mHandler.sendMessage(message);
+            }
+        });
+    }
     private void getCarImage() {
         BaseParser parser1 = new DefaultStringParser(new BaseParser.ResultCallback() {
             @Override
@@ -266,25 +293,26 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
             switch (msg.what) {
                 case 0:
                     //                    请求成功
-                    BaseResponseInfo info = (BaseResponseInfo) msg.obj;
-                    Gson gson = new Gson();
-                    CarMilesInfo carMilesInfo = gson.fromJson(info.getValue().toString(), CarMilesInfo.class);
-                    Logger.e(carMilesInfo.toString());
-                    if (TextUtils.isEmpty(carMilesInfo.leftFuel)) {
+//                    BaseResponseInfo info = (BaseResponseInfo) msg.obj;
+//                    Gson gson = new Gson();
+//                    CarMilesInfo carMilesInfo = gson.fromJson(info.getValue().toString(), CarMilesInfo.class);
+//                    Logger.e(carMilesInfo.toString());
+                    CarInfoRsp carInfoRsp = (CarInfoRsp) msg.obj;
+                    if (TextUtils.isEmpty(carInfoRsp.leftFuel)) {
                         tvOil.setText("--");
                     } else {
-                        tvOil.setText(carMilesInfo.leftFuel);
+                        tvOil.setText(carInfoRsp.leftFuel);
 
                     }
 
-                    if (TextUtils.isEmpty(carMilesInfo.maxEnduranceMile) || TextUtils.isEmpty(carMilesInfo.minEnduranceMile)) {
-                        if (TextUtils.isEmpty(carMilesInfo.enduranceMile)) {
+                    if (carInfoRsp.maxEnduranceMile == 0 || carInfoRsp.minEnduranceMile == 0) {
+                        if (TextUtils.isEmpty(carInfoRsp.enduranceMile)) {
                             tvRenewal.setText("--");
                         } else {
-                            tvRenewal.setText(carMilesInfo.enduranceMile);
+                            tvRenewal.setText(carInfoRsp.enduranceMile);
                         }
                     } else {
-                        tvRenewal.setText(carMilesInfo.minEnduranceMile.concat("-").concat(carMilesInfo.maxEnduranceMile));
+                        tvRenewal.setText(String.valueOf(carInfoRsp.minEnduranceMile).concat("-").concat(String.valueOf(carInfoRsp.maxEnduranceMile)));
                     }
 
 
@@ -294,10 +322,10 @@ public class CarMainFragment2 extends BaseFragment implements View.OnClickListen
                     //                        tvRenewal.setText(carMilesInfo.enduranceMile);
                     //                    }
 
-                    if (TextUtils.isEmpty(carMilesInfo.vBat)) {
+                    if (TextUtils.isEmpty(carInfoRsp.vBat)) {
                         tvBattery.setText("--");
                     } else {
-                        tvBattery.setText(carMilesInfo.vBat);
+                        tvBattery.setText(carInfoRsp.vBat);
 
                     }
                     break;

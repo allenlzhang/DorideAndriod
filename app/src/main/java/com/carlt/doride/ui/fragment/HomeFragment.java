@@ -36,6 +36,9 @@ import com.carlt.doride.data.home.InformationCategoryInfo;
 import com.carlt.doride.data.home.InformationCategoryInfoList;
 import com.carlt.doride.data.home.MilesInfo;
 import com.carlt.doride.data.home.WeatherInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.CarInfoRsp;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -52,6 +55,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Marlon on 2018/3/15.
@@ -187,8 +191,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         upgradeProgram();
         loadingDataUI();
         CPControl.GetInformationCentreInfoListResult(callback);
-        CPControl.GetMilesInfoResult(remoteCallback);
+//        CPControl.GetMilesInfoResult(remoteCallback);
+        getCarInfoRsp();
         getBgImage();
+    }
+
+    private void getCarInfoRsp(){
+        Map<String,Object> param = new HashMap<>();
+        Map<String,Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+        param.put("base", commParam);
+        addDisposable(mApiService.Issued(param), new BaseMvcObserver<CarInfoRsp>() {
+            @Override
+            public void onSuccess(CarInfoRsp result) {
+                Message message = new Message();
+                message.what = 2;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                Message message = new Message();
+                message.what = 3;
+                message.obj = msg;
+                mHandler.sendMessage(message);
+            }
+        });
     }
 
     private void getBgImage() {
@@ -284,23 +314,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         }
     };
 
-    BaseParser.ResultCallback remoteCallback = new BaseParser.ResultCallback() {
-        @Override
-        public void onSuccess(BaseResponseInfo bInfo) {
-            Message message = new Message();
-            message.what = 2;
-            message.obj = bInfo;
-            mHandler.sendMessage(message);
-        }
-
-        @Override
-        public void onError(BaseResponseInfo bInfo) {
-            Message message = new Message();
-            message.what = 3;
-            message.obj = bInfo;
-            mHandler.sendMessage(message);
-        }
-    };
+//    BaseParser.ResultCallback remoteCallback = new BaseParser.ResultCallback() {
+//        @Override
+//        public void onSuccess(BaseResponseInfo bInfo) {
+//            Message message = new Message();
+//            message.what = 2;
+//            message.obj = bInfo;
+//            mHandler.sendMessage(message);
+//        }
+//
+//        @Override
+//        public void onError(BaseResponseInfo bInfo) {
+//            Message message = new Message();
+//            message.what = 3;
+//            message.obj = bInfo;
+//            mHandler.sendMessage(message);
+//        }
+//    };
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -315,10 +345,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                     loadonErrorUI((BaseResponseInfo) msg.obj);
                     break;
                 case 2:
-                    loadRemoteSuccess((BaseResponseInfo) msg.obj);
+                    loadRemoteSuccess((CarInfoRsp) msg.obj);
                     break;
                 case 3:
-                    loadRemoteError((BaseResponseInfo) msg.obj);
+                    loadRemoteError(null);
                     break;
             }
         }
@@ -337,28 +367,28 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mTxtAvgFuel.setText("--");
     }
 
-    protected void loadRemoteSuccess(BaseResponseInfo bInfo) {
-        milesInfo = (MilesInfo) (bInfo.getValue());
-        if (milesInfo != null) {
-            if (StringUtils.isEmpty(milesInfo.getRunningTime())) {
+    protected void loadRemoteSuccess(CarInfoRsp bInfo) {
+//        milesInfo = (MilesInfo) (bInfo.getValue());
+        if (bInfo != null) {
+            if (StringUtils.isEmpty(bInfo.runningTime)) {
                 mTxtRunningTime.setText("--");
             } else {
-                mTxtRunningTime.setText(milesInfo.getRunningTime());
+                mTxtRunningTime.setText(bInfo.runningTime);
             }
-            if (StringUtils.isEmpty(milesInfo.getObd())) {
+            if (bInfo.obd == 0) {
                 mTxtMile.setText("--");
             } else {
-                mTxtMile.setText(milesInfo.getObd());
+                mTxtMile.setText(String.valueOf(bInfo.obd));
             }
-            if (StringUtils.isEmpty(milesInfo.getAvgSpeed())) {
+            if (StringUtils.isEmpty(bInfo.avgSpeed)) {
                 mTxtAvgSpeed.setText("--");
             } else {
-                mTxtAvgSpeed.setText(milesInfo.getAvgSpeed());
+                mTxtAvgSpeed.setText(bInfo.avgSpeed);
             }
-            if (StringUtils.isEmpty(milesInfo.getAvgFuel())) {
+            if (StringUtils.isEmpty(bInfo.avgFuel)) {
                 mTxtAvgFuel.setText("--");
             } else {
-                mTxtAvgFuel.setText(milesInfo.getAvgFuel());
+                mTxtAvgFuel.setText(bInfo.avgFuel);
             }
         }
     }
