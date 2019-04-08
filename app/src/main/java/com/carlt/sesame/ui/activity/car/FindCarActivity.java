@@ -166,7 +166,7 @@ public class FindCarActivity extends LoadingActivityWithTitle implements Locatio
 		mMap.getUiSettings().setMyLocationButtonEnabled(false);
 		mMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
 		setMylocEnable(false);
-
+		mMap.getUiSettings().setScaleControlsEnabled(true);
 		mTxtPos.setOnClickListener(this);
 		mImgCha.setOnClickListener(this);
 

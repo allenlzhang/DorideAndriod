@@ -288,6 +288,7 @@ public class FindCarActivity extends LoadingActivity implements LocationSource, 
         mMap.getUiSettings().setScaleControlsEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+//        mMap.getUiSettings().setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
         setMylocEnable(false);
 
         mTxtPos.setOnClickListener(this);

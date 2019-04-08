@@ -418,18 +418,24 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     protected void onResume() {
         super.onResume();
         LoadData();
-        addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
-            @Override
-            public void onSuccess(GetCarInfo result) {
-                GetCarInfo.getInstance().setCarInfo(result);
-                remoteStatus = result.remoteStatus;
-            }
+        boolean isFail = GetCarInfo.getInstance().isFail;
+        if (isFail) {
+            remoteStatus = 1;
+        } else {
+            addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
+                @Override
+                public void onSuccess(GetCarInfo result) {
+                    GetCarInfo.getInstance().setCarInfo(result);
+                    remoteStatus = result.remoteStatus;
+                }
 
-            @Override
-            public void onError(String msg) {
+                @Override
+                public void onError(String msg) {
 
-            }
-        });
+                }
+            });
+        }
+
     }
 
     private ArrayList<RemoteFunInfo> mRemoteFunInfos;

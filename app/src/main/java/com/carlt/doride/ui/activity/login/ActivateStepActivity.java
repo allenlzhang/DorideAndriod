@@ -242,6 +242,7 @@ public class ActivateStepActivity extends BaseActivity {
                         Intent intent1 = new Intent();
                         //                        intent1.putExtra("withTbox", withTbox);
                         intent1.putExtra("carId", carId);
+                        intent1.putExtra("from", DeviceBindActivity.Step_Activity);
                         intent1.setClass(this, DeviceBindActivity.class);
                         startActivity(intent1);
                         break;

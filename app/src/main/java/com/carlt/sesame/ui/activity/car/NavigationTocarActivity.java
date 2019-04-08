@@ -193,7 +193,7 @@ public class NavigationTocarActivity extends LoadingActivityWithTitle implements
 		myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);
 		myLocationStyle.showMyLocation(true);
 		mMap.setMyLocationStyle(myLocationStyle);
-
+		mMap.getUiSettings().setScaleControlsEnabled(true);
 		mMap.getUiSettings().setMyLocationButtonEnabled(false);// 是否显示定位按钮
 		mMap.setMyLocationEnabled(true); // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
 		// mMap.setMyLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);

@@ -197,13 +197,14 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         avatar = parent.findViewById(R.id.avatar);
         ivScan = parent.findViewById(R.id.ivScan);
         ivScan.setOnClickListener(this);
-
+        View viewLineMsg = parent.findViewById(R.id.viewLineMsg);
         int remoteStatus = GetCarInfo.getInstance().remoteStatus;
         if (remoteStatus == 2) {
             btn_device_manager.setVisibility(View.VISIBLE);
-
+            viewLineMsg.setVisibility(View.VISIBLE);
         } else {
             btn_device_manager.setVisibility(View.GONE);
+            viewLineMsg.setVisibility(View.GONE);
         }
     }
 
@@ -1059,18 +1060,24 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         if (remoteStatus == 2) {
             if (llCarFlowRecharge.getVisibility() == View.VISIBLE) {
                 llCarFlowRecharge.setVisibility(View.VISIBLE);
+                lineCarFlow.setVisibility(View.VISIBLE);
             } else {
                 llCarFlowRecharge.setVisibility(View.GONE);
+                lineCarFlow.setVisibility(View.GONE);
             }
             if (llFlowRecharge.getVisibility() == View.VISIBLE) {
                 llFlowRecharge.setVisibility(View.VISIBLE);
+                lineFlow.setVisibility(View.VISIBLE);
             } else {
                 llFlowRecharge.setVisibility(View.GONE);
+                lineFlow.setVisibility(View.GONE);
             }
 
         } else {
             llCarFlowRecharge.setVisibility(View.GONE);
             llFlowRecharge.setVisibility(View.GONE);
+            lineFlow.setVisibility(View.GONE);
+            lineCarFlow.setVisibility(View.GONE);
         }
     }
 

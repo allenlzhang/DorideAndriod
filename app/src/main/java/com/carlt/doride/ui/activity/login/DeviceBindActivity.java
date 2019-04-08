@@ -66,6 +66,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
     private static String ACTIVATE        = "com.carlt.doride.ActivateBindActivity";
     private static String SESAME_ACTIVATE = "com.carlt.sesame.ui.activity.usercenter.login.SesameActivateActivity";
+    public static  String Step_Activity   = "ActivateStepActivity";
 
     private Intent intent;
 
@@ -113,6 +114,7 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
             car_vin_code.setSelection(vinCode.length());
         }
 
+
     }
 
     @Override
@@ -138,6 +140,10 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
 
         ivHelp.setVisibility(View.VISIBLE);
         ivHelp.setOnClickListener(v -> startActivity(new Intent(DeviceBindActivity.this, ActivateHelpActivity.class)));
+
+        if (!TextUtils.isEmpty(from) && from.equals(Step_Activity)) {
+            bind_commit.setText("确定");
+        }
     }
 
 
@@ -228,7 +234,12 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                                 //                                activateIntent.putExtra("carID", mCarid);
 
                                 //                                startActivity(activateIntent);
-                                justActivate();
+                                if (!TextUtils.isEmpty(from) && from.equals(Step_Activity)) {
+                                    go2Activate();
+                                } else {
+                                    justActivate();
+                                }
+
                             } else {
                                 UUToast.showUUToast(DeviceBindActivity.this, msg);
                             }
@@ -281,7 +292,11 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                 btn_select_car.setText(GetCarInfo.getInstance().carName);
             }
 
-            justActivate();
+            if (!TextUtils.isEmpty(from) && from.equals(Step_Activity)) {
+                go2Activate();
+            } else {
+                justActivate();
+            }
 
             //  大乘
             //            Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateBindActivity.class);
@@ -346,14 +361,18 @@ public class DeviceBindActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onRightClick() {
                         //立即激活
-                        Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
-                        activateIntent.putExtra("vin", vinCode);
-                        activateIntent.putExtra("carType", carTitle);
-                        //                        activateIntent.putExtra("carID", Integer.valueOf(mCarid));
-                        startActivity(activateIntent);
+                        go2Activate();
                     }
                 });
 
+    }
+
+    private void go2Activate() {
+        Intent activateIntent = new Intent(DeviceBindActivity.this, ActivateAccActivity.class);
+        activateIntent.putExtra("vin", vinCode);
+        activateIntent.putExtra("carType", carTitle);
+        //                        activateIntent.putExtra("carID", Integer.valueOf(mCarid));
+        startActivity(activateIntent);
     }
 
     private boolean isVinValid() {

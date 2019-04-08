@@ -1,17 +1,14 @@
 package com.carlt.doride.protocolparser;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.DorideApplication;
-import com.carlt.doride.R;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.HttpLinker;
+import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.ILog;
 import com.google.gson.JsonElement;
@@ -28,16 +25,16 @@ import okhttp3.Response;
 
 
 public abstract class BaseParser<T> {
-    public final static String MSG_ERRO     = "网络太差，连接失败了";
-    public final static String MSG_ERRO_TIP = "数据获取失败，请稍后再试";
-    public static       String TAG          = "http";
-    protected BaseResponseInfo<T> mBaseResponseInfo;
-    protected Class<T>            clazz;
-    protected JsonObject          mJson;
-    private   ResultCallback      mResultCallback;
-    protected boolean isTest = false;// 是否是测试数据
-    protected String  testFileName;// 本地模拟数据名称
-    public    Handler mHandler;
+    public final static String              MSG_ERRO     = "网络太差，连接失败了";
+    public final static String              MSG_ERRO_TIP = "数据获取失败，请稍后再试";
+    public static       String              TAG          = "http";
+    protected           BaseResponseInfo<T> mBaseResponseInfo;
+    protected           Class<T>            clazz;
+    protected           JsonObject          mJson;
+    private             ResultCallback      mResultCallback;
+    protected           boolean             isTest       = false;// 是否是测试数据
+    protected           String              testFileName;// 本地模拟数据名称
+    public              Handler             mHandler;
 
     private static final String LOGIN_ACTION = "com.carlt.doride.LOGIN";
 
@@ -93,11 +90,12 @@ public abstract class BaseParser<T> {
                         //                        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         //                        DorideApplication.getInstanse().startActivity(mIntent);
                         //                        UUToast.showUUToast(DorideApplication.getInstanse(), mBaseResponseInfo.getInfo());
-                        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
-                        ToastUtils.setBackgroundColor(R.drawable.toast_bg);
-                        ToastUtils.setMessageColor(Color.WHITE);
-
-                        ToastUtils.showLong(mBaseResponseInfo.getInfo());
+                        //                        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                        //                        ToastUtils.setBackgroundColor(R.drawable.toast_bg);
+                        //                        ToastUtils.setMessageColor(Color.WHITE);
+                        //
+                        //                        ToastUtils.showLong(mBaseResponseInfo.getInfo());
+                        UUToast.showUUToast(DorideApplication.ApplicationContext, mBaseResponseInfo.getInfo());
                         break;
                     default:
                         break;
