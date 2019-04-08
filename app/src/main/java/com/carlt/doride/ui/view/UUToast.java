@@ -59,7 +59,7 @@ public class UUToast extends Toast {
 			uuTo = new UUToast(context);
 		} else {
 			uuTo.cancel();
-			uuTo = new UUToast(context);
+//			uuTo = new UUToast(context);
 		}
 		text.setText(tex);
 		toast.show();

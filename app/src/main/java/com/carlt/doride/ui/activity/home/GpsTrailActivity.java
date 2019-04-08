@@ -199,6 +199,7 @@ public class GpsTrailActivity extends LoadingActivity implements
         UiSettings uiSeting = mMap.getUiSettings();
         uiSeting.setMyLocationButtonEnabled(false);
         uiSeting.setScaleControlsEnabled(true);
+        uiSeting.setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
         // uiSeting.setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
         uiSeting.setZoomControlsEnabled(false);
         uiSeting.setZoomGesturesEnabled(true);
@@ -226,8 +227,8 @@ public class GpsTrailActivity extends LoadingActivity implements
 
     class DrawLine extends AsyncTask<Object, Object, Object> {
 
-        public  ArrayList<ReportGpsInfo> mGpsInfos;
-        public  String                   filePath;
+        public ArrayList<ReportGpsInfo> mGpsInfos;
+        public String                   filePath;
 
         /**
          *
