@@ -33,9 +33,11 @@ public class CarStateParser {
                 } else {
                     mInfo.setIconId(iconId_opens[i]);
                     mInfo.setStateDes(stateOpen[i]);
-                    float temp = remoteCarStateInfo.ACTemp;
-                    if (temp != 0) {
-                        mInfo.setValue(temp + "℃");
+                    String temp = remoteCarStateInfo.ACTemp;
+                    double tem1 = Double.valueOf(temp);
+                    int temp_int = (int) Math.rint(tem1);
+                    if (temp_int != 0) {
+                        mInfo.setValue(temp_int + "℃");
                     } else {
                         mInfo.setValue("--℃");
                     }

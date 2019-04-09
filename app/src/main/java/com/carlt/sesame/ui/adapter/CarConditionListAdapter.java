@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.data.car.CarNowStatusInfo;
 import com.carlt.sesame.data.car.CarStatuInfo;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ import java.util.ArrayList;
 public class CarConditionListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
 
-    private ArrayList<CarStatuInfo> mCarStatuInfoList;
+    private ArrayList<CarNowStatusInfo.CarNowStatusItemInfo> mCarStatuInfoList;
 
-    public CarConditionListAdapter(Context context, ArrayList<CarStatuInfo> mCarStatuInfoList) {
+    public CarConditionListAdapter(Context context, ArrayList<CarNowStatusInfo.CarNowStatusItemInfo> mCarStatuInfoList) {
         mInflater = LayoutInflater.from(context);
         this.mCarStatuInfoList = mCarStatuInfoList;
 
@@ -62,7 +63,7 @@ public class CarConditionListAdapter extends BaseAdapter {
         } else {
             mHolder = (Holder)convertView.getTag();
         }
-        CarStatuInfo info = mCarStatuInfoList.get(position);
+        CarNowStatusInfo.CarNowStatusItemInfo info = mCarStatuInfoList.get(position);
         String s;
         s=info.getName();
         if(s!=null&&!s.equals("")&&!s.equals("null")){
@@ -76,7 +77,7 @@ public class CarConditionListAdapter extends BaseAdapter {
         }else{
         	mHolder.mTxtValue.setText("--");
         }
-        s=info.getUnit();
+        s=info.getCompany();
 		// if(s!=null&&!s.equals("")&&!s.equals("null")){
 		// mHolder.mTxtUnit.setText(s);
 		// }else{

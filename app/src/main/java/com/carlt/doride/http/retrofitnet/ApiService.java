@@ -127,6 +127,7 @@ public interface ApiService {
     @POST("abiz/AirCondition/Issued")
     Observable<RemoteCommonInfo> AirCondition(@Body Map<String, Object> param);
 
+    //查询实时数据接口
     @POST("abiz/QueryCurrentData/Issued")
     Observable<CarNowStatusInfo> QueryCurrentData(@Body Map<String, Object> param);
 

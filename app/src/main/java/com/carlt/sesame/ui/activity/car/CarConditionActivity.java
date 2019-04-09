@@ -12,6 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.data.car.CarNowStatusInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -26,6 +29,8 @@ import com.carlt.sesame.utility.UUToast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 座驾-实时车况页面
@@ -127,27 +132,28 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 	}
 
 	public void loadOnrefresh() {
-		CPControl.GetCarStatuListResult(mLoadListener);
+//		CPControl.GetCarStatuListResult(mLoadListener);
+		getCarStatuList(true);
 	}
 
 	@SuppressLint("HandlerLeak")
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			mRefreshListView.onPullDownRefreshComplete();
-			setLastUpdateTime();
-			if (msg.what == 0) {
-				ArrayList<CarStatuInfo> mArrayList = (ArrayList<CarStatuInfo>) msg.obj;
-				mAdapter = new CarConditionListAdapter(CarConditionActivity.this, mArrayList);
-				mListView.setAdapter(mAdapter);
-			} else if (msg.what == 1) {
-				BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
-				String info = "";
-				if (mInfo == null || mInfo.getInfo() == null || mInfo.getInfo().length() < 1) {
-					info = "加载失败";
-				}
-				info = mInfo.getInfo();
-				UUToast.showUUToast(CarConditionActivity.this, info);
-			}
+//			mRefreshListView.onPullDownRefreshComplete();
+//			setLastUpdateTime();
+//			if (msg.what == 0) {
+//				ArrayList<CarStatuInfo> mArrayList = (ArrayList<CarStatuInfo>) msg.obj;
+//				mAdapter = new CarConditionListAdapter(CarConditionActivity.this, mArrayList);
+//				mListView.setAdapter(mAdapter);
+//			} else if (msg.what == 1) {
+//				BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
+//				String info = "";
+//				if (mInfo == null || mInfo.getInfo() == null || mInfo.getInfo().length() < 1) {
+//					info = "加载失败";
+//				}
+//				info = mInfo.getInfo();
+//				UUToast.showUUToast(CarConditionActivity.this, info);
+//			}
 		};
 	};
 
@@ -174,7 +180,7 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 
 	@Override
 	protected void LoadSuccess(Object data) {
-		mAdapter = new CarConditionListAdapter(CarConditionActivity.this, (ArrayList<CarStatuInfo>) data);
+		mAdapter = new CarConditionListAdapter(CarConditionActivity.this, (ArrayList<CarNowStatusInfo.CarNowStatusItemInfo>) data);
 		mListView.setAdapter(mAdapter);
 
 		mTextViewSecretary.setText("已经成功获取车况数据");
@@ -191,10 +197,40 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 	@Override
 	protected void LoadData() {
 		super.LoadData();
-		CPControl.GetCarStatuListResult(listener);
+//		CPControl.GetCarStatuListResult(listener);
+		getCarStatuList(false);
 	}
 
-	private void getCarStatuList(){
-		addDisposable(mApiService.);
+	private void getCarStatuList(boolean isLoadMore){
+		Map<String,Object> param = new HashMap<>();
+		Map<String,Object> commParam = new HashMap<>();
+		commParam.put("carId", GetCarInfo.getInstance().id);
+		commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+		param.put("base",commParam);
+		addDisposable(mApiService.QueryCurrentData(param), new BaseMvcObserver<CarNowStatusInfo>() {
+			@Override
+			public void onSuccess(CarNowStatusInfo result) {
+				if (isLoadMore){
+					mRefreshListView.onPullDownRefreshComplete();
+					setLastUpdateTime();
+				}
+				if (result.err!=null){
+					mTextViewSecretary.setText("获取车况数据失败");
+					LoadErro(null);
+				}else{
+					LoadSuccess(result);
+				}
+			}
+
+			@Override
+			public void onError(String msg) {
+				if (isLoadMore){
+					mRefreshListView.onPullDownRefreshComplete();
+					setLastUpdateTime();
+				}
+
+				LoadErro(null);
+			}
+		});
 	}
 }

@@ -27,7 +27,7 @@ public class CurrentTempParser {
         String temp = "";
         String airState = "";
         if (remoteCarStateInfo.err!=null) {
-            temp = remoteCarStateInfo.ACTemp + "";
+            temp = remoteCarStateInfo.ACTemp;
             boolean isGetCurrentTempSuccess;
             if (TextUtils.isEmpty(temp)) {
                 temp = "--";
