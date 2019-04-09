@@ -168,7 +168,6 @@ public class GpsTrailActivity extends LoadingActivity implements
         mMapView = (MapView) findViewById(R.id.gps_trail_mapView);
         mBottom = findViewById(R.id.gps_trail_lay_bottom);
         mRoot = (RelativeLayout) findViewById(R.id.gps_view_root);
-
         txtMileage = (TextView) findViewById(R.id.gps_trail_txt_miles);
         txtDate = (TextView) findViewById(R.id.gps_trail_txt_date);
 
@@ -206,6 +205,7 @@ public class GpsTrailActivity extends LoadingActivity implements
         uiSeting.setRotateGesturesEnabled(true);
         uiSeting.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_LEFT);
         mConverter = new CoordinateConverter(this);
+
     }
 
     @Override
@@ -541,7 +541,6 @@ public class GpsTrailActivity extends LoadingActivity implements
             }
         }
 
-        ;
     };
 
 }
