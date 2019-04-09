@@ -3,7 +3,6 @@ package com.carlt.doride.http.retrofitnet;
 
 import com.carlt.doride.data.car.CarNowStatusInfo;
 import com.carlt.doride.data.car.WaringLampInfo;
-import com.carlt.doride.data.remote.RemoteDirectPressureInfo;
 import com.carlt.doride.http.retrofitnet.model.ActivateStepInfo;
 import com.carlt.doride.http.retrofitnet.model.AuthCarInfo;
 import com.carlt.doride.http.retrofitnet.model.BaseErr;
@@ -12,10 +11,12 @@ import com.carlt.doride.http.retrofitnet.model.CarInfoRsp;
 import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.RemoteCarStateInfo;
+import com.carlt.doride.http.retrofitnet.model.SetUserConfRspInfo;
 import com.carlt.doride.http.retrofitnet.model.RemoteCommonInfo;
 import com.carlt.doride.http.retrofitnet.model.SmsToken;
 import com.carlt.doride.http.retrofitnet.model.User;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
+import com.carlt.sesame.protocolstack.remote.DirectTireIssueRspInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,12 +79,25 @@ public interface ApiService {
     @POST("abiz/GetCarInfo/Issued")
     Observable<CarInfoRsp> Issued(@Body Map<String, Object> param);
 
+    // 同步导航POI
+    @POST("abiz/Navigation/Issued")
+    Observable<RemoteCommonInfo>navigation(@Body Map<String,Object> param);
+
+    // 远程开关空调
+    @POST("abiz/AirCondition/Issued")
+    Observable<RemoteCommonInfo>airCondition(@Body Map<String,Object> param);
+
+    // 自学习开始指令
+    @POST("abiz/StartLearn/Issued")
+    Observable<BaseErr> startLearn(@Body Map<String,Object> param);
+
     @POST("abiz/RemoteStart/Issued")
     Observable<RemoteCommonInfo> RemoteStart(@Body Map<String, Object> param);
 
     @POST("abiz/RemoteStall/Issued")
     Observable<RemoteCommonInfo> RemoteStall(@Body Map<String, Object> param);
 
+    //远程开闭锁接口
     @POST("abiz/RemoteLock/Issued")
     Observable<RemoteCommonInfo> RemoteLock(@Body Map<String, Object> param);
 
@@ -99,12 +113,17 @@ public interface ApiService {
     @POST("abiz/ChairHeating/Issued")
     Observable<RemoteCommonInfo> ChairHeating(@Body Map<String, Object> param);
 
+    //声光寻车接口
     @POST("abiz/CarLocating/Issued")
     Observable<RemoteCommonInfo> CarLocating(@Body Map<String, Object> param);
 
+    //读取车辆状态
     @POST("abiz/State/Issued")
     Observable<RemoteCarStateInfo> carState(@Body Map<String, Object> param);
 
+    //直式胎压接口
+    @POST("abiz/DirectTirePressure/Issued")
+    Observable<DirectTireIssueRspInfo>DirectTirePressure(@Body Map<String,Object> param);
     @POST("abiz/AirCondition/Issued")
     Observable<RemoteCommonInfo> AirCondition(@Body Map<String, Object> param);
 
@@ -114,11 +133,11 @@ public interface ApiService {
     @POST("abiz/WarningLights/Issued")
     Observable<WaringLampInfo> WarningLights(@Body Map<String, Object> param);
 
-    @POST("abiz/DirectTirePressure/Issued")
-    Observable<RemoteDirectPressureInfo> DirectTirePressure(@Body Map<String, Object> param);
-
     @POST("abiz/Navigation/Issued")
     Observable<RemoteCommonInfo> Navigation(@Body Map<String, Object> param);
 
 
+    //设置用户配置参数
+    @POST("abiz/SetUserConfParams/Issued")
+    Observable<SetUserConfRspInfo> setUserConfRsp(@Body Map<String,Object> param);
 }

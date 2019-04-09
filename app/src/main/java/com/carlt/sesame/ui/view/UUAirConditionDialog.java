@@ -81,6 +81,8 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 
 	public Handler mHandler;
 
+	private AirConditionListener airConditionListener;
+
 	public String state = "-1";
 
 	private static final int COLOR_BG_SELECT = Color.parseColor("#3EC0EA");
@@ -106,6 +108,10 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 	private RemoteAirAdapter mAdapter;
 
 	private String currentTemp = "26";
+
+	public void setAirConditionListener(AirConditionListener airConditionListener) {
+		this.airConditionListener = airConditionListener;
+	}
 
 	public UUAirConditionDialog(Context context, AirMainInfo airMainInfo) {
 		super(context, R.style.dialog);
@@ -233,16 +239,13 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 				mViewOutClick.onClick(v);
 			}
 
-			if (mHandler != null && mListener != null) {
+//			if (mHandler != null && mListener != null) {
+//				mHandler.sendEmptyMessage(11);
+//				CPControl.GetRemoteAir(mListener, state);
+//			}
+			if (mHandler != null) {
 				mHandler.sendEmptyMessage(11);
-				CPControl.GetRemoteAir(mListener, state);
-//				if (!TextUtils.isEmpty(state)&&state.equals("8")) {
-//					// 关闭空调
-//					CPControl.GetRemoteAir(mListener, "2", "");
-//				} else {
-//					CPControl.GetRemoteAir(mListener, state, tempure.getText()
-//							.toString());
-//				}
+				airConditionListener.airCondition(state,currentTemp);
 			}
 		} else if (v.equals(cancle)) {
 			dismiss();
@@ -561,4 +564,8 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 			}
 		}
 	};
+
+	public interface AirConditionListener{
+		void airCondition(String state,String ratct);
+	}
 }

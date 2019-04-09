@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.SetUserConfRspInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -22,6 +26,9 @@ import com.carlt.sesame.data.set.PushSetInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.UUToast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 设置-消息管理
@@ -75,8 +82,8 @@ public class ManageMessageActivity extends LoadingActivityWithTitle {
 
 	private boolean isNormal = true;// 是否是正常点击checkbox
 
-	public final static String[] KEY_NAMES = { "dayreport", "weekreport", "trouble", "security", "vibstrength",
-			"startup", "dealer", "gotmedal", "DBBuzzerSw" };
+	public final static String[] KEY_NAMES = { "dayReport", "weekReport", "trouble", "security", "vibStrength",
+			"startUp", "dealer", "gotMedal", "dbBuzzerSw" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -346,8 +353,42 @@ public class ManageMessageActivity extends LoadingActivityWithTitle {
 				mDialog = PopBoxCreat.createDialogWithProgress(ManageMessageActivity.this, "加载中...");
 			}
 			mDialog.show();
-			CPControl.GetUpdatePushSetResult(keyName, changed_value + "", listener_push);
+//			CPControl.GetUpdatePushSetResult(keyName, changed_value + "", listener_push);
+			setUserConfRsp(keyName,changed_value);
 		}
+	}
+
+	private void setUserConfRsp(String keyName,int value){
+		Map<String,Object> param = new HashMap<>();
+		Map<String,Object> commParam = new HashMap<>();
+		commParam.put("carId", GetCarInfo.getInstance().id);
+		commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+		param.put("base",commParam);
+		param.put(keyName,value);
+		addDisposable(mApiService.setUserConfRsp(param), new BaseMvcObserver<SetUserConfRspInfo>() {
+			@Override
+			public void onSuccess(SetUserConfRspInfo result) {
+				if (result.err!=null){
+					Message message = new Message();
+					message.what = 1;
+					message.obj = TextUtils.isEmpty(result.err.msg)?"设置失败...":result.err.msg;
+					mHandler.sendMessage(message);
+				}else {
+					Message msg = new Message();
+					msg.what = 0;
+					mHandler.sendMessage(msg);
+				}
+
+			}
+
+			@Override
+			public void onError(String msg) {
+				Message message = new Message();
+				message.what = 1;
+				message.obj = msg;
+				mHandler.sendMessage(message);
+			}
+		});
 	}
 
 	private GetResultListCallback listener_push = new GetResultListCallback() {
@@ -444,14 +485,9 @@ public class ManageMessageActivity extends LoadingActivityWithTitle {
 				if (mDialog != null && mDialog.isShowing()) {
 					mDialog.dismiss();
 				}
-				BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
-				if (mInfo != null) {
-					String s = mInfo.getInfo();
-					if (s != null && s.length() > 0) {
-						UUToast.showUUToast(ManageMessageActivity.this, s);
-					} else {
-						UUToast.showUUToast(ManageMessageActivity.this, "设置失败...");
-					}
+				String txt = (String) msg.obj;
+				if (!TextUtils.isEmpty(txt)) {
+					UUToast.showUUToast(ManageMessageActivity.this, txt);
 				} else {
 					UUToast.showUUToast(ManageMessageActivity.this, "设置失败...");
 				}

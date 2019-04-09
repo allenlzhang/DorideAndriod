@@ -193,4 +193,8 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 		super.LoadData();
 		CPControl.GetCarStatuListResult(listener);
 	}
+
+	private void getCarStatuList(){
+		addDisposable(mApiService.);
+	}
 }

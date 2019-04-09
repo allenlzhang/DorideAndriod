@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -27,15 +28,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.data.PictrueInfo;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.CarConfigRes;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.doride.http.retrofitnet.model.RemoteCarStateInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.utils.LoadLocalImageUtil;
@@ -49,6 +53,7 @@ import com.carlt.sesame.data.car.CarMainFuncInfo;
 import com.carlt.sesame.data.car.CarMainInfo;
 import com.carlt.sesame.data.remote.CarStateInfo;
 import com.carlt.sesame.data.remote.RemoteFunInfo;
+import com.carlt.sesame.protocolstack.remote.CarStateParser;
 import com.carlt.sesame.systemconfig.OnDateChageConfig;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -63,6 +68,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class CarMainActivity extends LoadingActivityWithTitle implements
@@ -603,10 +609,47 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
                 break;
             case R.id.car_main_txt_state:
                 showWaitingDialog("正在获取车辆状态。。。");
-                CPControl.GetRemoteCarState(mListener_states);
+//                CPControl.GetRemoteCarState(mListener_states);
+                carState();
                 break;
         }
     }
+
+    /**
+     * 车辆远程状态
+     */
+    private void carState(){
+        Map<String,Object> param = new HashMap<>();
+        Map<String,Object> commParam = new HashMap<>();
+        commParam.put("carId",GetCarInfo.getInstance().id);
+        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+        param.put("base",commParam);
+        addDisposable(mApiService.carState(param), new BaseMvcObserver<RemoteCarStateInfo>() {
+            @Override
+            public void onSuccess(RemoteCarStateInfo result) {
+                Message msg = new Message();
+                if (result.err != null){
+                    msg.what = 3;
+                    msg.obj = TextUtils.isEmpty(result.err.msg)?"获取车辆状态失败":result.err.msg;
+                    mHandler.sendMessage(msg);
+                }else {
+                    msg.what = 2;
+                    msg.obj = new CarStateParser().parser(result);
+                    mHandler.sendMessage(msg);
+                }
+
+            }
+
+            @Override
+            public void onError(String msg) {
+                Message message = new Message();
+                message.what = 3;
+                message.obj = msg;
+                mHandler.sendMessage(message);
+            }
+        });
+    }
+
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -627,10 +670,11 @@ public class CarMainActivity extends LoadingActivityWithTitle implements
                     break;
                 case 3:
                     dissmissWaitingDialog();
-                    BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
-                    if (mInfo != null) {
-                        UUToast.showUUToast(context, mInfo.getInfo());
-                    }
+                    ToastUtils.showShort((String) msg.obj);
+//                    BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
+//                    if (mInfo != null) {
+//                        UUToast.showUUToast(context, mInfo.getInfo());
+//                    }
                     break;
             }
         }

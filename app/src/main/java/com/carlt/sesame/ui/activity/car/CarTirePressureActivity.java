@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -12,7 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.carlt.doride.R;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.BaseErr;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -21,6 +26,8 @@ import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarMainInfo;
 import com.carlt.sesame.data.car.TirepressureInfo;
 import com.carlt.sesame.preference.EntryInfoLocal;
+import com.carlt.sesame.protocolstack.remote.DirectTireIssueRspInfo;
+import com.carlt.sesame.protocolstack.remote.DirectTireIssueRspParser;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.view.CreateDialogTips;
 import com.carlt.sesame.ui.view.CreateDialogTips.DialogBtnClick;
@@ -28,6 +35,9 @@ import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.ui.view.TirePressureView;
 import com.carlt.sesame.utility.UUToast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 座驾-胎压监测页面
@@ -213,8 +223,8 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
     @Override
     protected void LoadData() {
         super.LoadData();
-        CPControl.GetTireDirectResult(listener);
-
+//        CPControl.GetTireDirectResult(listener);
+        directTirePressure();
     }
 
     private OnClickListener mViewClickListener = new OnClickListener() {
@@ -229,13 +239,37 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                                 CarTirePressureActivity.this, "获取数据");
                     }
                     mDialog.show();
-                    CPControl.GetTireDirectResult(listener);
+//                    CPControl.GetTireDirectResult(listener);
+                    directTirePressure();
                     break;
 
             }
 
         }
     };
+
+    private void directTirePressure(){
+        Map<String,Object> param = new HashMap<>();
+        Map<String,Object> commParam = new HashMap<>();
+        commParam.put("carId",GetCarInfo.getInstance().id);
+        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+        param.put("base",commParam);
+        addDisposable(mApiService.DirectTirePressure(param), new BaseMvcObserver<DirectTireIssueRspInfo>() {
+            @Override
+            public void onSuccess(DirectTireIssueRspInfo result) {
+                if (result.err!=null){
+                    LoadErro(null);
+                }else{
+                    LoadSuccess(new DirectTireIssueRspParser().parser(result));
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                LoadErro(null);
+            }
+        });
+    }
 
     private OnClickListener mClickListener = new OnClickListener() {
 
@@ -258,13 +292,43 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                                 CarTirePressureActivity.this, "加载中...");
                     }
                     mDialog.show();
-                    CPControl.GetTirepresLearnResult(listener_learn);
+//                    CPControl.GetTirepresLearnResult(listener_learn);
+                    startLearn();
                 }
             };
             PopBoxCreat.createDialogWithTitle(CarTirePressureActivity.this, "提示",
                     "胎压监测的激活会在行驶过程中自动完成，请务必确认各轮胎压力正常再进行激活操作，您确定要激活吗？", "", "确定", "取消", click);
         }
     };
+
+    private void startLearn(){
+        Map<String,Object> param = new HashMap<>();
+        Map<String,Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceId",GetCarInfo.getInstance().deviceNum);
+        param.put("base",commParam);
+        addDisposable(mApiService.startLearn(param), new BaseMvcObserver<BaseErr>() {
+            @Override
+            public void onSuccess(BaseErr result) {
+                if (result == null){
+                    mHandler.sendEmptyMessage(0);
+                }else {
+                    Message msg = new Message();
+                    msg.what = 1;
+                    msg.obj = TextUtils.isEmpty(result.msg) ? "获取激活进度失败" : result.msg;
+                    mHandler.sendMessage(msg);
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                Message message = new Message();
+                message.what = 1;
+                message.obj = msg;
+                mHandler.sendMessage(message);
+            }
+        });
+    }
 
     /**
      * 弹出使用说明提示框
@@ -341,14 +405,16 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                     if (mDialog != null && mDialog.isShowing()) {
                         mDialog.dismiss();
                     }
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
-                    responseInfo = mBaseResponseInfo.getInfo();
-                    if (responseInfo != null && responseInfo.length() > 0) {
-                        UUToast.showUUToast(CarTirePressureActivity.this,
-                                mBaseResponseInfo.getInfo());
-                    } else {
-                        UUToast.showUUToast(CarTirePressureActivity.this, "获取激活进度失败");
-                    }
+                    String txt = (String) msg.obj;
+                    ToastUtils.showShort(txt);
+//                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+//                    responseInfo = mBaseResponseInfo.getInfo();
+//                    if (responseInfo != null && responseInfo.length() > 0) {
+//                        UUToast.showUUToast(CarTirePressureActivity.this,
+//                                mBaseResponseInfo.getInfo());
+//                    } else {
+//                        UUToast.showUUToast(CarTirePressureActivity.this, "获取激活进度失败");
+//                    }
 
                     break;
 
@@ -532,7 +598,8 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                             "加载中...");
                 }
                 mDialog.show();
-                CPControl.GetTirepresLearnResult(listener_learn);
+//                CPControl.GetTirepresLearnResult(listener_learn);
+                startLearn();
             }
         };
         PopBoxCreat.createDialogWithTitle(CarTirePressureActivity.this, "提示",

@@ -32,9 +32,9 @@ public class SettingMainActivity extends BaseActivity {
 
     private View mView2;// 车辆管理
 
-    private View mView3;// 设备管理
+    private View mView3;// 消息管理
 
-    private View mView4;// 消息管理
+    private View mView4;// 设备管理
 
     private View mView5;// 违章管理
 

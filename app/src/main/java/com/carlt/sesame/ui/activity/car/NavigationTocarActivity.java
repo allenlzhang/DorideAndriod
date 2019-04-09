@@ -3,6 +3,7 @@
  */
 package com.carlt.sesame.ui.activity.car;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -51,10 +52,12 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.geocoder.RegeocodeRoad;
 import com.amap.api.services.road.Crossroad;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.sesame.control.CPControl;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.RemoteCommonInfo;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.activity.car.map.PositionEntity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
@@ -62,7 +65,11 @@ import com.carlt.sesame.utility.Log;
 import com.carlt.sesame.utility.SensorEventHelper;
 import com.carlt.sesame.utility.UUToast;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.http.PUT;
 
 /**
  * 
@@ -368,10 +375,39 @@ public class NavigationTocarActivity extends LoadingActivityWithTitle implements
 						NavigationTocarActivity.this, "数据提交中...");
 			}
 			mDialog.show();
-			CPControl.GetNavigationResult(position, location,
-					listener_navigation);
+//			CPControl.GetNavigationResult(position, location,
+//					listener_navigation);
+			navigation(position,location);
 			break;
 		}
+	}
+
+	private void navigation(String position,String location){
+		Map<String,Object> param = new HashMap<>();
+		Map<String,Object> commParam = new HashMap<>();
+		commParam.put("carId", GetCarInfo.getInstance().id);
+		commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+		param.put("moveDeviceName", DorideApplication.MODEL_NAME);
+		param.put("position",position);
+		param.put("location",location);
+		param.put("base",commParam);
+		addDisposable(mApiService.navigation(param), new BaseMvcObserver<RemoteCommonInfo>() {
+			@Override
+			public void onSuccess(RemoteCommonInfo result) {
+				Message msg = new Message();
+				msg.what = 2;
+				msg.obj = result;
+				mHandler.sendMessage(msg);
+			}
+
+			@Override
+			public void onError(String msg) {
+				Message message = new Message();
+				message.what = 3;
+				message.obj = msg;
+				mHandler.sendMessage(message);
+			}
+		});
 	}
 
 	private GetResultListCallback listener_navigation = new GetResultListCallback() {
@@ -395,6 +431,7 @@ public class NavigationTocarActivity extends LoadingActivityWithTitle implements
 		}
 	};
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -405,33 +442,57 @@ public class NavigationTocarActivity extends LoadingActivityWithTitle implements
 			switch (msg.what) {
 			case 2:
 				// 导航同步到车成功
-				BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
-				String info1 = "";
-				if (mInfo1 != null) {
-					info1 = mInfo1.getInfo();
-					if (TextUtils.isEmpty(info1)) {
-						info1 = "目的地信息已上传成功！";
-					} else {
-
+				RemoteCommonInfo info = (RemoteCommonInfo) msg.obj;
+				if (info.err!=null){
+					if (!TextUtils.isEmpty(info.err.msg)) {
+						UUToast.showUUToast(NavigationTocarActivity.this, info.err.msg);
+					}else {
+						UUToast.showUUToast(NavigationTocarActivity.this, "目的地信息上传失败...");
+					}
+				}else {
+					if (!TextUtils.isEmpty(info.msg)){
+						UUToast.showUUToast(NavigationTocarActivity.this, info.msg);
+					}else {
+						UUToast.showUUToast(NavigationTocarActivity.this, "目的地信息已上传成功！");
 					}
 				}
-				UUToast.showUUToast(NavigationTocarActivity.this, info1);
+
+
+
+//				BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
+//				String info1 = "";
+//				if (mInfo1 != null) {
+//					info1 = mInfo1.getInfo();
+//					if (TextUtils.isEmpty(info1)) {
+//						info1 = "目的地信息已上传成功！";
+//					} else {
+//
+//					}
+//				}
+//				UUToast.showUUToast(NavigationTocarActivity.this, info1);
 				NavigationTocarActivity.this.finish();
 				break;
 
 			case 3:
 				// 导航同步到车失败
-				BaseResponseInfo mInfo2 = (BaseResponseInfo) msg.obj;
-				String info2 = "";
-				if (mInfo2 != null) {
-					info2 = mInfo2.getInfo();
-					if (TextUtils.isEmpty(info2)) {
-						info2 = "目的地信息上传失败...";
-					} else {
-
-					}
+				String txt = (String) msg.obj;
+				if (!TextUtils.isEmpty(txt)){
+					UUToast.showUUToast(NavigationTocarActivity.this, txt);
+				}else {
+					UUToast.showUUToast(NavigationTocarActivity.this, "目的地信息上传失败...");
 				}
-				UUToast.showUUToast(NavigationTocarActivity.this, info2);
+
+//				BaseResponseInfo mInfo2 = (BaseResponseInfo) msg.obj;
+//				String info2 = "";
+//				if (mInfo2 != null) {
+//					info2 = mInfo2.getInfo();
+//					if (TextUtils.isEmpty(info2)) {
+//						info2 = "目的地信息上传失败...";
+//					} else {
+//
+//					}
+//				}
+//				UUToast.showUUToast(NavigationTocarActivity.this, info2);
 				break;
 			}
 		}
