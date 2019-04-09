@@ -8,14 +8,11 @@ import android.widget.TextView;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
-import com.carlt.doride.data.remote.RemoteDirectPressureInfo;
 import com.carlt.doride.http.retrofitnet.ApiRetrofit;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
-import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
-import com.carlt.doride.protocolparser.DefaultStringParser;
-import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.doride.utils.StringUtils;
+import com.carlt.sesame.protocolstack.remote.DirectTireIssueRspInfo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -74,20 +71,20 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
     }
 
     private void initdata() {
-        DefaultStringParser parser = new DefaultStringParser(mCallback);
-        HashMap<String, String> param = new HashMap();
-        param.put("move_device_name", GetCarInfo.getInstance().deviceNum);
-        String m_remote_driectrressure = URLConfig.getM_REMOTE_DRIECTRRESSURE();
-        String replace = m_remote_driectrressure.replace("100", "101");
-        parser.executePost(replace, param);
-
-
+//        DefaultStringParser parser = new DefaultStringParser(mCallback);
+//        HashMap<String, String> param = new HashMap();
+//        param.put("move_device_name", GetCarInfo.getInstance().deviceNum);
+//        String m_remote_driectrressure = URLConfig.getM_REMOTE_DRIECTRRESSURE();
+//        String replace = m_remote_driectrressure.replace("100", "101");
+//        parser.executePost(replace, param);
+//
+//
         HashMap<String, Object> map = new HashMap<>();
         map.put("base", ApiRetrofit.getRemoteCommonParams());
-        addDisposable(mApiService.DirectTirePressure(map), new BaseMvcObserver<RemoteDirectPressureInfo>() {
+        addDisposable(mApiService.DirectTirePressure(map), new BaseMvcObserver<DirectTireIssueRspInfo>() {
 
             @Override
-            public void onSuccess(RemoteDirectPressureInfo result) {
+            public void onSuccess(DirectTireIssueRspInfo result) {
                 loadDataSuccess(result);
             }
 
@@ -98,14 +95,14 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         });
     }
 
-    public void loadDataSuccess(RemoteDirectPressureInfo bInfo) {
+    public void loadDataSuccess(DirectTireIssueRspInfo bInfo) {
         loadSuccessUI();
         //        String value = (String) ((BaseResponseInfo) bInfo).getValue();
         //        Gson gson = new Gson();
         //        Type type = new TypeToken<List<RemoteDirectPressureInfo>>() {
         //        }.getType();
         //        RemoteDirectPressureInfo remoteDirectPressureInfo = gson.fromJson(value, RemoteDirectPressureInfo.class);
-        List<RemoteDirectPressureInfo.ListBean> list = bInfo.list;
+        List<DirectTireIssueRspInfo.PressureItem> list = bInfo.list;
 
         if (bInfo.err == null) {
             showData(list, bInfo);
@@ -142,7 +139,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         temp_tv3.setVisibility(View.GONE);
     }
 
-    private void showData(List<RemoteDirectPressureInfo.ListBean> remoteDirectPressureInfos, RemoteDirectPressureInfo remoteDirectPressureInfo) {
+    private void showData(List<DirectTireIssueRspInfo.PressureItem> remoteDirectPressureInfos, DirectTireIssueRspInfo remoteDirectPressureInfo) {
         String nowTimes = MyTimeUtils.formatDateMills(System.currentTimeMillis());
         int rectime = remoteDirectPressureInfo.recTime;
         if (rectime == 0) {

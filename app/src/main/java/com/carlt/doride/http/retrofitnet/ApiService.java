@@ -124,6 +124,7 @@ public interface ApiService {
     //直式胎压接口
     @POST("abiz/DirectTirePressure/Issued")
     Observable<DirectTireIssueRspInfo>DirectTirePressure(@Body Map<String,Object> param);
+
     @POST("abiz/AirCondition/Issued")
     Observable<RemoteCommonInfo> AirCondition(@Body Map<String, Object> param);
 

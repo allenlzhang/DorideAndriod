@@ -39,11 +39,11 @@ public class UUToastOpt extends Toast {
         if (uuTo == null) {
             uuTo = new UUToastOpt(context);
         } else {
-            uuTo.cancel();
+//            uuTo.cancel();
             //			uuTo = new UUToastOpt(context);
-
+            text.setText(tex);
         }
-        text.setText(tex);
+
         toast.show();
     }
 

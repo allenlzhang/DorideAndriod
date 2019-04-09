@@ -3,7 +3,6 @@ package com.carlt.doride.ui.activity.scan;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,12 +36,7 @@ public class ScanActivity extends AppCompatActivity {
         capture = new CaptureManager(this, barcodeView);
         capture.initializeFromIntent(getIntent(), mBundle);
         capture.decode();
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        back.setOnClickListener(view -> finish());
 
     }
 

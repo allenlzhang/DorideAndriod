@@ -8,13 +8,10 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
-import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.WaringLampInfo;
 import com.carlt.doride.data.car.WaringLampItemInfo;
 import com.carlt.doride.http.retrofitnet.ApiRetrofit;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
-import com.carlt.doride.protocolparser.DefaultParser;
-import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.adapter.WaringLampAdapter;
 import com.carlt.doride.ui.pull.PullToRefreshBase;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
@@ -34,14 +31,14 @@ public class MainTestingActivity extends LoadingActivity {
     private PullToRefreshListView    mPullListView;
     private TextView                 safyHeadTV;
     private TextView                 tvTitle;
-    private WaringLampInfo           waringLampInfo;
+//    private WaringLampInfo           mWaringLampInfo;
     private ListView                 mListView;
     private List<WaringLampItemInfo> dataList;
-//    private int[] icon = {R.mipmap.abs, R.mipmap.tpms, R.mipmap.esp
-//            , R.mipmap.engine, R.mipmap.epb, R.mipmap.svs, R.mipmap.srs, R.mipmap.engine, R.mipmap.eps};
-//
-//    private int[] iconLight = {R.mipmap.abs_light, R.mipmap.tpms_light, R.mipmap.esp_light
-//            , R.mipmap.engine_light, R.mipmap.epb_light, R.mipmap.svs_light, R.mipmap.srs_light, R.mipmap.engine_light, R.mipmap.eps_light};
+    //    private int[] icon = {R.mipmap.abs, R.mipmap.tpms, R.mipmap.esp
+    //            , R.mipmap.engine, R.mipmap.epb, R.mipmap.svs, R.mipmap.srs, R.mipmap.engine, R.mipmap.eps};
+    //
+    //    private int[] iconLight = {R.mipmap.abs_light, R.mipmap.tpms_light, R.mipmap.esp_light
+    //            , R.mipmap.engine_light, R.mipmap.epb_light, R.mipmap.svs_light, R.mipmap.srs_light, R.mipmap.engine_light, R.mipmap.eps_light};
 
 
     private             int[]    icon1    = {R.drawable.ic_water_temperature, R.drawable.ic_tire_pressure, R.drawable.ic_epb
@@ -63,23 +60,30 @@ public class MainTestingActivity extends LoadingActivity {
 
     private void initData() {
         showWaitingDialog(null);
-        DefaultParser<WaringLampInfo> defaultParser = new DefaultParser<>(mCallback, WaringLampInfo.class);
-        String url = URLConfig.getM_REMOTE_WARNINGLAMP();
-        String replace = url.replace("100", "102");
-        defaultParser.executePost(replace, new HashMap());
+        //        DefaultParser<WaringLampInfo> defaultParser = new DefaultParser<>(mCallback, WaringLampInfo.class);
+        //        String url = URLConfig.getM_REMOTE_WARNINGLAMP();
+        //        String replace = url.replace("100", "102");
+        //        defaultParser.executePost(replace, new HashMap());
         HashMap<String, Object> map = new HashMap<>();
-        map.put("base",  ApiRetrofit.getRemoteCommonParams());
+        map.put("base", ApiRetrofit.getRemoteCommonParams());
         addDisposable(mApiService.WarningLights(map), new BaseMvcObserver<WaringLampInfo>() {
 
 
             @Override
             public void onSuccess(WaringLampInfo result) {
-
+                loadDataSuccess(result);
+//                if (result.err == null) {
+//                    loadDataSuccess(result);
+//                } else {
+//                    showToast(result.err.msg);
+//                }
             }
 
             @Override
             public void onError(String msg) {
-
+                dissmissWaitingDialog();
+                loadonErrorUI(null);
+                //                loadonErrorUI();
             }
         });
     }
@@ -90,13 +94,14 @@ public class MainTestingActivity extends LoadingActivity {
         dissmissWaitingDialog();
     }
 
-
-    @Override
-    public void loadDataSuccess(Object bInfo) {
+    public void loadDataSuccess(WaringLampInfo waringLampInfo) {
         dissmissWaitingDialog();
-        waringLampInfo = (WaringLampInfo) ((BaseResponseInfo) bInfo).getValue();
-        if (waringLampInfo != null) {
-            safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
+        loadSuccessUI();
+//        mWaringLampInfo = waringLampInfo;
+        if (waringLampInfo.err == null) {
+
+
+            safyHeadTV.setText(String.valueOf(waringLampInfo.grade));
             if (waringLampInfo.CheckTime == -1) {
                 tvTitle.setText("自检得分:");
                 safyHeadTV.setVisibility(View.VISIBLE);
@@ -116,7 +121,10 @@ public class MainTestingActivity extends LoadingActivity {
 
 
             dataList = new ArrayList<>();
-            int[] light = {waringLampInfo.WATERTMP, waringLampInfo.TPMS, waringLampInfo.EPB,
+            //            int[] light = {waringLampInfo.WATERTMP, waringLampInfo.TPMS, waringLampInfo.EPB,
+            //                    waringLampInfo.ESP, waringLampInfo.ABS, waringLampInfo.SRS,
+            //                    waringLampInfo.ENGINELAMP, waringLampInfo.MTLAMP};
+            long[] light = {waringLampInfo.WATERTMP, waringLampInfo.TPMS, waringLampInfo.EPB,
                     waringLampInfo.ESP, waringLampInfo.ABS, waringLampInfo.SRS,
                     waringLampInfo.ENGINELAMP, waringLampInfo.MTLAMP};
             for (int i = 0; i < light.length; i++) {
@@ -129,11 +137,58 @@ public class MainTestingActivity extends LoadingActivity {
             setLastUpdateTime();
 
         } else {
+            showToast(waringLampInfo.err.msg);
             loadNodataUI();
             mPullListView.setVisibility(View.GONE);
         }
 
     }
+    //    @Override
+    //    public void loadDataSuccess(Object bInfo) {
+    //        dissmissWaitingDialog();
+    //        waringLampInfo = (WaringLampInfo) ((BaseResponseInfo) bInfo).getValue();
+    //        if (waringLampInfo != null) {
+    //            safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
+    //            if (waringLampInfo.CheckTime == -1) {
+    //                tvTitle.setText("自检得分:");
+    //                safyHeadTV.setVisibility(View.VISIBLE);
+    //            } else {
+    //                safyHeadTV.setVisibility(View.GONE);
+    //                String date = MyTimeUtils.formatDateGetDaySecend(waringLampInfo.CheckTime);
+    //
+    //                tvTitle.setText("上次自检时间：".concat(date) + "\n".concat("请启动车辆获取最新自检结果"));
+    //            }
+    //            if (waringLampInfo.ENGINELAMP == 1 || waringLampInfo.ABS == 1 || waringLampInfo.EPB == 1 || waringLampInfo.MTLAMP == 1) {
+    //                safyHeadTV.setTextColor(Color.RED);
+    //            } else if (waringLampInfo.ESP == 1 || waringLampInfo.TPMS == 1 || waringLampInfo.WATERTMP == 1 || waringLampInfo.SRS == 1) {
+    //                safyHeadTV.setTextColor(Color.parseColor("#efa545"));
+    //            } else {
+    //                safyHeadTV.setTextColor(Color.GREEN);
+    //            }
+    //
+    //
+    //            dataList = new ArrayList<>();
+    //            //            int[] light = {waringLampInfo.WATERTMP, waringLampInfo.TPMS, waringLampInfo.EPB,
+    //            //                    waringLampInfo.ESP, waringLampInfo.ABS, waringLampInfo.SRS,
+    //            //                    waringLampInfo.ENGINELAMP, waringLampInfo.MTLAMP};
+    //            long[] light = {waringLampInfo.WATERTMP, waringLampInfo.TPMS, waringLampInfo.EPB,
+    //                    waringLampInfo.ESP, waringLampInfo.ABS, waringLampInfo.SRS,
+    //                    waringLampInfo.ENGINELAMP, waringLampInfo.MTLAMP};
+    //            for (int i = 0; i < light.length; i++) {
+    //                addData(light[i], i);
+    //            }
+    //
+    //            WaringLampAdapter adapter = new WaringLampAdapter(MainTestingActivity.this, dataList);
+    //            mListView.setAdapter(adapter);
+    //            mPullListView.onPullDownRefreshComplete();
+    //            setLastUpdateTime();
+    //
+    //        } else {
+    //            loadNodataUI();
+    //            mPullListView.setVisibility(View.GONE);
+    //        }
+    //
+    //    }
 
     @Override
     public void reTryLoadData() {
@@ -172,27 +227,55 @@ public class MainTestingActivity extends LoadingActivity {
         safyHeadTV.setText(txtTitle.concat("--"));
     }
 
-    private List<WaringLampItemInfo> addData(int light, int i) {
+    private List<WaringLampItemInfo> addData(long light, int i) {
         WaringLampItemInfo info = new WaringLampItemInfo();
-        switch (light) {
-            case WaringLampInfo.LIGHT:
-                info.setIconState(R.drawable.ic_problem);
+        if (light == WaringLampInfo.LIGHT) {
+            info.setIconState(R.drawable.ic_problem);
 
-                info.setTxt(iconName[i]);
-                //                info.setColor(R.color.text_color_gray3);
-                break;
-            case WaringLampInfo.NOT_BRIGHT:
-                info.setIconState(R.drawable.ic_no_problem);
-                info.setTxt(iconName[i]);
-                //                info.setColor(R.color.text_color_gray3);
-                break;
-            default:
-                break;
+            info.setTxt(iconName[i]);
+        } else if (light == WaringLampInfo.NO_LIGHT) {
+            info.setIconState(R.drawable.ic_no_problem);
+            info.setTxt(iconName[i]);
         }
+
+        //        switch (light) {
+        //            case WaringLampInfo.LIGHT:
+        //                info.setIconState(R.drawable.ic_problem);
+        //
+        //                info.setTxt(iconName[i]);
+        //                break;
+        //            case WaringLampInfo.NOT_BRIGHT:
+        //                info.setIconState(R.drawable.ic_no_problem);
+        //                info.setTxt(iconName[i]);
+        //                break;
+        //            default:
+        //                break;
+        //        }
         info.icon = icon1[i];
         dataList.add(info);
         return dataList;
     }
+    //    private List<WaringLampItemInfo> addData(int light, int i) {
+    //        WaringLampItemInfo info = new WaringLampItemInfo();
+    //        switch (light) {
+    //            case WaringLampInfo.LIGHT:
+    //                info.setIconState(R.drawable.ic_problem);
+    //
+    //                info.setTxt(iconName[i]);
+    //                //                info.setColor(R.color.text_color_gray3);
+    //                break;
+    //            case WaringLampInfo.NOT_BRIGHT:
+    //                info.setIconState(R.drawable.ic_no_problem);
+    //                info.setTxt(iconName[i]);
+    //                //                info.setColor(R.color.text_color_gray3);
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //        info.icon = icon1[i];
+    //        dataList.add(info);
+    //        return dataList;
+    //    }
 
     private void setLastUpdateTime() {
         SimpleDateFormat mDateFormat = new SimpleDateFormat("MM-dd HH:mm");

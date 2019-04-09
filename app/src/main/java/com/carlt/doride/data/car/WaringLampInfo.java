@@ -1,6 +1,7 @@
 package com.carlt.doride.data.car;
 
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.BaseErr;
 
 /**
  * 0 是不亮； 1 是 亮
@@ -17,9 +18,9 @@ import com.carlt.doride.data.BaseResponseInfo;
  */
 
 public class WaringLampInfo extends BaseResponseInfo {
-    public static final int LIGHT      = 1;
-    public static final int NOT_BRIGHT = 0;
-
+    public static final int     LIGHT      = 1;
+    public static final int     NOT_BRIGHT = 0;
+    public static final long    NO_LIGHT   = 4294967295L;
     /**
      * ABS : 1
      * ENGINELAMP : 0
@@ -32,16 +33,17 @@ public class WaringLampInfo extends BaseResponseInfo {
      * WATERTMP : 1
      */
 
-    public int ABS        = -1;
-    public int ENGINELAMP = -1;
-    public int EPB        = -1;
-    public int ESP        = -1;
-    public int Grade      = -1;
-    public int MTLAMP     = -1;
-    public int SRS        = -1;
-    public int TPMS       = -1;
-    public int WATERTMP   = -1;
-    public int CheckTime  = -1;
+    public              long    ABS        = -1;
+    public              long    ENGINELAMP = -1;
+    public              long    EPB        = -1;
+    public              long    ESP        = -1;
+    public              long    grade      = -1;
+    public              long    MTLAMP     = -1;
+    public              long    SRS        = -1;
+    public              long    TPMS       = -1;
+    public              long    WATERTMP   = -1;
+    public              long    CheckTime  = -1;
+    public              BaseErr err;
 
     @Override
     public String toString() {
@@ -50,7 +52,7 @@ public class WaringLampInfo extends BaseResponseInfo {
                 ", ENGINELAMP=" + ENGINELAMP +
                 ", EPB=" + EPB +
                 ", ESP=" + ESP +
-                ", Grade=" + Grade +
+                ", Grade=" + grade +
                 ", MTLAMP=" + MTLAMP +
                 ", SRS=" + SRS +
                 ", TPMS=" + TPMS +

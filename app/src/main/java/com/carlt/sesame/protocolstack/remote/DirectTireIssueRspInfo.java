@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class DirectTireIssueRspInfo {
     public List<PressureItem> list;
-    public int recTime = 2; // 最后一次胎压上报时间
+    public int recTime = 0; // 最后一次胎压上报时间
     public BaseErr err;
     public class PressureItem{
         public int pressureState; // 胎压状态:1正常 2：异常
