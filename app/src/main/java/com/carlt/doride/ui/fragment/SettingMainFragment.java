@@ -990,7 +990,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
-                        hasActivate();
+//                        hasActivate();
                         isTbox = false;
                         isLoadingUI();
                         break;
@@ -1013,7 +1013,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
-                        hasActivate();
+//                        hasActivate();
                         isMatchine = false;
                         isLoadingUI();
                         break;

@@ -1,17 +1,15 @@
 package com.carlt.doride.ui.activity.carstate;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
-import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.CarNowStatusInfo;
-import com.carlt.doride.protocolparser.DefaultParser;
-import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.ui.adapter.CarNowStatusAdapter;
 import com.carlt.doride.ui.pull.PullToRefreshBase;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
@@ -76,37 +74,53 @@ public class CarStateNowActivity extends LoadingActivity {
 
 
         showWaitingDialog(null);
-        DefaultParser<CarNowStatusInfo> parser = new DefaultParser<>(mCallback, CarNowStatusInfo.class);
-        String m_remote_status = URLConfig.getM_REMOTE_STATUS();
-        String replace = m_remote_status.replace("100", "101");
-        parser.executePost(replace, new HashMap());
+        //        DefaultParser<CarNowStatusInfo> parser = new DefaultParser<>(mCallback, CarNowStatusInfo.class);
+        //        String m_remote_status = URLConfig.getM_REMOTE_STATUS();
+        //        String replace = m_remote_status.replace("100", "101");
+        //        parser.executePost(replace, new HashMap());
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", ApiRetrofit.getRemoteCommonParams());
+        addDisposable(mApiService.QueryCurrentData(map), new BaseMvcObserver<CarNowStatusInfo>() {
+
+
+            @Override
+            public void onSuccess(CarNowStatusInfo result) {
+                loadDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String msg) {
+                dissmissWaitingDialog();
+            }
+        });
     }
 
-    @Override
-    public void loadDataSuccess(Object bInfo) {
+    public void loadDataSuccess(CarNowStatusInfo carNowStatusInfo) {
         dissmissWaitingDialog();
-        try {
-            CarNowStatusInfo carNowStatusInfo = (CarNowStatusInfo) ((BaseResponseInfo) bInfo).getValue();
-
-            if (null == carNowStatusInfo) {
-                loadNodataUI();
-                mPullToRefreshListView.setVisibility(View.GONE);
-            } else {
-                showData(carNowStatusInfo);
-            }
-        } catch (Exception e) {
-            loadonErrorUI(null);
+        loadSuccessUI();
+        //        try {
+        //            CarNowStatusInfo carNowStatusInfo = (CarNowStatusInfo) ((BaseResponseInfo) bInfo).getValue();
+        //            CarNowStatusInfo carNowStatusInfo = (CarNowStatusInfo) bInfo;
+        if (carNowStatusInfo.err == null) {
+            showData(carNowStatusInfo);
+        } else {
+            loadNodataUI();
             mPullToRefreshListView.setVisibility(View.GONE);
+            showToast(carNowStatusInfo.err.msg);
         }
+
+        //        } catch (Exception e) {
+        //            loadonErrorUI(null);
+        //            mPullToRefreshListView.setVisibility(View.GONE);
+        //        }
 
         mPullToRefreshListView.onPullDownRefreshComplete();
         mPullToRefreshListView.onPullUpRefreshComplete();
         setLastUpdateTime();
     }
 
-    @Override
-    public void loadDataError(Object bInfo) {
-        super.loadDataError(bInfo);
+    public void loadDataError() {
         dissmissWaitingDialog();
     }
 
@@ -118,11 +132,11 @@ public class CarStateNowActivity extends LoadingActivity {
 
     private void showData(CarNowStatusInfo carNowStatusInfo) {
         mPullToRefreshListView.setVisibility(View.VISIBLE);
-        if (TextUtils.equals(carNowStatusInfo.getIsrunning(), "1")) {
+        if (carNowStatusInfo.getIsrunning() == 1) {
             mTxtView.setText("您的爱车正在行驶中");
-        } else if (TextUtils.equals(carNowStatusInfo.getIsrunning(), "0")) {
+        } else if (carNowStatusInfo.getIsrunning() == 0) {
             mTxtView.setText("您的爱车正在休息");
-        } else if(carNowStatusInfo.getIsrunning().equals("2")){
+        } else if (carNowStatusInfo.getIsrunning() == 2) {
             mTxtView.setText("您的爱车已上电");
         }
         if (carNowStatusInfo.getList() != null && carNowStatusInfo.getList().size() != 0) {

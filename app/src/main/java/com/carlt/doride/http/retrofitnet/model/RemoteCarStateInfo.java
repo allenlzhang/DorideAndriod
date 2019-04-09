@@ -23,7 +23,7 @@ public class RemoteCarStateInfo {
 
     public int     AC              = -1;// 空调模式 1-开启全自动；2-关闭；3-一键除霜；4-最大制冷；5-最大制热；6-负离子；7-座舱清洁；8-其他开启模式
     public int     purify          = -1;  // 空气净化状态 0-关闭 1-开启
-    public long    ACTemp          = -1;
+    public String  ACTemp;
     public int     bonnet          = -1;    // 引擎盖状态
     public int     engine          = -1;  // 发动机状态 0-熄火 1-启动
     public int     seathot         = -1;  // 座椅加热状态

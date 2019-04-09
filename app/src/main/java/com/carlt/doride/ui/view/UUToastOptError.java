@@ -25,7 +25,7 @@ public class UUToastOptError extends Toast {
 	private static TextView text;
 
 	private UUToastOptError(Context context) {
-		super(context);
+        super(context);
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View layout = inflater.inflate(R.layout.toast_opt_error, null);
@@ -43,9 +43,9 @@ public class UUToastOptError extends Toast {
 		} else {
 			uuTo.cancel();
 //			uuTo=new UUToastOptError(context);
-			text.setText(tex);
-		}
 
+		}
+		text.setText(tex);
 		toast.show();
 	}
 

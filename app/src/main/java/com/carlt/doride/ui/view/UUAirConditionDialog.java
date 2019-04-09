@@ -1,13 +1,14 @@
 package com.carlt.doride.ui.view;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,11 +24,12 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
-import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.adapter.RemoteAirAdapter;
 import com.carlt.doride.utils.MyParse;
@@ -35,6 +37,10 @@ import com.carlt.doride.utils.PlayRadio;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class UUAirConditionDialog extends Dialog implements OnClickListener,
@@ -68,7 +74,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 
     protected GridView     mGrid;
     protected LinearLayout mLayFunction;
-    protected int selectPos = -1;
+    protected int          selectPos = -1;
 
     private RelativeLayout mLayTempuare;
 
@@ -151,8 +157,8 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
             } else {
                 isShowTempRegulation = false;
             }
-            tempCurrent = MyParse.parseInt(mAirMainInfo.getCurrentTemp());
-            Logger.e("tempCurrent----" + mAirMainInfo.getCurrentTemp());
+            tempCurrent = MyParse.parseTemp(mAirMainInfo.getCurrentTemp());
+            LogUtils.e("tempCurrent----" + tempCurrent);
             tempure.setText(tempCurrent + "");
 
             //            if (mAirMainInfo.isGetCurrentTempSuccess()) {
@@ -194,13 +200,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w,
                 LayoutParams.WRAP_CONTENT);
         setContentView(v, parm);
-        setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode,
-                                 KeyEvent event) {
-                return true;
-            }
-        });
+        setOnKeyListener((dialog, keyCode, event) -> true);
 
         up.setOnClickListener(this);
         down.setOnClickListener(this);
@@ -236,9 +236,12 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 
                 if (state.equals(RemoteFunInfo.MODE_CLOSE)) {
                     // 关闭空调
-                    CPControl.GetRemoteAir(mListener, "2", "");
+                    //                    CPControl.GetRemoteAir(mListener, "2", "");
+                    remoteAir(2, null);
                 } else {
-                    CPControl.GetRemoteAir(mListener, state, tempure.getText()
+//                    CPControl.GetRemoteAir(mListener, state, tempure.getText()
+//                            .toString());
+                    remoteAir(Integer.valueOf(state), tempure.getText()
                             .toString());
                 }
             }
@@ -325,6 +328,27 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         initConfirm();
     }
 
+    @SuppressLint("CheckResult")
+    private void remoteAir(int racoc, String ratct) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        map.put("base", ApiRetrofit.getRemoteCommonParams());
+        if (!TextUtils.isEmpty(ratct)) {
+            map.put("ratct", ratct);
+        }
+
+        map.put("racoc", racoc);
+        ApiRetrofit.getInstance().getApiService().AirCondition(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    Message message = mHandler.obtainMessage();
+                    message.what = 111;
+                    message.obj = result;
+                    mHandler.sendMessage(message);
+                }, throwable -> mHandler.sendEmptyMessage(222));
+    }
+
     /**
      *
      */
@@ -337,10 +361,14 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 
     public void reCall() {
         if (state.equals(RemoteFunInfo.MODE_CLOSE)) {
-            CPControl.GetRemoteAir(mListener, RemoteFunInfo.MODE_CLOSE, "");
+//            CPControl.GetRemoteAir(mListener, RemoteFunInfo.MODE_CLOSE, "");
+            remoteAir(2, null);
         } else {
-            CPControl.GetRemoteAir(mListener, state, tempure.getText()
+//            CPControl.GetRemoteAir(mListener, state, tempure.getText()
+//                    .toString());
+            remoteAir(Integer.valueOf(state), tempure.getText()
                     .toString());
+
         }
 
     }

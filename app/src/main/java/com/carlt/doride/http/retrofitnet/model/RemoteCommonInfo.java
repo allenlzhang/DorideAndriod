@@ -6,7 +6,7 @@ package com.carlt.doride.http.retrofitnet.model;
  * Author     : zhanglei
  * Date       : 2019/4/1 14:55
  */
-public class RemoteStartInfo {
+public class RemoteCommonInfo {
     public String  msg;
     public BaseErr err;
 }

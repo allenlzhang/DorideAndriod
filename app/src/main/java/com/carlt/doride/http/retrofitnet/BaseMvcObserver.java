@@ -1,14 +1,13 @@
 package com.carlt.doride.http.retrofitnet;
 
-import android.graphics.Color;
 import android.net.ParseException;
-import android.view.Gravity;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.carlt.doride.R;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.http.retrofitnet.model.BaseErr;
+import com.carlt.doride.ui.view.UUToast;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONException;
@@ -108,11 +107,12 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                         ActivityControl.onTokenDisable();
                         Field msgField = result.getClass().getDeclaredField("msg");
                         String msg = (String) msgField.get(result);
-                        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
-                        ToastUtils.setBackgroundColor(R.drawable.toast_bg);
-                        ToastUtils.setMessageColor(Color.WHITE);
-
-                        ToastUtils.showShort(msg);
+                        //                        ToastUtils.setGravity(Gravity.CENTER, 0, 0);
+                        //                        ToastUtils.setBackgroundColor(R.drawable.toast_bg);
+                        //                        ToastUtils.setMessageColor(Color.WHITE);
+                        //
+                        //                        ToastUtils.showShort(msg);
+                        UUToast.showUUToast(DorideApplication.ApplicationContext, msg);
                         //                        onError(msg);
                     } else {
                         Field msgField = result.getClass().getDeclaredField("msg");
@@ -180,7 +180,7 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                 || e instanceof ParseException) {
             //  解析错误
             onException(PARSE_ERROR);
-        }  else {
+        } else {
             LogUtils.e(e.getMessage());
             onError(e.getMessage());
             //            if (e != null) {
@@ -195,11 +195,13 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
     private void onException(int unknownError) {
         switch (unknownError) {
             case CONNECT_ERROR:
-                onError("连接错误");
+                onError("连接错误，请检查网络");
+                ToastUtils.showShort("连接错误，请检查网络");
                 break;
 
             case CONNECT_TIMEOUT:
                 onError("连接超时");
+//                ToastUtils.showShort("连接超时，请检查网络");
                 break;
 
             case BAD_NETWORK:
@@ -209,7 +211,8 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                 break;
 
             case PARSE_ERROR:
-                onError("解析数据失败");
+                //                onError("解析数据失败");
+                ToastUtils.showShort("解析数据失败");
                 break;
 
             default:

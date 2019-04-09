@@ -11,13 +11,14 @@ import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.WaringLampInfo;
 import com.carlt.doride.data.car.WaringLampItemInfo;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.protocolparser.DefaultParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.adapter.WaringLampAdapter;
 import com.carlt.doride.ui.pull.PullToRefreshBase;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
 import com.carlt.doride.utils.MyTimeUtils;
-import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,11 +37,11 @@ public class MainTestingActivity extends LoadingActivity {
     private WaringLampInfo           waringLampInfo;
     private ListView                 mListView;
     private List<WaringLampItemInfo> dataList;
-    private int[] icon = {R.mipmap.abs, R.mipmap.tpms, R.mipmap.esp
-            , R.mipmap.engine, R.mipmap.epb, R.mipmap.svs, R.mipmap.srs, R.mipmap.engine, R.mipmap.eps};
-
-    private int[] iconLight = {R.mipmap.abs_light, R.mipmap.tpms_light, R.mipmap.esp_light
-            , R.mipmap.engine_light, R.mipmap.epb_light, R.mipmap.svs_light, R.mipmap.srs_light, R.mipmap.engine_light, R.mipmap.eps_light};
+//    private int[] icon = {R.mipmap.abs, R.mipmap.tpms, R.mipmap.esp
+//            , R.mipmap.engine, R.mipmap.epb, R.mipmap.svs, R.mipmap.srs, R.mipmap.engine, R.mipmap.eps};
+//
+//    private int[] iconLight = {R.mipmap.abs_light, R.mipmap.tpms_light, R.mipmap.esp_light
+//            , R.mipmap.engine_light, R.mipmap.epb_light, R.mipmap.svs_light, R.mipmap.srs_light, R.mipmap.engine_light, R.mipmap.eps_light};
 
 
     private             int[]    icon1    = {R.drawable.ic_water_temperature, R.drawable.ic_tire_pressure, R.drawable.ic_epb
@@ -66,6 +67,21 @@ public class MainTestingActivity extends LoadingActivity {
         String url = URLConfig.getM_REMOTE_WARNINGLAMP();
         String replace = url.replace("100", "102");
         defaultParser.executePost(replace, new HashMap());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base",  ApiRetrofit.getRemoteCommonParams());
+        addDisposable(mApiService.WarningLights(map), new BaseMvcObserver<WaringLampInfo>() {
+
+
+            @Override
+            public void onSuccess(WaringLampInfo result) {
+
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
     }
 
     @Override
@@ -78,20 +94,14 @@ public class MainTestingActivity extends LoadingActivity {
     @Override
     public void loadDataSuccess(Object bInfo) {
         dissmissWaitingDialog();
-        Logger.e("-----" + bInfo.toString());
         waringLampInfo = (WaringLampInfo) ((BaseResponseInfo) bInfo).getValue();
-        Logger.e("-----" + waringLampInfo);
         if (waringLampInfo != null) {
-            //            safyHeadTV.setText(txtTitle.concat(waringLampInfo.Grade + ""));
             safyHeadTV.setText(String.valueOf(waringLampInfo.Grade));
             if (waringLampInfo.CheckTime == -1) {
                 tvTitle.setText("自检得分:");
                 safyHeadTV.setVisibility(View.VISIBLE);
             } else {
                 safyHeadTV.setVisibility(View.GONE);
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                int checkTime = waringLampInfo.CheckTime;
-//                String format = sdf.format(new Date(checkTime));
                 String date = MyTimeUtils.formatDateGetDaySecend(waringLampInfo.CheckTime);
 
                 tvTitle.setText("上次自检时间：".concat(date) + "\n".concat("请启动车辆获取最新自检结果"));

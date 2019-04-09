@@ -45,10 +45,13 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.geocoder.RegeocodeRoad;
 import com.amap.api.services.road.Crossroad;
+import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
-import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
+import com.carlt.doride.http.retrofitnet.model.RemoteCommonInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
@@ -56,6 +59,7 @@ import com.carlt.doride.utils.StringUtils;
 import com.carlt.doride.utils.map.PositionEntity;
 import com.carlt.doride.utils.map.SensorEventHelper;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -91,14 +95,14 @@ public class LocationSynchronizeActivity extends BaseActivity implements
     private LatLng                                   mFirstCarLoc;
     private LatLng                                   mDestinationLoc;// 目的地坐标
     private LocationSource.OnLocationChangedListener mListener;
-    private String destinationName = "";// 目的地名称
-    private String destinationAddr = "";// 目的地地址
-    private String fromLocName;// 从搜索页跳转回来的值
-    private String fromLocAddr;// 从搜索页跳转回来的值
-    private Marker mLocMarker;
-    private Circle mLocCircle;
-    private boolean isMyLocenable = true;
-    private SensorEventHelper mSensorHelper;
+    private String                                   destinationName = "";// 目的地名称
+    private String                                   destinationAddr = "";// 目的地地址
+    private String                                   fromLocName;// 从搜索页跳转回来的值
+    private String                                   fromLocAddr;// 从搜索页跳转回来的值
+    private Marker                                   mLocMarker;
+    private Circle                                   mLocCircle;
+    private boolean                                  isMyLocenable   = true;
+    private SensorEventHelper                        mSensorHelper;
 
     private final static int TYPE_LOCATION    = 1;// 定位UI
     private final static int TYPE_DESTINATION = 2;// 目的地UI
@@ -125,7 +129,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
         //        设置夜间模式
         //        mMap.setMapType(AMap.MAP_TYPE_NIGHT);
         // 定位图标样式
-        MyLocationStyle  myLocationStyle = new MyLocationStyle();
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
         Bitmap bMap = BitmapFactory.decodeResource(this.getResources(),
                 R.mipmap.icon_loc);
         BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
@@ -137,7 +141,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);
         myLocationStyle.showMyLocation(true);
         mMap.setMyLocationStyle(myLocationStyle);
-        
+
 
         mMap.getUiSettings().setScaleControlsEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);// 是否显示定位按钮
@@ -154,7 +158,7 @@ public class LocationSynchronizeActivity extends BaseActivity implements
         if (mLocationClient == null) {
             mLocationClient = new AMapLocationClient(this);
             AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
-            mLocationOption.setInterval(1000);
+            mLocationOption.setInterval(2000);
             // 设置定位监听
             mLocationClient.setLocationListener(this);
             // 设置为高精度定位模式
@@ -323,7 +327,40 @@ public class LocationSynchronizeActivity extends BaseActivity implements
                             this, "数据提交中...");
                 }
                 mDialog.show();
-                CPControl.GetNavigationResult(position, location, listener_navigation);
+                //                                CPControl.GetNavigationResult(position, location, listener_navigation);
+
+
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("base", ApiRetrofit.getRemoteCommonParams());
+                map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+                map.put("position", position);
+                map.put("location", location);
+
+                addDisposable(mApiService.Navigation(map), new BaseMvcObserver<RemoteCommonInfo>() {
+
+                    @Override
+                    public void onSuccess(RemoteCommonInfo result) {
+                        mDialog.dismiss();
+                        if (result.err == null) {
+                            if (TextUtils.isEmpty(result.msg)) {
+                                showToast("目的地信息已上传成功");
+                            } else {
+                                showToast(result.msg);
+                            }
+                            finish();
+                        } else {
+                            showToast(result.err.msg);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        mDialog.dismiss();
+                        showToast("目的地信息上传失败...");
+                    }
+                });
                 break;
         }
     }

@@ -1,25 +1,26 @@
 package com.carlt.doride.data.car;
 
 import com.carlt.doride.data.BaseResponseInfo;
+import com.carlt.doride.http.retrofitnet.model.BaseErr;
 
 import java.util.ArrayList;
 
 /**
- *
  * 座驾页实时车况
  * Created by liu on 2018/3/30.
  */
 
 public class CarNowStatusInfo extends BaseResponseInfo {
-    private String isrunning;
+    private int isrunning;
 
     private ArrayList<CarNowStatusItemInfo> list;
+    public  BaseErr                         err;
 
-    public String getIsrunning() {
+    public int getIsrunning() {
         return isrunning;
     }
 
-    public void setIsrunning(String isrunning) {
+    public void setIsrunning(int isrunning) {
         this.isrunning = isrunning;
     }
 
@@ -38,12 +39,13 @@ public class CarNowStatusInfo extends BaseResponseInfo {
                 ", list=" + list +
                 '}';
     }
+
     /**
      * "name": "车辆状态",
-     "value": "休眠",
-     "company":""
+     * "value": "休眠",
+     * "company":""
      */
-    public static class CarNowStatusItemInfo{
+    public static class CarNowStatusItemInfo {
 
         private String name;
         private String value;

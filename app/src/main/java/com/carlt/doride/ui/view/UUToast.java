@@ -77,7 +77,6 @@ public class UUToast extends Toast {
 		// 优化吐司,机制..相同吐司30秒内不弹
 		showUUToast(context, tex, Toast.LENGTH_SHORT);
 
-	;
 	}
 
 

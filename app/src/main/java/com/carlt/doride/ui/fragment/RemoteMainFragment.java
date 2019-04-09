@@ -34,8 +34,12 @@ import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.CarStateInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.http.retrofitnet.model.RemoteCarStateInfo;
+import com.carlt.doride.http.retrofitnet.model.RemoteCarStateInfoPresenter;
+import com.carlt.doride.http.retrofitnet.model.RemoteCommonInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
@@ -191,9 +195,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     mTxtRetryError.setText("点击激活设备");
                     mTxtRetryError.setOnClickListener(v -> {
                         Intent activateIntent = new Intent(mCtx, ActivateAccActivity.class);
-                        //                        activateIntent.putExtra("vin", vinCode);
-                        //                        activateIntent.putExtra("carType", carTitle);
-                        //                        activateIntent.putExtra("carID", mCarid);
+
                         startActivity(activateIntent);
                     });
                 }
@@ -204,27 +206,7 @@ public class RemoteMainFragment extends BaseFragment implements
         String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
         String replace = m_car_curcarconfig_url.replace("126", "130");
         carOperationConfigParser.executePost(replace, params2);
-        //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
-        //            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
-        //                @Override
-        //                public void onSuccess(BaseResponseInfo bInfo) {
-        //                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
-        //                    Logger.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
-        //                    loadSuss();
-        //                }
-        //
-        //                @Override
-        //                public void onError(BaseResponseInfo bInfo) {
-        //                    Logger.e(TAG, "onError" + bInfo.toString());
-        //                    //                    actLoadError((BaseResponseInfo) bInfo);
-        //                    loadonErrorUI(bInfo);
-        //                }
-        //            });
-        //            HashMap params2 = new HashMap();
-        //            carOperationConfigParser.executePost(URLConfig.getM_CAR_CURCARCONFIG_URL(), params2);
-        //        } else {
-        //            loadSuss();
-        //        }
+
     }
 
     private void errorUi() {
@@ -378,11 +360,14 @@ public class RemoteMainFragment extends BaseFragment implements
         }
         switch (selectedPos) {
             case -2:
-                CPControl.GetRemoteStart(mListener);
+                //远程启动
+                //                                CPControl.GetRemoteStart(mListener);
+                remoteStartEngine();
                 break;
             case -1:
                 // 远程熄火
-                CPControl.GetCancelRemoteStart(mListener);
+                //                CPControl.GetCancelRemoteStart(mListener);
+                remoteStopEngine();
                 break;
 
             case 1:
@@ -402,13 +387,15 @@ public class RemoteMainFragment extends BaseFragment implements
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
 
-                        CPControl.GetRemoteLock("1", mListener);
+                        //                        CPControl.GetRemoteLock("1", mListener);
+                        remoteLock(1);
                     }
 
                     @Override
                     public void onItemTwoClick(View v) {
                         showWaitingDialog(null);
-                        CPControl.GetRemoteLock("2", mListener);
+                        //                        CPControl.GetRemoteLock("2", mListener);
+                        remoteLock(2);
                     }
                 });
                 break;
@@ -430,12 +417,14 @@ public class RemoteMainFragment extends BaseFragment implements
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
                         CPControl.GetRemoteChangeWinState("1", mListener);
+                        remoteChangeWinState(1);
                     }
 
                     @Override
                     public void onItemTwoClick(View v) {
                         showWaitingDialog(null);
-                        CPControl.GetRemoteChangeWinState("2", mListener);
+                        //                        CPControl.GetRemoteChangeWinState("2", mListener);
+                        remoteChangeWinState(2);
                     }
                 });
                 break;
@@ -452,27 +441,33 @@ public class RemoteMainFragment extends BaseFragment implements
                 break;
             case 6:
                 // 远程开启天窗
-                CPControl.GetRemoteSkylight("1", mListener);
+                //                CPControl.GetRemoteSkylight("1", mListener);
+                remoteSkylight(1);
                 break;
             case 7:
                 // 远程关闭天窗
-                CPControl.GetRemoteSkylight("2", mListener);
+                //                CPControl.GetRemoteSkylight("2", mListener);
+                remoteSkylight(2);
                 break;
             case 8:
                 // 远程天窗开撬
-                CPControl.GetRemoteSkylight("3", mListener);
+                //                CPControl.GetRemoteSkylight("3", mListener);
+                remoteSkylight(3);
                 break;
             case 9:
                 // 远程天窗关撬
-                CPControl.GetRemoteSkylight("4", mListener);
+                //                CPControl.GetRemoteSkylight("4", mListener);
+                remoteSkylight(4);
                 break;
+
             case 10:
                 // 远程开启空调
                 mHandler.sendEmptyMessage(6);
                 break;
             case 11:
                 // 闪灯鸣笛
-                CPControl.GetCarLocating(mListener);
+                //                CPControl.GetCarLocating(mListener);
+                remoteCarLocating();
                 break;
             case 12:
                 // 远程开启后备箱
@@ -483,23 +478,27 @@ public class RemoteMainFragment extends BaseFragment implements
                     @Override
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
-                        CPControl.GetRemoteTrunk("1", mListener);
+                        //                        CPControl.GetRemoteTrunk("1", mListener);
+                        remoteTrunk(1);
                     }
 
                     @Override
                     public void onItemTwoClick(View v) {
                         showWaitingDialog(null);
-                        CPControl.GetRemoteTrunk("2", mListener);
+                        //                        CPControl.GetRemoteTrunk("2", mListener);
+                        remoteTrunk(2);
                     }
                 });
                 break;
             case 14:
                 //             仅支持关闭后备箱
-                CPControl.GetRemoteTrunk("2", mListener);
+                //                CPControl.GetRemoteTrunk("2", mListener);
+                remoteTrunk(2);
                 break;
             case 15:
                 //            仅支持打开后备箱
-                CPControl.GetRemoteTrunk("1", mListener);
+                //                CPControl.GetRemoteTrunk("1", mListener);
+                remoteTrunk(1);
                 break;
             case 13:
                 // 远程座椅加热
@@ -511,18 +510,474 @@ public class RemoteMainFragment extends BaseFragment implements
                     @Override
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
-                        CPControl.GetRemoteChairHeating("1", mListener);
+                        //                        CPControl.GetRemoteChairHeating("1", mListener);
+                        remoteChairHeating(1);
                     }
 
                     @Override
                     public void onItemTwoClick(View v) {
                         showWaitingDialog(null);
-                        CPControl.GetRemoteChairHeating("2", mListener);
+                        //                        CPControl.GetRemoteChairHeating("2", mListener);
+                        remoteChairHeating(2);
                     }
                 });
                 break;
 
         }
+    }
+
+    private void remoteCarStateAir() {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        addDisposable(mApiService.carState(map), new BaseMvcObserver<RemoteCarStateInfo>() {
+
+            @Override
+            public void onSuccess(RemoteCarStateInfo result) {
+                dissmissWaitingDialog();
+                if (result.err == null) {
+                    parseData(result);
+                } else {
+                    UUToast.showUUToast(mCtx, result.err.msg);
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                dissmissWaitingDialog();
+                LogUtils.e(msg);
+                UUToast.showUUToast(mCtx, msg);
+            }
+        });
+
+    }
+
+    private void parseData(RemoteCarStateInfo result) {
+        boolean isGetCurrentTempSuccess;
+        if (result.AC != 2) {
+            String acTemp = result.ACTemp;
+            if (TextUtils.isEmpty(acTemp)) {
+                acTemp = "26.0";
+                isGetCurrentTempSuccess = false;
+            } else {
+                if (acTemp.equals("0.0")) {
+                    acTemp = "0.0";
+                    isGetCurrentTempSuccess = false;
+                } else {
+                    isGetCurrentTempSuccess = true;
+                }
+            }
+            mAirMainInfo1.setCurrentTemp(acTemp);
+            Log.e("info", "temp==------------" + acTemp);
+            mAirMainInfo1.setGetCurrentTempSuccess(isGetCurrentTempSuccess);
+            String airState = String.valueOf(result.AC);
+            ArrayList<RemoteFunInfo> remoteFunInfos = mAirMainInfo1
+                    .getmRemoteFunInfos();
+            for (int i = 0; i < remoteFunInfos.size(); i++) {
+                RemoteFunInfo item = remoteFunInfos.get(i);
+                String id = item.getId();
+                if (id.equals(airState)) {
+                    item.setSelect(true);
+                    //                            break;
+                } else {
+                    item.setSelect(false);
+                }
+            }
+            mAirMainInfo1.setState(airState);
+            //            mListener_temp.onSuccess(airMainInfo);
+        } else {
+            mAirMainInfo1.setCurrentTemp("26.0");
+            mAirMainInfo1.setGetCurrentTempSuccess(false);
+            mAirMainInfo1.setState("-1");
+            //            mListener_temp.onError(mBaseResponseInfo);
+        }
+        //        AirMainInfo mAirMainInfo2 = (AirMainInfo) msg.obj;
+        Logger.e("---" + mAirMainInfo1.toString());
+        if (mAirMainInfo1 != null) {
+            if (!isReCall) {
+                if (airDialog == null || !airDialog.isShowing()) {
+
+                    airDialog = new UUAirConditionDialog(
+                            getActivity(), mAirMainInfo1);
+                    airDialog.mListener = mListener;
+                    airDialog.mHandler = mHandler;
+                    airDialog.show();
+                }
+            } else {
+                airDialog.reCall();
+            }
+        }
+
+    }
+
+    /**
+     * 获取车辆状态
+     */
+    private void remoteCarState() {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        addDisposable(mApiService.carState(map), new BaseMvcObserver<RemoteCarStateInfo>() {
+
+            @Override
+            public void onSuccess(RemoteCarStateInfo result) {
+                dissmissWaitingDialog();
+                if (result.err == null) {
+                    RemoteCarStateInfoPresenter rcsp = new RemoteCarStateInfoPresenter(result);
+                    mCarStateDataList = rcsp.parser();
+                    if (mCarStateDataList != null && mCarStateDataList.size() > 0) {
+                        mGridViewState.setNumColumns(3);
+                        if (mAdapterStates == null) {
+                            mAdapterStates = new RemoteStatesAdapter(
+                                    getActivity(), mCarStateDataList);
+                            mGridViewState.setAdapter(mAdapterStates);
+                        } else {
+                            mAdapterStates.setmDataList(mCarStateDataList);
+                            mAdapterStates.notifyDataSetChanged();
+                        }
+                        dissmissWaitingDialog();
+                        mViewState.setVisibility(View.VISIBLE);
+                    } else {
+                        dissmissWaitingDialog();
+                        mViewState.setVisibility(View.GONE);
+                        UUToast.showUUToast(mCtx, "暂未获取到车辆状态数据");
+                    }
+                } else {
+                    UUToast.showUUToast(mCtx, result.err.msg);
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                dissmissWaitingDialog();
+                LogUtils.e(msg);
+                UUToast.showUUToast(mCtx, msg);
+            }
+        });
+    }
+
+    /**
+     * 一键寻车
+     */
+    private void remoteCarLocating() {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        addDisposable(mApiService.CarLocating(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+                //
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
+    }
+
+    /**
+     * @param state
+     *         1开启，2关闭
+     */
+    private void remoteChairHeating(int state) {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        map.put("rshoc", state);
+        addDisposable(mApiService.ChairHeating(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
+    }
+
+    /**
+     * @param state
+     *         1开启，2关闭
+     */
+    private void remoteTrunk(int state) {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        map.put("rtlu", state);
+        addDisposable(mApiService.RemoteTrunk(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
+    }
+
+    /**
+     * @param state
+     *         1:开启，2：关闭 ，3:天窗开翘，4: 天窗关翘
+     */
+    private void remoteSkylight(int state) {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        map.put("rwoc", state);
+        addDisposable(mApiService.SkyLight(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+                //
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
+    }
+
+    /**
+     * @param winState
+     *         1-开窗;2-关窗;3-天窗开翘;4-天窗关翘;5-天窗开启;6-天窗关闭
+     */
+    private void remoteChangeWinState(int winState) {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        map.put("rwoc", winState);
+        addDisposable(mApiService.RemoteWindow(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+                //
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
+    }
+
+    /**
+     * @param lockState
+     *         1:开锁，2上锁
+     */
+    private void remoteLock(int lockState) {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        map.put("lock", lockState);
+        addDisposable(mApiService.RemoteLock(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+                //
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
+    }
+
+    /**
+     * 远程熄火
+     */
+    private void remoteStopEngine() {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        addDisposable(mApiService.RemoteStall(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+                //
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
+    }
+
+    /**
+     * 远程启动
+     */
+    private void remoteStartEngine() {
+        HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", remoteCommonParams);
+        map.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        addDisposable(mApiService.RemoteStart(map), new BaseMvcObserver<RemoteCommonInfo>() {
+            @Override
+            public void onSuccess(RemoteCommonInfo result) {
+                //                dissmissWaitingDialog();
+                //                if (result.err == null) {
+                //                    if (TextUtils.isEmpty(result.msg)) {
+                //                        UUToastOpt.showUUToast(mCtx, "操作成功");
+                //                    } else {
+                //                        UUToastOptError.showUUToast(mCtx, result.msg);
+                //                    }
+                //                } else {
+                //                    UUToastOptError.showUUToast(mCtx, result.err.msg);
+                //                }
+                Message message = mHandler.obtainMessage();
+                message.what = Remote_Result;
+                message.obj = result;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onError(String msg) {
+                //                dissmissWaitingDialog();
+                //                LogUtils.e(msg);
+                //                UUToastOptError.showUUToast(mCtx, msg);
+                mHandler.sendEmptyMessage(Remote_Err);
+            }
+        });
     }
 
     // 校验远程密码
@@ -598,22 +1053,71 @@ public class RemoteMainFragment extends BaseFragment implements
 
             RemoteFunInfo mInfo = (RemoteFunInfo) v.getTag();
             selectedPos = MyParse.parseInt(mInfo.getId());
+            if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
+                uuDialogRemote.dismiss();
+            }
             GetResult();
         }
     };
-
+    public static final int     Remote_Result = 111;
+    public static final int     Remote_Err = 222;
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
+    private             Handler mHandler      = new Handler() {
 
         private ArrayList<CarStateInfo> mDataList;
 
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case Remote_Result:
+                    //          远程操作返回结果
+
+                    dissmissWaitingDialog();
+                    if (airDialog != null && airDialog.isShowing()) {
+                        airDialog.dismiss();
+                    }
+                    if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
+                        uuDialogRemote.dismiss();
+                    }
+                    RemoteCommonInfo result = (RemoteCommonInfo) msg.obj;
+
+
+                    if (result.err == null) {
+                        if (TextUtils.isEmpty(result.msg)) {
+                            UUToastOpt.showUUToast(mCtx, "操作成功");
+                        } else {
+                            UUToastOptError.showUUToast(mCtx, result.msg);
+                            //                            UUToastOptError.getUuTo().showUUToast(result.msg);
+                        }
+                    } else {
+
+                        if (result.err.code == 1020) {
+                            Intent intent = new Intent(mCtx, UpDateActivity.class);
+                            startActivity(intent);
+                        } else {
+                            UUToastOptError.showUUToast(mCtx, result.err.msg);
+                            //                            UUToastOptError.getUuTo().showUUToast(result.err.msg);
+                        }
+                    }
+                    break;
+                case Remote_Err:
+                    //                    远程操作失败(一般是网络问题)
+                    dissmissWaitingDialog();
+                    if (airDialog != null && airDialog.isShowing()) {
+                        airDialog.dismiss();
+                    }
+                    if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
+                        uuDialogRemote.dismiss();
+                    }
+                    UUToastOptError.showUUToast(mCtx, "操作失败");
+                    //                    UUToastOptError.getUuTo().showUUToast("操作失败");
+                    break;
+
+
                 case 0:
                     //                    远程操作成功
                     Logger.e("---远程操作成功");
-                    UUToastOpt.showUUToast(getActivity(), "操作成功");
+                    UUToastOpt.showUUToast(mCtx, "操作成功");
                     dissmissWaitingDialog();
                     if (airDialog != null) {
                         isReCall = false;
@@ -623,7 +1127,6 @@ public class RemoteMainFragment extends BaseFragment implements
                     if (uuDialogRemote != null && uuDialogRemote.isShowing()) {
                         uuDialogRemote.dismiss();
                     }
-                    //                    UUToast.showUUToast(getActivity(), "操作成功");
 
                     break;
 
@@ -643,7 +1146,9 @@ public class RemoteMainFragment extends BaseFragment implements
                             //                            UUToastOptError.showUUToast(getActivity(), "硬件升级提示");
                         } else {
                             UUToastOptError.showUUToast(getActivity(), mInfo1.getInfo());
+                            //                            UUToastOptError.getUuTo().showUUToast(mInfo1.getInfo());
                         }
+
                     }
                     break;
 
@@ -693,8 +1198,10 @@ public class RemoteMainFragment extends BaseFragment implements
                     isFirstClick = true;
                     break;
                 case 6:
-                    CPControl.GetRemoteCarTemp(mListener_temp, mAirMainInfo1);
+                    //                                        CPControl.GetRemoteCarTemp(mListener_temp, mAirMainInfo1);
+                    remoteCarStateAir();
                     break;
+
                 case 7:
                     dissmissWaitingDialog();
                     // 获取远程空调功能失败
@@ -712,11 +1219,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     Logger.e("---" + mAirMainInfo2.toString());
                     if (!isReCall) {
                         if (airDialog == null || !airDialog.isShowing()) {
-                            if (TextUtils.isEmpty(mAirMainInfo2.getState())
-                                    || "0".equals(mAirMainInfo2.getState())) {
-                                // UUToast.showUUToast(getActivity(),
-                                // "获取空调状态超时");
-                            }
+
                             airDialog = new UUAirConditionDialog(
                                     getActivity(), mAirMainInfo2);
                             airDialog.mListener = mListener;
@@ -792,7 +1295,8 @@ public class RemoteMainFragment extends BaseFragment implements
                     mViewState.setVisibility(View.GONE);
                 } else {
                     showWaitingDialog("正在获取数据...");
-                    CPControl.GetRemoteCarState(mListener_states);
+                    //                    CPControl.GetRemoteCarState(mListener_states);
+                    remoteCarState();
                 }
                 break;
             case R.id.remote_history_iv:
@@ -822,9 +1326,10 @@ public class RemoteMainFragment extends BaseFragment implements
         }
     }
 
+
     private boolean hasActivate() {
 
-        LogUtils.e(remoteStatus);
+        //        LogUtils.e(remoteStatus);
         switch (remoteStatus) {
             case 0:
                 PopBoxCreat.createDialogNotitle(mCtx, "温馨提示",
@@ -1069,13 +1574,7 @@ public class RemoteMainFragment extends BaseFragment implements
             }
         });
 
-        imgCancel.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                dialogI.dismiss();
-            }
-        });
+        imgCancel.setOnClickListener(v -> dialogI.dismiss());
 
         int w = (int) (DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w,

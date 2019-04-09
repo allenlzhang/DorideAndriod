@@ -23,7 +23,6 @@ import com.carlt.doride.data.remote.RemoteMainInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -98,10 +97,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         init();
         mFragmentManager = getSupportFragmentManager();
         setTabSelection(0);
-//        if (LoginInfo.getTbox_type().equals("4G")) {
-            initFlowInfo();
-//        }
-//        initCarFlow();
+        //        if (LoginInfo.getTbox_type().equals("4G")) {
+        initFlowInfo();
+        //        }
+        //        initCarFlow();
     }
 
 
@@ -120,7 +119,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         Gson gson = new Gson();
                         CheckBindCarIdInfo checkBindInfo = gson.fromJson(response.body(), CheckBindCarIdInfo.class);
                         if (checkBindInfo.code == 0) {
-                            if (checkBindInfo.data!=null) {
+                            if (checkBindInfo.data != null) {
                             }
                             //                                llCarFlowRecharge.setVisibility(View.VISIBLE);
                             //                                lineCarFlow.setVisibility(View.VISIBLE);
@@ -221,7 +220,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         deviceisnew = GetCarInfo.getInstance().dorcenCarDisplay;
-
+//        deviceisnew = 0;
         try {
             localUrl = getIntent().getExtras().getString("filePath");
 
@@ -300,47 +299,47 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     CarOperationConfigParser carOperationConfigParser;
 
     private void remoteConfig() {
-//        String activateCode = getIntent().getStringExtra("activateCode");
-//        Logger.e("========" + activateCode);
-//        if (TextUtils.isEmpty(activateCode)) {
+        //        String activateCode = getIntent().getStringExtra("activateCode");
+        //        Logger.e("========" + activateCode);
+        //        if (TextUtils.isEmpty(activateCode)) {
 
 
-            //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
-            carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
-                @Override
-                public void onSuccess(BaseResponseInfo bInfo) {
-                    DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
+        //        if (DorideApplication.getInstanse().getRemoteMainInfo() == null) {
+        carOperationConfigParser = new CarOperationConfigParser<String>(new BaseParser.ResultCallback() {
+            @Override
+            public void onSuccess(BaseResponseInfo bInfo) {
+                DorideApplication.getInstanse().setRemoteMainInfo(carOperationConfigParser.getReturn());
 
 
-                    ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
-                    //                loadSuss();
-                    if (carOperationConfigParser != null) {
-                        RemoteMainInfo aReturn = carOperationConfigParser.getReturn();
-                        Logger.e("hasTachograph=============" + aReturn.hasTachograph);
-                        if (aReturn.hasTachograph == 1) {
-                            //支持记录仪
-                            mTabllPie.setVisibility(View.VISIBLE);
-                        } else {
-                            //不支持
-                            mTabllPie.setVisibility(View.GONE);
-                        }
+                ILog.e(TAG, "onSuccess parser2 " + carOperationConfigParser.getReturn());
+                //                loadSuss();
+                if (carOperationConfigParser != null) {
+                    RemoteMainInfo aReturn = carOperationConfigParser.getReturn();
+                    Logger.e("hasTachograph=============" + aReturn.hasTachograph);
+                    if (aReturn.hasTachograph == 1) {
+                        //支持记录仪
+                        mTabllPie.setVisibility(View.VISIBLE);
+                    } else {
+                        //不支持
+                        mTabllPie.setVisibility(View.GONE);
                     }
                 }
+            }
 
-                @Override
-                public void onError(BaseResponseInfo bInfo) {
-                    ILog.e(TAG, "onError" + bInfo.toString());
-                    //                loadonErrorUI((BaseResponseInfo) bInfo);
-                    //                UUToast.showUUToast(getActivity(), bInfo.getInfo());
-                }
-            });
-            HashMap params2 = new HashMap();
-            String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
-            String replace = m_car_curcarconfig_url.replace("126", "130");
-            carOperationConfigParser.executePost(replace, params2);
-//        } else {
-//            mTabllPie.setVisibility(View.GONE);
-//        }
+            @Override
+            public void onError(BaseResponseInfo bInfo) {
+                ILog.e(TAG, "onError" + bInfo.toString());
+                //                loadonErrorUI((BaseResponseInfo) bInfo);
+                //                UUToast.showUUToast(getActivity(), bInfo.getInfo());
+            }
+        });
+        HashMap params2 = new HashMap();
+        String m_car_curcarconfig_url = URLConfig.getM_CAR_CURCARCONFIG_URL();
+        String replace = m_car_curcarconfig_url.replace("126", "130");
+        carOperationConfigParser.executePost(replace, params2);
+        //        } else {
+        //            mTabllPie.setVisibility(View.GONE);
+        //        }
     }
 
 

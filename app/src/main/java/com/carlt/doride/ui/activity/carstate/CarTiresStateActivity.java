@@ -9,13 +9,13 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.remote.RemoteDirectPressureInfo;
+import com.carlt.doride.http.retrofitnet.ApiRetrofit;
+import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.doride.utils.StringUtils;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,22 +80,44 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         String m_remote_driectrressure = URLConfig.getM_REMOTE_DRIECTRRESSURE();
         String replace = m_remote_driectrressure.replace("100", "101");
         parser.executePost(replace, param);
+
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("base", ApiRetrofit.getRemoteCommonParams());
+        addDisposable(mApiService.DirectTirePressure(map), new BaseMvcObserver<RemoteDirectPressureInfo>() {
+
+            @Override
+            public void onSuccess(RemoteDirectPressureInfo result) {
+                loadDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
     }
 
-    @Override
-    public void loadDataSuccess(Object bInfo) {
-        super.loadDataSuccess(bInfo);
-        String value = (String) ((BaseResponseInfo) bInfo).getValue();
-        Gson gson = new Gson();
+    public void loadDataSuccess(RemoteDirectPressureInfo bInfo) {
+        loadSuccessUI();
+        //        String value = (String) ((BaseResponseInfo) bInfo).getValue();
+        //        Gson gson = new Gson();
         //        Type type = new TypeToken<List<RemoteDirectPressureInfo>>() {
         //        }.getType();
-        RemoteDirectPressureInfo remoteDirectPressureInfo = gson.fromJson(value, RemoteDirectPressureInfo.class);
-        List<RemoteDirectPressureInfo.ListBean> list = remoteDirectPressureInfo.list;
-        if (null == list || list.size() == 0) {
-            loadNodataUI();
+        //        RemoteDirectPressureInfo remoteDirectPressureInfo = gson.fromJson(value, RemoteDirectPressureInfo.class);
+        List<RemoteDirectPressureInfo.ListBean> list = bInfo.list;
+
+        if (bInfo.err == null) {
+            showData(list, bInfo);
         } else {
-            showData(list, remoteDirectPressureInfo);
+            loadNodataUI();
         }
+
+        //        if (null == list || list.size() == 0) {
+        //            loadNodataUI();
+        //        } else {
+        //            showData(list, bInfo);
+        //        }
     }
 
     @Override
@@ -122,7 +144,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
 
     private void showData(List<RemoteDirectPressureInfo.ListBean> remoteDirectPressureInfos, RemoteDirectPressureInfo remoteDirectPressureInfo) {
         String nowTimes = MyTimeUtils.formatDateMills(System.currentTimeMillis());
-        int rectime = remoteDirectPressureInfo.rectime;
+        int rectime = remoteDirectPressureInfo.recTime;
         if (rectime == 0) {
             subHeadTxt.setText("胎压正常。 \n" + nowTimes);
         } else {
@@ -132,8 +154,8 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
 
         // 胎压状态，1：正常；0：异常
         for (int i = 0; i < remoteDirectPressureInfos.size(); i++) {
-            int pressure_status = remoteDirectPressureInfos.get(i).pressure_status;
-            String pa = remoteDirectPressureInfos.get(i).pressure_value + remoteDirectPressureInfos.get(i).pressure_unit;
+            int pressure_status = remoteDirectPressureInfos.get(i).pressureState;
+            String pa = remoteDirectPressureInfos.get(i).pressureState + remoteDirectPressureInfos.get(i).pressureUint;
             //            String temp = remoteDirectPressureInfos.get(i).getTemperature_value() + remoteDirectPressureInfos.get(i).getTemperature_unit();
             //四个轮胎,赋值
             if (i == 0) {   //左前

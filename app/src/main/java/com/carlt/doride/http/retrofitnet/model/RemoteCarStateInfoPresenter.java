@@ -1,6 +1,5 @@
 package com.carlt.doride.http.retrofitnet.model;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.data.remote.CarStateInfo;
 import com.google.gson.Gson;
 
@@ -23,7 +22,7 @@ public class RemoteCarStateInfoPresenter {
         ArrayList<CarStateInfo> mCarStateInfos = new ArrayList<>();
         Gson gson = new Gson();
         String s = gson.toJson(mRemoteCarStateInfo);
-        LogUtils.e(s);
+//        LogUtils.e(s);
         //        String data = mJson.get("data").toString();
         JSONObject mJSON_data = null;
         try {

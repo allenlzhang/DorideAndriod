@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
@@ -216,6 +217,7 @@ public class ActivityControl {
         OtherInfo.getInstance().initInfo();
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
+        LogUtils.e(GetCarInfo.getInstance().vin);
         Intent mIntent = new Intent(context, UserLoginActivity.class);
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mIntent);

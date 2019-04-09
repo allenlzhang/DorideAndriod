@@ -1,6 +1,9 @@
 package com.carlt.doride.http.retrofitnet;
 
 
+import com.carlt.doride.data.car.CarNowStatusInfo;
+import com.carlt.doride.data.car.WaringLampInfo;
+import com.carlt.doride.data.remote.RemoteDirectPressureInfo;
 import com.carlt.doride.http.retrofitnet.model.ActivateStepInfo;
 import com.carlt.doride.http.retrofitnet.model.AuthCarInfo;
 import com.carlt.doride.http.retrofitnet.model.BaseErr;
@@ -9,7 +12,7 @@ import com.carlt.doride.http.retrofitnet.model.CarInfoRsp;
 import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.RemoteCarStateInfo;
-import com.carlt.doride.http.retrofitnet.model.RemoteStartInfo;
+import com.carlt.doride.http.retrofitnet.model.RemoteCommonInfo;
 import com.carlt.doride.http.retrofitnet.model.SmsToken;
 import com.carlt.doride.http.retrofitnet.model.User;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
@@ -69,38 +72,53 @@ public interface ApiService {
 
     // 获取指定车款远程配置项
     @POST("app/Config/GetCarConfig")
-    Observable<CarConfigRes>GetCarConfig(@Body Map<String, Object> param);
+    Observable<CarConfigRes> GetCarConfig(@Body Map<String, Object> param);
 
     // 0x8F 读取车辆信息(首页里程等信息)
     @POST("abiz/GetCarInfo/Issued")
-    Observable<CarInfoRsp>Issued(@Body Map<String,Object>param);
+    Observable<CarInfoRsp> Issued(@Body Map<String, Object> param);
 
     @POST("abiz/RemoteStart/Issued")
-    Observable<RemoteStartInfo> RemoteStart(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> RemoteStart(@Body Map<String, Object> param);
 
     @POST("abiz/RemoteStall/Issued")
-    Observable<RemoteStartInfo> RemoteStall(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> RemoteStall(@Body Map<String, Object> param);
 
     @POST("abiz/RemoteLock/Issued")
-    Observable<RemoteStartInfo> RemoteLock(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> RemoteLock(@Body Map<String, Object> param);
 
     @POST("abiz/RemoteWindow/Issued")
-    Observable<RemoteStartInfo> RemoteWindow(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> RemoteWindow(@Body Map<String, Object> param);
 
     @POST("abiz/SkyLight/Issued")
-    Observable<RemoteStartInfo> SkyLight(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> SkyLight(@Body Map<String, Object> param);
 
     @POST("abiz/RemoteTrunk/Issued")
-    Observable<RemoteStartInfo> RemoteTrunk(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> RemoteTrunk(@Body Map<String, Object> param);
 
     @POST("abiz/ChairHeating/Issued")
-    Observable<RemoteStartInfo> ChairHeating(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> ChairHeating(@Body Map<String, Object> param);
 
     @POST("abiz/CarLocating/Issued")
-    Observable<RemoteStartInfo> CarLocating(@Body Map<String, Object> param);
+    Observable<RemoteCommonInfo> CarLocating(@Body Map<String, Object> param);
 
     @POST("abiz/State/Issued")
     Observable<RemoteCarStateInfo> carState(@Body Map<String, Object> param);
+
+    @POST("abiz/AirCondition/Issued")
+    Observable<RemoteCommonInfo> AirCondition(@Body Map<String, Object> param);
+
+    @POST("abiz/QueryCurrentData/Issued")
+    Observable<CarNowStatusInfo> QueryCurrentData(@Body Map<String, Object> param);
+
+    @POST("abiz/WarningLights/Issued")
+    Observable<WaringLampInfo> WarningLights(@Body Map<String, Object> param);
+
+    @POST("abiz/DirectTirePressure/Issued")
+    Observable<RemoteDirectPressureInfo> DirectTirePressure(@Body Map<String, Object> param);
+
+    @POST("abiz/Navigation/Issued")
+    Observable<RemoteCommonInfo> Navigation(@Body Map<String, Object> param);
 
 
 }
