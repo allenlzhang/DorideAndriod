@@ -169,6 +169,8 @@ public class ActivityControl {
             @Override
             public void onLeftClick() {
                 // 退出
+                GetCarInfo.getInstance().initCarInfo();
+                OtherInfo.getInstance().initInfo();
                 onExit();
                 System.exit(0);
             }
@@ -214,7 +216,6 @@ public class ActivityControl {
         OtherInfo.getInstance().initInfo();
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
-
         Intent mIntent = new Intent(context, UserLoginActivity.class);
         //		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(mIntent);
