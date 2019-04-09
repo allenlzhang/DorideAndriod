@@ -16,7 +16,7 @@ public class CarStateParser {
         int[] iconId_opens = CarStateInfo.iconId_opens_carmain;
         int[] iconId_closes = CarStateInfo.iconId_closes_carmain;
         int length = names.length;
-        String[] apiAttrNames = { remoteCarStateInfo.doorLock, remoteCarStateInfo.doorClose,
+        String[] apiAttrNames = { String.valueOf(remoteCarStateInfo.doorLockStatus), String.valueOf(remoteCarStateInfo.doorCloseStatus),
                 String.valueOf(remoteCarStateInfo.engine), String.valueOf(remoteCarStateInfo.AC) };
         String[] stateClose = { "已锁", "已关", "已熄火", "关闭" };
         String[] stateOpen = { "未锁", "未关", "已启动", "已开启" };

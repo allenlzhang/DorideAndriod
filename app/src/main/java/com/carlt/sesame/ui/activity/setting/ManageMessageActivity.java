@@ -361,10 +361,12 @@ public class ManageMessageActivity extends LoadingActivityWithTitle {
 	private void setUserConfRsp(String keyName,int value){
 		Map<String,Object> param = new HashMap<>();
 		Map<String,Object> commParam = new HashMap<>();
+		Map<String,Object> protobuf = new HashMap<>();
 		commParam.put("carId", GetCarInfo.getInstance().id);
 		commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
+		protobuf.put("value",value);
 		param.put("base",commParam);
-		param.put(keyName,value);
+		param.put(keyName,protobuf);
 		addDisposable(mApiService.setUserConfRsp(param), new BaseMvcObserver<SetUserConfRspInfo>() {
 			@Override
 			public void onSuccess(SetUserConfRspInfo result) {
