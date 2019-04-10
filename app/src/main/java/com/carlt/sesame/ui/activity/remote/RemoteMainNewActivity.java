@@ -112,20 +112,6 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     long    startTime;
     Dialog  mDialog;
 
-    private final static String names[]               = {"最大制热", "最大制冷", "一键除霜", "关闭空调"};
-    private final static int    icon_ids[]            = {R.drawable.sesame_remote_hot,
-            R.drawable.sesame_remote_cold, R.drawable.sesame_remote_frost,
-            R.drawable.remote_close_air2};
-    private final static int    icon_id_seleceds[]    = {
-            R.drawable.sesame_remote_hot_selected, R.drawable.sesame_remote_cold_selected,
-            R.drawable.sesame_remote_frost_selected, R.drawable.sesame_icon_close_air_press};
-    private final static int    icon_id_seleced_nos[] = {
-            R.drawable.sesame_remote_hot_selected_no,
-            R.drawable.sesame_remote_cold_selected_no,
-            R.drawable.sesame_remote_frost_selected_no, R.drawable.sesame_icon_close_air};
-    private final static String temps[]               = {"32", "18", "32", "--"};
-    private final static String ids[]                 = {"5", "4", "3", "8"};
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

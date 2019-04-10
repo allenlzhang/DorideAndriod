@@ -180,7 +180,7 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 
 	@Override
 	protected void LoadSuccess(Object data) {
-		mAdapter = new CarConditionListAdapter(CarConditionActivity.this, (ArrayList<CarNowStatusInfo.CarNowStatusItemInfo>) data);
+		mAdapter = new CarConditionListAdapter(CarConditionActivity.this, ((CarNowStatusInfo)data).getList());
 		mListView.setAdapter(mAdapter);
 
 		mTextViewSecretary.setText("已经成功获取车况数据");
