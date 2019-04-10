@@ -562,7 +562,7 @@ public class RemoteMainFragment extends BaseFragment implements
                 isGetCurrentTempSuccess = false;
             } else {
                 if (acTemp.equals("0.0")) {
-                    acTemp = "0.0";
+                    acTemp = "18.0";
                     isGetCurrentTempSuccess = false;
                 } else {
                     isGetCurrentTempSuccess = true;

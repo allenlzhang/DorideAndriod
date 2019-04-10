@@ -239,8 +239,8 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
                     //                    CPControl.GetRemoteAir(mListener, "2", "");
                     remoteAir(2, null);
                 } else {
-//                    CPControl.GetRemoteAir(mListener, state, tempure.getText()
-//                            .toString());
+                    //                    CPControl.GetRemoteAir(mListener, state, tempure.getText()
+                    //                            .toString());
                     remoteAir(Integer.valueOf(state), tempure.getText()
                             .toString());
                 }
@@ -334,6 +334,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
         map.put("moveDeviceName", DorideApplication.MODEL_NAME);
         map.put("base", ApiRetrofit.getRemoteCommonParams());
         if (!TextUtils.isEmpty(ratct)) {
+
             map.put("ratct", ratct);
         }
 
@@ -361,11 +362,11 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 
     public void reCall() {
         if (state.equals(RemoteFunInfo.MODE_CLOSE)) {
-//            CPControl.GetRemoteAir(mListener, RemoteFunInfo.MODE_CLOSE, "");
+            //            CPControl.GetRemoteAir(mListener, RemoteFunInfo.MODE_CLOSE, "");
             remoteAir(2, null);
         } else {
-//            CPControl.GetRemoteAir(mListener, state, tempure.getText()
-//                    .toString());
+            //            CPControl.GetRemoteAir(mListener, state, tempure.getText()
+            //                    .toString());
             remoteAir(Integer.valueOf(state), tempure.getText()
                     .toString());
 

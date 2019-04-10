@@ -102,6 +102,6 @@ dependencies {
     //CallAdapterFactory的Rx依赖包
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-
+  
 
 }

@@ -21,13 +21,13 @@ public class RemoteCarStateInfo {
      * windowStatus : 4294967295
      */
 
-    public int     AC              = -1;// 空调模式 1-开启全自动；2-关闭；3-一键除霜；4-最大制冷；5-最大制热；6-负离子；7-座舱清洁；8-其他开启模式
-    public int     purify          = -1;  // 空气净化状态 0-关闭 1-开启
+    public long    AC              = -1;// 空调模式 1-开启全自动；2-关闭；3-一键除霜；4-最大制冷；5-最大制热；6-负离子；7-座舱清洁；8-其他开启模式
+    public long    purify          = -1;  // 空气净化状态 0-关闭 1-开启
     public String  ACTemp;
-    public int     bonnet          = -1;    // 引擎盖状态
-    public int     engine          = -1;  // 发动机状态 0-熄火 1-启动
-    public int     seathot         = -1;  // 座椅加热状态
-    public int     alarm           = -1;  // 报警状态
+    public long    bonnet          = -1;    // 引擎盖状态
+    public long    engine          = -1;  // 发动机状态 0-熄火 1-启动
+    public long    seathot         = -1;  // 座椅加热状态
+    public long    alarm           = -1;  // 报警状态
     public String  doorClose;      // 车门锁止 左前 右前 左后 右后 尾门（或后备箱）；0-关，1-开，255-不支持
     public long    doorCloseStatus = -1; // 车门锁止状态 0-锁 1-不锁
     public String  doorLock;              // 车门开关；左前 右前 左后 右后 尾门（或后备箱），引擎盖；0-关，1-开，255-不支持

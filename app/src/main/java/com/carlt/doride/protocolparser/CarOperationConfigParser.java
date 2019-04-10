@@ -6,7 +6,6 @@ import com.carlt.doride.R;
 import com.carlt.doride.data.remote.AirMainInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.data.remote.RemoteMainInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 
@@ -102,13 +101,13 @@ public class CarOperationConfigParser<T> extends BaseParser<T> {
             String state8 = mJSON_data.get("remoteSkylightPry").getAsInt() + "";
             mFunInfo8.setState(state8);
 
-            //            RemoteFunInfo mFunInfo9 = new RemoteFunInfo();
-            //            mFunInfo9.setId("9");
-            //            mFunInfo9.setApi_field("remoteSkylightPry");
-            //            mFunInfo9.setName("天窗关翘");
-            //            mFunInfo9.setIcon_id(R.drawable.remote_top_win_close1_selector);
-            //            String state9 = mJSON_data.get("remoteSkylightPry").getAsInt() + "";
-            //            mFunInfo9.setState(state9);
+//            RemoteFunInfo mFunInfo9 = new RemoteFunInfo();
+//            mFunInfo9.setId("9");
+//            mFunInfo9.setApi_field("remoteSkylightPry");
+//            mFunInfo9.setName("天窗关翘");
+//            mFunInfo9.setIcon_id(R.drawable.remote_top_win_close1_selector);
+//            String state9 = mJSON_data.get("remoteSkylightPry").getAsInt() + "";
+//            mFunInfo9.setState(state9);
 
 
             RemoteFunInfo mFunInfo7 = new RemoteFunInfo();

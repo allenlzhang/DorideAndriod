@@ -201,7 +201,7 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
 
             case CONNECT_TIMEOUT:
                 onError("连接超时");
-//                ToastUtils.showShort("连接超时，请检查网络");
+                //                ToastUtils.showShort("连接超时，请检查网络");
                 break;
 
             case BAD_NETWORK:
@@ -211,8 +211,8 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                 break;
 
             case PARSE_ERROR:
-                //                onError("解析数据失败");
-                ToastUtils.showShort("解析数据失败");
+                onError("解析数据失败");
+                //                ToastUtils.showShort("解析数据失败");
                 break;
 
             default:

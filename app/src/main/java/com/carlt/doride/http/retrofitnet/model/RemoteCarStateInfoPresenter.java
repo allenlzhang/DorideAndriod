@@ -115,7 +115,7 @@ public class RemoteCarStateInfoPresenter {
                         } else if (state == 7) {
                             stateDes = "座舱清洁";
                         } else {
-                            stateDes = "其他开启模式";
+                            stateDes = "其他模式";
                         }
 
                         mInfo.setStateDes(stateOpen[i]);
