@@ -455,6 +455,7 @@ public class NavigationTocarActivity extends LoadingActivityWithTitle implements
 					}else {
 						UUToast.showUUToast(NavigationTocarActivity.this, "目的地信息已上传成功！");
 					}
+					NavigationTocarActivity.this.finish();
 				}
 
 
@@ -470,7 +471,7 @@ public class NavigationTocarActivity extends LoadingActivityWithTitle implements
 //					}
 //				}
 //				UUToast.showUUToast(NavigationTocarActivity.this, info1);
-				NavigationTocarActivity.this.finish();
+
 				break;
 
 			case 3:
