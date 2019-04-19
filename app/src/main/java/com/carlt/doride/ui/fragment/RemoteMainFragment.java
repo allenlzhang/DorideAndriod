@@ -265,7 +265,13 @@ public class RemoteMainFragment extends BaseFragment implements
     public void onDestroyView() {
         super.onDestroyView();
         if (mReceiver != null) {
-            getActivity().unregisterReceiver(mReceiver);
+            try {
+                getActivity().unregisterReceiver(mReceiver);
+            } catch (Exception e) {
+
+            }
+
+
         }
     }
 
@@ -307,6 +313,8 @@ public class RemoteMainFragment extends BaseFragment implements
         mViewUnsupport.setMinimumHeight(DorideApplication.ScreenHeight
                 - DorideApplication.dpToPx(44) - DorideApplication.dpToPx(56));
     }
+
+
 
     RemoteFunInfo skyWindowsInfo = null;
 
@@ -976,6 +984,10 @@ public class RemoteMainFragment extends BaseFragment implements
                 //                LogUtils.e(msg);
                 //                UUToastOptError.showUUToast(mCtx, msg);
                 mHandler.sendEmptyMessage(Remote_Err);
+                //                Message message = mHandler.obtainMessage();
+                //                message.what = Remote_Err;
+                //                message.obj = msg;
+                //                mHandler.sendMessage(message);
             }
         });
     }
@@ -1060,7 +1072,7 @@ public class RemoteMainFragment extends BaseFragment implements
         }
     };
     public static final int     Remote_Result = 111;
-    public static final int     Remote_Err = 222;
+    public static final int     Remote_Err    = 222;
     @SuppressLint("HandlerLeak")
     private             Handler mHandler      = new Handler() {
 

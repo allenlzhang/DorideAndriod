@@ -13,7 +13,7 @@ import com.carlt.doride.R;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 
 /**
- * 设置-车辆管理页面
+ * 设置-拨打客服热线页面
  * @author daisy
  */
 public class ManageCustomerServiceActivity extends BaseActivity {

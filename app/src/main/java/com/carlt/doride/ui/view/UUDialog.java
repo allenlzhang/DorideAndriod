@@ -52,6 +52,7 @@ public class UUDialog extends Dialog {
 				return true;
 			}
 		});
+//		setCancelable(true);
 	}
 
 	public void setContentText(String t) {

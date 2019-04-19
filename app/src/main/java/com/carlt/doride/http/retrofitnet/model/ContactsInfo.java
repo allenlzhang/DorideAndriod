@@ -1,9 +1,13 @@
 package com.carlt.doride.http.retrofitnet.model;
 
+import com.blankj.utilcode.util.LogUtils;
+
+import java.io.Serializable;
+
 /**
  * Created by Marlon on 2019/3/28.
  */
-public class ContactsInfo {
+public class ContactsInfo implements Serializable {
     private static ContactsInfo contactsInfo = null;
     private ContactsInfo (){}
     public static ContactsInfo getInstance(){
@@ -24,6 +28,8 @@ public class ContactsInfo {
     public String serviceHotLine = ""; //服务电话
 
     public void setContactsInfo(ContactsInfo contactsInfo){
+
+        LogUtils.e(contactsInfo);
         name = contactsInfo.name;
         address = contactsInfo.address;
         map = contactsInfo.map;
@@ -37,5 +43,16 @@ public class ContactsInfo {
         map = "";
         salesHotLine = "";
         serviceHotLine = "";
+    }
+
+    @Override
+    public String toString() {
+        return "ContactsInfo{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", map='" + map + '\'' +
+                ", salesHotLine='" + salesHotLine + '\'' +
+                ", serviceHotLine='" + serviceHotLine + '\'' +
+                '}';
     }
 }

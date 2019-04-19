@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -32,6 +31,7 @@ import com.carlt.doride.data.carflow.CheckBindCarIdInfo;
 import com.carlt.doride.data.carflow.CheckBindInfo;
 import com.carlt.doride.data.carflow.CheckInitInfo;
 import com.carlt.doride.data.flow.TrafficPackageWarnningInfo;
+import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
@@ -55,6 +55,7 @@ import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.utils.CacheUtils;
 import com.carlt.doride.utils.DensityUtil;
 import com.carlt.doride.utils.LoadLocalImageUtil;
+import com.carlt.doride.utils.SharepUtil;
 import com.carlt.sesame.preference.TokenInfo;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -72,6 +73,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.zip.CRC32;
 
+import io.reactivex.annotations.Nullable;
+
 
 /**
  * Created by marller on 2018\3\14 0014.
@@ -81,6 +84,8 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     private static final String TAG         = SettingMainFragment.class.getSimpleName();
     public static final  int    QRCODE_TIME = 1800;
+    private GetCarInfo mCarInfo;
+    private UserInfo mUserInfo;
 
     @Override
     public void onAttach(Context context) {
@@ -198,6 +203,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         ivScan = parent.findViewById(R.id.ivScan);
         ivScan.setOnClickListener(this);
         View viewLineMsg = parent.findViewById(R.id.viewLineMsg);
+        mCarInfo = SharepUtil.getBeanFromSp(URLConfig.CAR_INFO);
+        LogUtils.e(mCarInfo.toString());
+//        LogUtils.e(mCarInfo);
         int remoteStatus = GetCarInfo.getInstance().remoteStatus;
         if (remoteStatus == 2) {
             btn_device_manager.setVisibility(View.VISIBLE);
@@ -210,18 +218,19 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
 
     private void showUserUI() {
         isCountData = false;
-        carid = GetCarInfo.getInstance().id;
+
+        carid = mCarInfo.id;
         try {
             cache_size.setText(CacheUtils.getTotalCacheSize(this.getActivity()));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        mUserInfo = SharepUtil.getBeanFromSp(URLConfig.USER_INFO);
         //        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
-        LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, avatar, R.mipmap.default_avater);
+        LoadLocalImageUtil.getInstance().displayCircleFromWeb(mUserInfo.avatarFile, avatar, R.mipmap.default_avater);
         //        }
-        if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
-            tx_person_name.setText(UserInfo.getInstance().realName);
+        if (!TextUtils.isEmpty(mUserInfo.realName)) {
+            tx_person_name.setText(mUserInfo.realName);
         }
         //        if (LoginInfo.getTbox_type().equals("4G")) {
 
@@ -247,7 +256,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
      * 检查carid是否已经绑定
      */
     private void checkCarIdIsBind() {
-        loadingDataUI();
+//        loadingDataUI();
         OkGo.<String>post(URLConfig.getCAR_CHECK_BIND_URL())
                 .params("carid", Integer.valueOf(carid))
                 .execute(new StringCallback() {
@@ -304,7 +313,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         }
         OkGo.<String>post(url)
                 .params("client_id", URLConfig.getClientID())
-                .params("dealerId", UserInfo.getInstance().dealerId)
+                .params("dealerId", mUserInfo.dealerId)
                 .params("token", TokenInfo.getToken())
                 .params("deviceType", "android")
                 .execute(new StringCallback() {
@@ -399,23 +408,39 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             case R.id.btn_contact_us:
                 //                showDialog();
                 Logger.e("-=--=" + mDealerInfo);
-                if (null != mDealerInfo && !TextUtils.isEmpty(mDealerInfo.getServiceTel())) {
-                    //软件客服电话
-                    final String serviceTel = mDealerInfo.getServiceTel();
-                    //车辆客服电话
-                    final String dealerTel = mDealerInfo.getDealerTel();
-                    PopBoxCreat.createDialogNotitleWithTel(getActivity(), serviceTel, dealerTel, new PopBoxCreat.DialogWithTitleClick() {
+             String   phoneNum = ContactsInfo.getInstance().salesHotLine;
+             String   phoneNumService = ContactsInfo.getInstance().serviceHotLine;
+
+                if (!TextUtils.isEmpty(phoneNum) && !TextUtils.isEmpty(phoneNumService)) {
+                    PopBoxCreat.createDialogNotitleWithTel(getActivity(), phoneNumService, phoneNum, new PopBoxCreat.DialogWithTitleClick() {
                         @Override
                         public void onLeftClick() {
-                            goToDial(serviceTel);
+                            goToDial(phoneNumService);
                         }
 
                         @Override
                         public void onRightClick() {
-                            goToDial(dealerTel);
+                            goToDial(phoneNum);
                         }
                     });
                 }
+//                if (null != mDealerInfo && !TextUtils.isEmpty(mDealerInfo.getServiceTel())) {
+//                    //软件客服电话
+//                    final String serviceTel = mDealerInfo.getServiceTel();
+//                    //车辆客服电话
+//                    final String dealerTel = mDealerInfo.getDealerTel();
+//                    PopBoxCreat.createDialogNotitleWithTel(getActivity(), serviceTel, dealerTel, new PopBoxCreat.DialogWithTitleClick() {
+//                        @Override
+//                        public void onLeftClick() {
+//                            goToDial(serviceTel);
+//                        }
+//
+//                        @Override
+//                        public void onRightClick() {
+//                            goToDial(dealerTel);
+//                        }
+//                    });
+//                }
                 break;
             case R.id.btn_about_yema:
                 Intent aboutYema = new Intent(this.getActivity(), AboutDorideActivity.class);
@@ -866,7 +891,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
         OkGo.<String>post(isSupportTDataUrl)
                 .params("client_id", URLConfig.getClientID())
                 .params("token", TokenInfo.getToken())
-                .params("deviceIdString", GetCarInfo.getInstance().deviceNum)
+                .params("deviceIdString", mCarInfo.deviceNum)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -990,7 +1015,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
-//                        hasActivate();
+                        //                        hasActivate();
                         isTbox = false;
                         isLoadingUI();
                         break;
@@ -1013,7 +1038,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
                             }
                             initFlowInfo(type);
                         }
-//                        hasActivate();
+                        //                        hasActivate();
                         isMatchine = false;
                         isLoadingUI();
                         break;

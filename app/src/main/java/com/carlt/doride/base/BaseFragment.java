@@ -162,6 +162,9 @@ public abstract class BaseFragment extends Fragment {
                                 if (activateInfo.data.activate_status == 1) {
                                     showTipDialog(info, isCenter);
                                 }
+                            } else if (code==1002) {
+//                               ActivityControl.onTokenDisable();
+                                UUToast.showUUToast(DorideApplication.getAppContext(), "您的账户已在其他手机上登录");
                             }
 
                         } catch (JSONException e) {

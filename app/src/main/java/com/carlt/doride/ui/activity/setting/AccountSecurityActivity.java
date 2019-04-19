@@ -13,11 +13,11 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.SharepUtil;
 
 import java.util.HashMap;
 
@@ -67,15 +67,16 @@ public class AccountSecurityActivity extends LoadingActivity implements View.OnC
 
     @Override
     protected void onResume() {
-        if (!TextUtils.isEmpty(UserInfo.getInstance().mobile)) {
-            phoneNum=UserInfo.getInstance().mobile;
-            StringBuilder builder=new StringBuilder(UserInfo.getInstance().mobile);
+        UserInfo info = SharepUtil.getBeanFromSp(URLConfig.USER_INFO);
+        if (!TextUtils.isEmpty(info.mobile)) {
+            phoneNum=info.mobile;
+            StringBuilder builder=new StringBuilder(info.mobile);
             if (null!=phoneNum&&!TextUtils.isEmpty(phoneNum)){
                 verified_phone.setText(builder.replace(3,7,"****"));
             }
 
         }
-        btn_remote_no_passwd_ctr.setChecked(UserInfo.getInstance().remotePwdSwitch == 1);
+        btn_remote_no_passwd_ctr.setChecked(info.remotePwdSwitch == 1);
         super.onResume();
     }
 

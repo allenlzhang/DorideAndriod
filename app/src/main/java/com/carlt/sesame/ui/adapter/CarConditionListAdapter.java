@@ -11,13 +11,11 @@ import android.widget.TextView;
 
 import com.carlt.doride.R;
 import com.carlt.doride.data.car.CarNowStatusInfo;
-import com.carlt.sesame.data.car.CarStatuInfo;
 
 import java.util.ArrayList;
 
 /**
  * 实时车况Adapter
- * 
  * @author daisy
  */
 public class CarConditionListAdapter extends BaseAdapter {
@@ -54,37 +52,40 @@ public class CarConditionListAdapter extends BaseAdapter {
             mHolder = new Holder();
             convertView = mInflater.inflate(R.layout.list_item_car_condition, null);
             convertView.setTag(mHolder);
-            mHolder.mTxtName = (TextView)convertView
+            mHolder.mTxtName = (TextView) convertView
                     .findViewById(R.id.sesame_item_car_condition_txt_name);
-            mHolder.mTxtValue = (TextView)convertView
+            mHolder.mTxtValue = (TextView) convertView
                     .findViewById(R.id.sesame_item_car_condition_txt_value);
-            mHolder.mTxtUnit = (TextView)convertView.findViewById(R.id.item_car_condition_txt_unit);
-            mHolder.mLay=convertView.findViewById(R.id.sesame_item_car_condition_lay);
+            mHolder.mTxtUnit = (TextView) convertView.findViewById(R.id.item_car_condition_txt_unit);
+            mHolder.mLay = convertView.findViewById(R.id.sesame_item_car_condition_lay);
         } else {
-            mHolder = (Holder)convertView.getTag();
+            mHolder = (Holder) convertView.getTag();
         }
         CarNowStatusInfo.CarNowStatusItemInfo info = mCarStatuInfoList.get(position);
         String s;
-        s=info.getName();
-        if(s!=null&&!s.equals("")&&!s.equals("null")){
-        	mHolder.mTxtName.setText(s);
-        }else{
-        	mHolder.mTxtName.setText("--");
+        s = info.getName();
+        if (s != null && !s.equals("") && !s.equals("null")) {
+            mHolder.mTxtName.setText(s);
+        } else {
+            mHolder.mTxtName.setText("--");
         }
-        s=info.getValue();
-        if(s!=null&&!s.equals("")&&!s.equals("null")){
-        	mHolder.mTxtValue.setText(s);
-        }else{
-        	mHolder.mTxtValue.setText("--");
+        s = info.getValue();
+        if (s != null && !s.equals("") && !s.equals("null")) {
+            mHolder.mTxtValue.setText(s);
+        } else {
+            mHolder.mTxtValue.setText("--");
         }
-        s=info.getCompany();
-		// if(s!=null&&!s.equals("")&&!s.equals("null")){
-		// mHolder.mTxtUnit.setText(s);
-		// }else{
-		// mHolder.mTxtUnit.setText("--");
-		// }
-        if(s!=null){
-        	mHolder.mTxtUnit.setText(s);
+        s = info.getCompany();
+
+//         if(s!=null&&!s.equals("")&&!s.equals("null")){
+//         mHolder.mTxtUnit.setText(s);
+//         }else{
+//         mHolder.mTxtUnit.setText("");
+//         }
+        if (s != null) {
+            mHolder.mTxtUnit.setText(s);
+        }  else {
+            mHolder.mTxtUnit.setText("");
         }
         mHolder.mLay.setOnClickListener(l);
         return convertView;
@@ -105,7 +106,7 @@ public class CarConditionListAdapter extends BaseAdapter {
         private TextView mTxtValue;
 
         private TextView mTxtUnit;
-        
+
         private View mLay;
     }
 

@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,21 +14,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.carlt.chelepie.appsdk.AppsdkUtils;
 import com.carlt.chelepie.control.RecorderControl;
 import com.carlt.chelepie.control.WIFIControl;
 import com.carlt.chelepie.data.recorder.PieInfo;
 import com.carlt.chelepie.manager.DeviceConnectManager;
-import com.carlt.chelepie.protocolstack.recorder.UpdateFileParser;
 import com.carlt.chelepie.systemconfig.ActionConfig;
 import com.carlt.chelepie.utils.PlayListener;
 import com.carlt.chelepie.view.EditDialog2;
+import com.carlt.chelepie.view.UUDialogUpgrading;
 import com.carlt.chelepie.view.WIFIConnectDialog;
 import com.carlt.chelepie.view.WifiListDialog;
 import com.carlt.chelepie.view.activity.FullLiveActivity;
 import com.carlt.chelepie.view.activity.ManagePieActivity;
-import com.carlt.chelepie.view.activity.ManageTimesActivity;
 import com.carlt.chelepie.view.activity.MyMediaListActivity;
 import com.carlt.chelepie.view.gl.HHVideoView;
 import com.carlt.chelepie.view.gl.HVideoView;
@@ -40,28 +36,20 @@ import com.carlt.doride.MainActivity;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseFragment;
 import com.carlt.doride.base.BeforeGoToBackground;
-import com.carlt.chelepie.view.UUDialogUpgrading;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.eventbus.FullScreenMessage;
 import com.carlt.doride.eventbus.SetTimeEvent;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
-import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
-import com.carlt.doride.utils.Log;
-import com.carlt.doride.utils.StringUtils;
 import com.orhanobut.logger.Logger;
 
-import org.apache.tools.ant.helper.ProjectHelper2;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Marlon on 2018/10/16.
@@ -143,12 +131,10 @@ public class RecorderMainFragment extends BaseFragment implements
         mTxtAlbum.setOnClickListener(this);
         mWifiControl = WIFIControl.getInstance();
         registerBeforeGoToBackGround(this);
-
-
-
         loadSuccessUI();
         showVideoLay(false);
         DorideApplication.getInstanse().setMonitor(true);
+
     }
 
     @Override

@@ -84,7 +84,8 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
         }
         if (mCode == null)
             try {
-                mErr = result.getClass().getDeclaredField("error");
+                //                mErr = result.getClass().getDeclaredField("error");
+                mErr = result.getClass().getDeclaredField("err");
                 mErr.setAccessible(true);
             } catch (NoSuchFieldException e) {
                 //                e.printStackTrace();
@@ -103,7 +104,7 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                     int code = mCode.getInt(result);
                     if (code == 0) {
                         onSuccess(result);
-                    } else if (code == 1002) {
+                    } else if (code == 1002 || code == 1511) {
                         ActivityControl.onTokenDisable();
                         Field msgField = result.getClass().getDeclaredField("msg");
                         String msg = (String) msgField.get(result);
@@ -112,23 +113,35 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                         //                        ToastUtils.setMessageColor(Color.WHITE);
                         //
                         //                        ToastUtils.showShort(msg);
-                        UUToast.showUUToast(DorideApplication.ApplicationContext, msg);
+                        UUToast.showUUToast(DorideApplication.getAppContext(), "您的账户已在其他手机上登录");
+                        onError("您的账户已在其他手机上登录");
                         //                        onError(msg);
                     } else {
                         Field msgField = result.getClass().getDeclaredField("msg");
                         String msg = (String) msgField.get(result);
-                        onError(msg);
+
+                        onSuccess(result);
+//                        onError(msg);
                     }
 
                     LogUtils.e(code);
                 }
                 if (mErr != null) {
                     BaseErr err = (BaseErr) mErr.get(result);
+
                     if (err == null) {
                         onSuccess(result);
                     } else {
+                        if (err.code == 1002 || err.code == 1511) {
+//                            ActivityControl.onTokenDisable();
+                            UUToast.showUUToast(DorideApplication.instance.getApplicationContext(), "您的账户已在其他手机上登录");
+                            onError("您的账户已在其他手机上登录");
+                        } else {
+//                            onError(err.msg);
+                            onSuccess(result);
+                        }
                         LogUtils.e(err.code);
-                        onError(err.msg);
+
                     }
                 }
 

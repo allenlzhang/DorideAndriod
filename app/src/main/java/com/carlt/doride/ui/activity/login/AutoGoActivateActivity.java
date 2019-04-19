@@ -25,10 +25,12 @@ import com.carlt.doride.http.retrofitnet.model.BaseErr;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.doride.ui.view.UUTimerDialog;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.SharepUtil;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
@@ -153,7 +155,10 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
                 if (result.code != 0) {
                     showToast(result.msg);
                 } else {
-                    GetCarInfo.getInstance().remoteStatus = 1;
+                    GetCarInfo carInfo = SharepUtil.getBeanFromSp(URLConfig.CAR_INFO);
+                    carInfo.remoteStatus=1;
+                    SharepUtil.putByBean(URLConfig.CAR_INFO,carInfo);
+//                    GetCarInfo.getInstance().remoteStatus = 1;
 //                    showToast("开始激活");
                     Intent intent = new Intent(AutoGoActivateActivity.this, ActivateStepActivity.class);
 //                    intent.putExtra("carId", Integer.valueOf(carID));

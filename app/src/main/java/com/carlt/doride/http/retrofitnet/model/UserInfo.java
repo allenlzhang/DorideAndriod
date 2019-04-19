@@ -1,5 +1,8 @@
 package com.carlt.doride.http.retrofitnet.model;
 
+import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.utils.SharepUtil;
+
 import java.io.Serializable;
 
 /**
@@ -7,19 +10,19 @@ import java.io.Serializable;
  */
 public class UserInfo implements Serializable {
 
-    private static UserInfo userInfo = null;
+    private static UserInfo info = null;
 
     private UserInfo (){}
 
     public static UserInfo getInstance(){
-        if (userInfo == null){
+        if (info == null){
             synchronized (UserInfo.class){
-                if (userInfo == null){
-                    userInfo = new UserInfo();
+                if (info == null){
+                    info = new UserInfo();
                 }
             }
         }
-        return userInfo;
+        return info;
     }
 
     public int id;
@@ -63,48 +66,51 @@ public class UserInfo implements Serializable {
     public String isAuthen = ""; //是否实名认证（旧版）
     public int lessPwdSwitch; //免密开关
     public int isSetRemotePwd; //是否设置远程密码 1-已设置 0-未设置
-    public void setUserInfo(UserInfo userInfo){
-        id = userInfo.id;
-        orgId = userInfo.orgId;
-        account = userInfo.account;
-        accountId = userInfo.accountId;
-        mobile = userInfo.mobile;
-        productId = userInfo.productId;
-        appId = userInfo.appId;
-        accountState = userInfo.accountState;
-        authenState = userInfo.authenState;
-        ownerState = userInfo.ownerState;
-        lastlogin = userInfo.lastlogin;
-        avatarId = userInfo.avatarId;
-        createDate = userInfo.createDate;
-        logoutState = userInfo.logoutState;
-        err = userInfo.err;
-        password = userInfo.password;
-        gender = userInfo.gender;
-        loginoauth = userInfo.loginoauth;
-        ip = userInfo.ip;
-        thisLogin = userInfo.thisLogin;
-        authenName = userInfo.authenName;
-        authenCard = userInfo.authenCard;
-        realName = userInfo.realName;
-        dealerId = userInfo.dealerId;
-        loginVersion = userInfo.loginVersion;
-        lastLoginAppType = userInfo.lastLoginAppType;
-        loginTimes = userInfo.loginTimes;
-        remotePwdSwitch = userInfo.remotePwdSwitch;
-        remotePwd = userInfo.remotePwd;
-        userFreeze = userInfo.userFreeze;
-        avatarFile = userInfo.avatarFile;
-        alipayAuth = userInfo.alipayAuth;
-        faceId = userInfo.faceId;
-        faceFile = userInfo.faceFile;
-        identityAuth = userInfo.identityAuth;
-        alipayLogin = userInfo.alipayLogin;
-        wechatLogin = userInfo.wechatLogin;
-        userName = userInfo.userName;
-        isAuthen = userInfo.isAuthen;
-        lessPwdSwitch = userInfo.lessPwdSwitch;
-        isSetRemotePwd = userInfo.isSetRemotePwd;
+    public void setUserInfo(UserInfo info){
+        SharepUtil.putByBean(URLConfig.USER_INFO,info);
+        UserInfo beanFromSp = SharepUtil.getBeanFromSp(URLConfig.USER_INFO);
+        id = beanFromSp.id;
+        orgId = beanFromSp.orgId;
+        account = beanFromSp.account;
+        accountId = beanFromSp.accountId;
+        mobile = beanFromSp.mobile;
+        productId = beanFromSp.productId;
+        appId = beanFromSp.appId;
+        accountState = beanFromSp.accountState;
+        authenState = beanFromSp.authenState;
+        ownerState = beanFromSp.ownerState;
+        lastlogin = beanFromSp.lastlogin;
+        avatarId = beanFromSp.avatarId;
+        createDate = beanFromSp.createDate;
+        logoutState = beanFromSp.logoutState;
+        err = beanFromSp.err;
+        password = beanFromSp.password;
+        gender = beanFromSp.gender;
+        loginoauth = beanFromSp.loginoauth;
+        ip = beanFromSp.ip;
+        thisLogin = beanFromSp.thisLogin;
+        authenName = beanFromSp.authenName;
+        authenCard = beanFromSp.authenCard;
+        realName = beanFromSp.realName;
+        dealerId = beanFromSp.dealerId;
+        loginVersion = beanFromSp.loginVersion;
+        lastLoginAppType = beanFromSp.lastLoginAppType;
+        loginTimes = beanFromSp.loginTimes;
+        remotePwdSwitch = beanFromSp.remotePwdSwitch;
+        remotePwd = beanFromSp.remotePwd;
+        userFreeze = beanFromSp.userFreeze;
+        avatarFile = beanFromSp.avatarFile;
+
+        alipayAuth = beanFromSp.alipayAuth;
+        faceId = beanFromSp.faceId;
+        faceFile = beanFromSp.faceFile;
+        identityAuth = beanFromSp.identityAuth;
+        alipayLogin = beanFromSp.alipayLogin;
+        wechatLogin = beanFromSp.wechatLogin;
+        userName = beanFromSp.userName;
+        isAuthen = beanFromSp.isAuthen;
+        lessPwdSwitch = beanFromSp.lessPwdSwitch;
+        isSetRemotePwd = beanFromSp.isSetRemotePwd;
     }
     public void initUserInfo(){
         id = 0;
@@ -151,7 +157,7 @@ public class UserInfo implements Serializable {
     }
     @Override
     public String toString() {
-        return "UserInfo{" +
+        return "beanFromSp{" +
                 "id=" + id +
                 ", orgId='" + orgId + '\'' +
                 ", account='" + account + '\'' +

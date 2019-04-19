@@ -28,6 +28,7 @@ import com.carlt.doride.protocolparser.CarOperationConfigParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.ui.fragment.CarMainFragment2;
+import com.carlt.doride.ui.fragment.FragmentFactory;
 import com.carlt.doride.ui.fragment.HomeFragment;
 import com.carlt.doride.ui.fragment.RecorderMainFragment;
 import com.carlt.doride.ui.fragment.RemoteMainFragment;
@@ -92,6 +93,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //        initSavedInstanceState(savedInstanceState);
         //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         init();
@@ -220,7 +222,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         deviceisnew = GetCarInfo.getInstance().dorcenCarDisplay;
-//        deviceisnew = 0;
+        //        deviceisnew = 0;
         try {
             localUrl = getIntent().getExtras().getString("filePath");
 
@@ -279,22 +281,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，存储权限不能用");
             }
         });
-        //        requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new RequestPermissionCallBack() {
-        //            @Override
-        //            public void granted() {
-        //
-        //            }
-        //
-        //            @Override
-        //            public void denied() {
-        //                UUToast.showUUToast(DorideApplication.getInstanse(), "未获取到权限，存储权限不能用");
-        //            }
-        //        });
-        //        int tachograph = LoginInfo.getTachograph();
+
         remoteConfig();
 
 
     }
+
+    //    private void initSavedInstanceState(Bundle savedInstanceState) {
+    //        if (savedInstanceState != null) {
+    //            int currentIndex = savedInstanceState.getInt("currentItem", 0);
+    //            setTabSelection(currentIndex);
+    //        }
+    //
+    //    }
+
+    //    private int mCurrentItem = 0;
+    //
+    //    @Override
+    //    protected void onSaveInstanceState(Bundle outState) {
+    //        super.onSaveInstanceState(outState);
+    //        outState.putInt("currentItem", mCurrentItem);
+    //
+    //    }
+
+    //    @Override
+    //    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    //        super.onRestoreInstanceState(savedInstanceState);
+    //        int currentIndex = savedInstanceState.getInt("currentItem", 0);
+    //        setTabSelection(currentIndex);
+    //    }
 
     CarOperationConfigParser carOperationConfigParser;
 
@@ -344,6 +359,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void setTabSelection(int index) {
+        //        mCurrentItem = index;
         clearSelection();
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         hideFragments(transaction);
@@ -351,6 +367,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case 0:
                 mIvTabHome.setImageResource(R.drawable.tab_home_selected);
                 mTxtTabHome.setTextColor(getResources().getColor(R.color.blue_txt));
+                //                setIndexFragment(0);
                 if (mHomeFragment == null) {
                     mHomeFragment = new HomeFragment();
                     transaction.add(R.id.content, mHomeFragment);
@@ -362,7 +379,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case 1:
                 mIvTabCar.setImageResource(R.drawable.tab_car_selected);
                 mTxtTabCar.setTextColor(getResources().getColor(R.color.blue_txt));
-
+                //                setIndexFragment(1);
                 switch (deviceisnew) {
                     case 0:
                         // 不是新车型
@@ -379,6 +396,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             mCarMainFragment2 = new CarMainFragment2();
                             transaction.add(R.id.content, mCarMainFragment2);
                         } else {
+
                             transaction.show(mCarMainFragment2);
                         }
                         break;
@@ -389,6 +407,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 transaction.commit();
                 break;
             case 2:
+                //                setIndexFragment(2);
                 mIvTabRemote.setImageResource(R.drawable.tab_remote_selected);
                 mTxtTabRemote.setTextColor(getResources().getColor(R.color.blue_txt));
                 if (mRemoteMainFragment == null) {
@@ -400,8 +419,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 transaction.commit();
                 break;
             case 3:
+
                 mIvTabPie.setImageResource(R.drawable.tab_pie_selected);
                 mTxtTabPie.setTextColor(getResources().getColor(R.color.blue_txt));
+                //                setIndexFragment(3);
                 if (mRecorderMainFragemnt == null) {
                     mRecorderMainFragemnt = new RecorderMainFragment();
                     transaction.add(R.id.content, mRecorderMainFragemnt);
@@ -412,6 +433,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 transaction.commit();
                 break;
             case 4:
+                //                setIndexFragment(4);
                 mIvTabSetting.setImageResource(R.drawable.ic_setting_tab_select);
                 mTxtTabSetting.setTextColor(getResources().getColor(R.color.blue_txt));
                 if (mSettingMainFragment == null) {
@@ -419,12 +441,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     transaction.add(R.id.content, mSettingMainFragment);
                 } else {
                     transaction.show(mSettingMainFragment);
+
                 }
                 transaction.commit();
                 break;
             default:
                 break;
         }
+    }
+
+    private void setIndexFragment(int index) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.content, FragmentFactory.getFragment(index));
+        ft.commitAllowingStateLoss();
     }
 
     private void clearSelection() {
@@ -489,18 +519,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tab_ll_home:
+                if (mHomeFragment != null && mHomeFragment.isVisible()) {
+                    return;
+                }
                 setTabSelection(0);
                 break;
             case R.id.tab_ll_car:
+                if (mCarMainFragment != null && mCarMainFragment.isVisible()) {
+                    return;
+                }
+                if (mCarMainFragment2 != null && mCarMainFragment2.isVisible()) {
+                    return;
+                }
                 setTabSelection(1);
                 break;
             case R.id.tab_ll_remote:
+                if (mRemoteMainFragment != null && mRemoteMainFragment.isVisible()) {
+                    return;
+                }
                 setTabSelection(2);
                 break;
             case R.id.tab_ll_pie:
+                if (mRecorderMainFragemnt != null && mRecorderMainFragemnt.isVisible()) {
+                    return;
+                }
                 setTabSelection(3);
                 break;
             case R.id.tab_ll_setting:
+                if (mSettingMainFragment != null && mSettingMainFragment.isVisible()) {
+                    return;
+                }
                 setTabSelection(4);
                 break;
         }

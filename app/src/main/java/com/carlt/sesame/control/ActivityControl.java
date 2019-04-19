@@ -18,17 +18,15 @@ import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
-import com.carlt.sesame.data.SesameLoginInfo;
+import com.carlt.doride.utils.SharepUtil;
 import com.carlt.sesame.data.UseInfo;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
-import com.carlt.sesame.utility.LoginChecker;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -111,6 +109,12 @@ public class ActivityControl {
     public static void onLogout(Context context) {
         onExit();
         //XGPushManager.unregisterPush(context);//注销会产生Bug，故120版本取消
+        UserInfo.getInstance().initUserInfo();
+        GetCarInfo.getInstance().initCarInfo();
+        SharepUtil.cleanAllKey();
+        OtherInfo.getInstance().initInfo();
+        ContactsInfo.getInstance().initContactsInfo();
+        CarConfigRes.getInstance().initCarConfigRes();
         UseInfo mUseInfo = UseInfoLocal.getUseInfo();
         mUseInfo.setPassword("");
         UseInfoLocal.setUseInfo(mUseInfo);
@@ -154,6 +158,7 @@ public class ActivityControl {
 
         UserInfo.getInstance().initUserInfo();
         GetCarInfo.getInstance().initCarInfo();
+        SharepUtil.cleanAllKey();
         OtherInfo.getInstance().initInfo();
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
@@ -162,14 +167,28 @@ public class ActivityControl {
     }
 
     public static void onTokenDisable() {
-        for (Activity activity : mActivityList) {
-            if (activity instanceof UserLoginActivity) {
-                BaseActivity base = (BaseActivity) activity;
-                if (base.IsShowing()) {
-                    return;
-                }
+//        for (Activity activity : mActivityList) {
+//            if (activity instanceof UserLoginActivity) {
+//                BaseActivity base = (BaseActivity) activity;
+//                if (base.IsShowing()) {
+//                    return;
+//                }
+//            }
+//        }
+
+        UserInfo.getInstance().initUserInfo();
+        GetCarInfo.getInstance().initCarInfo();
+        SharepUtil.cleanAllKey();
+        OtherInfo.getInstance().initInfo();
+        ContactsInfo.getInstance().initContactsInfo();
+        CarConfigRes.getInstance().initCarConfigRes();
+        int size = mActivityList.size();
+        for (int i = 0; i < size; i++) {
+            if (null != mActivityList.get(i)) {
+                mActivityList.get(i).finish();
             }
         }
+        mActivityList.clear();
         handler.sendEmptyMessage(1);
     }
 

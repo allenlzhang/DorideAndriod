@@ -44,7 +44,7 @@ public class CarStateParser {
 
                 }
             } else {
-                if (state.equals("0")) {
+                if (state.equals("4294967295")) {
                     mInfo.setIconId(iconId_closes[i]);
                     mInfo.setStateDes(stateClose[i]);
                 } else {

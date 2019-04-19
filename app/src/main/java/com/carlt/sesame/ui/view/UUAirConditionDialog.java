@@ -2,11 +2,9 @@ package com.carlt.sesame.ui.view;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Handler;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -202,13 +200,7 @@ public class UUAirConditionDialog extends Dialog implements OnClickListener,
 		LayoutParams parm = new LayoutParams(w,
 				LayoutParams.WRAP_CONTENT);
 		setContentView(v, parm);
-		setOnKeyListener(new OnKeyListener() {
-			@Override
-			public boolean onKey(DialogInterface dialog, int keyCode,
-					KeyEvent event) {
-				return true;
-			}
-		});
+		setOnKeyListener((dialog, keyCode, event) -> true);
 
 		// up.setOnClickListener(this);
 		// down.setOnClickListener(this);

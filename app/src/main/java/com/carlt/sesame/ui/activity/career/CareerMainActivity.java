@@ -1,5 +1,6 @@
 package com.carlt.sesame.ui.activity.career;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -45,7 +46,6 @@ import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.CareerInfo;
 import com.carlt.sesame.data.career.ChallengeInfo;
 import com.carlt.sesame.data.career.WeatherInfo;
@@ -579,7 +579,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
             CPControl.GetCareerResult(listener);
         }
         count++;
-        CPControl.GetDealerInfoResult(Tel_listener);
+//        CPControl.GetDealerInfoResult(Tel_listener);
 
         mTextWeather.requestFocus();
 
@@ -604,6 +604,7 @@ public class CareerMainActivity extends LoadingActivityWithTitle implements
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
 
         @Override

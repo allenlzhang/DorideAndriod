@@ -28,15 +28,15 @@ import com.carlt.doride.http.retrofitnet.model.BaseErr;
 import com.carlt.doride.http.retrofitnet.model.SmsToken;
 import com.carlt.doride.http.retrofitnet.model.User;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser;
+import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.setting.TermsDeclareActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.CipherUtils;
+import com.carlt.doride.utils.SharepUtil;
 import com.carlt.doride.utils.StringUtils;
-import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.preference.TokenInfo;
 
 import java.util.HashMap;
@@ -370,6 +370,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     Log.e("userInfo", result.toString());
                     UserInfo.getInstance().setUserInfo(result);
+                    SharepUtil.putByBean(URLConfig.USER_INFO, result);
                     LoginControl.logic(UserRegisterActivity.this);
                     finish();
                 }

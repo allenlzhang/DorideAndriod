@@ -26,7 +26,6 @@ import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.AdvertiseInfo;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.VersionInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivityGroup;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
@@ -37,7 +36,6 @@ import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.ui.view.UUFeetipDialog;
 import com.carlt.sesame.utility.Log;
-import com.carlt.sesame.utility.LoginChecker;
 import com.carlt.sesame.utility.UUToast;
 
 import java.io.File;
@@ -313,7 +311,7 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
                     break;
                 case R.id.main_tab3:
                     setCurrentView(2);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_home), null, null);
                     tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car), null, null);
                     tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote_selected), null, null);
                     tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_normal), null, null);
@@ -321,7 +319,7 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
 
                 case R.id.main_tab4:
                     setCurrentView(3);
-                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_my), null, null);
+                    tab[0].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_home), null, null);
                     tab[1].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_car), null, null);
                     tab[2].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tab_remote), null, null);
                     tab[3].setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_setting_tab_select), null, null);

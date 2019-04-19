@@ -15,11 +15,13 @@ import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.User;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
+import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.activity.login.DeviceBindActivity;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
 import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.doride.utils.CipherUtils;
+import com.carlt.doride.utils.SharepUtil;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.preference.TokenInfo;
 import com.carlt.sesame.ui.SesameMainActivity;
@@ -38,7 +40,6 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * 登录控制
- *
  * @author daisy
  */
 public class LoginControl {
@@ -48,14 +49,15 @@ public class LoginControl {
     public static void logic(final Activity mContext) {
         mCtx = mContext;
         DorideApplication.getInstanse().setIsshowupdata(false);
-//        String className = mContext.getClass().getName();
+        //        String className = mContext.getClass().getName();
         // 判断是否绑定设备
-//        String s = GetCarInfo.getInstance().deviceNum;
-//        String s2 = GetCarInfo.getInstance().deviceNum;
-//        Log.e("info", "deviceidstring==" + s);
-//        Log.e("info", "deviceidstring==" + s2);
+        //        String s = GetCarInfo.getInstance().deviceNum;
+        //        String s2 = GetCarInfo.getInstance().deviceNum;
+        //        Log.e("info", "deviceidstring==" + s);
+        //        Log.e("info", "deviceidstring==" + s2);
         String vin = GetCarInfo.getInstance().vin;
-        if (!TextUtils.isEmpty(vin)) {
+        String deviceNum = GetCarInfo.getInstance().deviceNum;
+        if (!TextUtils.isEmpty(vin)&&!TextUtils.isEmpty(deviceNum)) {
 
             int activate_status = GetCarInfo.getInstance().remoteStatus;
             Log.e("info", "activate_status==" + activate_status);
@@ -63,9 +65,9 @@ public class LoginControl {
             switch (activate_status) {
                 case 3:
                     //激活失败
-//                    Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-//                    mContext.startActivity(loginIntent);
-//                    break;
+                    //                    Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
+                    //                    mContext.startActivity(loginIntent);
+                    //                    break;
                 case 0:
                     //未激活
                 case 1:
@@ -100,7 +102,7 @@ public class LoginControl {
 
         } else {
             Intent loginIntent = new Intent(mContext, DeviceBindActivity.class);
-            loginIntent.putExtra("localClassName",mContext.getLocalClassName());
+            loginIntent.putExtra("localClassName", mContext.getLocalClassName());
             mContext.startActivity(loginIntent);
         }
     }
@@ -161,8 +163,6 @@ public class LoginControl {
         compositeDisposable.add(observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(observer));
-
-
     }
 
     /**
@@ -230,6 +230,7 @@ public class LoginControl {
         } else {
             Log.e("userInfo", result.toString());
             UserInfo.getInstance().setUserInfo(result);
+            SharepUtil.putByBean(URLConfig.USER_INFO, result);
             Log.e("userInfo", UserInfo.getInstance().toString());
             getCarInfo(new HashMap<String, Integer>());
         }
@@ -255,19 +256,19 @@ public class LoginControl {
 
     private static void carInfoSuccess(GetCarInfo carInfo) {
         if (carInfo.err != null) {
-            if (carInfo.err.code == 1220){
+            if (carInfo.err.code == 1220) {
                 callback.onFinished(null);
-            }else {
+            } else {
                 callback.onErro(carInfo.err.msg);
             }
         } else {
             contacts(new HashMap<String, Object>());
 
-//            HashMap<String,Object> params = new HashMap<>();
-//            params.put("brandCarId",carInfo.styleId);
-//            params.put("productId",carInfo.productId);
-//            params.put("deviceIdString",carInfo.deviceNum);
-//            GetCarConfig(params);
+            //            HashMap<String,Object> params = new HashMap<>();
+            //            params.put("brandCarId",carInfo.styleId);
+            //            params.put("productId",carInfo.productId);
+            //            params.put("deviceIdString",carInfo.deviceNum);
+            //            GetCarConfig(params);
 
             GetCarInfo.getInstance().setCarInfo(carInfo);
             Log.e("carInfo", carInfo.toString());
@@ -279,10 +280,11 @@ public class LoginControl {
      * 联系我们
      * @param param
      */
-    private static void contacts(Map<String,Object> param){
+    private static void contacts(Map<String, Object> param) {
         addDisposable(mApiService.contacts(param), new BaseMvcObserver<ContactsInfo>() {
             @Override
             public void onSuccess(ContactsInfo result) {
+//                SharepUtil.putByBean(URLConfig.ContactsInfo,result);
                 ContactsInfo.getInstance().setContactsInfo(result);
             }
 

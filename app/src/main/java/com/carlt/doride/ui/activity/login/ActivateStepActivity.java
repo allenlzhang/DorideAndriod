@@ -18,6 +18,8 @@ import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.ActivateStepInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.utils.SharepUtil;
 import com.carlt.sesame.ui.SesameMainActivity;
 import com.shuhart.stepview.StepView;
 
@@ -220,6 +222,7 @@ public class ActivateStepActivity extends BaseActivity {
 
     @OnClick({R.id.back, R.id.tvRetry})
     public void onViewClicked(View view) {
+        GetCarInfo carInfo = SharepUtil.getBeanFromSp(URLConfig.CAR_INFO);
         switch (view.getId()) {
             case R.id.back:
                 finish();
@@ -229,6 +232,7 @@ public class ActivateStepActivity extends BaseActivity {
                 switch (ERR_TYPE) {
                     case 0:
                         GetCarInfo.getInstance().remoteStatus = 3;
+                        carInfo.remoteStatus=3;
                         Intent intent = new Intent();
                         //                        intent.putExtra("withTbox", withTbox);
                         intent.putExtra("carId", carId);
@@ -239,6 +243,7 @@ public class ActivateStepActivity extends BaseActivity {
                     case 1:
                         GetCarInfo.getInstance().isFail = true;
                         GetCarInfo.getInstance().remoteStatus = 3;
+                        carInfo.remoteStatus=3;
                         Intent intent1 = new Intent();
                         //                        intent1.putExtra("withTbox", withTbox);
                         intent1.putExtra("carId", carId);
@@ -248,17 +253,19 @@ public class ActivateStepActivity extends BaseActivity {
                         break;
                     case 2:
                         GetCarInfo.getInstance().remoteStatus = 2;
+                        carInfo.remoteStatus=2;
                         closeActivity();
                         break;
                     case 3:
                         GetCarInfo.getInstance().remoteStatus = 1;
+                        carInfo.remoteStatus=1;
                         closeActivity();
                         break;
                     default:
                         break;
                 }
 
-
+              SharepUtil.putByBean(URLConfig.CAR_INFO,carInfo);
                 finish();
 
         }

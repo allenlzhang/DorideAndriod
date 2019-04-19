@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
@@ -242,12 +243,16 @@ public class SettingMainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         SesameMainActivity.setDotVisiable();
+
+
         phoneNum = ContactsInfo.getInstance().salesHotLine;
         phoneNumService = ContactsInfo.getInstance().serviceHotLine;
+        LogUtils.e(ContactsInfo.getInstance().toString());
+        LogUtils.e(phoneNum+"---phoneNumService--"+phoneNumService);
         if (TextUtils.isEmpty(phoneNum) && TextUtils.isEmpty(phoneNumService)) {
             mView7.setVisibility(View.GONE);
             vLineAboutBg.setVisibility(View.GONE);
-            vLineAbout.setVisibility(View.GONE);
+            vLineAbout.setVisibility(View.VISIBLE);
         } else {
             mView7.setVisibility(View.VISIBLE);
             vLineAboutBg.setVisibility(View.VISIBLE);

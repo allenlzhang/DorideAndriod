@@ -12,7 +12,6 @@ import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.doride.protocolparser.TrafficPackagePurchaseListParser;
 import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.UploadImgInfo;
 import com.carlt.sesame.data.car.CarInfo;
 import com.carlt.sesame.data.car.CarStatuInfo;
@@ -149,7 +148,6 @@ import com.carlt.sesame.utility.CipherUtils;
 import com.carlt.sesame.utility.CreatPostString;
 import com.carlt.sesame.utility.FileUtil;
 import com.carlt.sesame.utility.Log;
-import com.carlt.sesame.utility.MyParse;
 import com.carlt.sesame.utility.MyTimeUtil;
 import com.tencent.android.tpush.XGPushManager;
 
@@ -165,7 +163,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -5208,6 +5205,7 @@ public class CPControl {
                 // Post参数
                 String post = CreatPostString.getRealauthen(authen_name,
                         authen_card);
+
 
                 DefaultParser mParser = new DefaultParser();
                 BaseResponseInfo mBaseResponseInfo = mParser

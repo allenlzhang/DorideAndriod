@@ -81,15 +81,15 @@ public interface ApiService {
 
     // 同步导航POI
     @POST("abiz/Navigation/Issued")
-    Observable<RemoteCommonInfo>navigation(@Body Map<String,Object> param);
+    Observable<RemoteCommonInfo> navigation(@Body Map<String, Object> param);
 
     // 远程开关空调
     @POST("abiz/AirCondition/Issued")
-    Observable<RemoteCommonInfo>airCondition(@Body Map<String,Object> param);
+    Observable<RemoteCommonInfo> airCondition(@Body Map<String, Object> param);
 
     // 自学习开始指令
     @POST("abiz/StartLearn/Issued")
-    Observable<BaseErr> startLearn(@Body Map<String,Object> param);
+    Observable<BaseErr> startLearn(@Body Map<String, Object> param);
 
     @POST("abiz/RemoteStart/Issued")
     Observable<RemoteCommonInfo> RemoteStart(@Body Map<String, Object> param);
@@ -123,7 +123,7 @@ public interface ApiService {
 
     //直式胎压接口
     @POST("abiz/DirectTirePressure/Issued")
-    Observable<DirectTireIssueRspInfo>DirectTirePressure(@Body Map<String,Object> param);
+    Observable<DirectTireIssueRspInfo> DirectTirePressure(@Body Map<String, Object> param);
 
     @POST("abiz/AirCondition/Issued")
     Observable<RemoteCommonInfo> AirCondition(@Body Map<String, Object> param);
@@ -141,5 +141,11 @@ public interface ApiService {
 
     //设置用户配置参数
     @POST("abiz/SetUserConfParams/Issued")
-    Observable<SetUserConfRspInfo> setUserConfRsp(@Body Map<String,Object> param);
+    Observable<SetUserConfRspInfo> setUserConfRsp(@Body Map<String, Object> param);
+
+    @POST("abiz/RemoteCharge/Issued")
+    Observable<RemoteCommonInfo> RemoteCharge(@Body Map<String, Object> param);
+
+    @POST("abiz/RemoteCancelCharge/Issued")
+    Observable<RemoteCommonInfo> RemoteCancelCharge(@Body Map<String, Object> param);
 }

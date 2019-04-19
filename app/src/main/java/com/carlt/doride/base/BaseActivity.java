@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -57,8 +56,9 @@ public class BaseActivity extends AppCompatActivity implements
 
     private RequestPermissionCallBack mRequestPermissionCallBack;
 
-    private static final int      PERMISSION_REQUEST_CODE = 1024;
-//    protected         UUDialog mUUDialog;
+    private static final int PERMISSION_REQUEST_CODE = 1024;
+
+    //    protected         UUDialog mUUDialog;
     public boolean IsShowing() {
         return mIsShowing;
     }
@@ -230,7 +230,20 @@ public class BaseActivity extends AppCompatActivity implements
         boolean hasAllGranted = true;
         StringBuilder permissionName = new StringBuilder();
         for (String s : permissions) {
-            permissionName = permissionName.append(s + "\r\n");
+//            permissionName = permissionName.append(s + "\r\n");
+            if (s.contains("WRITE_EXTERNAL_STORAGE") || s.contains("READ_EXTERNAL_STORAGE")) {
+                permissionName.append("存储空间权限" + "\r\n");
+            }
+            if (s.contains("CALL_PHONE")) {
+                permissionName.append("电话权限" + "\r\n");
+            }
+            if (s.contains("ACCESS_COARSE_LOCATION") || s.contains("ACCESS_FINE_LOCATION")) {
+                permissionName.append("位置权限" + "\r\n");
+            }
+            if (s.contains("CAMERA")) {
+                permissionName.append("相机权限" + "\r\n");
+            }
+
         }
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE: {
@@ -240,31 +253,22 @@ public class BaseActivity extends AppCompatActivity implements
                         //在用户已经拒绝授权的情况下，如果shouldShowRequestPermissionRationale返回false则
                         // 可以推断出用户选择了“不在提示”选项，在这种情况下需要引导用户至设置页手动授权
                         if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])) {
+                            //添加确定按钮
+                            //添加返回按钮
                             new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
                                     .setMessage("大乘智享获取相关权限失败:" + permissionName +
                                             "将导致部分功能无法正常使用，需要到设置页面手动授权")//设置显示的内容
-                                    .setPositiveButton("去授权", new DialogInterface.OnClickListener() {//添加确定按钮
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-                                            //TODO Auto-generated method stub
-                                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                            Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
-                                            intent.setData(uri);
-                                            startActivity(intent);
-                                            dialog.dismiss();
-                                        }
-                                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {//添加返回按钮
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {//响应事件
-                                    // TODO Auto-generated method stub
-                                    dialog.dismiss();
-                                }
-                            }).setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    mRequestPermissionCallBack.denied();
-                                }
-                            }).show();//在按键响应事件中显示此对话框
+                                    .setPositiveButton("去授权", (dialog, which) -> {//确定按钮的响应事件
+                                        //TODO Auto-generated method stub
+                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                        Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+                                        intent.setData(uri);
+                                        startActivity(intent);
+                                        dialog.dismiss();
+                                    }).setNegativeButton("取消", (dialog, which) -> {//响应事件
+                                        // TODO Auto-generated method stub
+                                        dialog.dismiss();
+                                    }).setOnCancelListener(dialog -> mRequestPermissionCallBack.denied()).show();//在按键响应事件中显示此对话框
                         } else {
                             //用户拒绝权限请求，但未选中“不再提示”选项
                             mRequestPermissionCallBack.denied();
@@ -289,7 +293,20 @@ public class BaseActivity extends AppCompatActivity implements
         this.mRequestPermissionCallBack = callback;
         StringBuilder permissionNames = new StringBuilder();
         for (String s : permissions) {
-            permissionNames = permissionNames.append(s + "\r\n");
+            if (s.contains("WRITE_EXTERNAL_STORAGE") || s.contains("READ_EXTERNAL_STORAGE")) {
+                permissionNames.append("存储空间权限" + "\r\n");
+            }
+            if (s.contains("CALL_PHONE")) {
+                permissionNames.append("电话权限" + "\r\n");
+            }
+            if (s.contains("ACCESS_COARSE_LOCATION") || s.contains("ACCESS_FINE_LOCATION")) {
+                permissionNames.append("位置权限" + "\r\n");
+            }
+            if (s.contains("CAMERA")) {
+                permissionNames.append("相机权限" + "\r\n");
+            }
+
+            //            permissionNames = permissionNames.append(s + "\r\n");
         }
         //如果所有权限都已授权，则直接返回授权成功,只要有一项未授权，则发起权限请求
         boolean isAllGranted = true;
@@ -297,15 +314,14 @@ public class BaseActivity extends AppCompatActivity implements
             if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
                 isAllGranted = false;
                 if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
+                    //添加确定按钮
                     new AlertDialog.Builder(BaseActivity.this).setTitle("权限申请")//设置对话框标题
-                            .setMessage("您好，大乘智享部分功能需要如下权限：" + permissionNames +
+                            .setMessage("您好，大乘智享部分功能需要使用如下权限：" + permissionNames +
                                     " 请允许，否则将影响部分功能的正常使用。")//设置显示的内容
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-                                    //TODO Auto-generated method stub
-                                    ActivityCompat.requestPermissions(((Activity) context), permissions, PERMISSION_REQUEST_CODE);
-                                }
+                            .setCancelable(false)
+                            .setPositiveButton("确定", (dialog, which) -> {//确定按钮的响应事件
+                                //TODO Auto-generated method stub
+                                ActivityCompat.requestPermissions(((Activity) context), permissions, PERMISSION_REQUEST_CODE);
                             }).show();//在按键响应事件中显示此对话框
                 } else {
                     ActivityCompat.requestPermissions(((Activity) context), permissions, PERMISSION_REQUEST_CODE);

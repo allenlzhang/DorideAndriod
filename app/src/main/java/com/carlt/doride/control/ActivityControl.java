@@ -34,6 +34,7 @@ import com.carlt.doride.ui.activity.setting.CarModeListActivity;
 import com.carlt.doride.ui.activity.setting.CarTypeListActivity;
 import com.carlt.doride.ui.view.PopBoxCreat;
 import com.carlt.doride.ui.view.PopBoxCreat.DialogWithTitleClick;
+import com.carlt.doride.utils.SharepUtil;
 import com.carlt.sesame.preference.TokenInfo;
 import com.orhanobut.logger.Logger;
 import com.tencent.android.tpush.XGBasicPushNotificationBuilder;
@@ -171,6 +172,7 @@ public class ActivityControl {
             public void onLeftClick() {
                 // 退出
                 GetCarInfo.getInstance().initCarInfo();
+                SharepUtil.cleanKey(URLConfig.CAR_INFO);
                 OtherInfo.getInstance().initInfo();
                 onExit();
                 System.exit(0);
@@ -214,6 +216,7 @@ public class ActivityControl {
 
         UserInfo.getInstance().initUserInfo();
         GetCarInfo.getInstance().initCarInfo();
+        SharepUtil.cleanAllKey();
         OtherInfo.getInstance().initInfo();
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
@@ -283,18 +286,25 @@ public class ActivityControl {
     }
 
     public static void onTokenDisable() {
-        for (Activity activity : mActivityList) {
-            if (activity instanceof UserLoginActivity) {
-                BaseActivity base = (BaseActivity) activity;
-                if (base.IsShowing()) {
-                    return;
-                }
-            }
-        }
-        handler.sendEmptyMessage(1);
+//        for (Activity activity : mActivityList) {
+//            if (activity instanceof UserLoginActivity) {
+//                BaseActivity base = (BaseActivity) activity;
+//                if (base.IsShowing()) {
+//                    return;
+//                }
+//            }
+//        }
+//        handler.sendEmptyMessage(1);
         // Intent mIntent = new Intent(getApplicationContext(),
         // LoginActivity.class);
-
+        GetCarInfo.getInstance().initCarInfo();
+        SharepUtil.cleanAllKey();
+        OtherInfo.getInstance().initInfo();
+        clearAllActivity();
+        Intent mIntent = new Intent(DorideApplication.getInstanse(),
+                UserLoginActivity.class);
+        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        DorideApplication.getInstanse().startActivity(mIntent);
     }
 
     @SuppressLint("HandlerLeak")

@@ -12,8 +12,6 @@ import com.carlt.doride.protocolparser.DefaultParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.adapter.RemoteLogAdapter;
 import com.carlt.doride.ui.pull.PullToRefreshListView;
-import com.carlt.sesame.ui.pull.PullToRefreshBase;
-import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ public class RemoteLogActivity extends LoadingActivity {
     private RemoteLogAdapter remoteLogAdapter;
     ArrayList<RemoteLogInfo> mlist = new ArrayList<>();
     private  boolean isLoadMore = false ;
+    private RemoteLogListInfo mValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +61,14 @@ public class RemoteLogActivity extends LoadingActivity {
 
             @Override
             public void onPullUpToRefresh(com.carlt.doride.ui.pull.PullToRefreshBase<ListView> refreshView) {
-                initData(mlist.size());
-                isLoadMore = true;
+                if (mValue.has_next!=-1) {
+                    initData(mlist.size());
+                    isLoadMore = true;
+                }else {
+                    showToast("没有更多内容了");
+                    listView.onPullUpRefreshComplete();
+                }
+
             }
         });
     }
@@ -89,8 +94,8 @@ public class RemoteLogActivity extends LoadingActivity {
     @Override
     public void loadDataSuccess(Object bInfo) {
         try {
-            RemoteLogListInfo value = (RemoteLogListInfo) ((BaseResponseInfo) bInfo).getValue();
-            ArrayList<RemoteLogInfo> logInfos = value.getList();
+            mValue = (RemoteLogListInfo) ((BaseResponseInfo) bInfo).getValue();
+            ArrayList<RemoteLogInfo> logInfos = mValue.getList();
 
             if (null == logInfos || logInfos.size() == 0) {
                 loadNodataUI();

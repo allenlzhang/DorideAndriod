@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,19 +14,14 @@ import com.carlt.doride.R;
 import com.carlt.doride.data.car.CarNowStatusInfo;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
-import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.car.CarStatuInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.adapter.CarConditionListAdapter;
 import com.carlt.sesame.ui.pull.PullToRefreshBase;
 import com.carlt.sesame.ui.pull.PullToRefreshBase.OnRefreshListener;
 import com.carlt.sesame.ui.pull.PullToRefreshListView;
-import com.carlt.sesame.utility.UUToast;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,21 +73,11 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 		imgRight.setVisibility(View.VISIBLE);
 		imgRight.setImageResource(R.drawable.icon_refresh);
 
-		back.setOnClickListener(new OnClickListener() {
+		back.setOnClickListener(v -> finish());
 
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-
-		imgRight.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// 刷新
-				LoadData();
-			}
+		imgRight.setOnClickListener(v -> {
+			// 刷新
+			LoadData();
 		});
 	}
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class RemoteLogListInfo {
     private ArrayList<RemoteLogInfo> list;
+    public  int                      has_next;
 
     public ArrayList<RemoteLogInfo> getList() {
         return list;

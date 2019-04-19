@@ -52,7 +52,8 @@
         </activity>
         <activity android:name=".ui.activity.login.ActivateAccActivity">
         </activity>
-        <activity android:name=".ui.activity.login.ActivateStepActivity">
+        <activity android:name=".ui.activity.login.ActivateStepActivity"
+                  android:screenOrientation="portrait">
         </activity> <!-- 支付宝 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

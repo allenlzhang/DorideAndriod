@@ -21,7 +21,6 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.http.retrofitnet.model.ContactsInfo;
 import com.carlt.doride.ui.activity.login.UserLoginActivity;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.car.CarMainActivity;
 import com.carlt.sesame.ui.activity.career.CareerMainActivity;
 import com.carlt.sesame.ui.activity.career.report.newui.DayActivity;

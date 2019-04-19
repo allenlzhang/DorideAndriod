@@ -35,6 +35,7 @@ import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.ui.activity.login.ActivateAccActivity;
 import com.carlt.doride.ui.activity.login.ActivateStepActivity;
+import com.carlt.doride.ui.activity.login.UpDateActivity;
 import com.carlt.doride.utils.LoadLocalImageUtil;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -527,10 +528,8 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     protected void onResume() {
         super.onResume();
         LoadData();
-        boolean isFail = GetCarInfo.getInstance().isFail;
-        if (isFail) {
-            remoteStatus = 1;
-        } else {
+//        boolean isFail = GetCarInfo.getInstance().isFail;
+
             addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
                 @Override
                 public void onSuccess(GetCarInfo result) {
@@ -543,7 +542,6 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
                 }
             });
-        }
 
     }
 
@@ -817,41 +815,27 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
         }, 100);
 
-        btn2.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View v) {
-                password = editPassword.getText().toString();
-                Log.e("info", "isFirstClick==" + isFirstClick);
-                if (password == null || password.length() < 1) {
-                    UUToast.showUUToast(RemoteMainNewActivity.this,
-                            "您的密码不能为空哦...");
-                    return;
-                }
-                if (isFirstClick) {
-                    startTime = System.currentTimeMillis();
-                    isFirstClick = false;
-                }
-
-                showWaitingDialog("正在验证您的远程密码...");
-                CPControl.GetRemotePswVerify(password, mListener_verify);
-                dialogI.dismiss();
+        btn2.setOnClickListener(v -> {
+            password = editPassword.getText().toString();
+            Log.e("info", "isFirstClick==" + isFirstClick);
+            if (password == null || password.length() < 1) {
+                UUToast.showUUToast(RemoteMainNewActivity.this,
+                        "您的密码不能为空哦...");
+                return;
             }
+            if (isFirstClick) {
+                startTime = System.currentTimeMillis();
+                isFirstClick = false;
+            }
+
+            showWaitingDialog("正在验证您的远程密码...");
+            CPControl.GetRemotePswVerify(password, mListener_verify);
+            dialogI.dismiss();
         });
 
-        btn1.setOnClickListener(new OnClickListener() {
+        btn1.setOnClickListener(v -> dialogI.dismiss());
 
-            public void onClick(View v) {
-                dialogI.dismiss();
-            }
-        });
-
-        imgCancel.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                dialogI.dismiss();
-            }
-        });
+        imgCancel.setOnClickListener(v -> dialogI.dismiss());
 
         int w = (int) (DorideApplication.ScreenDensity * 300);
         ViewGroup.LayoutParams parm = new ViewGroup.LayoutParams(w,
@@ -983,6 +967,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
             switch (msg.what) {
                 case 0:
+                    RemoteCommonInfo result = (RemoteCommonInfo) msg.obj;
                     // 远程操作结果
                     switch (lastOpt) {
                         case 0:
@@ -990,12 +975,43 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                             //               mPlayRadio.playClickVoice(R.raw.remote_unlock);
 
                             lastOpt = -1;
-                            ToastUtils.showShort("操作成功");
+                            if (result.err == null) {
+                                if (TextUtils.isEmpty(result.msg)) {
+                                    ToastUtils.showShort("操作成功");
+                                } else {
+                                    ToastUtils.showShort(result.msg);
+                                }
+                            } else{
+
+                                if (result.err.code == 1020) {
+                                    Intent intent = new Intent(RemoteMainNewActivity.this, UpDateActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    ToastUtils.showShort(result.err.msg);
+                                }
+                            }
+
+
                             break;
                         case 1:
                             //            mPlayRadio.playClickVoice(R.raw.remote_lock);
                             lastOpt = -1;
-                            ToastUtils.showShort("操作成功");
+//                            ToastUtils.showShort("操作成功");
+                            if (result.err == null) {
+                                if (TextUtils.isEmpty(result.msg)) {
+                                    ToastUtils.showShort("操作成功");
+                                } else {
+                                    ToastUtils.showShort(result.msg);
+                                }
+                            } else{
+
+                                if (result.err.code == 1020) {
+                                    Intent intent = new Intent(RemoteMainNewActivity.this, UpDateActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    ToastUtils.showShort(result.err.msg);
+                                }
+                            }
                             break;
                         case 2:
                             //             mPlayRadio.playClickVoice(R.raw.remote_finding);

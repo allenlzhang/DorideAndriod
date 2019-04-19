@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+def static getTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getDefault())
+}
 
 android {
     signingConfigs {
@@ -47,6 +49,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+//            outputFileName = "DorideAndroid${variant.versionName}_${variant.name}_${getTime()}.apk"
+            outputFileName = "DorideAndroid${variant.versionCode}测试服${getTime()}.apk"
+        }
     }
 }
 repositories {

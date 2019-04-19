@@ -152,7 +152,7 @@ public class CarTiresStateActivity extends LoadingActivity implements View.OnCli
         // 胎压状态，1：正常；0：异常
         for (int i = 0; i < remoteDirectPressureInfos.size(); i++) {
             int pressure_status = remoteDirectPressureInfos.get(i).pressureState;
-            String pa = remoteDirectPressureInfos.get(i).pressureState + remoteDirectPressureInfos.get(i).pressureUint;
+            String pa = remoteDirectPressureInfos.get(i).pressureValue + remoteDirectPressureInfos.get(i).pressureUint;
             //            String temp = remoteDirectPressureInfos.get(i).getTemperature_value() + remoteDirectPressureInfos.get(i).getTemperature_unit();
             //四个轮胎,赋值
             if (i == 0) {   //左前

@@ -83,6 +83,7 @@ public abstract class BaseParser<T> {
                         }
                         break;
                     case 2:
+                        UUToast.showUUToast(DorideApplication.getAppContext(), mBaseResponseInfo.getInfo());
                         ActivityControl.onTokenDisable();
                         //                        ActivityControl.removeAllActivity();
                         //                        Intent mIntent = new Intent(DorideApplication.getInstanse(),
@@ -95,7 +96,7 @@ public abstract class BaseParser<T> {
                         //                        ToastUtils.setMessageColor(Color.WHITE);
                         //
                         //                        ToastUtils.showLong(mBaseResponseInfo.getInfo());
-                        UUToast.showUUToast(DorideApplication.ApplicationContext, mBaseResponseInfo.getInfo());
+
                         break;
                     default:
                         break;
