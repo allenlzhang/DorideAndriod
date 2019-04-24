@@ -13,11 +13,11 @@ import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.UUToast;
+import com.carlt.doride.utils.SharepUtil;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -29,7 +29,7 @@ public class NicknameEditActivity extends LoadingActivity implements View.OnClic
 
     private EditText nickname_input;//里程输入框
     private TextView nickname_input_commit;//确认修改按钮
-    private String oldName = "";
+    private String   oldName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +113,11 @@ public class NicknameEditActivity extends LoadingActivity implements View.OnClic
             UUToast.showUUToast(NicknameEditActivity.this, "修改资料成功");
             Intent intent = new Intent(NicknameEditActivity.this, PersonInfoActivity.class);
             intent.putExtra("nickName", nickname_input.getText().toString());
-            NicknameEditActivity.this.setResult(RESULT_OK, intent);
+            setResult(RESULT_OK, intent);
             UserInfo.getInstance().realName = nickname_input.getText().toString();
+            UserInfo userInfo = SharepUtil.getBeanFromSp(URLConfig.USER_INFO);
+            userInfo.realName = nickname_input.getText().toString();
+            SharepUtil.putByBean(URLConfig.USER_INFO, userInfo);
             finish();
         }
 

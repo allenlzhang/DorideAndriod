@@ -2,7 +2,6 @@ package com.carlt.doride.systemconfig;
 
 
 import com.carlt.doride.DorideApplication;
-import com.carlt.doride.http.retrofitnet.ApiRetrofit;
 
 public class URLConfig {
     public final static int    VERSION_FORMAL  = 1001;// 正式服
@@ -16,13 +15,13 @@ public class URLConfig {
     //autogo接口
     public static final String AUTO_TEST_BASE_URL   = "http://test.linewin.cc:8888/";
     //    public static final String TEST_BASE_URL         = "http://192.168.10.184:8080/app/";
-    public final static String AUTO_PRE_BASE_URL    = "http://pre-autogoapi.geni4s.com/app/";
-    public final static String AUTO_FORMAL_BASE_URL = "http://autogoapi.geni4s.com/app/";
+    public final static String AUTO_PRE_BASE_URL    = "http://pre-autogoapi.geni4s.com/";
+    public final static String AUTO_FORMAL_BASE_URL = "http://autogoapi.geni4s.com/";
     public static final String AUTOGO_TEST_ACCESSID = "12938315356991092938";   //autoGo 测试
 
 
     //正式服和预发布id
-    public static final String AUTOGO_PRE_ACCESSID = "10590215396563070590";
+    public static final String AUTOGO_PRE_ACCESSID = "12938315356991092938";
 
     // 端口号
     public final static  int    FtpPort = 10021;
@@ -97,7 +96,7 @@ public class URLConfig {
                 url = AUTO_TEST_BASE_URL;
                 break;
         }
-        ApiRetrofit.getInstance().changeBaseUrl(url);
+//        ApiRetrofit.getInstance().changeBaseUrl(url);
         return url;
     }
 

@@ -134,18 +134,24 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
         addDisposable(mApiService.SendSmsCode(map), new BaseMvcObserver<BaseErr>() {
             @Override
             public void onSuccess(BaseErr result) {
-                Message msg = Message.obtain();
-                msg.what = 0;
-                msg.obj = UserRegisterActivity.this.getResources().getString(R.string.vcode_send_success);
-                mHandler.sendMessage(msg);
+                //                Message msg = Message.obtain();
+                //                msg.what = 0;
+                //                msg.obj = result;
+                //                mHandler.sendMessage(msg);
+                if (result.code == 0) {
+                    showToast("发送成功");
+                } else {
+                    showToast(result.msg);
+                }
             }
 
             @Override
             public void onError(String msg) {
-                Message msg1 = Message.obtain();
-                msg1.what = 1;
-                msg1.obj = msg;
-                mHandler.sendMessage(msg1);
+                showToast(msg);
+                //                Message msg1 = Message.obtain();
+                //                msg1.what = 1;
+                //                msg1.obj = msg;
+                //                mHandler.sendMessage(msg1);
             }
         });
     }
@@ -170,7 +176,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                 if (TextUtils.isEmpty(cellPhone) || !StringUtils.checkCellphone(cellPhone)) {
                     UUToast.showUUToast(this, getResources().getString(R.string.cell_phone_error));
                 } else {
-//                    CPControl.GetMessageValidateResult("1", cellPhone, validateCodeListener);
+                    //                    CPControl.GetMessageValidateResult("1", cellPhone, validateCodeListener);
                     getSmsToken(cellPhone, 1);
                     count = 60;
                     register_verification_send.setText(count + "秒后重发");
@@ -200,7 +206,8 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                 String passwd = register_passwd_et.getText().toString();
                 String passwdAgain = register_passwd_again_et.getText().toString();
 
-                if (!isCommitInvalid(commitPhone, commitVCode, passwd, passwdAgain)) return;
+                if (!isCommitInvalid(commitPhone, commitVCode, passwd, passwdAgain))
+                    return;
 
                 registerParams.setMobile(commitPhone);
                 registerParams.setValidate(commitVCode);
@@ -209,7 +216,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                 mDialog = PopBoxCreat
                         .createDialogWithProgress(UserRegisterActivity.this, "正在加载");
                 mDialog.show();
-//                CPControl.GetRegisteResult(registerParams, listener_register);
+                //                CPControl.GetRegisteResult(registerParams, listener_register);
                 register(commitPhone, passwdAgain, commitVCode, 1);
                 break;
             case R.id.back:
@@ -259,7 +266,8 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
             BaseResponseInfo mBaseResponseInfo = null;
             switch (msg.what) {
                 case 0:
-                    UUToast.showUUToast(UserRegisterActivity.this, msg.obj.toString());
+                    //                    UUToast.showUUToast(UserRegisterActivity.this, msg.obj.toString());
+
                     break;
                 case 1:
                     // 停止计时
@@ -271,15 +279,15 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     register_verification_send.setEnabled(true);
                     register_verification_send.setText(R.string.usercenter_push_validate1);
                     showToast((String) msg.obj);
-//                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
-//                    int flag = mBaseResponseInfo.getFlag();
-//                    if (flag == BaseResponseInfo.PHONE_REGISTERED) {
-//                        UUToast.showUUToast(UserRegisterActivity.this,
-//                                 mBaseResponseInfo.getInfo());
-//                    } else {
-//                        UUToast.showUUToast(UserRegisterActivity.this,
-//                                 mBaseResponseInfo.getInfo());
-//                    }
+                    //                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
+                    //                    int flag = mBaseResponseInfo.getFlag();
+                    //                    if (flag == BaseResponseInfo.PHONE_REGISTERED) {
+                    //                        UUToast.showUUToast(UserRegisterActivity.this,
+                    //                                 mBaseResponseInfo.getInfo());
+                    //                    } else {
+                    //                        UUToast.showUUToast(UserRegisterActivity.this,
+                    //                                 mBaseResponseInfo.getInfo());
+                    //                    }
                     break;
                 case 2:
                     if (mDialog != null && mDialog.isShowing()) {
@@ -291,7 +299,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     UseInfoLocal.setUseInfo(mUseInfo);
 
                     UUToast.showUUToast(UserRegisterActivity.this, "注册成功！");
-                    Login(register_phone_input.getText().toString(),register_passwd_again_et.getText().toString());
+                    Login(register_phone_input.getText().toString(), register_passwd_again_et.getText().toString());
 
                     break;
                 case 3:
@@ -300,9 +308,9 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     }
                     String txt = (String) msg.obj;
                     showToast(txt);
-//                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
-//                    UUToast.showUUToast(UserRegisterActivity.this, "不好意思，注册失败，请稍候再试:"
-//                            + mBaseResponseInfo.getInfo());
+                    //                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    //                    UUToast.showUUToast(UserRegisterActivity.this, "不好意思，注册失败，请稍候再试:"
+                    //                            + mBaseResponseInfo.getInfo());
                     break;
                 case 10:
                     count--;
@@ -322,6 +330,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
             super.handleMessage(msg);
         }
     };
+
     private void Login(String account, String password) {
         HashMap<String, Object> mMap = new HashMap<>();
         mMap.put("version", 100);
@@ -338,11 +347,12 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
             public void onSuccess(User result) {
                 if (result.err != null) {
                     showToast("登录失败");
-                    Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                    Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     TokenInfo.setToken(result.token);
+//                    ActivityControl.initXG();
                     HashMap<String, Object> prams = new HashMap<>();
                     prams.put("token", result.token);
                     getUserInfo(prams);
@@ -352,19 +362,20 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onError(String msg) {
                 showToast("登录失败");
-                Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
+
     public void getUserInfo(HashMap<String, Object> prams) {
         addDisposable(mApiService.getUserInfo(prams), new BaseMvcObserver<UserInfo>() {
             @Override
             public void onSuccess(UserInfo result) {
                 if (result.err != null) {
                     showToast("登录失败");
-                    Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                    Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -380,7 +391,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onError(String msg) {
                 showToast("登录失败");
-                Intent intent = new Intent(UserRegisterActivity.this,UserLoginActivity.class);
+                Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -390,10 +401,10 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
     private BaseParser.ResultCallback validateCodeListener = new BaseParser.ResultCallback() {
         @Override
         public void onSuccess(BaseResponseInfo bInfo) {
-            Message msg = Message.obtain();
-            msg.what = 0;
-            msg.obj = UserRegisterActivity.this.getResources().getString(R.string.vcode_send_success);
-            mHandler.sendMessage(msg);
+            //            Message msg = Message.obtain();
+            //            msg.what = 0;
+            //            msg.obj = UserRegisterActivity.this.getResources().getString(R.string.vcode_send_success);
+            //            mHandler.sendMessage(msg);
         }
 
         @Override

@@ -13,6 +13,7 @@ android {
         }
     }
     compileSdkVersion 26
+    buildToolsVersion '27.0.3'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         multiDexEnabled true
@@ -45,7 +46,7 @@ android {
     lintOptions {
         abortOnError false
     }
-    buildToolsVersion '27.0.3'
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -93,14 +94,12 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.blankj:utilcode:1.7.1'
     implementation files('libs/alipaySdk-20160223.jar')
-//    implementation files('libs/ZXingCode.jar')
     implementation files('libs/Xg_sdk_v3.2.5_20180720_1612.jar')
     implementation files('libs/mid-core-sdk-4.0.6.jar')
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation files('libs/photoview.jar')
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
-    implementation 'com.shuhart.stepview:stepview:1.4.0'
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     //ConverterFactory的String依赖包

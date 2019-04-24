@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.carlt.sesame.ui.activity.car;
 
 import android.app.Dialog;
@@ -163,7 +161,7 @@ public class FindCarActivity extends LoadingActivityWithTitle implements Locatio
 		mMapView.onCreate(savedInstanceState);
 		mMap = mMapView.getMap();
 		mMap.setLocationSource(this);
-		mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//		mMap.getUiSettings().setMyLocationButtonEnazbled(false);
 		mMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
 		setMylocEnable(false);
 		mMap.getUiSettings().setScaleControlsEnabled(true);
@@ -173,9 +171,7 @@ public class FindCarActivity extends LoadingActivityWithTitle implements Locatio
 		mRouteTask = RouteTask.getInstance(getApplicationContext());
 
 		mSensorHelper = new SensorEventHelper(this);
-		if (mSensorHelper != null) {
 			mSensorHelper.registerSensorListener();
-		}
 
 		// mRegeocodeTask = new RegeocodeTask(getApplicationContext());
 		if (mLocationClient == null) {

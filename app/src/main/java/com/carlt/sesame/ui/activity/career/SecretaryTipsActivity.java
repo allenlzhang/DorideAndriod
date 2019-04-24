@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.career;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
-import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfo;
 import com.carlt.sesame.data.career.SecretaryMessageInfoList;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -40,7 +40,6 @@ import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.ui.view.PopBoxCreat.DialogWithTitleClick;
 import com.carlt.sesame.ui.view.UUDialog;
 import com.carlt.sesame.utility.UUToast;
-import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -288,8 +287,6 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
     protected void LoadSuccess(Object data) {
         if (data != null) {
             mInfoLists = (SecretaryMessageInfoList) data;
-            Logger.e("行车信息-------------" + data.toString());
-            if (mInfoLists != null) {
                 mList = mInfoLists.getmAllList();
                 if (mAdapter == null) {
                     mAdapter = new SecretaryTipsAdapterNew(SecretaryTipsActivity.this, mList,
@@ -312,9 +309,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                 mPullListView.onPullUpRefreshComplete();
                 setLastUpdateTime();
             }
-        } else {
 
-        }
         super.LoadSuccess(data);
     }
 
@@ -510,7 +505,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                     break;
                 case 41:
                     // 41 行车信息
-
+                    LogUtils.e(mInfo.getDate());
                     Intent mIntent4;
                     switch (class2) {
                         case SecretaryMessageInfo.C1_T4_T9:
@@ -645,6 +640,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

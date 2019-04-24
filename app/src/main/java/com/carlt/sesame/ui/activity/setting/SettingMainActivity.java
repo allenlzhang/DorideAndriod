@@ -134,6 +134,7 @@ public class SettingMainActivity extends BaseActivity {
         }
 
         String imgUrl = UserInfo.getInstance().avatarFile;
+//        LoadLocalImageUtil.getInstance().displayCircleFromWeb(imgUrl, mImgHead, R.drawable.icon_default_head);
         if (imgUrl != null && imgUrl.length() > 0) {
             Bitmap mDrawable = mAsyncImageLoader.getBitmapByUrl(imgUrl);
             if (mDrawable != null) {
@@ -158,73 +159,69 @@ public class SettingMainActivity extends BaseActivity {
 
     }
 
-    private OnClickListener mClickListener = new OnClickListener() {
+    private OnClickListener mClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.activity_setting_layout1:
+                // 跳转至修改资料
+                Intent mIntent1 = new Intent(SettingMainActivity.this, EditUserinfoActivity.class);
+                startActivity(mIntent1);
+                break;
+            case R.id.activity_setting_layout2:
+                // 跳转至车辆管理
+                Intent mIntent2 = new Intent(SettingMainActivity.this, ManageCarActivity.class);
+                startActivity(mIntent2);
+                break;
+            case R.id.activity_setting_layout3:
+                // 跳转至消息管理
+                Intent mIntent4 = new Intent(SettingMainActivity.this, ManageMessageActivity.class);
+                startActivity(mIntent4);
+                break;
+            case R.id.activity_setting_layout4:
+                // 跳转至设备管理-TODO
+                Intent mIntent = new Intent(context, ManageDeviceActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.activity_setting_layout5:
+                // 跳转至通用管理-TODO
+                Intent intent = new Intent(context, ManageCommonActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.activity_setting_layout6:
+                // 跳转至关于芝麻(点击后链接到 m.cheler.com)
+                // String url = "http://m.cheler.com";
+                // Uri uri = Uri.parse(url);
+                // Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+                Intent intent1 = new Intent(SettingMainActivity.this, AboutDorideActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.activity_setting_layout7:
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.activity_setting_layout1:
-                    // 跳转至修改资料
-                    Intent mIntent1 = new Intent(SettingMainActivity.this, EditUserinfoActivity.class);
-                    startActivity(mIntent1);
-                    break;
-                case R.id.activity_setting_layout2:
-                    // 跳转至车辆管理
-                    Intent mIntent2 = new Intent(SettingMainActivity.this, ManageCarActivity.class);
-                    startActivity(mIntent2);
-                    break;
-                case R.id.activity_setting_layout3:
-                    // 跳转至消息管理
-                    Intent mIntent4 = new Intent(SettingMainActivity.this, ManageMessageActivity.class);
-                    startActivity(mIntent4);
-                    break;
-                case R.id.activity_setting_layout4:
-                    // 跳转至设备管理-TODO
-                    Intent mIntent = new Intent(context, ManageDeviceActivity.class);
-                    startActivity(mIntent);
-                    break;
-                case R.id.activity_setting_layout5:
-                    // 跳转至通用管理-TODO
-                    Intent intent = new Intent(context, ManageCommonActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.activity_setting_layout6:
-                    // 跳转至关于芝麻(点击后链接到 m.cheler.com)
-                    // String url = "http://m.cheler.com";
-                    // Uri uri = Uri.parse(url);
-                    // Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
-                    Intent intent1 = new Intent(SettingMainActivity.this, AboutDorideActivity.class);
-                    startActivity(intent1);
-                    break;
-                case R.id.activity_setting_layout7:
+                Intent intent7 = new Intent(SettingMainActivity.this, ManageCustomerServiceActivity.class);
+                startActivity(intent7);
+                // 拨打客服电话
+                break;
+            case R.id.activity_setting_layout9:
+                //                    版本介绍
+                //                    Intent intentUpdataDetail = new Intent(SettingMainActivity.this,
+                //                            UpdataDetailActivity.class);
+                //                    startActivity(intentUpdataDetail);
+                // 拨打客服电话
+                break;
+            case R.id.activity_setting_txt2:
+                // 退出登录
+                ActivityControl.logout(SettingMainActivity.this);
+                break;
 
-                    Intent intent7 = new Intent(SettingMainActivity.this, ManageCustomerServiceActivity.class);
-                    startActivity(intent7);
-                    // 拨打客服电话
-                    break;
-                case R.id.activity_setting_layout9:
-                    //                    版本介绍
-                    //                    Intent intentUpdataDetail = new Intent(SettingMainActivity.this,
-                    //                            UpdataDetailActivity.class);
-                    //                    startActivity(intentUpdataDetail);
-                    // 拨打客服电话
-                    break;
-                case R.id.activity_setting_txt2:
-                    // 退出登录
-                    ActivityControl.logout(SettingMainActivity.this);
-                    break;
-
-                case R.id.activity_setting_layout_safety:
-                    // 跳转至安全中心
-                    Intent intent8 = new Intent(SettingMainActivity.this, SafetyMainActivity.class);
-                    startActivity(intent8);
-                    break;
-                case R.id.activity_setting_layout_fee:
-                    // 跳转至续费管理
-                    //                    Intent intent9 = new Intent(SettingMainActivity.this, ManageFeeActivity.class);
-                    //                    startActivity(intent9);
-                    break;
-            }
+            case R.id.activity_setting_layout_safety:
+                // 跳转至安全中心
+                Intent intent8 = new Intent(SettingMainActivity.this, SafetyMainActivity.class);
+                startActivity(intent8);
+                break;
+            case R.id.activity_setting_layout_fee:
+                // 跳转至续费管理
+                //                    Intent intent9 = new Intent(SettingMainActivity.this, ManageFeeActivity.class);
+                //                    startActivity(intent9);
+                break;
         }
     };
 

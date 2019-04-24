@@ -566,11 +566,11 @@ public class RemoteMainFragment extends BaseFragment implements
         if (result.AC != 2) {
             String acTemp = result.ACTemp;
             if (TextUtils.isEmpty(acTemp)) {
-                acTemp = "26.0";
+                acTemp = "0.0";
                 isGetCurrentTempSuccess = false;
             } else {
                 if (acTemp.equals("0.0")) {
-                    acTemp = "18.0";
+                    acTemp = "0.0";
                     isGetCurrentTempSuccess = false;
                 } else {
                     isGetCurrentTempSuccess = true;
@@ -595,7 +595,7 @@ public class RemoteMainFragment extends BaseFragment implements
             mAirMainInfo1.setState(airState);
             //            mListener_temp.onSuccess(airMainInfo);
         } else {
-            mAirMainInfo1.setCurrentTemp("26.0");
+            mAirMainInfo1.setCurrentTemp("0.0");
             mAirMainInfo1.setGetCurrentTempSuccess(false);
             mAirMainInfo1.setState("-1");
             //            mListener_temp.onError(mBaseResponseInfo);
@@ -711,6 +711,7 @@ public class RemoteMainFragment extends BaseFragment implements
      *         1开启，2关闭
      */
     private void remoteChairHeating(int state) {
+
         HashMap remoteCommonParams = ApiRetrofit.getRemoteCommonParams();
 
         HashMap<String, Object> map = new HashMap<>();

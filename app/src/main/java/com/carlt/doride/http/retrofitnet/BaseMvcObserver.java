@@ -121,7 +121,7 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                         String msg = (String) msgField.get(result);
 
                         onSuccess(result);
-//                        onError(msg);
+                        //                        onError(msg);
                     }
 
                     LogUtils.e(code);
@@ -133,11 +133,11 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
                         onSuccess(result);
                     } else {
                         if (err.code == 1002 || err.code == 1511) {
-//                            ActivityControl.onTokenDisable();
+                            //                            ActivityControl.onTokenDisable();
                             UUToast.showUUToast(DorideApplication.instance.getApplicationContext(), "您的账户已在其他手机上登录");
                             onError("您的账户已在其他手机上登录");
                         } else {
-//                            onError(err.msg);
+                            //                            onError(err.msg);
                             onSuccess(result);
                         }
                         LogUtils.e(err.code);
@@ -170,14 +170,16 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
-        LogUtils.e(e.getMessage());
+        LogUtils.e(e.getMessage() + e.toString());
         //        if (view != null) {
         //            view.hideLoading();
         //        }
-
-        if (e.getMessage().equals("HTTP 500 Internal Server Error")) {
-            onError("服务器错误");
+        if (e.getMessage() != null) {
+            if (e.getMessage().equals("HTTP 500 Internal Server Error")) {
+                onError("服务器错误");
+            }
         }
+
         if (e instanceof HttpException) {
             //   HTTP错误
             onException(BAD_NETWORK);
@@ -202,6 +204,7 @@ public abstract class BaseMvcObserver<T> extends DisposableObserver<T> {
             //                onError("未知错误");
             //            }
         }
+
 
     }
 

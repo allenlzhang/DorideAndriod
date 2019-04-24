@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CompoundButton;
@@ -22,6 +23,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.http.retrofitnet.model.OtherInfo;
+import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.AdvertiseInfo;
@@ -177,7 +179,17 @@ public class SesameMainActivity extends BaseActivityGroup implements OnCheckedCh
 
 
     }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        android.util.Log.e("info", "KEYCODE_BACK");
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ActivityControl.exit(this);
+            android.util.Log.e("info", "KEYCODE_BACK");
+            return true;
 
+        }
+        return super.onKeyDown(keyCode, event);
+
+    }
     GetResultListCallback listener11 = new GetResultListCallback() {
 
         @Override

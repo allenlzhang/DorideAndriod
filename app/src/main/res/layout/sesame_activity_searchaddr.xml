@@ -116,7 +116,7 @@
                 android:layout_marginRight="20dip"
                 android:layout_marginTop="10dip"
                 android:text="等待中"
-                android:textColor="#30a4d7"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
 

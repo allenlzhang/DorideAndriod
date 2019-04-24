@@ -60,6 +60,7 @@
                     android:id="@+id/activity_setting_img_head"
                     style="@style/img_head_icon"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="12dip"/>
 
                 <TextView

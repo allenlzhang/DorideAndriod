@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.services.help.Inputtips;
-import com.amap.api.services.help.Inputtips.InputtipsListener;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
 import com.carlt.doride.R;
@@ -27,8 +26,6 @@ import com.carlt.sesame.ui.activity.car.map.InputTipTask;
 import com.carlt.sesame.ui.activity.car.map.RouteTask;
 import com.carlt.sesame.ui.adapter.AddressListAdapter;
 import com.carlt.sesame.utility.UUToast;
-
-import java.util.List;
 
 public class SearchAddrActivity extends BaseActivity implements OnClickListener, TextWatcher, OnItemClickListener {
 
@@ -139,32 +136,28 @@ public class SearchAddrActivity extends BaseActivity implements OnClickListener,
         InputtipsQuery inputquery = new InputtipsQuery(addr, city);
         inputquery.setCityLimit(true);
         Inputtips inputTips = new Inputtips(context, inputquery);
-        inputTips.setInputtipsListener(new InputtipsListener() {
-
-            @Override
-            public void onGetInputtips(List<Tip> arg0, int arg1) {
-                if (arg1 == 1000) {
-                    if (arg0.size() > 0) {
-                        dissMissLoading();
-                        if (mAdapter == null) {
-                            mAdapter = new AddressListAdapter(context, arg0, current);
-                            mAdapter.setText(addr);
-                            mList.setAdapter(mAdapter);
-                            mAdapter.notifyDataSetChanged();
-                        } else {
-                            mAdapter.setmList(arg0);
-                            mAdapter.setText(addr);
-                            mAdapter.notifyDataSetChanged();
-                        }
+        inputTips.setInputtipsListener((arg0, arg1) -> {
+            if (arg1 == 1000) {
+                if (arg0.size() > 0) {
+                    dissMissLoading();
+                    if (mAdapter == null) {
+                        mAdapter = new AddressListAdapter(context, arg0, current);
+                        mAdapter.setText(addr);
+                        mList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
                     } else {
-                        loadError("没有结果");
+                        mAdapter.setmList(arg0);
+                        mAdapter.setText(addr);
+                        mAdapter.notifyDataSetChanged();
                     }
                 } else {
-                    if (arg1 == 1804 || arg1 == 1806) {
-                        loadError("网络不稳定，请稍后再试");
-                    } else {
-                        loadError("没有结果");
-                    }
+                    loadError("没有结果");
+                }
+            } else {
+                if (arg1 == 1804 || arg1 == 1806) {
+                    loadError("网络不稳定，请稍后再试");
+                } else {
+                    loadError("没有结果");
                 }
             }
         });

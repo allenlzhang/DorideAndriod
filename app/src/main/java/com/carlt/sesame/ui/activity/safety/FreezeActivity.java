@@ -20,7 +20,6 @@ import com.carlt.sesame.control.ActivityControl;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.ui.activity.base.BaseActivity;
 import com.carlt.sesame.ui.view.PopBoxCreat;
 import com.carlt.sesame.utility.Log;
@@ -28,7 +27,6 @@ import com.carlt.sesame.utility.UUToast;
 
 /**
  * 快速冻结账号
- * 
  * @author Administrator
  */
 public class FreezeActivity extends BaseActivity implements OnClickListener {
@@ -73,9 +71,9 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initTitle() {
-        back = (ImageView)findViewById(R.id.head_back_img1);
-        title = (TextView)findViewById(R.id.head_back_txt1);
-        txtRight = (TextView)findViewById(R.id.head_back_txt2);
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
 
         title.setText("快速冻结账号");
         txtRight.setVisibility(View.GONE);
@@ -83,11 +81,11 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
     }
 
     private void init() {
-        mImgIcon = (ImageView)findViewById(R.id.freeze_img_icon);
+        mImgIcon = (ImageView) findViewById(R.id.freeze_img_icon);
 
-        mTxtDes1 = (TextView)findViewById(R.id.freeze_txt_des1);
-        mTxtDes2 = (TextView)findViewById(R.id.freeze_txt_des2);
-        mTxtOpt = (TextView)findViewById(R.id.freeze_txt_option);
+        mTxtDes1 = (TextView) findViewById(R.id.freeze_txt_des1);
+        mTxtDes2 = (TextView) findViewById(R.id.freeze_txt_des2);
+        mTxtOpt = (TextView) findViewById(R.id.freeze_txt_option);
 
     }
 
@@ -105,15 +103,11 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
             // 未冻结
             back.setVisibility(View.VISIBLE);
             back.setImageResource(R.drawable.arrow_back);
-            back.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (fromName.equals(CLASS_SAFEMAIN)) {
-                        finish();
-                    } else {
-                        LoginControl.logic(FreezeActivity.this);
-                    }
+            back.setOnClickListener(v -> {
+                if (fromName.equals(CLASS_SAFEMAIN)) {
+                    finish();
+                } else {
+                    LoginControl.logic(FreezeActivity.this);
                 }
             });
 
@@ -162,7 +156,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
 
         @Override
         public void handleMessage(Message msg) {
-            BaseResponseInfo mInfo = (BaseResponseInfo)msg.obj;
+            BaseResponseInfo mInfo = (BaseResponseInfo) msg.obj;
             switch (msg.what) {
                 case 0:
                     // 冻结成功
@@ -179,6 +173,8 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
                     } else {
                         UUToast.showUUToast(FreezeActivity.this, "冻结成功！");
                     }
+
+                    UserInfo.getInstance().userFreeze = 2;
                     setContent();
                     break;
 
@@ -224,7 +220,7 @@ public class FreezeActivity extends BaseActivity implements OnClickListener {
                 mDialog = PopBoxCreat.createDialogWithProgress(FreezeActivity.this, "提交中...");
             }
             mDialog.show();
-            CPControl.GetFreezingResult("1", "",listener);
+            CPControl.GetFreezingResult("1", "", listener);
         }
     }
 

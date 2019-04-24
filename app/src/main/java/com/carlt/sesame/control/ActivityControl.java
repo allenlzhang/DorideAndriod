@@ -1,14 +1,12 @@
 package com.carlt.sesame.control;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.control.CPControl;
@@ -163,18 +161,18 @@ public class ActivityControl {
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
 
-//        LoginChecker.stopCheck();
+        //        LoginChecker.stopCheck();
     }
 
     public static void onTokenDisable() {
-//        for (Activity activity : mActivityList) {
-//            if (activity instanceof UserLoginActivity) {
-//                BaseActivity base = (BaseActivity) activity;
-//                if (base.IsShowing()) {
-//                    return;
-//                }
-//            }
-//        }
+        //        for (Activity activity : mActivityList) {
+        //            if (activity instanceof UserLoginActivity) {
+        //                BaseActivity base = (BaseActivity) activity;
+        //                if (base.IsShowing()) {
+        //                    return;
+        //                }
+        //            }
+        //        }
 
         UserInfo.getInstance().initUserInfo();
         GetCarInfo.getInstance().initCarInfo();
@@ -183,25 +181,36 @@ public class ActivityControl {
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
         int size = mActivityList.size();
-        for (int i = 0; i < size; i++) {
-            if (null != mActivityList.get(i)) {
-                mActivityList.get(i).finish();
+        LogUtils.e(size);
+
+        //        for (int i = 0; i < size; i++) {
+        //            if (null != mActivityList.get(i)) {
+        //                mActivityList.get(i).finish();
+        //            }
+        //        }
+        for (Activity activity : mActivityList) {
+            if (activity != null) {
+                activity.finish();
             }
         }
+
         mActivityList.clear();
-        handler.sendEmptyMessage(1);
+        Intent mIntent = new Intent(DorideApplication.getAppContext(), UserLoginActivity.class);
+        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        DorideApplication.getAppContext().startActivity(mIntent);
+        //        handler.sendEmptyMessage(1);
     }
 
-    @SuppressLint("HandlerLeak")
-    static Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                Intent mIntent = new Intent(DorideApplication.getAppContext(), UserLoginActivity.class);
-                mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                DorideApplication.getAppContext().startActivity(mIntent);
-            }
-        }
-    };
+    //    @SuppressLint("HandlerLeak")
+    //    static Handler handler = new Handler(Looper.myLooper()) {
+    //        @Override
+    //        public void handleMessage(Message msg) {
+    //            super.handleMessage(msg);
+    //            if (msg.what == 1) {
+    //                Intent mIntent = new Intent(DorideApplication.getAppContext(), UserLoginActivity.class);
+    //                mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    //                DorideApplication.getAppContext().startActivity(mIntent);
+    //            }
+    //        }
+    //    };
 }

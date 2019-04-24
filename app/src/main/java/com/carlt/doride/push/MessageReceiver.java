@@ -15,7 +15,6 @@ import com.carlt.doride.R;
 import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.car.SecretaryMessageInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.ui.fragment.CarMainFragment;
 import com.carlt.doride.utils.MyParse;

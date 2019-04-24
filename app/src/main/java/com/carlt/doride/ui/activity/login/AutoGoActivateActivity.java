@@ -83,7 +83,7 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
         if (intent != null) {
             vinCode = intent.getStringExtra("vin");
             carType = intent.getStringExtra("carType");
-//            carID = intent.getIntExtra("carID", -1);
+            //            carID = intent.getIntExtra("carID", -1);
         }
         activate_commit = findViewById(R.id.activate_commit);
         activate_commit.setOnClickListener(this);
@@ -156,12 +156,13 @@ public class AutoGoActivateActivity extends BaseActivity implements View.OnClick
                     showToast(result.msg);
                 } else {
                     GetCarInfo carInfo = SharepUtil.getBeanFromSp(URLConfig.CAR_INFO);
-                    carInfo.remoteStatus=1;
-                    SharepUtil.putByBean(URLConfig.CAR_INFO,carInfo);
-//                    GetCarInfo.getInstance().remoteStatus = 1;
-//                    showToast("开始激活");
+                    carInfo.remoteStatus = 1;
+                    SharepUtil.putByBean(URLConfig.CAR_INFO, carInfo);
+                    ActivityControl.initXG();
+                    //                    GetCarInfo.getInstance().remoteStatus = 1;
+                    //                    showToast("开始激活");
                     Intent intent = new Intent(AutoGoActivateActivity.this, ActivateStepActivity.class);
-//                    intent.putExtra("carId", Integer.valueOf(carID));
+                    //                    intent.putExtra("carId", Integer.valueOf(carID));
                     intent.putExtra("From", ActivateStepActivity.from_Activate);
                     startActivity(intent);
                     finish();

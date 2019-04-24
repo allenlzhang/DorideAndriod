@@ -10,6 +10,7 @@ import com.carlt.sesame.preference.TokenInfo;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,10 +40,17 @@ public class ApiRetrofit implements IApiService {
         //                HttpUrl.Builder authorizedUrlBuilder = request.url().newBuilder()
         //                .addQueryParameter("deviceID", String.valueOf(GetCarInfo.getInstance().deviceid))
         //                .addQueryParameter("carId", GetCarInfo.getInstance().id);
+        HttpUrl oldUrl = request.url();
+        HttpUrl baseUrl = HttpUrl.parse(URLConfig.getAutoGoUrl());
+        HttpUrl newBuilder = oldUrl.newBuilder()
+                .scheme(baseUrl.scheme())
+                .host(baseUrl.host())
+                .port(baseUrl.port())
+                .build();
 
 
         Request.Builder newRequest = request.newBuilder()
-                //                .url(authorizedUrlBuilder.build())
+                .url(newBuilder)
                 .header("Carlt-Access-Id", URLConfig.getAutoGoAccessId())
                 .header("Content-Type", "application/json")
                 .header("Carlt-Token", TokenInfo.getToken())
@@ -98,8 +106,8 @@ public class ApiRetrofit implements IApiService {
         mHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(mInterceptor)
                 .addInterceptor(getLogInterceptor())
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .cookieJar(new CookiesManager())
                 .build();
         mRetrofit = new Retrofit.Builder()

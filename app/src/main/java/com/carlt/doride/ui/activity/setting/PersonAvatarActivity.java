@@ -25,7 +25,6 @@ import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.set.AvatarInfo;
 import com.carlt.doride.http.HttpLinker;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.user.AvatarParser;
 import com.carlt.doride.systemconfig.URLConfig;
 import com.carlt.doride.ui.view.PopBoxCreat;
@@ -33,6 +32,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LoadLocalImageUtil;
 import com.carlt.doride.utils.PhotoUtils;
+import com.carlt.doride.utils.SharepUtil;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -167,6 +167,9 @@ public class PersonAvatarActivity extends LoadingActivity implements OnClickList
                     UUToast.showUUToast(PersonAvatarActivity.this, "头像上传成功");
                     backIntent.putExtra("imageId", info.getId());
                     UserInfo.getInstance().avatarFile = info.getFilePath();
+                    UserInfo userInfo = SharepUtil.getBeanFromSp(URLConfig.USER_INFO);
+                    userInfo.avatarFile=info.getFilePath();
+                    SharepUtil.putByBean(URLConfig.USER_INFO,userInfo);
                     break;
                 case 1:
                     backIntent.putExtra("imageId", "-1");

@@ -197,15 +197,15 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
         showWaitingDialog(null);
         switch (lastOpt) {
             case 0:
-//                CPControl.GetRemoteLock("1", mListener);
+                //                CPControl.GetRemoteLock("1", mListener);
                 RemoteLock(1);
                 break;
             case 1:
-//                CPControl.GetRemoteLock("2", mListener);
+                //                CPControl.GetRemoteLock("2", mListener);
                 RemoteLock(2);
                 break;
             case 2:
-//                CPControl.GetCarLocating(mListener);
+                //                CPControl.GetCarLocating(mListener);
                 CarLocating();
                 break;
             case 3:
@@ -242,16 +242,17 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
     /**
      * 远程开闭锁
-     * @param lock 1:开锁，2上锁
+     * @param lock
+     *         1:开锁，2上锁
      */
-    private void RemoteLock(int lock){
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> commParam = new HashMap<>();
-        commParam.put("carId",GetCarInfo.getInstance().id);
-        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
-        param.put("moveDeviceName",DorideApplication.MODEL_NAME);
-        param.put("lock",lock);
-        param.put("base",commParam);
+    private void RemoteLock(int lock) {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceID", GetCarInfo.getInstance().deviceNum);
+        param.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        param.put("lock", lock);
+        param.put("base", commParam);
         addDisposable(mApiService.RemoteLock(param), new BaseMvcObserver<RemoteCommonInfo>() {
             @Override
             public void onSuccess(RemoteCommonInfo result) {
@@ -274,13 +275,13 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     /**
      * 声光寻车
      */
-    private void CarLocating(){
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> commParam = new HashMap<>();
-        commParam.put("carId",GetCarInfo.getInstance().id);
-        commParam.put("deviceId",GetCarInfo.getInstance().deviceNum);
-        param.put("moveDeviceName",DorideApplication.MODEL_NAME);
-        param.put("base",commParam);
+    private void CarLocating() {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceId", GetCarInfo.getInstance().deviceNum);
+        param.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        param.put("base", commParam);
         addDisposable(mApiService.CarLocating(param), new BaseMvcObserver<RemoteCommonInfo>() {
             @Override
             public void onSuccess(RemoteCommonInfo result) {
@@ -378,7 +379,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
         switch (v.getId()) {
             case R.id.state_car_iv:
                 showWaitingDialog("正在获取车辆状态...");
-//                CPControl.GetRemoteCarState(mListener_states);
+                //                CPControl.GetRemoteCarState(mListener_states);
                 carState(0);
                 break;
             case R.id.remote_history_iv:
@@ -394,32 +395,35 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
      * 车辆远程状态
      * type 0获取车辆状态 1获取当前温度
      */
-    private void carState(final int type){
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> commParam = new HashMap<>();
-        commParam.put("carId",GetCarInfo.getInstance().id);
-        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
-        param.put("base",commParam);
+    private void carState(final int type) {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceID", GetCarInfo.getInstance().deviceNum);
+        param.put("base", commParam);
         addDisposable(mApiService.carState(param), new BaseMvcObserver<RemoteCarStateInfo>() {
             @Override
             public void onSuccess(RemoteCarStateInfo result) {
                 Message msg = new Message();
-                if (result.err != null){
-                    if (type == 0) {
-                        msg.what = 9;
-                        msg.obj = TextUtils.isEmpty(result.err.msg) ? "获取车辆状态失败" : result.err.msg;
-                        mHandler.sendMessage(msg);
-                    }else {
-                        msg.what = 15;
-                        msg.obj = new CurrentTempParser(mAirMainInfo).parser(result);
-                        mHandler.sendMessage(msg);
-                    }
-                }else {
+                if (result.err != null) {
+                    dissmissWaitingDialog();
+                    ToastUtils.showShort(result.err.msg);
+//                    if (type == 0) {
+//                        msg.what = 9;
+//                        msg.obj = TextUtils.isEmpty(result.err.msg) ? "获取车辆状态失败" : result.err.msg;
+//                        mHandler.sendMessage(msg);
+//                    } else {
+//                        msg.what = 15;
+//                        msg.obj = new CurrentTempParser(mAirMainInfo).parser(result);
+//                        mHandler.sendMessage(msg);
+//                    }
+
+                } else {
                     if (type == 0) {
                         msg.what = 8;
                         msg.obj = new CarStateParser().parser(result);
                         mHandler.sendMessage(msg);
-                    }else {
+                    } else {
                         msg.what = 14;
                         msg.obj = new CurrentTempParser(mAirMainInfo).parser(result);
                         mHandler.sendMessage(msg);
@@ -430,16 +434,18 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
             @Override
             public void onError(String msg) {
-                Message message = new Message();
-                if (type == 0) {
-                    message.what = 9;
-                    message.obj = msg;
-                    mHandler.sendMessage(message);
-                }else {
-                    message.what = 15;
-                    message.obj = new CurrentTempParser(mAirMainInfo).parser(null);
-                    mHandler.sendMessage(message);
-                }
+                dissmissWaitingDialog();
+                ToastUtils.showShort(msg);
+                //                Message message = new Message();
+                //                if (type == 0) {
+                //                    message.what = 9;
+                //                    message.obj = msg;
+                //                    mHandler.sendMessage(message);
+                //                }else {
+                //                    message.what = 15;
+                //                    message.obj = new CurrentTempParser(mAirMainInfo).parser(null);
+                //                    mHandler.sendMessage(message);
+                //                }
             }
         });
     }
@@ -528,20 +534,20 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
     protected void onResume() {
         super.onResume();
         LoadData();
-//        boolean isFail = GetCarInfo.getInstance().isFail;
+        //        boolean isFail = GetCarInfo.getInstance().isFail;
 
-            addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
-                @Override
-                public void onSuccess(GetCarInfo result) {
-                    GetCarInfo.getInstance().setCarInfo(result);
-                    remoteStatus = result.remoteStatus;
-                }
+        addDisposable(mApiService.getCarInfo(new HashMap<>()), new BaseMvcObserver<GetCarInfo>() {
+            @Override
+            public void onSuccess(GetCarInfo result) {
+                GetCarInfo.getInstance().setCarInfo(result);
+                remoteStatus = result.remoteStatus;
+            }
 
-                @Override
-                public void onError(String msg) {
+            @Override
+            public void onError(String msg) {
 
-                }
-            });
+            }
+        });
 
     }
 
@@ -981,7 +987,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                                 } else {
                                     ToastUtils.showShort(result.msg);
                                 }
-                            } else{
+                            } else {
 
                                 if (result.err.code == 1020) {
                                     Intent intent = new Intent(RemoteMainNewActivity.this, UpDateActivity.class);
@@ -996,14 +1002,14 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                         case 1:
                             //            mPlayRadio.playClickVoice(R.raw.remote_lock);
                             lastOpt = -1;
-//                            ToastUtils.showShort("操作成功");
+                            //                            ToastUtils.showShort("操作成功");
                             if (result.err == null) {
                                 if (TextUtils.isEmpty(result.msg)) {
                                     ToastUtils.showShort("操作成功");
                                 } else {
                                     ToastUtils.showShort(result.msg);
                                 }
-                            } else{
+                            } else {
 
                                 if (result.err.code == 1020) {
                                     Intent intent = new Intent(RemoteMainNewActivity.this, UpDateActivity.class);
@@ -1017,10 +1023,10 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                             //             mPlayRadio.playClickVoice(R.raw.remote_finding);
                             lastOpt = -1;
                             RemoteCommonInfo info2 = (RemoteCommonInfo) msg.obj;
-                            if (info2.err!=null){
-                                ToastUtils.showShort(TextUtils.isEmpty(info2.err.msg)?"操作失败":info2.err.msg);
-                            }else {
-                                ToastUtils.showShort(TextUtils.isEmpty(info2.msg)?"操作成功":info2.msg);
+                            if (info2.err != null) {
+                                ToastUtils.showShort(TextUtils.isEmpty(info2.err.msg) ? "操作失败" : info2.err.msg);
+                            } else {
+                                ToastUtils.showShort(TextUtils.isEmpty(info2.msg) ? "操作成功" : info2.msg);
                             }
                             break;
                         case 3:
@@ -1028,10 +1034,10 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                                 mAirConditionDialog.dismiss();
                             }
                             RemoteCommonInfo info = (RemoteCommonInfo) msg.obj;
-                            if (info.err!=null){
-                                ToastUtils.showShort(TextUtils.isEmpty(info.err.msg)?"操作失败":info.err.msg);
-                            }else {
-                                ToastUtils.showShort(TextUtils.isEmpty(info.msg)?"操作成功":info.msg);
+                            if (info.err != null) {
+                                ToastUtils.showShort(TextUtils.isEmpty(info.err.msg) ? "操作失败" : info.err.msg);
+                            } else {
+                                ToastUtils.showShort(TextUtils.isEmpty(info.msg) ? "操作成功" : info.msg);
                             }
                             //           mPlayRadio.playClickVoice(R.raw.remote_air);
                             lastOpt = -1;
@@ -1051,18 +1057,18 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     }
                     String txt = (String) msg.obj;
                     ToastUtils.showShort(txt);
-//                    BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
-//                    if (mInfo1 != null) {
-//                        if (mInfo1.getFlag() == 1020) {
-//                            Intent intent = new Intent(RemoteMainNewActivity.this, UpDateActivity.class);
-//                            startActivity(intent);
-//                            //                            PopBoxCreat.showUUUpdateDialog(context, null);
-//                        } else {
-//                            //                            UUToast.showUUToast(RemoteMainNewActivity.this,
-//                            //                                    mInfo1.getInfo());
-//                            ToastUtils.showShort(mInfo1.getInfo());
-//                        }
-//                    }
+                    //                    BaseResponseInfo mInfo1 = (BaseResponseInfo) msg.obj;
+                    //                    if (mInfo1 != null) {
+                    //                        if (mInfo1.getFlag() == 1020) {
+                    //                            Intent intent = new Intent(RemoteMainNewActivity.this, UpDateActivity.class);
+                    //                            startActivity(intent);
+                    //                            //                            PopBoxCreat.showUUUpdateDialog(context, null);
+                    //                        } else {
+                    //                            //                            UUToast.showUUToast(RemoteMainNewActivity.this,
+                    //                            //                                    mInfo1.getInfo());
+                    //                            ToastUtils.showShort(mInfo1.getInfo());
+                    //                        }
+                    //                    }
                     break;
 
                 case 3:
@@ -1120,11 +1126,11 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     // 获取车辆状态失败
                     dissmissWaitingDialog();
                     ToastUtils.showShort((String) msg.obj);
-//                    BaseResponseInfo mInfo4 = (BaseResponseInfo) msg.obj;
-//                    if (mInfo4 != null) {
-//                        UUToast.showUUToast(RemoteMainNewActivity.this,
-//                                mInfo4.getInfo());
-//                    }
+                    //                    BaseResponseInfo mInfo4 = (BaseResponseInfo) msg.obj;
+                    //                    if (mInfo4 != null) {
+                    //                        UUToast.showUUToast(RemoteMainNewActivity.this,
+                    //                                mInfo4.getInfo());
+                    //                    }
                     break;
                 case 10:
                     GetResult();
@@ -1134,7 +1140,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     // 调用接口
                     break;
                 case 12:
-//                    CPControl.GetRemoteCarTemp(mListener_temp, mAirMainInfo);
+                    //                    CPControl.GetRemoteCarTemp(mListener_temp, mAirMainInfo);
                     carState(1);
                     break;
                 case 13:
@@ -1153,7 +1159,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     mAirConditionDialog = new UUAirConditionDialog(
                             RemoteMainNewActivity.this, mAirMainInfo);
                     mAirConditionDialog.setAirConditionListener(airListener);
-//                    mAirConditionDialog.mListener = mListener;
+                    //                    mAirConditionDialog.mListener = mListener;
                     mAirConditionDialog.mHandler = mHandler;
                     mAirConditionDialog.show();
                     break;
@@ -1165,7 +1171,7 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
                     mAirConditionDialog = new UUAirConditionDialog(
                             RemoteMainNewActivity.this, mAirMainInfo);
                     mAirConditionDialog.setAirConditionListener(airListener);
-//                    mAirConditionDialog.mListener = mListener;
+                    //                    mAirConditionDialog.mListener = mListener;
                     mAirConditionDialog.mHandler = mHandler;
                     mAirConditionDialog.show();
                     break;
@@ -1176,27 +1182,29 @@ public class RemoteMainNewActivity extends LoadingActivityWithTitle implements O
 
     UUAirConditionDialog.AirConditionListener airListener = new UUAirConditionDialog.AirConditionListener() {
         @Override
-        public void airCondition(String state,String ratct) {
-            airConditionIssued(state,ratct);
+        public void airCondition(String state, String ratct) {
+            airConditionIssued(state, ratct);
         }
     };
 
     /**
      * 远程开关空调接口
-     * @param racoc 1:开启全自动;2:关闭;3:一键除霜;4:最大制冷;5:最大制热;6:负离子;7:座舱清洁;8:温度调节
-     * @param ratct 温度值 当racoc 为8时传入
+     * @param racoc
+     *         1:开启全自动;2:关闭;3:一键除霜;4:最大制冷;5:最大制热;6:负离子;7:座舱清洁;8:温度调节
+     * @param ratct
+     *         温度值 当racoc 为8时传入
      */
-    private void airConditionIssued(String racoc,String ratct){
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> commParam = new HashMap<>();
-        commParam.put("carId",GetCarInfo.getInstance().id);
-        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
-        param.put("moveDeviceName",DorideApplication.MODEL_NAME);
-        param.put("racoc",Integer.parseInt(racoc));
+    private void airConditionIssued(String racoc, String ratct) {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceID", GetCarInfo.getInstance().deviceNum);
+        param.put("moveDeviceName", DorideApplication.MODEL_NAME);
+        param.put("racoc", Integer.parseInt(racoc));
         if (Integer.parseInt(racoc) == 8) {
-            param.put("ratct",ratct);
+            param.put("ratct", ratct);
         }
-        param.put("base",commParam);
+        param.put("base", commParam);
         addDisposable(mApiService.airCondition(param), new BaseMvcObserver<RemoteCommonInfo>() {
             @Override
             public void onSuccess(RemoteCommonInfo result) {

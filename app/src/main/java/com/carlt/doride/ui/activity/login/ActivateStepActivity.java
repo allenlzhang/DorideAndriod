@@ -19,9 +19,9 @@ import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.ActivateStepInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.systemconfig.URLConfig;
+import com.carlt.doride.ui.view.stepview.StepView;
 import com.carlt.doride.utils.SharepUtil;
 import com.carlt.sesame.ui.SesameMainActivity;
-import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
 import java.util.HashMap;

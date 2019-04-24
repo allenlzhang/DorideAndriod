@@ -201,7 +201,7 @@ public class UserLoginActivity extends BaseActivity implements View.OnClickListe
                     break;
 
             }
-            URLConfig.getAutoGoUrl();
+//            URLConfig.getAutoGoUrl();
         }
     }
 

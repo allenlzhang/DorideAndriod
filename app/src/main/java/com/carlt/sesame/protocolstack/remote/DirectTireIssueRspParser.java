@@ -1,5 +1,6 @@
 package com.carlt.sesame.protocolstack.remote;
 
+import com.carlt.doride.utils.MyTimeUtils;
 import com.carlt.sesame.data.car.CarMainInfo;
 import com.carlt.sesame.data.car.TirepressureInfo;
 
@@ -9,21 +10,23 @@ import java.util.List;
  * Created by Marlon on 2019/4/8.
  */
 public class DirectTireIssueRspParser {
-    public TirepressureInfo parser(DirectTireIssueRspInfo directTireIssueRspInfo){
+    public TirepressureInfo parser(DirectTireIssueRspInfo directTireIssueRspInfo) {
         TirepressureInfo mTirepressureInfo = new TirepressureInfo();
-        List<DirectTireIssueRspInfo.PressureItem>list = directTireIssueRspInfo.list;
-        boolean isNormal=true;//胎压是否正常
+        List<DirectTireIssueRspInfo.PressureItem> list = directTireIssueRspInfo.list;
+        String s1 = MyTimeUtils.formatDateGetDaySecend1(directTireIssueRspInfo.recTime);
+        mTirepressureInfo.setTime(s1);
+        boolean isNormal = true;//胎压是否正常
         for (int i = 0; i < list.size(); i++) {
             DirectTireIssueRspInfo.PressureItem item = list.get(i);
             int s = item.pressureState;
-            if(s==2){
-                isNormal=false;
-                s=1;
-            }else if(s==1){
-                s=0;
+            if (s == 2) {
+                isNormal = false;
+                s = 1;
+            } else if (s == 1) {
+                s = 0;
             }
             int c = item.pressureValue;
-            String unit= item.pressureUint;
+            String unit = item.pressureUint;
             switch (i) {
                 case 0:
                     mTirepressureInfo.setState1(s);
@@ -49,9 +52,9 @@ public class DirectTireIssueRspParser {
             }
 
         }
-        if(isNormal){
+        if (isNormal) {
             mTirepressureInfo.setTirepressure(CarMainInfo.NORMAL);
-        }else{
+        } else {
             mTirepressureInfo.setTirepressure(CarMainInfo.ABNORMAL);
         }
         return mTirepressureInfo;

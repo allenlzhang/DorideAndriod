@@ -22,9 +22,9 @@ public class RemoteCarStateInfoPresenter {
         ArrayList<CarStateInfo> mCarStateInfos = new ArrayList<>();
         Gson gson = new Gson();
         String s = gson.toJson(mRemoteCarStateInfo);
-//        LogUtils.e(s);
+        //        LogUtils.e(s);
         //        String data = mJson.get("data").toString();
-        JSONObject mJSON_data = null;
+        JSONObject mJSON_data;
         try {
             mJSON_data = new JSONObject(s);
 
@@ -82,7 +82,7 @@ public class RemoteCarStateInfoPresenter {
                         mInfo.setStateDes("--");
                     } else if (state == 2) {
                         mInfo.setIconId(iconId_opens[i]);
-                        mInfo.setStateDes("未关|开翘");
+                        mInfo.setStateDes("开翘");
                         mCarStateInfos.add(mInfo);
                     } else {
                         mInfo.setIconId(iconId_opens[i]);

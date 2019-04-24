@@ -4,16 +4,17 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.control.ActivityControl;
 import com.carlt.doride.control.LoginControl;
@@ -21,7 +22,6 @@ import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.UseInfo;
 import com.carlt.doride.data.VersionInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.preference.UseInfoLocal;
 import com.carlt.doride.protocolparser.BaseParser.ResultCallback;
 import com.carlt.doride.protocolparser.VersionInfoParser;
@@ -35,9 +35,7 @@ import com.carlt.doride.ui.view.UUToast;
 import com.carlt.doride.ui.view.UUUpdateDialog;
 import com.carlt.doride.utils.FileUtil;
 import com.carlt.doride.utils.LocalConfig;
-import com.carlt.doride.utils.Log;
 import com.carlt.sesame.control.CPControl;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +57,7 @@ public class SplashActivity extends BaseActivity {
     private final static long interval = 30 * 1000;// 友盟统计-时间间隔
 
     long mMills = 0;
-//    private MessageReceiver mReceiver;
+    private MessageReceiver mMessageReceiver;
 
 
     @Override
@@ -68,22 +66,34 @@ public class SplashActivity extends BaseActivity {
         fullScreen(this);
         setContentView(R.layout.activity_splash);
         mHandler.sendEmptyMessageDelayed(0, 1500);
+        LogUtils.e(Build.VERSION.SDK_INT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerXG();
+        }
 
     }
 
     private void registerXG() {
-        //        IntentFilter filter = new IntentFilter();
-        //        filter.addAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
-        //        filter.addAction("com.tencent.android.tpush.action.FEEDBACK");
-        //        mReceiver = new MessageReceiver();
-        //        registerReceiver(mReceiver, filter);
-        Intent intent = new Intent(this, MessageReceiver.class);
-        intent.setAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
-        intent.setAction("com.tencent.android.tpush.action.FEEDBACK");
-        sendBroadcast(intent);
-        Logger.e("======MessageReceiver");
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
+        filter.addAction("com.tencent.android.tpush.action.FEEDBACK");
+        mMessageReceiver = new MessageReceiver();
+        registerReceiver(mMessageReceiver, filter);
+        //                Intent intent = new Intent(this, MessageReceiver.class);
+        //                intent.setAction("com.tencent.android.tpush.action.PUSH_MESSAGE");
+        //                intent.setAction("com.tencent.android.tpush.action.FEEDBACK");
+        //                sendBroadcast(intent);
+        //                Logger.e("======MessageReceiver");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mMessageReceiver != null) {
+            unregisterReceiver(mMessageReceiver);
+        }
+
+    }
 
     protected String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -100,7 +110,7 @@ public class SplashActivity extends BaseActivity {
         FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             getVersion();
-//            jumpLogic();
+            //            jumpLogic();
         } else {
             requestPermissions(this, needPermissions, new BaseActivity.RequestPermissionCallBack() {
                 @Override
@@ -112,7 +122,7 @@ public class SplashActivity extends BaseActivity {
                     FileUtil.openOrCreatDir(LocalConfig.mErroLogSavePath_SD);
                     FileUtil.openOrCreatDir(LocalConfig.mTracksSavePath_SD);
                     getVersion();
-//                    jumpLogic();
+                    //                    jumpLogic();
                 }
 
                 @Override
@@ -218,8 +228,8 @@ public class SplashActivity extends BaseActivity {
                 && password.length() > 0) {
             // 不是第一次使用
             // 直接调用登录接口
-//            CPControl.GetLogin(account, password, listener_login);
-            LoginControl.Login(account,password);
+            //            CPControl.GetLogin(account, password, listener_login);
+            LoginControl.Login(account, password);
             LoginControl.setCallback(callback);
         } else {
 
@@ -240,30 +250,32 @@ public class SplashActivity extends BaseActivity {
         }
         // }
     }
-com.carlt.sesame.control.CPControl.GetResultListCallback callback = new CPControl.GetResultListCallback() {
-    @Override
-    public void onFinished(Object o) {
-        final Message msg = new Message();
-        msg.what = 3;
-        msg.obj = o;
-        long duration = 3000 - (System.currentTimeMillis() - mMills);
-        mHandler.postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                mHandler.sendMessage(msg);
-            }
-        }, duration > 0 ? duration : 0);
-    }
+    com.carlt.sesame.control.CPControl.GetResultListCallback callback = new CPControl.GetResultListCallback() {
+        @Override
+        public void onFinished(Object o) {
+            final Message msg = new Message();
+            msg.what = 3;
+            msg.obj = o;
+            long duration = 3000 - (System.currentTimeMillis() - mMills);
+            mHandler.postDelayed(new Runnable() {
 
-    @Override
-    public void onErro(Object o) {
-        Message msg = new Message();
-        msg.what = 4;
-        msg.obj = o;
-        mHandler.sendMessage(msg);
-    }
-};
+                @Override
+                public void run() {
+                    mHandler.sendMessage(msg);
+                }
+            }, duration > 0 ? duration : 0);
+        }
+
+        @Override
+        public void onErro(Object o) {
+            Message msg = new Message();
+            msg.what = 4;
+            msg.obj = o;
+            mHandler.sendMessage(msg);
+        }
+    };
+
     private void showDownloadView(String apkUrl) {
         DownloadView mDownloadView = new DownloadView(SplashActivity.this);
         mDownloadView.showView(apkUrl);
@@ -361,7 +373,7 @@ com.carlt.sesame.control.CPControl.GetResultListCallback callback = new CPContro
                     ActivityControl.initXG();
                     LoginControl.mDialogUpdateListener = mDUpdateListener;
                     LoginControl.logic(SplashActivity.this);
-                    if (GetCarInfo.getInstance().isUpgrade!=1) {
+                    if (GetCarInfo.getInstance().isUpgrade != 1) {
                         finish();
                     }
                     break;
@@ -457,14 +469,14 @@ com.carlt.sesame.control.CPControl.GetResultListCallback callback = new CPContro
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 window.setStatusBarColor(Color.TRANSPARENT);
                 //导航栏颜色也可以正常设置
-//                window.setNavigationBarColor(Color.TRANSPARENT);
+                //                window.setNavigationBarColor(Color.TRANSPARENT);
             } else {
                 Window window = activity.getWindow();
                 WindowManager.LayoutParams attributes = window.getAttributes();
                 int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
                 int flagTranslucentNavigation = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
                 attributes.flags |= flagTranslucentStatus;
-//                attributes.flags |= flagTranslucentNavigation;
+                //                attributes.flags |= flagTranslucentNavigation;
                 window.setAttributes(attributes);
             }
         }

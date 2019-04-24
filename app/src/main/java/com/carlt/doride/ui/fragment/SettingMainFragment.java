@@ -226,6 +226,7 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             e.printStackTrace();
         }
         mUserInfo = SharepUtil.getBeanFromSp(URLConfig.USER_INFO);
+        LogUtils.e(mUserInfo.toString());
         //        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
         LoadLocalImageUtil.getInstance().displayCircleFromWeb(mUserInfo.avatarFile, avatar, R.mipmap.default_avater);
         //        }
@@ -389,6 +390,9 @@ public class SettingMainFragment extends BaseFragment implements View.OnClickLis
             case R.id.btn_account_security:
                 Intent certifiedIntent = new Intent(this.getActivity(), AccountSecurityActivity.class);
                 startActivity(certifiedIntent);
+//                Intent intent11 = new Intent(mCtx, ActivateStepActivity.class);
+//                intent11.putExtra("From", ActivateStepActivity.from_Activate);
+//                startActivity(intent11);
                 break;
             case R.id.btn_car_manager:
                 Intent carManager = new Intent(this.getActivity(), CarManagerActivity.class);

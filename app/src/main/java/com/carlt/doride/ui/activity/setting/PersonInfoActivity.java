@@ -11,11 +11,11 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.lib.WheelView;
 import com.bigkoo.pickerview.listener.CustomListener;
+import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.base.LoadingActivity;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
-import com.carlt.doride.model.LoginInfo;
 import com.carlt.doride.protocolparser.BaseParser;
 import com.carlt.doride.protocolparser.DefaultStringParser;
 import com.carlt.doride.systemconfig.URLConfig;
@@ -44,10 +44,10 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
     private TextView  person_sex_txt;
     private ImageView usr_avatar;
 
-    private OptionsPickerView mSexOptions;//性别选择
-    private static String[] sexItems = {"男", "女", "保密"};
-    private List<String> sexList;
-    private String       gender;
+    private        OptionsPickerView mSexOptions;//性别选择
+    private static String[]          sexItems = {"男", "女", "保密"};
+    private        List<String>      sexList;
+    private        String            gender;
     int sexFlag = 0;
 
     @Override
@@ -56,6 +56,35 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
         setContentView(R.layout.activity_person_info);
         initTitle("修改资料");
         initComponent();
+    }
+
+    @Override
+    protected void onResume() {
+        if (UserInfo.getInstance().gender != 0) {
+            if (UserInfo.getInstance().gender == 1) {
+                person_sex_txt.setText("男");
+            } else if (UserInfo.getInstance().gender == 2) {
+                person_sex_txt.setText("女");
+            } else {
+                person_sex_txt.setText("保密");
+            }
+
+        }
+        LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, usr_avatar, R.mipmap.default_avater);
+        //        if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
+        //            person_nickname_txt.setText(UserInfo.getInstance().realName);
+        //        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void initComponent() {
@@ -76,37 +105,6 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
 
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onResume() {
-        if (UserInfo.getInstance().gender != 0) {
-            if (UserInfo.getInstance().gender == 1) {
-                person_sex_txt.setText("男");
-            } else if (UserInfo.getInstance().gender == 2) {
-                person_sex_txt.setText("女");
-            } else {
-                person_sex_txt.setText("保密");
-            }
-
-        }
-        if (!TextUtils.isEmpty(UserInfo.getInstance().avatarFile)) {
-            LoadLocalImageUtil.getInstance().displayCircleFromWeb(UserInfo.getInstance().avatarFile, usr_avatar, R.mipmap.default_avater);
-        }
-        if (!TextUtils.isEmpty(UserInfo.getInstance().realName)) {
-            person_nickname_txt.setText(UserInfo.getInstance().realName);
-        }
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 
     @Override
     public void onClick(View view) {
@@ -132,10 +130,14 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null)
             return;
+
         if (requestCode == 0) {
-            if (!TextUtils.isEmpty(data.getStringExtra("nickName"))) {
-                person_nickname_txt.setText(data.getStringExtra("nickName"));
+            String nickName = data.getStringExtra("nickName");
+            LogUtils.e(nickName);
+            if (!TextUtils.isEmpty(nickName)) {
+                person_nickname_txt.setText(nickName);
             }
+
         } else {
             if (!TextUtils.isEmpty(data.getStringExtra("imageId"))) {
                 HashMap<String, String> params = new HashMap<>();
@@ -149,28 +151,25 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
     private void initSexSelector(String sex) {
         sexList = Arrays.asList(sexItems);
         int selectOptions = 0;
-        for (int i = 0; i <sexList.size() ; i++) {
-            if (TextUtils.equals(sex,sexList.get(i))){
+        for (int i = 0; i < sexList.size(); i++) {
+            if (TextUtils.equals(sex, sexList.get(i))) {
                 selectOptions = i;
             }
         }
-        mSexOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                //返回的分别是三个级别的选中位置
-                String tx = sexList.get(options1);
+        mSexOptions = new OptionsPickerView.Builder(this, (options1, option2, options3, v) -> {
+            //返回的分别是三个级别的选中位置
+            String tx = sexList.get(options1);
 
-                if (tx.equals("男"))
-                    sexFlag = 1;
-                else if (tx.equals("女"))
-                    sexFlag = 2;
-                else
-                    sexFlag = 3;
-                HashMap<String, String> params = new HashMap<>();
-                params.put("gender", sexFlag+"");
-                chanageInfoRequest(params);
-                gender = tx;
-            }
+            if (tx.equals("男"))
+                sexFlag = 1;
+            else if (tx.equals("女"))
+                sexFlag = 2;
+            else
+                sexFlag = 3;
+            HashMap<String, String> params = new HashMap<>();
+            params.put("gender", sexFlag + "");
+            chanageInfoRequest(params);
+            gender = tx;
         })
 
                 .setLayoutRes(R.layout.sex_edit_dialog, new CustomListener() {
@@ -223,7 +222,7 @@ public class PersonInfoActivity extends LoadingActivity implements View.OnClickL
                 person_sex_txt.setText(gender);
             }
 
-            parseAvatarUrl(bInfo);
+            //            parseAvatarUrl(bInfo);
         }
 
         @Override

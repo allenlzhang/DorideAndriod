@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.car;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +23,6 @@ import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CarMainInfo;
 import com.carlt.sesame.data.car.TirepressureInfo;
 import com.carlt.sesame.preference.EntryInfoLocal;
@@ -41,7 +41,6 @@ import java.util.Map;
 
 /**
  * 座驾-胎压监测页面
- * 
  * @author daisy
  */
 public class CarTirePressureActivity extends LoadingActivityWithTitle {
@@ -49,7 +48,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
 
     private TextView title;// 标题文字
 
-    private TextView txtRight;// 头部右侧文字
+    private TextView  txtRight;// 头部右侧文字
     private ImageView imgRight;// 头部右侧图标
 
     private ImageView mImageViewSecretary;// 车秘书头像
@@ -93,55 +92,49 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
     }
 
     private void initTitle() {
-        back = (ImageView)findViewById(R.id.head_back_img1);
-        title = (TextView)findViewById(R.id.head_back_txt1);
-        txtRight = (TextView)findViewById(R.id.head_back_txt2);
+        back = (ImageView) findViewById(R.id.head_back_img1);
+        title = (TextView) findViewById(R.id.head_back_txt1);
+        txtRight = (TextView) findViewById(R.id.head_back_txt2);
         imgRight = (ImageView) findViewById(R.id.head_back_img2);
 
         back.setImageResource(R.drawable.arrow_back);
         title.setText("胎压监测");
         txtRight.setVisibility(View.GONE);
-		imgRight.setVisibility(View.VISIBLE);
-		imgRight.setImageResource(R.drawable.icon_refresh);
+        imgRight.setVisibility(View.VISIBLE);
+        imgRight.setImageResource(R.drawable.icon_refresh);
 
-        back.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back.setOnClickListener(v -> finish());
 
         imgRight.setOnClickListener(mViewClickListener);
     }
 
     private void initSubtitle() {
-        mImageViewSecretary = (ImageView)findViewById(R.id.layout_sub_head_img);
-        mTextViewSecretary = (TextView)findViewById(R.id.layout_sub_head_txt);
+        mImageViewSecretary = (ImageView) findViewById(R.id.layout_sub_head_img);
+        mTextViewSecretary = (TextView) findViewById(R.id.layout_sub_head_txt);
     }
 
     private void init() {
 
-        mWheelView1 = (TirePressureView)findViewById(R.id.activity_car_tire_pressure_lay1);
-        mWheelView2 = (TirePressureView)findViewById(R.id.activity_car_tire_pressure_lay2);
-        mWheelView3 = (TirePressureView)findViewById(R.id.activity_car_tire_pressure_lay3);
-        mWheelView4 = (TirePressureView)findViewById(R.id.activity_car_tire_pressure_lay4);
-        mTxtActivate = (TextView)findViewById(R.id.activity_car_tire_pressure_txt_activate);
+        mWheelView1 = (TirePressureView) findViewById(R.id.activity_car_tire_pressure_lay1);
+        mWheelView2 = (TirePressureView) findViewById(R.id.activity_car_tire_pressure_lay2);
+        mWheelView3 = (TirePressureView) findViewById(R.id.activity_car_tire_pressure_lay3);
+        mWheelView4 = (TirePressureView) findViewById(R.id.activity_car_tire_pressure_lay4);
+        mTxtActivate = (TextView) findViewById(R.id.activity_car_tire_pressure_txt_activate);
 
-        mImageView = (ImageView)findViewById(R.id.activity_car_tire_pressure_img_activate);
+        mImageView = (ImageView) findViewById(R.id.activity_car_tire_pressure_img_activate);
 
-        mLayoutBottom = (RelativeLayout)findViewById(R.id.activity_car_tire_pressure_bottom);
-        mLayoutBottomPro = (RelativeLayout)findViewById(R.id.activity_car_tire_pressure_lay_progress);
+        mLayoutBottom = (RelativeLayout) findViewById(R.id.activity_car_tire_pressure_bottom);
+        mLayoutBottomPro = (RelativeLayout) findViewById(R.id.activity_car_tire_pressure_lay_progress);
 
-        mTxtPro = (TextView)findViewById(R.id.activity_car_tire_pressure_txt_progress);
-        mProgressBar = (ProgressBar)findViewById(R.id.activity_car_tire_pressure_progress);
+        mTxtPro = (TextView) findViewById(R.id.activity_car_tire_pressure_txt_progress);
+        mProgressBar = (ProgressBar) findViewById(R.id.activity_car_tire_pressure_progress);
 
         mImageView.setOnClickListener(mClickListener);
 
     }
 
     private void initEntryInfo(int state) {
-        String userId = UserInfo.getInstance().id+"";
+        String userId = UserInfo.getInstance().id + "";
         int times = 0;
         if (userId != null && userId.length() > 0) {
             times = EntryInfoLocal.getEntryTimes(userId);
@@ -168,7 +161,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         }
 
         if (data != null) {
-            TirepressureInfo info = (TirepressureInfo)data;
+            TirepressureInfo info = (TirepressureInfo) data;
 
             int tirepressure = info.getTirepressure();
             String time = info.getTime();
@@ -176,7 +169,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                 case CarMainInfo.ABNORMAL:
                     // 异常
                     String string1 = "胎压出现异常，请立即停车检查！";
-                    if (time != null) {
+                    if (time != null && !time.equals("--")) {
                         string1 = string1 + "数据获取时间：" + time;
                     }
                     mTextViewSecretary.setText(string1);
@@ -189,7 +182,6 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                     if (time != null) {
                         string2 = string2 + "数据获取时间：" + time;
                     }
-                    mTextViewSecretary.setText(string2);
                     mTextViewSecretary.setText(string2);
                     normalOrNot(info);
                     break;
@@ -223,7 +215,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
     @Override
     protected void LoadData() {
         super.LoadData();
-//        CPControl.GetTireDirectResult(listener);
+        //        CPControl.GetTireDirectResult(listener);
         directTirePressure();
     }
 
@@ -239,7 +231,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                                 CarTirePressureActivity.this, "获取数据");
                     }
                     mDialog.show();
-//                    CPControl.GetTireDirectResult(listener);
+                    //                    CPControl.GetTireDirectResult(listener);
                     directTirePressure();
                     break;
 
@@ -248,18 +240,18 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         }
     };
 
-    private void directTirePressure(){
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> commParam = new HashMap<>();
-        commParam.put("carId",GetCarInfo.getInstance().id);
-        commParam.put("deviceID",GetCarInfo.getInstance().deviceNum);
-        param.put("base",commParam);
+    private void directTirePressure() {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> commParam = new HashMap<>();
+        commParam.put("carId", GetCarInfo.getInstance().id);
+        commParam.put("deviceID", GetCarInfo.getInstance().deviceNum);
+        param.put("base", commParam);
         addDisposable(mApiService.DirectTirePressure(param), new BaseMvcObserver<DirectTireIssueRspInfo>() {
             @Override
             public void onSuccess(DirectTireIssueRspInfo result) {
-                if (result.err!=null){
+                if (result.err != null) {
                     LoadErro(null);
-                }else{
+                } else {
                     LoadSuccess(new DirectTireIssueRspParser().parser(result));
                 }
             }
@@ -292,7 +284,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                                 CarTirePressureActivity.this, "加载中...");
                     }
                     mDialog.show();
-//                    CPControl.GetTirepresLearnResult(listener_learn);
+                    //                    CPControl.GetTirepresLearnResult(listener_learn);
                     startLearn();
                 }
             };
@@ -301,18 +293,18 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         }
     };
 
-    private void startLearn(){
-        Map<String,Object> param = new HashMap<>();
-        Map<String,Object> commParam = new HashMap<>();
+    private void startLearn() {
+        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> commParam = new HashMap<>();
         commParam.put("carId", GetCarInfo.getInstance().id);
-        commParam.put("deviceId",GetCarInfo.getInstance().deviceNum);
-        param.put("base",commParam);
+        commParam.put("deviceId", GetCarInfo.getInstance().deviceNum);
+        param.put("base", commParam);
         addDisposable(mApiService.startLearn(param), new BaseMvcObserver<BaseErr>() {
             @Override
             public void onSuccess(BaseErr result) {
-                if (result == null){
+                if (result == null) {
                     mHandler.sendEmptyMessage(0);
-                }else {
+                } else {
                     Message msg = new Message();
                     msg.what = 1;
                     msg.obj = TextUtils.isEmpty(result.msg) ? "获取激活进度失败" : result.msg;
@@ -334,13 +326,9 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
      * 弹出使用说明提示框
      */
     private void showDialogTips() {
-        DialogBtnClick click = new DialogBtnClick() {
+        DialogBtnClick click = () -> {
+            // TODO Auto-generated method stub
 
-            @Override
-            public void onClick() {
-                // TODO Auto-generated method stub
-
-            }
         };
         CreateDialogTips.createDialogTips(CarTirePressureActivity.this, click);
     }
@@ -385,6 +373,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -407,20 +396,20 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                     }
                     String txt = (String) msg.obj;
                     ToastUtils.showShort(txt);
-//                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
-//                    responseInfo = mBaseResponseInfo.getInfo();
-//                    if (responseInfo != null && responseInfo.length() > 0) {
-//                        UUToast.showUUToast(CarTirePressureActivity.this,
-//                                mBaseResponseInfo.getInfo());
-//                    } else {
-//                        UUToast.showUUToast(CarTirePressureActivity.this, "获取激活进度失败");
-//                    }
+                    //                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    //                    responseInfo = mBaseResponseInfo.getInfo();
+                    //                    if (responseInfo != null && responseInfo.length() > 0) {
+                    //                        UUToast.showUUToast(CarTirePressureActivity.this,
+                    //                                mBaseResponseInfo.getInfo());
+                    //                    } else {
+                    //                        UUToast.showUUToast(CarTirePressureActivity.this, "获取激活进度失败");
+                    //                    }
 
                     break;
 
                 case 2:
                     // 获取激活进度成功
-                    TirepressureInfo info = (TirepressureInfo)msg.obj;
+                    TirepressureInfo info = (TirepressureInfo) msg.obj;
                     activationing(info);
 
                     int progress = info.getProgress();
@@ -448,7 +437,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                     break;
                 case 3:
                     // 获取激活进度失败
-                    mBaseResponseInfo = (BaseResponseInfo)msg.obj;
+                    mBaseResponseInfo = (BaseResponseInfo) msg.obj;
                     responseInfo = mBaseResponseInfo.getInfo();
                     if (responseInfo != null && responseInfo.length() > 0) {
                         UUToast.showUUToast(CarTirePressureActivity.this,
@@ -464,7 +453,9 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                     break;
 
             }
-        };
+        }
+
+        ;
     };
 
     /**
@@ -483,7 +474,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         } else {
             stateNew = TirePressureView.NORMAL;
         }
-        mWheelView1.setTireState(stateNew,info.getCoefficient1(),info.getUnit1());
+        mWheelView1.setTireState(stateNew, info.getCoefficient1(), info.getUnit1());
         mWheelView1.setTireValue(info.getCoefficient1());
 
         state = info.getState2();
@@ -492,7 +483,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         } else {
             stateNew = TirePressureView.NORMAL;
         }
-        mWheelView2.setTireState(stateNew,info.getCoefficient2(),info.getUnit2());
+        mWheelView2.setTireState(stateNew, info.getCoefficient2(), info.getUnit2());
         mWheelView2.setTireValue(info.getCoefficient2());
 
         state = info.getState3();
@@ -501,7 +492,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         } else {
             stateNew = TirePressureView.NORMAL;
         }
-        mWheelView3.setTireState(stateNew,info.getCoefficient3(),info.getUnit3());
+        mWheelView3.setTireState(stateNew, info.getCoefficient3(), info.getUnit3());
         mWheelView3.setTireValue(info.getCoefficient3());
 
         state = info.getState4();
@@ -510,7 +501,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         } else {
             stateNew = TirePressureView.NORMAL;
         }
-        mWheelView4.setTireState(stateNew,info.getCoefficient4(),info.getUnit4());
+        mWheelView4.setTireState(stateNew, info.getCoefficient4(), info.getUnit4());
         mWheelView4.setTireValue(info.getCoefficient4());
 
         mTxtActivate.setText("如果您的爱车换过轮胎或打过气，请重新激活胎压监测功能！ ");
@@ -529,16 +520,16 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         txtRight.setTextColor(getResources().getColor(R.color.text_color_gray1));
 
         int tireValue = 0;
-        mWheelView1.setTireState(TirePressureView.ACTIVATIONING,info.getCoefficient1(),info.getUnit1());
+        mWheelView1.setTireState(TirePressureView.ACTIVATIONING, info.getCoefficient1(), info.getUnit1());
         mWheelView1.setTireValue(tireValue);
 
-        mWheelView2.setTireState(TirePressureView.ACTIVATIONING,info.getCoefficient2(),info.getUnit2());
+        mWheelView2.setTireState(TirePressureView.ACTIVATIONING, info.getCoefficient2(), info.getUnit2());
         mWheelView2.setTireValue(tireValue);
 
-        mWheelView3.setTireState(TirePressureView.ACTIVATIONING,info.getCoefficient3(),info.getUnit3());
+        mWheelView3.setTireState(TirePressureView.ACTIVATIONING, info.getCoefficient3(), info.getUnit3());
         mWheelView3.setTireValue(tireValue);
 
-        mWheelView4.setTireState(TirePressureView.ACTIVATIONING,info.getCoefficient4(),info.getUnit4());
+        mWheelView4.setTireState(TirePressureView.ACTIVATIONING, info.getCoefficient4(), info.getUnit4());
         mWheelView4.setTireValue(tireValue);
 
         mTextViewSecretary.setBackgroundResource(R.drawable.head_sub_tip_bg3);
@@ -559,16 +550,16 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
         txtRight.setTextColor(getResources().getColor(R.color.text_color_gray3));
 
         int tireValue = 0;
-        mWheelView1.setTireState(TirePressureView.UNACTIVATION,-1,"");
+        mWheelView1.setTireState(TirePressureView.UNACTIVATION, -1, "");
         mWheelView1.setTireValue(tireValue);
 
-        mWheelView2.setTireState(TirePressureView.UNACTIVATION,-1,"");
+        mWheelView2.setTireState(TirePressureView.UNACTIVATION, -1, "");
         mWheelView2.setTireValue(tireValue);
 
-        mWheelView3.setTireState(TirePressureView.UNACTIVATION,-1,"");
+        mWheelView3.setTireState(TirePressureView.UNACTIVATION, -1, "");
         mWheelView3.setTireValue(tireValue);
 
-        mWheelView4.setTireState(TirePressureView.UNACTIVATION,-1,"");
+        mWheelView4.setTireState(TirePressureView.UNACTIVATION, -1, "");
         mWheelView4.setTireValue(tireValue);
 
         mTextViewSecretary.setBackgroundResource(R.drawable.head_sub_tip_bg3);
@@ -598,7 +589,7 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
                             "加载中...");
                 }
                 mDialog.show();
-//                CPControl.GetTirepresLearnResult(listener_learn);
+                //                CPControl.GetTirepresLearnResult(listener_learn);
                 startLearn();
             }
         };
@@ -610,16 +601,16 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
     // 获取数据失败
     private void connectERRO() {
         int tireValue = 0;
-        mWheelView1.setTireState(TirePressureView.CONNECT_ERRO,-1,"");
+        mWheelView1.setTireState(TirePressureView.CONNECT_ERRO, -1, "");
         mWheelView1.setTireValue(tireValue);
 
-        mWheelView2.setTireState(TirePressureView.CONNECT_ERRO,-1,"");
+        mWheelView2.setTireState(TirePressureView.CONNECT_ERRO, -1, "");
         mWheelView2.setTireValue(tireValue);
 
-        mWheelView3.setTireState(TirePressureView.CONNECT_ERRO,-1,"");
+        mWheelView3.setTireState(TirePressureView.CONNECT_ERRO, -1, "");
         mWheelView3.setTireValue(tireValue);
 
-        mWheelView4.setTireState(TirePressureView.CONNECT_ERRO,-1,"");
+        mWheelView4.setTireState(TirePressureView.CONNECT_ERRO, -1, "");
         mWheelView4.setTireValue(tireValue);
 
         mTextViewSecretary.setBackgroundResource(R.drawable.head_sub_tip_bg3);

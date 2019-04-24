@@ -58,9 +58,11 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
     protected            DragViewCtr               dragViewCtr;
     protected            ApiService                mApiService             = ApiRetrofit.getInstance().getService(ApiService.class);
     private              CompositeDisposable       compositeDisposable;
+
     public boolean IsShowing() {
         return mIsShowing;
     }
+
     public void addDisposable(Observable<?> observable, BaseMvcObserver observer) {
         if (compositeDisposable == null) {
             compositeDisposable = new CompositeDisposable();
@@ -78,12 +80,14 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
             compositeDisposable.clear();
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         context = this;
         ActivityControl.addActivity(this);
+
         AsyncImageLoader mAsyncImageLoader = AsyncImageLoader.getInstance();
         mAsyncImageLoader.setmListener(this);
         Log.e("BaseActivity", this.getClass().getName() + "--onCreate");
@@ -92,14 +96,17 @@ public class BaseActivity extends Activity implements AsyncImageLoaderListener, 
     @Override
     protected void onDestroy() {
         ActivityControl.removeActivity(this);
+
         super.onDestroy();
     }
+
     protected String[] needPermissions = {
             Manifest.permission.CALL_PHONE,
             //            Manifest.permission.WRITE_EXTERNAL_STORAGE,
             //            Manifest.permission.READ_EXTERNAL_STORAGE,
             //            Manifest.permission.READ_PHONE_STATE
     };
+
     /**
      * 显示打电话的按钮，必须在onResume方法里调用
      */
