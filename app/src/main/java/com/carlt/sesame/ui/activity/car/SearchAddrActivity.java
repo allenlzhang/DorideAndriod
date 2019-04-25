@@ -48,7 +48,7 @@ public class SearchAddrActivity extends BaseActivity implements OnClickListener,
         setContentView(R.layout.sesame_activity_searchaddr);
         String latlng = getIntent().getStringExtra("latlng");
         if (TextUtils.isEmpty(latlng)) {
-            UUToast.showUUToast(context, "为获取到当前位置");
+            UUToast.showUUToast(context, "未获取到当前位置");
             return;
         }
         cityCode = getIntent().getStringExtra("cityCode");

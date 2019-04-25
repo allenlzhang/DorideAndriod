@@ -20,11 +20,9 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.base.BaseActivity;
 import com.carlt.doride.base.BaseFragment;
-import com.carlt.doride.control.CPControl;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.data.PictrueInfo;
 import com.carlt.doride.data.car.CarIndexInfo;
-import com.carlt.doride.data.car.CarMilesInfo;
 import com.carlt.doride.data.remote.RemoteFunInfo;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.CarInfoRsp;
@@ -310,7 +308,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
                             tvRenewal.setText(carInfoRsp.enduranceMile);
                         }
                     } else {
-                        tvRenewal.setText(String.valueOf(carInfoRsp.minEnduranceMile).concat("-").concat(String.valueOf(carInfoRsp.maxEnduranceMile)));
+                        tvRenewal.setText(String.valueOf((int)carInfoRsp.minEnduranceMile).concat("-").concat(String.valueOf((int)carInfoRsp.maxEnduranceMile)));
                     }
 
 

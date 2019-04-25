@@ -89,9 +89,8 @@
             android:id="@+id/search_loading_lay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E6E6E6"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical" >
 
             <ProgressBar
@@ -116,7 +115,7 @@
                 android:layout_marginRight="20dip"
                 android:layout_marginTop="10dip"
                 android:text="等待中"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_gray1"
                 android:textSize="14sp" />
         </LinearLayout>
 

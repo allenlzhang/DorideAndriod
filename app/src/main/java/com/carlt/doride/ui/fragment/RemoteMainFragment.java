@@ -315,7 +315,6 @@ public class RemoteMainFragment extends BaseFragment implements
     }
 
 
-
     RemoteFunInfo skyWindowsInfo = null;
 
     private BaseParser.ResultCallback mListener = new BaseParser.ResultCallback() {
@@ -424,7 +423,7 @@ public class RemoteMainFragment extends BaseFragment implements
                     @Override
                     public void onItemOneClick(View v) {
                         showWaitingDialog(null);
-                        CPControl.GetRemoteChangeWinState("1", mListener);
+                        //                        CPControl.GetRemoteChangeWinState("1", mListener);
                         remoteChangeWinState(1);
                     }
 

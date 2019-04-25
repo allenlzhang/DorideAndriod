@@ -4,14 +4,14 @@ package com.carlt.doride.systemconfig;
 import com.carlt.doride.DorideApplication;
 
 public class URLConfig {
-    public final static int    VERSION_FORMAL  = 1001;// 正式服
-    public final static int    VERSION_PREPARE = 1002;// 预发布服
-    public final static int    VERSION_TEST    = 1003;// 测试服
-    public static       int    flag            = VERSION_TEST;
-    public static       String host            = "172.20.120.1";// 杭州
-   public static final String CAR_INFO="carInfo";
-   public static final String USER_INFO="userInfo";
-   public static final String ContactsInfo="ContactsInfo";
+    public final static int    VERSION_FORMAL       = 1001;// 正式服
+    public final static int    VERSION_PREPARE      = 1002;// 预发布服
+    public final static int    VERSION_TEST         = 1003;// 测试服
+    public static       int    flag                 = VERSION_FORMAL;
+    public static       String host                 = "172.20.120.1";// 杭州
+    public static final String CAR_INFO             = "carInfo";
+    public static final String USER_INFO            = "userInfo";
+    public static final String ContactsInfo         = "ContactsInfo";
     //autogo接口
     public static final String AUTO_TEST_BASE_URL   = "http://test.linewin.cc:8888/";
     //    public static final String TEST_BASE_URL         = "http://192.168.10.184:8080/app/";
@@ -96,7 +96,7 @@ public class URLConfig {
                 url = AUTO_TEST_BASE_URL;
                 break;
         }
-//        ApiRetrofit.getInstance().changeBaseUrl(url);
+        //        ApiRetrofit.getInstance().changeBaseUrl(url);
         return url;
     }
 

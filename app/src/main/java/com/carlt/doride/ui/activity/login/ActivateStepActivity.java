@@ -99,7 +99,8 @@ public class ActivateStepActivity extends BaseActivity {
 
     private void requestLogInfo(boolean isLoading) {
         //        carId = getIntent().getIntExtra("carId", 0);
-        carId = GetCarInfo.getInstance().id;
+        GetCarInfo info = SharepUtil.getBeanFromSp(URLConfig.CAR_INFO);
+        carId = info.id;
         LogUtils.e(carId);
         final Map<String, Object> params = new HashMap<>();
         params.put("carID", carId);

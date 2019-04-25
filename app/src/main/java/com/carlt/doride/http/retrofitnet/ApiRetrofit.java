@@ -26,15 +26,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Date       : 2019/3/5 11:49
  */
 public class ApiRetrofit implements IApiService {
-    private static final   String       TAG           = "ApiRetrofit===>";
+    //    private static final   String       TAG           = "ApiRetrofit===>";
     public static volatile ApiRetrofit  sApiRetrofit;
-    public static final    String       BASE_URL      = "http://test.linewin.cc:8888/app/";
+    //    public static final    String       BASE_URL      = "http://test.linewin.cc:8888/app/";
     //        public static final    String       BASE_URL      = "http://www.wanandroid.com/";
-    public static final    String       TEST_ACCESSID = "18644515396614518644";   //autoGo 测试
+    //    public static final    String       TEST_ACCESSID = "18644515396614518644";   //autoGo 测试
     private                Retrofit     mRetrofit;
     private                OkHttpClient mHttpClient;
     private                ApiService   mApiService;
-    private static         Interceptor  mInterceptor  = chain -> {
+    private static         Interceptor  mInterceptor = chain -> {
         Request request = chain.request();
 
         //                HttpUrl.Builder authorizedUrlBuilder = request.url().newBuilder()

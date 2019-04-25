@@ -42,7 +42,7 @@ public class DorideApplication extends Application {
 
     public static String VersionName;
 
-    public static boolean Formal_Version = false;
+    public static boolean Formal_Version = true;
     public static String  TOKEN          = "";
 
     public static android.content.pm.PackageManager PackageManager;
