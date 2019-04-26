@@ -1,6 +1,7 @@
 
 package com.carlt.sesame.ui.activity.remote;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
@@ -22,7 +22,6 @@ import com.carlt.sesame.ui.adapter.remote.RemoteLogAdapter;
 import com.carlt.sesame.ui.pull.PullToRefreshBase;
 import com.carlt.sesame.ui.pull.PullToRefreshBase.OnRefreshListener;
 import com.carlt.sesame.ui.pull.PullToRefreshListView;
-import com.carlt.sesame.utility.UUToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -194,6 +193,7 @@ public class RemoteLogActivity extends LoadingActivityWithTitle {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

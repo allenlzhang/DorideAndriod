@@ -189,7 +189,7 @@ public class CarMainFragment extends BaseFragment implements View.OnClickListene
             public void onError(BaseResponseInfo bInfo) {
                 ILog.e(TAG, "onError" + bInfo.toString());
                 UUToast.showUUToast(getActivity(), bInfo.getInfo());
-                loadonErrorUI((BaseResponseInfo) bInfo);
+                loadonErrorUI( bInfo);
             }
         }, CarIndexInfo.class);
         HashMap params = new HashMap();

@@ -92,7 +92,7 @@ public class RemoteLogInfo extends BaseResponseInfo {
         this.result = result;
     }
     public HashMap<Integer, String> getNames() {
-        names.put(TYPE_FLASHING, "声光寻车");
+        names.put(TYPE_FLASHING, "一键寻车");
         names.put(TYPE_UNLOCK, "解锁");
         names.put(TYPE_LOCK, "落锁");
         names.put(TYPE_START, "远程启动");
