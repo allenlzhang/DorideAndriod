@@ -250,7 +250,9 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
             @Override
             public void onSuccess(DirectTireIssueRspInfo result) {
                 if (result.err != null) {
-                    LoadErro(null);
+                    BaseResponseInfo info = new BaseResponseInfo();
+                    info.setInfo(result.err.msg);
+                    LoadErro(info);
                 } else {
                     LoadSuccess(new DirectTireIssueRspParser().parser(result));
                 }
@@ -258,7 +260,9 @@ public class CarTirePressureActivity extends LoadingActivityWithTitle {
 
             @Override
             public void onError(String msg) {
-                LoadErro(null);
+                BaseResponseInfo info = new BaseResponseInfo();
+                info.setInfo("暂时获取不到车辆状态");
+                LoadErro(info);
             }
         });
     }

@@ -15,6 +15,7 @@ import com.carlt.doride.data.car.CarNowStatusInfo;
 import com.carlt.doride.http.retrofitnet.BaseMvcObserver;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
+import com.carlt.sesame.data.BaseResponseInfo;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
 import com.carlt.sesame.ui.adapter.CarConditionListAdapter;
 import com.carlt.sesame.ui.pull.PullToRefreshBase;
@@ -200,7 +201,9 @@ public class CarConditionActivity extends LoadingActivityWithTitle {
 				}
 				if (result.err!=null){
 					mTextViewSecretary.setText("获取车况数据失败");
-					LoadErro(null);
+					BaseResponseInfo info = new BaseResponseInfo();
+					info.setInfo("暂时获取不到车辆状态");
+					LoadErro(info);
 				}else{
 					LoadSuccess(result);
 				}
