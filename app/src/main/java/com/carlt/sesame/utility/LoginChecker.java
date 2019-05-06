@@ -1,14 +1,12 @@
 
 package com.carlt.sesame.utility;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
-import com.carlt.sesame.data.SesameLoginInfo;
-import com.carlt.sesame.data.UseInfo;
-import com.carlt.sesame.preference.UseInfoLocal;
 import com.carlt.sesame.ui.SesameMainActivity;
 
 /**
@@ -92,6 +90,7 @@ public class LoginChecker extends Thread {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
 
         @Override

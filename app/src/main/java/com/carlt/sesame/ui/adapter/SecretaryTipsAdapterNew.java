@@ -121,9 +121,12 @@ public class SecretaryTipsAdapterNew extends BaseAdapter {
                         mHolder.mTextView4.setText("违章详情");
                         break;
                     case SecretaryMessageInfo.C1_T1_T4:
+                        break;
+                    case SecretaryMessageInfo.C1_T1_T10:
                         minTitle = "激活";
                         // mHolder.mTextView4.setText("爱车体检");
-                        mHolder.mTextView4.setVisibility(View.GONE);
+                        mHolder.mTextView4.setText("查看详情");
+//                        mHolder.mTextView4.setVisibility(View.GONE);
                         break;
                     case SecretaryMessageInfo.C1_T1_T5:
                         minTitle = "失连";
@@ -405,6 +408,7 @@ public class SecretaryTipsAdapterNew extends BaseAdapter {
 
                 switch (c2) {
                     case SecretaryMessageInfo.C1_T6_T1:
+                    case SecretaryMessageInfo.C1_T6_T2:
                         minTitle = "养护贴士";
                         mHolder.mTextView4.setText("");
                         break;
@@ -423,14 +427,14 @@ public class SecretaryTipsAdapterNew extends BaseAdapter {
                 break;
         }
 
-        StringBuffer mStingBuffer = new StringBuffer();
-        mStingBuffer.append("【");
-        mStingBuffer.append(minTitle);
-        mStingBuffer.append("】");
-        if (mInfo.getTitle() != null && mInfo.getTitle().length() > 0) {
-            mStingBuffer.append(mInfo.getTitle());
-        }
-        mHolder.mTextView1.setText(mStingBuffer.toString());
+//        StringBuffer mStingBuffer = new StringBuffer();
+//        mStingBuffer.append("【");
+//        mStingBuffer.append(minTitle);
+//        mStingBuffer.append("】");
+//        if (mInfo.getTitle() != null && mInfo.getTitle().length() > 0) {
+//            mStingBuffer.append(mInfo.getTitle());
+//        }
+        mHolder.mTextView1.setText(mInfo.getTitle());
 
         if (mInfo.getDetial_flag() == SecretaryMessageInfo.FLAG_NONE) {
             mHolder.mTextBtn.setVisibility(View.GONE);
@@ -455,38 +459,34 @@ public class SecretaryTipsAdapterNew extends BaseAdapter {
                     0);
         }
 
-        OnClickListener mClickListener = new OnClickListener() {
+        OnClickListener mClickListener = v -> {
+            switch (v.getId()) {
 
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
+                case R.id.list_item_secretary_btn:
+                    // 展开按钮
+                    if (mInfo.getDetial_flag() == SecretaryMessageInfo.FLAG_REFERENCE) {
+                        mInfo.setDetial_flag(SecretaryMessageInfo.FLAG_ALL);
+                    } else if (mInfo.getDetial_flag() == SecretaryMessageInfo.FLAG_ALL) {
+                        mInfo.setDetial_flag(SecretaryMessageInfo.FLAG_REFERENCE);
+                    }
+                    notifyDataSetChanged();
 
-                    case R.id.list_item_secretary_btn:
-                        // 展开按钮
-                        if (mInfo.getDetial_flag() == SecretaryMessageInfo.FLAG_REFERENCE) {
-                            mInfo.setDetial_flag(SecretaryMessageInfo.FLAG_ALL);
-                        } else if (mInfo.getDetial_flag() == SecretaryMessageInfo.FLAG_ALL) {
-                            mInfo.setDetial_flag(SecretaryMessageInfo.FLAG_REFERENCE);
-                        }
-                        notifyDataSetChanged();
-
-                        break;
-                    case R.id.list_item_secretary_img_delete:
-                        // 删除图标
-                        mBottomClickListner.onDelete(mInfo, position);
-                        break;
-                    case R.id.list_item_secretary_txt4:
-                        // 右侧不带箭头按钮
-                        mBottomClickListner.onAction(mInfo);
-                        break;
-                    case R.id.list_item_secretary_txt5:
-                        // 右侧带箭头按钮
-                        mBottomClickListner.onAction(mInfo);
-                        break;
-
-                }
+                    break;
+                case R.id.list_item_secretary_img_delete:
+                    // 删除图标
+                    mBottomClickListner.onDelete(mInfo, position);
+                    break;
+                case R.id.list_item_secretary_txt4:
+                    // 右侧不带箭头按钮
+                    mBottomClickListner.onAction(mInfo);
+                    break;
+                case R.id.list_item_secretary_txt5:
+                    // 右侧带箭头按钮
+                    mBottomClickListner.onAction(mInfo);
+                    break;
 
             }
+
         };
 
         mHolder.mView1.setOnClickListener(null);

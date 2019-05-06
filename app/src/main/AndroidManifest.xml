@@ -76,7 +76,8 @@
 
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/splash">
+            android:theme="@style/AppTheme.StartingWindowTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

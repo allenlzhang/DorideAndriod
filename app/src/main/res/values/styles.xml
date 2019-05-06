@@ -9,7 +9,13 @@
 
     </style>
 
+    <!-- 应用启动页(StartingWindow)的theme -->
+    <style name="AppTheme.StartingWindowTheme" parent="AppTheme">
 
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
 
     <!-- 座驾主页面 -->
     <style name="car_main_txt1">

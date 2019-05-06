@@ -22,7 +22,6 @@ import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.car.CityInfo;
 import com.carlt.sesame.data.set.ModifyCarInfo;
 import com.carlt.sesame.ui.activity.career.report.MenuCalendar;
@@ -126,31 +125,27 @@ public class TestFirstView extends MenuCalendar {
                             mDateSetListener, mCalendar.get(Calendar.YEAR),
                             mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
 
-                    DialogInterface.OnClickListener mClickListener = new DialogInterface.OnClickListener() {
+                    DialogInterface.OnClickListener mClickListener = (dialog, which) -> {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                isPositive = true;
+                                if (mPickerDialog.isShowing()) {
+                                    mPickerDialog.dismiss();
+                                }
+                                // 针对魅族系统添加的该段代码
+                                DatePicker datePicker = mPickerDialog.getDatePicker();
+                                mDateSetListener.onDateSet(datePicker, datePicker.getYear(),
+                                        datePicker.getMonth(), datePicker.getDayOfMonth());
+                                break;
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    isPositive = true;
-                                    if (mPickerDialog.isShowing()) {
-                                        mPickerDialog.dismiss();
-                                    }
-                                    // 针对魅族系统添加的该段代码
-                                    DatePicker datePicker = mPickerDialog.getDatePicker();
-                                    mDateSetListener.onDateSet(datePicker, datePicker.getYear(),
-                                            datePicker.getMonth(), datePicker.getDayOfMonth());
-                                    break;
-
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    isPositive = false;
-                                    if (mPickerDialog.isShowing()) {
-                                        mPickerDialog.dismiss();
-                                    }
-                                    break;
-                            }
-
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                isPositive = false;
+                                if (mPickerDialog.isShowing()) {
+                                    mPickerDialog.dismiss();
+                                }
+                                break;
                         }
+
                     };
                     mPickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", mClickListener);
                     mPickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", mClickListener);

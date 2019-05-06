@@ -41,6 +41,7 @@ public class SecretaryMessageInfo {
 	public final static int C1_T1_T2 = 1102;// 1102 预约成功
 	public final static int C1_T1_T3 = 1103;// 1103 违章提醒
 	public final static int C1_T1_T4 = 1104;// 1104 激活盒子
+	public final static int C1_T1_T10 = 1110;
 	public final static int C1_T1_T5 = 1105;// 1105盒子失去连接
 	public final static int C1_T1_T6 = 1106;// 1106 充电成功
 	public final static int C1_T1_T7 = 1107;// 1107 充电失败
@@ -67,6 +68,7 @@ public class SecretaryMessageInfo {
 	public final static int C1_T4_T9 = 4109;// 4109 电动车日报
 
 	public final static int C1_T6_T1 = 6101;// 6101 养护建议
+	public final static int C1_T6_T2 = 6102;// 6101 养护建议
 
 	// 奖品图片URL仅在奖品活动分类下有
 	private String img;

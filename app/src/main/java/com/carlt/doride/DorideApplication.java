@@ -42,7 +42,7 @@ public class DorideApplication extends Application {
 
     public static String VersionName;
 
-    public static boolean Formal_Version = true;
+    public static boolean Formal_Version = false;
     public static String  TOKEN          = "";
 
     public static android.content.pm.PackageManager PackageManager;
@@ -200,7 +200,6 @@ public class DorideApplication extends Application {
             ILog.e("info", "获取版本信息失败");
         }
 
-        ILog.e("info", "DorideApplication---onCreate");
 
         MODEL_NAME = Build.MODEL;
         ANDROID_VERSION = "android " + Build.VERSION.RELEASE;

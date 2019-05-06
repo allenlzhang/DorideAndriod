@@ -246,17 +246,17 @@ public class InformationCentreTipsAdapter extends BaseAdapter {
                 break;
         }
 
-        StringBuffer mStingBuffer = new StringBuffer("");
-        if (!minTitle.equals("")) {
-            mStingBuffer.append("【");
-            mStingBuffer.append(minTitle);
-            mStingBuffer.append("】");
-        }
+//        StringBuffer mStingBuffer = new StringBuffer();
+//        if (!minTitle.equals("")) {
+//            mStingBuffer.append("【");
+//            mStingBuffer.append(minTitle);
+//            mStingBuffer.append("】");
+//        }
 
-        if (mInfo.getTitle() != null && mInfo.getTitle().length() > 0) {
-            mStingBuffer.append(mInfo.getTitle());
-        }
-        mHolder.mTextView1.setText(mStingBuffer.toString());
+//        if (mInfo.getTitle() != null && mInfo.getTitle().length() > 0) {
+//            mStingBuffer.append(mInfo.getTitle());
+//        }
+        mHolder.mTextView1.setText(mInfo.getTitle());
         if (mInfo.getContent() != null) {
             mHolder.mTextView2.setText(mInfo.getContent());
         }
@@ -283,11 +283,8 @@ public class InformationCentreTipsAdapter extends BaseAdapter {
 //                    0);
 //        }
 
-        View.OnClickListener mClickListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
+        View.OnClickListener mClickListener = v -> {
+            switch (v.getId()) {
 
 //                    case R.id.list_item_secretary_btn:
 //                        // 展开按钮
@@ -299,22 +296,21 @@ public class InformationCentreTipsAdapter extends BaseAdapter {
 //                        notifyDataSetChanged();
 //
 //                        break;
-                    case R.id.list_item_secretary_img_delete:
-                        // 删除图标
-                        mBottomClickListner.onDelete(mInfo, position);
-                        break;
-                    case R.id.list_item_secretary_txt4:
-                        // 右侧不带箭头按钮
-                        mBottomClickListner.onAction(mInfo);
-                        break;
-                    case R.id.list_item_secretary_txt5:
-                        // 右侧带箭头按钮
-                        mBottomClickListner.onAction(mInfo);
-                        break;
-
-                }
+                case R.id.list_item_secretary_img_delete:
+                    // 删除图标
+                    mBottomClickListner.onDelete(mInfo, position);
+                    break;
+                case R.id.list_item_secretary_txt4:
+                    // 右侧不带箭头按钮
+                    mBottomClickListner.onAction(mInfo);
+                    break;
+                case R.id.list_item_secretary_txt5:
+                    // 右侧带箭头按钮
+                    mBottomClickListner.onAction(mInfo);
+                    break;
 
             }
+
         };
 
         mHolder.mView1.setOnClickListener(null);

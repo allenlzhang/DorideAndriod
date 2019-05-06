@@ -17,7 +17,8 @@
     <color name="sub_head_bg">#E6E6E6</color>
     <color name="progressbar_bg">#CCCCCC</color>
     <color name="progressbar_progress">#E94B3A</color>
-
+    <!-- 应用启动页(StartingWindow)的theme的背景色 -->
+    <color name="startingwindow_bgcolor">#00bfff</color>
     <!-- 字体颜色 -->
     <color name="text_color_gray0">#aaaaaa</color>
 

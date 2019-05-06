@@ -7,7 +7,7 @@ public class URLConfig {
     public final static int    VERSION_FORMAL       = 1001;// 正式服
     public final static int    VERSION_PREPARE      = 1002;// 预发布服
     public final static int    VERSION_TEST         = 1003;// 测试服
-    public static       int    flag                 = VERSION_FORMAL;
+    public static       int    flag                 = VERSION_TEST;
     public static       String host                 = "172.20.120.1";// 杭州
     public static final String CAR_INFO             = "carInfo";
     public static final String USER_INFO            = "userInfo";

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.carlt.doride.DorideApplication;
 import com.carlt.doride.control.CPControl;
@@ -176,12 +175,12 @@ public class ActivityControl {
 
         UserInfo.getInstance().initUserInfo();
         GetCarInfo.getInstance().initCarInfo();
-        SharepUtil.cleanAllKey();
         OtherInfo.getInstance().initInfo();
         ContactsInfo.getInstance().initContactsInfo();
         CarConfigRes.getInstance().initCarConfigRes();
-        int size = mActivityList.size();
-        LogUtils.e(size);
+        SharepUtil.cleanAllKey();
+
+
 
         //        for (int i = 0; i < size; i++) {
         //            if (null != mActivityList.get(i)) {

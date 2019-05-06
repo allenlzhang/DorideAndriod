@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,7 +15,6 @@ import com.carlt.doride.DorideApplication;
 import com.carlt.doride.R;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.sesame.control.CPControl;
-import com.carlt.sesame.data.SesameLoginInfo;
 import com.carlt.sesame.data.career.SecretaryCategoryInfo;
 import com.carlt.sesame.data.career.SecretaryCategoryInfoList;
 import com.carlt.sesame.ui.activity.base.LoadingActivityWithTitle;
@@ -60,20 +56,10 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
         title.setText("大乘助手");
         txtRight.setText("");
         txtRight.setVisibility(View.GONE);
-        back.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        txtRight.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                Intent mIntent = new Intent(SecretaryActivityNew.this, SecretaryAppointmentActivity.class);
-                startActivity(mIntent);
-            }
+        back.setOnClickListener(v -> finish());
+        txtRight.setOnClickListener(arg0 -> {
+            Intent mIntent = new Intent(SecretaryActivityNew.this, SecretaryAppointmentActivity.class);
+            startActivity(mIntent);
         });
 
     }
@@ -98,19 +84,15 @@ public class SecretaryActivityNew extends LoadingActivityWithTitle {
             final ArrayList<SecretaryCategoryInfo> mList = mCategoryInfoLists.getmAllList();
             TypeAdapter mAdapter = new TypeAdapter(mList);
             mListView.setAdapter(mAdapter);
-            mListView.setOnItemClickListener(new OnItemClickListener() {
+            mListView.setOnItemClickListener((parent, view, position, id) -> {
+                SecretaryCategoryInfo mInfo = mList.get(position);
+                String title_s = mInfo.getName();
+                int type = mInfo.getId();
+                Intent mIntent = new Intent(SecretaryActivityNew.this, SecretaryTipsActivity.class);
+                mIntent.putExtra(SecretaryTipsActivity.TIPS_TITLE, title_s);
+                mIntent.putExtra(SecretaryTipsActivity.TIPS_TYPE, type);
+                startActivity(mIntent);
 
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    SecretaryCategoryInfo mInfo = mList.get(position);
-                    String title_s = mInfo.getName();
-                    int type = mInfo.getId();
-                    Intent mIntent = new Intent(SecretaryActivityNew.this, SecretaryTipsActivity.class);
-                    mIntent.putExtra(SecretaryTipsActivity.TIPS_TITLE, title_s);
-                    mIntent.putExtra(SecretaryTipsActivity.TIPS_TYPE, type);
-                    startActivity(mIntent);
-
-                }
             });
 
             int unreadCount = mCategoryInfoLists.getUnreadCount();

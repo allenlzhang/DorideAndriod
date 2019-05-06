@@ -333,7 +333,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
 
     private void Login(String account, String password) {
         HashMap<String, Object> mMap = new HashMap<>();
-        mMap.put("version", 100);
+        mMap.put("version", DorideApplication.Version);
         mMap.put("moveDeviceName", DorideApplication.MODEL_NAME);
         mMap.put("loginModel", DorideApplication.MODEL);
         mMap.put("loginSoftType", "Android");

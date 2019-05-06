@@ -18,7 +18,7 @@
 
         <EditText
             android:id="@+id/layout_car_test_first_edit"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@null"
@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/layout_car_test_first_txt"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/text_title3"

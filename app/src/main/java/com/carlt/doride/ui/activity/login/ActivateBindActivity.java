@@ -83,12 +83,7 @@ public class ActivateBindActivity extends BaseActivity implements View.OnClickLi
         activate_commit = findViewById(R.id.activate_commit);
         activate_commit.setOnClickListener(this);
         ivHelp.setVisibility(View.VISIBLE);
-        ivHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ActivateBindActivity.this, ActivateHelpActivity.class));
-            }
-        });
+        ivHelp.setOnClickListener(v -> startActivity(new Intent(ActivateBindActivity.this, ActivateHelpActivity.class)));
     }
 
     private void initSubTitle() {

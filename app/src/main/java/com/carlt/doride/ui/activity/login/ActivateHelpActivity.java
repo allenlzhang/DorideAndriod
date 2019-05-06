@@ -7,8 +7,6 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
@@ -61,15 +59,11 @@ public class ActivateHelpActivity extends BaseActivity implements DownloadListen
 
         title.setText("使用帮助");
 
-        back.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (webHelp.canGoBack()) {
-                    webHelp.goBack();
-                } else {
-                    finish();
-                }
+        back.setOnClickListener(v -> {
+            if (webHelp.canGoBack()) {
+                webHelp.goBack();
+            } else {
+                finish();
             }
         });
 

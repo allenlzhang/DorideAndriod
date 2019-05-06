@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.carlt.doride.R;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
+import com.carlt.doride.ui.activity.login.ActivateStepActivity;
 import com.carlt.sesame.control.CPControl;
 import com.carlt.sesame.control.CPControl.GetResultListCallback;
 import com.carlt.sesame.data.BaseResponseInfo;
@@ -162,7 +163,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
             sb1.append("您的爱车距下次保养还有 ");
             sb1.append(GetCarInfo.getInstance().maintenNextMiles);
             sb1.append("公里/");
-            sb1.append(GetCarInfo.getInstance().maintenNextDate/3600/24);
+            sb1.append(GetCarInfo.getInstance().maintenNextDate / 3600 / 24);
             sb1.append("天建议您及时带TA进行保养，让TA重新焕发活力");
             mTextViewSecretary.setText(sb1.toString());
 
@@ -193,34 +194,30 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
 
         View setmainten = findViewById(R.id.activity_career_secretary_tips_setmainten);
 
-        OnClickListener l1 = new OnClickListener() {
+        OnClickListener l1 = arg0 -> {
+            switch (arg0.getId()) {
+                case R.id.activity_career_secretary_tips_havemainten:
+                    // 已经保养过
+                    if (GetCarInfo.getInstance().isNextMain == 1) {
+                        mUUDialog.show();
+                        CPControl.GetMaintainLogResult(listener_MaintainLog);
+                    }
 
-            @Override
-            public void onClick(View arg0) {
-                switch (arg0.getId()) {
-                    case R.id.activity_career_secretary_tips_havemainten:
-                        // 已经保养过
-                        if (GetCarInfo.getInstance().isNextMain == 1) {
-                            mUUDialog.show();
-                            CPControl.GetMaintainLogResult(listener_MaintainLog);
-                        }
-
-                        break;
-                    case R.id.activity_career_secretary_tips_lookmainten:
-                        // 查看保养建议
-                        Intent mIntent2 = new Intent(SecretaryTipsActivity.this,
-                                MaintainLogActivity.class);
-                        startActivity(mIntent2);
-                        break;
-                    case R.id.activity_career_secretary_tips_setmainten:
-                        // 设置保养时间
-                        Intent mIntent3 = new Intent(SecretaryTipsActivity.this,
-                                ManageCarActivity.class);
-                        startActivity(mIntent3);
-                        break;
-                }
-
+                    break;
+                case R.id.activity_career_secretary_tips_lookmainten:
+                    // 查看保养建议
+                    Intent mIntent2 = new Intent(SecretaryTipsActivity.this,
+                            MaintainLogActivity.class);
+                    startActivity(mIntent2);
+                    break;
+                case R.id.activity_career_secretary_tips_setmainten:
+                    // 设置保养时间
+                    Intent mIntent3 = new Intent(SecretaryTipsActivity.this,
+                            ManageCarActivity.class);
+                    startActivity(mIntent3);
+                    break;
             }
+
         };
         havemainten.setOnClickListener(l1);
         lookmainten.setOnClickListener(l1);
@@ -287,28 +284,28 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
     protected void LoadSuccess(Object data) {
         if (data != null) {
             mInfoLists = (SecretaryMessageInfoList) data;
-                mList = mInfoLists.getmAllList();
-                if (mAdapter == null) {
-                    mAdapter = new SecretaryTipsAdapterNew(SecretaryTipsActivity.this, mList,
-                            mBottomClickListner);
-                    mListView.setAdapter(mAdapter);
-                } else {
-                    mAdapter.setmList(mList);
-                    mAdapter.notifyDataSetChanged();
-                }
-
-                if (mList.size() == 0) {
-                    mPullListView.setVisibility(View.GONE);
-                    mTxtEmpty.setVisibility(View.VISIBLE);
-                } else {
-                    mPullListView.setVisibility(View.VISIBLE);
-                    mTxtEmpty.setVisibility(View.GONE);
-                }
-
-                mPullListView.onPullDownRefreshComplete();
-                mPullListView.onPullUpRefreshComplete();
-                setLastUpdateTime();
+            mList = mInfoLists.getmAllList();
+            if (mAdapter == null) {
+                mAdapter = new SecretaryTipsAdapterNew(SecretaryTipsActivity.this, mList,
+                        mBottomClickListner);
+                mListView.setAdapter(mAdapter);
+            } else {
+                mAdapter.setmList(mList);
+                mAdapter.notifyDataSetChanged();
             }
+
+            if (mList.size() == 0) {
+                mPullListView.setVisibility(View.GONE);
+                mTxtEmpty.setVisibility(View.VISIBLE);
+            } else {
+                mPullListView.setVisibility(View.VISIBLE);
+                mTxtEmpty.setVisibility(View.GONE);
+            }
+
+            mPullListView.onPullDownRefreshComplete();
+            mPullListView.onPullUpRefreshComplete();
+            setLastUpdateTime();
+        }
 
         super.LoadSuccess(data);
     }
@@ -410,6 +407,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
             int class1 = mInfo.getClass1();
             int class2 = mInfo.getClass2();
             switch (class1) {
+
                 case 11:
                     // 11 用车提醒
                     if (class2 == SecretaryMessageInfo.C1_T1_T1) {
@@ -436,7 +434,7 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                         }
                     } else if (class2 == SecretaryMessageInfo.C1_T1_T4) {
                         // 激活盒子，跳转至爱车体检页面
-                        if (GetCarInfo.getInstance().buyDate!=0) {
+                        if (GetCarInfo.getInstance().buyDate != 0) {
                             if (mTestFirstView == null) {
                                 mTestFirstView = new TestFirstView(SecretaryTipsActivity.this,
                                         mOnTestBtnClick);
@@ -447,6 +445,12 @@ public class SecretaryTipsActivity extends LoadingActivityWithTitle {
                                     CarTestActivity.class);
                             startActivity(mIntent1);
                         }
+                    } else if (class2 == SecretaryMessageInfo.C1_T1_T10) {
+                        Intent intent = new Intent(SecretaryTipsActivity.this, ActivateStepActivity.class);
+                        //                    intent.putExtra("carId", Integer.valueOf(carID));
+                        intent.putExtra("From", ActivateStepActivity.from_Sesame);
+                        startActivity(intent);
+                        finish();
                     }
 
                     break;

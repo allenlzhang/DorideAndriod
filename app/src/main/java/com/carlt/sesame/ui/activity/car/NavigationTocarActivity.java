@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.carlt.sesame.ui.activity.car;
 
 import android.annotation.SuppressLint;
@@ -145,13 +142,7 @@ public class NavigationTocarActivity extends LoadingActivityWithTitle implements
         txtRight.setVisibility(View.GONE);
 
         txtRight.setOnClickListener(this);
-        back.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back.setOnClickListener(v -> finish());
     }
 
     private void init(Bundle savedInstanceState) {
