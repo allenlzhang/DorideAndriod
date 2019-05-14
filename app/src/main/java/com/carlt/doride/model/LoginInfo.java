@@ -1,15 +1,9 @@
 package com.carlt.doride.model;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.text.TextUtils;
-
-import com.carlt.doride.DorideApplication;
 import com.carlt.doride.data.BaseResponseInfo;
 import com.carlt.doride.http.retrofitnet.model.GetCarInfo;
 import com.carlt.doride.http.retrofitnet.model.UserInfo;
 import com.carlt.sesame.preference.TokenInfo;
-import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +35,7 @@ public class LoginInfo extends BaseResponseInfo {
         GetCarInfo.getInstance().isNextMain = destroy.optInt("isMainten");
 
         TokenInfo.setToken(destroy.optString("access_token", ""));
-        GetCarInfo.getInstance().vin =  "";
+        GetCarInfo.getInstance().vin = "";
     }
 
 

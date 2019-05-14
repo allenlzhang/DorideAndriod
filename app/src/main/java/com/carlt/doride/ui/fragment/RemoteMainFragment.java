@@ -152,7 +152,6 @@ public class RemoteMainFragment extends BaseFragment implements
 
             }
         });
-        //        remoteStatus = GetCarInfo.getInstance().remoteStatus;
         super.onResume();
         //        CPControl.GetRemoteCarState(mListener_states);
 

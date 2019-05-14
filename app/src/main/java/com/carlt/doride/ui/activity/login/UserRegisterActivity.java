@@ -116,6 +116,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                     showToast(result.err.msg);
                 } else {
                     sendSmsCode(phoneNum, type, result.token);
+
                 }
             }
 
@@ -127,6 +128,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void sendSmsCode(String phoneNum, int type, String token) {
+
         Map<String, Object> map = new HashMap<>();
         map.put("mobile", phoneNum);
         map.put("type", type);
@@ -140,6 +142,21 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                 //                mHandler.sendMessage(msg);
                 if (result.code == 0) {
                     showToast("发送成功");
+                    count = 60;
+                    register_verification_send.setText(count + "秒后重发");
+                    register_verification_send.setEnabled(false);
+
+                    task = new TimerTask() {
+
+                        @Override
+                        public void run() {
+                            Message msg = new Message();
+                            msg.what = 10;
+                            mHandler.sendMessage(msg);
+
+                        }
+                    };
+                    timer.schedule(task, 1000, 1000);
                 } else {
                     showToast(result.msg);
                 }
@@ -178,21 +195,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     //                    CPControl.GetMessageValidateResult("1", cellPhone, validateCodeListener);
                     getSmsToken(cellPhone, 1);
-                    count = 60;
-                    register_verification_send.setText(count + "秒后重发");
-                    register_verification_send.setEnabled(false);
 
-                    task = new TimerTask() {
-
-                        @Override
-                        public void run() {
-                            Message msg = new Message();
-                            msg.what = 10;
-                            mHandler.sendMessage(msg);
-
-                        }
-                    };
-                    timer.schedule(task, 1000, 1000);
                 }
                 break;
             case R.id.register_txt_declaration:
@@ -294,7 +297,11 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
                         mDialog.dismiss();
                     }
                     UseInfo mUseInfo = UseInfoLocal.getUseInfo();
-                    mUseInfo.setAccount(registerParams.getMobile());
+
+                    String commitPhone = register_phone_input.getText().toString();
+                    String passwd = register_passwd_et.getText().toString();
+
+                    mUseInfo.setAccount(commitPhone);
                     mUseInfo.setPassword(registerParams.getPassword());
                     UseInfoLocal.setUseInfo(mUseInfo);
 
